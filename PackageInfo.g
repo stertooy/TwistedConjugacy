@@ -1,7 +1,7 @@
 SetPackageInfo( rec(
 
 PackageName := "TwistedConjugacy",
-Subtitle := "",
+Subtitle := "Computation with twisted conjugacy classes",
 Version := "1.0.0",
 Date := "19/02/2020",
 License := "GPL-2.0-or-later",
@@ -47,7 +47,7 @@ PackageDoc := rec(
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "",
+  LongTitle := "Computation with twisted conjugacy classes",
 ),
 
 Dependencies := rec(
