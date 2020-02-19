@@ -3,7 +3,7 @@ version: "1.0.0"
 license: "GPL-2.0-or-later"
 date: 2020-02-19
 description: |
-    
+    Computation with twisted conjugacy classes
 
 authors:
     - name: Sam Tertooy
@@ -38,7 +38,7 @@ keywords: |
 citeas: |
     <p class='BibEntry'>
     [<span class='BibKey'>Ter20</span>]   <b class='BibAuthor'>Tertooy, S.</b>,
-     <i class='BibTitle'>TwistedConjugacy, ,
+     <i class='BibTitle'>TwistedConjugacy, Computation with twisted conjugacy classes,
              Version 1.0.0</i>
      (<span class='BibYear'>2020</span>)<br />
     (<span class='BibNote'>GAP package</span>),
@@ -49,7 +49,7 @@ citeas: |
 bibtex: |
     @misc{ TwistedConjugacy1.0.0,
       author =           {Tertooy, S.},
-      title =            {{TwistedConjugacy}, , {V}ersion 1.0.0},
+      title =            {{TwistedConjugacy}, Computation with twisted conjugacy classes, {V}ersion 1.0.0},
       month =            {Feb},
       year =             {2020},
       note =             {GAP package},

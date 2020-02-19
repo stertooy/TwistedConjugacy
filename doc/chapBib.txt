@@ -2,11 +2,9 @@
   
   [1XReferences[101X
   
-  [[20XDT20[120X] [16XDekimpe, K. and Tertooy, S.[116X, [17XAlgorithms for twisted conjugacy classes
-  of polycyclic-by-finite groups[117X (2020), ((In preparation)).
+  [[20XDT20[120X] [16XDekimpe, K. and Tertooy, S.[116X, [17XAlgorithms for twisted conjugacy classes of polycyclic-by-finite groups[117X (2020), ((In preparation)).
   
-  [[20XFel00[120X]   [16XFel'shtyn,  A.[116X,  [17XDynamical  zeta  functions,  Nielsen  theory  and
-  Reidemeister torsion[117X, [18XMem. Amer. Math. Soc.[118X, [19X147[119X, 699 (2000), xii+146.
+  [[20XFel00[120X] [16XFel'shtyn, A.[116X, [17XDynamical zeta functions, Nielsen theory and Reidemeister torsion[117X, [18XMem. Amer. Math. Soc.[118X, [19X147[119X, 699 (2000), xii+146.
   
   
   
