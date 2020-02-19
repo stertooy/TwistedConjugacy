@@ -1,0 +1,63 @@
+name: TwistedConjugacy
+version: "1.0.0"
+license: "GPL-2.0-or-later"
+date: 2020-02-19
+description: |
+    
+
+authors:
+    - name: Sam Tertooy
+      url: https://www.kuleuven-kulak.be/~u0092325/
+
+maintainers:
+    - name: Sam Tertooy
+      url: https://www.kuleuven-kulak.be/~u0092325/
+
+GAP: ">= 4.10"
+
+needed-pkgs:
+    - name: "Polycyclic"
+      version: "2.14"
+      url: "https://gap-packages.github.io/polycyclic/"
+
+www: https://sTertooy.github.io/TwistedConjugacy/
+readme: README.md
+packageinfo: https://sTertooy.github.io/TwistedConjugacy/PackageInfo.g
+
+downloads:
+    - name: .tar.gz
+      url: https://github.com/sTertooy/TwistedConjugacy/releases/download/v1.0.0/TwistedConjugacy-1.0.0.tar.gz
+
+abstract: |
+
+status: dev
+doc-html: doc/chap0.html
+doc-pdf: doc/manual.pdf
+keywords: |
+    twisted conjugacy, Reidemeister number, Reidemeister zeta.
+citeas: |
+    <p class='BibEntry'>
+    [<span class='BibKey'>Ter20</span>]   <b class='BibAuthor'>Tertooy, S.</b>,
+     <i class='BibTitle'>TwistedConjugacy, ,
+             Version 1.0.0</i>
+     (<span class='BibYear'>2020</span>)<br />
+    (<span class='BibNote'>GAP package</span>),
+    <span class='BibHowpublished'><a href="https://sTertooy.github.io/TwistedConjugacy/">https://sTertooy.github.io/TwistedConjugacy/</a></span>.
+    </p>
+    
+
+bibtex: |
+    @misc{ TwistedConjugacy1.0.0,
+      author =           {Tertooy, S.},
+      title =            {{TwistedConjugacy}, , {V}ersion 1.0.0},
+      month =            {Feb},
+      year =             {2020},
+      note =             {GAP package},
+      howpublished =     {\href   {https://sTertooy.github.io/TwistedConjugacy/}
+                          {\texttt{https://sTertooy.github.io/}\discretionary
+                          {}{}{}\texttt{TwistedConjugacy/}}},
+      keywords =         {twisted  conjugacy;  Reidemeister number; Reidemeister
+                          zeta},
+      printedkey =       {Ter20}
+    }
+
