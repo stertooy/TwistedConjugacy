@@ -33,8 +33,7 @@ PackageWWWHome  := "https://sTertooy.github.io/TwistedConjugacy/",
 PackageInfoURL  := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 README_URL      := Concatenation( ~.PackageWWWHome, "README.md" ),
 ArchiveURL      := Concatenation( ~.SourceRepository.URL,
-                                 "/releases/download/v", ~.Version,
-                                 "/", ~.PackageName, "-", ~.Version ),
+                                 "/archive/", ~.Version ),
 
 ArchiveFormats := ".tar.gz",
 
@@ -48,7 +47,7 @@ PackageDoc := rec(
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "Computations for twisted conjugacy classes",
+  LongTitle := "",
 ),
 
 Dependencies := rec(
