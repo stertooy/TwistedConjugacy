@@ -48,7 +48,7 @@ PackageDoc := rec(
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "Computations for twisted conjugacy classes",
+  LongTitle := "",
 ),
 
 Dependencies := rec(
