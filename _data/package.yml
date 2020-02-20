@@ -49,12 +49,16 @@ citeas: |
 bibtex: |
     @misc{ TwistedConjugacy1.0.0,
       author =           {Tertooy, S.},
-      title =            {{TwistedConjugacy}, Computation with twisted conjugacy classes, {V}ersion 1.0.0},
+      title =            {{TwistedConjugacy}, Computation with twisted conjugacy
+                          classes, {V}ersion 1.0.0},
       month =            {Feb},
       year =             {2020},
       note =             {GAP package},
-      howpublished =     {\href {https://sTertooy.github.io/TwistedConjugacy/} {\texttt{https://sTertooy.github.io/}\discretionary {}{}{}\texttt{TwistedConjugacy/}}},
-      keywords =         {twisted conjugacy; Reidemeister number; Reidemeister zeta},
+      howpublished =     {\href   {https://sTertooy.github.io/TwistedConjugacy/}
+                          {\texttt{https://sTertooy.github.io/}\discretionary
+                          {}{}{}\texttt{TwistedConjugacy/}}},
+      keywords =         {twisted  conjugacy;  Reidemeister number; Reidemeister
+                          zeta},
       printedkey =       {Ter20}
     }
 
