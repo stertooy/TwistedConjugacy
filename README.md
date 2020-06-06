@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/sTertooy/TwistedConjugacy.svg?branch=master)](https://travis-ci.org/sTertooy/TwistedConjugacy)
+[![Code Coverage](https://codecov.io/github/sTertooy/TwistedConjugacy/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/polycyclic)
+
 The GAP 4 package `TwistedConjugacy'
 ====================================
 
@@ -27,6 +30,7 @@ recognizes the TwistedConjugacy package using the following command:
 	Loading  TwistedConjugacy 1.0.0 (Computation with twisted conjugacy classes)
 	by Sam Tertooy (https://www.kuleuven-kulak.be/~u0092325/).
 	Homepage: https://sTertooy.github.io/TwistedConjugacy/
+	Report issues at https://github.com/sTertooy/TwistedConjugacy/issues
 	─────────────────────────────────────────────────────────────────────────────
 	true
 
