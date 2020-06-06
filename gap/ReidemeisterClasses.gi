@@ -154,9 +154,6 @@ InstallMethod( ReidemeisterClasses, "for polycyclic groups",
 		if not IsPcpGroup( G ) or IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		if IsAbelian( G ) then
-			Print("Abelian!!!\n");
-		fi;
 		return ReidemeisterClassesByNormal( hom1, hom2, DerivedSubgroup( G ) );
 	end
 );
