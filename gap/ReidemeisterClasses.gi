@@ -54,16 +54,17 @@ InstallMethod( \in, "for Reidemeister classes",
 	end 
 );
 
-# Methods below seem to be not necessary, since they work by default
-#InstallMethod( Random, "for Reidemeister classes",
-#	[IsReidemeisterClassGroupRep],
-#	function ( tcc )
-#		local tc;
-#		tc := FunctionAction( tcc );
-#		return tc( Representative( tcc ), Random( ActingDomain( tcc ) ) );
-#	end
-#);
+# Only necessary in GAP <= 4.10
+InstallMethod( Random, "for Reidemeister classes",
+	[IsReidemeisterClassGroupRep],
+	function ( tcc )
+		local tc;
+		tc := FunctionAction( tcc );
+		return tc( Representative( tcc ), Random( ActingDomain( tcc ) ) );
+	end
+);
 
+# Method below seem to be not necessary?
 #InstallMethod( HomeEnumerator, "for Reidemeister classes",
 #	[IsReidemeisterClassGroupRep],
 #	function ( tcc )
