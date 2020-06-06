@@ -34,6 +34,7 @@ recognizes the TwistedConjugacy package using the following command:
 	─────────────────────────────────────────────────────────────────────────────
 	true
 
+Note that the line "Report issues at ..." is new in GAP 4.11
 
 If you are using a custom directory, make a 'pkg' subdirectory and place
 the TwistedConjugacy folder in this subdirectory. You will need to tell 
