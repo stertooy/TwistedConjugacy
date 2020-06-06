@@ -26,6 +26,12 @@ gap> ActingDomain( tcc ) = G;
 true
 gap> TwistedConjugacyClasses( phi, psi );
 [ id^G, g1*g2^G, g1^G, g2^G ]
+gap> F := FittingSubgroup(G);;
+gap> f := GeneratorsOfGroup(F);;
+gap> i := GroupHomomorphismByImages(F,G,f,f);;
+gap> ReidemeisterClasses(i,i);
+Error, no method found! For debugging hints type ?Recovery from NoMethodFound
+Error, no 4th choice method found for `ReidemeisterClasses' on 2 arguments
 
 #
 gap> STOP_TEST( "infinite_pc_double.tst" );
