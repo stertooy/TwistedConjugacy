@@ -35,6 +35,10 @@ Error, no 3rd choice method found for `PrintReidemeisterZeta' on 1 arguments
 gap> id := IdentityMapping( G );;
 gap> ReidemeisterNumber( id ); # quotient gives infinity
 infinity
+gap> IsTwistedConjugate( id, G.2, G.3^2 );
+Error, no method found! For debugging hints type ?Recovery from NoMethodFound
+Error, no 3rd choice method found for `RepTwistConjToIdByNormal' on 4 argument\
+s
 gap> i := 0;;
 gap> imgs := [ G.4^-1*G.1, G.3, G.4^i*G.2*G.3^i, G.4^-1  ];;
 gap> psi := GroupHomomorphismByImages( G, G, GeneratorsOfGroup( G ), imgs );;
