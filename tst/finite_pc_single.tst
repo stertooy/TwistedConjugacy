@@ -17,6 +17,10 @@ f1*f2*f3*f4
 gap> tc( G.1, g ) = G.3;   
 true
 gap> tcc := ReidemeisterClass( phi, G.3 );;
+gap> Print( tcc, "\n" );
+ReidemeisterClass( [ [ f2, f1, f3, f4, f5 ] -> [ f2*f5^6, f1*f2*f3^2*f4^2*f5^6\
+, f3^2, f3*f4^2, <identity> of ... ], [ f2, f1, f3, f4, f5 ] -> [ f2, f1, f3, \
+f4, f5 ] ], f3 )
 gap> Representative( tcc );
 f3
 gap> Size( tcc );

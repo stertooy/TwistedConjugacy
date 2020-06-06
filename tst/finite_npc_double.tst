@@ -18,6 +18,9 @@ gap> tc( g1, h ) = g2;
 true
 gap> tcc := ReidemeisterClass( phi, psi, g1 );
 (4,6,5)^G
+gap> Print( tcc, "\n" );
+ReidemeisterClass( [ [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,2)(3,4), () ], [ (1,\
+2)(3,5,4), (2,3)(4,5) ] -> [ (1,4)(3,6), () ] ], (4,6,5) )
 gap> List(tcc);
 [ (4,6,5), (1,6,4,2)(3,5) ]
 gap> ActingDomain( tcc ) = H;

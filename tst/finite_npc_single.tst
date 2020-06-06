@@ -14,6 +14,10 @@ gap> tc( G.1, g ) = G.2;
 true
 gap> tcc := ReidemeisterClass( phi, G.1 );
 (3,4)(5,6)^G
+gap> Print( tcc, "\n" );
+ReidemeisterClass( [ [ (2,7)(4,6), (1,4,5,6,7,2,3) ] -> [ (2,4)(6,7), (1,2,4,6\
+,5,7,3) ], [ (3,4)(5,6), (1,2,3)(4,5,7) ] -> [ (3,4)(5,6), (1,2,3)(4,5,7) ] ],\
+ (3,4)(5,6) )
 gap> Representative( tcc );
 (3,4)(5,6)
 gap> Size( tcc );

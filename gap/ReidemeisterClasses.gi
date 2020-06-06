@@ -75,10 +75,27 @@ InstallMethod( Random, "for Reidemeister classes",
 InstallMethod( PrintObj, "for Reidemeister classes",
 	[IsReidemeisterClassGroupRep],
 	function ( tcc )
-		Print( "ReidemeisterClass( ", 
-			GroupHomomorphismsOfReidemeisterClass( tcc ), ", ",
-			Representative( tcc ), " )"
-		);
+		local homStrings, homs, i, G, gens;
+		homStrings := [];
+		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
+		for i in [1..2] do
+			G := Source( homs[i] );
+			if homs[i] = IdentityMapping( G ) then
+				gens := PrintString( GeneratorsOfGroup( G ) );
+				homStrings[i] := Concatenation( gens, " -> ", gens );
+			else
+				homStrings[i] := PrintString( homs[i] );
+			fi;
+		od;
+		Print( Concatenation(
+			"ReidemeisterClass( [ ",
+			homStrings[1],
+			", ",
+			homStrings[2],
+			" ], ",
+			PrintString( Representative( tcc ) ),
+			" )"
+		));
 		return;
 	end
 );

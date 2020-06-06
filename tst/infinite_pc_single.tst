@@ -14,6 +14,9 @@ g1*g3*g4
 gap> tc( G.2, g ) = G.3^2;
 true
 gap> tcc := ReidemeisterClass( phi, G.3 );;
+gap> Print( tcc, "\n" );
+ReidemeisterClass( [ [ g1, g2, g3, g4 ] -> [ g1*g4^-1, g3, g2*g3^3*g4^3, g4^-1\
+ ], [ g1, g2, g3, g4 ] -> [ g1, g2, g3, g4 ] ], g3 )
 gap> Representative( tcc );
 g3
 gap> Random( tcc ) in tcc;

@@ -18,6 +18,9 @@ g3^2
 gap> tc( G.2, g ) = G.2*G.3^2;
 true
 gap> tcc := ReidemeisterClass( phi, psi, G.3 );;
+gap> Print( tcc, "\n" );
+ReidemeisterClass( [ [ g1, g2, g3, g4 ] -> [ g1*g4^-1, g3, g2*g3^2*g4^2, g4^-1\
+ ], [ g1, g2, g3, g4 ] -> [ g1, g2^2*g3*g4^2, g2*g3*g4, g4 ] ], g3 )
 gap> Representative( tcc );
 g3
 gap> Random( tcc ) in tcc;
@@ -26,10 +29,10 @@ gap> ActingDomain( tcc ) = G;
 true
 gap> TwistedConjugacyClasses( phi, psi );
 [ id^G, g1*g2^G, g1^G, g2^G ]
-gap> F := FittingSubgroup(G);;
-gap> f := GeneratorsOfGroup(F);;
-gap> i := GroupHomomorphismByImages(F,G,f,f);;
-gap> ReidemeisterClasses(i,i);
+gap> F := FittingSubgroup( G );;
+gap> f := GeneratorsOfGroup( F );;
+gap> i := GroupHomomorphismByImages( F, G, f, f );;
+gap> ReidemeisterClasses( i, i );
 Error, no method found! For debugging hints type ?Recovery from NoMethodFound
 Error, no 4th choice method found for `ReidemeisterClasses' on 2 arguments
 
