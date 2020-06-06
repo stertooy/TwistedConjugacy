@@ -22,6 +22,16 @@ gap> ActingDomain( tcc ) = G;
 true
 gap> NrTwistedConjugacyClasses( phi );
 4
+gap> ReidemeisterZetaCoefficients( phi );
+Error, no method found! For debugging hints type ?Recovery from NoMethodFound
+Error, no 3rd choice method found for `ReidemeisterZetaCoefficients' on 1 argu\
+ments
+gap> ReidemeisterZeta( phi );
+Error, no method found! For debugging hints type ?Recovery from NoMethodFound
+Error, no 3rd choice method found for `ReidemeisterZeta' on 1 arguments
+gap> PrintReidemeisterZeta( phi );
+Error, no method found! For debugging hints type ?Recovery from NoMethodFound
+Error, no 3rd choice method found for `PrintReidemeisterZeta' on 1 arguments
 gap> id := IdentityMapping( G );;
 gap> ReidemeisterNumber( id ); # quotient gives infinity
 infinity
