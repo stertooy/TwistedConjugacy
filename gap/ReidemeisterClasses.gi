@@ -54,21 +54,22 @@ InstallMethod( \in, "for Reidemeister classes",
 	end 
 );
 
-InstallMethod( Random, "for Reidemeister classes",
-	[IsReidemeisterClassGroupRep],
-	function ( tcc )
-		local tc;
-		tc := FunctionAction( tcc );
-		return tc( Representative( tcc ), Random( ActingDomain( tcc ) ) );
-	end
-);
+# Methods below seem to be not necessary, since they work by default
+#InstallMethod( Random, "for Reidemeister classes",
+#	[IsReidemeisterClassGroupRep],
+#	function ( tcc )
+#		local tc;
+#		tc := FunctionAction( tcc );
+#		return tc( Representative( tcc ), Random( ActingDomain( tcc ) ) );
+#	end
+#);
 
-InstallMethod( HomeEnumerator, "for Reidemeister classes",
-	[IsReidemeisterClassGroupRep],
-	function ( tcc )
-		return Enumerator( ActingDomain( tcc ) );
-	end
-);
+#InstallMethod( HomeEnumerator, "for Reidemeister classes",
+#	[IsReidemeisterClassGroupRep],
+#	function ( tcc )
+#		return Enumerator( ActingDomain( tcc ) );
+#	end
+#);
 
 InstallMethod( PrintObj, "for Reidemeister classes",
 	[IsReidemeisterClassGroupRep],
