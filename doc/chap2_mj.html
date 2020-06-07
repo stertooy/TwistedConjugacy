@@ -72,6 +72,23 @@
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RepresentativeTwistedConjugation</code>( <var class="Arg">hom1</var>, <var class="Arg">hom2</var>, <var class="Arg">g1</var>, <var class="Arg">g2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Computes an element that maps <var class="Arg">g1</var> to <var class="Arg">g2</var> under the twisted conjugacy action of the pair of homomorphisms ( <var class="Arg">hom1</var>, <var class="Arg">hom2</var> ) and returns <code class="code">fail</code> if no such element exists.</p>
 
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := AlternatingGroup( 6 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H := SymmetricGroup( 5 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,2)(3,4), () ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,4)(3,6), () ] );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tc := TwistedConjugation( phi, psi );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g1 := (4,6,5);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g2 := (1,6,4,2)(3,5);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsTwistedConjugate( psi, phi, g1, g2 );</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">h := RepresentativeTwistedConjugation( phi, psi, g1, g2 );</span>
+(1,2)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tc( g1, h ) = g2;</span>
+true
+</pre></div>
+
 <p><a id="X833C6763855AF721" name="X833C6763855AF721"></a></p>
 
 <h4>2.2 <span class="Heading">Reidemeister Coincidence Classes</span></h4>
@@ -128,6 +145,30 @@
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ReidemeisterNumber</code>( <var class="Arg">hom1</var>, <var class="Arg">hom2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NrTwistedConjugacyClasses</code>( <var class="Arg">hom1</var>, <var class="Arg">hom2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns the Reidemeister number of ( <var class="Arg">hom1</var>, <var class="Arg">hom2</var> ), i.e. the number of Reidemeister classes.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tcc := ReidemeisterClass( phi, psi, g1 );</span>
+(4,6,5)^G
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Representative( tcc );</span>
+(4,6,5)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GroupHomomorphismsOfReidemeisterClass( tcc );</span>
+[ [ (1,2)(3,5,4), (2,3)(4,5) ] -&gt; [ (1,2)(3,4), () ], [ (1,2)(3,5,4), (2,3)(4,5) ] -&gt; [ (1,4)(3,6), () ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ActingDomain( tcc ) = H;</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FunctionAction( tcc )( g1, h );</span>
+(1,6,4,2)(3,5)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Random( tcc ) in tcc;</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( tcc );</span>
+[ (4,6,5), (1,6,4,2)(3,5) ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size( tcc );</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ReidemeisterClasses( phi, psi );</span>
+[ ()^G, (4,5,6)^G, (4,6,5)^G, ... ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">NrTwistedConjugacyClasses( phi, psi );</span>
+184
+</pre></div>
 
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Next Chapter]</a>&nbsp;  </div>

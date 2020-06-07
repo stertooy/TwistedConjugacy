@@ -38,6 +38,22 @@
   the pair of homomorphisms ( [3Xhom1[103X, [3Xhom2[103X ) and returns [10Xfail[110X if no such element
   exists.[133X
   
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XG := AlternatingGroup( 6 );;[127X[104X
+    [4X[25Xgap>[125X [27XH := SymmetricGroup( 5 );;[127X[104X
+    [4X[25Xgap>[125X [27Xphi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,2)(3,4), () ] );;[127X[104X
+    [4X[25Xgap>[125X [27Xpsi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,4)(3,6), () ] );; [127X[104X
+    [4X[25Xgap>[125X [27Xtc := TwistedConjugation( phi, psi );;[127X[104X
+    [4X[25Xgap>[125X [27Xg1 := (4,6,5);;[127X[104X
+    [4X[25Xgap>[125X [27Xg2 := (1,6,4,2)(3,5);;[127X[104X
+    [4X[25Xgap>[125X [27XIsTwistedConjugate( psi, phi, g1, g2 );[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xh := RepresentativeTwistedConjugation( phi, psi, g1, g2 );[127X[104X
+    [4X[28X(1,2)[128X[104X
+    [4X[25Xgap>[125X [27Xtc( g1, h ) = g2;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
   
   [1X2.2 [33X[0;0YReidemeister Coincidence Classes[133X[101X
   
@@ -95,4 +111,27 @@
   
   [33X[0;0YReturns  the  Reidemeister  number  of  (  [3Xhom1[103X,  [3Xhom2[103X ), i.e. the number of
   Reidemeister classes.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtcc := ReidemeisterClass( phi, psi, g1 );[127X[104X
+    [4X[28X(4,6,5)^G[128X[104X
+    [4X[25Xgap>[125X [27XRepresentative( tcc );[127X[104X
+    [4X[28X(4,6,5)[128X[104X
+    [4X[25Xgap>[125X [27XGroupHomomorphismsOfReidemeisterClass( tcc );[127X[104X
+    [4X[28X[ [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,2)(3,4), () ], [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,4)(3,6), () ] ][128X[104X
+    [4X[25Xgap>[125X [27XActingDomain( tcc ) = H;[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XFunctionAction( tcc )( g1, h );[127X[104X
+    [4X[28X(1,6,4,2)(3,5)[128X[104X
+    [4X[25Xgap>[125X [27XRandom( tcc ) in tcc;[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XList( tcc );[127X[104X
+    [4X[28X[ (4,6,5), (1,6,4,2)(3,5) ][128X[104X
+    [4X[25Xgap>[125X [27XSize( tcc );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XReidemeisterClasses( phi, psi );[127X[104X
+    [4X[28X[ ()^G, (4,5,6)^G, (4,6,5)^G, ... ][128X[104X
+    [4X[25Xgap>[125X [27XNrTwistedConjugacyClasses( phi, psi );[127X[104X
+    [4X[28X184[128X[104X
+  [4X[32X[104X
   

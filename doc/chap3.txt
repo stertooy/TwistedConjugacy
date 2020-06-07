@@ -22,6 +22,18 @@
   command  is implemented only for homomorphisms where either H is finite or G
   is abelian.[133X
   
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XG := AlternatingGroup( 6 );;[127X[104X
+    [4X[25Xgap>[125X [27Xphi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ], [ (1,2,6,3,5), (1,4,5) ] );;[127X[104X
+    [4X[25Xgap>[125X [27XFixedPointGroup( phi );[127X[104X
+    [4X[28XGroup([ (), (1,6,5,2,4), (1,5,4,6,2), (1,2,6,4,5), (1,4,2,5,6) ])[128X[104X
+    [4X[25Xgap>[125X [27XH := SymmetricGroup( 5 );;[127X[104X
+    [4X[25Xgap>[125X [27Xkhi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,2)(3,4), () ] );;[127X[104X
+    [4X[25Xgap>[125X [27Xpsi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,4)(3,6), () ] );; [127X[104X
+    [4X[25Xgap>[125X [27XCoincidenceGroup( khi, psi );[127X[104X
+    [4X[28X<permutation group with 60 generators>[128X[104X
+  [4X[32X[104X
+  
   
   [1X3.2 [33X[0;0YMorphisms[133X[101X
   
@@ -42,4 +54,16 @@
   [33X[0;0YLet  [3Xendo[103X  be  an endomorphism of a group G and [3XN[103X be subgroup of G invariant
   under [3Xendo[103X. This command returns the endomorphism of N induced by [3Xendo[103X. This
   is similar to [10XRestrictedMapping[110X, but the range is explicitly set to [3XN[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XG := ExamplesOfSomePcpGroups( 5 );;[127X[104X
+    [4X[25Xgap>[125X [27Xphi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3, G.4 ], [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^2, G.4^-1  ] );;[127X[104X
+    [4X[25Xgap>[125X [27XN := DerivedSubgroup(G);;[127X[104X
+    [4X[25Xgap>[125X [27Xp := NaturalHomomorphismByNormalSubgroup( G, N );[127X[104X
+    [4X[28X[ g1, g2, g3, g4, g2^2, g3^2, g4^2 ] -> [ g1, g2, g3, g4, id, id, id ][128X[104X
+    [4X[25Xgap>[125X [27XInducedEndomorphism( p, phi );[127X[104X
+    [4X[28X[ g1, g2, g3, g4 ] -> [ g1*g4, g3, g2, g4 ][128X[104X
+    [4X[25Xgap>[125X [27XRestrictedEndomorphism( phi, N );[127X[104X
+    [4X[28X[ g2^2, g3^2, g4^2 ] -> [ g3^2, g2^2*g3^4*g4^8, g4^-2 ][128X[104X
+  [4X[32X[104X
   

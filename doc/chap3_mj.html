@@ -59,6 +59,19 @@
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CoincidenceGroup</code>( <var class="Arg">hom1</var>, <var class="Arg">hom2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Let <var class="Arg">hom1</var>, <var class="Arg">hom2</var> be group homomorphisms from H to G. This command returns the subgroup of H consisting of the elements <code class="code">h</code> for which <code class="code">h^<var class="Arg">hom1</var> = h^<var class="Arg">hom2</var></code>. This command is implemented only for homomorphisms where either H is finite or G is abelian.</p>
 
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := AlternatingGroup( 6 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">phi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ], [ (1,2,6,3,5), (1,4,5) ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FixedPointGroup( phi );</span>
+Group([ (), (1,6,5,2,4), (1,5,4,6,2), (1,2,6,4,5), (1,4,2,5,6) ])
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H := SymmetricGroup( 5 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,2)(3,4), () ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,4)(3,6), () ] );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CoincidenceGroup( khi, psi );</span>
+&lt;permutation group with 60 generators&gt;
+</pre></div>
+
 <p><a id="X7BEB6C617FED52DA" name="X7BEB6C617FED52DA"></a></p>
 
 <h4>3.2 <span class="Heading">Morphisms</span></h4>
@@ -76,6 +89,19 @@
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RestrictedEndomorphism</code>( <var class="Arg">endo</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Let <var class="Arg">endo</var> be an endomorphism of a group G and <var class="Arg">N</var> be subgroup of G invariant under <var class="Arg">endo</var>. This command returns the endomorphism of N induced by <var class="Arg">endo</var>. This is similar to <code class="code">RestrictedMapping</code>, but the range is explicitly set to <var class="Arg">N</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := ExamplesOfSomePcpGroups( 5 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">phi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3, G.4 ], [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^2, G.4^-1  ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N := DerivedSubgroup(G);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">p := NaturalHomomorphismByNormalSubgroup( G, N );</span>
+[ g1, g2, g3, g4, g2^2, g3^2, g4^2 ] -&gt; [ g1, g2, g3, g4, id, id, id ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">InducedEndomorphism( p, phi );</span>
+[ g1, g2, g3, g4 ] -&gt; [ g1*g4, g3, g2, g4 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RestrictedEndomorphism( phi, N );</span>
+[ g2^2, g3^2, g4^2 ] -&gt; [ g3^2, g2^2*g3^4*g4^8, g4^-2 ]
+</pre></div>
 
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
