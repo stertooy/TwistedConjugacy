@@ -16,6 +16,7 @@ This package is designed to be used for either finite groups or for
 This package was originally designed for GAP version 4.10 with the
 following packages (and their dependencies) installed:
 - Polycyclic (version >= 2.14)
+- GAPDoc (version >= 1.6.2)
 
 
 Installation
@@ -34,7 +35,8 @@ recognizes the TwistedConjugacy package using the following command:
 	─────────────────────────────────────────────────────────────────────────────
 	true
 
-Note that the line "Report issues at ..." is new in GAP 4.11
+Note that the line "Report issues at ..." is new in GAP 4.11, and does not
+appear when loading this package in earlier versions of GAP.
 
 If you are using a custom directory, make a 'pkg' subdirectory and place
 the TwistedConjugacy folder in this subdirectory. You will need to tell 
