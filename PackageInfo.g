@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
-Version := "1.0.0",
-Date := "19/02/2020",
+Version := "1.0.1",
+Date := "07/06/2020",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -52,7 +52,8 @@ PackageDoc := rec(
 
 Dependencies := rec(
   GAP := ">= 4.10",
-  NeededOtherPackages := [ [ "Polycyclic", "2.14" ] ],
+  NeededOtherPackages := [ [ "Polycyclic", "2.14" ],
+						   [ "GAPDoc", "1.6.2" ] ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ],
 ),

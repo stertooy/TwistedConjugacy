@@ -6,10 +6,10 @@
                   [1X Computation with twisted conjugacy classes [101X
   
   
-                                     1.0.0
+                                     1.0.1
   
   
-                                19 February 2020
+                                  7 June 2020
   
   
                                   Sam Tertooy
