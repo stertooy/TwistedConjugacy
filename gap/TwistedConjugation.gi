@@ -69,7 +69,7 @@ InstallMethod( RepresentativeTwistedConjugation,
 	[IsGroupHomomorphism, IsGroupHomomorphism, IsObject, IsObject], 
 	function ( hom1, hom2, g1, g2 )
 		return RepTwistConjToId( 
-			ComposeWithInnerAutomorphism( g2^-1, hom1 ), hom2, g1*g2^-1 
+			ComposeWithInnerAutomorphism@( g2^-1, hom1 ), hom2, g1*g2^-1 
 		);
 	end
 );
@@ -120,13 +120,14 @@ InstallMethod( RepTwistConjToId, "for abelian groups",
 			TryNextMethod();
 		fi;
 		return PreImagesRepresentative( 
-			DifferenceGroupHomomorphisms( hom1, hom2 ), g
+			DifferenceGroupHomomorphisms@( hom1, hom2 ), g
 		);
 	end
 );
 
 InstallMethod( RepTwistConjToId, "for polycyclic groups",
-	[IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and IsEndoGeneralMapping, IsObject],
+	[IsGroupHomomorphism and IsEndoGeneralMapping,
+	 IsGroupHomomorphism and IsEndoGeneralMapping, IsObject],
 	function ( hom1, hom2, g )
 		local G;
 		G := Source( hom1 );
@@ -147,7 +148,8 @@ RedispatchOnCondition( RepTwistConjToId, true,
 ## RepTwistConjToIdByNormal( hom1, hom2, g, N )
 ##
 InstallMethod( RepTwistConjToIdByNormal,
-	[IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and IsEndoGeneralMapping, IsObject, IsGroup], 
+	[IsGroupHomomorphism and IsEndoGeneralMapping,
+	 IsGroupHomomorphism and IsEndoGeneralMapping, IsObject, IsGroup], 
 	function ( hom1, hom2, g, N ) 
 		local G, p, hom1GN, hom2GN, Coin, 
 			pk, k, tc, n, hom1N, hom2N, ph, h, l;

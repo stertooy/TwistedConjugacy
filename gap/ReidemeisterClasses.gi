@@ -143,7 +143,7 @@ InstallMethod( ReidemeisterClasses, "for abelian range",
 		if not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		N := Image( DifferenceGroupHomomorphisms( hom1, hom2 ) );
+		N := Image( DifferenceGroupHomomorphisms@( hom1, hom2 ) );
 		if IndexNC( G, N ) = infinity then
 			return fail;
 		else
@@ -166,7 +166,8 @@ InstallMethod( ReidemeisterClasses, "for abelian range",
 );
 
 InstallMethod( ReidemeisterClasses, "for polycyclic groups",
-	[IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and IsEndoGeneralMapping],
+	[IsGroupHomomorphism and IsEndoGeneralMapping,
+	 IsGroupHomomorphism and IsEndoGeneralMapping],
 	function ( hom1, hom2 )
 		local G;
 		G := Source( hom1 );
@@ -202,8 +203,8 @@ RedispatchOnCondition( ReidemeisterClasses, true,
 ## ReidemeisterClassesByNormal( hom1, hom2, N )
 ##
 InstallMethod( ReidemeisterClassesByNormal,
-	[IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and 
-		IsEndoGeneralMapping, IsGroup], 
+	[IsGroupHomomorphism and IsEndoGeneralMapping, 
+	 IsGroupHomomorphism and IsEndoGeneralMapping, IsGroup], 
 	function ( hom1, hom2, N ) 
 		local G, p, RclGN, Rcl, pg, g, ighom1, RclN, iRclN, h, ihghom1;
 		G := Source( hom1 );
@@ -218,7 +219,7 @@ InstallMethod( ReidemeisterClassesByNormal,
 		Rcl := [];
 		for pg in RclGN do
 			g := PreImagesRepresentative( p, pg );
-			ighom1 := ComposeWithInnerAutomorphism( g^-1, hom1 );
+			ighom1 := ComposeWithInnerAutomorphism@( g^-1, hom1 );
 			RclN := ReidemeisterClasses( RestrictedEndomorphism( ighom1, N ),
 				RestrictedEndomorphism( hom2, N ) 
 			);
@@ -231,7 +232,7 @@ InstallMethod( ReidemeisterClassesByNormal,
 				# Condition below is basically just
 				# IsTwistedConjugate( igendo, k, h )
 				# This way of formulating speeds things up
-				ihghom1 := ComposeWithInnerAutomorphism( h^-1, ighom1 );
+				ihghom1 := ComposeWithInnerAutomorphism@( h^-1, ighom1 );
 				if ForAll( iRclN, 
 					k -> RepTwistConjToId( ihghom1, hom2, k*h^-1  ) = fail 
 				) then

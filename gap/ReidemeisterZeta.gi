@@ -18,7 +18,7 @@ InstallMethod( ReidemeisterZetaCoefficients, "for finite groups",
 		L := List( [1..Order( RestrictedMapping( endo, G ) )],
 			n -> ReidemeisterNumber( endo^n )
 		);
-		return RemovePeriodsList( L );
+		return RemovePeriodsList@( L );
 	end
 );
 
@@ -37,7 +37,7 @@ InstallMethod( ReidemeisterZeta, "for finite groups",
 		if not IsFinite( Source( endo ) ) then
 			TryNextMethod();
 		fi;
-		L := DecomposePeriodicList( ReidemeisterZetaCoefficients( endo ) );
+		L := DecomposePeriodicList@( ReidemeisterZetaCoefficients( endo ) );
 		return function ( z )
 			local zeta, i, ci;
 			zeta := 1;
@@ -67,7 +67,7 @@ InstallMethod( PrintReidemeisterZeta, "for finite groups",
 		if not IsFinite( Source( endo ) ) then
 			TryNextMethod();
 		fi;
-		L := DecomposePeriodicList( ReidemeisterZetaCoefficients( endo ) );
+		L := DecomposePeriodicList@( ReidemeisterZetaCoefficients( endo ) );
 		zeta := "";
 		for i in [1..Length( L )] do
 			ci := L[i];
@@ -86,4 +86,3 @@ InstallMethod( PrintReidemeisterZeta, "for finite groups",
 
 RedispatchOnCondition( PrintReidemeisterZeta, true, 
 	[IsGroupHomomorphism], [IsEndoGeneralMapping], 0 );
-

@@ -37,11 +37,11 @@ InstallGlobalFunction( RestrictedEndomorphism,
 
 ###############################################################################
 ##
-## DifferenceGroupHomomorphisms( hom1, hom2 )
+## DifferenceGroupHomomorphisms@( hom1, hom2 )
 ##
 ##	Returns the homomorphism that maps g to g^hom2*( g^hom1 )^-1
 ##
-DifferenceGroupHomomorphisms := function ( hom1, hom2 )
+DifferenceGroupHomomorphisms@ := function ( hom1, hom2 )
   	local G, gens;
 	G := Source( hom1 );
 	gens := GeneratorsOfGroup( G );
@@ -53,11 +53,11 @@ end;
 
 ###############################################################################
 ##
-## ComposeWithInnerAutomorphism( g, hom )
+## ComposeWithInnerAutomorphism@( g, hom )
 ##
 ##	Returns the endomorphism that maps h to h^g
 ##
-ComposeWithInnerAutomorphism :=	function ( g, hom )
+ComposeWithInnerAutomorphism@ :=	function ( g, hom )
     local gens, comp;
 	gens := MappingGeneratorsImages( hom );
 	comp := GroupHomomorphismByImagesNC( Source( hom ), Range( hom ), gens[1], 
@@ -77,7 +77,7 @@ end;
 ##  Returns the smallest sublist M of L such that L is the concatenation
 ##  of a number of times of M.
 ##
-RemovePeriodsList := function ( L )
+RemovePeriodsList@ := function ( L )
 	local n, i, M;
 	n := Length( L );
 	for i in DivisorsInt( n ) do
@@ -91,13 +91,13 @@ end;
 
 ###############################################################################
 ##
-## DecomposePeriodicList( L )
+## DecomposePeriodicList@( L )
 ##
 ##  Decomposes the list L, interpreted as an infinite periodic sequence,
 ##  into a linear combination of the sequences  a^i = (0,0,0,i,0,0,0,i,...).
 ##  The output is [c_1, ..., c_n] such that L = sum_i c_i a^i
 ##
-DecomposePeriodicList := function ( L )
+DecomposePeriodicList@ := function ( L )
 	local n, c, i, per, ai;
 	n := Length( L );
 	c := ListWithIdenticalEntries( n, 0 );

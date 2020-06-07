@@ -22,7 +22,7 @@ InstallMethod( CoincidenceGroup, "for abelian range",
 		if not IsAbelian( Range( hom1 ) ) then
 			TryNextMethod();
 		fi;
-		return Kernel( DifferenceGroupHomomorphisms ( hom1, hom2 ) );
+		return Kernel( DifferenceGroupHomomorphisms@ ( hom1, hom2 ) );
 	end
 );
 
