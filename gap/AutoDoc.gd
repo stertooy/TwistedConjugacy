@@ -33,7 +33,6 @@
 #! @Section Twisted Conjugation Action
 #! Let $G$ be a group and $\varphi: G \to G$ an endomorphism. Then $\varphi$ induces a (right) group action on $G$ given by $G \times G \to G: (g,h) \mapsto g \cdot h = h^{-1} g\varphi(h)$. This group action is called **$\varphi$-twisted conjugation**, and induces an equivalence relation on the group. We say that $g_1, g_2 \in G$ are $\varphi$-twisted conjugate, denoted by $g_1 \sim_{\varphi} g_2$, if and only if there exists some element $h \in G$ such that $g_1 \cdot h = g_2$, or equivalently $g_1 = h g_2 \varphi(h)^{-1}$.
 
-
 #! @Description
 #! Implements the twisted conjugation (right) group action induced by the endomorphism <A>endo</A>. This is the twisted conjugacy analogue of <C>OnPoints</C>.
 #! @Arguments endo
@@ -48,6 +47,18 @@ DeclareOperation( "IsTwistedConjugate", [IsGroupHomomorphism, IsObject, IsObject
 #! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the endomorphism <A>endo</A> and returns <C>fail</C> if no such element exists. This is the twisted conjugacy analogue of <C>RepresentativeAction</C>.
 #! @Arguments endo, g1, g2
 DeclareOperation( "RepresentativeTwistedConjugation", [IsGroupHomomorphism, IsObject, IsObject] );
+
+#! @BeginExample
+G := Group([ (3,4)(5,6), (1,2,3)(4,5,7) ]);;
+phi := GroupHomomorphismByImages( G, G, [ (2,7)(4,6), (1,4,5,6,7,2,3) ], [ (2,4)(6,7), (1,2,4,6,5,7,3) ] );;
+tc := TwistedConjugation( phi );;
+IsTwistedConjugate( phi, G.1, G.1^2 );
+#! false
+g := RepresentativeTwistedConjugation( phi, G.1, G.2 );
+#! (1,6,7,5)(3,4)
+tc( G.1, g ) = G.2;
+#! true
+#! @EndExample
 
 
 ###
@@ -93,6 +104,30 @@ DeclareOperation( "ReidemeisterNumber", [IsGroupHomomorphism] );
 DeclareOperation( "NrTwistedConjugacyClasses", [IsGroupHomomorphism] );
 #! @EndGroup
 
+#! @BeginExample
+tcc := ReidemeisterClass( phi, G.1 );
+#! (3,4)(5,6)^G
+Representative( tcc );
+#! (3,4)(5,6)
+GroupHomomorphismsOfReidemeisterClass( tcc );
+#! [ [ (2,7)(4,6), (1,4,5,6,7,2,3) ] -> [ (2,4)(6,7), (1,2,4,6,5,7,3) ],
+#!   IdentityMapping( Group([ (3,4)(5,6), (1,2,3)(4,5,7) ]) ) ]
+ActingDomain( tcc ) = G;
+#! true
+FunctionAction( tcc )( G.1, g );
+#! (1,2,3)(4,5,7)
+Random( tcc ) in tcc;
+#! true
+List( tcc );
+#! [ (3,4)(5,6), (1,3)(2,6), (1,6,7)(2,4,3), ... ]
+Size( tcc );
+#! 42
+ReidemeisterClasses( phi );
+#! [ ()^G, (3,4)(5,6)^G, (3,6)(4,5)^G, (2,3,6)(4,7,5)^G ]
+NrTwistedConjugacyClasses( phi );
+#! 4
+#! @EndExample
+
 
 ###
 # SECTION 3
@@ -113,6 +148,13 @@ DeclareAttribute( "ReidemeisterSpectrum", IsGroup );
 #! Returns the extended Reidemeister spectrum of <A>G</A>.
 #! @Arguments G
 DeclareAttribute( "ExtendedReidemeisterSpectrum", IsGroup );
+
+#! @BeginExample
+ReidemeisterSpectrum( G );
+#! [ 4, 6 ]
+ExtendedReidemeisterSpectrum( G );
+#! [ 1, 4, 6 ]
+#! @EndExample
 
 
 ###
@@ -139,6 +181,17 @@ DeclareOperation( "PrintReidemeisterZeta", [IsGroupHomomorphism] );
 #! @Arguments endo
 DeclareAttribute( "ReidemeisterZetaCoefficients", IsGroupHomomorphism );
 
+#! @BeginExample
+zeta1 := ReidemeisterZeta( phi );;
+zeta1( 10/3 );
+#! -729/218491
+PrintReidemeisterZeta( phi );
+#! "( 1-z^1 )^-4 * ( 1-z^2 )^-1"
+ReidemeisterZetaCoefficients( phi );
+#! [ 4, 6 ]
+#! @EndExample
+
+
 
 #####
 #
@@ -150,6 +203,7 @@ DeclareAttribute( "ReidemeisterZetaCoefficients", IsGroupHomomorphism );
 #! @ChapterLabel dubtwicon
 #! @ChapterTitle Double Twisted Conjugacy
 #! Please note that currently the functions in this chapter are implemented only for (homomorphisms of) finite groups and (endomorphisms of) pcp-groups.
+
 
 ###
 # SECTION 1
@@ -172,6 +226,22 @@ DeclareOperation( "IsTwistedConjugate", [IsGroupHomomorphism, IsGroupHomomorphis
 #! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) and returns <C>fail</C> if no such element exists.
 #! @Arguments hom1, hom2, g1, g2
 DeclareOperation( "RepresentativeTwistedConjugation", [IsGroupHomomorphism, IsGroupHomomorphism, IsObject, IsObject] );
+
+#! @BeginExample
+G := AlternatingGroup( 6 );;
+H := SymmetricGroup( 5 );;
+phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,2)(3,4), () ] );;
+psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,4)(3,6), () ] );; 
+tc := TwistedConjugation( phi, psi );;
+g1 := (4,6,5);;
+g2 := (1,6,4,2)(3,5);;
+IsTwistedConjugate( psi, phi, g1, g2 );
+#! false
+h := RepresentativeTwistedConjugation( phi, psi, g1, g2 );
+#! (1,2)
+tc( g1, h ) = g2;
+#! true
+#! @EndExample
 
 
 ###
@@ -217,6 +287,29 @@ DeclareOperation( "ReidemeisterNumber", [IsGroupHomomorphism, IsGroupHomomorphis
 DeclareOperation( "NrTwistedConjugacyClasses", [IsGroupHomomorphism, IsGroupHomomorphism] );
 #! @EndGroup
 
+#! @BeginExample
+tcc := ReidemeisterClass( phi, psi, g1 );
+#! (4,6,5)^G
+Representative( tcc );
+#! (4,6,5)
+GroupHomomorphismsOfReidemeisterClass( tcc );
+#! [ [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,2)(3,4), () ], [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,4)(3,6), () ] ]
+ActingDomain( tcc ) = H;
+#! true
+FunctionAction( tcc )( g1, h );
+#! (1,6,4,2)(3,5)
+Random( tcc ) in tcc;
+#! true
+List( tcc );
+#! [ (4,6,5), (1,6,4,2)(3,5) ]
+Size( tcc );
+#! 2
+ReidemeisterClasses( phi, psi );
+#! [ ()^G, (4,5,6)^G, (4,6,5)^G, ... ]
+NrTwistedConjugacyClasses( phi, psi );
+#! 184
+#! @EndExample
+
 
 
 #####
@@ -246,6 +339,18 @@ DeclareOperation( "FixedPointGroup", [IsGroupHomomorphism] );
 #! @Arguments hom1, hom2
 DeclareOperation( "CoincidenceGroup", [IsGroupHomomorphism, IsGroupHomomorphism] );
 
+#! @BeginExample
+G := AlternatingGroup( 6 );;
+phi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ], [ (1,2,6,3,5), (1,4,5) ] );;
+FixedPointGroup( phi );
+#! Group([ (), (1,6,5,2,4), (1,5,4,6,2), (1,2,6,4,5), (1,4,2,5,6) ])
+H := SymmetricGroup( 5 );;
+khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,2)(3,4), () ] );;
+psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,4)(3,6), () ] );; 
+CoincidenceGroup( khi, psi );
+#! <permutation group with 60 generators>
+#! @EndExample
+
 
 ###
 # SECTION 2
@@ -262,3 +367,15 @@ DeclareGlobalFunction( "InducedEndomorphism" ); # Extends InducedAutomorphism
 #! Let <A>endo</A> be an endomorphism of a group G and <A>N</A> be subgroup of G invariant under <A>endo</A>. This command returns the endomorphism of N induced by <A>endo</A>. This is similar to <C>RestrictedMapping</C>, but the range is explicitly set to <A>N</A>.
 #! @Arguments endo, N
 DeclareGlobalFunction( "RestrictedEndomorphism" ); 
+
+#! @BeginExample
+G := ExamplesOfSomePcpGroups( 5 );;
+phi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3, G.4 ], [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^2, G.4^-1  ] );;
+N := DerivedSubgroup(G);;
+p := NaturalHomomorphismByNormalSubgroup( G, N );
+#! [ g1, g2, g3, g4, g2^2, g3^2, g4^2 ] -> [ g1, g2, g3, g4, id, id, id ]
+InducedEndomorphism( p, phi );
+#! [ g1, g2, g3, g4 ] -> [ g1*g4, g3, g2, g4 ]
+RestrictedEndomorphism( phi, N );
+#! [ g2^2, g3^2, g4^2 ] -> [ g3^2, g2^2*g3^4*g4^8, g4^-2 ]
+#! @EndExample

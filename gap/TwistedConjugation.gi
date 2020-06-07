@@ -10,6 +10,7 @@ InstallMethod( TwistedConjugation, [IsGroupHomomorphism, IsGroupHomomorphism],
 	end
 );
 
+
 ###############################################################################
 ##
 ## TwistedConjugation( endo )

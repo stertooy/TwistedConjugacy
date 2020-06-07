@@ -2,21 +2,21 @@
 ##
 ## Declarations
 ##
-DeclareOperation( "TwistedConjugation" , 
+DeclareOperation( "TwistedConjugation",
 	[IsGroupHomomorphism, IsGroupHomomorphism] );
-DeclareOperation( "IsTwistedConjugate", 
+DeclareOperation( "IsTwistedConjugate",
 	[IsGroupHomomorphism, IsGroupHomomorphism, IsObject, IsObject] );
-DeclareOperation( "RepresentativeTwistedConjugation", 
+DeclareOperation( "RepresentativeTwistedConjugation",
 	[IsGroupHomomorphism, IsGroupHomomorphism, IsObject, IsObject] );
 
 
-DeclareOperation( "ReidemeisterClass", 
+DeclareOperation( "ReidemeisterClass",
 	[IsGroupHomomorphism, IsGroupHomomorphism, IsObject] );
 DeclareSynonym( "TwistedConjugacyClass", ReidemeisterClass );
-DeclareOperation( "ReidemeisterClasses", 
+DeclareOperation( "ReidemeisterClasses",
 	[IsGroupHomomorphism, IsGroupHomomorphism] );
 DeclareSynonym( "TwistedConjugacyClasses", ReidemeisterClasses );
-DeclareOperation( "ReidemeisterNumber", 
+DeclareOperation( "ReidemeisterNumber",
 	[IsGroupHomomorphism, IsGroupHomomorphism] );
 DeclareSynonym( "NrTwistedConjugacyClasses", ReidemeisterNumber );
 
@@ -25,7 +25,7 @@ DeclareAttribute( "ReidemeisterSpectrum", IsGroup );
 DeclareAttribute( "ExtendedReidemeisterSpectrum", IsGroup );
 
 
-DeclareOperation( "ReidemeisterZeta", 
+DeclareOperation( "ReidemeisterZeta",
 	[IsGroupHomomorphism and IsEndoGeneralMapping] );
 DeclareOperation( "PrintReidemeisterZeta",
 	[IsGroupHomomorphism and IsEndoGeneralMapping] );
@@ -44,9 +44,9 @@ DeclareOperation( "TwistedConjugacyClassZetaCoefficients",
 DeclareOperation( "ConjugacyClassZetaCoefficients", [IsGroup] );
 
 
-DeclareOperation( "FixedPointGroup", 
+DeclareOperation( "FixedPointGroup",
 	[IsGroupHomomorphism and IsEndoGeneralMapping] );
-DeclareOperation( "CoincidenceGroup", 
+DeclareOperation( "CoincidenceGroup",
 	[IsGroupHomomorphism, IsGroupHomomorphism] );
 
 
@@ -54,14 +54,14 @@ DeclareGlobalFunction( "InducedEndomorphism" );
 DeclareGlobalFunction( "RestrictedEndomorphism" );
 
 
-DeclareOperation( "RepTwistConjToId", 
+DeclareOperation( "RepTwistConjToId",
 	[IsGroupHomomorphism, IsGroupHomomorphism, IsObject] );
-DeclareOperation( "RepTwistConjToIdByNormal", 
+DeclareOperation( "RepTwistConjToIdByNormal",
 	[IsGroupHomomorphism, IsGroupHomomorphism, IsObject, IsGroup] );
-DeclareOperation( "ReidemeisterClassesByNormal", 
+DeclareOperation( "ReidemeisterClassesByNormal",
 	[IsGroupHomomorphism, IsGroupHomomorphism, IsGroup] );
 
 
-DeclareRepresentation( "IsReidemeisterClassGroupRep", IsExternalOrbit, [] ); 
-DeclareAttribute( "GroupHomomorphismsOfReidemeisterClass", 
+DeclareRepresentation( "IsReidemeisterClassGroupRep", IsExternalOrbit, [] );
+DeclareAttribute( "GroupHomomorphismsOfReidemeisterClass",
 	IsReidemeisterClassGroupRep );
