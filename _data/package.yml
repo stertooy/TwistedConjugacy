@@ -56,8 +56,9 @@ bibtex: |
       month =            {Jun},
       year =             {2020},
       note =             {GAP package},
-      howpublished =     {\href                                  {https://sTertooy.github.io/TwistedConjugacy/}
-                          {\texttt{https://sTertooy.github.io/}\discretionary {}{}{}\texttt{TwistedConjugacy/}}},
+      howpublished =     {\href                             {https://sTertooy.github.io/TwistedConjugacy/}
+                          {\texttt{https://sTertooy.github.io/}\discretionary
+                          {}{}{}\texttt{TwistedConjugacy/}}},
       keywords =         {twisted conjugacy; Reidemeister number; Reidemeister zeta},
       printedkey =       {Ter20}
     }

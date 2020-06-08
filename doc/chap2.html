@@ -73,8 +73,10 @@
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := AlternatingGroup( 6 );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H := SymmetricGroup( 5 );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,2)(3,4), () ] );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,4)(3,6), () ] );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (1,2)(3,4), () ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (1,4)(3,6), () ] );; </span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tc := TwistedConjugation( phi, psi );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g1 := (4,6,5);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g2 := (1,6,4,2)(3,5);;</span>
@@ -150,7 +152,8 @@ true
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Representative( tcc );</span>
 (4,6,5)
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GroupHomomorphismsOfReidemeisterClass( tcc );</span>
-[ [ (1,2)(3,5,4), (2,3)(4,5) ] -&gt; [ (1,2)(3,4), () ], [ (1,2)(3,5,4), (2,3)(4,5) ] -&gt; [ (1,4)(3,6), () ] ]
+[ [ (1,2)(3,5,4), (2,3)(4,5) ] -&gt; [ (1,2)(3,4), () ],
+  [ (1,2)(3,5,4), (2,3)(4,5) ] -&gt; [ (1,4)(3,6), () ] ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ActingDomain( tcc ) = H;</span>
 true
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FunctionAction( tcc )( g1, h );</span>

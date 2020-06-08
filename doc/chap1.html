@@ -85,7 +85,8 @@
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := Group([ (3,4)(5,6), (1,2,3)(4,5,7) ]);;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">phi := GroupHomomorphismByImages( G, G, [ (2,7)(4,6), (1,4,5,6,7,2,3) ], [ (2,4)(6,7), (1,2,4,6,5,7,3) ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">phi := GroupHomomorphismByImages( G, G, [ (2,7)(4,6), (1,4,5,6,7,2,3) ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (2,4)(6,7), (1,2,4,6,5,7,3) ] );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tc := TwistedConjugation( phi );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsTwistedConjugate( phi, G.1, G.1^2 );</span>
 false
