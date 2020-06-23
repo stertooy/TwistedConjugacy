@@ -165,13 +165,49 @@ InstallMethod( ReidemeisterClasses, "for abelian range",
 	end
 );
 
+InstallMethod( ReidemeisterClasses, "for torsion-free nilpotent groups",
+	[IsGroupHomomorphism and IsEndoGeneralMapping,
+	 IsGroupHomomorphism and IsEndoGeneralMapping],
+	function ( hom1, hom2 )
+		local G, ALCS, Rcl, i, Gi, Gip1, p, hom1N, hom2N, hom1Np, hom2Np, RGiGip1, g, RclFactor, tcc;
+		G := Source( hom1 );
+		if not IsNilpotentGroup( G ) or not IsTorsionFree( G ) or IsAbelian( G ) then
+			TryNextMethod();
+		fi;
+		ALCS := AdaptedLowerCentralSeriesOfGroup( G );
+		Rcl := [ Identity( G ) ];
+		for i in [1..Length( ALCS )-1 ] do
+			Gi := ALCS[i];
+			Gip1 := ALCS[i+1];
+			p := NaturalHomomorphismByNormalSubgroupNC( Gi, Gip1 );
+			hom1N := RestrictedEndomorphism( hom1, Gi );
+			hom2N := RestrictedEndomorphism( hom2, Gi );
+			hom1Np := InducedEndomorphism( p, hom1N );
+			hom2Np := InducedEndomorphism( p, hom2N );
+			RGiGip1 := ReidemeisterClasses( hom1Np, hom2Np );
+			if RGiGip1 = fail then
+				return fail;
+			fi;
+			RclFactor := [];
+			for tcc in RGiGip1 do
+				g := Representative( tcc );
+				Add( RclFactor, PreImagesRepresentative( p, g ) );
+			od;
+			Rcl := List( Cartesian( Rcl, RclFactor ), x -> x[1]*x[2] );
+		od;
+		Print("hi\n");
+		return List( Rcl, x -> ReidemeisterClass( hom1, hom2, x ) );
+	end
+);
+
 InstallMethod( ReidemeisterClasses, "for polycyclic groups",
 	[IsGroupHomomorphism and IsEndoGeneralMapping,
 	 IsGroupHomomorphism and IsEndoGeneralMapping],
 	function ( hom1, hom2 )
 		local G;
 		G := Source( hom1 );
-		if not IsPcpGroup( G ) or IsAbelian( G ) then
+		if not IsPcpGroup( G ) or IsAbelian( G ) or 
+			( IsNilpotent( G ) and IsTorsionFree( G ) ) then
 			TryNextMethod();
 		fi;
 		return ReidemeisterClassesByNormal( hom1, hom2, DerivedSubgroup( G ) );

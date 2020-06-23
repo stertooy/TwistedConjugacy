@@ -37,3 +37,7 @@ InstallMethod( CoincidenceGroup, "for finite source",
 		return SubgroupNC( H, Filtered( H, h -> h^hom1 = h^hom2 ) );
 	end
 );
+
+AdaptedLowerCentralSeriesOfGroup := function ( G )
+	return List( LowerCentralSeries(G), N -> IsolatorSubgroup( G, N ) );
+end;

@@ -50,7 +50,8 @@ DeclareOperation( "RepresentativeTwistedConjugation", [IsGroupHomomorphism, IsOb
 
 #! @BeginExample
 G := Group([ (3,4)(5,6), (1,2,3)(4,5,7) ]);;
-phi := GroupHomomorphismByImages( G, G, [ (2,7)(4,6), (1,4,5,6,7,2,3) ], [ (2,4)(6,7), (1,2,4,6,5,7,3) ] );;
+phi := GroupHomomorphismByImages( G, G, [ (2,7)(4,6), (1,4,5,6,7,2,3) ],
+ [ (2,4)(6,7), (1,2,4,6,5,7,3) ] );;
 tc := TwistedConjugation( phi );;
 IsTwistedConjugate( phi, G.1, G.1^2 );
 #! false
@@ -230,8 +231,10 @@ DeclareOperation( "RepresentativeTwistedConjugation", [IsGroupHomomorphism, IsGr
 #! @BeginExample
 G := AlternatingGroup( 6 );;
 H := SymmetricGroup( 5 );;
-phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,2)(3,4), () ] );;
-psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,4)(3,6), () ] );; 
+phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,2)(3,4), () ] );;
+psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,4)(3,6), () ] );; 
 tc := TwistedConjugation( phi, psi );;
 g1 := (4,6,5);;
 g2 := (1,6,4,2)(3,5);;
@@ -293,7 +296,8 @@ tcc := ReidemeisterClass( phi, psi, g1 );
 Representative( tcc );
 #! (4,6,5)
 GroupHomomorphismsOfReidemeisterClass( tcc );
-#! [ [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,2)(3,4), () ], [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,4)(3,6), () ] ]
+#! [ [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,2)(3,4), () ],
+#!   [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,4)(3,6), () ] ]
 ActingDomain( tcc ) = H;
 #! true
 FunctionAction( tcc )( g1, h );
@@ -341,12 +345,15 @@ DeclareOperation( "CoincidenceGroup", [IsGroupHomomorphism, IsGroupHomomorphism]
 
 #! @BeginExample
 G := AlternatingGroup( 6 );;
-phi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ], [ (1,2,6,3,5), (1,4,5) ] );;
+phi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],
+ [ (1,2,6,3,5), (1,4,5) ] );;
 FixedPointGroup( phi );
 #! Group([ (), (1,6,5,2,4), (1,5,4,6,2), (1,2,6,4,5), (1,4,2,5,6) ])
 H := SymmetricGroup( 5 );;
-khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,2)(3,4), () ] );;
-psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,4)(3,6), () ] );; 
+khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,2)(3,4), () ] );;
+psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,4)(3,6), () ] );; 
 CoincidenceGroup( khi, psi );
 #! <permutation group with 60 generators>
 #! @EndExample
@@ -370,7 +377,8 @@ DeclareGlobalFunction( "RestrictedEndomorphism" );
 
 #! @BeginExample
 G := ExamplesOfSomePcpGroups( 5 );;
-phi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3, G.4 ], [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^2, G.4^-1  ] );;
+phi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3, G.4 ],
+ [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^2, G.4^-1  ] );;
 N := DerivedSubgroup(G);;
 p := NaturalHomomorphismByNormalSubgroup( G, N );
 #! [ g1, g2, g3, g4, g2^2, g3^2, g4^2 ] -> [ g1, g2, g3, g4, id, id, id ]
