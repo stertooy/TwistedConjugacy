@@ -36,10 +36,11 @@ InstallMethod( ReidemeisterNumber, [IsGroupHomomorphism, IsGroupHomomorphism],
 		local G, H, M1, M2, TG, TH, a, A, R, det, F, p;
 		G := Source( hom1 );
 		H := Range( hom1 );
-		if not IsAlmostBieberbachGroup( G ) or not IsAlmostBieberbachGroup( H ) or 
+		if not IsPcpGroup( G ) or not IsAlmostBieberbachGroup( G ) or not IsAlmostBieberbachGroup( H ) or 
 			not HirschLength( G ) = HirschLength( H ) then
 			TryNextMethod();
 		fi;
+		# TODO: fix this: make basis from preimages from generators of ALCS
 		TG := FittingSubgroup( G );
 		TH := FittingSubgroup( H );
 		M1 := List( Pcp( TG ), g -> ExponentsByPcp( Pcp( TH ), Image( hom1, g ) ) );
@@ -68,10 +69,11 @@ InstallMethod( ReidemeisterNumber, [IsGroupHomomorphism, IsGroupHomomorphism],
 		local G, H, M1, M2, det;
 		G := Source( hom1 );
 		H := Range( hom1 );
-		if not IsNilpotent( G ) or not IsNilpotent( H ) or 
+		if not IsPcpGroup( G ) or not IsNilpotent( G ) or not IsNilpotent( H ) or 
 			not HirschLength( G ) = HirschLength( H ) then
 			TryNextMethod();
 		fi;
+		# TODO: this will probably be a part of the averaging formula
 		M1 := List( Pcp( G ), g -> ExponentsByPcp( Pcp( H ), Image( hom1, g ) ) );
 		M2 := List( Pcp( G ), g -> ExponentsByPcp( Pcp( H ), Image( hom2, g ) ) );
 		Print("hi\n");
