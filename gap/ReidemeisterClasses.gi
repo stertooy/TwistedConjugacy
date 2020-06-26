@@ -193,7 +193,7 @@ InstallMethod( ReidemeisterClasses, "for torsion-free nilpotent groups",
 				g := Representative( tcc );
 				Add( RclFactor, PreImagesRepresentative( p, g ) );
 			od;
-			Rcl := List( Cartesian( Rcl, RclFactor ), x -> x[1]*x[2] );
+			Rcl := List( Cartesian( Rcl, RclFactor ), x -> Product( x ) );
 		od;
 		Print("hi\n");
 		return List( Rcl, x -> ReidemeisterClass( hom1, hom2, x ) );

@@ -53,6 +53,7 @@ DeclareOperation( "CoincidenceGroup",
 DeclareGlobalFunction( "InducedEndomorphism" ); 
 DeclareGlobalFunction( "RestrictedEndomorphism" );
 
+DeclareGlobalFunction( "IsolatorSubgroupNC" );
 
 DeclareOperation( "RepTwistConjToId",
 	[IsGroupHomomorphism, IsGroupHomomorphism, IsObject] );

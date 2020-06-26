@@ -38,6 +38,21 @@ InstallMethod( CoincidenceGroup, "for finite source",
 	end
 );
 
+InstallGlobalFunction( IsolatorSubgroupNC, 
+	function( G, N )
+		local nat, F, T;
+		nat := NaturalHomomorphismByNormalSubgroupNC( G, N );
+		F := Image( nat );
+		T := TorsionSubgroup( F );
+		if IsBool( T ) then
+			return fail;
+		fi;
+		return PreImage( nat, T );
+	end
+);
+
 AdaptedLowerCentralSeriesOfGroup := function ( G )
-	return List( LowerCentralSeries(G), N -> IsolatorSubgroup( G, N ) );
+	return List( LowerCentralSeriesOfGroup( G ), N -> IsolatorSubgroupNC( G, N ) );
 end;
+
+# TODO: add attribute?
