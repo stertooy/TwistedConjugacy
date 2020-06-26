@@ -7,7 +7,8 @@ InstallMethod( ReidemeisterNumber, [IsGroupHomomorphism, IsGroupHomomorphism],
 		local G, H, Rcl;
 		G := Source( hom1 );
 		H := Range( hom1 );
-		if IsFinite( G ) and IsAbelian( G ) and IsFinite( H ) then
+		if IsFinite( G ) and IsAbelian( G ) and IsFinite( H ) or
+			( IsPcpGroup( G ) and IsPcpGroup( H ) ) then
 			TryNextMethod();
 		fi;
 		Rcl := ReidemeisterClasses( hom1, hom2 );
@@ -29,6 +30,36 @@ InstallMethod( ReidemeisterNumber, [IsGroupHomomorphism, IsGroupHomomorphism],
 			TryNextMethod();
 		fi;
 		return Size( G ) / Size( H ) * Size( CoincidenceGroup( hom1, hom2 ) );
+	end
+);
+
+InstallMethod( ReidemeisterNumber, "for almost-Bieberbach groups",
+	[IsGroupHomomorphism and IsEndoGeneralMapping,
+	 IsGroupHomomorphism and IsEndoGeneralMapping],
+	function ( hom1, hom2 )
+		local G, p, T, gens, R, pg, g, hom1T, hom2T, F;
+		G := Source( hom1 );
+		if not IsAlmostBieberbachGroup( G ) or IsNilpotentGroup( G ) then
+			TryNextMethod();
+		fi;
+		if not HasIsAlmostCrystallographic( G ) then
+			SetIsAlmostCrystallographic( G, true ); # Almost-Bieberbach implies Almost-Crystallographic
+			# TODO: make PR for aclib package that explicitly calls this on IsAlmostBieberbachGroup
+			# InstallTrueFilter(IsAlmostCrystallographic,IsAlmostBieberbachGroup);
+		fi;
+		p := NaturalHomomorphismOnHolonomyGroup( G );
+		F := Image( p );
+		T := FittingSubgroup( G );
+		gens := GeneratorsOfGroup( G );
+		R := 0;
+		for pg in F do
+			g := PreImagesRepresentative( p, pg );
+			hom1T := GroupHomomorphismByImagesNC( T, T, gens, List( gens, t -> (t^hom1)^g ) );
+			hom2T := GroupHomomorphismByImagesNC( T, T, gens, List( gens, t -> (t^hom2)^g ) );
+			R := R + ReidemeisterNumber( hom1T, hom2T );
+		od;
+		Print("heyhallo\n");
+		return R / Size( F );
 	end
 );
 
