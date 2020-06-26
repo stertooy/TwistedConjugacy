@@ -24,7 +24,8 @@ InstallMethod( ReidemeisterNumber, [IsGroupHomomorphism, IsGroupHomomorphism],
 		local G, H, Rcl;
 		H := Source( hom1 );
 		G := Range( hom1 );
-		if not IsFinite( G ) or not IsAbelian( G ) or not IsFinite( H ) then
+		if not IsFinite( G ) or not IsFinite( H ) or
+			not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
 		return Size( G ) / Size( H ) * Size( CoincidenceGroup( hom1, hom2 ) );
@@ -32,52 +33,44 @@ InstallMethod( ReidemeisterNumber, [IsGroupHomomorphism, IsGroupHomomorphism],
 );
 
 
-InstallMethod( ReidemeisterNumber, [IsGroupHomomorphism, IsGroupHomomorphism],
+InstallMethod( ReidemeisterNumber, "for torsion-free nilpotent groups",
+	[IsGroupHomomorphism and IsEndoGeneralMapping,
+	 IsGroupHomomorphism and IsEndoGeneralMapping],
 	function ( hom1, hom2 )
-		local G, H, g, D1, D2, det;
+		local G, ALCS, Rcl, i, Gi, Gip1, p, hom1N, hom2N, hom1Np, hom2Np, R;
 		G := Source( hom1 );
-		H := Range( hom1 );
-		if not IsPcpGroup( G ) or not IsAbelian( G ) or not IsAbelian( H ) or 
-			not HirschLength( G ) = HirschLength( H ) then
+		if not IsNilpotentGroup( G ) or not IsTorsionFree( G ) or IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		TG := TorsionSubgroup( G );
-		TH := TorsionSubgroup( H );
-		pG := NaturalHomomorphismByNormalSubgroupNC( G, TG );
-		pH := NaturalHomomorphismByNormalSubgroupNC( H, TH );
-		g := IndependentGeneratorsOfAbelianGroup( G );
-		D1 := List( g, g -> IndependentGeneratorExponents( H, Image( hom1, g ) );
-		D2 := List( g, g -> IndependentGeneratorExponents( H, Image( hom1, g ) );
-		Print("ReidNrAbelian\n");
-		det := Determinant( M1 - M2 );
-		if det <> 0 then
-			return det;
-		else
-			return infinity;
-		fi;
+		ALCS := AdaptedLowerCentralSeriesOfGroup( G );
+		R := 1;
+		for i in [1..Length( ALCS )-1 ] do
+			Gi := ALCS[i];
+			Gip1 := ALCS[i+1];
+			p := NaturalHomomorphismByNormalSubgroupNC( Gi, Gip1 );
+			hom1N := RestrictedEndomorphism( hom1, Gi );
+			hom2N := RestrictedEndomorphism( hom2, Gi );
+			hom1Np := InducedEndomorphism( p, hom1N );
+			hom2Np := InducedEndomorphism( p, hom2N );
+			R := R * ReidemeisterNumber( hom1Np, hom2Np );
+		od;
+		Print("hallodaar\n");
+		return R;
 	end
 );
 
-
-InstallMethod( ReidemeisterNumber, [IsGroupHomomorphism, IsGroupHomomorphism],
+InstallMethod( ReidemeisterNumber, "for abelian range",
+	[IsGroupHomomorphism, IsGroupHomomorphism],
 	function ( hom1, hom2 )
-		local G, H, g, D1, D2, det;
-		G := Source( hom1 );
-		H := Range( hom1 );
-		if not IsPcpGroup( G ) or not IsFreeAbelian( G ) or not IsFreeAbelian( H ) or 
-			not HirschLength( G ) = HirschLength( H ) then
+		local G, H, N;
+		G := Range( hom1 );
+		H := Source( hom1 );
+		if not IsPcpGroup( H ) or not IsPcpGroup( G ) or
+			not IsAbelian( H ) or not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		g := IndependentGeneratorsOfAbelianGroup( G );
-		D1 := List( g, g -> IndependentGeneratorExponents( H, Image( hom1, g ) );
-		D2 := List( g, g -> IndependentGeneratorExponents( H, Image( hom1, g ) );
-		Print("ReidNrTFAbelian\n");
-		det := Determinant( D1 - D2 );
-		if det <> 0 then
-			return det;
-		else
-			return infinity;
-		fi;
+		N := Image( DifferenceGroupHomomorphisms@( hom1, hom2 ) );
+		return IndexNC( G, N );
 	end
 );
 

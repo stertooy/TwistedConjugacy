@@ -52,6 +52,8 @@ DeclareOperation( "CoincidenceGroup",
 
 DeclareGlobalFunction( "InducedEndomorphism" ); 
 DeclareGlobalFunction( "RestrictedEndomorphism" );
+DeclareGlobalFunction( "InducedHomomorphism" ); 
+DeclareGlobalFunction( "RestrictedHomomorphism" );
 
 DeclareGlobalFunction( "IsolatorSubgroupNC" );
 
