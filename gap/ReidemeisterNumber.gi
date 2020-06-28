@@ -33,36 +33,31 @@ InstallMethod( ReidemeisterNumber, [IsGroupHomomorphism, IsGroupHomomorphism],
 	end
 );
 
-InstallMethod( ReidemeisterNumber, "for almost-Bieberbach groups",
+InstallMethod( ReidemeisterNumber, "for torsion-free nilpotent groups",
 	[IsGroupHomomorphism and IsEndoGeneralMapping,
 	 IsGroupHomomorphism and IsEndoGeneralMapping],
-	function ( hom1, hom2 )
-		local G, p, T, gens, R, pg, g, hom1T, hom2T, F;
+	function ( hom1, hom2 ) 
+		local G, p, RclGN, Rcl, pg, g, ighom1, RclN, iRclN, h, ihghom1, R;
 		G := Source( hom1 );
-		if not IsAlmostBieberbachGroup( G ) or IsNilpotentGroup( G ) then
-			TryNextMethod();
+		N := TorsionSubgroup( G );
+		p := NaturalHomomorphismByNormalSubgroupNC( G, N );
+		RclGN := ReidemeisterClasses( InducedEndomorphism( p, hom1 ),
+			InducedEndomorphism( p, hom2 )
+		);
+		if RclGN = fail then
+			return fail;
 		fi;
-		if not HasIsAlmostCrystallographic( G ) then
-			SetIsAlmostCrystallographic( G, true ); # Almost-Bieberbach implies Almost-Crystallographic
-			# TODO: make PR for aclib package that explicitly calls this on IsAlmostBieberbachGroup
-			# InstallTrueFilter(IsAlmostCrystallographic,IsAlmostBieberbachGroup);
-		fi;
-		p := NaturalHomomorphismOnHolonomyGroup( G );
-		F := Image( p );
-		T := FittingSubgroup( G );
-		gens := GeneratorsOfGroup( G );
+		RclGN := List( RclGN, g -> PreImagesRepresentative( p, Representative( g ) ) );
 		R := 0;
-		for pg in F do
-			g := PreImagesRepresentative( p, pg );
-			hom1T := GroupHomomorphismByImagesNC( T, T, gens, List( gens, t -> (t^hom1)^g ) );
-			hom2T := GroupHomomorphismByImagesNC( T, T, gens, List( gens, t -> (t^hom2)^g ) );
-			R := R + ReidemeisterNumber( hom1T, hom2T );
+		for g in RclGN do
+			ighom1 := ComposeWithInnerAutomorphism@( g^-1, hom1 );
+			R := R + ReidemeisterNumber( RestrictedEndomorphism( ighom1, N ),
+				RestrictedEndomorphism( hom2, N ) 
+			);
 		od;
-		Print("heyhallo\n");
-		return R / Size( F );
+		return R;
 	end
 );
-
 
 InstallMethod( ReidemeisterNumber, "for torsion-free nilpotent groups",
 	[IsGroupHomomorphism and IsEndoGeneralMapping,

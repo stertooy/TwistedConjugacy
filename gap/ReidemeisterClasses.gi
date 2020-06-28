@@ -200,6 +200,42 @@ InstallMethod( ReidemeisterClasses, "for torsion-free nilpotent groups",
 	end
 );
 
+
+InstallMethod( ReidemeisterClasses, "for nilpotent groups",
+	[IsGroupHomomorphism and IsEndoGeneralMapping,
+	 IsGroupHomomorphism and IsEndoGeneralMapping],
+	function ( hom1, hom2 ) 
+		local G, p, RclGN, Rcl, pg, g, ighom1, RclN, iRclN, h, ihghom1;
+		G := Source( hom1 );
+		N := TorsionSubgroup( G );
+		p := NaturalHomomorphismByNormalSubgroupNC( G, N );
+		RclGN := ReidemeisterClasses( InducedEndomorphism( p, hom1 ),
+			InducedEndomorphism( p, hom2 )
+		);
+		if RclGN = fail then
+			return fail;
+		fi;
+		RclGN := List( RclGN, g -> PreImagesRepresentative( p, Representative( g ) ) );
+		Rcl := [];
+		for g in RclGN do
+			ighom1 := ComposeWithInnerAutomorphism@( g^-1, hom1 );
+			RclN := ReidemeisterClasses( RestrictedEndomorphism( ighom1, N ),
+				RestrictedEndomorphism( hom2, N ) 
+			);
+			if RclN = fail then
+				return fail;
+			fi;
+			RclN := List( RclN, g -> Representative( g ) );
+			Append( Rcl, 
+				List( RclN, l -> ReidemeisterClass( hom1, hom2, l*g ) ) 
+			);
+		od;
+		return Rcl;
+	end
+);
+
+
+
 InstallMethod( ReidemeisterClasses, "for polycyclic groups",
 	[IsGroupHomomorphism and IsEndoGeneralMapping,
 	 IsGroupHomomorphism and IsEndoGeneralMapping],
@@ -255,6 +291,7 @@ InstallMethod( ReidemeisterClassesByNormal,
 		Rcl := [];
 		for pg in RclGN do
 			g := PreImagesRepresentative( p, pg );
+			# TODO: Calculate preimages immediately?
 			ighom1 := ComposeWithInnerAutomorphism@( g^-1, hom1 );
 			RclN := ReidemeisterClasses( RestrictedEndomorphism( ighom1, N ),
 				RestrictedEndomorphism( hom2, N ) 
