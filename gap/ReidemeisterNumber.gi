@@ -7,8 +7,11 @@ InstallMethod( ReidemeisterNumber, [IsGroupHomomorphism, IsGroupHomomorphism],
 		local G, H, Rcl;
 		G := Source( hom1 );
 		H := Range( hom1 );
-		if IsFinite( G ) and IsAbelian( G ) and IsFinite( H ) or
-			( IsPcpGroup( G ) and IsPcpGroup( H ) ) then
+		if IsFinite( G ) and IsAbelian( G ) and IsFinite( H ) or ( 
+			IsPcpGroup( G ) and IsPcpGroup( H ) and 
+			IsNilpotent( G ) and IsNilpotent( H ) and 
+			IsEndoGeneralMapping( hom1 ) and IsEndoGeneralMapping( hom2 ) 
+		) then
 			TryNextMethod();
 		fi;
 		Rcl := ReidemeisterClasses( hom1, hom2 );
@@ -33,7 +36,7 @@ InstallMethod( ReidemeisterNumber, [IsGroupHomomorphism, IsGroupHomomorphism],
 	end
 );
 
-InstallMethod( ReidemeisterNumber, "for torsion-free nilpotent groups",
+InstallMethod( ReidemeisterNumber, "for nilpotent groups",
 	[IsGroupHomomorphism and IsEndoGeneralMapping,
 	 IsGroupHomomorphism and IsEndoGeneralMapping],
 	function ( hom1, hom2 ) 
