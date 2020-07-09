@@ -2,15 +2,14 @@
 ##
 ## ReidemeisterNumber( hom1, hom2 )
 ##
-InstallMethod( ReidemeisterNumber, [IsGroupHomomorphism, IsGroupHomomorphism],
+InstallMethod(
+	ReidemeisterNumber,
+	"by counting Reidemeister classes",
+	[IsGroupHomomorphism, IsGroupHomomorphism],
+	0,
 	function ( hom1, hom2 )
-		local G, H, Rcl;
-		G := Source( hom1 );
-		H := Range( hom1 );
-		if IsFinite( G ) and IsAbelian( G ) and IsFinite( H ) or
-			( IsPcpGroup( G ) and IsPcpGroup( H ) ) then
-			TryNextMethod();
-		fi;
+		local Rcl;
+		Print("fallback");
 		Rcl := ReidemeisterClasses( hom1, hom2 );
 		if Rcl <> fail then
 			return Size( Rcl );
@@ -20,32 +19,61 @@ InstallMethod( ReidemeisterNumber, [IsGroupHomomorphism, IsGroupHomomorphism],
 	end
 );
 
-InstallMethod( ReidemeisterNumber, [IsGroupHomomorphism, IsGroupHomomorphism],
+InstallMethod(
+	ReidemeisterNumber,
+	"for finite groups with abelian range",
+	[IsGroupHomomorphism, IsGroupHomomorphism],
+	1,
 	function ( hom1, hom2 )
 		local G, H, Rcl;
+		Print(" HAI COIN ");
 		H := Source( hom1 );
 		G := Range( hom1 );
 		if not IsFinite( G ) or not IsFinite( H ) or
 			not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
+
 		return Size( G ) / Size( H ) * Size( CoincidenceGroup( hom1, hom2 ) );
 	end
 );
 
-InstallMethod( ReidemeisterNumber, "for torsion-free nilpotent groups",
+InstallMethod(
+	ReidemeisterNumber,
+	"for pcp-groups with abelian range",
+	[IsGroupHomomorphism, IsGroupHomomorphism],
+	20,
+	function ( hom1, hom2 )
+		local G, H;
+		Print(" Hai index  ");
+		H := Source( hom1 );
+		G := Range( hom1 );
+		if not IsPcpGroup( H ) or not IsPcpGroup( G ) or 
+			not IsAbelian( G ) then
+			TryNextMethod();
+		fi;
+		return IndexNC( G, Image( DifferenceGroupHomomorphisms@( hom1, hom2 ) ) );
+	end
+);
+
+InstallMethod( ReidemeisterNumber, "for nilpotent groups",
 	[IsGroupHomomorphism and IsEndoGeneralMapping,
 	 IsGroupHomomorphism and IsEndoGeneralMapping],
+	0,
 	function ( hom1, hom2 ) 
-		local G, p, RclGN, Rcl, pg, g, ighom1, RclN, iRclN, h, ihghom1, R;
+		local G, N, p, RclGN, Rcl, pg, g, ighom1, RclN, iRclN, h, ihghom1, R;
+		Print("nilpotent\n");
 		G := Source( hom1 );
+		if not IsNilpotentGroup( G ) then
+			TryNextMethod();
+		fi;
 		N := TorsionSubgroup( G );
 		p := NaturalHomomorphismByNormalSubgroupNC( G, N );
 		RclGN := ReidemeisterClasses( InducedEndomorphism( p, hom1 ),
 			InducedEndomorphism( p, hom2 )
 		);
 		if RclGN = fail then
-			return fail;
+			return infinity;
 		fi;
 		RclGN := List( RclGN, g -> PreImagesRepresentative( p, Representative( g ) ) );
 		R := 0;
@@ -62,8 +90,10 @@ InstallMethod( ReidemeisterNumber, "for torsion-free nilpotent groups",
 InstallMethod( ReidemeisterNumber, "for torsion-free nilpotent groups",
 	[IsGroupHomomorphism and IsEndoGeneralMapping,
 	 IsGroupHomomorphism and IsEndoGeneralMapping],
+	1,
 	function ( hom1, hom2 )
 		local G, ALCS, Rcl, i, Gi, Gip1, p, hom1N, hom2N, hom1Np, hom2Np, R;
+		Print("TFnilpotent\n");
 		G := Source( hom1 );
 		if not IsNilpotentGroup( G ) or not IsTorsionFree( G ) or IsAbelian( G ) then
 			TryNextMethod();
@@ -80,29 +110,15 @@ InstallMethod( ReidemeisterNumber, "for torsion-free nilpotent groups",
 			hom2Np := InducedEndomorphism( p, hom2N );
 			R := R * ReidemeisterNumber( hom1Np, hom2Np );
 		od;
-		Print("hallodaar\n");
 		return R;
 	end
 );
 
-InstallMethod( ReidemeisterNumber, "for abelian range",
-	[IsGroupHomomorphism, IsGroupHomomorphism],
-	function ( hom1, hom2 )
-		local G, H, N;
-		G := Range( hom1 );
-		H := Source( hom1 );
-		if not IsPcpGroup( H ) or not IsPcpGroup( G ) or
-			not IsAbelian( H ) or not IsAbelian( G ) then
-			TryNextMethod();
-		fi;
-		N := Image( DifferenceGroupHomomorphisms@( hom1, hom2 ) );
-		return IndexNC( G, N );
-	end
-);
+
 
 RedispatchOnCondition( ReidemeisterNumber, true, 
 	[IsGroupHomomorphism, IsGroupHomomorphism],
-	[IsEndoGeneralMapping, IsEndoGeneralMapping], 0 );
+	[IsEndoGeneralMapping, IsEndoGeneralMapping], 999 );
 
 
 ###############################################################################
@@ -118,4 +134,4 @@ InstallOtherMethod( ReidemeisterNumber,
 
 RedispatchOnCondition( ReidemeisterNumber, true, 
 	[IsGroupHomomorphism],
-	[IsEndoGeneralMapping], 0 );
+	[IsEndoGeneralMapping], 999 );

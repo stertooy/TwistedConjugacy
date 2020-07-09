@@ -37,7 +37,7 @@ InstallOtherMethod( ReidemeisterClass, "for twisted conjugacy",
 );
 
 RedispatchOnCondition( ReidemeisterClass, true, 
-	[IsGroupHomomorphism, IsObject], [IsEndoGeneralMapping, IsObject], 0 );
+	[IsGroupHomomorphism, IsObject], [IsEndoGeneralMapping, IsObject], 999 );
 	
 
 ###############################################################################
@@ -205,8 +205,11 @@ InstallMethod( ReidemeisterClasses, "for nilpotent groups",
 	[IsGroupHomomorphism and IsEndoGeneralMapping,
 	 IsGroupHomomorphism and IsEndoGeneralMapping],
 	function ( hom1, hom2 ) 
-		local G, p, RclGN, Rcl, pg, g, ighom1, RclN, iRclN, h, ihghom1;
+		local G, p, RclGN, Rcl, pg, g, ighom1, RclN, iRclN, h, ihghom1, N;
 		G := Source( hom1 );
+		if not IsNilpotentGroup( G ) or IsTorsionFree( G ) or IsAbelian( G ) then
+			TryNextMethod();
+		fi;
 		N := TorsionSubgroup( G );
 		p := NaturalHomomorphismByNormalSubgroupNC( G, N );
 		RclGN := ReidemeisterClasses( InducedEndomorphism( p, hom1 ),
@@ -322,5 +325,5 @@ InstallMethod( ReidemeisterClassesByNormal,
 
 RedispatchOnCondition( ReidemeisterClassesByNormal, true, 
 	[IsGroupHomomorphism, IsGroupHomomorphism, IsGroup],
-	[IsEndoGeneralMapping, IsEndoGeneralMapping, IsGroup], 0 );
+	[IsEndoGeneralMapping, IsEndoGeneralMapping, IsGroup], 999 );
 	
