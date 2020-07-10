@@ -19,7 +19,11 @@ RedispatchOnCondition( FixedPointGroup, true,
 InstallMethod( CoincidenceGroup, "for abelian range", 
 	[IsGroupHomomorphism, IsGroupHomomorphism], 1,
 	function ( hom1, hom2 )
-		if not IsAbelian( Range( hom1 ) ) then
+		local G, H;
+		H := Source( hom1 );
+		G := Range( hom1 );
+		if not IsPcpGroup( H ) or not IsPcpGroup( G ) or 
+			not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
 		return Kernel( DifferenceGroupHomomorphisms@ ( hom1, hom2 ) );
@@ -39,8 +43,3 @@ InstallMethod( CoincidenceGroup, "for finite source",
 );
 
 
-AdaptedLowerCentralSeriesOfGroup := function ( G )
-	return List( LowerCentralSeriesOfGroup( G ), N -> IsolatorSubgroup( G, N ) );
-end;
-
-# TODO: add attribute?

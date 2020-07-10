@@ -1,5 +1,15 @@
 This file describes changes in the GAP package 'TwistedConjugacy'.
 
+1.1.0 (07/06/2020)
+------------------
+
+- Improved calculation of Reidemeister number for (finite) abelian groups
+- Added AClib package as recommended, and provided the following new methods if it is loaded:
+	- AdaptedLowerCentralSeries for nilpotent groups
+	- Improved calculation of Reidemeister classes for (torsion-free) nilpotent groups
+	- Improved calculation of Reidemeister number for (torsion-free) nilpotent groups
+
+
 1.0.1 (07/06/2020)
 ------------------
 

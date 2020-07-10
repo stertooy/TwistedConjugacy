@@ -28,7 +28,7 @@ recognizes the TwistedConjugacy package using the following command:
 
     gap> LoadPackage("TwistedConjugacy");
 	─────────────────────────────────────────────────────────────────────────────
-	Loading  TwistedConjugacy 1.0.1 (Computation with twisted conjugacy classes)
+	Loading  TwistedConjugacy 1.1.0 (Computation with twisted conjugacy classes)
 	by Sam Tertooy (https://www.kuleuven-kulak.be/~u0092325/).
 	Homepage: https://sTertooy.github.io/TwistedConjugacy/
 	Report issues at https://github.com/sTertooy/TwistedConjugacy/issues
