@@ -17,7 +17,7 @@ RedispatchOnCondition( FixedPointGroup, true,
 ## CoincidenceGroup( hom1, hom2 )
 ##
 InstallMethod( CoincidenceGroup, "for abelian range", 
-	[IsGroupHomomorphism, IsGroupHomomorphism], 1,
+	[IsGroupHomomorphism, IsGroupHomomorphism], 21,
 	function ( hom1, hom2 )
 		local G, H;
 		H := Source( hom1 );
@@ -31,7 +31,7 @@ InstallMethod( CoincidenceGroup, "for abelian range",
 );
 
 InstallMethod( CoincidenceGroup, "for finite source", 
-	[IsGroupHomomorphism, IsGroupHomomorphism], 0,
+	[IsGroupHomomorphism, IsGroupHomomorphism], 20,
 	function ( hom1, hom2 )
 		local H;
 		H := Source( hom1 );
@@ -42,4 +42,27 @@ InstallMethod( CoincidenceGroup, "for finite source",
 	end
 );
 
+InstallMethod( CoincidenceGroup, "for endomorphisms of nilpotent groups", 
+	[IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and IsEndoGeneralMapping], 1,
+	function ( endo1, endo2 )
+		local G, LCS, N, p, endo1GN, endo2GN, CoinGN, pinvCoinGN, gens, diff;
+		G := Source( endo1 );
+		if not IsPcpGroup( G ) or not IsNilpotentGroup( G ) then
+			TryNextMethod();
+		fi;
+		LCS := LowerCentralSeriesOfGroup( G );
+		N := LCS[Length( LCS )-1];
+		p := NaturalHomomorphismByNormalSubgroupNC( G, N );
+		endo1GN := InducedEndomorphism( p, endo1 );
+		endo2GN := InducedEndomorphism( p, endo2 );
+		CoinGN := CoincidenceGroup( endo1GN, endo2GN );
+		pinvCoinGN := PreImage( p, CoinGN );
+		gens := GeneratorsOfGroup( pinvCoinGN );
+		diff := GroupHomomorphismByImagesNC( pinvCoinGN, N, gens, List( gens, g -> g^endo2 * (g^endo1)^-1 ) );
+		return Kernel( diff );
+	end
+);
+
+RedispatchOnCondition( CoincidenceGroup, true, 
+	[IsGroupHomomorphism, IsGroupHomomorphism], [IsEndoGeneralMapping, IsEndoGeneralMapping], 0 );
 

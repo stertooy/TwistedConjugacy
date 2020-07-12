@@ -103,6 +103,50 @@ InstallMethod( PrintObj, "for Reidemeister classes",
 
 ###############################################################################
 ##
+## ReidemeisterClassesByNormal( endo1, endo2, N )
+##
+ReidemeisterClassesByNormal@ := function ( endo1, endo2, N ) 
+	local G, p, RclGN, Rcl, pg, g, igendo1, RclN, iRclN, h;
+	G := Source( endo1 );
+	p := NaturalHomomorphismByNormalSubgroupNC( G, N );
+	RclGN := ReidemeisterClasses(
+		InducedEndomorphism( p, endo1 ),
+		InducedEndomorphism( p, endo2 )
+	);
+	if RclGN = fail then
+		return fail;
+	fi;
+	RclGN := List( RclGN, g -> Representative( g ) );
+	Rcl := [];
+	for pg in RclGN do
+		g := PreImagesRepresentative( p, pg );
+		igendo1 := ComposeWithInnerAutomorphism@( g^-1, endo1 );
+		RclN := ReidemeisterClasses(
+			RestrictedEndomorphism( igendo1, N ),
+			RestrictedEndomorphism( endo2, N ) 
+		);
+		if RclN = fail then
+			return fail;
+		fi;
+		RclN := List( RclN, g -> Representative( g ) );
+		iRclN := [Remove( RclN, 1 )];
+		for h in RclN do
+			if ForAll( iRclN, 
+				k -> not IsTwistedConjugate( igendo1, endo2, k, h )
+			) then
+				Add( iRclN, h );
+			fi;
+		od;
+		Append( Rcl, 
+			List( iRclN, l -> ReidemeisterClass( endo1, endo2, l*g ) ) 
+		);
+	od;
+	return Rcl;
+end;
+
+
+###############################################################################
+##
 ## ReidemeisterClasses( hom1, hom2 )
 ##
 InstallMethod( ReidemeisterClasses, "for finite groups",
@@ -166,7 +210,6 @@ InstallMethod( ReidemeisterClasses, "for abelian range",
 	end
 );
 
-
 InstallMethod( ReidemeisterClasses, "for polycyclic groups",
 	[IsGroupHomomorphism and IsEndoGeneralMapping,
 	 IsGroupHomomorphism and IsEndoGeneralMapping],
@@ -176,9 +219,13 @@ InstallMethod( ReidemeisterClasses, "for polycyclic groups",
 		if not IsPcpGroup( G ) then
 			TryNextMethod();
 		fi;
-		return ReidemeisterClassesByNormal( hom1, hom2, DerivedSubgroup( G ) );
+		return ReidemeisterClassesByNormal@( hom1, hom2, DerivedSubgroup( G ) );
 	end
 );
+
+RedispatchOnCondition( ReidemeisterClasses, true, 
+	[IsGroupHomomorphism, IsGroupHomomorphism],
+	[IsEndoGeneralMapping, IsEndoGeneralMapping], 999 );
 
 
 ###############################################################################
@@ -194,63 +241,3 @@ InstallOtherMethod( ReidemeisterClasses,
 
 RedispatchOnCondition( ReidemeisterClasses, true, 
 	[IsGroupHomomorphism], [IsEndoGeneralMapping], 999 );
-
-RedispatchOnCondition( ReidemeisterClasses, true, 
-	[IsGroupHomomorphism, IsGroupHomomorphism],
-	[IsEndoGeneralMapping, IsEndoGeneralMapping], 999 );
-
-
-###############################################################################
-##
-## ReidemeisterClassesByNormal( hom1, hom2, N )
-##
-InstallMethod( ReidemeisterClassesByNormal,
-	[IsGroupHomomorphism and IsEndoGeneralMapping, 
-	 IsGroupHomomorphism and IsEndoGeneralMapping, IsGroup], 
-	function ( hom1, hom2, N ) 
-		local G, p, RclGN, Rcl, pg, g, ighom1, RclN, iRclN, h, ihghom1;
-		G := Source( hom1 );
-		p := NaturalHomomorphismByNormalSubgroupNC( G, N );
-		RclGN := ReidemeisterClasses( InducedEndomorphism( p, hom1 ),
-			InducedEndomorphism( p, hom2 )
-		);
-		if RclGN = fail then
-			return fail;
-		fi;
-		RclGN := List( RclGN, g -> Representative( g ) );
-		Rcl := [];
-		for pg in RclGN do
-			g := PreImagesRepresentative( p, pg );
-			# TODO: Calculate preimages immediately?
-			ighom1 := ComposeWithInnerAutomorphism@( g^-1, hom1 );
-			RclN := ReidemeisterClasses( RestrictedEndomorphism( ighom1, N ),
-				RestrictedEndomorphism( hom2, N ) 
-			);
-			if RclN = fail then
-				return fail;
-			fi;
-			RclN := List( RclN, g -> Representative( g ) );
-			iRclN := [Remove( RclN, 1 )];
-			for h in RclN do
-				# Condition below is basically just
-				# IsTwistedConjugate( igendo, k, h )
-				# This way of formulating speeds things up
-				ihghom1 := ComposeWithInnerAutomorphism@( h^-1, ighom1 );
-				if ForAll( iRclN, 
-					k -> RepTwistConjToId( ihghom1, hom2, k*h^-1  ) = fail 
-				) then
-					Add( iRclN, h );
-				fi;
-			od;
-			Append( Rcl, 
-				List( iRclN, l -> ReidemeisterClass( hom1, hom2, l*g ) ) 
-			);
-		od;
-		return Rcl;
-	end
-);
-
-RedispatchOnCondition( ReidemeisterClassesByNormal, true, 
-	[IsGroupHomomorphism, IsGroupHomomorphism, IsGroup],
-	[IsEndoGeneralMapping, IsEndoGeneralMapping, IsGroup], 999 );
-	

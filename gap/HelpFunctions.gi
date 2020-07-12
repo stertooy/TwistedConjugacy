@@ -20,26 +20,6 @@ InstallGlobalFunction( InducedEndomorphism,
 
 ###############################################################################
 ##
-## InducedHomomorphism( epi1, epi2, hom )
-##
-InstallGlobalFunction( InducedHomomorphism,
-	function ( epi1, epi2, hom )
-    	local H, G, gens, indu;
-    	H := Range( epi1 );
-		G := Range( epi2 );
-		gens := GeneratorsOfGroup( H );
-		indu := GroupHomomorphismByImagesNC(
-			H, G, gens, List( gens, 
-				h -> ( PreImagesRepresentative( epi1, h )^hom )^epi2
-			)
-		);
-		return indu;
-	end
-);
-
-
-###############################################################################
-##
 ## RestrictedEndomorphism( endo, N )
 ##
 InstallGlobalFunction( RestrictedEndomorphism,
@@ -57,33 +37,21 @@ InstallGlobalFunction( RestrictedEndomorphism,
 
 ###############################################################################
 ##
-## RestrictedHomomorphism( hom, N, M )
-##
-InstallGlobalFunction( RestrictedHomomorphism,
-	function ( hom, N, M )
-    	local gens, rest;
-		gens := GeneratorsOfGroup( N );
-		rest := GroupHomomorphismByImagesNC(
-			N, M, gens, List( gens, n -> n^hom )
-		);
-		return rest;
-	end
-);
-
-
-###############################################################################
-##
 ## DifferenceGroupHomomorphisms@( hom1, hom2 )
 ##
 ##	Returns the homomorphism that maps g to g^hom2*( g^hom1 )^-1
 ##
 DifferenceGroupHomomorphisms@ := function ( hom1, hom2 )
-  	local G, gens;
+  	local G, gens, hom;
 	G := Source( hom1 );
 	gens := GeneratorsOfGroup( G );
-	return GroupHomomorphismByImagesNC( G, Range( hom1 ), gens, 
+	hom := GroupHomomorphismByImagesNC( G, Range( hom1 ), gens, 
 		List( gens, g -> g^hom2*( g^hom1 )^-1 )
 	);
+	if HasIsEndoGeneralMapping( hom1 ) and IsEndoGeneralMapping( hom1 ) then
+		SetIsEndoGeneralMapping( hom, true );
+	fi;
+	return hom;
 end;
 
 
@@ -93,13 +61,13 @@ end;
 ##
 ##	Returns the endomorphism that maps h to h^g
 ##
-ComposeWithInnerAutomorphism@ :=	function ( g, hom )
+ComposeWithInnerAutomorphism@ := function ( g, hom )
     local gens, comp;
 	gens := MappingGeneratorsImages( hom );
 	comp := GroupHomomorphismByImagesNC( Source( hom ), Range( hom ), gens[1], 
 		List( gens[2], h -> h^g )
 	);
-	if IsEndoGeneralMapping( hom ) then
+	if HasIsEndoGeneralMapping( hom ) and IsEndoGeneralMapping( hom ) then
 		SetIsEndoGeneralMapping( comp, true );
 	fi;
 	return comp;

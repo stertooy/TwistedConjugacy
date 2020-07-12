@@ -52,17 +52,9 @@ DeclareOperation( "CoincidenceGroup",
 
 DeclareGlobalFunction( "InducedEndomorphism" ); 
 DeclareGlobalFunction( "RestrictedEndomorphism" );
-DeclareGlobalFunction( "InducedHomomorphism" ); 
-DeclareGlobalFunction( "RestrictedHomomorphism" );
-
-DeclareGlobalFunction( "IsolatorSubgroupNC" );
 
 DeclareOperation( "RepTwistConjToId",
 	[IsGroupHomomorphism, IsGroupHomomorphism, IsObject] );
-DeclareOperation( "RepTwistConjToIdByNormal",
-	[IsGroupHomomorphism, IsGroupHomomorphism, IsObject, IsGroup] );
-DeclareOperation( "ReidemeisterClassesByNormal",
-	[IsGroupHomomorphism, IsGroupHomomorphism, IsGroup] );
 
 
 DeclareRepresentation( "IsReidemeisterClassGroupRep", IsExternalOrbit, [] );
