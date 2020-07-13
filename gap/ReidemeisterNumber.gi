@@ -48,7 +48,7 @@ InstallMethod(
 			not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		return IndexNC( G, Image( 
+		return IndexNC( G, Image(
 			DifferenceGroupHomomorphisms@( hom1, hom2 )
 		));
 	end
