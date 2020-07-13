@@ -24,6 +24,13 @@ gap> ReidemeisterNumber( phiH, psiH );
 4
 gap> ReidemeisterClasses( phiH, psiH );
 [ id^G, g3^3^G, g1^G, g1*g3^3^G ]
+gap> ReidemeisterClasses( IdentityMapping( H ) );
+fail
+gap> K := ExamplesOfSomePcpGroups( 14 );;
+gap> ReidemeisterClasses( IdentityMapping( K ) );
+fail
+gap> ReidemeisterNumber( IdentityMapping( K ) );
+infinity
 
 #
 gap> STOP_TEST( "infinite_nilpotent.tst" );
