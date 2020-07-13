@@ -65,14 +65,13 @@ InstallMethod(
 		Rcl := [];
 		for g in RclGN do
 			igendo1 := ComposeWithInnerAutomorphism@( g^-1, endo1 );
-			RclN := ReidemeisterClasses(
-				RestrictedEndomorphism( igendo1, N ),
-				RestrictedEndomorphism( endo2, N ) 
+			RclN := List( 
+				ReidemeisterClasses(
+					RestrictedEndomorphism( igendo1, N ),
+					RestrictedEndomorphism( endo2, N ) 
+				),
+				tcc -> Representative( tcc )
 			);
-			if RclN = fail then
-				return fail;
-			fi;
-			RclN := List( RclN, tcc -> Representative( tcc ) );
 			Append( Rcl, 
 				List( RclN, n -> ReidemeisterClass( endo1, endo2, n*g ) ) 
 			);
