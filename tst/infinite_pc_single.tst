@@ -53,6 +53,11 @@ infinity
 gap> triv := GroupHomomorphismByFunction( G, G, g -> One( G ) );;
 gap> ReidemeisterClasses( triv );
 [ id^G ]
+gap> G := ExamplesOfSomePcpGroups( 2 );;
+gap> ReidemeisterNumber( IdentityMapping( G ) );
+infinity
+gap> IsTwistedConjugate( IdentityMapping( G ), G.1, G.2 );
+Error, no algorithm available!
 
 #
 gap> STOP_TEST( "infinite_pc_single.tst" );

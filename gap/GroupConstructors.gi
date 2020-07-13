@@ -63,7 +63,8 @@ InstallMethod(
 	function ( endo1, endo2 )
 		local G, LCS, N, p, CoinGN, pinvCoinGN, gens, diff;
 		G := Source( endo1 );
-		if not IsPcpGroup( G ) or not IsNilpotentGroup( G ) then
+		if not IsPcpGroup( G ) or not IsNilpotentGroup( G ) or
+			IsAbelian( G ) then
 			TryNextMethod();
 		fi;
 		LCS := LowerCentralSeriesOfGroup( G );

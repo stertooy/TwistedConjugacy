@@ -40,6 +40,15 @@ gap> PrintReidemeisterZeta( phi );
 "( 1-z^1 )^-4 * ( 1-z^2 )^-1 * ( 1-z^3 )^-2"
 gap> ReidemeisterZetaCoefficients( phi );
 [ 4, 6, 10, 6, 4, 12 ]
+gap> p := NaturalHomomorphismByNormalSubgroup( G, DerivedSubgroup( G ) );;
+gap> H := Image( p );;
+gap> psi := InducedEndomorphism( p, phi );;
+gap> ReidemeisterNumber( psi );
+2
+gap> i := IsomorphismPcpGroup( G );;
+gap> khi := InverseGeneralMapping(i)*phi*i;;
+gap> ReidemeisterNumber( khi );
+4
 
 #
 gap> STOP_TEST( "finite_pc_single.tst" );
