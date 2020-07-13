@@ -8,17 +8,20 @@ DeclareOperation(
 );
 DeclareOperation(
 	"IsTwistedConjugate",
-	[ IsGroupHomomorphism, IsGroupHomomorphism, IsObject, IsObject ]
+	[ IsGroupHomomorphism, IsGroupHomomorphism, 
+	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ]
 );
 DeclareOperation(
 	"RepresentativeTwistedConjugation",
-	[ IsGroupHomomorphism, IsGroupHomomorphism, IsObject, IsObject ]
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ]
 );
 
 
 DeclareOperation(
 	"ReidemeisterClass",
-	[ IsGroupHomomorphism, IsGroupHomomorphism, IsObject ]
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ]
 );
 DeclareSynonym(
 	"TwistedConjugacyClass",
@@ -107,7 +110,8 @@ DeclareGlobalFunction( "RestrictedEndomorphism" );
 
 DeclareOperation(
 	"RepTwistConjToId",
-	[ IsGroupHomomorphism, IsGroupHomomorphism, IsObject ]
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ]
 );
 
 

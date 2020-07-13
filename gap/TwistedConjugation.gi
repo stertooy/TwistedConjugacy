@@ -40,7 +40,8 @@ RedispatchOnCondition(
 ##
 InstallMethod(
 	IsTwistedConjugate, 
-	[ IsGroupHomomorphism, IsGroupHomomorphism, IsObject, IsObject ],
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	function ( hom1, hom2, g1, g2 )
 		local R;
 		R := RepresentativeTwistedConjugation( hom1, hom2, g1, g2 );
@@ -59,7 +60,8 @@ InstallMethod(
 ##
 InstallOtherMethod(
 	IsTwistedConjugate, 
-	[ IsGroupHomomorphism and IsEndoGeneralMapping, IsObject, IsObject ],
+	[ IsGroupHomomorphism and IsEndoGeneralMapping,
+	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	function ( endo, g1, g2 )
 		return IsTwistedConjugate( 
 			endo, IdentityMapping( Source( endo ) ), g1, g2 
@@ -70,8 +72,10 @@ InstallOtherMethod(
 RedispatchOnCondition(
 	IsTwistedConjugate,
 	true, 
-	[ IsGroupHomomorphism, IsObject, IsObject ],
-	[ IsEndoGeneralMapping, IsObject, IsObject ],
+	[ IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
+	[ IsEndoGeneralMapping, IsMultiplicativeElementWithInverse,
+	  IsMultiplicativeElementWithInverse ],
 	0
 );
 
@@ -82,7 +86,8 @@ RedispatchOnCondition(
 ##
 InstallMethod(
 	RepresentativeTwistedConjugation, 
-	[ IsGroupHomomorphism, IsGroupHomomorphism, IsObject, IsObject ], 
+	[ IsGroupHomomorphism, IsGroupHomomorphism, 
+	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	function ( hom1, hom2, g1, g2 )
 		return RepTwistConjToId( 
 			ComposeWithInnerAutomorphism@( g2^-1, hom1 ), hom2, g1*g2^-1 
@@ -97,7 +102,8 @@ InstallMethod(
 ##
 InstallOtherMethod(
 	RepresentativeTwistedConjugation, 
-	[ IsGroupHomomorphism and IsEndoGeneralMapping, IsObject, IsObject ], 
+	[ IsGroupHomomorphism and IsEndoGeneralMapping,
+	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	function ( endo, g1, g2 )
 		return RepresentativeTwistedConjugation( 
 			endo, IdentityMapping( Source( endo ) ), g1, g2
@@ -108,8 +114,10 @@ InstallOtherMethod(
 RedispatchOnCondition(
 	RepresentativeTwistedConjugation,
 	true, 
-	[ IsGroupHomomorphism, IsObject, IsObject ],
-	[ IsEndoGeneralMapping, IsObject, IsObject ],
+	[ IsGroupHomomorphism, 
+	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
+	[ IsEndoGeneralMapping,
+	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	0
 );
 
@@ -155,7 +163,8 @@ end;
 InstallMethod(
 	RepTwistConjToId,
 	"for finite groups",
-	[ IsGroupHomomorphism, IsGroupHomomorphism, IsObject ],
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ],
 	function ( hom1, hom2, g )
 		local H;
 		H := Source( hom1 );
@@ -171,7 +180,8 @@ InstallMethod(
 InstallMethod(
 	RepTwistConjToId,
 	"for pcp-groups with abelian range", 
-	[ IsGroupHomomorphism, IsGroupHomomorphism, IsObject ],
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ],
 	20,
 	function ( hom1, hom2, g )
 		local G, H;
@@ -199,7 +209,7 @@ InstallMethod(
 	"for endomorphisms of nilpotent groups",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping,
-	  IsObject ],
+	  IsMultiplicativeElementWithInverse ],
 	1,
 	function ( endo1, endo2, g )
 		local G, LCS, N, p, endo1GN, endo2GN, Coin, pk, k, tc, n,
@@ -256,7 +266,7 @@ InstallMethod(
 	"for endomorphisms of polycyclic groups",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping,
-	  IsObject ],
+	  IsMultiplicativeElementWithInverse ],
 	0,
 	function ( endo1, endo2, g )
 		local G;
@@ -274,7 +284,9 @@ InstallMethod(
 RedispatchOnCondition(
 	RepTwistConjToId,
 	true, 
-	[ IsGroupHomomorphism, IsGroupHomomorphism, IsObject ],
-	[ IsEndoGeneralMapping, IsEndoGeneralMapping, IsObject ],
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ],
+	[ IsEndoGeneralMapping, IsEndoGeneralMapping,
+	  IsMultiplicativeElementWithInverse ],
 	999
 );

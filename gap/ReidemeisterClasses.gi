@@ -5,7 +5,8 @@
 InstallMethod(
 	ReidemeisterClass,
 	"for double twisted conjugacy",
-	[ IsGroupHomomorphism, IsGroupHomomorphism, IsObject ],
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ],
 	function ( hom1, hom2, g )
 		local G, H, fam, typ, tc, tcc;
 		G := Range( hom1 );
@@ -36,7 +37,8 @@ InstallMethod(
 InstallOtherMethod(
 	ReidemeisterClass,
 	"for twisted conjugacy",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping, IsObject ],
+	[ IsGroupHomomorphism and IsEndoGeneralMapping,
+	  IsMultiplicativeElementWithInverse ],
 	function ( endo, g )
 		return ReidemeisterClass( endo, IdentityMapping( Source( endo ) ), g );
 	end 
@@ -45,8 +47,8 @@ InstallOtherMethod(
 RedispatchOnCondition(
 	ReidemeisterClass,
 	true, 
-	[ IsGroupHomomorphism, IsObject ],
-	[ IsEndoGeneralMapping, IsObject ],
+	[ IsGroupHomomorphism, IsMultiplicativeElementWithInverse ],
+	[ IsEndoGeneralMapping, IsMultiplicativeElementWithInverse ],
 	0
 );
 	
@@ -58,7 +60,7 @@ RedispatchOnCondition(
 InstallMethod(
 	\in,
 	"for Reidemeister classes",
-	[ IsObject, IsReidemeisterClassGroupRep ], 
+	[ IsMultiplicativeElementWithInverse, IsReidemeisterClassGroupRep ], 
 	function ( g, tcc )
 		local homs;
 		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
