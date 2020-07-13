@@ -39,9 +39,7 @@ gap> id := IdentityMapping( G );;
 gap> ReidemeisterNumber( id ); # quotient gives infinity
 infinity
 gap> IsTwistedConjugate( id, G.2, G.3^2 );
-Error, no method found! For debugging hints type ?Recovery from NoMethodFound
-Error, no 3rd choice method found for `RepTwistConjToIdByNormal' on 4 argument\
-s
+false
 gap> i := 3;; # The Reidemeister number of phi should be 2*i if i <> 0, and infinity if i = 0
 gap> imgs := [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^i, G.4^-1  ];;
 gap> phi := GroupHomomorphismByImages( G, G, gens, imgs );;

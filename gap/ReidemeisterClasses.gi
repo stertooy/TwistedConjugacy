@@ -2,14 +2,18 @@
 ##
 ## ReidemeisterClass( hom1, hom2, g )
 ##
-InstallMethod( ReidemeisterClass, "for double twisted conjugacy",
-	[IsGroupHomomorphism, IsGroupHomomorphism, IsObject],
+InstallMethod(
+	ReidemeisterClass,
+	"for double twisted conjugacy",
+	[ IsGroupHomomorphism, IsGroupHomomorphism, IsObject ],
 	function ( hom1, hom2, g )
 		local G, H, fam, typ, tc, tcc;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		typ := NewType( FamilyObj( G ), IsReidemeisterClassGroupRep and 
-			HasActingDomain and HasRepresentative and HasFunctionAction
+		typ := NewType( 
+			FamilyObj( G ),
+			IsReidemeisterClassGroupRep and HasActingDomain and 
+			HasRepresentative and HasFunctionAction
 		);
 		tc := TwistedConjugation( hom1, hom2 );
 		tcc := rec();
@@ -18,7 +22,7 @@ InstallMethod( ReidemeisterClass, "for double twisted conjugacy",
 			ActingDomain, H,
 			Representative, g,
 			FunctionAction, tc,
-			GroupHomomorphismsOfReidemeisterClass, [hom1, hom2]
+			GroupHomomorphismsOfReidemeisterClass, [ hom1, hom2 ]
 		);
 		return tcc;      
 	end 
@@ -29,34 +33,47 @@ InstallMethod( ReidemeisterClass, "for double twisted conjugacy",
 ##
 ## ReidemeisterClass( endo, g )
 ##
-InstallOtherMethod( ReidemeisterClass, "for twisted conjugacy",
-	[IsGroupHomomorphism and IsEndoGeneralMapping, IsObject],
+InstallOtherMethod(
+	ReidemeisterClass,
+	"for twisted conjugacy",
+	[ IsGroupHomomorphism and IsEndoGeneralMapping, IsObject ],
 	function ( endo, g )
 		return ReidemeisterClass( endo, IdentityMapping( Source( endo ) ), g );
 	end 
 );
 
-RedispatchOnCondition( ReidemeisterClass, true, 
-	[IsGroupHomomorphism, IsObject], [IsEndoGeneralMapping, IsObject], 999 );
+RedispatchOnCondition(
+	ReidemeisterClass,
+	true, 
+	[ IsGroupHomomorphism, IsObject ],
+	[ IsEndoGeneralMapping, IsObject ],
+	0
+);
 	
 
 ###############################################################################
 ##
 ## Methods for operations/attributes on a ReidemeisterClass
 ##
-InstallMethod( \in, "for Reidemeister classes",
-	[IsObject, IsReidemeisterClassGroupRep], 
+InstallMethod(
+	\in,
+	"for Reidemeister classes",
+	[ IsObject, IsReidemeisterClassGroupRep ], 
 	function ( g, tcc )
-		local r, homs;
-		r := Representative( tcc );
+		local homs;
 		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
-		return IsTwistedConjugate( homs[1], homs[2], g, r );
+		return IsTwistedConjugate( 
+			homs[1], homs[2], g,
+			Representative( tcc )
+		);
 	end 
 );
 
 # Only necessary in GAP <= 4.10
-InstallMethod( Random, "for Reidemeister classes",
-	[IsReidemeisterClassGroupRep],
+InstallMethod( 
+	Random,
+	"for Reidemeister classes",
+	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
 		local tc;
 		tc := FunctionAction( tcc );
@@ -64,16 +81,10 @@ InstallMethod( Random, "for Reidemeister classes",
 	end
 );
 
-# Method below seem to be not necessary?
-#InstallMethod( HomeEnumerator, "for Reidemeister classes",
-#	[IsReidemeisterClassGroupRep],
-#	function ( tcc )
-#		return Enumerator( ActingDomain( tcc ) );
-#	end
-#);
-
-InstallMethod( PrintObj, "for Reidemeister classes",
-	[IsReidemeisterClassGroupRep],
+InstallMethod(
+	PrintObj,
+	"for Reidemeister classes",
+	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
 		local homStrings, homs, i, G, gens;
 		homStrings := [];
@@ -129,11 +140,11 @@ ReidemeisterClassesByNormal@ := function ( endo1, endo2, N )
 			return fail;
 		fi;
 		RclN := List( RclN, g -> Representative( g ) );
-		iRclN := [Remove( RclN, 1 )];
+		iRclN := [ Remove( RclN, 1 ) ];
 		for h in RclN do
 			if ForAll( iRclN, 
-				k -> not IsTwistedConjugate( igendo1, endo2, k, h )
-			) then
+					k -> not IsTwistedConjugate( igendo1, endo2, k, h )
+				) then
 				Add( iRclN, h );
 			fi;
 		od;
@@ -149,8 +160,11 @@ end;
 ##
 ## ReidemeisterClasses( hom1, hom2 )
 ##
-InstallMethod( ReidemeisterClasses, "for finite groups",
-	[IsGroupHomomorphism, IsGroupHomomorphism],
+InstallMethod(
+	ReidemeisterClasses,
+	"for finite groups",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	21,
 	function ( hom1, hom2 )
 		local G, H, xset, s, Rcl, i, tcc, pos;
 		G := Range( hom1 );
@@ -179,13 +193,17 @@ InstallMethod( ReidemeisterClasses, "for finite groups",
 	end
 );
 
-InstallMethod( ReidemeisterClasses, "for abelian range",
-	[IsGroupHomomorphism, IsGroupHomomorphism],
+InstallMethod(
+	ReidemeisterClasses,
+	"for pcp-groups with abelian range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	20,
 	function ( hom1, hom2 )
-		local G, N, Rcl, p, pg, R;
+		local G, H, N, Rcl, p, pg, R;
+		H := Source( hom1 );
 		G := Range( hom1 );
-		if not IsAbelian( G ) then
+		if not IsPcpGroup ( H ) or not IsPcpGroup( G ) or
+			not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
 		N := Image( DifferenceGroupHomomorphisms@( hom1, hom2 ) );
@@ -210,34 +228,49 @@ InstallMethod( ReidemeisterClasses, "for abelian range",
 	end
 );
 
-InstallMethod( ReidemeisterClasses, "for polycyclic groups",
-	[IsGroupHomomorphism and IsEndoGeneralMapping,
-	 IsGroupHomomorphism and IsEndoGeneralMapping],
+InstallMethod(
+	ReidemeisterClasses,
+	"for endomorphisms of polycyclic groups",
+	[ IsGroupHomomorphism and IsEndoGeneralMapping,
+	  IsGroupHomomorphism and IsEndoGeneralMapping ],
+	0,
 	function ( hom1, hom2 )
 		local G;
 		G := Source( hom1 );
-		if not IsPcpGroup( G ) then
+		if not IsPcpGroup( G ) or IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		return ReidemeisterClassesByNormal@( hom1, hom2, DerivedSubgroup( G ) );
+		return ReidemeisterClassesByNormal@( 
+			hom1, hom2, DerivedSubgroup( G )
+		);
 	end
 );
 
-RedispatchOnCondition( ReidemeisterClasses, true, 
-	[IsGroupHomomorphism, IsGroupHomomorphism],
-	[IsEndoGeneralMapping, IsEndoGeneralMapping], 999 );
+RedispatchOnCondition(
+	ReidemeisterClasses,
+	true, 
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	[ IsEndoGeneralMapping, IsEndoGeneralMapping ],
+	999
+);
 
 
 ###############################################################################
 ##
 ## ReidemeisterClasses( endo )
 ##
-InstallOtherMethod( ReidemeisterClasses,
-	[IsGroupHomomorphism and IsEndoGeneralMapping],
+InstallOtherMethod(
+	ReidemeisterClasses,
+	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo )
 		return ReidemeisterClasses( endo, IdentityMapping( Source( endo ) ) );
 	end
 );
 
-RedispatchOnCondition( ReidemeisterClasses, true, 
-	[IsGroupHomomorphism], [IsEndoGeneralMapping], 999 );
+RedispatchOnCondition(
+	ReidemeisterClasses,
+	true, 
+	[ IsGroupHomomorphism ],
+	[ IsEndoGeneralMapping ],
+	999
+);

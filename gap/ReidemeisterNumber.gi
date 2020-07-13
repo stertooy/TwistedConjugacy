@@ -5,7 +5,7 @@
 InstallMethod(
 	ReidemeisterNumber,
 	"by counting Reidemeister classes",
-	[IsGroupHomomorphism, IsGroupHomomorphism],
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	0,
 	function ( hom1, hom2 )
 		local Rcl;
@@ -21,7 +21,7 @@ InstallMethod(
 InstallMethod(
 	ReidemeisterNumber,
 	"for finite groups with abelian range",
-	[IsGroupHomomorphism, IsGroupHomomorphism],
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )
 		local G, H, Rcl;
@@ -38,7 +38,7 @@ InstallMethod(
 InstallMethod(
 	ReidemeisterNumber,
 	"for pcp-groups with abelian range",
-	[IsGroupHomomorphism, IsGroupHomomorphism],
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	20,
 	function ( hom1, hom2 )
 		local G, H;
@@ -48,7 +48,9 @@ InstallMethod(
 			not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		return IndexNC( G, Image( DifferenceGroupHomomorphisms@( hom1, hom2 ) ) );
+		return IndexNC( G, Image( 
+			DifferenceGroupHomomorphisms@( hom1, hom2 )
+		));
 	end
 );
 
@@ -57,13 +59,18 @@ InstallMethod(
 ##
 ## ReidemeisterNumber( endo )
 ##
-InstallOtherMethod( ReidemeisterNumber, 
-	[IsGroupHomomorphism and IsEndoGeneralMapping],
+InstallOtherMethod(
+	ReidemeisterNumber, 
+	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo )
 		return ReidemeisterNumber( endo, IdentityMapping( Source( endo ) ) );
 	end
 );
 
-RedispatchOnCondition( ReidemeisterNumber, true, 
-	[IsGroupHomomorphism],
-	[IsEndoGeneralMapping], 999 );
+RedispatchOnCondition(
+	ReidemeisterNumber,
+	true, 
+	[ IsGroupHomomorphism ],
+	[ IsEndoGeneralMapping ],
+	999
+);

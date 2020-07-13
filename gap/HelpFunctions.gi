@@ -2,7 +2,8 @@
 ##
 ## InducedEndomorphism( epi, endo )
 ##
-InstallGlobalFunction( InducedEndomorphism,
+InstallGlobalFunction(
+	InducedEndomorphism,
 	function ( epi, endo )
     	local H, gens, indu;
     	H := Range( epi );
@@ -22,7 +23,8 @@ InstallGlobalFunction( InducedEndomorphism,
 ##
 ## RestrictedEndomorphism( endo, N )
 ##
-InstallGlobalFunction( RestrictedEndomorphism,
+InstallGlobalFunction(
+	RestrictedEndomorphism,
 	function ( endo, N )
     	local gens, rest;
 		gens := GeneratorsOfGroup( N );
@@ -45,8 +47,9 @@ DifferenceGroupHomomorphisms@ := function ( hom1, hom2 )
   	local G, gens, hom;
 	G := Source( hom1 );
 	gens := GeneratorsOfGroup( G );
-	hom := GroupHomomorphismByImagesNC( G, Range( hom1 ), gens, 
-		List( gens, g -> g^hom2*( g^hom1 )^-1 )
+	hom := GroupHomomorphismByImagesNC(
+		G, Range( hom1 ),
+		gens, List( gens, g -> g^hom2*( g^hom1 )^-1 )
 	);
 	if HasIsEndoGeneralMapping( hom1 ) and IsEndoGeneralMapping( hom1 ) then
 		SetIsEndoGeneralMapping( hom, true );
@@ -59,13 +62,14 @@ end;
 ##
 ## ComposeWithInnerAutomorphism@( g, hom )
 ##
-##	Returns the endomorphism that maps h to h^g
+##	Returns the homorphism that maps h to ( h^hom )^g
 ##
 ComposeWithInnerAutomorphism@ := function ( g, hom )
     local gens, comp;
 	gens := MappingGeneratorsImages( hom );
-	comp := GroupHomomorphismByImagesNC( Source( hom ), Range( hom ), gens[1], 
-		List( gens[2], h -> h^g )
+	comp := GroupHomomorphismByImagesNC(
+		Source( hom ), Range( hom ),
+		gens[1], List( gens[2], h -> h^g )
 	);
 	if HasIsEndoGeneralMapping( hom ) and IsEndoGeneralMapping( hom ) then
 		SetIsEndoGeneralMapping( comp, true );
@@ -85,7 +89,7 @@ RemovePeriodsList@ := function ( L )
 	local n, i, M;
 	n := Length( L );
 	for i in DivisorsInt( n ) do
-		M := L{[1..i]};
+		M := L{ [ 1..i ] };
 		if L = Concatenation( ListWithIdenticalEntries( n/i, M ) ) then
 			return M;
 		fi;
