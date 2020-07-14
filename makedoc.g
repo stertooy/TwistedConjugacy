@@ -3,3 +3,5 @@ if fail = LoadPackage("AutoDoc", ">= 2018.09.20") then
 fi;
 
 AutoDoc(rec(autodoc:=true,scaffold:=true));
+
+QUIT;

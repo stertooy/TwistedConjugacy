@@ -10,7 +10,7 @@
 #! The <B>TwistedConjugacy</B> package is free software, it may be redistributed and/or modified under the terms and conditions of the <URL Text="GNU Public License Version 2">https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</URL> or (at your option) any later version.
 
 #! @Acknowledgements
-#! This documentation was created using the <B>AutoDoc</B> package. The algorithms in this package are based on <Cite Key='fels00-1' /> and <Cite Key='dt20-1' />.
+#! This documentation was created using the <B>AutoDoc</B> package. The algorithms in this package are based on <Cite Key='fels00-1' />, <Cite Key='dt20-1' /> and <Cite Key='tert20-1' />.
 
 
 
