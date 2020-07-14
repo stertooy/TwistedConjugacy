@@ -39,12 +39,12 @@
 DeclareOperation( "TwistedConjugation" , [IsGroupHomomorphism] );
 
 #! @Description
-#! Tests whether the elements <A>g1</A> and <A>g2</A> are twisted conjugate under the twisted conjugacy action of the endomorphism <A>endo</A>. This is the twisted conjugacy analogue of <C>IsConjugate</C>.
+#! Tests whether the elements <A>g1</A> and <A>g2</A> are twisted conjugate under the twisted conjugacy action of the endomorphism <A>endo</A>. This is the twisted conjugacy analogue of <C>IsConjugate</C>. For non-nilpotent polycyclic groups, an algorithm is available only when the Reidemeister number of <A>endo</A> is finite.
 #! @Arguments endo, g1, g2
 DeclareOperation( "IsTwistedConjugate", [IsGroupHomomorphism, IsObject, IsObject] );
 
 #! @Description
-#! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the endomorphism <A>endo</A> and returns <C>fail</C> if no such element exists. This is the twisted conjugacy analogue of <C>RepresentativeAction</C>.
+#! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the endomorphism <A>endo</A> and returns <C>fail</C> if no such element exists. This is the twisted conjugacy analogue of <C>RepresentativeAction</C>. For non-nilpotent polycyclic groups, an algorithm is available only when the Reidemeister number of <A>endo</A> is finite.
 #! @Arguments endo, g1, g2
 DeclareOperation( "RepresentativeTwistedConjugation", [IsGroupHomomorphism, IsObject, IsObject] );
 
@@ -219,12 +219,12 @@ ReidemeisterZetaCoefficients( phi );
 DeclareOperation( "TwistedConjugation" , [IsGroupHomomorphism, IsGroupHomomorphism] );
 
 #! @Description
-#! Tests whether the elements <A>g1</A> and <A>g2</A> are double twisted conjugate under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ).
+#! Tests whether the elements <A>g1</A> and <A>g2</A> are double twisted conjugate under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ).  For non-nilpotent polycyclic groups, an algorithm is available only when the Reidemeister number of <A>hom1</A> and <A>hom2</A> is finite.
 #! @Arguments hom1, hom2, g1, g2
 DeclareOperation( "IsTwistedConjugate", [IsGroupHomomorphism, IsGroupHomomorphism, IsObject, IsObject] );
 
 #! @Description
-#! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) and returns <C>fail</C> if no such element exists.
+#! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) and returns <C>fail</C> if no such element exists.  For non-nilpotent polycyclic groups, an algorithm is available only when the Reidemeister number of <A>hom1</A> and <A>hom2</A> is finite.
 #! @Arguments hom1, hom2, g1, g2
 DeclareOperation( "RepresentativeTwistedConjugation", [IsGroupHomomorphism, IsGroupHomomorphism, IsObject, IsObject] );
 
@@ -334,12 +334,12 @@ NrTwistedConjugacyClasses( phi, psi );
 #! @Section Groups
 
 #! @Description
-#! Let <A>endo</A> be an endomorphism of a group G. This command returns the subgroup of G consisting of the elements fixed under the endomorphism <A>endo</A>. This command is implemented only for endomorphisms of finite groups and abelian groups.
+#! Let <A>endo</A> be an endomorphism of a group G. This command returns the subgroup of G consisting of the elements fixed under the endomorphism <A>endo</A>. This command is implemented only for endomorphisms of finite groups and nilpotent groups.
 #! @Arguments endo
 DeclareOperation( "FixedPointGroup", [IsGroupHomomorphism] );
 
 #! @Description
-#! Let <A>hom1</A>, <A>hom2</A> be group homomorphisms from H to G. This command returns the subgroup of H consisting of the elements <C>h</C> for which <C>h^<A>hom1</A> = h^<A>hom2</A></C>. This command is implemented only for homomorphisms where either H is finite or G is abelian.
+#! Let <A>hom1</A>, <A>hom2</A> be group homomorphisms from H to G. This command returns the subgroup of H consisting of the elements <C>h</C> for which <C>h^<A>hom1</A> = h^<A>hom2</A></C>. This command is implemented only for homomorphisms where either H is finite, or H is polycyclic and G is abelian, or <A>hom1</A> and <A>hom2</A> are endomorphisms of a nilpotent group.
 #! @Arguments hom1, hom2
 DeclareOperation( "CoincidenceGroup", [IsGroupHomomorphism, IsGroupHomomorphism] );
 
@@ -356,6 +356,18 @@ psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,4)(3,6), () ] );; 
 CoincidenceGroup( khi, psi );
 #! <permutation group with 60 generators>
+#! @EndExample
+
+#! @Description
+#! Let <A>G</A> be a nilpotent group. This command returns the adapted lower central series of G. Note that for non-torsion-free nilpotent groups, this series will end at the torsion subgroup of <A>G</A>.
+#! @Arguments G
+DeclareAttribute( "AdaptedLowerCentralSeriesOfGroup", IsGroup );
+
+#! @BeginExample
+G := ExamplesOfSomePcpGroups(11);;
+AdaptedLowerCentralSeriesOfGroup(G);
+#! [ Pcp-group with orders [ 0, 0, 0, 0, 0 ], Pcp-group with orders [ 0, 0, 0 ], 
+#!   Pcp-group with orders [ 0, 0 ], Pcp-group with orders [  ] ]
 #! @EndExample
 
 

@@ -4,9 +4,9 @@
 ##
 DeclareOperation(
 	"AdaptedLowerCentralSeries",
-	[ IsPcpGroup and IsNilpotentGroup ]
+	[ IsGroup ]
 );
 DeclareAttribute(
 	"AdaptedLowerCentralSeriesOfGroup",
-	IsPcpGroup and IsNilpotentGroup
+	IsGroup
 );

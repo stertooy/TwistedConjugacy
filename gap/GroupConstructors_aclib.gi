@@ -8,6 +8,13 @@ InstallMethod(
 	AdaptedLowerCentralSeriesOfGroup
 );
 
+RedispatchOnCondition(
+	AdaptedLowerCentralSeries,
+	true, 
+	[ IsGroup ],
+	[ IsPcpGroup and IsNilpotentGroup ],
+	0
+);
 
 ###############################################################################
 ##
@@ -22,4 +29,12 @@ InstallMethod(
 			N -> IsolatorSubgroup( G, N )
 		);
 	end
+);
+
+RedispatchOnCondition(
+	AdaptedLowerCentralSeriesOfGroup,
+	true, 
+	[ IsGroup ],
+	[ IsPcpGroup and IsNilpotentGroup ],
+	0
 );
