@@ -52,7 +52,7 @@ PackageDoc := rec(
 
 Dependencies := rec(
   GAP := ">= 4.11",
-  NeededOtherPackages := [ [ "Polycyclic", "2.14.1" ],
+  NeededOtherPackages := [ [ "Polycyclic", "2.14" ],
 						   [ "GAPDoc", "1.6.3" ] ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ],
