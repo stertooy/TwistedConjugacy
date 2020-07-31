@@ -103,10 +103,17 @@ DeclareOperation(
 	"CoincidenceGroup",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
+DeclareOperation(
+	"PowerSubgroup",
+	[ IsGroup, IsPosInt ]
+);
 
 
+DeclareGlobalFunction( "InducedHomomorphism" ); 
 DeclareGlobalFunction( "InducedEndomorphism" ); 
+DeclareGlobalFunction( "RestrictedHomomorphism" );
 DeclareGlobalFunction( "RestrictedEndomorphism" );
+
 
 DeclareOperation(
 	"RepTwistConjToId",

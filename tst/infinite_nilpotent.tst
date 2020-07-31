@@ -23,7 +23,7 @@ gap> psiH := InducedEndomorphism( p, psiF );;
 gap> ReidemeisterNumber( phiH, psiH );
 4
 gap> ReidemeisterClasses( phiH, psiH );
-[ id^G, g3^3^G, g1^G, g1*g3^3^G ]
+[ id^G, g1*g3^G, g1^G, g3^G ]
 gap> ReidemeisterClasses( IdentityMapping( H ) );
 fail
 gap> K := ExamplesOfSomePcpGroups( 14 );;

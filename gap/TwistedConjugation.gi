@@ -135,6 +135,7 @@ RepTwistConjToIdByNormal@ := function ( endo1, endo2, g, N )
 	Coin := CoincidenceGroup( endo1GN, endo2GN );
 	if not IsFinite( Coin ) then
 		Error( "no algorithm available!" );
+		# TODO: replace by trynextmethod
 	fi;
 	pk := RepTwistConjToId( endo1GN, endo2GN, g^p );
 	if pk = fail then
@@ -206,60 +207,111 @@ InstallMethod(
 
 InstallMethod(
 	RepTwistConjToId,
-	"for endomorphisms of nilpotent groups",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping,
-	  IsGroupHomomorphism and IsEndoGeneralMapping,
+	"for pcp-groups with nilpotent range",
+	[ IsGroupHomomorphism,
+	  IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
-	1,
-	function ( endo1, endo2, g )
-		local G, LCS, N, p, endo1GN, endo2GN, Coin, pk, k, tc, n,
-			endo1N, endo2N, q, gens, delta, nq, ph, h, l;
-		G := Source( endo1 );
-		if not IsPcpGroup( G ) or not IsNilpotent( G ) or
-			IsAbelian( G ) then
+	19,
+	function ( hom1, hom2, g )
+		local H, G, LCS, c, M, N, p, q, hom1HN, hom2HN, qh1, h1, tc, m1, hom1N,
+			hom2N, pRclM, Coin, gens, delta, m1cl, qh2, h2, m2, n;
+		H := Source( hom1 );
+		G := Range( hom1 );
+		if not IsPcpGroup( H ) or not IsPcpGroup( G ) or
+			not IsNilpotent( G ) or	IsAbelian( G ) then
 			TryNextMethod();
 		fi;
 		LCS := LowerCentralSeriesOfGroup( G );
-		N := LCS[ Length( LCS )-1 ];
+		c := Length( LCS )-1;
+		M := LCS[c];
+		N := LowerCentralSeries( H, c );
 		p := NaturalHomomorphismByNormalSubgroupNC( G, N );
-		endo1GN := InducedEndomorphism( p, endo1 );
-		endo2GN := InducedEndomorphism( p, endo2 );
-		pk := RepTwistConjToId( endo1GN, endo2GN, g^p );
-		if pk = fail then
+		q := NaturalHomomorphismByNormalSubgroupNC( H, M );
+		hom1HN := InducedHomomorphism( q, p, hom1 );
+		hom2HN := InducedHomomorphism( q, p, hom2 );
+		qh1 := RepTwistConjToId( hom1HN, hom2HN, g^p );
+		if qh1 = fail then
 			return fail;
 		fi;
-		k := PreImagesRepresentative( p, pk );
-		tc := TwistedConjugation( endo1, endo2 );
-		n := tc( g, k );
-		endo1N := RestrictedEndomorphism( endo1, N );
-		endo2N := RestrictedEndomorphism( endo2, N );
-		q := NaturalHomomorphismByNormalSubgroup( 
-			N, Image( DifferenceGroupHomomorphisms@( endo1N, endo2N ) )
+		h1 := PreImagesRepresentative( q, qh1 );
+		tc := TwistedConjugation( hom1, hom2 );
+		m1 := tc( g, h1 );
+		hom1N := RestrictedHomomorphism( hom1, N, M );
+		hom2N := RestrictedHomomorphism( hom2, N, M );
+		pRclM := NaturalHomomorphismByNormalSubgroupNC( 
+			M, Image( DifferenceGroupHomomorphisms@( hom1N, hom2N ) )
 		);
-		Coin := CoincidenceGroup( endo1GN, endo2GN );
+		Coin := CoincidenceGroup( hom1HN, hom2HN );
 		gens := GeneratorsOfGroup( Coin );
-		delta := GroupHomomorphismByImages(
-			Coin, Image( q ),
+		delta := GroupHomomorphismByImagesNC(
+			Coin, Image( pRclM ),
 			gens, 
 			List( 
-				List( gens, x -> PreImagesRepresentative( p, x ) ),
-				x -> ( ( x^endo2 )*( x^endo1 )^-1 )^q
+				List( gens, x -> PreImagesRepresentative( q, x ) ),
+				x -> ( ( x^hom2 )*( x^hom1 )^-1 )^pRclM
 			)
 		);
-		nq := n^q;
+		m1cl := m1^pRclM;
 		# Due to bug in the 'Polycyclic' package, PreImagesRepresentative 
 		# may return the neutral element instead of "fail"
 		# As a failsafe, we wrap this in a condtional statement
-		if nq in Image( delta ) then
-			ph := PreImagesRepresentative( delta, nq );
+		if m1cl in Image( delta ) then
+			qh2 := PreImagesRepresentative( delta, m1cl );
 		else
 			return fail;
 		fi;
-		h := PreImagesRepresentative( p, ph );
-		l := RepTwistConjToId( endo1N, endo2N, tc( n, h ) );
-		return k*h*l;
+		h2 := PreImagesRepresentative( q, qh2 );
+		m2 := tc( m1, h2 );
+		n := RepTwistConjToId( hom1N, hom2N, m2 );
+		return h1*h2*n;
 	end
 );
+
+InstallMethod(
+	RepTwistConjToId,
+	"for pcp-groups with nilpotent-by-finite range",
+	[ IsGroupHomomorphism,
+	  IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ],
+	18,
+	function ( hom1, hom2, g )
+		local H, G, k, M, N, p, q, hom1HN, hom2HN, qh1, h1, tc, m1, hom1N,
+			hom2N, Coin, qh2, h2, m2, n;
+		H := Source( hom1 );
+		G := Range( hom1 );
+		if not IsPcpGroup( H ) or not IsPcpGroup( G ) or
+			not IsNilpotentByFinite( G ) or	IsNilpotent( G ) then
+			TryNextMethod();
+		fi;
+		k := Exponent( FactorGroupNC( G, FittingSubgroup( G ) ) );
+		M := PowerSubgroup( G, k );
+		N := PowerSubgroup( H, k );
+		q := NaturalHomomorphismByNormalSubgroupNC( H, N );
+		p := NaturalHomomorphismByNormalSubgroupNC( G, M );
+		hom1HN := InducedHomomorphism( q, p, hom1 );
+		hom2HN := InducedHomomorphism( q, p, hom2 );
+		qh1 := RepTwistConjToId( hom1HN, hom2HN, g^p );
+		if qh1 = fail then
+			return fail;
+		fi;
+		h1 := PreImagesRepresentative( q, qh1 );
+		tc := TwistedConjugation( hom1, hom2 );
+		m1 := tc( g, h1 );
+		hom1N := RestrictedHomomorphism( hom1, N, M );
+		hom2N := RestrictedHomomorphism( hom2, N, M );
+		Coin := CoincidenceGroup( hom1HN, hom2HN );
+		for qh2 in Coin do
+			h2 := PreImagesRepresentative( q, qh2 );
+			m2 := tc( m1, h2 );
+			n := RepTwistConjToId( hom1N, hom2N, m2 );
+			if n <> fail then
+				return h1*h2*n;
+			fi;
+		od;
+		return fail;
+	end
+);
+
 
 InstallMethod(
 	RepTwistConjToId,
@@ -288,5 +340,5 @@ RedispatchOnCondition(
 	  IsMultiplicativeElementWithInverse ],
 	[ IsEndoGeneralMapping, IsEndoGeneralMapping,
 	  IsMultiplicativeElementWithInverse ],
-	999
+	0
 );

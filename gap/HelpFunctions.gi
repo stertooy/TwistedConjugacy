@@ -1,20 +1,52 @@
 ###############################################################################
 ##
+## InducedHomomorphism( epi1, epi2, hom )
+##
+InstallGlobalFunction(
+	InducedHomomorphism,
+	function ( epi1, epi2, hom )
+    	local H, G, gens, indu;
+		H := Range( epi1 );
+    	G := Range( epi2 );
+		gens := GeneratorsOfGroup( H );
+		indu := GroupHomomorphismByImagesNC(
+			H, G, gens, List( gens, 
+				h -> ( PreImagesRepresentative( epi1, h )^hom )^epi2
+			)
+		);
+		return indu;
+	end
+);
+
+
+###############################################################################
+##
 ## InducedEndomorphism( epi, endo )
 ##
 InstallGlobalFunction(
 	InducedEndomorphism,
 	function ( epi, endo )
-    	local H, gens, indu;
-    	H := Range( epi );
-		gens := GeneratorsOfGroup( H );
-		indu := GroupHomomorphismByImagesNC(
-			H, H, gens, List( gens, 
-				h -> ( PreImagesRepresentative( epi, h )^endo )^epi
-			)
-		);
+    	local indu;
+		indu := InducedHomomorphism( epi, epi, endo );
 		SetIsEndoGeneralMapping( indu, true );
 		return indu;
+	end
+);
+
+
+###############################################################################
+##
+## RestrictedHomomorphism( hom, N, M )
+##
+InstallGlobalFunction(
+	RestrictedHomomorphism,
+	function ( hom, N, M )
+    	local gens, rest;
+		gens := GeneratorsOfGroup( N );
+		rest := GroupHomomorphismByImagesNC(
+			N, M, gens, List( gens, n -> n^hom )
+		);
+		return rest;
 	end
 );
 
@@ -26,11 +58,8 @@ InstallGlobalFunction(
 InstallGlobalFunction(
 	RestrictedEndomorphism,
 	function ( endo, N )
-    	local gens, rest;
-		gens := GeneratorsOfGroup( N );
-		rest := GroupHomomorphismByImagesNC(
-			N, N, gens, List( gens, n -> n^endo )
-		);
+		local rest;
+		rest := RestrictedHomomorphism( endo, N, N );
 		SetIsEndoGeneralMapping( rest, true );
 		return rest;
 	end
