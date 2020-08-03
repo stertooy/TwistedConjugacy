@@ -42,7 +42,7 @@ gap> ReidemeisterZetaCoefficients( phi );
 [ 4, 6, 10, 6, 4, 12 ]
 gap> p := NaturalHomomorphismByNormalSubgroup( G, DerivedSubgroup( G ) );;
 gap> H := Image( p );;
-gap> psi := InducedEndomorphism( p, phi );;
+gap> psi := InducedHomomorphism( p, p, phi );;
 gap> ReidemeisterNumber( psi );
 2
 gap> i := IsomorphismPcpGroup( G );;
