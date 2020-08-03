@@ -70,15 +70,15 @@ InstallGlobalFunction(
 ##
 ## DifferenceGroupHomomorphisms@( hom1, hom2 )
 ##
-##	Returns the homomorphism that maps g to g^hom2*( g^hom1 )^-1
+##	Returns the homomorphism that maps h to h^hom2*( h^hom1 )^-1
 ##
 DifferenceGroupHomomorphisms@ := function ( hom1, hom2 )
-  	local G, gens, hom;
-	G := Source( hom1 );
-	gens := GeneratorsOfGroup( G );
+  	local H, gens, hom;
+	H := Source( hom1 );
+	gens := GeneratorsOfGroup( H );
 	hom := GroupHomomorphismByImagesNC(
-		G, Range( hom1 ),
-		gens, List( gens, g -> g^hom2*( g^hom1 )^-1 )
+		H, Range( hom1 ),
+		gens, List( gens, h -> h^hom2*( h^hom1 )^-1 )
 	);
 	if HasIsEndoGeneralMapping( hom1 ) and IsEndoGeneralMapping( hom1 ) then
 		SetIsEndoGeneralMapping( hom, true );
@@ -92,6 +92,7 @@ end;
 ## ComposeWithInnerAutomorphism@( g, hom )
 ##
 ##	Returns the homorphism that maps h to ( h^hom )^g
+##  Note that g is not necessarily an element of the range of hom
 ##
 ComposeWithInnerAutomorphism@ := function ( g, hom )
     local gens, comp;
@@ -104,6 +105,19 @@ ComposeWithInnerAutomorphism@ := function ( g, hom )
 		SetIsEndoGeneralMapping( comp, true );
 	fi;
 	return comp;
+end;
+
+
+###############################################################################
+##
+## IntersectionPreImage@( hom1, hom2, G )
+##
+IntersectionPreImage@ := function ( hom1, hom2, G )
+	return Intersection( 
+		# Intersections inside PreImage necessary due to bug in polycyclic
+		PreImage( hom1, Intersection( Image( hom1 ), G ) ),
+		PreImage( hom2, Intersection( Image( hom2 ), G ) )
+	);
 end;
 
 

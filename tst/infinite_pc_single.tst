@@ -57,7 +57,7 @@ gap> G := ExamplesOfSomePcpGroups( 2 );;
 gap> ReidemeisterNumber( IdentityMapping( G ) );
 infinity
 gap> IsTwistedConjugate( IdentityMapping( G ), G.1, G.2 );
-Error, no algorithm available!
+false
 gap> G := ExamplesOfSomePcpGroups(11);;
 gap> IsTwistedConjugate( IdentityMapping( G ), G.4, G.5 );
 false
