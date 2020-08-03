@@ -257,8 +257,8 @@ InstallMethod(
 	4,
 	function ( hom1, hom2 )
 		local G, H, N, Rcl, p, pg, R;
-		H := Source( hom1 );
 		G := Range( hom1 );
+		H := Source( hom1 );
 		if not IsPcpGroup ( H ) or not IsPcpGroup( G ) or
 			not IsAbelian( G ) then
 			TryNextMethod();
@@ -291,10 +291,10 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	3,
 	function ( hom1, hom2 )
-		local H, G;
-		H := Source( hom1 );
+		local G, H;
 		G := Range( hom1 );
-		if not IsPcpGroup ( H ) or not IsPcpGroup( G ) or
+		H := Source( hom1 );
+		if not IsPcpGroup ( G ) or not IsPcpGroup( H ) or
 		not IsNilpotent( G ) or IsAbelian( G ) then
 			TryNextMethod();
 		fi;

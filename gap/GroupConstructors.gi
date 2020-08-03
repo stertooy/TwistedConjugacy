@@ -29,11 +29,11 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	2,
 	function ( hom1, hom2 )
-		local H, G;
-		H := Source( hom1 );
+		local G, H;
 		G := Range( hom1 );
-		if not IsPcpGroup( H ) or not IsPcpGroup( G ) or 
-		   not IsAbelian( G ) then
+		H := Source( hom1 );
+		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or 
+		not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
 		return Kernel( DifferenceGroupHomomorphisms@ ( hom1, hom2 ) );
@@ -47,10 +47,10 @@ InstallMethod(
 	1,
 	function ( hom1, hom2 )
 		local H, G, M, N, p, q, CoinHN, qinvCoinHN, gens, diff;
-		H := Source( hom1 );
 		G := Range( hom1 );
+		H := Source( hom1 );
 		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or 
-			not IsNilpotentGroup( G ) or IsAbelian( G ) then
+		not IsNilpotentGroup( G ) or IsAbelian( G ) then
 			TryNextMethod();
 		fi;
 		M := Centre( G );

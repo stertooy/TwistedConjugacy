@@ -17,9 +17,6 @@ This package was originally designed for GAP version 4.10 with the
 following packages (and their dependencies) installed:
 - Polycyclic (version >= 2.14)
 - GAPDoc (version >= 1.6.2)
-To to make use of certain optimisations for nilpotent groups, you must
-have the following packages (and their dependencies) installed:
-- AClib (version >= 1.3.1)
 
 
 Installation

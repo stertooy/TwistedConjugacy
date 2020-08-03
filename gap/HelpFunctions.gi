@@ -10,7 +10,7 @@ InstallGlobalFunction(
     	G := Range( epi2 );
 		gens := GeneratorsOfGroup( H );
 		indu := GroupHomomorphismByImagesNC(
-			H, G, gens, List( gens, 
+			H, G, gens, List( gens,
 				h -> ( PreImagesRepresentative( epi1, h )^hom )^epi2
 			)
 		);
@@ -77,8 +77,7 @@ end;
 ## IntersectionPreImage@( hom1, hom2, G )
 ##
 IntersectionPreImage@ := function ( hom1, hom2, G )
-	return Intersection( 
-		# Intersections inside PreImage necessary due to bug in polycyclic
+	return Intersection(
 		PreImage( hom1, Intersection( Image( hom1 ), G ) ),
 		PreImage( hom2, Intersection( Image( hom2 ), G ) )
 	);

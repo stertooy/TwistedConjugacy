@@ -9,9 +9,9 @@ InstallMethod(
 	2,
 	function ( hom1, hom2 )
 		local G, H;
-		H := Source( hom1 );
 		G := Range( hom1 );
-		if not IsPcpGroup( H ) or not IsPcpGroup( G ) or 
+		H := Source( hom1 );
+		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or 
 		not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
@@ -27,9 +27,9 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )
-		local G, H, Rcl;
-		H := Source( hom1 );
+		local G, H;
 		G := Range( hom1 );
+		H := Source( hom1 );
 		if not IsFinite( G ) or not IsFinite( H ) or
 		not IsAbelian( G ) then
 			TryNextMethod();
@@ -72,5 +72,5 @@ RedispatchOnCondition(
 	true, 
 	[ IsGroupHomomorphism ],
 	[ IsEndoGeneralMapping ],
-	999
+	0
 );

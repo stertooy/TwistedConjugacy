@@ -74,8 +74,8 @@ RedispatchOnCondition(
 	true, 
 	[ IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
-	[ IsEndoGeneralMapping, IsMultiplicativeElementWithInverse,
-	  IsMultiplicativeElementWithInverse ],
+	[ IsEndoGeneralMapping,
+	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	0
 );
 
