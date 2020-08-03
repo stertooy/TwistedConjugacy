@@ -37,6 +37,20 @@ gap> ActingDomain( tcc ) = H;
 true
 gap> NrTwistedConjugacyClasses( phi, psi );
 6
+gap> M := FittingSubgroup( G );;
+gap> N := IntersectionPreImage@TwistedConjugacy( phi, psi, M );;
+gap> phiN := RestrictedHomomorphism( phi, N, M );;
+gap> psiN := RestrictedHomomorphism( psi, N, M );;
+gap> ReidemeisterNumber(phiN,psiN);
+3
+gap> i := IsomorphismPcpGroup( M );;
+gap> j := IsomorphismPcpGroup( N );;
+gap> M := Image( i );;
+gap> N := Image( j );;
+gap> phiN := InverseGeneralMapping(j)*phiN*i;;
+gap> psiN := InverseGeneralMapping(j)*psiN*i;;
+gap> ReidemeisterNumber(phiN,psiN);
+3
 
 #
 gap> STOP_TEST( "finite_pc_double.tst" );
