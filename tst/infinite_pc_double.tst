@@ -34,6 +34,9 @@ gap> f := GeneratorsOfGroup( F );;
 gap> i := GroupHomomorphismByImages( F, G, f, f );;
 gap> ReidemeisterClasses( i, i );
 fail
+gap> xi := GroupHomomorphismByImages( F, F, [ F.1, F.2, F.3 ], [ F.1^2*F.2, F.1^3*F.2^2, F.3 ] );;
+gap> ReidemeisterNumber( xi );
+infinity
 
 #
 gap> STOP_TEST( "infinite_pc_double.tst" );
