@@ -21,21 +21,6 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## InducedEndomorphism( epi, endo )
-##
-InstallGlobalFunction(
-	InducedEndomorphism,
-	function ( epi, endo )
-    	local indu;
-		indu := InducedHomomorphism( epi, epi, endo );
-		SetIsEndoGeneralMapping( indu, true );
-		return indu;
-	end
-);
-
-
-###############################################################################
-##
 ## RestrictedHomomorphism( hom, N, M )
 ##
 InstallGlobalFunction(
@@ -46,21 +31,6 @@ InstallGlobalFunction(
 		rest := GroupHomomorphismByImagesNC(
 			N, M, gens, List( gens, n -> n^hom )
 		);
-		return rest;
-	end
-);
-
-
-###############################################################################
-##
-## RestrictedEndomorphism( endo, N )
-##
-InstallGlobalFunction(
-	RestrictedEndomorphism,
-	function ( endo, N )
-		local rest;
-		rest := RestrictedHomomorphism( endo, N, N );
-		SetIsEndoGeneralMapping( rest, true );
 		return rest;
 	end
 );
@@ -80,9 +50,6 @@ DifferenceGroupHomomorphisms@ := function ( hom1, hom2 )
 		H, Range( hom1 ),
 		gens, List( gens, h -> h^hom2*( h^hom1 )^-1 )
 	);
-	if HasIsEndoGeneralMapping( hom1 ) and IsEndoGeneralMapping( hom1 ) then
-		SetIsEndoGeneralMapping( hom, true );
-	fi;
 	return hom;
 end;
 
@@ -101,9 +68,6 @@ ComposeWithInnerAutomorphism@ := function ( g, hom )
 		Source( hom ), Range( hom ),
 		gens[1], List( gens[2], h -> h^g )
 	);
-	if HasIsEndoGeneralMapping( hom ) and IsEndoGeneralMapping( hom ) then
-		SetIsEndoGeneralMapping( comp, true );
-	fi;
 	return comp;
 end;
 
