@@ -186,10 +186,10 @@ end;
 ## ReidemeisterClassesByCentre@( hom1, hom2 )
 ##
 ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
-	local H, G, M, N, q, p, hom1HN, hom2HN, RclGM, pRclM, RclM,	Rcl, pg, g,
-		ighom1, ighom1HN, Coin, gens, delta, pCoker, igRclM, pRpCm, pRm, m;
-	H := Source( hom1 );
+	local G, H, M, N, q, p, hom1HN, hom2HN, RclGM, pRclM, RclM,	Rcl, pg, g,
+	ighom1, ighom1HN, Coin, gens, gens2, delta, pCoker, igRclM, pRpCm, pRm, m;
 	G := Range( hom1 );
+	H := Source( hom1 );
 	M := Centre( G );
 	N := IntersectionPreImage@( hom1, hom2, M );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
@@ -215,13 +215,10 @@ ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
 		ighom1HN := ComposeWithInnerAutomorphism@( pg^-1, hom1HN );
 		Coin := CoincidenceGroup( ighom1HN, hom2HN );
 		gens := GeneratorsOfGroup( Coin );
+		gens2 := List( gens, x -> PreImagesRepresentative( q, x ) );
 		delta := GroupHomomorphismByImagesNC(
 			Coin, RclM,
-			gens, 
-			List( 
-				List( gens, x -> PreImagesRepresentative( q, x ) ),
-				x -> ( ( x^hom2 )*( x^ighom1 )^-1 )^pRclM
-			)
+			gens, List( gens2, x -> ( ( x^hom2 )*( x^ighom1 )^-1 )^pRclM )
 		);
 		pCoker := NaturalHomomorphismByNormalSubgroupNC( 
 			RclM, 
