@@ -47,9 +47,9 @@ gap> i := IsomorphismPcpGroup( M );;
 gap> j := IsomorphismPcpGroup( N );;
 gap> M := Image( i );;
 gap> N := Image( j );;
-gap> phiN := InverseGeneralMapping(j)*phiN*i;;
-gap> psiN := InverseGeneralMapping(j)*psiN*i;;
-gap> ReidemeisterNumber(phiN,psiN);
+gap> phiN := InverseGeneralMapping( j )*phiN*i;;
+gap> psiN := InverseGeneralMapping( j )*psiN*i;;
+gap> ReidemeisterNumber( phiN, psiN );
 3
 
 #

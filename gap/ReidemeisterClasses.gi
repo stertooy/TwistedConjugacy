@@ -120,7 +120,7 @@ InstallMethod(
 ##
 ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M ) 
 	local G, H, N, p, q, hom1HN, hom2HN, RclGM, Rcl, hom1N, hom2N, pg,
-		ighom1HN, Coin, g, ighom1, ighom1N, RclM, igRclM, tc, m, isNew, qh, m2;
+	ighom1HN, Coin, g, ighom1, ighom1N, RclM, igRclM, tc, m, isNew, qh, m2;
 	G := Range( hom1 );
 	H := Source( hom1 );
 	N := IntersectionPreImage@( hom1, hom2, M );
@@ -144,7 +144,6 @@ ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M )
 		Coin := CoincidenceGroup( ighom1HN, hom2HN );
 		if not IsFinite( Coin ) then
 			TryNextMethod();
-			# Error( "no algorithm available!" );
 		fi;
 		g := PreImagesRepresentative( p, pg );
 		ighom1 := ComposeWithInnerAutomorphism@( g^-1, hom1 );
@@ -312,10 +311,10 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	2,
 	function ( hom1, hom2 )
-		local H, G;
-		H := Source( hom1 );
+		local G, H;
 		G := Range( hom1 );
-		if not IsPcpGroup ( H ) or not IsPcpGroup( G ) or
+		H := Source( hom1 );
+		if not IsPcpGroup ( G ) or not IsPcpGroup( H ) or
 		not IsNilpotentByFinite( G ) or IsNilpotent( G ) then
 			TryNextMethod();
 		fi;
@@ -332,9 +331,11 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )
-		local G;
-		G := Source( hom1 );
-		if not IsPcpGroup( G ) or IsNilpotentByFinite( G ) then
+		local G, H;
+		G := Range( hom1 );
+		H := Source( hom1 );
+		if not IsPcpGroup ( G ) or not IsPcpGroup( H ) or
+		IsNilpotentByFinite( G ) then
 			TryNextMethod();
 		fi;
 		return ReidemeisterClassesByFiniteCoin@( 

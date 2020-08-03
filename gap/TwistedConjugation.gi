@@ -143,7 +143,6 @@ RepTwistConjToIdByFiniteCoin@ := function ( hom1, hom2, g, M )
 	Coin := CoincidenceGroup( hom1HN, hom2HN );
 	if not IsFinite( Coin ) then
 		TryNextMethod();
-		# Error( "no algorithm available!" );
 	fi;
 	h1 := PreImagesRepresentative( q, qh1 );
 	tc := TwistedConjugation( hom1, hom2 );
