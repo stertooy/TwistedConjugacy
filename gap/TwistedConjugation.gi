@@ -200,10 +200,13 @@ RepTwistConjToIdByCentre@ := function ( hom1, hom2, g )
 		)
 	);
 	pRm1 := m1^pRclM;
-	qh2 := PreImagesRepresentative( delta, pRm1 );
-	if qh2 = fail then
+	if not pRm1 in Image( delta ) then
 		return fail;
 	fi;
+	qh2 := PreImagesRepresentative( delta, pRm1 );
+	#if qh2 = fail then
+	#	return fail;
+	#fi;
 	h2 := PreImagesRepresentative( q, qh2 );
 	m2 := tc( m1, h2 );
 	n := RepTwistConjToId( hom1N, hom2N, m2 );
