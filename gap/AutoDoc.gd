@@ -10,7 +10,7 @@
 #! The <B>TwistedConjugacy</B> package is free software, it may be redistributed and/or modified under the terms and conditions of the <URL Text="GNU Public License Version 2">https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</URL> or (at your option) any later version.
 
 #! @Acknowledgements
-#! This documentation was created using the <B>AutoDoc</B> package. The algorithms in this package are based on <Cite Key='fels00-1' />, <Cite Key='dt20-1' /> and <Cite Key='tert20-1' />.
+#! This documentation was created using the <B>AutoDoc</B> package. The algorithms in this package are based on <Cite Key='fels00-1' />, <Cite Key='roma16-1' />, <Cite Key='mw20-1' />, <Cite Key='dt20-1' /> and <Cite Key='tert20-1' />.
 
 
 
@@ -23,7 +23,7 @@
 #! @Chapter Twisted Conjugacy
 #! @ChapterLabel twicon
 #! @ChapterTitle Twisted Conjugacy
-#! Please note that currently the functions in this chapter are implemented only for (endomorphisms of) finite groups and pcp-groups.
+#! Please note that the functions in this chapter are implemented only for endomorphisms of finite groups and pcp-groups.
 
 
 ###
@@ -36,17 +36,17 @@
 #! @Description
 #! Implements the twisted conjugation (right) group action induced by the endomorphism <A>endo</A>. This is the twisted conjugacy analogue of <C>OnPoints</C>.
 #! @Arguments endo
-DeclareOperation( "TwistedConjugation" , [IsGroupHomomorphism] );
+DeclareOperation( "TwistedConjugation" , [IsGroupHomomorphism and IsEndoGeneralMapping] );
 
 #! @Description
-#! Tests whether the elements <A>g1</A> and <A>g2</A> are twisted conjugate under the twisted conjugacy action of the endomorphism <A>endo</A>. This is the twisted conjugacy analogue of <C>IsConjugate</C>. For non-nilpotent polycyclic groups, an algorithm is available only when the Reidemeister number of <A>endo</A> is finite.
+#! Tests whether the elements <A>g1</A> and <A>g2</A> are twisted conjugate under the twisted conjugacy action of the endomorphism <A>endo</A>. This is the twisted conjugacy analogue of <C>IsConjugate</C>. For polycyclic groups, this algorithm may fail if the group is not nilpotent-by-finite and the Reidemeister number of <A>endo</A> is infinite.
 #! @Arguments endo, g1, g2
-DeclareOperation( "IsTwistedConjugate", [IsGroupHomomorphism, IsObject, IsObject] );
+DeclareOperation( "IsTwistedConjugate", [IsGroupHomomorphism and IsEndoGeneralMapping, IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse] );
 
 #! @Description
-#! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the endomorphism <A>endo</A> and returns <C>fail</C> if no such element exists. This is the twisted conjugacy analogue of <C>RepresentativeAction</C>. For non-nilpotent polycyclic groups, an algorithm is available only when the Reidemeister number of <A>endo</A> is finite.
+#! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the endomorphism <A>endo</A> and returns <C>fail</C> if no such element exists. This is the twisted conjugacy analogue of <C>RepresentativeAction</C>. For polycyclic groups, this algorithm may fail if the group is not nilpotent-by-finite and the Reidemeister number of <A>endo</A> is infinite.
 #! @Arguments endo, g1, g2
-DeclareOperation( "RepresentativeTwistedConjugation", [IsGroupHomomorphism, IsObject, IsObject] );
+DeclareOperation( "RepresentativeTwistedConjugation", [IsGroupHomomorphism and IsEndoGeneralMapping, IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse] );
 
 #! @BeginExample
 G := Group([ (3,4)(5,6), (1,2,3)(4,5,7) ]);;
@@ -82,27 +82,27 @@ tc( G.1, g ) = G.2;
 #! * <C>Size</C>, which gives the number of elements in the Reidemeister class - only works for finite groups.
 #! This is the twisted conjugacy analogue of <C>ConjugacyClass</C>.
 #! @Arguments endo, g
-DeclareOperation( "ReidemeisterClass", [IsGroupHomomorphism, IsObject] );
+DeclareOperation( "ReidemeisterClass", [IsGroupHomomorphism and IsEndoGeneralMapping, IsMultiplicativeElementWithInverse] );
 #! @Arguments endo, g
-DeclareOperation( "TwistedConjugacyClass", [IsGroupHomomorphism, IsObject] );
+DeclareOperation( "TwistedConjugacyClass", [IsGroupHomomorphism and IsEndoGeneralMapping, IsMultiplicativeElementWithInverse] );
 #! @EndGroup
 
 #! @BeginGroup ReidemeisterClassesGroup
 #! @Description
 #! Returns a list containing the Reidemeister classes of <A>endo</A> if the Reidemeister number of <A>endo</A> is finite, and returns <C>fail</C> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position. This is the twisted conjugacy analogue of <C>ConjugacyClasses</C>.
 #! @Arguments endo
-DeclareOperation( "ReidemeisterClasses", [IsGroupHomomorphism] );
+DeclareOperation( "ReidemeisterClasses", [IsGroupHomomorphism and IsEndoGeneralMapping] );
 #! @Arguments endo
-DeclareOperation( "TwistedConjugacyClasses", [IsGroupHomomorphism] );
+DeclareOperation( "TwistedConjugacyClasses", [IsGroupHomomorphism and IsEndoGeneralMapping] );
 #! @EndGroup
 
 #! @BeginGroup ReidemeisterNumberGroup
 #! @Description
 #! Returns the Reidemeister number of <A>endo</A>, i.e. the number of Reidemeister classes. This is the twisted conjugacy analogue of <C>NrConjugacyClasses</C>.
 #! @Arguments endo
-DeclareOperation( "ReidemeisterNumber", [IsGroupHomomorphism] );
+DeclareOperation( "ReidemeisterNumber", [IsGroupHomomorphism and IsEndoGeneralMapping] );
 #! @Arguments endo
-DeclareOperation( "NrTwistedConjugacyClasses", [IsGroupHomomorphism] );
+DeclareOperation( "NrTwistedConjugacyClasses", [IsGroupHomomorphism and IsEndoGeneralMapping] );
 #! @EndGroup
 
 #! @BeginExample
@@ -170,17 +170,17 @@ ExtendedReidemeisterSpectrum( G );
 #! @Description
 #! Returns the Reidemeister zeta function of <A>endo</A>.
 #! @Arguments endo
-DeclareOperation( "ReidemeisterZeta", [IsGroupHomomorphism] );
+DeclareOperation( "ReidemeisterZeta", [IsGroupHomomorphism and IsEndoGeneralMapping] );
 
 #! @Description
 #! Returns a string describing the Reidemeister zeta function of <A>endo</A>.
 #! @Arguments endo
-DeclareOperation( "PrintReidemeisterZeta", [IsGroupHomomorphism] );
+DeclareOperation( "PrintReidemeisterZeta", [IsGroupHomomorphism and IsEndoGeneralMapping] );
 
 #! @Description
 #! For a finite group, the sequence of Reidemeister numbers of the iterates of <A>endo</A>, i.e. the sequence R(<A>endo</A>), R(<A>endo</A>^2), ..., is periodic (see <Cite Key='fels00-1' Where='Theorem 16'/>). This function returns a list containing the first period of this sequence.
 #! @Arguments endo
-DeclareAttribute( "ReidemeisterZetaCoefficients", IsGroupHomomorphism );
+DeclareAttribute( "ReidemeisterZetaCoefficients", IsGroupHomomorphism and IsEndoGeneralMapping );
 
 #! @BeginExample
 zeta1 := ReidemeisterZeta( phi );;
@@ -203,8 +203,7 @@ ReidemeisterZetaCoefficients( phi );
 #! @Chapter Double Twisted Conjugacy
 #! @ChapterLabel dubtwicon
 #! @ChapterTitle Double Twisted Conjugacy
-#! Please note that currently the functions in this chapter are implemented only for (homomorphisms of) finite groups and (endomorphisms of) pcp-groups.
-
+#! Please note that the functions in this chapter are implemented only for homomorphisms between finite groups or between pcp-groups.
 
 ###
 # SECTION 1
@@ -219,14 +218,14 @@ ReidemeisterZetaCoefficients( phi );
 DeclareOperation( "TwistedConjugation" , [IsGroupHomomorphism, IsGroupHomomorphism] );
 
 #! @Description
-#! Tests whether the elements <A>g1</A> and <A>g2</A> are double twisted conjugate under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ).  For non-nilpotent polycyclic groups, an algorithm is available only when the Reidemeister number of <A>hom1</A> and <A>hom2</A> is finite.
+#! Tests whether the elements <A>g1</A> and <A>g2</A> are double twisted conjugate under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ). For polycyclic groups, this algorithm may fail if the range is not nilpotent-by-finite and the Reidemeister number of <A>hom1</A> and <A>hom2</A> is infinite.
 #! @Arguments hom1, hom2, g1, g2
-DeclareOperation( "IsTwistedConjugate", [IsGroupHomomorphism, IsGroupHomomorphism, IsObject, IsObject] );
+DeclareOperation( "IsTwistedConjugate", [IsGroupHomomorphism, IsGroupHomomorphism, IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse] );
 
 #! @Description
-#! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) and returns <C>fail</C> if no such element exists.  For non-nilpotent polycyclic groups, an algorithm is available only when the Reidemeister number of <A>hom1</A> and <A>hom2</A> is finite.
+#! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) and returns <C>fail</C> if no such element exists. For polycyclic groups, this algorithm may fail if the range is not nilpotent-by-finite and the Reidemeister number of <A>hom1</A> and <A>hom2</A> is infinite.
 #! @Arguments hom1, hom2, g1, g2
-DeclareOperation( "RepresentativeTwistedConjugation", [IsGroupHomomorphism, IsGroupHomomorphism, IsObject, IsObject] );
+DeclareOperation( "RepresentativeTwistedConjugation", [IsGroupHomomorphism, IsGroupHomomorphism, IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse] );
 
 #! @BeginExample
 G := AlternatingGroup( 6 );;
@@ -267,9 +266,9 @@ tc( g1, h ) = g2;
 #! * <C>Size</C>, which gives the number of elements in the Reidemeister class - only works for finite groups.
 #!
 #! @Arguments hom1, hom2, g
-DeclareOperation( "ReidemeisterClass", [IsGroupHomomorphism, IsGroupHomomorphism, IsObject] );
+DeclareOperation( "ReidemeisterClass", [IsGroupHomomorphism, IsGroupHomomorphism, IsMultiplicativeElementWithInverse] );
 #! @Arguments hom1, hom2, g
-DeclareOperation( "TwistedConjugacyClass", [IsGroupHomomorphism, IsGroupHomomorphism, IsObject] );
+DeclareOperation( "TwistedConjugacyClass", [IsGroupHomomorphism, IsGroupHomomorphism, IsMultiplicativeElementWithInverse] );
 #! @EndGroup
 
 #! @BeginGroup ReidemeisterCoincidenceClassesGroup
@@ -336,10 +335,10 @@ NrTwistedConjugacyClasses( phi, psi );
 #! @Description
 #! Let <A>endo</A> be an endomorphism of a group G. This command returns the subgroup of G consisting of the elements fixed under the endomorphism <A>endo</A>. This command is implemented only for endomorphisms of finite groups and nilpotent groups.
 #! @Arguments endo
-DeclareOperation( "FixedPointGroup", [IsGroupHomomorphism] );
+DeclareOperation( "FixedPointGroup", [IsGroupHomomorphism and IsEndoGeneralMapping] );
 
 #! @Description
-#! Let <A>hom1</A>, <A>hom2</A> be group homomorphisms from H to G. This command returns the subgroup of H consisting of the elements <C>h</C> for which <C>h^<A>hom1</A> = h^<A>hom2</A></C>. This command is implemented only for homomorphisms where either H is finite, or H is polycyclic and G is abelian, or <A>hom1</A> and <A>hom2</A> are endomorphisms of a nilpotent group.
+#! Let <A>hom1</A>, <A>hom2</A> be group homomorphisms from H to G. This command returns the subgroup of H consisting of the elements <C>h</C> for which <C>h^<A>hom1</A> = h^<A>hom2</A></C>. This command is implemented only for homomorphisms where either H is finite, or H is polycyclic and G is nilpotent.
 #! @Arguments hom1, hom2
 DeclareOperation( "CoincidenceGroup", [IsGroupHomomorphism, IsGroupHomomorphism] );
 
@@ -358,18 +357,6 @@ CoincidenceGroup( khi, psi );
 #! <permutation group with 60 generators>
 #! @EndExample
 
-#! @Description
-#! Let <A>G</A> be a nilpotent group. This command returns the adapted lower central series of G. Note that for non-torsion-free nilpotent groups, this series will end at the torsion subgroup of <A>G</A>.
-#! @Arguments G
-DeclareAttribute( "AdaptedLowerCentralSeriesOfGroup", IsGroup );
-
-#! @BeginExample
-G := ExamplesOfSomePcpGroups(11);;
-AdaptedLowerCentralSeriesOfGroup(G);
-#! [ Pcp-group with orders [ 0, 0, 0, 0, 0 ], Pcp-group with orders [ 0, 0, 0 ], 
-#!   Pcp-group with orders [ 0, 0 ], Pcp-group with orders [  ] ]
-#! @EndExample
-
 
 ###
 # SECTION 2
@@ -378,14 +365,14 @@ AdaptedLowerCentralSeriesOfGroup(G);
 #! @Section Morphisms
 
 #! @Description
-#! Let <A>endo</A> be an endomorphism of a group G and <A>epi</A> be an epimorphism from G to a group H such that the kernel of <A>epi</A> is fixed under <A>endo</A>. This command returns the endomorphism of H induced by <A>endo</A> via <A>epi</A>, that is, the endomorphism of H which maps g<C>^<A>epi</A></C> to <C>(</C>g<C>^<A>endo</A>)^<A>epi</A></C>, for any element g of G. This generalises <C>InducedAutomorphism</C> to endomorphisms.
-#! @Arguments epi, endo
-DeclareGlobalFunction( "InducedEndomorphism" ); # Extends InducedAutomorphism
+#! Let <A>hom</A> be a group homomorphism from H to G, let <A>epi1</A> be an epimorphism from H to a group Q and <A>epi2</A> be an epimorphism from G to a group P such that the kernel of <A>epi1</A> is mapped into the kernel of <A>epi2</A> by <A>hom</A>. This command returns the homomorphism from Q to P induced by <A>hom</A> via <A>epi1</A> and <A>epi2</A>, that is, the homomorphism from Q to P which maps h<C>^<A>epi1</A></C> to <C>(</C>h<C>^<A>hom</A>)^<A>epi2</A></C>, for any element h of H. This generalises <C>InducedAutomorphism</C> to homomorphisms.
+#! @Arguments epi1, epi2, hom
+DeclareGlobalFunction( "InducedHomomorphism" ); # Extends InducedAutomorphism
 
 #! @Description
-#! Let <A>endo</A> be an endomorphism of a group G and <A>N</A> be subgroup of G invariant under <A>endo</A>. This command returns the endomorphism of N induced by <A>endo</A>. This is similar to <C>RestrictedMapping</C>, but the range is explicitly set to <A>N</A>.
-#! @Arguments endo, N
-DeclareGlobalFunction( "RestrictedEndomorphism" ); 
+#! Let <A>hom</A> be a group homomorphism from H to G, and let <A>N</A> be subgroup of H such that its image under <A>hom</A> is a subgroup of <A>M</A>. This command returns the homomorphism from N to M induced by <A>hom</A>. This is similar to <C>RestrictedMapping</C>, but the range is explicitly set to <A>M</A>.
+#! @Arguments hom, N, M
+DeclareGlobalFunction( "RestrictedHomomorphism" ); 
 
 #! @BeginExample
 G := ExamplesOfSomePcpGroups( 5 );;
@@ -394,8 +381,8 @@ phi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3, G.4 ],
 N := DerivedSubgroup(G);;
 p := NaturalHomomorphismByNormalSubgroup( G, N );
 #! [ g1, g2, g3, g4, g2^2, g3^2, g4^2 ] -> [ g1, g2, g3, g4, id, id, id ]
-InducedEndomorphism( p, phi );
+InducedHomomorphism( p, p, phi );
 #! [ g1, g2, g3, g4 ] -> [ g1*g4, g3, g2, g4 ]
-RestrictedEndomorphism( phi, N );
+RestrictedEndomorphism( phi, N, N );
 #! [ g2^2, g3^2, g4^2 ] -> [ g3^2, g2^2*g3^4*g4^8, g4^-2 ]
 #! @EndExample

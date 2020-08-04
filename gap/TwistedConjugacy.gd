@@ -70,32 +70,6 @@ DeclareOperation(
 
 
 DeclareOperation(
-	"TwistedConjugacyClassZeta",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping ]
-);
-DeclareOperation(
-	"ConjugacyClassZeta",
-	[ IsGroup ]
-);
-DeclareOperation(
-	"PrintTwistedConjugacyClassZeta",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping ]
-);
-DeclareOperation(
-	"PrintConjugacyClassZeta",
-	[ IsGroup ]
-);
-DeclareOperation(
-	"TwistedConjugacyClassZetaCoefficients",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping ]
-);
-DeclareOperation(
-	"ConjugacyClassZetaCoefficients",
-	[ IsGroup ]
-);
-
-
-DeclareOperation(
 	"FixedPointGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ]
 );
