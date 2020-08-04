@@ -2,16 +2,18 @@ language: c
 
 addons:
   apt_packages:
-    - libgmp-dev
-    - libreadline-dev
-    #- zlib1g-dev
-    #- pari-gp
+  - libgmp-dev
+  - libreadline-dev
+  - zlib1g-dev
+  - pari-gp
 
-matrix:
-  include:
-    #- env: GAPBRANCH=master
-    - env: GAPBRANCH=stable-4.11
-    - env: GAPBRANCH=stable-4.10
+env: 
+- GAPBRANCH=master GAP-BOOTSTRAP=full GAP_PKGS_TO_CLONE="autpgrp alnuth polycyclic"
+- GAPBRANCH=master GAP-BOOTSTRAP=minimal GAP_PKGS_TO_CLONE="autpgrp alnuth polycyclic"
+- GAPBRANCH=stable-4.11 GAP-BOOTSTRAP=full
+- GAPBRANCH=stable-4.11 GAP-BOOTSTRAP=minimal
+- GAPBRANCH=stable-4.11 GAP-BOOTSTRAP=full
+- GAPBRANCH=stable-4.10 GAP-BOOTSTRAP=minimal
 
 branches:
   only:
