@@ -18,6 +18,10 @@ following packages (and their dependencies) installed:
 - Polycyclic (version >= 2.14)
 - GAPDoc (version >= 1.6.2)
 
+It is recommended to use version 2.16 or later of the Polycyclic package,
+as bugs in earlier versions may lead to incorrect results. Support for
+earlier versions will likely be dropped in the near future.
+
 
 Installation
 ------------
