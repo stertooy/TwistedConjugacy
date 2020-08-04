@@ -4,12 +4,14 @@ addons:
   apt_packages:
     - libgmp-dev
     - libreadline-dev
+    - zlib1g-dev
+    - pari-gp
 
 matrix:
   include:
     - env: 
       - GAPBRANCH="master"
-      - GAP_PKGS_TO_CLONE="polycyclic"
+      - GAP_PKGS_TO_CLONE="autpgrp alnuth polycyclic"
     - env: 
       - GAPBRANCH="master"
     - env:
