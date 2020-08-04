@@ -4,8 +4,8 @@ addons:
   apt_packages:
     - libgmp-dev
     - libreadline-dev
-    - zlib1g-dev
-    - pari-gp
+    #- zlib1g-dev
+    #- pari-gp
 
 matrix:
   include:
