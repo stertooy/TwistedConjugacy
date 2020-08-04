@@ -7,9 +7,15 @@ addons:
 
 matrix:
   include:
-    - env: GAPBRANCH="master"
-    - env: GAPBRANCH="stable-4.11"
-    - env: GAPBRANCH="stable-4.10"
+    - env: 
+      - GAPBRANCH="master"
+      - GAP_PKGS_TO_CLONE="polycyclic"
+    - env: 
+      - GAPBRANCH="master"
+    - env:
+      - GAPBRANCH="stable-4.11"
+    - env: 
+      - GAPBRANCH="stable-4.10"
 
 branches:
   only:
