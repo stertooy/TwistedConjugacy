@@ -260,7 +260,7 @@ InstallMethod(
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsPcpGroup ( H ) or not IsPcpGroup( G ) or
-			not IsAbelian( G ) then
+		not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
 		N := Image( DifferenceGroupHomomorphisms@( hom1, hom2 ) );
@@ -275,9 +275,8 @@ InstallMethod(
 					Add( Rcl, ReidemeisterClass( hom1, hom2, One( G ) ), 1 );
 				else
 					Add( Rcl, ReidemeisterClass( 
-							hom1, hom2, PreImagesRepresentative( p, pg )
-						) 
-					);
+						hom1, hom2, PreImagesRepresentative( p, pg )
+					));
 				fi;
 			od;
 			return Rcl;

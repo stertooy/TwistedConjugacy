@@ -203,9 +203,6 @@ RepTwistConjToIdByCentre@ := function ( hom1, hom2, g )
 		return fail;
 	fi;
 	qh2 := PreImagesRepresentative( delta, pRm1 );
-	#if qh2 = fail then
-	#	return fail;
-	#fi;
 	h2 := PreImagesRepresentative( q, qh2 );
 	m2 := tc( m1, h2 );
 	n := RepTwistConjToId( hom1N, hom2N, m2 );
@@ -231,9 +228,6 @@ InstallMethod(
 		not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		# Due to bug in the 'Polycyclic' package, PreImagesRepresentative 
-		# may return the neutral element instead of "fail"
-		# As a failsafe, we wrap this in a condtional statement
 		if g in Image( DifferenceGroupHomomorphisms@( hom1, hom2 ) ) then
 			return PreImagesRepresentative( 
 				DifferenceGroupHomomorphisms@( hom1, hom2 ), g
@@ -256,7 +250,7 @@ InstallMethod(
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or
-			not IsNilpotent( G ) or	IsAbelian( G ) then
+		not IsNilpotent( G ) or	IsAbelian( G ) then
 			TryNextMethod();
 		fi;
 		return RepTwistConjToIdByCentre@( hom1, hom2, g );
@@ -274,7 +268,7 @@ InstallMethod(
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or
-			not IsNilpotentByFinite( G ) or	IsNilpotent( G ) then
+		not IsNilpotentByFinite( G ) or	IsNilpotent( G ) then
 			TryNextMethod();
 		fi;
 		return RepTwistConjToIdByFiniteCoin@( 
