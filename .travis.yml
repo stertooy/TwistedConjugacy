@@ -11,7 +11,7 @@ matrix:
   include:
     - env: GAPBRANCH="stable-4.10"
     - env: GAPBRANCH="stable-4.11"
-    - env: GAPBRANCH="master" #GAP_PKGS_TO_CLONE="autpgrp alnuth polycyclic"
+    - env: GAPBRANCH="master"
 
 branches:
   only:
