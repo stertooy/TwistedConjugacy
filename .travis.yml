@@ -9,9 +9,18 @@ addons:
 
 matrix:
   include:
-    - env: GAPBRANCH="stable-4.10"
-    - env: GAPBRANCH="stable-4.11"
-    - env: GAPBRANCH="master"
+    - env:
+      - GAPBRANCH="master"
+      - GAP_PKGS_TO_CLONE="polycyclic"
+    - env:
+      - GAPBRANCH="master"
+      - GAP_PKGS_TO_CLONE="https://github.com/gap-packages/polycyclic/releases/download/v2.16/polycyclic-2.16.tar.gz"
+    - env:
+      - GAPBRANCH="stable-4.11"
+      - GAP_PKGS_TO_CLONE="https://github.com/gap-packages/polycyclic/releases/download/v2.15.1/polycyclic-2.15.1.tar.gz"
+    - env: 
+      - GAPBRANCH="stable-4.10"
+      - GAP_PKGS_TO_CLONE="https://github.com/gap-packages/polycyclic/releases/download/v2.14/polycyclic-2.14.tar.gz"
 
 branches:
   only:
