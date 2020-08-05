@@ -13,14 +13,11 @@ Introduction
 This package is designed to be used for either finite groups or for
 (infinite) polycyclically presented groups (pcp-groups).
 
-This package was originally designed for GAP version 4.10 with the
-following packages (and their dependencies) installed:
-- Polycyclic (version >= 2.14)
-- GAPDoc (version >= 1.6.2)
+This package requires GAP version 4.11 or later, with the following packages
+(and their dependencies) installed:
+- Polycyclic (version >= 2.16)
+- GAPDoc (version >= 1.6.3)
 
-It is recommended to use version 2.16 or later of the Polycyclic package,
-as bugs in earlier versions may lead to incorrect results. Support for
-earlier versions will likely be dropped in the near future.
 
 
 Installation

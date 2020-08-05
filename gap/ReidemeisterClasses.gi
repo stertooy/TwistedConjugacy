@@ -71,18 +71,6 @@ InstallMethod(
 	end 
 );
 
-# Only necessary in GAP <= 4.10
-InstallMethod( 
-	Random,
-	"for Reidemeister classes",
-	[ IsReidemeisterClassGroupRep ],
-	function ( tcc )
-		local tc;
-		tc := FunctionAction( tcc );
-		return tc( Representative( tcc ), Random( ActingDomain( tcc ) ) );
-	end
-);
-
 InstallMethod(
 	PrintObj,
 	"for Reidemeister classes",
