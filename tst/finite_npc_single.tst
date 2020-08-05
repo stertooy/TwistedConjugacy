@@ -8,8 +8,7 @@ Group([ (), (1,3,6)(4,5,7), (1,6,3)(4,7,5) ])
 gap> tc := TwistedConjugation( phi );;
 gap> IsTwistedConjugate( phi, G.1, G.1^2 );
 false
-gap> g := RepresentativeTwistedConjugation( phi, G.1, G.2 );
-(1,6,7,5)(3,4)
+gap> g := RepresentativeTwistedConjugation( phi, G.1, G.2 );;
 gap> tc( G.1, g ) = G.2;
 true
 gap> tcc := ReidemeisterClass( phi, G.1 );
@@ -26,6 +25,11 @@ gap> Random( tcc ) in tcc;
 true
 gap> ActingDomain( tcc ) = G;
 true
+gap> R := TwistedConjugacyClasses( phi );;
+gap> Representative( R[1] ) = One( G );
+true
+gap> Size( R );
+4
 gap> NrTwistedConjugacyClasses( phi );
 4
 gap> ReidemeisterSpectrum( G );

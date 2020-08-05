@@ -12,8 +12,7 @@ Group([ <identity> of ..., f2*f5^6 ])
 gap> tc := TwistedConjugation( phi );;
 gap> IsTwistedConjugate( phi, G.2, G.3 );
 false
-gap> g := RepresentativeTwistedConjugation( phi, G.1, G.3 );
-f1*f2*f3*f4
+gap> g := RepresentativeTwistedConjugation( phi, G.1, G.3 );;
 gap> tc( G.1, g ) = G.3;   
 true
 gap> tcc := ReidemeisterClass( phi, G.3 );;
@@ -29,6 +28,11 @@ gap> Random( tcc ) in tcc;
 true
 gap> ActingDomain( tcc ) = G;
 true
+gap> R := TwistedConjugacyClasses( phi );;
+gap> Representative( R[1] ) = One( G );
+true
+gap> Size( R );
+4
 gap> NrTwistedConjugacyClasses( phi );
 4
 gap> ReidemeisterSpectrum( G );

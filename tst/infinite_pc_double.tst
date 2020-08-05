@@ -10,8 +10,7 @@ gap> psi := GroupHomomorphismByImages( G, G, gens, imgs2 );;
 gap> tc := TwistedConjugation( phi, psi );;
 gap> IsTwistedConjugate( phi, G.2, G.3^2 );
 false
-gap> g := RepresentativeTwistedConjugation( phi, psi, G.2, G.2*G.3^2 );
-g3^2
+gap> g := RepresentativeTwistedConjugation( phi, psi, G.2, G.2*G.3^2 );;
 gap> tc( G.2, g ) = G.2*G.3^2;
 true
 gap> tcc := ReidemeisterClass( phi, psi, G.3 );;
@@ -24,8 +23,13 @@ gap> Random( tcc ) in tcc;
 true
 gap> ActingDomain( tcc ) = G;
 true
-gap> TwistedConjugacyClasses( phi, psi );
-[ id^G, g2*g4^G, g1^G, g1*g2^-1*g4^G ]
+gap> R := TwistedConjugacyClasses( phi, psi );;
+gap> Representative( R[1] ) = One( G );
+true
+gap> Size( R );
+4
+gap> NrTwistedConjugacyClasses( phi, psi );
+4
 gap> F := FittingSubgroup( G );;
 gap> f := GeneratorsOfGroup( F );;
 gap> i := GroupHomomorphismByImages( F, G, f, f );;

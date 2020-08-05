@@ -23,6 +23,11 @@ gap> Random( tcc ) in tcc;
 true
 gap> ActingDomain( tcc ) = G;
 true
+gap> R := TwistedConjugacyClasses( phi );;
+gap> Representative( R[1] ) = One( G );
+true
+gap> Size( R );
+6
 gap> NrTwistedConjugacyClasses( phi );
 6
 gap> id := IdentityMapping( G );;
