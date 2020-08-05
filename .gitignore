@@ -1,15 +1,13 @@
-/doc/chap*.html
-/doc/chap*.txt
-/doc/*.css
-/doc/*.js
-/doc/chooser.html
+/doc/*.html
 /doc/*.aux
 /doc/*.bbl
 /doc/*.blg
 /doc/*.brf
+/doc/*.css
 /doc/*.idx
 /doc/*.ilg
 /doc/*.ind
+/doc/*.js
 /doc/*.lab
 /doc/*.log
 /doc/*.out
@@ -17,8 +15,8 @@
 /doc/*.six
 /doc/*.tex
 /doc/*.toc
-/doc/manual.pdf
-/doc/_*.xml
+/doc/*.txt
+/doc/*.xml
 
 /bin/
 /gen/
