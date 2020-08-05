@@ -15,6 +15,8 @@ This file describes changes in the GAP package 'TwistedConjugacy'.
   InducedHomomorphism and RestrictedHomomorphism respectively
 - Manual, in pdf format, is included under /doc. The manual can be recreated
   by running the "makedoc.g" script
+- Now requires GAP 4.11 and polycyclic 2.16, to prevent wrong results due
+  to bugs in the polycyclic package
 
 
 1.0.1 (07/06/2020)

@@ -9,9 +9,8 @@ addons:
 
 matrix:
   include:
-    - env: GAPBRANCH=master
-    - env: GAPBRANCH=stable-4.11
-    - env: GAPBRANCH=stable-4.10
+    - env: GAPBRANCH="master" GAP_PKGS_TO_CLONE="alnuth autpgrp polycyclic"
+    - env: GAPBRANCH="stable-4.11"
 
 branches:
   only:
