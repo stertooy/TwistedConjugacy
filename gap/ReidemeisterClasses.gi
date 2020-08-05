@@ -162,7 +162,7 @@ ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M )
 			fi;
 		od;
 		Append( Rcl, 
-			List( igRclM, l -> ReidemeisterClass( hom1, hom2, l*g ) ) 
+			List( igRclM, m -> ReidemeisterClass( hom1, hom2, m*g ) ) 
 		);
 	od;
 	return Rcl;

@@ -36,9 +36,6 @@ recognizes the TwistedConjugacy package using the following command:
 	─────────────────────────────────────────────────────────────────────────────
 	true
 
-Note that the line "Report issues at ..." is new in GAP 4.11, and does not
-appear when loading this package in earlier versions of GAP.
-
 If you are using a custom directory, make a 'pkg' subdirectory and place
 the TwistedConjugacy folder in this subdirectory. You will need to tell 
 GAP to look for packages in this directory using the -l option:
