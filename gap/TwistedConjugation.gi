@@ -161,15 +161,11 @@ InstallMethod( RepTwistConjToIdByNormal,
 		
 		hom1GN := InducedEndomorphism( p, hom1 );
 		hom2GN := InducedEndomorphism( p, hom2 );
-		# If Fixed point group is infinite, algorithm does not work
-		Coin := CoincidenceGroup( hom1GN, hom2GN );
-		if not IsFinite( Coin ) then
-			TryNextMethod();
-		fi;
 		pk := RepTwistConjToId( hom1GN, hom2GN, g^p );
 		if pk = fail then
 			return fail;
 		fi;
+		Coin := CoincidenceGroup( hom1GN, hom2GN );
 		k := PreImagesRepresentative( p, pk );
 		tc := TwistedConjugation( hom1, hom2 );
 		n := tc( g, k ); # n = k^-1 * g * endo( k )
