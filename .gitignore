@@ -8,13 +8,10 @@
 /doc/*.ilg
 /doc/*.ind
 /doc/*.js
-/doc/*.lab
 /doc/*.log
 /doc/*.out
 /doc/*.pnr
-/doc/*.six
 /doc/*.tex
-/doc/*.toc
 /doc/*.txt
 /doc/*.xml
 
