@@ -1,6 +1,6 @@
 This file describes changes in the GAP package 'TwistedConjugacy'.
 
-1.1.0 (05/08/2020)
+1.1.0 (XX/08/2020)
 ------------------
 
 - Improved calculation of Reidemeister number for (finite) abelian groups
@@ -13,10 +13,11 @@ This file describes changes in the GAP package 'TwistedConjugacy'.
   or if the homomorphisms are endomorphisms
 - InducedEndomorphism and RestrictedEndomorphism replaced by
   InducedHomomorphism and RestrictedHomomorphism respectively
-- Manual, in pdf format, is included under /doc. The manual can be recreated
-  by running the "makedoc.g" script
+- Some changes to how the manual is generated. The manual can be recreated
+  by running the "makedoc.g" script in the main package directory
 - Now requires GAP 4.11 and polycyclic 2.16, to prevent wrong results due
   to bugs in the polycyclic package
+- Now requires AutoDoc package, to ensure users can compile the documentation
 
 
 1.0.1 (07/06/2020)

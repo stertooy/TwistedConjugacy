@@ -17,6 +17,7 @@ This package requires GAP version 4.11 or later, with the following packages
 (and their dependencies) installed:
 - Polycyclic (version >= 2.16)
 - GAPDoc (version >= 1.6.3)
+- AutoDoc (version >= 2019.09.04)
 
 
 
@@ -42,8 +43,12 @@ GAP to look for packages in this directory using the -l option:
 
 	sh > gap -l ';mydirectory/';
 
+The manual may be compiled by running the 'makedoc.g' script, located in
+the package's main directory.  It is also available on the webpages of this
+package, at <https://stertooy.github.io/TwistedConjugacy/doc/chap0.html>
 
- 
+
+
 Support
 -------
  
