@@ -1,23 +1,5 @@
 /doc/*.html
-/doc/*.aux
-/doc/*.bbl
-/doc/*.blg
-/doc/*.brf
-/doc/*.css
-/doc/*.idx
-/doc/*.ilg
-/doc/*.ind
-/doc/*.js
-/doc/*.log
-/doc/*.out
-/doc/*.pnr
-/doc/*.tex
-/doc/*.txt
-/doc/*.xml
+!/doc/manual.bib
+!/doc/manual.gd
 
-/bin/
-/gen/
-/Makefile
-
-/tmp/
 /gh-pages/
