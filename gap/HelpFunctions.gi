@@ -5,16 +5,15 @@
 InstallGlobalFunction(
 	InducedHomomorphism,
 	function ( epi1, epi2, hom )
-    	local H, G, gens, indu;
+    	local H, G, gens;
 		H := Range( epi1 );
     	G := Range( epi2 );
 		gens := GeneratorsOfGroup( H );
-		indu := GroupHomomorphismByImagesNC(
+		return GroupHomomorphismByImagesNC(
 			H, G, gens, List( gens,
 				h -> ( PreImagesRepresentative( epi1, h )^hom )^epi2
 			)
 		);
-		return indu;
 	end
 );
 
@@ -26,12 +25,11 @@ InstallGlobalFunction(
 InstallGlobalFunction(
 	RestrictedHomomorphism,
 	function ( hom, N, M )
-    	local gens, rest;
+    	local gens;
 		gens := GeneratorsOfGroup( N );
-		rest := GroupHomomorphismByImagesNC(
+		return GroupHomomorphismByImagesNC(
 			N, M, gens, List( gens, n -> n^hom )
 		);
-		return rest;
 	end
 );
 
@@ -43,13 +41,12 @@ InstallGlobalFunction(
 ##	Returns the homomorphism that maps h to h^hom2*( h^hom1 )^-1
 ##
 DifferenceGroupHomomorphisms@ := function ( hom1, hom2, H, G )
-  	local gens, hom;
+  	local gens;
 	gens := GeneratorsOfGroup( H );
-	hom := GroupHomomorphismByImagesNC(
+	return GroupHomomorphismByImagesNC(
 		H, G,
 		gens, List( gens, h -> h^hom2 * ( h^hom1 )^-1 )
 	);
-	return hom;
 end;
 
 
@@ -61,13 +58,12 @@ end;
 ##  Note that g is not necessarily an element of the range of hom
 ##
 ComposeWithInnerAutomorphism@ := function ( g, hom )
-    local gens, comp;
+    local gens;
 	gens := MappingGeneratorsImages( hom );
-	comp := GroupHomomorphismByImagesNC(
+	return GroupHomomorphismByImagesNC(
 		Source( hom ), Range( hom ),
 		gens[1], List( gens[2], h -> h^g )
 	);
-	return comp;
 end;
 
 

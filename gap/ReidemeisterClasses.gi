@@ -174,8 +174,8 @@ end;
 ## ReidemeisterClassesByCentre@( hom1, hom2 )
 ##
 ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
-	local G, H, M, N, q, p, hom1HN, hom2HN, RclGM,Rcl, pg, g, ighom1, ighom1HN,
-	CoinHN, qinvCoinHN, gens, deltaLift, pCoker, coker, pm, m;
+	local G, H, M, N, q, p, hom1HN, hom2HN, RclGM, Rcl, pg, g, CoinHN,
+	deltaLift, pCoker, coker, pm, m;
 	G := Range( hom1 );
 	H := Source( hom1 );
 	M := Centre( G );
@@ -192,18 +192,16 @@ ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
 	Rcl := [];
 	for pg in RclGM do
 		g := PreImagesRepresentative( p, pg );
-		ighom1 := ComposeWithInnerAutomorphism@(  g^-1, hom1 );
-		ighom1HN := ComposeWithInnerAutomorphism@( pg^-1, hom1HN );
-		CoinHN := CoincidenceGroup( ighom1HN, hom2HN );
-		qinvCoinHN := PreImage( q, CoinHN );
-		gens := GeneratorsOfGroup( qinvCoinHN );
-		deltaLift := GroupHomomorphismByImagesNC(
-			qinvCoinHN, M,
-			gens, List( gens, h -> h^hom2 *( h^ighom1 )^-1 )
+		CoinHN := CoincidenceGroup( 
+			ComposeWithInnerAutomorphism@( pg^-1, hom1HN ),
+			hom2HN
+		);
+		deltaLift := DifferenceGroupHomomorphisms@ ( 
+			ComposeWithInnerAutomorphism@(  g^-1, hom1 ), hom2,
+			PreImage( q, CoinHN ), M
 		);
 		pCoker := NaturalHomomorphismByNormalSubgroupNC( 
-			M, 
-			Image( deltaLift )
+			M, Image( deltaLift )
 		);
 		coker := Image( pCoker );
 		if not IsFinite( coker ) then

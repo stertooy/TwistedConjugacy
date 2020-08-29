@@ -166,8 +166,8 @@ end;
 ## RepTwistConjToIdByCentre( hom1, hom2, g )
 ##
 RepTwistConjToIdByCentre@ := function ( hom1, hom2, g ) 
-	local G, H, M, N, p, q, hom1HN, hom2HN, qh1, h1, tc, m, CoinHN, qinvCoinHN,
-	gens, deltaLift, h2, m2, n;
+	local G, H, M, N, p, q, hom1HN, hom2HN, qh1, h1, tc, m, deltaLift, h2, m2,
+	n;
 	G := Range( hom1 );
 	H := Source ( hom1 );
 	M := Centre( G );
@@ -183,12 +183,9 @@ RepTwistConjToIdByCentre@ := function ( hom1, hom2, g )
 	h1 := PreImagesRepresentative( q, qh1 );
 	tc := TwistedConjugation( hom1, hom2 );
 	m := tc( g, h1 );
-	CoinHN := CoincidenceGroup( hom1HN, hom2HN );
-	qinvCoinHN := PreImage( q, CoinHN );
-	gens := GeneratorsOfGroup( qinvCoinHN );
-	deltaLift := GroupHomomorphismByImagesNC(
-		qinvCoinHN, M,
-		gens, List( gens, h -> h^hom2 *( h^hom1 )^-1 )
+	deltaLift := DifferenceGroupHomomorphisms@ ( 
+		hom1, hom2,
+		PreImage( q, CoincidenceGroup( hom1HN, hom2HN ) ), M
 	);
 	if not m in Image( deltaLift ) then
 		return fail;

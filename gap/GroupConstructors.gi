@@ -46,7 +46,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )
-		local H, G, M, N, p, q, CoinHN, qinvCoinHN, gens, deltaLift;
+		local H, G, M, N, p, q, CoinHN, deltaLift;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or 
@@ -61,11 +61,9 @@ InstallMethod(
 			InducedHomomorphism( q, p, hom1 ), 
 			InducedHomomorphism( q, p, hom2 )
 		);
-		qinvCoinHN := PreImage( q, CoinHN );
-		gens := GeneratorsOfGroup( qinvCoinHN );
-		deltaLift := GroupHomomorphismByImagesNC( 
-			qinvCoinHN, M, 
-			gens, List( gens, h -> h^hom2*( h^hom1 )^-1 )
+		deltaLift := DifferenceGroupHomomorphisms@ ( 
+			hom1, hom2,
+			PreImage( q, CoinHN ), M
 		);
 		return Kernel( deltaLift );
 	end
