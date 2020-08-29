@@ -166,8 +166,8 @@ end;
 ## RepTwistConjToIdByCentre( hom1, hom2, g )
 ##
 RepTwistConjToIdByCentre@ := function ( hom1, hom2, g ) 
-	local G, H, M, N, p, q, hom1HN, hom2HN, qh1, h1, tc, m1, hom1N, hom2N,
-	pRclM, Coin, gens, delta, pRm1, qh2, h2, m2, n;
+	local G, H, M, N, p, q, hom1HN, hom2HN, qh1, h1, tc, m, CoinHN, qinvCoinHN,
+	gens, deltaLift, h2, m2, n;
 	G := Range( hom1 );
 	H := Source ( hom1 );
 	M := Centre( G );
@@ -182,30 +182,23 @@ RepTwistConjToIdByCentre@ := function ( hom1, hom2, g )
 	fi;
 	h1 := PreImagesRepresentative( q, qh1 );
 	tc := TwistedConjugation( hom1, hom2 );
-	m1 := tc( g, h1 );
-	hom1N := RestrictedHomomorphism( hom1, N, M );
-	hom2N := RestrictedHomomorphism( hom2, N, M );
-	pRclM := NaturalHomomorphismByNormalSubgroupNC( 
-		M, Image( DifferenceGroupHomomorphisms@( hom1N, hom2N ))
+	m := tc( g, h1 );
+	CoinHN := CoincidenceGroup( hom1HN, hom2HN );
+	qinvCoinHN := PreImage( q, CoinHN );
+	gens := GeneratorsOfGroup( qinvCoinHN );
+	deltaLift := GroupHomomorphismByImagesNC(
+		qinvCoinHN, M,
+		gens, List( gens, h -> h^hom2 *( h^hom1 )^-1 )
 	);
-	Coin := CoincidenceGroup( hom1HN, hom2HN );
-	gens := GeneratorsOfGroup( Coin );
-	delta := GroupHomomorphismByImagesNC(
-		Coin, Image( pRclM ),
-		gens, 
-		List( 
-			List( gens, x -> PreImagesRepresentative( q, x ) ),
-			x -> ( ( x^hom2 )*( x^hom1 )^-1 )^pRclM
-		)
-	);
-	pRm1 := m1^pRclM;
-	if not pRm1 in Image( delta ) then
+	if not m in Image( deltaLift ) then
 		return fail;
 	fi;
-	qh2 := PreImagesRepresentative( delta, pRm1 );
-	h2 := PreImagesRepresentative( q, qh2 );
-	m2 := tc( m1, h2 );
-	n := RepTwistConjToId( hom1N, hom2N, m2 );
+	h2 := PreImagesRepresentative( deltaLift, m );
+	n := RepTwistConjToId(
+		RestrictedHomomorphism( hom1, N, M ),
+		RestrictedHomomorphism( hom2, N, M ),
+		tc( m, h2 )
+	);
 	return h1*h2*n;
 end;
 
