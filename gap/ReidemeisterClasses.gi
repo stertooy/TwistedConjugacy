@@ -174,8 +174,8 @@ end;
 ## ReidemeisterClassesByCentre@( hom1, hom2 )
 ##
 ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
-	local G, H, M, N, q, p, hom1HN, hom2HN, RclGM, pRclM, RclM,	Rcl, pg, g,
-	ighom1, ighom1HN, Coin, gens, gens2, delta, pCoker, igRclM, pRpCm, pRm, m;
+	local G, H, M, N, q, p, hom1HN, hom2HN, RclGM,Rcl, pg, g, ighom1, ighom1HN,
+	CoinHN, qinvCoinHN, gens, deltaLift, pCoker, coker, pm, m;
 	G := Range( hom1 );
 	H := Source( hom1 );
 	M := Centre( G );
@@ -189,41 +189,33 @@ ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
 		return fail;
 	fi;
 	RclGM := List( RclGM, g -> Representative( g ) );
-	pRclM := NaturalHomomorphismByNormalSubgroupNC( 
-		M, Image( DifferenceGroupHomomorphisms@( 
-			RestrictedHomomorphism( hom1, N, M ), 
-			RestrictedHomomorphism( hom2, N, M ) 
-		))
-	);
-	RclM := Image( pRclM );
 	Rcl := [];
 	for pg in RclGM do
 		g := PreImagesRepresentative( p, pg );
 		ighom1 := ComposeWithInnerAutomorphism@(  g^-1, hom1 );
 		ighom1HN := ComposeWithInnerAutomorphism@( pg^-1, hom1HN );
-		Coin := CoincidenceGroup( ighom1HN, hom2HN );
-		gens := GeneratorsOfGroup( Coin );
-		gens2 := List( gens, x -> PreImagesRepresentative( q, x ) );
-		delta := GroupHomomorphismByImagesNC(
-			Coin, RclM,
-			gens, List( gens2, x -> ( ( x^hom2 )*( x^ighom1 )^-1 )^pRclM )
+		CoinHN := CoincidenceGroup( ighom1HN, hom2HN );
+		qinvCoinHN := PreImage( q, CoinHN );
+		gens := GeneratorsOfGroup( qinvCoinHN );
+		deltaLift := GroupHomomorphismByImagesNC(
+			qinvCoinHN, M,
+			gens, List( gens, h -> h^hom2 *( h^ighom1 )^-1 )
 		);
 		pCoker := NaturalHomomorphismByNormalSubgroupNC( 
-			RclM, 
-			Image( delta )
+			M, 
+			Image( deltaLift )
 		);
-		igRclM := Image( pCoker );
-		if not IsFinite( igRclM ) then
+		coker := Image( pCoker );
+		if not IsFinite( coker ) then
 			return fail;
 		fi;
-		for pRpCm in igRclM do
-			if pRpCm = One( igRclM ) and pg = One( Image( p ) ) then
+		for pm in coker do
+			if pm = One( coker ) and pg = One( Image( p ) ) then
 				Add( Rcl, ReidemeisterClass( 
 					hom1, hom2, One( G )
 				), 1 );
 			else
-				pRm := PreImagesRepresentative( pCoker, pRpCm );
-				m := PreImagesRepresentative( pRclM, pRm );
+				m := PreImagesRepresentative( pCoker, pm );
 				Add( Rcl, ReidemeisterClass( 
 					hom1, hom2, m*g
 				));
