@@ -14,4 +14,10 @@ AutoDoc( rec(
 	)
 ));
 
+if ValidatePackageInfo( "PackageInfo.g" ) then
+	Info( InfoGAPDoc, 1, "#I Documentation successfully created \n");
+else
+	Info( InfoGAPDoc, 1, "#I One or more files could not be created \n");
+fi;
+
 QUIT;
