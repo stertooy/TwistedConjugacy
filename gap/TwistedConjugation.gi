@@ -214,17 +214,16 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse ],
 	4,
 	function ( hom1, hom2, g )
-		local G, H;
+		local G, H, diff;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsPcpGroup( G ) or not IsPcpGroup ( H ) or
 		not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		if g in Image( DifferenceGroupHomomorphisms@( hom1, hom2 ) ) then
-			return PreImagesRepresentative( 
-				DifferenceGroupHomomorphisms@( hom1, hom2 ), g
-			);
+		diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
+		if g in Image( diff ) then
+			return PreImagesRepresentative( diff, g );
 		else
 			return fail;
 		fi;

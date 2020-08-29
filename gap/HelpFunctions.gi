@@ -42,13 +42,12 @@ InstallGlobalFunction(
 ##
 ##	Returns the homomorphism that maps h to h^hom2*( h^hom1 )^-1
 ##
-DifferenceGroupHomomorphisms@ := function ( hom1, hom2 )
-  	local H, gens, hom;
-	H := Source( hom1 );
+DifferenceGroupHomomorphisms@ := function ( hom1, hom2, H, G )
+  	local gens, hom;
 	gens := GeneratorsOfGroup( H );
 	hom := GroupHomomorphismByImagesNC(
-		H, Range( hom1 ),
-		gens, List( gens, h -> h^hom2*( h^hom1 )^-1 )
+		H, G,
+		gens, List( gens, h -> h^hom2 * ( h^hom1 )^-1 )
 	);
 	return hom;
 end;

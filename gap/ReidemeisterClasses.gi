@@ -243,7 +243,7 @@ InstallMethod(
 		not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		N := Image( DifferenceGroupHomomorphisms@( hom1, hom2 ) );
+		N := Image( DifferenceGroupHomomorphisms@( hom1, hom2, H, G ) );
 		if IndexNC( G, N ) = infinity then
 			return fail;
 		else

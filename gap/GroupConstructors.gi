@@ -36,7 +36,7 @@ InstallMethod(
 		not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		return Kernel( DifferenceGroupHomomorphisms@ ( hom1, hom2 ) );
+		return Kernel( DifferenceGroupHomomorphisms@ ( hom1, hom2, H, G ) );
 	end
 );
 
