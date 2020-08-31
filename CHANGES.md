@@ -1,10 +1,10 @@
 This file describes changes in the GAP package 'TwistedConjugacy'.
 
-1.1.0 (07/08/2020)
+1.1.0 (31/08/2020)
 ------------------
 
 - Improved calculation of Reidemeister number for (finite) abelian groups
-- CoincidenceGroup now works for homomorphisms with nilpotent range
+- CoincidenceGroup now works for homomorphisms with nilpotent-by-finite range
 - IsTwistedConjugate can now always be applied to (non-endomorphic)
   homomorphisms. A result is guaranteed if the range is nilpotent-by-finite,
   or if the homomorphisms are endomorphisms with finite Reidemeister number

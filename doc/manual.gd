@@ -333,12 +333,12 @@ NrTwistedConjugacyClasses( phi, psi );
 #! @Section Groups
 
 #! @Description
-#! Let <A>endo</A> be an endomorphism of a group G. This command returns the subgroup of G consisting of the elements fixed under the endomorphism <A>endo</A>. This command is implemented only for endomorphisms of finite groups and nilpotent groups.
+#! Let <A>endo</A> be an endomorphism of a group G. This command returns the subgroup of G consisting of the elements fixed under the endomorphism <A>endo</A>. This command is implemented only for endomorphisms of finite groups or polycyclic nilpotent-by-finite groups.
 #! @Arguments endo
 DeclareOperation( "FixedPointGroup", [IsGroupHomomorphism and IsEndoGeneralMapping] );
 
 #! @Description
-#! Let <A>hom1</A>, <A>hom2</A> be group homomorphisms from H to G. This command returns the subgroup of H consisting of the elements <C>h</C> for which <C>h^<A>hom1</A> = h^<A>hom2</A></C>. This command is implemented only for homomorphisms where either H is finite, or H is polycyclic and G is nilpotent.
+#! Let <A>hom1</A>, <A>hom2</A> be group homomorphisms from H to G. This command returns the subgroup of H consisting of the elements <C>h</C> for which <C>h^<A>hom1</A> = h^<A>hom2</A></C>. This command is implemented only for homomorphisms where either H is finite, or H is polycyclic and G is polycyclic and nilpotent-by-finite.
 #! @Arguments hom1, hom2
 DeclareOperation( "CoincidenceGroup", [IsGroupHomomorphism, IsGroupHomomorphism] );
 
