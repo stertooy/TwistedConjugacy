@@ -209,14 +209,10 @@ ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
 		fi;
 		for pm in coker do
 			if pm = One( coker ) and pg = One( Image( p ) ) then
-				Add( Rcl, ReidemeisterClass( 
-					hom1, hom2, One( G )
-				), 1 );
+				Add( Rcl, ReidemeisterClass( hom1, hom2, One( G ) ), 1 );
 			else
 				m := PreImagesRepresentative( pCoker, pm );
-				Add( Rcl, ReidemeisterClass( 
-					hom1, hom2, m*g
-				));
+				Add( Rcl, ReidemeisterClass( hom1, hom2, m*g ) );
 			fi;
 		od;
 	od;
