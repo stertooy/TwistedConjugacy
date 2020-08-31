@@ -12,7 +12,7 @@ Persons := [
     IsMaintainer := true,
     FirstNames := "Sam",
     LastName := "Tertooy",
-    WWWHome := "https://www.kuleuven-kulak.be/~u0092325/",
+    WWWHome := "https://stertooy.github.io/",
     Email := "sam.tertooy@hotmail.com",
     PostalAddress := Concatenation( "Wiskunde\n",
 			"KU Leuven Campus Kulak Kortrijk\n",
