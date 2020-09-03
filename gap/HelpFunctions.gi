@@ -69,12 +69,14 @@ end;
 
 ###############################################################################
 ##
-## IntersectionPreImage@( hom1, hom2, G )
+## IntersectionPreImage@( hom1, hom2, N )
 ##
-IntersectionPreImage@ := function ( hom1, hom2, G )
+##  Note that N must be a normal subgroup
+##
+IntersectionPreImage@ := function ( hom1, hom2, N )
 	return Intersection(
-		PreImage( hom1, Intersection( Image( hom1 ), G ) ),
-		PreImage( hom2, Intersection( Image( hom2 ), G ) )
+		PreImage( hom1, Intersection( N, Image( hom1 ) ) ),
+		PreImage( hom2, Intersection( N, Image( hom2 ) ) )
 	);
 end;
 
