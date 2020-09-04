@@ -111,11 +111,12 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	0,
 	function ( hom1, hom2 )
-		local H;
+		local G, H;
+		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsFinite( H ) then
 			TryNextMethod();
 		fi;
-		return SubgroupNC( H, Filtered( H, h -> h^hom1 = h^hom2 ) );
+		return Stabiliser( H, One( G ), TwistedConjugation( hom1, hom2 ) );
 	end
 );
