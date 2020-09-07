@@ -7,8 +7,8 @@ gap> i := IsomorphismPcGroup( Q );;
 gap> G := Image( i );;
 gap> imgs := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, Identity(G) ];;
 gap> phi := GroupHomomorphismByImages( G, G, GeneratorsOfGroup( G ), imgs );;
-gap> FixedPointGroup( phi );
-Group([ <identity> of ..., f2*f5^6 ])
+gap> FixedPointGroup( phi ) = Subgroup( G, [ G.1*G.5^6 ] );
+true
 gap> tc := TwistedConjugation( phi );;
 gap> IsTwistedConjugate( phi, G.2, G.3 );
 false

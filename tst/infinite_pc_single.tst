@@ -32,8 +32,8 @@ gap> Size( R );
 6
 gap> NrTwistedConjugacyClasses( phi );
 6
-gap> FixedPointGroup( phi );
-Pcp-group with orders [  ]
+gap> IsTrivial( FixedPointGroup( phi ) );
+true
 gap> id := IdentityMapping( G );;
 gap> ReidemeisterNumber( id ); # quotient gives infinity
 infinity

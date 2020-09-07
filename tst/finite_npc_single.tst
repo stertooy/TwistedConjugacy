@@ -3,8 +3,8 @@ gap> START_TEST( "Testing Twisted Conjugacy for finite non-pc groups" );
 #
 gap> G := Group([ (3,4)(5,6), (1,2,3)(4,5,7) ]);;
 gap> phi := GroupHomomorphismByImages( G, G, [ (2,7)(4,6), (1,4,5,6,7,2,3) ], [ (2,4)(6,7), (1,2,4,6,5,7,3) ] );;
-gap> FixedPointGroup( phi );
-Group([ (), (1,3,6)(4,5,7), (1,6,3)(4,7,5) ])
+gap> FixedPointGroup( phi ) = Subgroup( G, [ (1,3,6)(4,5,7) ] );
+true
 gap> tc := TwistedConjugation( phi );;
 gap> IsTwistedConjugate( phi, G.1, G.1^2 );
 false

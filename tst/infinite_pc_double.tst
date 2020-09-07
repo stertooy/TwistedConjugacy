@@ -30,15 +30,15 @@ gap> Size( R );
 4
 gap> NrTwistedConjugacyClasses( phi, psi );
 4
-gap> CoincidenceGroup( phi, psi );
-Pcp-group with orders [  ]
+gap> IsTrivial( CoincidenceGroup( phi, psi ) );
+true
 gap> F := FittingSubgroup( G );;
 gap> f := GeneratorsOfGroup( F );;
 gap> i := GroupHomomorphismByImages( F, G, f, f );;
 gap> ReidemeisterClasses( i, i );
 fail
-gap> CoincidenceGroup( i, i );
-Pcp-group with orders [ 0, 0, 0 ]
+gap> CoincidenceGroup( i, i ) = F;
+true
 gap> xi := GroupHomomorphismByImages( F, F, [ F.1, F.2, F.3 ], [ F.1^2*F.2, F.1^3*F.2^2, F.3 ] );;
 gap> ReidemeisterNumber( xi );
 infinity

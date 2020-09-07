@@ -14,8 +14,8 @@ gap> imgs1 := [ G.2*G.4^2, One( G ) ];;
 gap> imgs2 := [ G.1*G.2*G.3*G.5, G.3*G.4^2*G.5^3 ];; 
 gap> phi := GroupHomomorphismByImages( H, G, gens, imgs1 );;
 gap> psi := GroupHomomorphismByImages( H, G, gens, imgs2 );;
-gap> CoincidenceGroup(phi,psi);
-Group([ <identity> of ..., f2 ])
+gap> CoincidenceGroup( phi, psi ) = Subgroup( H, [H.2] );
+true
 gap> tc := TwistedConjugation( phi, psi );;
 gap> IsTwistedConjugate( phi, psi, G.2, G.3 );
 false

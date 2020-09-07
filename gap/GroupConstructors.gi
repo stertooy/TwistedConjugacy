@@ -101,7 +101,7 @@ InstallMethod(
 				Add( gens, h*n );
 			fi;
 		od;
-		return Subgroup( H, gens );
+		return SubgroupNC( H, gens );
 	end
 );
 
