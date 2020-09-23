@@ -75,6 +75,7 @@ tc( G.1, g ) = G.2;
 #! * <C>Representative</C>, which returns <A>g</A>,
 #! * <C>GroupHomomorphismsOfReidemeisterClass</C>, which returns a list containing <A>endo</A> and the identity map on G (to be compatible with double twisted conjugacy classes),
 #! * <C>ActingDomain</C>, which returns the group G,
+#! * <C>ActingCodomain</C>, which also returns the group G,
 #! * <C>FunctionAction</C>, which returns the twisted conjugacy action of <A>endo</A> on G,
 #! * <C>Random</C>, which returns a random element belonging to the Reidemeister class,
 #! * <C>\in</C>, which can be used to test if an element belongs to the Reidemeister class - only guaranteed to work if the Reidemeister number of <A>endo</A> is finite,
