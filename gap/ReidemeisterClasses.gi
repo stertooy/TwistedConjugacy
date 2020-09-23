@@ -83,7 +83,6 @@ InstallMethod(
 		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
 		G := ActingCodomain( tcc );
 		for i in [1..2] do
-			
 			if homs[i] = IdentityMapping( G ) then
 				gens := PrintString( GeneratorsOfGroup( G ) );
 				homStrings[i] := Concatenation( gens, " -> ", gens );
@@ -123,14 +122,18 @@ InstallMethod(
 		local G, H, homs, g, ighom1, Coin;
 		G := ActingCodomain( tcc );
 		H := ActingDomain( tcc );
-		if not IsFinite( H ) and ( not IsPcpGroup( G ) or not IsPcpGroup( H )
-		or not IsNilpotentByFinite( G ) ) then
+		if not IsFinite( H ) and ( 
+			not IsPcpGroup( G ) or not IsPcpGroup( H )
+			or not IsNilpotentByFinite( G )
+		) then
 			TryNextMethod();
 		fi;
 		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
 		g := Representative( tcc );
-		ighom1 := ComposeWithInnerAutomorphism@( g^-1, homs[1] );
-		Coin := CoincidenceGroup( ighom1, homs[2] );
+		Coin := CoincidenceGroup( 
+			ComposeWithInnerAutomorphism@( g^-1, homs[1] ),
+			homs[2]
+		);
 		return Index( H, Coin );
 	end
 );
