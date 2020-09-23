@@ -81,8 +81,9 @@ InstallMethod(
 		local homStrings, homs, i, G, gens;
 		homStrings := [];
 		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
+		G := ActingCodomain( tcc );
 		for i in [1..2] do
-			G := Source( homs[i] );
+			
 			if homs[i] = IdentityMapping( G ) then
 				gens := PrintString( GeneratorsOfGroup( G ) );
 				homStrings[i] := Concatenation( gens, " -> ", gens );
