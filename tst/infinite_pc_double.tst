@@ -17,6 +17,8 @@ gap> tcc := ReidemeisterClass( phi, psi, G.3 );;
 gap> Print( tcc, "\n" );
 ReidemeisterClass( [ [ g1, g2, g3, g4 ] -> [ g1*g4^-1, g3, g2*g3^2*g4^2, g4^-1\
  ], [ g1, g2, g3, g4 ] -> [ g1, g2^2*g3*g4^2, g2*g3*g4, g4 ] ], g3 )
+gap> Size( tcc );
+infinity
 gap> Representative( tcc );
 g3
 gap> Random( tcc ) in tcc;
@@ -37,6 +39,11 @@ gap> f := GeneratorsOfGroup( F );;
 gap> i := GroupHomomorphismByImages( F, G, f, f );;
 gap> ReidemeisterClasses( i, i );
 fail
+gap> tcc := ReidemeisterClass( i, i, One( G ) );;
+gap> Size( tcc );
+1
+gap> List( tcc );
+[ id ]
 gap> CoincidenceGroup( i, i ) = F;
 true
 gap> xi := GroupHomomorphismByImages( F, F, [ F.1, F.2, F.3 ], [ F.1^2*F.2, F.1^3*F.2^2, F.3 ] );;

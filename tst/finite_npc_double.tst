@@ -20,9 +20,13 @@ gap> tcc := ReidemeisterClass( phi, psi, g1 );
 gap> Print( tcc, "\n" );
 ReidemeisterClass( [ [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,2)(3,4), () ], [ (1,\
 2)(3,5,4), (2,3)(4,5) ] -> [ (1,4)(3,6), () ] ], (4,6,5) )
-gap> List(tcc);
+gap> List( tcc );
 [ (4,6,5), (1,6,4,2)(3,5) ]
+gap> Size( tcc );
+2
 gap> ActingDomain( tcc ) = H;
+true
+gap> ActingCodomain( tcc ) = G;
 true
 gap> R := TwistedConjugacyClasses( phi, psi );;
 gap> Representative( R[1] ) = One( G );

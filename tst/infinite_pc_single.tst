@@ -21,6 +21,9 @@ ReidemeisterClass( [ [ g1, g2, g3, g4 ] -> [ g1*g4^-1, g3, g2*g3^3*g4^3, g4^-1\
  ], [ g1, g2, g3, g4 ] -> [ g1, g2, g3, g4 ] ], g3 )
 gap> Representative( tcc );
 g3
+
+gap> Size( tcc );
+infinity
 gap> Random( tcc ) in tcc;
 true
 gap> ActingDomain( tcc ) = G;

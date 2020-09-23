@@ -13,14 +13,16 @@ InstallMethod(
 		H := Source( hom1 );
 		typ := NewType( 
 			FamilyObj( G ),
-			IsReidemeisterClassGroupRep and HasActingDomain and 
-			HasRepresentative and HasFunctionAction
+			IsReidemeisterClassGroupRep and HasActingDomain and
+			HasActingCodomain and HasRepresentative and HasFunctionAction and
+			HasGroupHomomorphismsOfReidemeisterClass
 		);
 		tc := TwistedConjugation( hom1, hom2 );
 		tcc := rec();
 		ObjectifyWithAttributes(
 			tcc, typ,
 			ActingDomain, H,
+			ActingCodomain, G,
 			Representative, g,
 			FunctionAction, tc,
 			GroupHomomorphismsOfReidemeisterClass, [ hom1, hom2 ]
@@ -101,6 +103,63 @@ InstallMethod(
 	end
 );
 
+InstallMethod(
+	Random,
+	"for Reidemeister classes",
+	[ IsReidemeisterClassGroupRep ],
+	function ( tcc )
+		local tc;
+		tc := FunctionAction( tcc );
+		return tc( Representative( tcc ), Random( ActingDomain( tcc ) ) );
+	end
+);
+
+InstallMethod(
+	Size,
+	"for Reidemeister classes",
+	[ IsReidemeisterClassGroupRep ], 
+	function ( tcc )
+		local G, H, homs, g, ighom1, Coin;
+		G := ActingCodomain( tcc );
+		H := ActingDomain( tcc );
+		if not IsFinite( H ) and ( not IsPcpGroup( G ) or not IsPcpGroup( H )
+		or not IsNilpotentByFinite( G ) ) then
+			TryNextMethod();
+		fi;
+		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
+		g := Representative( tcc );
+		ighom1 := ComposeWithInnerAutomorphism@( g^-1, homs[1] );
+		Coin := CoincidenceGroup( ighom1, homs[2] );
+		return Index( H, Coin );
+	end
+);
+
+InstallMethod(
+	ListOp,
+	"for Reidemeister classes",
+	[ IsReidemeisterClassGroupRep ],
+	function ( tcc )
+		local G, H, homs, g, Coin, tc;
+		G := ActingCodomain( tcc );
+		H := ActingDomain( tcc );
+		if not IsFinite( H ) and ( not IsPcpGroup( G ) or not IsPcpGroup( H )
+		or not IsNilpotentByFinite( G ) ) then
+			TryNextMethod();
+		fi;
+		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
+		g := Representative( tcc );
+		Coin := CoincidenceGroup( 
+			ComposeWithInnerAutomorphism@( g^-1, homs[1] ), 
+			homs[2]
+		);
+		if Index( H, Coin ) = infinity then
+			TryNextMethod();
+		else
+			tc := FunctionAction( tcc );
+			return List( RightTransversal( H, Coin ), h -> tc( g, h ) );
+		fi;
+	end
+);
 
 ###############################################################################
 ##
@@ -320,28 +379,20 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	0,
 	function ( hom1, hom2 )
-		local G, H, xset, s, Rcl, i, tcc, pos;
+		local G, H, tc, Rcl, orbit;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsFinite( G ) or not IsFinite( H ) then
 			TryNextMethod();
 		fi;
-		xset := AsSSortedListNonstored( G );
-		s := HasAsList( G ) or HasAsSSortedList( G );
+		tc := TwistedConjugation( hom1, hom2 );
 		Rcl := [];
-		for i in OrbitsDomain( H, xset, TwistedConjugation( hom1, hom2 ) ) do
-			if One( G ) in i then
-				tcc := ReidemeisterClass( hom1, hom2, One( G ) );
-				pos := 1;
+		for orbit in OrbitsDomain( H, AsSSortedListNonstored( G ), tc ) do
+			if One( G ) in orbit then
+				Add( Rcl, ReidemeisterClass( hom1, hom2, One( G ) ), 1 );
 			else
-				tcc := ReidemeisterClass( hom1, hom2, i[1] );
-				pos := Length( Rcl )+1;
+				Add( Rcl, ReidemeisterClass( hom1, hom2, orbit[1] ) );
 			fi;
-			SetSize( tcc, Length( i ) );
-			if s or Length( i ) < 5 then
-				SetAsSSortedList( tcc, SortedList( i ) );
-			fi;
-            Add( Rcl, tcc, pos );
 		od;
 		return Rcl;
 	end
