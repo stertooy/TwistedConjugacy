@@ -78,8 +78,9 @@ tc( G.1, g ) = G.2;
 #! * <C>FunctionAction</C>, which returns the twisted conjugacy action of <A>endo</A> on G,
 #! * <C>Random</C>, which returns a random element belonging to the Reidemeister class,
 #! * <C>\in</C>, which can be used to test if an element belongs to the Reidemeister class - only guaranteed to work if the Reidemeister number of <A>endo</A> is finite,
-#! * <C>AsList</C>, which lists all elements in the Reidemeister class - only works for finite groups.
-#! * <C>Size</C>, which gives the number of elements in the Reidemeister class - only works for finite groups.
+#! * <C>Size</C>, which gives the number of elements in the Reidemeister class - only works for nilpotent-by-finite groups.
+#! * <C>List</C>, which lists all elements in the Reidemeister class - only works if the size is finite.
+
 #! This is the twisted conjugacy analogue of <C>ConjugacyClass</C>.
 #! @Arguments endo, g
 DeclareOperation( "ReidemeisterClass", [IsGroupHomomorphism and IsEndoGeneralMapping, IsMultiplicativeElementWithInverse] );
