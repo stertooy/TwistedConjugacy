@@ -142,8 +142,10 @@ InstallMethod(
 		local G, H, homs, g, Coin, tc;
 		G := ActingCodomain( tcc );
 		H := ActingDomain( tcc );
-		if not IsFinite( H ) and ( not IsPcpGroup( G ) or not IsPcpGroup( H )
-		or not IsNilpotentByFinite( G ) ) then
+		if not IsFinite( H ) and (
+			not IsPcpGroup( G ) or not IsPcpGroup( H )
+			or not IsNilpotentByFinite( G )
+		) then
 			TryNextMethod();
 		fi;
 		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
