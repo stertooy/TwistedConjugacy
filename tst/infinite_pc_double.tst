@@ -7,9 +7,6 @@ gap> imgs1 := [ G.1*G.4^-1, G.3, G.2*G.3^2*G.4^2, G.4^-1  ];;
 gap> phi := GroupHomomorphismByImages( G, G, gens, imgs1 );;
 gap> imgs2 := [ G.1, G.2^2*G.3*G.4^2, G.2*G.3*G.4, G.4  ];;
 gap> psi := GroupHomomorphismByImages( G, G, gens, imgs2 );;
-gap> CoincidenceGroup(phi,psi);
-Error, no method found! For debugging hints type ?Recovery from NoMethodFound
-Error, no 3rd choice method found for `CoincidenceGroup' on 2 arguments
 gap> tc := TwistedConjugation( phi, psi );;
 gap> IsTwistedConjugate( phi, G.2, G.3^2 );
 false
@@ -29,12 +26,6 @@ gap> ActingDomain( tcc ) = G;
 true
 gap> TwistedConjugacyClasses( phi, psi );
 [ id^G, g1*g2^G, g1^G, g2^G ]
-gap> F := FittingSubgroup( G );;
-gap> f := GeneratorsOfGroup( F );;
-gap> i := GroupHomomorphismByImages( F, G, f, f );;
-gap> ReidemeisterClasses( i, i );
-Error, no method found! For debugging hints type ?Recovery from NoMethodFound
-Error, no 4th choice method found for `ReidemeisterClasses' on 2 arguments
 
 #
 gap> STOP_TEST( "infinite_pc_double.tst" );
