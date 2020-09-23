@@ -4,6 +4,7 @@ This file describes changes in the GAP package 'TwistedConjugacy'.
 ------------------
 
 - Improved calculation of Reidemeister number for (finite) abelian groups
+- CoincidenceGroup works more efficiently for finite groups
 - CoincidenceGroup now works for homomorphisms with nilpotent-by-finite range
 - IsTwistedConjugate can now always be applied to (non-endomorphic)
   homomorphisms. A result is guaranteed if the range is nilpotent-by-finite,
