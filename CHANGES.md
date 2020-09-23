@@ -1,7 +1,7 @@
 This file describes changes in the GAP package 'TwistedConjugacy'.
 
 
-1.1.0 (23/09/2020)
+1.1.0 (24/09/2020)
 ------------------
 
 - Improved calculation of Reidemeister number for (finite) abelian groups
