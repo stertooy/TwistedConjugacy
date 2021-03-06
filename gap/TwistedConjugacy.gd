@@ -57,15 +57,18 @@ DeclareAttribute(
 
 DeclareOperation(
 	"ReidemeisterZeta",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping ]
+	[ IsGroupHomomorphism and IsEndoGeneralMapping,
+	  IsGroupHomomorphism and IsEndoGeneralMapping ]
 );
 DeclareOperation(
 	"PrintReidemeisterZeta",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping ]
+	[ IsGroupHomomorphism and IsEndoGeneralMapping,
+	  IsGroupHomomorphism and IsEndoGeneralMapping ]
 );
 DeclareOperation(
 	"ReidemeisterZetaCoefficients",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping ]
+	[ IsGroupHomomorphism and IsEndoGeneralMapping,
+	  IsGroupHomomorphism and IsEndoGeneralMapping ]
 );
 
 

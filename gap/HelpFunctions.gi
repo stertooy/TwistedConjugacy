@@ -118,5 +118,8 @@ DecomposePeriodicList@ := function ( L )
 		ai := Concatenation( ListWithIdenticalEntries( n/i, per ) );
 		L := L - c[i]*ai;
 	od;
+	if L <> ListWithIdenticalEntries( n, 0 ) then
+		return fail;
+	fi;
 	return c;
 end;

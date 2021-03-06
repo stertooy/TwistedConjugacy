@@ -40,9 +40,9 @@ gap> zeta1 := ReidemeisterZeta( phi );;
 gap> zeta1( 10/3 );
 -729/218491
 gap> PrintReidemeisterZeta( phi );
-"( 1-z^1 )^-4 * ( 1-z^2 )^-1"
+"(1-z)^-4 * (1-z^2)^-1"
 gap> ReidemeisterZetaCoefficients( phi );
-[ 4, 6 ]
+[ [  ], [ 4, 6 ] ]
 
 #
 gap> STOP_TEST( "finite_npc_single.tst" );
