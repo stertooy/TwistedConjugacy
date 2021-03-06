@@ -173,7 +173,10 @@ InstallMethod( PrintReidemeisterZeta, "for finite groups",
 				if summand <> "" then
 					summand := Concatenation( summand, " + " );
 				fi;
-				summand := Concatenation(summand, PrintString( L1[i]/i ),"z^", PrintString(i) );
+				summand := Concatenation( summand, PrintString( L1[i]/i ),"z" );
+				if i <> 1 then
+					summand := Concatenation( summand, "^", PrintString( i ) );
+				fi;
 			od;
 			zeta := Concatenation("e^(",summand,")");
 		else

@@ -55,6 +55,16 @@ gap> phiN := InverseGeneralMapping( j )*phiN*i;;
 gap> psiN := InverseGeneralMapping( j )*psiN*i;;
 gap> ReidemeisterNumber( phiN, psiN );
 3
+gap> K := CyclicGroup( 4 );;
+gap> phiK := GroupHomomorphismByImages( K, K, [ K.1 ], [ K.1^2 ] );;
+gap> psiK := GroupHomomorphismByImages( K, K, [ K.1 ], [ One( K ) ] );;
+gap> ReidemeisterZetaCoefficients( phiK, psiK );
+[ [ 2 ], [ 4 ] ]
+gap> PrintReidemeisterZeta( phiK , psiK );
+"e^(-2z) * (1-z)^-4"
+gap> ZetaK := ReidemeisterZeta( phiK, psiK );;
+gap> ZetaK( 10 );
+3.14152e-13
 
 #
 gap> STOP_TEST( "finite_pc_double.tst" );
