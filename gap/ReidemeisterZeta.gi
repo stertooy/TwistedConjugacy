@@ -170,10 +170,15 @@ InstallMethod( PrintReidemeisterZeta, "for finite groups",
 		if not IsEmpty( L1 ) then
 			summand := "";
 			for i in [1..Length(L1)] do
-				if summand <> "" then
-					summand := Concatenation( summand, " + " );
+				if L1[i] = 0 then
+					continue;
 				fi;
-				summand := Concatenation( summand, PrintString( L1[i]/i ),"z" );
+				if summand <> "" and L1[i] > 0 then
+					summand := Concatenation( summand, "+" );
+				elif L1[i] < 0 then
+					summand := Concatenation( summand, "-" );
+				fi;
+				summand := Concatenation( summand, PrintString( AbsInt( L1[i] )/i ), "z" );
 				if i <> 1 then
 					summand := Concatenation( summand, "^", PrintString( i ) );
 				fi;
