@@ -75,6 +75,13 @@ gap> PrintReidemeisterZeta( phiK , psiK );
 gap> ZetaK := ReidemeisterZeta( phiK, psiK );;
 gap> 10^13*ZetaK( 10 );
 3.14152
+gap> F := FreeGroup( 2 );;
+gap> L := F/[F.1^24, F.2^5, F.2*F.1*(F.1*F.2^4)^-1 ];;
+gap> M := Image( IsomorphismPcGroup( L ) );;
+gap> phiM := GroupHomomorphismByImages( M, M, [ M.1, M.2 ], [ M.1^6, One( M ) ] );;
+gap> psiM := GroupHomomorphismByImages( M, M, [ M.1, M.2 ], [ One( M ), One( M ) ] );;
+gap> PrintReidemeisterZeta(phiM,psiM);
+"e^(-90z-30z^2) * (1-z)^-120"
 
 #
 gap> STOP_TEST( "finite_pc_double.tst" );
