@@ -77,7 +77,7 @@ RedispatchOnCondition(
 ##
 InstallMethod( ReidemeisterZeta, "for finite groups", 
 	[IsGroupHomomorphism and IsEndoGeneralMapping,
-	 IsGroupHomomorphism and IsEndoGeneralMapping], 
+	 IsGroupHomomorphism and IsEndoGeneralMapping ], 
 	function ( endo1, endo2 )
 		local coeffs, L1, L2, i, L;
 		if not IsFinite( Source( endo1 ) ) then
@@ -85,30 +85,24 @@ InstallMethod( ReidemeisterZeta, "for finite groups",
 		fi;
 		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
 		L1 := coeffs[1];
+		if not IsEmpty( L1 ) then
+			TryNextMethod();
+		fi;
 		L2 := coeffs[2];
-		for i in [1..Length(L1)] do
+		for i in [1..Length( L1 )] do
 			L2 := Concatenation( [ Remove( L2 ) ], L2 );
 		od;
-		L1 := List( [1..Length(L1)], i -> L1[i] - L2[(i-1) mod Length(L2) + 1] );
 		L := DecomposePeriodicList@( L2 );
 		if L = fail then
 			TryNextMethod();
 		fi;
-		return function ( z )
+		return function ( s )
 			local zeta, i, ci, summand;
-			if not IsEmpty( L1 ) then
-				summand := 0;
-				for i in [1..Length(L1)] do
-					summand := summand + L1[i]/i*z^i;
-				od;
-				zeta := Exp( Float( summand ) );
-			else
-				zeta := 1;
-			fi;
+			zeta := 1;
 			for i in [1..Length( L )] do
 				ci := L[i];
 				if ci <> 0 then
-					zeta := zeta*( 1-z^i )^-ci;
+					zeta := zeta*( 1-s^i )^-ci;
 				fi;
 			od;
 			return zeta;
@@ -152,7 +146,7 @@ InstallMethod( PrintReidemeisterZeta, "for finite groups",
 	[IsGroupHomomorphism and IsEndoGeneralMapping,
 	 IsGroupHomomorphism and IsEndoGeneralMapping], 
 	function ( endo1, endo2 )
-		local coeffs, L1, L2, L, zeta, i, summand, ci;
+		local L1, L2, L, coeffs, k, s, p, z, coeff, factors, powers, factor, power, zeta, i, summand, const;
 		if not IsFinite( Source( endo1 ) ) then
 			TryNextMethod();
 		fi;
@@ -163,10 +157,6 @@ InstallMethod( PrintReidemeisterZeta, "for finite groups",
 			L2 := Concatenation( [ Remove( L2 ) ], L2 );
 		od;
 		L1 := List( [1..Length(L1)], i -> L1[i] - L2[(i-1) mod Length(L2) + 1] );
-		L := DecomposePeriodicList@( L2 );
-		if L = fail then
-			TryNextMethod();
-		fi;
 		if not IsEmpty( L1 ) then
 			summand := "";
 			for i in [1..Length(L1)] do
@@ -178,31 +168,71 @@ InstallMethod( PrintReidemeisterZeta, "for finite groups",
 				elif L1[i] < 0 then
 					summand := Concatenation( summand, "-" );
 				fi;
-				summand := Concatenation( summand, PrintString( AbsInt( L1[i] )/i ), "z" );
+				coeff := AbsInt( L1[i] )/i;
+				if coeff = 1 then
+					summand := Concatenation( summand, "s" );
+				else
+					summand := Concatenation( summand, PrintString( coeff ), "*s" );
+				fi;
 				if i <> 1 then
 					summand := Concatenation( summand, "^", PrintString( i ) );
 				fi;
 			od;
-			zeta := Concatenation("e^(",summand,")");
+			zeta := Concatenation("exp(",summand,")");
 		else
 			zeta := "";
 		fi;
-		for i in [1..Length( L )] do
-			ci := L[i];
-			if ci <> 0 then
-				if zeta <> "" then
-					zeta := Concatenation( zeta, " * " );
+		factors := [];
+		powers := [];
+		L := DecomposePeriodicList@TwistedConjugacy( L2 );
+		if L = fail then
+			k := Length( L2 );
+			s := Indeterminate( Rationals, "s" );
+			p := Sum( [1..k], i -> L2[i]*s^i);
+			for z in List( [0..k-1], i -> E(k)^i ) do
+				power := - Value( p, z )/k;
+				if power = 0 then
+					continue;
 				fi;
-				zeta := Concatenation( zeta, "(1-z");
-				if i <> 1 then
-					zeta := Concatenation( zeta, "^", PrintString( i ) );
+				const := 1/z;
+				factor := "";
+				if const = -1 then
+					factor := Concatenation(factor,"1+s");
+				elif const = 1 then
+					factor := Concatenation(factor,"1-s");
+				elif PrintString(const)[1] = '-' then
+					factor := Concatenation(factor,"1+",PrintString(-const),"*s");
+				else
+					factor := Concatenation(factor,"1-",PrintString(const),"*s");
 				fi;
-				zeta := Concatenation( zeta, ")");
-				if ci < 0 and ci <> -1 then
-					zeta := Concatenation( zeta, "^", PrintString( -ci ) );
-				elif ci > 0 then
-					zeta := Concatenation( zeta, "^-", PrintString( ci ) );
+				Add( factors, factor );
+				Add( powers, power );
+			od;
+		else
+			for i in [1..Length( L )] do
+				power := -L[i];
+				if power = 0 then
+					continue;
 				fi;
+				factor := "1-s";
+				if not IsPosInt(i) then
+					factor := Concatenation( factor, "^(", PrintString(i), ")" );
+				elif i <> 1 then
+					factor := Concatenation( factor, "^", PrintString(i) );
+				fi;
+				Add( factors, factor );
+				Add( powers, power );
+			od;
+		fi;
+		for i in [1..Length(factors)] do
+			if zeta <> "" then
+				zeta := Concatenation( zeta, "*" );
+			fi;
+			zeta := Concatenation( zeta, "(", factors[i], ")" );
+			if not IsPosInt(powers[i]) then
+				zeta := Concatenation( zeta, "^(", PrintString(powers[i]), ")" );
+			elif i <> 1 then
+				zeta := Concatenation( zeta, "^", PrintString(powers[i]) );
 			fi;
 		od;
 		return zeta;

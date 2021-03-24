@@ -1,7 +1,7 @@
 This file describes changes in the GAP package 'TwistedConjugacy'.
 
 
-1.1.0 (24/09/2020)
+1.1.0 (25/03/2021)
 ------------------
 
 - Improved calculation of Reidemeister number for (finite) abelian groups
@@ -21,7 +21,9 @@ This file describes changes in the GAP package 'TwistedConjugacy'.
   to bugs in the polycyclic package
 - Now requires AutoDoc package, to ensure users can compile the documentation
 - Applying "Size" to an infinite Reidemeister class will now return infinite
-  instead of running indefinitely, if the range is nilpotent-by-finite.
+  instead of running indefinitely, if the range is nilpotent-by-finite
+- Reidemeister Zeta functions now expanded to Coincidence Reidemeister Zeta
+  functions
 
 
 1.0.1 (07/06/2020)

@@ -106,7 +106,10 @@ end;
 ##
 ##  Decomposes the list L, interpreted as an infinite periodic sequence,
 ##  into a linear combination of the sequences  a^i = (0,0,0,i,0,0,0,i,...).
-##  The output is [c_1, ..., c_n] such that L = sum_i c_i a^i
+##  The output is [c_1, ..., c_n] such that L = sum_i c_i a^i.
+##  Returns fail if some c_i is not an integer, or if the decomposition does
+##  not exist.
+##  Essentially, this is the inverse Discrete Fourier Transform
 ##
 DecomposePeriodicList@ := function ( L )
 	local n, c, i, per, ai;
@@ -114,6 +117,9 @@ DecomposePeriodicList@ := function ( L )
 	c := ListWithIdenticalEntries( n, 0 );
 	for i in DivisorsInt( n ) do
 		c[i] := L[i]/i;
+		if not IsInt( c[i] ) then
+			return fail;
+		fi;
 		per := Concatenation( ListWithIdenticalEntries( i-1, 0 ), [ i ] );
 		ai := Concatenation( ListWithIdenticalEntries( n/i, per ) );
 		L := L - c[i]*ai;
