@@ -3,7 +3,7 @@ SetPackageInfo( rec(
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
 Version := "1.1.0",
-Date := "24/09/2020",
+Date := "25/03/2021",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -66,9 +66,10 @@ AvailabilityTest := ReturnTrue,
 TestFile := "tst/testall.g",
 
 Keywords := [
-	"twisted conjugacy",
+	"Coincidence group",
 	"Reidemeister number",
-	"Reidemeister zeta",
+	"Reidemeister zeta function",
+	"twisted conjugacy",
 	],
 
 ));
