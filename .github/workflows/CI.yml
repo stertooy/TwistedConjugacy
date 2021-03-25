@@ -15,10 +15,10 @@ jobs:
         gap-branch:
           - master
           - stable-4.11
-        gap-pkgs-to-clone: ""
+        gap-pkgs-to-clone: ['']
         include: 
           - gap-branch: master
-            gap-pkgs-to-clone: "alnuth autpgrp polycyclic"
+            gap-pkgs-to-clone: 'alnuth autpgrp polycyclic'
 
     steps:
       - uses: actions/checkout@v2
