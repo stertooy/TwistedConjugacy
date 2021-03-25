@@ -37,7 +37,10 @@ InstallMethod(
 	"for finite groups",
 	[ IsGroup and IsFinite ],
 	function ( G )
-		return Set( AllEndomorphisms( G ), f -> ReidemeisterNumber( f ) );
+		return Set( 
+			AllHomomorphismClasses( G, G ),
+			f -> ReidemeisterNumber( f )
+		);
 	end
 );
 
@@ -60,7 +63,7 @@ InstallMethod(
 	[ IsGroup and IsFinite, IsGroup and IsFinite ],
 	function ( H, G )
 		local Homs, Spectrum, i, j;
-		Homs := AllHomomorphisms( H, G );
+		Homs := AllHomomorphismClasses( H, G );
 		Spectrum := Set([]);
 		for i in [1..Length( Homs )] do
 			for j in [i..Length( Homs )] do
@@ -88,15 +91,7 @@ InstallOtherMethod(
 	CoincidenceReidemeisterSpectrum,
 	[ IsGroup and IsFinite ],
 	function ( G )
-		local Endo, Spectrum, i, j;
-		Endo := AllEndomorphisms( G );
-		Spectrum := Set([]);
-		for i in [1..Length( Endo )] do
-			for j in [i..Length( Endo )] do
-				AddSet( Spectrum, ReidemeisterNumber( Endo[i], Endo[j] ) );
-			od;
-		od;
-		return Spectrum;
+		return CoincidenceReidemeisterSpectrum( G, G );
 	end
 );
 

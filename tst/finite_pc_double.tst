@@ -175,9 +175,19 @@ gap> N := DihedralGroup( 6 );;
 gap> CoincidenceReidemeisterSpectrum( N );
 [ 1, 2, 3, 4, 6 ]
 gap> Q := QuaternionGroup( 8 );;
+gap> ReidemeisterSpectrum(Q);
+[ 2, 3, 5 ]
+gap> ExtendedReidemeisterSpectrum(Q);
+[ 1, 2, 3, 5 ]
 gap> CoincidenceReidemeisterSpectrum( Q );
 [ 1, 2, 3, 4, 5, 8 ]
 gap> A := Image( IsomorphismPcpGroup( AlternatingGroup( 4 ) ) );;
+gap> ReidemeisterSpectrum(A);
+[ 2, 4 ]
+gap> ExtendedReidemeisterSpectrum(A);
+[ 1, 2, 3, 4 ]
+gap> CoincidenceReidemeisterSpectrum(A);
+[ 1, 2, 3, 4, 6, 12 ]
 gap> CoincidenceReidemeisterSpectrum( Q, A );
 [ 3, 4, 5, 6, 8, 12 ]
 gap> CoincidenceReidemeisterSpectrum( A, Q );
