@@ -39,8 +39,8 @@ gap> ReidemeisterSpectrum( G );
 [ 4, 6, 8, 10, 12, 15, 20, 30 ]
 gap> HasRationalReidemeisterZeta( phi );
 true
-gap> zeta1 := ReidemeisterZeta( phi );;
-gap> zeta1( 10/3 );
+gap> zeta := ReidemeisterZeta( phi );;
+gap> zeta( 10/3 );
 -531441/206851765939
 gap> PrintReidemeisterZeta( phi );
 "(1-s)^(-4)*(1-s^2)^(-1)*(1-s^3)^(-2)"

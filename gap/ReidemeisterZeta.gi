@@ -145,7 +145,7 @@ RedispatchOnCondition(
 ##
 InstallMethod( 
 	ReidemeisterZeta,
-	"for finite groups",
+	"for rational Reidemeister zeta functions of finite groups",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ], 
 	function ( endo1, endo2 )
@@ -155,11 +155,11 @@ InstallMethod(
 		fi;
 		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
 		if not IsEmpty( coeffs[1] ) then
-			TryNextMethod();
+			return fail;
 		fi;
 		L := DecomposePeriodicList@( coeffs[2] );
 		if L = fail then
-			TryNextMethod();
+			return fail;
 		fi;
 		return function ( s )
 			local zeta, i, ci, summand;
