@@ -165,6 +165,23 @@ gap> ReidemeisterZetaCoefficients( phiQ, psiQ );
 gap> PrintReidemeisterZeta( phiQ, psiQ );
 "(1-s)^(-3)*(1-E(6)*s)^(-1/2)*(1-E(6)^2*s)^(-1/2)*(1+E(6)*s)^(-1/2)*(1+E(6)^2*\
 s)^(-1/2)"
+gap> N := CyclicGroup( 3 );;
+gap> CoincidenceReidemeisterSpectrum( N );
+[ 1, 3 ]
+gap> N := CyclicGroup( 4 );;
+gap> CoincidenceReidemeisterSpectrum( N );
+[ 1, 2, 4 ]
+gap> N := DihedralGroup( 6 );;
+gap> CoincidenceReidemeisterSpectrum( N );
+[ 1, 2, 3, 4, 6 ]
+gap> Q := QuaternionGroup( 8 );;
+gap> CoincidenceReidemeisterSpectrum( Q );
+[ 1, 2, 3, 4, 5, 8 ]
+gap> A := Image( IsomorphismPcpGroup( AlternatingGroup( 4 ) ) );;
+gap> CoincidenceReidemeisterSpectrum( Q, A );
+[ 3, 4, 5, 6, 8, 12 ]
+gap> CoincidenceReidemeisterSpectrum( A, Q );
+[ 8 ]
 
 #
 gap> STOP_TEST( "finite_pc_double.tst" );

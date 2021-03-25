@@ -48,3 +48,62 @@ RedispatchOnCondition(
 	[ IsFinite ],
 	0
 );
+
+
+###############################################################################
+##
+## CoincidenceReidemeisterSpectrum( H, G )
+##
+InstallMethod(
+	CoincidenceReidemeisterSpectrum,
+	"for finite groups",
+	[ IsGroup and IsFinite, IsGroup and IsFinite ],
+	function ( H, G )
+		local Homs, Spectrum, i, j;
+		Homs := AllHomomorphisms( H, G );
+		Spectrum := Set([]);
+		for i in [1..Length( Homs )] do
+			for j in [i..Length( Homs )] do
+				AddSet( Spectrum, ReidemeisterNumber( Homs[i], Homs[j] ) );
+			od;
+		od;
+		return Spectrum;
+	end
+);
+
+RedispatchOnCondition(
+	CoincidenceReidemeisterSpectrum,
+	true, 
+	[ IsGroup, IsGroup ],
+	[ IsFinite, IsFinite ],
+	0
+);
+
+
+###############################################################################
+##
+## CoincidenceReidemeisterSpectrum( G )
+##
+InstallOtherMethod(
+	CoincidenceReidemeisterSpectrum,
+	[ IsGroup and IsFinite ],
+	function ( G )
+		local Endo, Spectrum, i, j;
+		Endo := AllEndomorphisms( G );
+		Spectrum := Set([]);
+		for i in [1..Length( Endo )] do
+			for j in [i..Length( Endo )] do
+				AddSet( Spectrum, ReidemeisterNumber( Endo[i], Endo[j] ) );
+			od;
+		od;
+		return Spectrum;
+	end
+);
+
+RedispatchOnCondition(
+	CoincidenceReidemeisterSpectrum,
+	true, 
+	[ IsGroup ],
+	[ IsFinite ],
+	0
+);

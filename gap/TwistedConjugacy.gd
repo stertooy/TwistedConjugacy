@@ -53,6 +53,14 @@ DeclareAttribute(
 	"ExtendedReidemeisterSpectrum",
 	IsGroup
 );
+DeclareAttribute( 
+	"CoincidenceReidemeisterSpectrum",
+	IsGroup
+);
+DeclareOperation(
+	"CoincidenceReidemeisterSpectrum",
+	[ IsGroup, IsGroup ]
+);
 
 
 DeclareOperation(
