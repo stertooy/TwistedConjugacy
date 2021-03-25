@@ -83,6 +83,64 @@ RedispatchOnCondition(
 
 ###############################################################################
 ##
+## HasRationalReidemeisterZeta( endo1, endo2 )
+##
+InstallMethod( 
+	HasRationalReidemeisterZeta,
+	"for finite groups",
+	[ IsGroupHomomorphism and IsEndoGeneralMapping,
+	  IsGroupHomomorphism and IsEndoGeneralMapping ], 
+	function ( endo1, endo2 )
+		local coeffs, L;
+		if not IsFinite( Source( endo1 ) ) then
+			TryNextMethod();
+		fi;
+		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
+		if not IsEmpty( coeffs[1] ) then
+			return false;
+		fi;
+		L := DecomposePeriodicList@( coeffs[2] );
+		if L = fail then
+			return false;
+		fi;
+		return true;
+	end
+);
+
+RedispatchOnCondition( 
+	HasRationalReidemeisterZeta,
+	true, 
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	[ IsEndoGeneralMapping, IsEndoGeneralMapping ],
+	0
+);
+	
+###############################################################################
+##
+## HasRationalReidemeisterZeta( endo )
+##
+InstallOtherMethod(
+	HasRationalReidemeisterZeta,
+	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
+	function ( endo )
+		return HasRationalReidemeisterZeta( 
+			endo,
+			IdentityMapping( Source( endo ) )
+		);
+	end
+);
+
+RedispatchOnCondition(
+	HasRationalReidemeisterZeta,
+	true, 
+	[ IsGroupHomomorphism ],
+	[ IsEndoGeneralMapping ],
+	0
+);
+
+
+###############################################################################
+##
 ## ReidemeisterZeta( endo1, endo2 )
 ##
 InstallMethod( 
@@ -117,7 +175,8 @@ InstallMethod(
 	end
 );
 
-RedispatchOnCondition( ReidemeisterZeta,
+RedispatchOnCondition(
+	ReidemeisterZeta,
 	true, 
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	[ IsEndoGeneralMapping, IsEndoGeneralMapping ],
@@ -126,7 +185,7 @@ RedispatchOnCondition( ReidemeisterZeta,
 	
 ###############################################################################
 ##
-## PrintReidemeisterZeta( endo )
+## ReidemeisterZeta( endo )
 ##
 InstallOtherMethod(
 	ReidemeisterZeta,
