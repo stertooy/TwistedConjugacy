@@ -12,13 +12,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        gap-branch:
-          - master
-          - stable-4.11
-        gap-pkgs-to-clone: ['']
         include: 
           - gap-branch: master
             gap-pkgs-to-clone: 'alnuth autpgrp polycyclic'
+          - gap-branch: stable-4.11
+            gap-pkgs-to-clone: ''
 
     steps:
       - uses: actions/checkout@v2
