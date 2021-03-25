@@ -6,8 +6,8 @@ gap> Q := F / [ F.1^2, F.2^-1*F.1^-1*F.2*F.1, F.3^-1*F.1^-1*F.3*F.1, F.4^-1*F.1^
 gap> i := IsomorphismPcGroup( Q );;
 gap> G := Image( i );;
 gap> imgs := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, Identity(G) ];;
-gap> phi := GroupHomomorphismByImages( G, G, GeneratorsOfGroup( G ), imgs );;
-gap> FixedPointGroup( phi ) = Subgroup( G, [ G.1*G.5^6 ] );
+gap> phi := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs );;
+gap> FixedPointGroup( phi ) = SubgroupNC( G, [ G.1*G.5^6 ] );
 true
 gap> tc := TwistedConjugation( phi );;
 gap> IsTwistedConjugate( phi, G.2, G.3 );
@@ -46,7 +46,7 @@ gap> PrintReidemeisterZeta( phi );
 "(1-s)^(-4)*(1-s^2)^(-1)*(1-s^3)^(-2)"
 gap> ReidemeisterZetaCoefficients( phi );
 [ [  ], [ 4, 6, 10, 6, 4, 12 ] ]
-gap> p := NaturalHomomorphismByNormalSubgroup( G, DerivedSubgroup( G ) );;
+gap> p := NaturalHomomorphismByNormalSubgroupNC( G, DerivedSubgroup( G ) );;
 gap> H := Image( p );;
 gap> psi := InducedHomomorphism( p, p, phi );;
 gap> ReidemeisterNumber( psi );

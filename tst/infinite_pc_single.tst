@@ -5,7 +5,7 @@ gap> G := ExamplesOfSomePcpGroups( 5 );;
 gap> gens := GeneratorsOfGroup( G );;
 gap> i := 3;; # The Reidemeister number of phi should be 2*i if i <> 0, and infinity if i = 0
 gap> imgs := [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^i, G.4^-1  ];;
-gap> phi := GroupHomomorphismByImages( G, G, gens, imgs );;
+gap> phi := GroupHomomorphismByImagesNC( G, G, gens, imgs );;
 gap> tc := TwistedConjugation( phi );;
 gap> IsTwistedConjugate( phi, G.2, G.3^3 );
 false
@@ -43,10 +43,10 @@ gap> FixedPointGroup( id ) = G;
 true
 gap> i := 0;;
 gap> imgs := [ G.4^-1*G.1, G.3, G.4^i*G.2*G.3^i, G.4^-1  ];;
-gap> psi := GroupHomomorphismByImages( G, G, gens, imgs );;
+gap> psi := GroupHomomorphismByImagesNC( G, G, gens, imgs );;
 gap> ReidemeisterNumber( psi ); # derived subgroup gives infinity
 infinity
-gap> FixedPointGroup( psi ) = Subgroup( G, [ G.2*G.3*G.4 ] );
+gap> FixedPointGroup( psi ) = SubgroupNC( G, [ G.2*G.3*G.4 ] );
 true
 gap> triv := GroupHomomorphismByFunction( G, G, g -> One( G ) );;
 gap> ReidemeisterClasses( triv );
@@ -56,7 +56,7 @@ gap> ReidemeisterNumber( IdentityMapping( G ) );
 infinity
 gap> IsTwistedConjugate( IdentityMapping( G ), G.1, G.2 );
 false
-gap> G := ExamplesOfSomePcpGroups(11);;
+gap> G := ExamplesOfSomePcpGroups( 11 );;
 gap> IsTwistedConjugate( IdentityMapping( G ), G.4, G.5 );
 false
 

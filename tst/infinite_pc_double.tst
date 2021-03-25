@@ -4,9 +4,9 @@ gap> START_TEST( "Testing Double Twisted Conjugacy for infinite pc groups" );
 gap> G := ExamplesOfSomePcpGroups( 5 );;
 gap> gens := GeneratorsOfGroup( G );;
 gap> imgs1 := [ G.1*G.4^-1, G.3, G.2*G.3^2*G.4^2, G.4^-1  ];;
-gap> phi := GroupHomomorphismByImages( G, G, gens, imgs1 );;
+gap> phi := GroupHomomorphismByImagesNC( G, G, gens, imgs1 );;
 gap> imgs2 := [ G.1, G.2^2*G.3*G.4^2, G.2*G.3*G.4, G.4  ];;
-gap> psi := GroupHomomorphismByImages( G, G, gens, imgs2 );;
+gap> psi := GroupHomomorphismByImagesNC( G, G, gens, imgs2 );;
 gap> tc := TwistedConjugation( phi, psi );;
 gap> IsTwistedConjugate( phi, G.2, G.3^2 );
 false
@@ -36,7 +36,7 @@ gap> IsTrivial( CoincidenceGroup( phi, psi ) );
 true
 gap> F := FittingSubgroup( G );;
 gap> f := GeneratorsOfGroup( F );;
-gap> i := GroupHomomorphismByImages( F, G, f, f );;
+gap> i := GroupHomomorphismByImagesNC( F, G, f, f );;
 gap> ReidemeisterClasses( i, i );
 fail
 gap> tcc := ReidemeisterClass( i, i, One( G ) );;
@@ -46,7 +46,7 @@ gap> List( tcc );
 [ id ]
 gap> CoincidenceGroup( i, i ) = F;
 true
-gap> xi := GroupHomomorphismByImages( F, F, [ F.1, F.2, F.3 ], [ F.1^2*F.2, F.1^3*F.2^2, F.3 ] );;
+gap> xi := GroupHomomorphismByImagesNC( F, F, [ F.1, F.2, F.3 ], [ F.1^2*F.2, F.1^3*F.2^2, F.3 ] );;
 gap> ReidemeisterNumber( xi );
 infinity
 gap> FixedPointGroup( xi );

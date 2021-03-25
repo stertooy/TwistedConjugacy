@@ -1,11 +1,11 @@
 gap> START_TEST( "Testing Double Twisted Conjugacy for infinite non-nilpotent-by-finite groups" );
 
 #
-gap> H := DirectProduct( ExamplesOfSomePcpGroups( 4 ),AbelianPcpGroup( 1 ) );;
+gap> H := DirectProduct( ExamplesOfSomePcpGroups( 4 ), AbelianPcpGroup( 1 ) );;
 gap> G := ExamplesOfSomePcpGroups( 4 );;
-gap> phi := GroupHomomorphismByImages( H, G, [ H.1, H.2, H.4 ],[ G.1^2, One( G ), One( G ) ] );;
-gap> psi := GroupHomomorphismByImages( H, G, [ H.1, H.2, H.4 ],[ G.3, One( G ), One( G ) ] );;
-gap> khi := GroupHomomorphismByImages( H ,G, [ H.1, H.2, H.4 ],[ G.1, G.2^2, One( G ) ] );;
+gap> phi := GroupHomomorphismByImagesNC( H, G, [ H.1, H.2, H.4 ],[ G.1^2, One( G ), One( G ) ] );;
+gap> psi := GroupHomomorphismByImagesNC( H, G, [ H.1, H.2, H.4 ],[ G.3, One( G ), One( G ) ] );;
+gap> khi := GroupHomomorphismByImagesNC( H ,G, [ H.1, H.2, H.4 ],[ G.1, G.2^2, One( G ) ] );;
 gap> ReidemeisterNumber( phi, psi );
 infinity
 gap> IsTwistedConjugate( phi, psi, G.1, G.2 );

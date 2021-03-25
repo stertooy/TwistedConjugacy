@@ -12,9 +12,9 @@ gap> H := Image( i );;
 gap> gens := [ H.1, H.3*H.4 ];;
 gap> imgs1 := [ G.2*G.4^2, One( G ) ];;
 gap> imgs2 := [ G.1*G.2*G.3*G.5, G.3*G.4^2*G.5^3 ];; 
-gap> phi := GroupHomomorphismByImages( H, G, gens, imgs1 );;
-gap> psi := GroupHomomorphismByImages( H, G, gens, imgs2 );;
-gap> CoincidenceGroup( phi, psi ) = Subgroup( H, [H.2] );
+gap> phi := GroupHomomorphismByImagesNC( H, G, gens, imgs1 );;
+gap> psi := GroupHomomorphismByImagesNC( H, G, gens, imgs2 );;
+gap> CoincidenceGroup( phi, psi ) = SubgroupNC( H, [H.2] );
 true
 gap> tc := TwistedConjugation( phi, psi );;
 gap> IsTwistedConjugate( phi, psi, G.2, G.3 );
@@ -56,8 +56,8 @@ gap> psiN := InverseGeneralMapping( j )*psiN*i;;
 gap> ReidemeisterNumber( phiN, psiN );
 3
 gap> K := CyclicGroup( 4 );;
-gap> phiK := GroupHomomorphismByImages( K, K, [ K.1 ], [ K.1^2 ] );;
-gap> psiK := GroupHomomorphismByImages( K, K, [ K.1 ], [ One( K ) ] );;
+gap> phiK := GroupHomomorphismByImagesNC( K, K, [ K.1 ], [ K.1^2 ] );;
+gap> psiK := GroupHomomorphismByImagesNC( K, K, [ K.1 ], [ One( K ) ] );;
 gap> ReidemeisterZetaCoefficients( phiK, psiK );
 [ [ 2 ], [ 4 ] ]
 gap> PrintReidemeisterZeta( phiK , psiK );
@@ -65,13 +65,13 @@ gap> PrintReidemeisterZeta( phiK , psiK );
 gap> F := FreeGroup( 2 );;
 gap> L := F/[F.1^24, F.2^5, F.2*F.1*(F.1*F.2^4)^-1 ];;
 gap> M := Image( IsomorphismPcGroup( L ) );;
-gap> phiM := GroupHomomorphismByImages( M, M, [ M.1, M.2 ], [ M.1^6, One( M ) ] );;
-gap> psiM := GroupHomomorphismByImages( M, M, [ M.1, M.2 ], [ One( M ), One( M ) ] );;
+gap> phiM := GroupHomomorphismByImagesNC( M, M, [ M.1, M.2 ], [ M.1^6, One( M ) ] );;
+gap> psiM := GroupHomomorphismByImagesNC( M, M, [ M.1, M.2 ], [ One( M ), One( M ) ] );;
 gap> PrintReidemeisterZeta(phiM,psiM);
 "exp(-90*s-30*s^2)*(1-s)^(-120)"
 gap> N := DirectProduct( CyclicGroup( 4 ), CyclicGroup( 2 ), CyclicGroup( 2 ) );;
-gap> phiN := GroupHomomorphismByImages( N, N, [ N.1, N.3, N.4 ], [ N.1^2, N.3*N.4, One( N ) ] );;
-gap> psiN := GroupHomomorphismByImages( N, N, [ N.1, N.3, N.4 ], [ One( N ), N.3*N.4, N.3 ] );;
+gap> phiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.3, N.4 ], [ N.1^2, N.3*N.4, One( N ) ] );;
+gap> psiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.3, N.4 ], [ One( N ), N.3*N.4, N.3 ] );;
 gap> HasRationalReidemeisterZeta( phiN, psiN );
 false
 gap> zeta := ReidemeisterZeta( phiN, psiN );
@@ -81,8 +81,8 @@ gap> ReidemeisterZetaCoefficients( phiN, psiN );
 gap> PrintReidemeisterZeta( phiN, psiN );
 "exp(-4*s)*(1-s)^(-20/3)*(1-E(3)^2*s)^(4/3*E(3)^2)*(1-E(3)*s)^(4/3*E(3))"
 gap> N := DirectProduct( CyclicGroup( 2 ), CyclicGroup( 2 ), CyclicGroup( 2 ) );;
-gap> phiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3 ], [ One( N ), N.2, N.1*N.2*N.3 ] );;
-gap> psiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3 ], [ One( N ), N.1*N.3, N.1*N.2*N.3 ] );;
+gap> phiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N ), N.2, N.1*N.2*N.3 ] );;
+gap> psiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N ), N.1*N.3, N.1*N.2*N.3 ] );;
 gap> HasRationalReidemeisterZeta( phiN, psiN );
 true
 gap> zeta := ReidemeisterZeta( phiN, psiN );;
@@ -93,8 +93,8 @@ gap> ReidemeisterZetaCoefficients( phiN, psiN );
 [ [  ], [ 4, 2, 4, 2, 4, 8 ] ]
 gap> PrintReidemeisterZeta( phiN, psiN );
 "(1-s)^(-4)*(1-s^2)*(1-s^6)^(-1)"
-gap> phiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3 ], [ One( N ), N.1, N.2 ] );;
-gap> psiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3 ], [ N.1*N.3, N.2*N.3, N.1*N.2 ] );;
+gap> phiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N ), N.1, N.2 ] );;
+gap> psiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ N.1*N.3, N.2*N.3, N.1*N.2 ] );;
 gap> HasRationalReidemeisterZeta( phiN, psiN );
 false
 gap> zeta := ReidemeisterZeta( phiN, psiN );
@@ -103,8 +103,8 @@ gap> ReidemeisterZetaCoefficients( phiN, psiN );
 [ [ 1, 1 ], [ 2 ] ]
 gap> PrintReidemeisterZeta( phiN, psiN );
 "exp(-s-1/2*s^2)*(1-s)^(-2)"
-gap> phiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3 ], [ One( N ), N.1, N.2 ] );;
-gap> psiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3 ], [ N.1*N.2*N.3, N.1, N.2 ] );;
+gap> phiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N ), N.1, N.2 ] );;
+gap> psiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ N.1*N.2*N.3, N.1, N.2 ] );;
 gap> HasRationalReidemeisterZeta( phiN, psiN );
 false
 gap> zeta := ReidemeisterZeta( phiN, psiN );
@@ -113,8 +113,8 @@ gap> ReidemeisterZetaCoefficients( phiN, psiN );
 [ [ 4, 2 ], [ 1 ] ]
 gap> PrintReidemeisterZeta( phiN, psiN );
 "exp(3*s+1/2*s^2)*(1-s)^(-1)"
-gap> phiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3 ], [ One( N ), One( N ), N.3 ] );;
-gap> psiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3 ], [ One( N), N.1*N.3, N.1 ] );;
+gap> phiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N ), One( N ), N.3 ] );;
+gap> psiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N), N.1*N.3, N.1 ] );;
 gap> HasRationalReidemeisterZeta( phiN, psiN );
 false
 gap> zeta := ReidemeisterZeta( phiN, psiN );
@@ -123,8 +123,8 @@ gap> ReidemeisterZetaCoefficients( phiN, psiN );
 [ [ 4, 2 ], [ 4 ] ]
 gap> PrintReidemeisterZeta( phiN, psiN );
 "exp(-s^2)*(1-s)^(-4)"
-gap> phiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3 ], [ One( N ), One( N ), N.3 ] );;
-gap> psiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3 ], [ N.3, N.1*N.3, N.2*N.3 ] );;
+gap> phiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N ), One( N ), N.3 ] );;
+gap> psiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ N.3, N.1*N.3, N.2*N.3 ] );;
 gap> HasRationalReidemeisterZeta( phiN, psiN );
 false
 gap> zeta := ReidemeisterZeta( phiN, psiN );
@@ -133,8 +133,8 @@ gap> ReidemeisterZetaCoefficients( phiN, psiN );
 [ [  ], [ 1, 1, 2, 2 ] ]
 gap> PrintReidemeisterZeta( phiN, psiN );
 "(1-s)^(-3/2)*(1+E(4)*s)^(-1/4+1/4*E(4))*(1-E(4)*s)^(-1/4-1/4*E(4))"
-gap> phiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3 ], [ One( N ), One( N ), N.3 ] );;
-gap> psiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3 ], [ N.1, N.3, N.2 ] );;
+gap> phiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N ), One( N ), N.3 ] );;
+gap> psiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ N.1, N.3, N.2 ] );;
 gap> HasRationalReidemeisterZeta( phiN, psiN );
 false
 gap> zeta := ReidemeisterZeta( phiN, psiN );
@@ -144,8 +144,8 @@ gap> ReidemeisterZetaCoefficients( phiN, psiN );
 gap> PrintReidemeisterZeta( phiN, psiN );
 "(1-s)^(-3/2)*(1+s)^(-1/2)"
 gap> N := DirectProduct( CyclicGroup( 2 ), CyclicGroup( 2 ), CyclicGroup( 2 ), CyclicGroup( 2 ) );;
-gap> phiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3, N.4 ], [ One( N ), N.2, N.1*N.2*N.3, One( N ) ] );;
-gap> psiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3, N.4 ], [ One( N ), N.1*N.3, N.1*N.2*N.3, One( N ) ] );;
+gap> phiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3, N.4 ], [ One( N ), N.2, N.1*N.2*N.3, One( N ) ] );;
+gap> psiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3, N.4 ], [ One( N ), N.1*N.3, N.1*N.2*N.3, One( N ) ] );;
 gap> HasRationalReidemeisterZeta( phiN, psiN );
 true
 gap> zeta := ReidemeisterZeta( phiN, psiN );;
