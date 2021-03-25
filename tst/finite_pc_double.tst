@@ -76,6 +76,13 @@ gap> ReidemeisterZetaCoefficients( phiN, psiN );
 [ [ 4 ], [ 4, 8, 8 ] ]
 gap> PrintReidemeisterZeta( phiN, psiN );
 "exp(-4*s)*(1-s)^(-20/3)*(1-E(3)^2*s)^(4/3*E(3)^2)*(1-E(3)*s)^(4/3*E(3))"
+gap> N := DirectProduct( CyclicGroup( 2 ), CyclicGroup( 2 ), CyclicGroup( 2 ) );;
+gap> phiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3 ], [ One( N ), N.2, N.1*N.2*N.3 ] );;
+gap> psiN := GroupHomomorphismByImages( N, N, [ N.1, N.2, N.3 ], [ One( N ), N.1*N.3, N.1*N.2*N.3 ] );;
+gap> ReidemeisterZetaCoefficients( phiN, psiN );
+[ [  ], [ 4, 2, 4, 2, 4, 8 ] ]
+gap> PrintReidemeisterZeta( phiN, psiN );
+"(1-s)^(-4)*(1-s^2)*(1-s^6)^(-1)"
 
 #
 gap> STOP_TEST( "finite_pc_double.tst" );

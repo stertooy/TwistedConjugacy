@@ -146,29 +146,29 @@ InstallMethod( PrintReidemeisterZeta, "for finite groups",
 	[IsGroupHomomorphism and IsEndoGeneralMapping,
 	 IsGroupHomomorphism and IsEndoGeneralMapping], 
 	function ( endo1, endo2 )
-		local L1, L2, L, coeffs, k, s, p, z, coeff, factors, powers, factor, power, zeta, i, summand, const;
+		local P, Q, L, coeffs, k, w, coeff, factors, powers, factor, power, zeta, i, summand, const;
 		if not IsFinite( Source( endo1 ) ) then
 			TryNextMethod();
 		fi;
 		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
-		L1 := coeffs[1];
-		L2 := coeffs[2];
-		for i in [1..Length(L1)] do
-			L2 := Concatenation( [ Remove( L2 ) ], L2 );
+		Q := coeffs[1];
+		P := coeffs[2];
+		for i in [1..Length( Q )] do
+			P := Concatenation( [ Remove( P ) ], P );
 		od;
-		L1 := List( [1..Length(L1)], i -> L1[i] - L2[(i-1) mod Length(L2) + 1] );
-		if not IsEmpty( L1 ) then
+		Q := List( [1..Length( Q )], i -> Q[i] - P[(i-1) mod Length( P ) + 1] );
+		if not IsEmpty( Q ) then
 			summand := "";
-			for i in [1..Length(L1)] do
-				if L1[i] = 0 then
+			for i in [1..Length( Q )] do
+				if Q[i] = 0 then
 					continue;
 				fi;
-				if summand <> "" and L1[i] > 0 then
+				if summand <> "" and Q[i] > 0 then
 					summand := Concatenation( summand, "+" );
-				elif L1[i] < 0 then
+				elif Q[i] < 0 then
 					summand := Concatenation( summand, "-" );
 				fi;
-				coeff := AbsInt( L1[i] )/i;
+				coeff := AbsInt( Q[i] )/i;
 				if coeff = 1 then
 					summand := Concatenation( summand, "s" );
 				else
@@ -178,32 +178,30 @@ InstallMethod( PrintReidemeisterZeta, "for finite groups",
 					summand := Concatenation( summand, "^", PrintString( i ) );
 				fi;
 			od;
-			zeta := Concatenation("exp(",summand,")");
+			zeta := Concatenation( "exp(", summand, ")" );
 		else
 			zeta := "";
 		fi;
 		factors := [];
 		powers := [];
-		L := DecomposePeriodicList@TwistedConjugacy( L2 );
+		L := DecomposePeriodicList@TwistedConjugacy( P );
 		if L = fail then
-			k := Length( L2 );
-			s := Indeterminate( Rationals, "s" );
-			p := Sum( [1..k], i -> L2[i]*s^i);
-			for z in List( [0..k-1], i -> E(k)^i ) do
-				power := - Value( p, z )/k;
+			k := Length( P );
+			for w in List( [0..k-1], i -> E(k)^i ) do
+				power := - Sum( [1..k], i -> P[i]*w^i )/k;
 				if power = 0 then
 					continue;
 				fi;
-				const := 1/z;
+				const := 1/w;
 				factor := "";
 				if const = -1 then
-					factor := Concatenation(factor,"1+s");
+					factor := Concatenation( factor, "1+s" );
 				elif const = 1 then
-					factor := Concatenation(factor,"1-s");
-				elif PrintString(const)[1] = '-' then
-					factor := Concatenation(factor,"1+",PrintString(-const),"*s");
+					factor := Concatenation( factor, "1-s" );
+				elif PrintString( const )[1] = '-' then
+					factor := Concatenation( factor, "1+", PrintString( -const ), "*s" );
 				else
-					factor := Concatenation(factor,"1-",PrintString(const),"*s");
+					factor := Concatenation( factor, "1-", PrintString( const ), "*s" );
 				fi;
 				Add( factors, factor );
 				Add( powers, power );
@@ -215,24 +213,22 @@ InstallMethod( PrintReidemeisterZeta, "for finite groups",
 					continue;
 				fi;
 				factor := "1-s";
-				if not IsPosInt(i) then
-					factor := Concatenation( factor, "^(", PrintString(i), ")" );
-				elif i <> 1 then
-					factor := Concatenation( factor, "^", PrintString(i) );
+				if i > 1 then
+					factor := Concatenation( factor, "^", PrintString( i ) );
 				fi;
 				Add( factors, factor );
 				Add( powers, power );
 			od;
 		fi;
-		for i in [1..Length(factors)] do
+		for i in [1..Length( factors )] do
 			if zeta <> "" then
 				zeta := Concatenation( zeta, "*" );
 			fi;
 			zeta := Concatenation( zeta, "(", factors[i], ")" );
-			if not IsPosInt(powers[i]) then
-				zeta := Concatenation( zeta, "^(", PrintString(powers[i]), ")" );
-			elif i <> 1 then
-				zeta := Concatenation( zeta, "^", PrintString(powers[i]) );
+			if not IsPosInt( powers[i] ) then
+				zeta := Concatenation( zeta, "^(", PrintString( powers[i] ), ")" );
+			elif powers[i] <> 1 then
+				zeta := Concatenation( zeta, "^", PrintString( powers[i] ) );
 			fi;
 		od;
 		return zeta;
@@ -255,7 +251,10 @@ InstallOtherMethod(
 	PrintReidemeisterZeta,
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo )
-		return PrintReidemeisterZeta( endo, IdentityMapping( Source( endo ) ) );
+		return PrintReidemeisterZeta( 
+			endo, 
+			IdentityMapping( Source( endo ) ) 
+		);
 	end
 );
 
