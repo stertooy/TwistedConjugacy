@@ -15,11 +15,16 @@ jobs:
         gap-branch:
           - master
           - stable-4.11
+        gap-pkgs-to-clone: ""
+        include: 
+          - gap-branch: master
+            gap-pkgs-to-clone: "alnuth autpgrp polycyclic"
 
     steps:
       - uses: actions/checkout@v2
       - uses: gap-actions/setup-gap-for-packages@v1
         with:
+          GAP_PKGS_TO_CLONE: ${{ matrix.gap-pkgs-to-clone }}
           GAPBRANCH: ${{ matrix.gap-branch }}
       - uses: gap-actions/run-test-for-packages@v1
 
