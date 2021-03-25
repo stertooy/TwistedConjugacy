@@ -59,7 +59,7 @@ gap> K := CyclicGroup( 4 );;
 gap> phiK := GroupHomomorphismByImagesNC( K, K, [ K.1 ], [ K.1^2 ] );;
 gap> psiK := GroupHomomorphismByImagesNC( K, K, [ K.1 ], [ One( K ) ] );;
 gap> ReidemeisterZetaCoefficients( phiK, psiK );
-[ [ 2 ], [ 4 ] ]
+[ [ 4 ], [ -2 ] ]
 gap> PrintReidemeisterZeta( phiK , psiK );
 "exp(-2*s)*(1-s)^(-4)"
 gap> F := FreeGroup( 2 );;
@@ -77,9 +77,9 @@ false
 gap> zeta := ReidemeisterZeta( phiN, psiN );
 fail
 gap> ReidemeisterZetaCoefficients( phiN, psiN );
-[ [ 4 ], [ 4, 8, 8 ] ]
+[ [ 8, 4, 8 ], [ -4 ] ]
 gap> PrintReidemeisterZeta( phiN, psiN );
-"exp(-4*s)*(1-s)^(-20/3)*(1-E(3)^2*s)^(4/3*E(3)^2)*(1-E(3)*s)^(4/3*E(3))"
+"exp(-4*s)*(1-s)^(-20/3)*(1-E(3)*s)^(4/3*E(3))*(1-E(3)^2*s)^(4/3*E(3)^2)"
 gap> N := DirectProduct( CyclicGroup( 2 ), CyclicGroup( 2 ), CyclicGroup( 2 ) );;
 gap> phiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N ), N.2, N.1*N.2*N.3 ] );;
 gap> psiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N ), N.1*N.3, N.1*N.2*N.3 ] );;
@@ -90,7 +90,7 @@ gap> s := Indeterminate( Rationals, "s" );;
 gap> Value( DenominatorOfRationalFunction( zeta( s ) ), E(3) );
 0
 gap> ReidemeisterZetaCoefficients( phiN, psiN );
-[ [  ], [ 4, 2, 4, 2, 4, 8 ] ]
+[ [ 4, 2, 4, 2, 4, 8 ], [  ] ]
 gap> PrintReidemeisterZeta( phiN, psiN );
 "(1-s)^(-4)*(1-s^2)*(1-s^6)^(-1)"
 gap> phiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N ), N.1, N.2 ] );;
@@ -100,7 +100,7 @@ false
 gap> zeta := ReidemeisterZeta( phiN, psiN );
 fail
 gap> ReidemeisterZetaCoefficients( phiN, psiN );
-[ [ 1, 1 ], [ 2 ] ]
+[ [ 2 ], [ -1, -1 ] ]
 gap> PrintReidemeisterZeta( phiN, psiN );
 "exp(-s-1/2*s^2)*(1-s)^(-2)"
 gap> phiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N ), N.1, N.2 ] );;
@@ -110,7 +110,7 @@ false
 gap> zeta := ReidemeisterZeta( phiN, psiN );
 fail
 gap> ReidemeisterZetaCoefficients( phiN, psiN );
-[ [ 4, 2 ], [ 1 ] ]
+[ [ 1 ], [ 3, 1 ] ]
 gap> PrintReidemeisterZeta( phiN, psiN );
 "exp(3*s+1/2*s^2)*(1-s)^(-1)"
 gap> phiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N ), One( N ), N.3 ] );;
@@ -120,7 +120,7 @@ false
 gap> zeta := ReidemeisterZeta( phiN, psiN );
 fail
 gap> ReidemeisterZetaCoefficients( phiN, psiN );
-[ [ 4, 2 ], [ 4 ] ]
+[ [ 4 ], [ 0, -2 ] ]
 gap> PrintReidemeisterZeta( phiN, psiN );
 "exp(-s^2)*(1-s)^(-4)"
 gap> phiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N ), One( N ), N.3 ] );;
@@ -130,9 +130,9 @@ false
 gap> zeta := ReidemeisterZeta( phiN, psiN );
 fail
 gap> ReidemeisterZetaCoefficients( phiN, psiN );
-[ [  ], [ 1, 1, 2, 2 ] ]
+[ [ 1, 1, 2, 2 ], [  ] ]
 gap> PrintReidemeisterZeta( phiN, psiN );
-"(1-s)^(-3/2)*(1+E(4)*s)^(-1/4+1/4*E(4))*(1-E(4)*s)^(-1/4-1/4*E(4))"
+"(1-s)^(-3/2)*(1-E(4)*s)^(-1/4-1/4*E(4))*(1+E(4)*s)^(-1/4+1/4*E(4))"
 gap> phiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ One( N ), One( N ), N.3 ] );;
 gap> psiN := GroupHomomorphismByImagesNC( N, N, [ N.1, N.2, N.3 ], [ N.1, N.3, N.2 ] );;
 gap> HasRationalReidemeisterZeta( phiN, psiN );
@@ -140,7 +140,7 @@ false
 gap> zeta := ReidemeisterZeta( phiN, psiN );
 fail
 gap> ReidemeisterZetaCoefficients( phiN, psiN );
-[ [  ], [ 1, 2 ] ]
+[ [ 1, 2 ], [  ] ]
 gap> PrintReidemeisterZeta( phiN, psiN );
 "(1-s)^(-3/2)*(1+s)^(-1/2)"
 gap> N := DirectProduct( CyclicGroup( 2 ), CyclicGroup( 2 ), CyclicGroup( 2 ), CyclicGroup( 2 ) );;
@@ -152,9 +152,19 @@ gap> zeta := ReidemeisterZeta( phiN, psiN );;
 gap> zeta( 1+E(6) );
 -3/784*E(3)-1/98*E(3)^2
 gap> ReidemeisterZetaCoefficients( phiN, psiN );
-[ [  ], [ 8, 4, 8, 4, 8, 16 ] ]
+[ [ 8, 4, 8, 4, 8, 16 ], [  ] ]
 gap> PrintReidemeisterZeta( phiN, psiN );
 "(1-s)^(-8)*(1-s^2)^2*(1-s^6)^(-2)"
+gap> Q := QuaternionGroup( 8 );;
+gap> phiQ := GroupHomomorphismByImagesNC( Q, Q, [ Q.1, Q.2 ],[ Q.1, Q.1*Q.2 ] );;
+gap> psiQ := GroupHomomorphismByImagesNC( Q, Q, [ Q.1, Q.2 ],[ Q.2, Q.1*Q.2 ] );;
+gap> HasRationalReidemeisterZeta( phiQ, psiQ );
+false
+gap> ReidemeisterZetaCoefficients( phiQ, psiQ );
+[ [ 3, 2, 3, 2, 3, 5 ], [  ] ]
+gap> PrintReidemeisterZeta( phiQ, psiQ );
+"(1-s)^(-3)*(1-E(6)*s)^(-1/2)*(1-E(6)^2*s)^(-1/2)*(1+E(6)*s)^(-1/2)*(1+E(6)^2*\
+s)^(-1/2)"
 
 #
 gap> STOP_TEST( "finite_pc_double.tst" );

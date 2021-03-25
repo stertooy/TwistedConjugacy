@@ -45,7 +45,7 @@ gap> zeta( 10/3 );
 gap> PrintReidemeisterZeta( phi );
 "(1-s)^(-4)*(1-s^2)^(-1)*(1-s^3)^(-2)"
 gap> ReidemeisterZetaCoefficients( phi );
-[ [  ], [ 4, 6, 10, 6, 4, 12 ] ]
+[ [ 4, 6, 10, 6, 4, 12 ], [  ] ]
 gap> p := NaturalHomomorphismByNormalSubgroupNC( G, DerivedSubgroup( G ) );;
 gap> H := Image( p );;
 gap> psi := InducedHomomorphism( p, p, phi );;

@@ -8,43 +8,37 @@ InstallMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo1, endo2 )
-		local G, G1, G2, steps, order, offset, L1, L2;
+		local G, G1, G2, steps, k, l, endo, P, Q, R, n;
 		G := Source( endo1 );
 		if not IsFinite( G ) then
 			TryNextMethod();
 		fi;
-		# Start first endomorphism
-		G1 := fail;
-		G2 := G;
-		steps := -1;
-		while G1 <> G2 do
-			steps := steps + 1;
-			G1 := G2;
-			G2 := Image( endo1, G1 );
+		k := 1;
+		l := 0;
+		for endo in [ endo1, endo2 ] do 
+			G1 := fail;
+			G2 := G;
+			steps := -1;
+			while G1 <> G2 do
+				steps := steps + 1;
+				G1 := G2;
+				G2 := Image( endo, G1 );
+			od;
+			k := LcmInt( k, Order( RestrictedMapping( endo, G1 ) ) );
+			l := Maximum( l, steps );
 		od;
-		order := Order( RestrictedMapping( endo1, G1 ) );
-		offset := steps;
-		# Start second endomorphism
-		G1 := fail;
-		G2 := G;
-		steps := -1;
-		while G1 <> G2 do
-			steps := steps + 1;
-			G1 := G2;
-			G2 := Image( endo2, G1 );
-		od;
-		order := LcmInt( order, Order( RestrictedMapping( endo2, G1 ) ) );
-		offset := Maximum( offset, steps );
-		# TODO: improve calculation of powers of endo1 and endo2
-		L1 := List( [1..offset], n -> ReidemeisterNumber( endo1^n, endo2^n ) );
-		L2 := RemovePeriodsList@(
-			List( [1+offset..offset+order], n -> ReidemeisterNumber( endo1^n, endo2^n ) )
+		R := List( [1..k+l], n -> ReidemeisterNumber( endo1^n, endo2^n ) );
+		R := Concatenation( 
+			R{ [1..l] },
+			RemovePeriodsList@( R{ [ 1+l..k+l ] } )
 		);
-		while not IsEmpty( L1 ) and L2[ Length( L2 ) ] = L1[ Length( L1 ) ] do
-		   Remove( L1 );
-		   L2 := Concatenation( [ Remove( L2 ) ], L2 );
+		k := Length( R ) - l;
+		P := List( [1..k], n -> R[ (n-l-1) mod k + 1 + l ] );
+		Q := List( [1..l], n -> R[n] - P[ (n-1) mod k + 1 ] );
+		while Last( Q ) = 0  do
+			Remove( Q );
 		od;
-		return [ L1, L2 ];
+		return [ P, Q ];
 	end
 );
 
@@ -91,16 +85,16 @@ InstallMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ], 
 	function ( endo1, endo2 )
-		local coeffs, L;
+		local coeffs, p;
 		if not IsFinite( Source( endo1 ) ) then
 			TryNextMethod();
 		fi;
 		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
-		if not IsEmpty( coeffs[1] ) then
+		if not IsEmpty( coeffs[2] ) then
 			return false;
 		fi;
-		L := DecomposePeriodicList@( coeffs[2] );
-		if L = fail then
+		p := DecomposePeriodicList@( coeffs[1] );
+		if p = fail then
 			return false;
 		fi;
 		return true;
@@ -114,7 +108,8 @@ RedispatchOnCondition(
 	[ IsEndoGeneralMapping, IsEndoGeneralMapping ],
 	0
 );
-	
+
+
 ###############################################################################
 ##
 ## HasRationalReidemeisterZeta( endo )
@@ -149,25 +144,24 @@ InstallMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ], 
 	function ( endo1, endo2 )
-		local coeffs, i, L;
+		local coeffs, i, p;
 		if not IsFinite( Source( endo1 ) ) then
 			TryNextMethod();
 		fi;
 		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
-		if not IsEmpty( coeffs[1] ) then
+		if not IsEmpty( coeffs[2] ) then
 			return fail;
 		fi;
-		L := DecomposePeriodicList@( coeffs[2] );
-		if L = fail then
+		p := DecomposePeriodicList@( coeffs[1] );
+		if p = fail then
 			return fail;
 		fi;
 		return function ( s )
-			local zeta, i, ci, summand;
+			local zeta, i;
 			zeta := 1;
-			for i in [1..Length( L )] do
-				ci := L[i];
-				if ci <> 0 then
-					zeta := zeta*( 1-s^i )^-ci;
+			for i in [1..Length( p )] do
+				if p[i] <> 0 then
+					zeta := zeta*( 1-s^i )^-p[i];
 				fi;
 			od;
 			return zeta;
@@ -182,7 +176,8 @@ RedispatchOnCondition(
 	[ IsEndoGeneralMapping, IsEndoGeneralMapping ],
 	0
 );
-	
+
+
 ###############################################################################
 ##
 ## ReidemeisterZeta( endo )
@@ -214,78 +209,94 @@ InstallMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ], 
 	function ( endo1, endo2 )
-		local P, Q, L, coeffs, k, w, coeff, factors, powers, factor, power, zeta, i, summand, const;
+		local coeffs, P, Q, q, i, qi, zeta, p, k, w, factors, powers, pi;
 		if not IsFinite( Source( endo1 ) ) then
 			TryNextMethod();
 		fi;
 		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
-		Q := coeffs[1];
-		P := coeffs[2];
-		for i in [1..Length( Q )] do
-			P := Concatenation( [ Remove( P ) ], P );
-		od;
-		Q := List( [1..Length( Q )], i -> Q[i] - P[(i-1) mod Length( P ) + 1] );
+		Q := coeffs[2];
+		P := coeffs[1];
 		if not IsEmpty( Q ) then
-			summand := "";
+			q := "";
 			for i in [1..Length( Q )] do
 				if Q[i] = 0 then
 					continue;
 				fi;
-				if summand <> "" and Q[i] > 0 then
-					summand := Concatenation( summand, "+" );
+				if q <> "" and Q[i] > 0 then
+					q := Concatenation( q, "+" );
 				elif Q[i] < 0 then
-					summand := Concatenation( summand, "-" );
+					q := Concatenation( q, "-" );
 				fi;
-				coeff := AbsInt( Q[i] )/i;
-				if coeff = 1 then
-					summand := Concatenation( summand, "s" );
+				qi := AbsInt( Q[i] )/i;
+				if qi = 1 then
+					q := Concatenation( q, "s" );
 				else
-					summand := Concatenation( summand, PrintString( coeff ), "*s" );
+					q := Concatenation( q, PrintString( qi ), "*s" );
 				fi;
 				if i <> 1 then
-					summand := Concatenation( summand, "^", PrintString( i ) );
+					q := Concatenation( q, "^", PrintString( i ) );
 				fi;
 			od;
-			zeta := Concatenation( "exp(", summand, ")" );
+			zeta := Concatenation( "exp(", q, ")" );
 		else
 			zeta := "";
 		fi;
 		factors := [];
 		powers := [];
-		L := DecomposePeriodicList@TwistedConjugacy( P );
-		if L = fail then
+		p := DecomposePeriodicList@TwistedConjugacy( P );
+		if p = fail then
 			k := Length( P );
-			for w in List( [0..k-1], i -> E(k)^i ) do
-				power := - Sum( [1..k], i -> P[i]*w^i )/k;
-				if power = 0 then
+			for i in [0..k-1] do
+				pi := Sum( [1..k], j -> P[j]*E(k)^(-i*j) )/k;
+				if pi = 0 then
 					continue;
 				fi;
-				const := 1/w;
-				factor := "";
-				if const = -1 then
-					factor := Concatenation( factor, "1+s" );
-				elif const = 1 then
-					factor := Concatenation( factor, "1-s" );
-				elif PrintString( const )[1] = '-' then
-					factor := Concatenation( factor, "1+", PrintString( -const ), "*s" );
+				if i = k/2 then
+					Add( factors, "1+s" );
+				elif i = 0 then
+					Add( factors, "1-s" );
+				elif i = 1 then
+					Add( factors, Concatenation(
+						"1-E(",
+						PrintString( k ),
+						")*s" 
+					));
+				elif i = k/2+1 then
+					Add( factors, Concatenation(
+						"1+E(",
+						PrintString( k ),
+						")*s"
+					));
+				elif k mod 2 = 0 and i > k/2 then
+					Add( factors, Concatenation( 
+						"1+E(", 
+						PrintString( k ),
+						")^",
+						PrintString( i-k/2 ),
+						"*s"
+					));
 				else
-					factor := Concatenation( factor, "1-", PrintString( const ), "*s" );
+					Add( factors, Concatenation(
+						"1-E(",
+						PrintString( k ),
+						")^",
+						PrintString( i ),
+						"*s"
+					));
 				fi;
-				Add( factors, factor );
-				Add( powers, power );
+				Add( powers, -pi );
 			od;
 		else
-			for i in [1..Length( L )] do
-				power := -L[i];
-				if power = 0 then
+			for i in [1..Length( p )] do
+				if p[i] = 0 then
 					continue;
 				fi;
-				factor := "1-s";
 				if i > 1 then
-					factor := Concatenation( factor, "^", PrintString( i ) );
+					Add( factors, Concatenation( "1-s^", PrintString( i ) ) );
+				else
+					Add( factors, "1-s" );
 				fi;
-				Add( factors, factor );
-				Add( powers, power );
+				Add( powers, -p[i] );
 			od;
 		fi;
 		for i in [1..Length( factors )] do
@@ -294,15 +305,23 @@ InstallMethod(
 			fi;
 			zeta := Concatenation( zeta, "(", factors[i], ")" );
 			if not IsPosInt( powers[i] ) then
-				zeta := Concatenation( zeta, "^(", PrintString( powers[i] ), ")" );
+				zeta := Concatenation(
+					zeta,
+					"^(",
+					PrintString( powers[i] ),
+					")"
+				);
 			elif powers[i] <> 1 then
-				zeta := Concatenation( zeta, "^", PrintString( powers[i] ) );
+				zeta := Concatenation(
+					zeta,
+					"^",
+					PrintString( powers[i] )
+				);
 			fi;
 		od;
 		return zeta;
 	end
 );
-
 
 RedispatchOnCondition(
 	PrintReidemeisterZeta,
@@ -311,7 +330,8 @@ RedispatchOnCondition(
 	[ IsEndoGeneralMapping, IsEndoGeneralMapping ],
 	0
 );
-	
+
+
 ###############################################################################
 ##
 ## PrintReidemeisterZeta( endo )

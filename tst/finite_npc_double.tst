@@ -39,7 +39,7 @@ gap> K := Group([ (1,2,3,4,5)(6,9)(7,8), (2,3)(4,5)(6,7)(8,9) ]);;
 gap> phiK := GroupHomomorphismByImagesNC( K, K, [ (1,2,3,4,5)(6,9)(7,8), (2,3)(4,5)(6,7)(8,9) ], [ (1,4,5,2,3)(6,8)(7,9), (2,3)(4,5)(6,9)(7,8) ] );;
 gap> psiK := GroupHomomorphismByImagesNC( K, K, [ (1,2,3,4,5)(6,9)(7,8), (2,3)(4,5)(6,7)(8,9) ], [ (), (1,3)(2,4)(6,7)(8,9) ] );;
 gap> ReidemeisterZetaCoefficients( phiK, psiK );
-[ [  ], [ 2, 1, 2 ] ]
+[ [ 2, 1, 2 ], [  ] ]
 
 #
 gap> STOP_TEST( "finite_npc_double.tst" );

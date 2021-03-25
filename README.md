@@ -1,10 +1,11 @@
-[![Build Status](https://travis-ci.com/sTertooy/TwistedConjugacy.svg?branch=master)](https://travis-ci.org/sTertooy/TwistedConjugacy)
-[![Code Coverage](https://codecov.io/github/sTertooy/TwistedConjugacy/coverage.svg?branch=master&token=)](https://codecov.io/gh/sTertooy/TwistedConjugacy)
+[![Build Status](https://github.com/sTertooy/TwistedConjugacy/workflows/CI/badge.svg?branch=master)](https://github.com/sTertooy/TwistedConjugacy/actions?query=workflow%3ACI+branch%3Amaster)
+[![Code Coverage](https://codecov.io/gh/sTertooy/TwistedConjugacy/branch/master/graph/badge.svg)](https://codecov.io/gh/sTertooy/TwistedConjugacy)
 
 The GAP 4 package `TwistedConjugacy'
 ====================================
 
 by Sam Tertooy <sam.tertooy@hotmail.com>
+
 
 
 Introduction
@@ -36,12 +37,6 @@ recognizes the TwistedConjugacy package using the following command:
 	Report issues at https://github.com/sTertooy/TwistedConjugacy/issues
 	─────────────────────────────────────────────────────────────────────────────
 	true
-
-If you are using a custom directory, make a 'pkg' subdirectory and place
-the TwistedConjugacy folder in this subdirectory. You will need to tell 
-GAP to look for packages in this directory using the -l option:
-
-	sh > gap -l ';mydirectory/';
 
 The manual may be compiled by running the 'makedoc.g' script, located in
 the package's main directory.  It is also available on the webpages of this
