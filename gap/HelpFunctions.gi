@@ -52,23 +52,6 @@ end;
 
 ###############################################################################
 ##
-## ComposeWithInnerAutomorphism@( g, hom )
-##
-##	Returns the homorphism that maps h to ( h^hom )^g
-##  Note that g is not necessarily an element of the range of hom
-##
-ComposeWithInnerAutomorphism@ := function ( g, hom )
-    local gens;
-	gens := MappingGeneratorsImages( hom );
-	return GroupHomomorphismByImagesNC(
-		Source( hom ), Range( hom ),
-		gens[1], List( gens[2], h -> h^g )
-	);
-end;
-
-
-###############################################################################
-##
 ## IntersectionPreImage@( hom1, hom2, N )
 ##
 ##  Note that N must be a normal subgroup

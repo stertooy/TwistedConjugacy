@@ -45,11 +45,7 @@ InstallMethod(
 	function ( hom1, hom2, g1, g2 )
 		local R;
 		R := RepresentativeTwistedConjugation( hom1, hom2, g1, g2 );
-		if R = fail then
-			return false;
-		else
-			return true;
-		fi;
+		return not R = fail;
 	end
 );
 
@@ -90,7 +86,7 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	function ( hom1, hom2, g1, g2 )
 		return RepTwistConjToId( 
-			ComposeWithInnerAutomorphism@( g2^-1, hom1 ), hom2, g1*g2^-1 
+			hom1 * InnerAutomorphismNC( Range( hom1 ), g2^-1 ), hom2, g1*g2^-1
 		);
 	end
 );

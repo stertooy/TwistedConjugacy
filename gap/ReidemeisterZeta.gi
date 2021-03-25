@@ -214,8 +214,8 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
-		Q := coeffs[2];
 		P := coeffs[1];
+		Q := coeffs[2];
 		if not IsEmpty( Q ) then
 			q := "";
 			for i in [1..Length( Q )] do

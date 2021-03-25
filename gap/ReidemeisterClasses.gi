@@ -131,7 +131,7 @@ InstallMethod(
 		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
 		g := Representative( tcc );
 		Coin := CoincidenceGroup( 
-			ComposeWithInnerAutomorphism@( g^-1, homs[1] ),
+			homs[1] * InnerAutomorphismNC( G, g^-1 ),
 			homs[2]
 		);
 		return Index( H, Coin );
@@ -155,7 +155,7 @@ InstallMethod(
 		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
 		g := Representative( tcc );
 		Coin := CoincidenceGroup( 
-			ComposeWithInnerAutomorphism@( g^-1, homs[1] ), 
+			homs[1] * InnerAutomorphismNC( G, g^-1 ),
 			homs[2]
 		);
 		if Index( H, Coin ) = infinity then
@@ -193,14 +193,14 @@ ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M )
 	hom1N := RestrictedHomomorphism( hom1, N, M );
 	hom2N := RestrictedHomomorphism( hom2, N, M );
 	for pg in RclGM do
-		ighom1HN := ComposeWithInnerAutomorphism@( pg^-1, hom1HN );
+		ighom1HN := hom1HN * InnerAutomorphismNC( Range( p ), pg^-1 );
 		Coin := CoincidenceGroup( ighom1HN, hom2HN );
 		if not IsFinite( Coin ) then
 			TryNextMethod();
 		fi;
 		g := PreImagesRepresentative( p, pg );
-		ighom1 := ComposeWithInnerAutomorphism@( g^-1, hom1 );
-		ighom1N := ComposeWithInnerAutomorphism@( g^-1, hom1N );
+		ighom1 := hom1 * InnerAutomorphismNC( G, g^-1 );
+		ighom1N := hom1N * ConjugatorAutomorphismNC( M, g^-1 );
 		RclM := ReidemeisterClasses(
 			ighom1N,
 			hom2N
@@ -258,11 +258,11 @@ ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
 	for pg in RclGM do
 		g := PreImagesRepresentative( p, pg );
 		CoinHN := CoincidenceGroup( 
-			ComposeWithInnerAutomorphism@( pg^-1, hom1HN ),
+			hom1HN * InnerAutomorphismNC( Range( p ), pg^-1 ),
 			hom2HN
 		);
 		deltaLift := DifferenceGroupHomomorphisms@ ( 
-			ComposeWithInnerAutomorphism@(  g^-1, hom1 ), hom2,
+			hom1 * InnerAutomorphismNC( G, g^-1 ), hom2,
 			PreImage( q, CoinHN ), M
 		);
 		pCoker := NaturalHomomorphismByNormalSubgroupNC( 
