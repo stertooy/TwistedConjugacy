@@ -164,34 +164,44 @@ ExtendedReidemeisterSpectrum( G );
 # SECTION 4
 ###
 
-#! @Section Zeta Functions
-#! Let $\varphi: G \to G$ be an endomorphism such that $R(\varphi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the Reidemeister zeta function $R_{\varphi}(z)$ of $\varphi$ is defined as
-#! $$R_{\varphi}(z) := \exp \sum_{n=1}^\infty R(\varphi^n) \frac{z^n}{n}.$$
-#! Please note that the functions below are only implemented for endomorphisms of finite groups.
+#! @Section Reidemeister Zeta Functions
+#! Let $\varphi: G \to G$ be an endomorphism such that $R(\varphi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the Reidemeister zeta function $Z_{\varphi}(s)$ of $\varphi$ is defined as
+#! $$Z_{\varphi}(s) := \exp \sum_{n=1}^\infty \frac{R(\varphi^n)}{n} s^n.$$
+#! Please note that the functions below are currently only implemented for endomorphisms of finite groups.
 
 #! @Description
-#! Returns the Reidemeister zeta function of <A>endo</A>.
+#! For a finite group, the sequence of Reidemeister numbers of the iterates of <A>endo</A>, i.e. the sequence R(<A>endo</A>), R(<A>endo</A>^2), ..., is periodic (see <Cite Key='fels00-1' Where='Theorem 16'/>). This function returns a list containing two sublists: the first sublist contains one period of the sequence of Reidemeister numbers, the second sublist is empty (the reason for this awkward output format is to ensure compatibility with coincidence Reidemeister zeta functions in Chapter 2).
+#! @Arguments endo
+DeclareOperation( "ReidemeisterZetaCoefficients", [IsGroupHomomorphism and IsEndoGeneralMapping] );
+
+#! @Description
+#! Returns <K>true</K> if the Reidemeister zeta function of <A>endo</A> is rational, and <K>false</K> otherwise.
+#! @Arguments endo
+DeclareOperation( "HasRationalReidemeisterZeta", [IsGroupHomomorphism and IsEndoGeneralMapping] );
+
+#! @Description
+#! Returns the Reidemeister zeta function of <A>endo</A> if it is rational, and <K>fail</K> otherwise.
 #! @Arguments endo
 DeclareOperation( "ReidemeisterZeta", [IsGroupHomomorphism and IsEndoGeneralMapping] );
 
 #! @Description
-#! Returns a string describing the Reidemeister zeta function of <A>endo</A>.
+#! Returns a string describing the Reidemeister zeta function of <A>endo</A>. This is often more readable than evaluating <C>ReidemeisterZeta</C> in an indeterminate, and does not require rationality.
 #! @Arguments endo
 DeclareOperation( "PrintReidemeisterZeta", [IsGroupHomomorphism and IsEndoGeneralMapping] );
 
-#! @Description
-#! For a finite group, the sequence of Reidemeister numbers of the iterates of <A>endo</A>, i.e. the sequence R(<A>endo</A>), R(<A>endo</A>^2), ..., is periodic (see <Cite Key='fels00-1' Where='Theorem 16'/>). This function returns a list containing the first period of this sequence.
-#! @Arguments endo
-DeclareAttribute( "ReidemeisterZetaCoefficients", IsGroupHomomorphism and IsEndoGeneralMapping );
-
 #! @BeginExample
-zeta1 := ReidemeisterZeta( phi );;
-zeta1( 10/3 );
-#! -729/218491
-PrintReidemeisterZeta( phi );
-#! "( 1-z^1 )^-4 * ( 1-z^2 )^-1"
 ReidemeisterZetaCoefficients( phi );
-#! [ 4, 6 ]
+#! [ [ 4, 6 ], [  ] ]
+HasRationalReidemeisterZeta( phi );
+#! true
+zeta := ReidemeisterZeta( phi );;
+zeta( 10/3 );
+#! -729/218491
+gap> s := Indeterminate( Rationals, "s" );;
+gap> zeta(s);
+#! (1)/(-s^6+4*s^5-5*s^4+5*s^2-4*s+1)
+PrintReidemeisterZeta( phi );
+#! "(1-s)^(-4)*(1-s^2)^(-1)"
 #! @EndExample
 
 
@@ -206,6 +216,7 @@ ReidemeisterZetaCoefficients( phi );
 #! @ChapterLabel dubtwicon
 #! @ChapterTitle Double Twisted Conjugacy
 #! Please note that the functions in this chapter are implemented only for homomorphisms between finite groups or between pcp-groups.
+
 
 ###
 # SECTION 1
@@ -225,7 +236,7 @@ DeclareOperation( "TwistedConjugation" , [IsGroupHomomorphism, IsGroupHomomorphi
 DeclareOperation( "IsTwistedConjugate", [IsGroupHomomorphism, IsGroupHomomorphism, IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse] );
 
 #! @Description
-#! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) and returns <C>fail</C> if no such element exists. For polycyclic groups, this algorithm may fail if the range is not nilpotent-by-finite and the Reidemeister number of <A>hom1</A> and <A>hom2</A> is infinite.
+#! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) and returns <K>fail</K> if no such element exists. For polycyclic groups, this algorithm may fail if the range is not nilpotent-by-finite and the Reidemeister number of <A>hom1</A> and <A>hom2</A> is infinite.
 #! @Arguments hom1, hom2, g1, g2
 DeclareOperation( "RepresentativeTwistedConjugation", [IsGroupHomomorphism, IsGroupHomomorphism, IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse] );
 
@@ -275,7 +286,7 @@ DeclareOperation( "TwistedConjugacyClass", [IsGroupHomomorphism, IsGroupHomomorp
 
 #! @BeginGroup ReidemeisterCoincidenceClassesGroup
 #! @Description
-#! Returns a list containing the Reidemeister coincidence classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number R( <A>hom1</A>, <A>hom2</A> ) is finite, and returns <C>fail</C> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position.
+#! Returns a list containing the Reidemeister coincidence classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number R( <A>hom1</A>, <A>hom2</A> ) is finite, and returns <K>fail</K> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position.
 #! @Arguments hom1, hom2
 DeclareOperation( "ReidemeisterClasses", [IsGroupHomomorphism, IsGroupHomomorphism] );
 #! @Arguments hom1, hom2
@@ -313,6 +324,84 @@ ReidemeisterClasses( phi, psi );
 #! [ ()^G, (4,5,6)^G, (4,6,5)^G, ... ]
 NrTwistedConjugacyClasses( phi, psi );
 #! 184
+#! @EndExample
+
+
+###
+# SECTION 3
+###
+
+#! @Section Reidemeister Spectra
+#! The set of all Reidemeister numbers of pairs of endomorphisms of a group $G$ is called the **coincidence Reidemeister spectrum** of $G$ and is denoted by $\mathrm{CSpec}_R(G)$, i.e. 
+#! $$\mathrm{CSpec}_R(G) := \{ R(\varphi,\psi) \mid \varphi,\psi \in \mathrm{End}(G)\}.$$
+#! The set of all Reidemeister numbers of pairs of homomorphisms from a group $H$ to a group $G$ is called the **coincidence Reidemeister spectrum** of $H$ and $G$ and is denoted by $\mathrm{CSpec}_R(H,G)$, i.e. 
+#! $$\mathrm{CSpec}_R(H,G) := \{ R(\varphi, \psi) \mid \varphi,\psi \in \mathrm{Hom}(H,G)\}.$$
+
+#! @Description
+#! Returns the coincidence Reidemeister spectrum of <A>G</A>.
+#! @Arguments G
+DeclareAttribute( "CoincidenceReidemeisterSpectrum", IsGroup );
+
+#! @Description
+#! Returns the coincidence Reidemeister spectrum of <A>H</A> and <A>G</A>.
+#! @Arguments H, G
+DeclareOperation( "CoincidenceReidemeisterSpectrum", [ IsGroup, IsGroup ] );
+
+#! @BeginExample
+CoincidenceReidemeisterSpectrum( G );
+#! [ 1, 3, 5, 7, 360 ]
+CoincidenceReidemeisterSpectrum( H );
+#! [ 1, 2, 7, 60, 64, 66, 120 ]
+CoincidenceReidemeisterSpectrum( H, G );
+#! [ 180, 184, 360 ]
+CoincidenceReidemeisterSpectrum( G, H );
+#! [ 120 ]
+#! @EndExample
+
+
+###
+# SECTION 4
+###
+
+#! @Section Reidemeister Zeta Functions
+#! Let $\varphi,\psi: G \to G$ be endomorphism such that $R(\varphi^n,\psi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the Reidemeister zeta function $Z_{\varphi,\psi}(s)$ of the pair $(\varphi,\psi)$ is defined as
+#! $$Z_{\varphi,\psi}(s) := \exp \sum_{n=1}^\infty \frac{R(\varphi^n,\psi^n)}{n} s^n.$$
+#! Please note that the functions below are only implemented for endomorphisms of finite groups.
+
+#! @Description
+#! For a finite group, the sequence of Reidemeister numbers of the iterates of <A>endo1</A> and <A>endo2</A>, i.e. the sequence R(<A>endo1</A>,<A>endo2</A>), R(<A>endo1</A>^2,<A>endo2</A>^2), ..., is eventually periodic, i.e. there exist a periodic sequence $P_n$ and an eventually zero sequence $Q_n$ such that
+#! $$\forall n \in \mathbb{N}: R(\varphi^n,\psi^n) = P_n + Q_n.$$
+#! This function returns a list containing two sublists: the first sublist contains one period of the sequence $P_n$, the second sublist contains $Q_n$ up to the part where it becomes the constant zero sequence.
+#! @Arguments endo1, endo2 
+DeclareOperation( "ReidemeisterZetaCoefficients", [ IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and IsEndoGeneralMapping ] );
+
+#! @Description
+#! Returns <K>true</K> if the Reidemeister zeta function of <A>endo1</A> and <A>endo2</A> is rational, and <K>false</K> otherwise.
+#! @Arguments endo1, endo2 
+DeclareOperation( "HasRationalReidemeisterZeta", [ IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and IsEndoGeneralMapping ] );
+
+#! @Description
+#! Returns the Reidemeister zeta function of <A>endo1</A> and <A>endo2</A> if it is rational, and <K>fail</K> otherwise.
+#! @Arguments endo1, endo2 
+DeclareOperation( "ReidemeisterZeta", [ IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and IsEndoGeneralMapping ] );
+
+#! @Description
+#! Returns a string describing the Reidemeister zeta function of <A>endo1</A> and <A>endo2</A>. This is often more readable than evaluating <C>ReidemeisterZeta</C> in an indeterminate, and does not require rationality.
+#! @Arguments endo1, endo2 
+DeclareOperation( "PrintReidemeisterZeta", [ IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and IsEndoGeneralMapping ] );
+
+#! @BeginExample
+G := DirectProduct( CyclicGroup( 2 ), CyclicGroup( 2 ), CyclicGroup( 2 ) );;
+phi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3 ], [ One( G ), One( G ), G.3 ] );;
+psi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3 ], [ One( G ), G.1*G.3, G.1 ] );;
+HasRationalReidemeisterZeta( phi, psi );
+#! false
+ReidemeisterZeta( phi, psi );
+#! fail
+ReidemeisterZetaCoefficients( phi, psi );
+#! [ [ 4 ], [ 0, -2 ] ]
+PrintReidemeisterZeta( phi, psi );
+#! "exp(-s^2)*(1-s)^(-4)"
 #! @EndExample
 
 
