@@ -167,6 +167,7 @@ InstallMethod(
 	end
 );
 
+
 ###############################################################################
 ##
 ## ReidemeisterClassesByFiniteCoin@( hom1, hom2, M )

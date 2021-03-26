@@ -59,7 +59,22 @@ RedispatchOnCondition(
 ##
 InstallMethod(
 	CoincidenceReidemeisterSpectrum,
-	"for finite groups",
+	"for finite abelian groups",
+	[ IsGroup and IsFinite, IsGroup and IsFinite and IsAbelian ],
+	function ( H, G )
+		local Homs, Spectrum, i, j;
+		Homs := AllHomomorphismClasses( H, G );
+		Spectrum := Set([]);
+		for i in [1..Length( Homs )] do
+			AddSet( Spectrum, ReidemeisterNumber( Homs[1], Homs[i] ) );
+		od;
+		return Spectrum;
+	end
+);
+
+InstallMethod(
+	CoincidenceReidemeisterSpectrum,
+	"for finite non-abelian groups",
 	[ IsGroup and IsFinite, IsGroup and IsFinite ],
 	function ( H, G )
 		local Homs, Spectrum, i, j;
