@@ -1,1 +1,1 @@
-ReadPackage( "TwistedConjugacy", "gap/TwistedConjugacy.gd" );
+ReadPackage( "TwistedConjugacy", "lib/TwistedConjugacy.gd" );
