@@ -75,10 +75,10 @@ RedispatchOnCondition(
 
 ###############################################################################
 ##
-## HasRationalReidemeisterZeta( endo1, endo2 )
+## IsRationalReidemeisterZeta( endo1, endo2 )
 ##
 InstallMethod( 
-	HasRationalReidemeisterZeta,
+	IsRationalReidemeisterZeta,
 	"for finite groups",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ], 
@@ -100,7 +100,7 @@ InstallMethod(
 );
 
 RedispatchOnCondition( 
-	HasRationalReidemeisterZeta,
+	IsRationalReidemeisterZeta,
 	true, 
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	[ IsEndoGeneralMapping, IsEndoGeneralMapping ],
@@ -110,7 +110,7 @@ RedispatchOnCondition(
 
 ###############################################################################
 ##
-## HasRationalReidemeisterZeta( endo )
+## IsRationalReidemeisterZeta( endo )
 ##
 InstallOtherMethod(
 	IsRationalReidemeisterZeta,
