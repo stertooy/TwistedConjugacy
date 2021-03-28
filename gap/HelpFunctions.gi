@@ -5,14 +5,13 @@
 InstallGlobalFunction(
 	InducedHomomorphism,
 	function ( epi1, epi2, hom )
-    	local H, G, gens;
-		H := Range( epi1 );
-    	G := Range( epi2 );
-		gens := GeneratorsOfGroup( H );
-		return GroupHomomorphismByImagesNC(
-			H, G, gens, List( gens,
-				h -> ( PreImagesRepresentative( epi1, h )^hom )^epi2
-			)
+		return GroupHomomorphismByFunction( Range( epi1 ), Range( epi2 ),
+			h -> ( PreImagesRepresentative( epi1, h )^hom )^epi2,
+			false,
+			g -> PreImagesRepresentative( 
+				hom, 
+				PreImagesRepresentative( epi2, g )
+			)^epi1
 		);
 	end
 );
@@ -25,10 +24,11 @@ InstallGlobalFunction(
 InstallGlobalFunction(
 	RestrictedHomomorphism,
 	function ( hom, N, M )
-    	local gens;
-		gens := GeneratorsOfGroup( N );
-		return GroupHomomorphismByImagesNC(
-			N, M, gens, List( gens, n -> n^hom )
+		return GroupHomomorphismByFunction(
+			N, M, 
+			n -> n^hom,
+			false,
+			m -> PreImagesRepresentative( hom, m )
 		);
 	end
 );

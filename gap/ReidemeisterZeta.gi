@@ -35,9 +35,7 @@ InstallMethod(
 		k := Length( R ) - l;
 		P := List( [1..k], n -> R[ (n-l-1) mod k + 1 + l ] );
 		Q := List( [1..l], n -> R[n] - P[ (n-1) mod k + 1 ] );
-		while Last( Q ) = 0  do
-			Remove( Q );
-		od;
+		ShrinkRowVector( Q );
 		return [ P, Q ];
 	end
 );
@@ -247,7 +245,7 @@ InstallMethod(
 		if p = fail then
 			k := Length( P );
 			for i in [0..k-1] do
-				pi := Sum( [1..k], j -> P[j]*E(k)^(-i*j) )/k;
+				pi := ValuePol( ShiftedCoeffs( P, 1 ), E(k)^-i )/k;
 				if pi = 0 then
 					continue;
 				fi;

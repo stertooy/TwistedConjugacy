@@ -24,6 +24,8 @@ This file describes changes in the GAP package 'TwistedConjugacy'.
   instead of running indefinitely, if the range is nilpotent-by-finite
 - Reidemeister Zeta functions now expanded to Coincidence Reidemeister Zeta
   functions
+- Added CoincidenceReidemeisterSpectrum and improved ExtendedReidemeister-
+  Spectrum significantly
 
 
 1.0.1 (07/06/2020)

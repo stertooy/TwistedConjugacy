@@ -10,7 +10,7 @@
 #! The <B>TwistedConjugacy</B> package is free software, it may be redistributed and/or modified under the terms and conditions of the <URL Text="GNU Public License Version 2">https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</URL> or (at your option) any later version.
 
 #! @Acknowledgements
-#! This documentation was created using the <B>AutoDoc</B> package. The algorithms in this package are based on <Cite Key='fels00-1' />, <Cite Key='roma16-1' />, <Cite Key='mw20-1' />, <Cite Key='dt20-1' /> and <Cite Key='tert20-1' />.
+#! This documentation was created using the <B>AutoDoc</B> package. The algorithms in this package are based on <Cite Key='fels00-1' />, <Cite Key='roma16-1' />, <Cite Key='dt20-1' />, <Cite Key='tert20-1' /> and <Cite Key='tert21-1' />.
 
 
 
@@ -263,12 +263,12 @@ tc( g1, h ) = g2;
 # SECTION 2
 ###
 
-#! @Section Reidemeister Coincidence Classes
-#! The equivalence classes of the equivalence relation $\sim_{\varphi,\psi}$ are called the **Reidemeister coincidence classes of $(\varphi,\psi)$** or the **$(\varphi,\psi)$-twisted conjugacy classes**. We denote the Reidemeister class of $g \in G$ by $[g]_{\varphi,\psi}$. The number of Reidemeister coincidence classes is called the Reidemeister coincidence number $R(\varphi,\psi)$ and is always a positive integer or infinity.
+#! @Section Reidemeister Classes
+#! The equivalence classes of the equivalence relation $\sim_{\varphi,\psi}$ are called the **Reidemeister (coincidence) classes of $(\varphi,\psi)$** or the **$(\varphi,\psi)$-twisted conjugacy classes**. We denote the Reidemeister class of $g \in G$ by $[g]_{\varphi,\psi}$. The number of Reidemeister classes is called the Reidemeisternumber $R(\varphi,\psi)$ and is always a positive integer or infinity.
 
 #! @BeginGroup ReidemeisterCoincidenceClassGroup
 #! @Description
-#! Creates the Reidemeister coincidence class of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) $H \to G$ with representative <A>g</A>. The following attributes and operations are available:
+#! Creates the Reidemeister class of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) $H \to G$ with representative <A>g</A>. The following attributes and operations are available:
 #! * <C>Representative</C>, which returns <A>g</A>,
 #! * <C>GroupHomomorphismsOfReidemeisterClass</C>, which returns [ <A>hom1</A>, <A>hom2</A> ],
 #! * <C>ActingDomain</C>, which returns the group H,
@@ -286,7 +286,7 @@ DeclareOperation( "TwistedConjugacyClass", [IsGroupHomomorphism, IsGroupHomomorp
 
 #! @BeginGroup ReidemeisterCoincidenceClassesGroup
 #! @Description
-#! Returns a list containing the Reidemeister coincidence classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number R( <A>hom1</A>, <A>hom2</A> ) is finite, and returns <K>fail</K> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position.
+#! Returns a list containing the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number R( <A>hom1</A>, <A>hom2</A> ) is finite, and returns <K>fail</K> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position.
 #! @Arguments hom1, hom2
 DeclareOperation( "ReidemeisterClasses", [IsGroupHomomorphism, IsGroupHomomorphism] );
 #! @Arguments hom1, hom2
@@ -364,7 +364,7 @@ CoincidenceReidemeisterSpectrum( G, H );
 ###
 
 #! @Section Reidemeister Zeta Functions
-#! Let $\varphi,\psi: G \to G$ be endomorphism such that $R(\varphi^n,\psi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the Reidemeister zeta function $Z_{\varphi,\psi}(s)$ of the pair $(\varphi,\psi)$ is defined as
+#! Let $\varphi,\psi: G \to G$ be endomorphism such that $R(\varphi^n,\psi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the **(coincidence) Reidemeister zeta function** $Z_{\varphi,\psi}(s)$ of the pair $(\varphi,\psi)$ is defined as
 #! $$Z_{\varphi,\psi}(s) := \exp \sum_{n=1}^\infty \frac{R(\varphi^n,\psi^n)}{n} s^n.$$
 #! Please note that the functions below are only implemented for endomorphisms of finite groups.
 

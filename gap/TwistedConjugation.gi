@@ -43,9 +43,8 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	function ( hom1, hom2, g1, g2 )
-		local R;
-		R := RepresentativeTwistedConjugation( hom1, hom2, g1, g2 );
-		return not R = fail;
+		return not
+			RepresentativeTwistedConjugation( hom1, hom2, g1, g2 ) = fail;
 	end
 );
 
