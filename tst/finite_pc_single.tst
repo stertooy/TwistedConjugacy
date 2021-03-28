@@ -37,7 +37,7 @@ gap> NrTwistedConjugacyClasses( phi );
 4
 gap> ReidemeisterSpectrum( G );
 [ 4, 6, 8, 10, 12, 15, 20, 30 ]
-gap> HasRationalReidemeisterZeta( phi );
+gap> IsRationalReidemeisterZeta( phi );
 true
 gap> zeta := ReidemeisterZeta( phi );;
 gap> zeta( 10/3 );
