@@ -69,7 +69,7 @@ DeclareOperation(
 	  IsGroupHomomorphism and IsEndoGeneralMapping ]
 );
 DeclareOperation(
-	"HasRationalReidemeisterZeta",
+	"IsRationalReidemeisterZeta",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ]
 );

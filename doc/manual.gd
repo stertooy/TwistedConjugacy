@@ -177,7 +177,7 @@ DeclareOperation( "ReidemeisterZetaCoefficients", [IsGroupHomomorphism and IsEnd
 #! @Description
 #! Returns <K>true</K> if the Reidemeister zeta function of <A>endo</A> is rational, and <K>false</K> otherwise.
 #! @Arguments endo
-DeclareOperation( "HasRationalReidemeisterZeta", [IsGroupHomomorphism and IsEndoGeneralMapping] );
+DeclareOperation( "IsRationalReidemeisterZeta", [IsGroupHomomorphism and IsEndoGeneralMapping] );
 
 #! @Description
 #! Returns the Reidemeister zeta function of <A>endo</A> if it is rational, and <K>fail</K> otherwise.
@@ -192,7 +192,7 @@ DeclareOperation( "PrintReidemeisterZeta", [IsGroupHomomorphism and IsEndoGenera
 #! @BeginExample
 ReidemeisterZetaCoefficients( phi );
 #! [ [ 4, 6 ], [  ] ]
-HasRationalReidemeisterZeta( phi );
+IsRationalReidemeisterZeta( phi );
 #! true
 zeta := ReidemeisterZeta( phi );;
 zeta( 10/3 );
@@ -378,7 +378,7 @@ DeclareOperation( "ReidemeisterZetaCoefficients", [ IsGroupHomomorphism and IsEn
 #! @Description
 #! Returns <K>true</K> if the Reidemeister zeta function of <A>endo1</A> and <A>endo2</A> is rational, and <K>false</K> otherwise.
 #! @Arguments endo1, endo2 
-DeclareOperation( "HasRationalReidemeisterZeta", [ IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and IsEndoGeneralMapping ] );
+DeclareOperation( "IsRationalReidemeisterZeta", [ IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and IsEndoGeneralMapping ] );
 
 #! @Description
 #! Returns the Reidemeister zeta function of <A>endo1</A> and <A>endo2</A> if it is rational, and <K>fail</K> otherwise.
@@ -394,7 +394,7 @@ DeclareOperation( "PrintReidemeisterZeta", [ IsGroupHomomorphism and IsEndoGener
 G := DirectProduct( CyclicGroup( 2 ), CyclicGroup( 2 ), CyclicGroup( 2 ) );;
 phi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3 ], [ One( G ), One( G ), G.3 ] );;
 psi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3 ], [ One( G ), G.1*G.3, G.1 ] );;
-HasRationalReidemeisterZeta( phi, psi );
+IsRationalReidemeisterZeta( phi, psi );
 #! false
 ReidemeisterZeta( phi, psi );
 #! fail

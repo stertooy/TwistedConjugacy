@@ -113,10 +113,10 @@ RedispatchOnCondition(
 ## HasRationalReidemeisterZeta( endo )
 ##
 InstallOtherMethod(
-	HasRationalReidemeisterZeta,
+	IsRationalReidemeisterZeta,
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo )
-		return HasRationalReidemeisterZeta( 
+		return IsRationalReidemeisterZeta( 
 			endo,
 			IdentityMapping( Source( endo ) )
 		);
@@ -124,7 +124,7 @@ InstallOtherMethod(
 );
 
 RedispatchOnCondition(
-	HasRationalReidemeisterZeta,
+	IsRationalReidemeisterZeta,
 	true, 
 	[ IsGroupHomomorphism ],
 	[ IsEndoGeneralMapping ],
