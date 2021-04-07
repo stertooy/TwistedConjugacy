@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    name: ${{ matrix.gap-branch }}
+    name: 'GAP  version' ${{ matrix.gap-branch }}
     runs-on: ubuntu-latest
     if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
     strategy:
@@ -38,7 +38,7 @@ jobs:
         with:
           use-latex: 'true'
       - name: 'Upload documentation'
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: manual
           path: ./doc/manual.pdf
