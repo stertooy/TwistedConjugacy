@@ -113,7 +113,7 @@ RedispatchOnCondition(
 ##
 InstallOtherMethod(
 	CoincidenceReidemeisterSpectrum,
-	[ IsGroup and IsFinite and IsAbelian],
+	[ IsGroup and IsFinite and IsAbelian ],
 	function ( G )
 		return ExtendedReidemeisterSpectrum( G );
 	end

@@ -168,12 +168,12 @@ s)^(-1/2)"
 gap> N := CyclicGroup( 3 );;
 gap> CoincidenceReidemeisterSpectrum( N );
 [ 1, 3 ]
-gap> N := CyclicGroup( 4 );;
-gap> CoincidenceReidemeisterSpectrum( N );
-[ 1, 2, 4 ]
 gap> N := DihedralGroup( 6 );;
 gap> CoincidenceReidemeisterSpectrum( N );
 [ 1, 2, 3, 4, 6 ]
+gap> N := CyclicGroup( 4 );;
+gap> CoincidenceReidemeisterSpectrum( N );
+[ 1, 2, 4 ]
 gap> Q := QuaternionGroup( 8 );;
 gap> ReidemeisterSpectrum(Q);
 [ 2, 3, 5 ]
@@ -181,6 +181,10 @@ gap> ExtendedReidemeisterSpectrum(Q);
 [ 1, 2, 3, 5 ]
 gap> CoincidenceReidemeisterSpectrum( Q );
 [ 1, 2, 3, 4, 5, 8 ]
+gap> CoincidenceReidemeisterSpectrum( Q, N );
+[ 2, 4 ]
+gap> CoincidenceReidemeisterSpectrum( N, Q );
+[ 2, 4, 6, 8 ]
 gap> A := Image( IsomorphismPcpGroup( AlternatingGroup( 4 ) ) );;
 gap> ReidemeisterSpectrum(A);
 [ 2, 4 ]
