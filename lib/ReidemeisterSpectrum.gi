@@ -35,6 +35,15 @@ RedispatchOnCondition(
 InstallMethod(
 	ExtendedReidemeisterSpectrum,
 	"for finite groups",
+	[ IsGroup and IsFinite and IsAbelian ],
+	function ( G )
+		return DivisorsInt( Size( G ) );
+	end
+);
+
+InstallMethod(
+	ExtendedReidemeisterSpectrum,
+	"for finite groups",
 	[ IsGroup and IsFinite ],
 	function ( G )
 		return Set( 
@@ -102,6 +111,14 @@ RedispatchOnCondition(
 ##
 ## CoincidenceReidemeisterSpectrum( G )
 ##
+InstallOtherMethod(
+	CoincidenceReidemeisterSpectrum,
+	[ IsGroup and IsFinite and IsAbelian],
+	function ( G )
+		return ExtendedReidemeisterSpectrum( G );
+	end
+);
+
 InstallOtherMethod(
 	CoincidenceReidemeisterSpectrum,
 	[ IsGroup and IsFinite ],
