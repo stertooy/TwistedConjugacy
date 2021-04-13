@@ -1,31 +1,43 @@
 This file describes changes in the GAP package 'TwistedConjugacy'.
 
 
-1.1.0 (26/03/2021)
+1.1.0 (14/04/2021)
 ------------------
 
-- Improved calculation of Reidemeister number for (finite) abelian groups
 - CoincidenceGroup works more efficiently for finite groups
 - CoincidenceGroup now works for homomorphisms with nilpotent-by-finite range
-- IsTwistedConjugate can now always be applied to (non-endomorphic)
-  homomorphisms. A result is guaranteed if the range is nilpotent-by-finite,
-  or if the homomorphisms are endomorphisms with finite Reidemeister number
-- ReidemeisterClasses can now always be applied to (non-endomorphic)
-  homomorphisms. A result is guaranteed if the range is nilpotent-by-finite,
-  or if the homomorphisms are endomorphisms
-- InducedEndomorphism and RestrictedEndomorphism replaced by
+
+- InducedEndomorphism and RestrictedEndomorphism replaced by the more general
   InducedHomomorphism and RestrictedHomomorphism respectively
-- Some changes to how the manual is generated. The manual can be recreated
-  by running the "makedoc.g" script in the main package directory
-- Now requires GAP 4.11 and polycyclic 2.16, to prevent wrong results due
-  to bugs in the polycyclic package
-- Now requires AutoDoc package, to ensure users can compile the documentation
+  
+- IsTwistedConjugate can now always be applied to homomorphisms between
+  distinc groups. A result is only guaranteed, however, if the range is 
+  nilpotent-by-finite or if the homomorphisms are endomorphisms with finite
+  Reidemeister number
+
+- ReidemeisterClasses can now always be applied to homomorphisms between
+  distinc groups. A result is only guaranteed, however, if the range is 
+  nilpotent-by-finite or if the homomorphisms are endomorphisms
 - Applying "Size" to an infinite Reidemeister class will now return infinite
   instead of running indefinitely, if the range is nilpotent-by-finite
-- Reidemeister Zeta functions now expanded to Coincidence Reidemeister Zeta
+ 
+- Improved calculation of Reidemeister number for (finite) abelian groups
+
+- Added CoincidenceReidemeisterSpectrum
+- Significant improvements in calculation time for ExtendedReidemeister-
+  Spectrum
+  
+- Changed the output of ReidemeisterZetaCoefficients
+- Reidemeister Zeta functions expanded to Coincidence Reidemeister Zeta
   functions
-- Added CoincidenceReidemeisterSpectrum and improved ExtendedReidemeister-
-  Spectrum significantly
+- ReidemeisterZeta now returns a rational function or fail
+
+- Changed how the manual is generated. The manual can be recreated by running
+  the "makedoc.g" script in the main package directory
+- Renamed "gap" subfolder to "lib"
+- Now requires the AutoDoc package, which is needed to recreate the manual
+- Lowered requirements to GAP version >= 4.9 and Polycylic version >= 2.13.1,
+  however, Polycyclic 2.16 is still heavily recommended
 
 
 1.0.1 (07/06/2020)

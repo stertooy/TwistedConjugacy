@@ -7,14 +7,37 @@ InstallMethod(
 	"for finite groups",
 	[ IsGroup and IsFinite ],
 	function ( G )
-		local Aut, Inn, p, RepsAut;
-		Aut := AutomorphismGroup( G );
-		Inn := InnerAutomorphismsAutomorphismGroup( Aut );
-		p := NaturalHomomorphismByNormalSubgroupNC( Aut, Inn );
-		RepsAut := List(
-			ConjugacyClasses( Image( p ) ), 
-			cc -> PreImagesRepresentative( p, Representative( cc ) ) 
-		);
+		local inv, invOdd, invEven, nrs, Rodd, Reven, Aut, Inn, p, RepsAut;
+		if IsAbelian( G ) then
+			inv := AbelianInvariants( G );
+			invOdd := Filtered( inv, x -> IsOddInt( x ) );
+			invEven := Filtered( inv, x -> IsEvenInt( x ) );
+			if IsEmpty( invOdd ) then
+				nrs := TransposedMat( Collected( invEven ) )[2];
+				if IsEmpty( Filtered( nrs, i -> i = 1 ) ) then
+					return DivisorsInt( Product( invEven ) );
+				fi;
+				Aut := AutomorphismGroup( G );
+				RepsAut := List(
+					ConjugacyClasses( Aut ), 
+					cc -> Representative( cc )
+				);
+			else
+				Rodd := DivisorsInt( Product( invOdd ) );
+				Reven := ReidemeisterSpectrum( DirectProduct( List( 
+					invEven, x -> CyclicGroup( x )
+				)));
+				return Set( Cartesian( Rodd, Reven ), i -> Product( i ) );
+			fi;
+		else
+			Aut := AutomorphismGroup( G );
+			Inn := InnerAutomorphismsAutomorphismGroup( Aut );
+			p := NaturalHomomorphismByNormalSubgroupNC( Aut, Inn );
+			RepsAut := List(
+				ConjugacyClasses( Image( p ) ), 
+				cc -> PreImagesRepresentative( p, Representative( cc ) )
+			);
+		fi;
 		return Set( RepsAut, f -> ReidemeisterNumber( f ) );
 	end 
 );
