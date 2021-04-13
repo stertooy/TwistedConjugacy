@@ -61,6 +61,8 @@ true
 gap> G := DirectProduct( List( [ 2, 3, 5, 17, 24 ], i -> CyclicGroup( i ) ) );;
 gap> ReidemeisterSpectrum( G ) = 4*DivisorsInt( Size( G ) / 4 );
 true
+gap> ReidemeisterSpectrum( DirectProduct( CyclicGroup( 1024 ), CyclicGroup( 1024 ) ) ) = DivisorsInt( 2^20 );
+true
 
 #
 gap> STOP_TEST( "finite_pc_single.tst" );
