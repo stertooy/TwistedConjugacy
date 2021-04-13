@@ -55,6 +55,12 @@ gap> i := IsomorphismPcpGroup( G );;
 gap> khi := InverseGeneralMapping(i)*phi*i;;
 gap> ReidemeisterNumber( khi );
 4
+gap> G := DirectProduct( List( [ 2, 3, 5, 6, 24, 30 ], i -> CyclicGroup( i ) ) );;
+gap> ReidemeisterSpectrum( G ) = 2*DivisorsInt( Size( G ) / 2 );
+true
+gap> G := DirectProduct( List( [ 2, 3, 5, 17, 24 ], i -> CyclicGroup( i ) ) );;
+gap> ReidemeisterSpectrum( G ) = 4*DivisorsInt( Size( G ) / 4 );
+true
 
 #
 gap> STOP_TEST( "finite_pc_single.tst" );
