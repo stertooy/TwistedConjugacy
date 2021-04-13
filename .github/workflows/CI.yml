@@ -16,7 +16,15 @@ jobs:
           - gap-branch: master
             gap-pkgs-to-clone: 'alnuth autodoc autpgrp polycyclic'
           - gap-branch: stable-4.11
-            gap-pkgs-to-clone: 'polycyclic'
+            gap-pkgs-to-clone: ''
+          - gap-branch: stable-4.10
+            gap-pkgs-to-clone: ''
+          - gap-branch: stable-4.9
+            gap-pkgs-to-clone: ''
+          - gap-branch: stable-4.8
+            gap-pkgs-to-clone: ''
+          - gap-branch: stable-4.7
+            gap-pkgs-to-clone: ''
 
     steps:
       - uses: actions/checkout@v2
