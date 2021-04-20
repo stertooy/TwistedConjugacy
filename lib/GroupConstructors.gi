@@ -27,7 +27,7 @@ InstallMethod(
 	CoincidenceGroup,
 	"for abelian range", 
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	4,
+	3,
 	function ( hom1, hom2 )
 		local G, H;
 		G := Range( hom1 );
@@ -44,7 +44,7 @@ InstallMethod(
 	CoincidenceGroup,
 	"for nilpotent range", 
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	3,
+	2,
 	function ( hom1, hom2 )
 		local H, G, M, N, p, q, CoinHN, deltaLift;
 		G := Range( hom1 );
@@ -73,7 +73,7 @@ InstallMethod(
 	CoincidenceGroup,
 	"for nilpotent-by-finite range", 
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	2,
+	1,
 	function ( hom1, hom2 )
 		local H, G, M, N, p, q, CoinHN, hom1N, hom2N, gens, tc, qh, h, n,
 		qCoin, done;
@@ -134,7 +134,7 @@ InstallMethod(
 	CoincidenceGroup,
 	"for finite source", 
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	1,
+	0,
 	function ( hom1, hom2 )
 		local G, H;
 		G := Range( hom1 );
@@ -143,15 +143,5 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		return Stabiliser( H, One( G ), TwistedConjugation( hom1, hom2 ) );
-	end
-);
-
-InstallMethod(
-	CoincidenceGroup,
-	"fall-back if no other methods are available", 
-	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	0,
-	function ( hom1, hom2 )
-		return SubgroupByProperty( Source( hom1 ), h -> h^hom1 = h^hom2 );
 	end
 );
