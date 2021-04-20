@@ -30,6 +30,8 @@ This file describes changes in the GAP package 'TwistedConjugacy'.
 - Changed the output of ReidemeisterZetaCoefficients
 - Reidemeister Zeta functions expanded to Coincidence Reidemeister Zeta
   functions
+- Added IsRationalReidemeisterZeta function to quickly confirm rationality
+  without actually calculating the zeta function
 - ReidemeisterZeta now returns a rational function or fail
 
 - Changed how the manual is generated. The manual can be recreated by running

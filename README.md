@@ -1,14 +1,14 @@
 [![Build Status](https://github.com/sTertooy/TwistedConjugacy/workflows/CI/badge.svg?branch=master)](https://github.com/sTertooy/TwistedConjugacy/actions?query=workflow%3ACI+branch%3Amaster)
 [![Code Coverage](https://codecov.io/gh/sTertooy/TwistedConjugacy/branch/master/graph/badge.svg)](https://codecov.io/gh/sTertooy/TwistedConjugacy)
 
-The GAP 4 package `TwistedConjugacy'
+The GAP 4 package 'TwistedConjugacy'
 ====================================
 
 by Sam Tertooy <sam.tertooy@hotmail.com>
 
 
 
-Introduction
+About
 ------------
 
 This package is designed to be used for either finite groups or for
@@ -20,8 +20,8 @@ This package requires GAP version 4.9 or later, with the following packages
 - GAPDoc (version >= 1.6.1)
 - AutoDoc (version >= 2018.02.14)
 
-It is, however, recommended to install Polycyclic version >= 2.16, to avoid some
-known bugs which could lead to wrong results.
+It is, however, recommended to install Polycyclic version >= 2.16, to avoid 
+some known bugs which could lead to wrong results.
 
 
 
