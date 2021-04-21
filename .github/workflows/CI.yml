@@ -14,7 +14,7 @@ jobs:
       matrix:
         include: 
           - gap-branch: master
-            gap-pkgs-to-clone: 'alnuth autodoc autpgrp gapdoc polycyclic'
+            gap-pkgs-to-clone: 'alnuth autodoc autpgrp polycyclic'
           - gap-branch: stable-4.11
             gap-pkgs-to-clone: ''
           - gap-branch: stable-4.10
