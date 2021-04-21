@@ -1,7 +1,7 @@
 This file describes changes in the GAP package 'TwistedConjugacy'.
 
 
-1.1.0 (14/04/2021)
+1.1.0 (21/04/2021)
 ------------------
 
 - CoincidenceGroup works more efficiently for finite groups
