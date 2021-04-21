@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    name: Build with GAP ${{ matrix.gap-branch }}
+    name: GAP ${{ matrix.gap-branch }}
     runs-on: ubuntu-latest
     if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
     strategy:
@@ -14,7 +14,7 @@ jobs:
       matrix:
         include: 
           - gap-branch: master
-            gap-pkgs-to-clone: 'alnuth autodoc autpgrp polycyclic'
+            gap-pkgs-to-clone: 'alnuth autodoc autpgrp gapdoc polycyclic'
           - gap-branch: stable-4.11
             gap-pkgs-to-clone: ''
           - gap-branch: stable-4.10
@@ -31,7 +31,7 @@ jobs:
       - uses: gap-actions/run-test-for-packages@v1
 
   manual:
-    name: Build manuals
+    name: Manual
     runs-on: ubuntu-latest
     if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
 
