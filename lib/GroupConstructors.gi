@@ -75,7 +75,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )
-		local H, G, M, N, p, q, CoinHN, hom1N, hom2N, gens, tc, qh, h, n;
+		local H, G, M, N, p, q, CoinHN, hom1N, hom2N, gens, tc, qh, h, n, done, qCoin;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or 
@@ -94,17 +94,27 @@ InstallMethod(
 		hom2N := RestrictedHomomorphism( hom2, N, M );
 		tc := TwistedConjugation( hom1, hom2 );
 		gens := [];
-		for qh in CoinHN do
-			h := PreImagesRepresentative( q, qh );
-			n := RepTwistConjToId( hom1N, hom2N, tc( One( G ), h ) );
-			if n <> fail then
-				Add( gens, h*n );
-			fi;
-		od;
-		return SubgroupNC( H, Concatenation( 
-			gens,
-			GeneratorsOfGroup( CoincidenceGroup( hom1N, hom2N ) )
-		));
+		qCoin := TrivialSubgroup( CoinHN );
+		repeat
+			done := true;
+			for qh in RightTransversal( CoinHN, qCoin ) do
+				if qh in qCoin then
+					continue;
+				fi;
+				h := PreImagesRepresentative( q, qh );
+				n := RepTwistConjToId( hom1N, hom2N, tc( One( G ), h ) );
+				if n <> fail then
+					Add( gens, h*n );
+					qCoin := ClosureSubgroupNC( qCoin, qh );
+					done := false;
+					break;
+				fi;
+			od;
+		until done;
+		return ClosureSubgroupNC( 
+			AsSubgroup( H, CoincidenceGroup( hom1N, hom2N ) ),
+			gens
+		);
 	end
 );
 
