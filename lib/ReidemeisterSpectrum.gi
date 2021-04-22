@@ -7,7 +7,7 @@ InstallMethod(
 	"for finite groups",
 	[ IsGroup and IsFinite ],
 	function ( G )
-		local inv, invOdd, invEven, nrs, Rodd, Reven, Aut, Inn, p, RepsAut;
+		local inv, invOdd, invEven, nrs, Aut, RepsAut, Rodd, Reven, Inn, p;
 		if IsAbelian( G ) then
 			inv := AbelianInvariants( G );
 			invOdd := Filtered( inv, x -> IsOddInt( x ) );

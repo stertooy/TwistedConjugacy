@@ -43,8 +43,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	function ( hom1, hom2, g1, g2 )
-		return not
-			RepresentativeTwistedConjugation( hom1, hom2, g1, g2 ) = fail;
+		return RepresentativeTwistedConjugation( hom1, hom2, g1, g2 ) <> fail;
 	end
 );
 
@@ -123,7 +122,7 @@ RedispatchOnCondition(
 ##
 RepTwistConjToIdByFiniteCoin@ := function ( hom1, hom2, g, M ) 
 	local G, H, N, p, q, hom1HN, hom2HN, qh1, Coin, h1, tc, m1, hom1N, hom2N,
-	qh2, h2, m2, n;
+	qh2, h2, n;
 	G := Range( hom1 );
 	H := Source ( hom1 );
 	N := IntersectionPreImage@( hom1, hom2, M );
@@ -146,8 +145,7 @@ RepTwistConjToIdByFiniteCoin@ := function ( hom1, hom2, g, M )
 	hom2N := RestrictedHomomorphism( hom2, N, M );
 	for qh2 in Coin do
 		h2 := PreImagesRepresentative( q, qh2 );
-		m2 := tc( m1, h2 );
-		n := RepTwistConjToId( hom1N, hom2N, m2 );
+		n := RepTwistConjToId( hom1N, hom2N, tc( m1, h2 ) );
 		if n <> fail then
 			return h1*h2*n;
 		fi;
@@ -161,8 +159,7 @@ end;
 ## RepTwistConjToIdByCentre( hom1, hom2, g )
 ##
 RepTwistConjToIdByCentre@ := function ( hom1, hom2, g ) 
-	local G, H, M, N, p, q, hom1HN, hom2HN, qh1, h1, tc, m, deltaLift, h2, m2,
-	n;
+	local G, H, M, N, p, q, hom1HN, hom2HN, qh1, h1, tc, m, deltaLift, h2, n;
 	G := Range( hom1 );
 	H := Source ( hom1 );
 	M := Centre( G );
@@ -214,19 +211,17 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
-		if g in Image( diff ) then
-			return PreImagesRepresentative( diff, g );
-		else
+		if not g in Image( diff ) then
 			return fail;
 		fi;
+		return PreImagesRepresentative( diff, g );
 	end
 );
 
 InstallMethod(
 	RepTwistConjToId,
 	"for pcp-groups with nilpotent range",
-	[ IsGroupHomomorphism,
-	  IsGroupHomomorphism,
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
 	3,
 	function ( hom1, hom2, g )

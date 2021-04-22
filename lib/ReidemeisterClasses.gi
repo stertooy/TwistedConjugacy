@@ -78,7 +78,7 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
-		local homStrings, homs, i, G, gens;
+		local homStrings, homs, G, i, gens;
 		homStrings := [];
 		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
 		G := ActingCodomain( tcc );
@@ -119,7 +119,7 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ], 
 	function ( tcc )
-		local G, H, homs, g, ighom1, Coin;
+		local G, H, homs, g, Coin;
 		G := ActingCodomain( tcc );
 		H := ActingDomain( tcc );
 		if not IsFinite( H ) and ( 
@@ -240,14 +240,14 @@ end;
 ## ReidemeisterClassesByCentre@( hom1, hom2 )
 ##
 ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
-	local G, H, M, N, q, p, hom1HN, hom2HN, RclGM, Rcl, pg, g, CoinHN,
+	local G, H, M, N, p, q, hom1HN, hom2HN, RclGM, Rcl, pg, g, CoinHN,
 	deltaLift, pCoker, coker, pm, m;
 	G := Range( hom1 );
 	H := Source( hom1 );
 	M := Centre( G );
 	N := IntersectionPreImage@( hom1, hom2, M );
-	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
+	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
 	hom1HN := InducedHomomorphism( q, p, hom1 );
 	hom2HN := InducedHomomorphism( q, p, hom2 );
 	RclGM := ReidemeisterClasses( hom1HN, hom2HN );
@@ -296,7 +296,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	4,
 	function ( hom1, hom2 )
-		local G, H, N, Rcl, p, pg, R;
+		local G, H, N, Rcl, p, R, pg;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsPcpGroup ( H ) or not IsPcpGroup( G ) or
@@ -355,8 +355,7 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		return ReidemeisterClassesByFiniteCoin@( 
-			hom1, hom2, 
-			FittingSubgroup( G )
+			hom1, hom2, FittingSubgroup( G )
 		);
 	end
 );

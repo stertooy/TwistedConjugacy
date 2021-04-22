@@ -114,12 +114,15 @@ RedispatchOnCondition(
 ##
 InstallOtherMethod(
 	IsRationalReidemeisterZeta,
+	"for finite groups",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
+	1,
 	function ( endo )
-		return IsRationalReidemeisterZeta( 
-			endo,
-			IdentityMapping( Source( endo ) )
-		);
+		if IsFinite( Source( endo ) ) then
+			return true;
+		else
+			TryNextMethod();
+		fi;
 	end
 );
 
@@ -142,7 +145,7 @@ InstallMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ], 
 	function ( endo1, endo2 )
-		local coeffs, i, p;
+		local coeffs, p;
 		if not IsFinite( Source( endo1 ) ) then
 			TryNextMethod();
 		fi;
@@ -207,7 +210,7 @@ InstallMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ], 
 	function ( endo1, endo2 )
-		local coeffs, P, Q, q, i, qi, zeta, p, k, w, factors, powers, pi;
+		local coeffs, P, Q, q, i, qi, zeta, factors, powers, p, k, pi;
 		if not IsFinite( Source( endo1 ) ) then
 			TryNextMethod();
 		fi;
