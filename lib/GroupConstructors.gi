@@ -75,7 +75,8 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )
-		local H, G, M, N, p, q, CoinHN, hom1N, hom2N, gens, tc, qh, h, n, done, qCoin;
+		local H, G, M, N, p, q, CoinHN, hom1N, hom2N, gens, tc, qh, h, n,
+		qCoin, done;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or 
