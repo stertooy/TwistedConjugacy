@@ -3,7 +3,7 @@ SetPackageInfo( rec(
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
 Version := "1.1.0",
-Date := "21/04/2021",
+Date := "23/04/2021",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -13,7 +13,7 @@ Persons := [
     FirstNames := "Sam",
     LastName := "Tertooy",
     WWWHome := "https://stertooy.github.io/",
-    Email := "sam.tertooy@hotmail.com",
+    Email := "sam.tertooy@kuleuven.be",
     PostalAddress := Concatenation( "Wiskunde\n",
 			"KU Leuven Campus Kulak Kortrijk\n",
 			"Etienne Sabbelaan 53\n",
@@ -39,7 +39,13 @@ ArchiveFormats := ".tar.gz",
 
 Status := "dev",
 
-AbstractHTML   :=  "",
+AbstractHTML   :=  Concatenation( 
+    "The <span class=\"pkgname\">TwistedConjugacy</span> package provides",
+	"algorithms to calculate Reidemeister classes, numbers, spectra and zeta ",
+	"functions, as well as fixed point groups and coincidence groups of "
+	"group homomorphisms. This package is designed to be used with either ",
+    "finite groups or with polycyclically presented groups."
+  );
 
 PackageDoc := rec(
   BookName  := "TwistedConjugacy",
@@ -69,6 +75,7 @@ Keywords := [
 	"coincidence group",
 	"fixed point group",
 	"Reidemeister number",
+	"Reidemeister spectrum",
 	"Reidemeister zeta function",
 	"twisted conjugacy",
 	],

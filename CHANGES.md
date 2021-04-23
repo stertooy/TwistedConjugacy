@@ -1,38 +1,42 @@
 This file describes changes in the GAP package 'TwistedConjugacy'.
 
 
-1.1.0 (21/04/2021)
+1.1.0 (23/04/2021)
 ------------------
 
 - CoincidenceGroup works more efficiently for finite groups
-- CoincidenceGroup now works for homomorphisms with nilpotent-by-finite range
+- CoincidenceGroup can now always be applied to homomorphisms between
+  distinct groups. A result is only guaranteed, however, if the range is 
+  nilpotent-by-finite or if the homomorphisms are endomorphisms with finite
+  Reidemeister number
 
 - InducedEndomorphism and RestrictedEndomorphism replaced by the more general
   InducedHomomorphism and RestrictedHomomorphism respectively
   
 - IsTwistedConjugate can now always be applied to homomorphisms between
-  distinc groups. A result is only guaranteed, however, if the range is 
+  distinct groups. A result is only guaranteed, however, if the range is 
   nilpotent-by-finite or if the homomorphisms are endomorphisms with finite
   Reidemeister number
 
 - ReidemeisterClasses can now always be applied to homomorphisms between
-  distinc groups. A result is only guaranteed, however, if the range is 
+  distinct groups. A result is only guaranteed, however, if the range is 
   nilpotent-by-finite or if the homomorphisms are endomorphisms
-- Applying "Size" to an infinite Reidemeister class will now return infinite
+- Applying "Size" to an infinite Reidemeister class will now return "infinity"
   instead of running indefinitely, if the range is nilpotent-by-finite
  
-- Improved calculation of Reidemeister number for (finite) abelian groups
+- Improved calculation of Reidemeister numbers for (finite) abelian groups
 
 - Added CoincidenceReidemeisterSpectrum
-- Significant improvements in calculation time for ExtendedReidemeister-
-  Spectrum
-  
-- Changed the output of ReidemeisterZetaCoefficients
+- Significant improvements in calculation time for 
+  ExtendedReidemeisterSpectrum
+
 - Reidemeister Zeta functions expanded to Coincidence Reidemeister Zeta
   functions
+- Changed the output of ReidemeisterZetaCoefficients to accomodate for the
+  above change
 - Added IsRationalReidemeisterZeta function to quickly confirm rationality
   without actually calculating the zeta function
-- ReidemeisterZeta now returns a rational function or fail
+- ReidemeisterZeta now returns either a rational function or "fail"
 
 - Changed how the manual is generated. The manual can be recreated by running
   the "makedoc.g" script in the main package directory
