@@ -45,7 +45,7 @@ AbstractHTML   :=  Concatenation(
 	"functions, as well as fixed point groups and coincidence groups of ",
 	"group homomorphisms. This package is designed to be used with either ",
     "finite groups or with polycyclically presented groups."
-  );
+),
 
 PackageDoc := rec(
   BookName  := "TwistedConjugacy",
