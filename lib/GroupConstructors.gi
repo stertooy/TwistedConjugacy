@@ -75,8 +75,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )
-		local G, H, M, N, p, q, CoinHN, hom1N, hom2N, tc, gens, qCoin, done,
-		qh, h, n;
+		local G, H, M, N, p, q, CoinHN, hom1N, hom2N, tc, gens, qh, h, n;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or 
@@ -95,23 +94,13 @@ InstallMethod(
 		hom2N := RestrictedHomomorphism( hom2, N, M );
 		tc := TwistedConjugation( hom1, hom2 );
 		gens := [];
-		qCoin := TrivialSubgroup( CoinHN );
-		repeat
-			done := true;
-			for qh in RightTransversal( CoinHN, qCoin ) do
-				if qh in qCoin then
-					continue;
-				fi;
-				h := PreImagesRepresentative( q, qh );
-				n := RepTwistConjToId( hom1N, hom2N, tc( One( G ), h ) );
-				if n <> fail then
-					Add( gens, h*n );
-					qCoin := ClosureSubgroupNC( qCoin, qh );
-					done := false;
-					break;
-				fi;
-			od;
-		until done;
+		for qh in CoinHN do
+			h := PreImagesRepresentative( q, qh );
+			n := RepTwistConjToId( hom1N, hom2N, tc( One( G ), h ) );
+			if n <> fail then
+				Add( gens, h*n );
+			fi;
+		od;
 		return ClosureSubgroupNC( 
 			AsSubgroup( H, CoincidenceGroup( hom1N, hom2N ) ),
 			gens
@@ -125,12 +114,14 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	0,
 	function ( hom1, hom2 )
-		local G, H;
-		G := Range( hom1 );
+		local H;
 		H := Source( hom1 );
 		if not IsFinite( H ) then
 			TryNextMethod();
 		fi;
-		return Stabiliser( H, One( G ), TwistedConjugation( hom1, hom2 ) );
+		return Stabiliser( 
+			H, One( Range( hom1 ) ), 
+			TwistedConjugation( hom1, hom2 )
+		);
 	end
 );
