@@ -10,6 +10,8 @@ gap> ReidemeisterNumber( phi, psi );
 infinity
 gap> IsTwistedConjugate( phi, psi, G.1, G.2 );
 false
+gap> CoincidenceGroup( phi, psi ) = FittingSubgroup( H );
+true
 gap> R := TwistedConjugacyClasses( phi, khi );;
 gap> Representative( R[1] ) = One( G );
 true
@@ -20,6 +22,8 @@ gap> NrTwistedConjugacyClasses( phi, khi );
 gap> IsTwistedConjugate( phi, khi, G.2, G.3 );
 false
 gap> IsTwistedConjugate( phi, khi, G.2, G.2*G.3^2 );
+true
+gap> CoincidenceGroup( phi, khi ) = Centre( H );
 true
 
 #

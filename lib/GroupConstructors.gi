@@ -21,13 +21,73 @@ RedispatchOnCondition(
 
 ###############################################################################
 ##
+## CoincidenceGroupByFiniteCoin@( hom1, hom2, M )
+##
+CoincidenceGroupByFiniteCoin@ := function ( hom1, hom2, M )
+	local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, gens, qh, h, n;
+	G := Range( hom1 );
+	H := Source( hom1 );
+	N := IntersectionPreImage@( hom1, hom2, M );
+	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
+	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
+	CoinHN := CoincidenceGroup(
+		InducedHomomorphism( q, p, hom1 ),
+		InducedHomomorphism( q, p, hom2 )
+	);
+	if not IsFinite( CoinHN ) then
+		TryNextMethod();
+	fi;
+	hom1N := RestrictedHomomorphism( hom1, N, M );
+	hom2N := RestrictedHomomorphism( hom2, N, M );
+	tc := TwistedConjugation( hom1, hom2 );
+	gens := [];
+	for qh in CoinHN do
+		h := PreImagesRepresentative( q, qh );
+		n := RepTwistConjToId( hom1N, hom2N, tc( One( G ), h ) );
+		if n <> fail then
+			Add( gens, h*n );
+		fi;
+	od;
+	return ClosureSubgroupNC(
+		AsSubgroup( H, CoincidenceGroup( hom1N, hom2N ) ),
+		gens
+	);
+end;
+
+
+###############################################################################
+##
+## CoincidenceGroupByCentre@( hom1, hom2 )
+##
+CoincidenceGroupByCentre@ := function ( hom1, hom2 )
+	local G, H, M, N, p, q, CoinHN, deltaLift;
+	G := Range( hom1 );
+	H := Source( hom1 );
+	M := Centre( G );
+	N := IntersectionPreImage@( hom1, hom2, M );
+	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
+	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
+	CoinHN := CoincidenceGroup(
+		InducedHomomorphism( q, p, hom1 ),
+		InducedHomomorphism( q, p, hom2 )
+	);
+	deltaLift := DifferenceGroupHomomorphisms@ (
+		hom1, hom2,
+		PreImage( q, CoinHN ), M
+	);
+	return Kernel( deltaLift );
+end;
+
+
+###############################################################################
+##
 ## CoincidenceGroup( hom1, hom2 )
 ##
 InstallMethod(
 	CoincidenceGroup,
 	"for abelian range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	3,
+	4,
 	function ( hom1, hom2 )
 		local G, H;
 		G := Range( hom1 );
@@ -44,28 +104,15 @@ InstallMethod(
 	CoincidenceGroup,
 	"for nilpotent range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	2,
+	3,
 	function ( hom1, hom2 )
-		local G, H, M, N, p, q, CoinHN, deltaLift;
+		local G;
 		G := Range( hom1 );
-		H := Source( hom1 );
-		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or
+		if not IsPcpGroup( G ) or not IsPcpGroup( Source( hom1 ) ) or
 		not IsNilpotentGroup( G ) or IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		M := Centre( G );
-		N := IntersectionPreImage@( hom1, hom2, M );
-		p := NaturalHomomorphismByNormalSubgroupNC( G, M );
-		q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-		CoinHN := CoincidenceGroup(
-			InducedHomomorphism( q, p, hom1 ),
-			InducedHomomorphism( q, p, hom2 )
-		);
-		deltaLift := DifferenceGroupHomomorphisms@ (
-			hom1, hom2,
-			PreImage( q, CoinHN ), M
-		);
-		return Kernel( deltaLift );
+		return CoincidenceGroupByCentre@( hom1, hom2 );
 	end
 );
 
@@ -73,37 +120,34 @@ InstallMethod(
 	CoincidenceGroup,
 	"for nilpotent-by-finite range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	1,
+	2,
 	function ( hom1, hom2 )
-		local G, H, M, N, p, q, CoinHN, hom1N, hom2N, tc, gens, qh, h, n;
+		local G;
 		G := Range( hom1 );
-		H := Source( hom1 );
-		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or
+		if not IsPcpGroup( G ) or not IsPcpGroup( Source( hom1 ) ) or
 		not IsNilpotentByFinite( G ) or IsNilpotent( G ) then
 			TryNextMethod();
 		fi;
-		M := FittingSubgroup( G );
-		N := IntersectionPreImage@( hom1, hom2, M );
-		p := NaturalHomomorphismByNormalSubgroupNC( G, M );
-		q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-		CoinHN := CoincidenceGroup(
-			InducedHomomorphism( q, p, hom1 ),
-			InducedHomomorphism( q, p, hom2 )
+		return CoincidenceGroupByFiniteCoin@(
+			hom1, hom2, FittingSubgroup( G )
 		);
-		hom1N := RestrictedHomomorphism( hom1, N, M );
-		hom2N := RestrictedHomomorphism( hom2, N, M );
-		tc := TwistedConjugation( hom1, hom2 );
-		gens := [];
-		for qh in CoinHN do
-			h := PreImagesRepresentative( q, qh );
-			n := RepTwistConjToId( hom1N, hom2N, tc( One( G ), h ) );
-			if n <> fail then
-				Add( gens, h*n );
-			fi;
-		od;
-		return ClosureSubgroupNC(
-			AsSubgroup( H, CoincidenceGroup( hom1N, hom2N ) ),
-			gens
+	end
+);
+
+InstallMethod(
+	CoincidenceGroup,
+	"for pcp-groups",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	1,
+	function ( hom1, hom2 )
+		local G;
+		G := Range( hom1 );
+		if not IsPcpGroup( G ) or not IsPcpGroup( Source( hom1 ) ) or
+		IsNilpotentByFinite( G ) then
+			TryNextMethod();
+		fi;
+		return CoincidenceGroupByFiniteCoin@(
+			hom1, hom2, DerivedSubgroup( G )
 		);
 	end
 );

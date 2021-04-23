@@ -228,10 +228,9 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse ],
 	3,
 	function ( hom1, hom2, g )
-		local G, H;
+		local G;
 		G := Range( hom1 );
-		H := Source( hom1 );
-		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or
+		if not IsPcpGroup( G ) or not IsPcpGroup( Source( hom1 ) ) or
 		not IsNilpotent( G ) or	IsAbelian( G ) then
 			TryNextMethod();
 		fi;
@@ -246,10 +245,9 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse ],
 	2,
 	function ( hom1, hom2, g )
-		local G, H;
+		local G;
 		G := Range( hom1 );
-		H := Source( hom1 );
-		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or
+		if not IsPcpGroup( G ) or not IsPcpGroup( Source( hom1 ) ) or
 		not IsNilpotentByFinite( G ) or	IsNilpotent( G ) then
 			TryNextMethod();
 		fi;
@@ -266,10 +264,9 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse ],
 	1,
 	function ( hom1, hom2, g )
-		local G, H;
+		local G;
 		G := Range( hom1 );
-		H := Source( hom1 );
-		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or
+		if not IsPcpGroup( G ) or not IsPcpGroup( Source( hom1 ) ) or
 		IsNilpotentByFinite( G ) then
 			TryNextMethod();
 		fi;

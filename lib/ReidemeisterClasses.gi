@@ -8,23 +8,20 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
 	function ( hom1, hom2, g )
-		local G, H, fam, typ, tc, tcc;
+		local G, tcc;
 		G := Range( hom1 );
-		H := Source( hom1 );
-		typ := NewType(
-			FamilyObj( G ),
-			IsReidemeisterClassGroupRep and HasActingDomain and
-			HasActingCodomain and HasRepresentative and HasFunctionAction and
-			HasGroupHomomorphismsOfReidemeisterClass
-		);
-		tc := TwistedConjugation( hom1, hom2 );
 		tcc := rec();
 		ObjectifyWithAttributes(
-			tcc, typ,
-			ActingDomain, H,
+			tcc, NewType(
+				FamilyObj( G ),
+				IsReidemeisterClassGroupRep and HasActingDomain and
+				HasActingCodomain and HasRepresentative and 
+				HasFunctionAction and HasGroupHomomorphismsOfReidemeisterClass
+			),
+			ActingDomain, Source( hom1 ),
 			ActingCodomain, G,
 			Representative, g,
-			FunctionAction, tc,
+			FunctionAction, TwistedConjugation( hom1, hom2 ),
 			GroupHomomorphismsOfReidemeisterClass, [ hom1, hom2 ]
 		);
 		return tcc;
@@ -347,10 +344,9 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	2,
 	function ( hom1, hom2 )
-		local G, H;
+		local G;
 		G := Range( hom1 );
-		H := Source( hom1 );
-		if not IsPcpGroup ( G ) or not IsPcpGroup( H ) or
+		if not IsPcpGroup ( G ) or not IsPcpGroup( Source( hom1 ) ) or
 		not IsNilpotentByFinite( G ) or IsNilpotent( G ) then
 			TryNextMethod();
 		fi;
@@ -366,10 +362,9 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )
-		local G, H;
+		local G;
 		G := Range( hom1 );
-		H := Source( hom1 );
-		if not IsPcpGroup ( G ) or not IsPcpGroup( H ) or
+		if not IsPcpGroup ( G ) or not IsPcpGroup( Source( hom1 ) ) or
 		IsNilpotentByFinite( G ) then
 			TryNextMethod();
 		fi;
