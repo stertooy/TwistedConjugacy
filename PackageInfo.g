@@ -42,7 +42,7 @@ Status := "dev",
 AbstractHTML   :=  Concatenation( 
     "The <span class=\"pkgname\">TwistedConjugacy</span> package provides",
 	"algorithms to calculate Reidemeister classes, numbers, spectra and zeta ",
-	"functions, as well as fixed point groups and coincidence groups of "
+	"functions, as well as fixed point groups and coincidence groups of ",
 	"group homomorphisms. This package is designed to be used with either ",
     "finite groups or with polycyclically presented groups."
   );
