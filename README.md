@@ -1,7 +1,7 @@
 [![Build Status](https://github.com/sTertooy/TwistedConjugacy/workflows/CI/badge.svg?branch=master)](https://github.com/sTertooy/TwistedConjugacy/actions?query=workflow%3ACI+branch%3Amaster)
 [![Code Coverage](https://codecov.io/gh/sTertooy/TwistedConjugacy/branch/master/graph/badge.svg)](https://codecov.io/gh/sTertooy/TwistedConjugacy)
 
-The GAP 4 package 'TwistedConjugacy'
+The GAP 4 package TwistedConjugacy
 ====================================
 
 by Sam Tertooy <sam.tertooy@hotmail.com>
@@ -11,8 +11,10 @@ by Sam Tertooy <sam.tertooy@hotmail.com>
 About
 ------------
 
-This package is designed to be used for either finite groups or for
-(infinite) polycyclically presented groups (AKA pcp-groups).
+This package provides algorithms to calculate Reidemeister classes, numbers,
+spectra and zeta functions, as well as fixed point groups and coincidence
+groups of group homomorphisms. This package is designed to be used with either
+finite groups or with polycyclically presented groups.
 
 This package requires GAP version 4.9 or later, with the following packages
 (and their dependencies) installed:
@@ -21,7 +23,8 @@ This package requires GAP version 4.9 or later, with the following packages
 - AutoDoc (version >= 2018.02.14)
 
 It is, however, recommended to install Polycyclic version >= 2.16, to avoid 
-some known bugs which could lead to wrong results.
+some known bugs which could lead to wrong results. It is also recommended to
+install the computer algebra system PARI/GP.
 
 
 
@@ -50,7 +53,7 @@ package, at <https://stertooy.github.io/TwistedConjugacy/doc/chap0.html>
 Support
 -------
  
-Please report any problems you may encounter using `TwistedConjugacy' 
+Please report any problems you may encounter using TwistedConjugacy 
 at <https://github.com/sTertooy/TwistedConjugacy>
 
 
@@ -58,5 +61,5 @@ at <https://github.com/sTertooy/TwistedConjugacy>
 License
 -------
 
-The `TwistedConjugacy' package is licensed under the GNU General
+The TwistedConjugacy package is licensed under the GNU General
 Public License v2.0 or later. A copy of this license is included.
