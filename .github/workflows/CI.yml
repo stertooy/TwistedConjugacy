@@ -24,6 +24,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: 'Install PARI/GP'
+        run: |
+          sudo apt-get update
+          sudo apt-get install pari-gp
       - uses: gap-actions/setup-gap-for-packages@v1
         with:
           GAP_PKGS_TO_CLONE: ${{ matrix.gap-pkgs-to-clone }}
