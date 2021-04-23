@@ -162,10 +162,13 @@ end;
 ## RepTwistConjToIdByCentre( hom1, hom2, g )
 ##
 RepTwistConjToIdByCentre@ := function ( hom1, hom2, g ) 
-	local G, H, M, N, p, q, hom1HN, hom2HN, qh1, h1, tc, m, deltaLift, h2, n;
+	local G, H, M, N, p, q, hom1HN, hom2HN, qh1, h1, tc, m, Coin, delta, h2, n;
 	G := Range( hom1 );
 	H := Source ( hom1 );
 	M := Centre( G );
+	if IsTrivial( M ) then
+		TryNextMethod();
+	fi;
 	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
@@ -178,14 +181,15 @@ RepTwistConjToIdByCentre@ := function ( hom1, hom2, g )
 	h1 := PreImagesRepresentative( q, qh1 );
 	tc := TwistedConjugation( hom1, hom2 );
 	m := tc( g, h1 );
-	deltaLift := DifferenceGroupHomomorphisms@ (
-		hom1, hom2,
-		PreImage( q, CoincidenceGroup( hom1HN, hom2HN ) ), M
+	Coin := PreImage( q, CoincidenceGroup( hom1HN, hom2HN ) );
+	delta := DifferenceGroupHomomorphisms@ (
+		RestrictedHomomorphism( hom1, Coin, G ),
+		RestrictedHomomorphism( hom2, Coin, G )
 	);
-	if not m in Image( deltaLift ) then
+	if not m in Image( delta ) then
 		return fail;
 	fi;
-	h2 := PreImagesRepresentative( deltaLift, m );
+	h2 := PreImagesRepresentative( delta, m );
 	n := RepTwistConjToId(
 		RestrictedHomomorphism( hom1, N, M ),
 		RestrictedHomomorphism( hom2, N, M ),
@@ -213,7 +217,7 @@ InstallMethod(
 		not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
+		diff := DifferenceGroupHomomorphisms@( hom1, hom2 );
 		if not g in Image( diff ) then
 			return fail;
 		fi;

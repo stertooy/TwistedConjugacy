@@ -238,11 +238,14 @@ end;
 ## ReidemeisterClassesByCentre@( hom1, hom2 )
 ##
 ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
-	local G, H, M, N, p, q, hom1HN, hom2HN, RclGM, Rcl, pg, g, CoinHN,
-	deltaLift, pCoker, coker, pm, m;
+	local G, H, M, N, p, q, hom1HN, hom2HN, RclGM, GM, Rcl, pg, g, Coin, r,
+	coker, rm, m;
 	G := Range( hom1 );
 	H := Source( hom1 );
 	M := Centre( G );
+	if IsTrivial( M ) then
+		TryNextMethod();
+	fi;
 	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
@@ -252,30 +255,30 @@ ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
 	if RclGM = fail then
 		return fail;
 	fi;
-	RclGM := List( RclGM, g -> Representative( g ) );
+	GM := Range( p );
 	Rcl := [];
-	for pg in RclGM do
+	for pg in List( RclGM, g -> Representative( g ) ) do
 		g := PreImagesRepresentative( p, pg );
-		CoinHN := CoincidenceGroup(
-			hom1HN * InnerAutomorphismNC( Range( p ), pg^-1 ),
+		Coin := PreImage( q, CoincidenceGroup(
+			hom1HN * InnerAutomorphismNC( GM, pg^-1 ),
 			hom2HN
+		));
+		r := NaturalHomomorphismByNormalSubgroupNC(
+			M, Image( DifferenceGroupHomomorphisms@ (
+				RestrictedHomomorphism( hom1, Coin, G ) * 
+					InnerAutomorphismNC( G, g^-1 ),
+				RestrictedHomomorphism( hom2, Coin, G )
+			))
 		);
-		deltaLift := DifferenceGroupHomomorphisms@ (
-			hom1 * InnerAutomorphismNC( G, g^-1 ), hom2,
-			PreImage( q, CoinHN ), M
-		);
-		pCoker := NaturalHomomorphismByNormalSubgroupNC(
-			M, Image( deltaLift )
-		);
-		coker := Image( pCoker );
+		coker := Image( r );
 		if not IsFinite( coker ) then
 			return fail;
 		fi;
-		for pm in coker do
-			if pm = One( coker ) and pg = One( Image( p ) ) then
+		for rm in coker do
+			if rm = One( coker ) and pg = One( GM ) then
 				Add( Rcl, ReidemeisterClass( hom1, hom2, One( G ) ), 1 );
 			else
-				m := PreImagesRepresentative( pCoker, pm );
+				m := PreImagesRepresentative( r, rm );
 				Add( Rcl, ReidemeisterClass( hom1, hom2, m*g ) );
 			fi;
 		od;
@@ -301,7 +304,7 @@ InstallMethod(
 		not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		N := Image( DifferenceGroupHomomorphisms@( hom1, hom2, H, G ) );
+		N := Image( DifferenceGroupHomomorphisms@( hom1, hom2 ) );
 		if IndexNC( G, N ) = infinity then
 			return fail;
 		else

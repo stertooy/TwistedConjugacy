@@ -16,7 +16,7 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		return IndexNC( G, Image(
-			DifferenceGroupHomomorphisms@( hom1, hom2, H, G )
+			DifferenceGroupHomomorphisms@( hom1, hom2 )
 		));
 	end
 );

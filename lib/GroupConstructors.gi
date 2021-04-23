@@ -60,22 +60,24 @@ end;
 ## CoincidenceGroupByCentre@( hom1, hom2 )
 ##
 CoincidenceGroupByCentre@ := function ( hom1, hom2 )
-	local G, H, M, N, p, q, CoinHN, deltaLift;
+	local G, H, M, N, p, q, Coin;
 	G := Range( hom1 );
 	H := Source( hom1 );
 	M := Centre( G );
+	if IsTrivial( M ) then
+		TryNextMethod();
+	fi;
 	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-	CoinHN := CoincidenceGroup(
+	Coin := PreImage( q, CoincidenceGroup(
 		InducedHomomorphism( q, p, hom1 ),
 		InducedHomomorphism( q, p, hom2 )
-	);
-	deltaLift := DifferenceGroupHomomorphisms@ (
-		hom1, hom2,
-		PreImage( q, CoinHN ), M
-	);
-	return Kernel( deltaLift );
+	));
+	return Kernel( DifferenceGroupHomomorphisms@ (
+		RestrictedHomomorphism( hom1, Coin, G ),
+		RestrictedHomomorphism( hom2, Coin, G )
+	));
 end;
 
 
@@ -96,7 +98,7 @@ InstallMethod(
 		not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
-		return Kernel( DifferenceGroupHomomorphisms@ ( hom1, hom2, H, G ) );
+		return Kernel( DifferenceGroupHomomorphisms@ ( hom1, hom2 ) );
 	end
 );
 
