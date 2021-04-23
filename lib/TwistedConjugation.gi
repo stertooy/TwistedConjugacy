@@ -124,13 +124,14 @@ RedispatchOnCondition(
 ## RepTwistConjToIdByFiniteCoin( hom1, hom2, g, M )
 ##
 RepTwistConjToIdByFiniteCoin@ := function ( hom1, hom2, g, M )
-	local G, H, N, p, q, hom1HN, hom2HN, qh1, Coin, h1, tc, m1, hom1N, hom2N,
-	qh2, h2, n;
-	G := Range( hom1 );
-	H := Source ( hom1 );
+	local N, p, q, hom1HN, hom2HN, qh1, Coin, h1, tc, m, hom1N, hom2N, qh2, h2,
+		n;
+	if IsTrivial( M ) then
+		TryNextMethod();
+	fi;
 	N := IntersectionPreImage@( hom1, hom2, M );
-	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
-	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
+	p := NaturalHomomorphismByNormalSubgroupNC( Range( hom1 ), M );
+	q := NaturalHomomorphismByNormalSubgroupNC( Source( hom1 ), N );
 	hom1HN := InducedHomomorphism( q, p, hom1 );
 	hom2HN := InducedHomomorphism( q, p, hom2 );
 	qh1 := RepTwistConjToId( hom1HN, hom2HN, g^p );
@@ -143,12 +144,12 @@ RepTwistConjToIdByFiniteCoin@ := function ( hom1, hom2, g, M )
 	fi;
 	h1 := PreImagesRepresentative( q, qh1 );
 	tc := TwistedConjugation( hom1, hom2 );
-	m1 := tc( g, h1 );
+	m := tc( g, h1 );
 	hom1N := RestrictedHomomorphism( hom1, N, M );
 	hom2N := RestrictedHomomorphism( hom2, N, M );
 	for qh2 in Coin do
 		h2 := PreImagesRepresentative( q, qh2 );
-		n := RepTwistConjToId( hom1N, hom2N, tc( m1, h2 ) );
+		n := RepTwistConjToId( hom1N, hom2N, tc( m, h2 ) );
 		if n <> fail then
 			return h1*h2*n;
 		fi;
@@ -162,16 +163,15 @@ end;
 ## RepTwistConjToIdByCentre( hom1, hom2, g )
 ##
 RepTwistConjToIdByCentre@ := function ( hom1, hom2, g ) 
-	local G, H, M, N, p, q, hom1HN, hom2HN, qh1, h1, tc, m, Coin, delta, h2, n;
+	local G, M, N, p, q, hom1HN, hom2HN, qh1, h1, tc, m, Coin, delta, h2;
 	G := Range( hom1 );
-	H := Source ( hom1 );
 	M := Centre( G );
 	if IsTrivial( M ) then
 		TryNextMethod();
 	fi;
 	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
-	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
+	q := NaturalHomomorphismByNormalSubgroupNC( Source ( hom1 ), N );
 	hom1HN := InducedHomomorphism( q, p, hom1 );
 	hom2HN := InducedHomomorphism( q, p, hom2 );
 	qh1 := RepTwistConjToId( hom1HN, hom2HN, g^p );
@@ -190,12 +190,11 @@ RepTwistConjToIdByCentre@ := function ( hom1, hom2, g )
 		return fail;
 	fi;
 	h2 := PreImagesRepresentative( delta, m );
-	n := RepTwistConjToId(
+	return h1 * h2 * RepTwistConjToId(
 		RestrictedHomomorphism( hom1, N, M ),
 		RestrictedHomomorphism( hom2, N, M ),
 		tc( m, h2 )
 	);
-	return h1*h2*n;
 end;
 
 
@@ -205,16 +204,75 @@ end;
 ##
 InstallMethod(
 	RepTwistConjToId,
-	"for pcp-groups with abelian range", 
+	"for finite pcp range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ],
+	6,
+	function ( hom1, hom2, g )
+		local G, iso;
+		G := Range( hom1 );
+		if not IsFinite( G ) or not IsPcpGroup( G ) then
+			TryNextMethod();
+		fi;
+		iso := IsomorphismPcGroup( G );
+		return RepTwistConjToId( hom1*iso, hom2*iso, g^iso );
+	end
+);
+
+InstallMethod(
+	RepTwistConjToId,
+	"for finite pcp source",
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ],
+	5,
+	function ( hom1, hom2, g )
+		local H, iso, inv, rep;
+		H := Source( hom1 );
+		if not IsFinite( H ) or not IsPcpGroup( H ) then
+			TryNextMethod();
+		fi;
+		iso := IsomorphismPcGroup( H );
+		inv := InverseGeneralMapping( iso );
+		rep := RepTwistConjToId( inv*hom1, inv*hom2, g );
+		if rep = fail then
+			return fail;
+		fi;
+		return rep^inv;
+	end
+);
+
+InstallMethod(
+	RepTwistConjToId,
+	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
 	4,
 	function ( hom1, hom2, g )
-		local G, H, diff;
-		G := Range( hom1 );
+		local H;
 		H := Source( hom1 );
-		if not IsPcpGroup( G ) or not IsPcpGroup ( H ) or
-		not IsAbelian( G ) then
+		if not IsFinite( H ) then
+			TryNextMethod();
+		fi;
+		return RepresentativeAction(
+			H,
+			g, One( Range( hom1 ) ),
+			TwistedConjugation( hom1, hom2 ) 
+		);
+	end
+);
+
+InstallMethod(
+	RepTwistConjToId,
+	"for polycyclic source and abelian range", 
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ],
+	3,
+	function ( hom1, hom2, g )
+		local diff;
+		if (
+			not IsAbelian( Range( hom1 ) ) or
+			not IsPolycyclicGroup ( Source( hom1 ) )
+		) then
 			TryNextMethod();
 		fi;
 		diff := DifferenceGroupHomomorphisms@( hom1, hom2 );
@@ -227,15 +285,17 @@ InstallMethod(
 
 InstallMethod(
 	RepTwistConjToId,
-	"for pcp-groups with nilpotent range",
+	"for polycyclic source and nilpotent range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
-	3,
+	2,
 	function ( hom1, hom2, g )
 		local G;
 		G := Range( hom1 );
-		if not IsPcpGroup( G ) or not IsPcpGroup( Source( hom1 ) ) or
-		not IsNilpotent( G ) or	IsAbelian( G ) then
+		if (
+			not IsNilpotent( G ) or IsAbelian( G ) or
+			not IsPolycyclicGroup( Source( hom1 ) )
+		) then
 			TryNextMethod();
 		fi;
 		return RepTwistConjToIdByCentre@( hom1, hom2, g );
@@ -244,58 +304,46 @@ InstallMethod(
 
 InstallMethod(
 	RepTwistConjToId,
-	"for pcp-groups with nilpotent-by-finite range",
-	[ IsGroupHomomorphism, IsGroupHomomorphism,
-	  IsMultiplicativeElementWithInverse ],
-	2,
-	function ( hom1, hom2, g )
-		local G;
-		G := Range( hom1 );
-		if not IsPcpGroup( G ) or not IsPcpGroup( Source( hom1 ) ) or
-		not IsNilpotentByFinite( G ) or	IsNilpotent( G ) then
-			TryNextMethod();
-		fi;
-		return RepTwistConjToIdByFiniteCoin@( 
-			hom1, hom2, g, FittingSubgroup( G )
-		);
-	end
-);
-
-InstallMethod(
-	RepTwistConjToId,
-	"for pcp-groups",
+	"for polycyclic source and nilpotent-by-finite range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
 	1,
 	function ( hom1, hom2, g )
 		local G;
 		G := Range( hom1 );
-		if not IsPcpGroup( G ) or not IsPcpGroup( Source( hom1 ) ) or
-		IsNilpotentByFinite( G ) then
+		if (
+			not IsNilpotentByFinite( G ) or	IsNilpotent( G ) or
+			not IsPolycyclicGroup( Source( hom1 ) )
+		) then
 			TryNextMethod();
 		fi;
-		return RepTwistConjToIdByFiniteCoin@(
+		return RepTwistConjToIdByFiniteCoin@( 
 			hom1, hom2,
-			g, DerivedSubgroup( G )
+			g,
+			FittingSubgroup( G )
 		);
 	end
 );
 
 InstallMethod(
 	RepTwistConjToId,
-	"for finite groups",
+	"for polycyclic source and range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
 	0,
 	function ( hom1, hom2, g )
-		local H;
-		H := Source( hom1 );
-		if not IsFinite( H ) then
+		local G;
+		G := Range( hom1 );
+		if (
+			not IsPolycyclicGroup( G ) or IsNilpotentByFinite( G ) or
+			not IsPolycyclicGroup( Source( hom1 ) )
+		) then
 			TryNextMethod();
 		fi;
-		return RepresentativeAction( 
-			H, g, One( Range( hom1 ) ), 
-			TwistedConjugation( hom1, hom2 ) 
+		return RepTwistConjToIdByFiniteCoin@(
+			hom1, hom2,
+			g,
+			DerivedSubgroup( G )
 		);
 	end
 );

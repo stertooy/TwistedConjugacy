@@ -7,14 +7,16 @@ InstallMethod(
 	"for finite groups",
 	[ IsGroup and IsFinite ],
 	function ( G )
-		local inv, invOdd, invEven, nrs, Aut, RepsAut, Rodd, Reven, Inn, p;
+		local inv, invOdd, invEven, Aut, RepsAut, Inn, p;
 		if IsAbelian( G ) then
 			inv := AbelianInvariants( G );
 			invOdd := Filtered( inv, x -> IsOddInt( x ) );
 			invEven := Filtered( inv, x -> IsEvenInt( x ) );
 			if IsEmpty( invOdd ) then
-				nrs := TransposedMat( Collected( invEven ) )[2];
-				if IsEmpty( Filtered( nrs, i -> i = 1 ) ) then
+				if IsEmpty( Filtered( 
+					TransposedMat( Collected( invEven ) )[2],
+					i -> i = 1
+				)) then
 					return DivisorsInt( Product( invEven ) );
 				fi;
 				Aut := AutomorphismGroup( G );
@@ -23,16 +25,19 @@ InstallMethod(
 					cc -> Representative( cc )
 				);
 			else
-				Rodd := DivisorsInt( Product( invOdd ) );
-				Reven := ReidemeisterSpectrum( DirectProduct( List(
-					invEven, x -> CyclicGroup( x )
-				)));
-				return Set( Cartesian( Rodd, Reven ), i -> Product( i ) );
+				return Set( Cartesian( 
+					DivisorsInt( Product( invOdd ) ),
+					ReidemeisterSpectrum( DirectProduct( List(
+						invEven, x -> CyclicGroup( x )
+					)))
+				), i -> Product( i ) );
 			fi;
 		else
 			Aut := AutomorphismGroup( G );
-			Inn := InnerAutomorphismsAutomorphismGroup( Aut );
-			p := NaturalHomomorphismByNormalSubgroupNC( Aut, Inn );
+			p := NaturalHomomorphismByNormalSubgroupNC(
+				Aut,
+				InnerAutomorphismsAutomorphismGroup( Aut )
+			);
 			RepsAut := List(
 				ConjugacyClasses( Image( p ) ),
 				cc -> PreImagesRepresentative( p, Representative( cc ) )
@@ -57,7 +62,7 @@ RedispatchOnCondition(
 ##
 InstallMethod(
 	ExtendedReidemeisterSpectrum,
-	"for finite groups",
+	"for finite abelian groups",
 	[ IsGroup and IsFinite and IsAbelian ],
 	function ( G )
 		return DivisorsInt( Size( G ) );
@@ -91,7 +96,7 @@ RedispatchOnCondition(
 ##
 InstallMethod(
 	CoincidenceReidemeisterSpectrum,
-	"for finite abelian groups",
+	"for finite source and finite abelian range",
 	[ IsGroup and IsFinite, IsGroup and IsFinite and IsAbelian ],
 	function ( H, G )
 		local Homs, Spectrum, i, j;
@@ -106,7 +111,7 @@ InstallMethod(
 
 InstallMethod(
 	CoincidenceReidemeisterSpectrum,
-	"for finite non-abelian groups",
+	"for finite source and range",
 	[ IsGroup and IsFinite, IsGroup and IsFinite ],
 	function ( H, G )
 		local Homs, Spectrum, i, j;

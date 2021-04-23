@@ -4,7 +4,6 @@
 ##
 InstallMethod(
 	ReidemeisterClass,
-	"for double twisted conjugacy",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
 	function ( hom1, hom2, g )
@@ -35,7 +34,6 @@ InstallMethod(
 ##
 InstallOtherMethod(
 	ReidemeisterClass,
-	"for twisted conjugacy",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsMultiplicativeElementWithInverse ],
 	function ( endo, g )
@@ -116,22 +114,22 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
-		local G, H, homs, g, Coin;
+		local G, H, homs;
 		G := ActingCodomain( tcc );
 		H := ActingDomain( tcc );
-		if not IsFinite( H ) and (
-			not IsPcpGroup( G ) or not IsPcpGroup( H )
-			or not IsNilpotentByFinite( G )
+		if (
+			not IsFinite( H ) and (
+				not IsPolycyclicGroup( G ) or
+				not IsPolycyclicGroup( H )
+			)
 		) then
 			TryNextMethod();
 		fi;
 		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
-		g := Representative( tcc );
-		Coin := CoincidenceGroup(
-			homs[1] * InnerAutomorphismNC( G, g^-1 ),
+		return Index( H, CoincidenceGroup(
+			homs[1] * InnerAutomorphismNC( G, Representative( tcc )^-1 ),
 			homs[2]
-		);
-		return Index( H, Coin );
+		));
 	end
 );
 
@@ -143,9 +141,11 @@ InstallMethod(
 		local G, H, homs, g, Coin, tc;
 		G := ActingCodomain( tcc );
 		H := ActingDomain( tcc );
-		if not IsFinite( H ) and (
-			not IsPcpGroup( G ) or not IsPcpGroup( H )
-			or not IsNilpotentByFinite( G )
+		if (
+			not IsFinite( H ) and (
+				not IsPolycyclicGroup( G ) or
+				not IsPolycyclicGroup( H )
+			)
 		) then
 			TryNextMethod();
 		fi;
@@ -171,12 +171,14 @@ InstallMethod(
 ##
 ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M )
 	local G, H, N, p, q, hom1HN, hom2HN, RclGM, Rcl, hom1N, hom2N, pg,
-	ighom1HN, Coin, g, ighom1, ighom1N, RclM, igRclM, tc, m, isNew, qh, m2;
+		Coin, g, ighom1N, RclM, igRclM, tc, m, isNew, qh;
+	if IsTrivial( M ) then
+		TryNextMethod();
+	fi;
 	G := Range( hom1 );
-	H := Source( hom1 );
 	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
-	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
+	q := NaturalHomomorphismByNormalSubgroupNC( Source( hom1 ), N );
 	hom1HN := InducedHomomorphism( q, p, hom1 );
 	hom2HN := InducedHomomorphism( q, p, hom2 );
 	RclGM := ReidemeisterClasses(
@@ -191,13 +193,14 @@ ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M )
 	hom1N := RestrictedHomomorphism( hom1, N, M );
 	hom2N := RestrictedHomomorphism( hom2, N, M );
 	for pg in RclGM do
-		ighom1HN := hom1HN * InnerAutomorphismNC( Range( p ), pg^-1 );
-		Coin := CoincidenceGroup( ighom1HN, hom2HN );
+		Coin := CoincidenceGroup(
+			hom1HN * InnerAutomorphismNC( Range( p ), pg^-1 ),
+			hom2HN
+		);
 		if not IsFinite( Coin ) then
 			TryNextMethod();
 		fi;
 		g := PreImagesRepresentative( p, pg );
-		ighom1 := hom1 * InnerAutomorphismNC( G, g^-1 );
 		ighom1N := hom1N * ConjugatorAutomorphismNC( M, g^-1 );
 		RclM := ReidemeisterClasses(
 			ighom1N,
@@ -208,13 +211,18 @@ ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M )
 		fi;
 		RclM := List( RclM, g -> Representative( g ) );
 		igRclM := [ Remove( RclM, 1 ) ];
-		tc := TwistedConjugation( ighom1, hom2 );
+		tc := TwistedConjugation(
+			hom1 * InnerAutomorphismNC( G, g^-1 ),
+			hom2
+		);
 		for m in RclM do
 			isNew := true;
 			for qh in Coin do
-				m2 := tc( m, PreImagesRepresentative( q, qh ) );
 				if ForAny(
-					igRclM, k -> IsTwistedConjugate( ighom1N, hom2N, k, m2 )
+					igRclM, k -> IsTwistedConjugate(
+						ighom1N, hom2N,
+						k, tc( m, PreImagesRepresentative( q, qh ) )
+					)
 				) then
 					isNew := false;
 					break;
@@ -238,17 +246,17 @@ end;
 ## ReidemeisterClassesByCentre@( hom1, hom2 )
 ##
 ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
-	local G, H, M, N, p, q, hom1HN, hom2HN, RclGM, GM, Rcl, pg, g, Coin, r,
-	coker, rm, m;
+	local G, M, p, q, hom1HN, hom2HN, RclGM, GM, Rcl, pg, g, Coin, r, cok, rm;
 	G := Range( hom1 );
-	H := Source( hom1 );
 	M := Centre( G );
 	if IsTrivial( M ) then
 		TryNextMethod();
 	fi;
-	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
-	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
+	q := NaturalHomomorphismByNormalSubgroupNC(
+		Source( hom1 ),
+		IntersectionPreImage@( hom1, hom2, M )
+	);
 	hom1HN := InducedHomomorphism( q, p, hom1 );
 	hom2HN := InducedHomomorphism( q, p, hom2 );
 	RclGM := ReidemeisterClasses( hom1HN, hom2HN );
@@ -270,16 +278,21 @@ ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
 				RestrictedHomomorphism( hom2, Coin, G )
 			))
 		);
-		coker := Image( r );
-		if not IsFinite( coker ) then
+		cok := Image( r );
+		if not IsFinite( cok ) then
 			return fail;
 		fi;
-		for rm in coker do
-			if rm = One( coker ) and pg = One( GM ) then
-				Add( Rcl, ReidemeisterClass( hom1, hom2, One( G ) ), 1 );
+		for rm in cok do
+			if rm = One( cok ) and pg = One( GM ) then
+				Add( Rcl, ReidemeisterClass( 
+					hom1, hom2,
+					One( G )
+				), 1 );
 			else
-				m := PreImagesRepresentative( r, rm );
-				Add( Rcl, ReidemeisterClass( hom1, hom2, m*g ) );
+				Add( Rcl, ReidemeisterClass( 
+					hom1, hom2,
+					PreImagesRepresentative( r, rm ) * g
+				));
 			fi;
 		od;
 	od;
@@ -293,15 +306,85 @@ end;
 ##
 InstallMethod(
 	ReidemeisterClasses,
-	"for pcp-groups with abelian range",
+	"for finite pcp range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	6,
+	function ( hom1, hom2 )
+		local G, iso, Rcl;
+		# TryNextMethod();
+		G := Range( hom1 );
+		if not IsFinite( G ) or not IsPcpGroup( G ) then
+			TryNextMethod();
+		fi;
+		iso := IsomorphismPcGroup( G );
+		Rcl := ReidemeisterClasses( hom1*iso, hom2*iso );
+		if Rcl = fail then
+			return fail;
+		fi;
+		return List( Rcl, tcc -> ReidemeisterClass( hom1, hom2, PreImagesRepresentative(
+			iso, Representative( tcc ) ) ) );
+	end
+);
+
+InstallMethod(
+	ReidemeisterClasses,
+	"for finite pcp source",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	5,
+	function ( hom1, hom2 )
+		local G, H, iso, inv, Rcl;
+		# TryNextMethod();
+		H := Source( hom1 );
+		if not IsFinite( H ) or not IsPcpGroup( H ) then
+			TryNextMethod();
+		fi;
+		iso := IsomorphismPcGroup( H );
+		inv := InverseGeneralMapping( iso );
+		Rcl := ReidemeisterClasses( inv*hom1, inv*hom2 );
+		if Rcl = fail then
+			return fail;
+		fi;
+		return List( Rcl, tcc -> ReidemeisterClass( hom1, hom2, Representative( tcc ) ) );
+	end
+);
+
+InstallMethod(
+	ReidemeisterClasses,
+	"for finite groups",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	4,
 	function ( hom1, hom2 )
-		local G, H, N, Rcl, p, R, pg;
+		local G, H, tc, Rcl, orbit;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if not IsPcpGroup ( H ) or not IsPcpGroup( G ) or
-		not IsAbelian( G ) then
+		if not IsFinite( G ) or not IsFinite( H ) then
+			TryNextMethod();
+		fi;
+		tc := TwistedConjugation( hom1, hom2 );
+		Rcl := [];
+		for orbit in OrbitsDomain( H, AsSSortedListNonstored( G ), tc ) do
+			if One( G ) in orbit then
+				Add( Rcl, ReidemeisterClass( hom1, hom2, One( G ) ), 1 );
+			else
+				Add( Rcl, ReidemeisterClass( hom1, hom2, orbit[1] ) );
+			fi;
+		od;
+		return Rcl;
+	end
+);
+
+InstallMethod(
+	ReidemeisterClasses,
+	"for polycyclic source and abelian range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	3,
+	function ( hom1, hom2 )
+		local G, H, N, Rcl, p, R, pg;
+		G := Range( hom1 );
+		if (
+			not IsAbelian( G ) or 
+			not IsPolycyclicGroup ( Source( hom1 ) )
+		) then
 			TryNextMethod();
 		fi;
 		N := Image( DifferenceGroupHomomorphisms@( hom1, hom2 ) );
@@ -327,14 +410,16 @@ InstallMethod(
 
 InstallMethod(
 	ReidemeisterClasses,
-	"for pcp-groups with nilpotent range",
+	"for polycyclic source and nilpotent range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	3,
+	2,
 	function ( hom1, hom2 )
 		local G;
 		G := Range( hom1 );
-		if not IsPcpGroup ( G ) or not IsPcpGroup( Source( hom1 ) ) or
-		not IsNilpotent( G ) or IsAbelian( G ) then
+		if (
+			not IsNilpotent( G ) or IsAbelian( G ) or
+			not IsPolycyclicGroup( Source( hom1 ) )
+		) then
 			TryNextMethod();
 		fi;
 		return ReidemeisterClassesByCentre@( hom1, hom2 );
@@ -343,14 +428,16 @@ InstallMethod(
 
 InstallMethod(
 	ReidemeisterClasses,
-	"for pcp-groups with nilpotent-by-finite range",
+	"for polycyclic source and nilpotent-by-finite range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	2,
+	1,
 	function ( hom1, hom2 )
 		local G;
 		G := Range( hom1 );
-		if not IsPcpGroup ( G ) or not IsPcpGroup( Source( hom1 ) ) or
-		not IsNilpotentByFinite( G ) or IsNilpotent( G ) then
+		if (
+			not IsNilpotentByFinite( G ) or IsNilpotent( G ) or
+			not IsPolycyclicGroup( Source( hom1 ) )
+		) then
 			TryNextMethod();
 		fi;
 		return ReidemeisterClassesByFiniteCoin@(
@@ -361,44 +448,21 @@ InstallMethod(
 
 InstallMethod(
 	ReidemeisterClasses,
-	"for pcp-groups",
+	"for polycyclic source and range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	1,
+	0,
 	function ( hom1, hom2 )
 		local G;
 		G := Range( hom1 );
-		if not IsPcpGroup ( G ) or not IsPcpGroup( Source( hom1 ) ) or
-		IsNilpotentByFinite( G ) then
+		if (
+			not IsPolycyclicGroup( G ) or IsNilpotentByFinite( G ) or
+			not IsPolycyclicGroup( Source( hom1 ) )
+		) then
 			TryNextMethod();
 		fi;
 		return ReidemeisterClassesByFiniteCoin@(
 			hom1, hom2, DerivedSubgroup( G )
 		);
-	end
-);
-
-InstallMethod(
-	ReidemeisterClasses,
-	"for finite groups",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	0,
-	function ( hom1, hom2 )
-		local G, H, tc, Rcl, orbit;
-		G := Range( hom1 );
-		H := Source( hom1 );
-		if not IsFinite( G ) or not IsFinite( H ) then
-			TryNextMethod();
-		fi;
-		tc := TwistedConjugation( hom1, hom2 );
-		Rcl := [];
-		for orbit in OrbitsDomain( H, AsSSortedListNonstored( G ), tc ) do
-			if One( G ) in orbit then
-				Add( Rcl, ReidemeisterClass( hom1, hom2, One( G ) ), 1 );
-			else
-				Add( Rcl, ReidemeisterClass( hom1, hom2, orbit[1] ) );
-			fi;
-		od;
-		return Rcl;
 	end
 );
 

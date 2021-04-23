@@ -8,7 +8,7 @@ InstallMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo1, endo2 )
-		local G, G1, G2, steps, k, l, endo, P, Q, R, n;
+		local G, G1, G2, steps, k, l, endo, R, P, Q;
 		G := Source( endo1 );
 		if not IsFinite( G ) then
 			TryNextMethod();
