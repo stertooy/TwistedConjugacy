@@ -8,7 +8,7 @@ DeclareOperation(
 );
 DeclareOperation(
 	"IsTwistedConjugate",
-	[ IsGroupHomomorphism, IsGroupHomomorphism, 
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ]
 );
 DeclareOperation(
@@ -25,7 +25,7 @@ DeclareOperation(
 );
 DeclareSynonym(
 	"TwistedConjugacyClass",
-	ReidemeisterClass 
+	ReidemeisterClass
 );
 DeclareOperation(
 	"ReidemeisterClasses",
@@ -49,11 +49,11 @@ DeclareAttribute(
 	"ReidemeisterSpectrum",
 	IsGroup
 );
-DeclareAttribute( 
+DeclareAttribute(
 	"ExtendedReidemeisterSpectrum",
 	IsGroup
 );
-DeclareAttribute( 
+DeclareAttribute(
 	"CoincidenceReidemeisterSpectrum",
 	IsGroup
 );
@@ -95,7 +95,7 @@ DeclareOperation(
 );
 
 
-DeclareGlobalFunction( "InducedHomomorphism" ); 
+DeclareGlobalFunction( "InducedHomomorphism" );
 DeclareGlobalFunction( "RestrictedHomomorphism" );
 
 

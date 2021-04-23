@@ -60,7 +60,7 @@ InstallMethod(
 ## ReidemeisterNumber( endo )
 ##
 InstallOtherMethod(
-	ReidemeisterNumber, 
+	ReidemeisterNumber,
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo )
 		return ReidemeisterNumber( endo, IdentityMapping( Source( endo ) ) );
@@ -69,7 +69,7 @@ InstallOtherMethod(
 
 RedispatchOnCondition(
 	ReidemeisterNumber,
-	true, 
+	true,
 	[ IsGroupHomomorphism ],
 	[ IsEndoGeneralMapping ],
 	0

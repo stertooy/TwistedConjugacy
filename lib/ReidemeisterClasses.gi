@@ -11,7 +11,7 @@ InstallMethod(
 		local G, H, fam, typ, tc, tcc;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		typ := NewType( 
+		typ := NewType(
 			FamilyObj( G ),
 			IsReidemeisterClassGroupRep and HasActingDomain and
 			HasActingCodomain and HasRepresentative and HasFunctionAction and
@@ -27,8 +27,8 @@ InstallMethod(
 			FunctionAction, tc,
 			GroupHomomorphismsOfReidemeisterClass, [ hom1, hom2 ]
 		);
-		return tcc;      
-	end 
+		return tcc;
+	end
 );
 
 
@@ -43,17 +43,17 @@ InstallOtherMethod(
 	  IsMultiplicativeElementWithInverse ],
 	function ( endo, g )
 		return ReidemeisterClass( endo, IdentityMapping( Source( endo ) ), g );
-	end 
+	end
 );
 
 RedispatchOnCondition(
 	ReidemeisterClass,
-	true, 
+	true,
 	[ IsGroupHomomorphism, IsMultiplicativeElementWithInverse ],
 	[ IsEndoGeneralMapping, IsMultiplicativeElementWithInverse ],
 	0
 );
-	
+
 
 ###############################################################################
 ##
@@ -62,15 +62,15 @@ RedispatchOnCondition(
 InstallMethod(
 	\in,
 	"for Reidemeister classes",
-	[ IsMultiplicativeElementWithInverse, IsReidemeisterClassGroupRep ], 
+	[ IsMultiplicativeElementWithInverse, IsReidemeisterClassGroupRep ],
 	function ( g, tcc )
 		local homs;
 		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
 		return IsTwistedConjugate( 
-			homs[1], homs[2], g,
-			Representative( tcc )
+			homs[1], homs[2],
+			g, Representative( tcc )
 		);
-	end 
+	end
 );
 
 InstallMethod(
@@ -117,12 +117,12 @@ InstallMethod(
 InstallMethod(
 	Size,
 	"for Reidemeister classes",
-	[ IsReidemeisterClassGroupRep ], 
+	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
 		local G, H, homs, g, Coin;
 		G := ActingCodomain( tcc );
 		H := ActingDomain( tcc );
-		if not IsFinite( H ) and ( 
+		if not IsFinite( H ) and (
 			not IsPcpGroup( G ) or not IsPcpGroup( H )
 			or not IsNilpotentByFinite( G )
 		) then
@@ -130,7 +130,7 @@ InstallMethod(
 		fi;
 		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
 		g := Representative( tcc );
-		Coin := CoincidenceGroup( 
+		Coin := CoincidenceGroup(
 			homs[1] * InnerAutomorphismNC( G, g^-1 ),
 			homs[2]
 		);
@@ -154,7 +154,7 @@ InstallMethod(
 		fi;
 		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
 		g := Representative( tcc );
-		Coin := CoincidenceGroup( 
+		Coin := CoincidenceGroup(
 			homs[1] * InnerAutomorphismNC( G, g^-1 ),
 			homs[2]
 		);
@@ -172,7 +172,7 @@ InstallMethod(
 ##
 ## ReidemeisterClassesByFiniteCoin@( hom1, hom2, M )
 ##
-ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M ) 
+ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M )
 	local G, H, N, p, q, hom1HN, hom2HN, RclGM, Rcl, hom1N, hom2N, pg,
 	ighom1HN, Coin, g, ighom1, ighom1N, RclM, igRclM, tc, m, isNew, qh, m2;
 	G := Range( hom1 );
@@ -216,7 +216,7 @@ ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M )
 			isNew := true;
 			for qh in Coin do
 				m2 := tc( m, PreImagesRepresentative( q, qh ) );
-				if ForAny( 
+				if ForAny(
 					igRclM, k -> IsTwistedConjugate( ighom1N, hom2N, k, m2 )
 				) then
 					isNew := false;
@@ -227,8 +227,9 @@ ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M )
 				Add( igRclM, m );
 			fi;
 		od;
-		Append( Rcl, 
-			List( igRclM, m -> ReidemeisterClass( hom1, hom2, m*g ) ) 
+		Append(
+			Rcl,
+			List( igRclM, m -> ReidemeisterClass( hom1, hom2, m*g ) )
 		);
 	od;
 	return Rcl;
@@ -258,15 +259,15 @@ ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
 	Rcl := [];
 	for pg in RclGM do
 		g := PreImagesRepresentative( p, pg );
-		CoinHN := CoincidenceGroup( 
+		CoinHN := CoincidenceGroup(
 			hom1HN * InnerAutomorphismNC( Range( p ), pg^-1 ),
 			hom2HN
 		);
-		deltaLift := DifferenceGroupHomomorphisms@ ( 
+		deltaLift := DifferenceGroupHomomorphisms@ (
 			hom1 * InnerAutomorphismNC( G, g^-1 ), hom2,
 			PreImage( q, CoinHN ), M
 		);
-		pCoker := NaturalHomomorphismByNormalSubgroupNC( 
+		pCoker := NaturalHomomorphismByNormalSubgroupNC(
 			M, Image( deltaLift )
 		);
 		coker := Image( pCoker );
@@ -314,7 +315,7 @@ InstallMethod(
 				if pg = One( R ) then
 					Add( Rcl, ReidemeisterClass( hom1, hom2, One( G ) ), 1 );
 				else
-					Add( Rcl, ReidemeisterClass( 
+					Add( Rcl, ReidemeisterClass(
 						hom1, hom2, PreImagesRepresentative( p, pg )
 					));
 				fi;
@@ -330,10 +331,9 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	3,
 	function ( hom1, hom2 )
-		local G, H;
+		local G;
 		G := Range( hom1 );
-		H := Source( hom1 );
-		if not IsPcpGroup ( G ) or not IsPcpGroup( H ) or
+		if not IsPcpGroup ( G ) or not IsPcpGroup( Source( hom1 ) ) or
 		not IsNilpotent( G ) or IsAbelian( G ) then
 			TryNextMethod();
 		fi;
@@ -354,7 +354,7 @@ InstallMethod(
 		not IsNilpotentByFinite( G ) or IsNilpotent( G ) then
 			TryNextMethod();
 		fi;
-		return ReidemeisterClassesByFiniteCoin@( 
+		return ReidemeisterClassesByFiniteCoin@(
 			hom1, hom2, FittingSubgroup( G )
 		);
 	end
@@ -373,7 +373,7 @@ InstallMethod(
 		IsNilpotentByFinite( G ) then
 			TryNextMethod();
 		fi;
-		return ReidemeisterClassesByFiniteCoin@( 
+		return ReidemeisterClassesByFiniteCoin@(
 			hom1, hom2, DerivedSubgroup( G )
 		);
 	end
@@ -419,7 +419,7 @@ InstallOtherMethod(
 
 RedispatchOnCondition(
 	ReidemeisterClasses,
-	true, 
+	true,
 	[ IsGroupHomomorphism ],
 	[ IsEndoGeneralMapping ],
 	0

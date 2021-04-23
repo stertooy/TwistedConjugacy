@@ -10,12 +10,12 @@ InstallMethod(
 	end
 );
 
-RedispatchOnCondition( 
+RedispatchOnCondition(
 	FixedPointGroup,
 	true, 
 	[ IsGroupHomomorphism ],
 	[ IsEndoGeneralMapping ],
-	0 
+	0
 );
 
 
@@ -25,14 +25,14 @@ RedispatchOnCondition(
 ##
 InstallMethod(
 	CoincidenceGroup,
-	"for abelian range", 
+	"for abelian range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	3,
 	function ( hom1, hom2 )
 		local G, H;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or 
+		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or
 		not IsAbelian( G ) then
 			TryNextMethod();
 		fi;
@@ -42,14 +42,14 @@ InstallMethod(
 
 InstallMethod(
 	CoincidenceGroup,
-	"for nilpotent range", 
+	"for nilpotent range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	2,
 	function ( hom1, hom2 )
 		local G, H, M, N, p, q, CoinHN, deltaLift;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or 
+		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or
 		not IsNilpotentGroup( G ) or IsAbelian( G ) then
 			TryNextMethod();
 		fi;
@@ -57,11 +57,11 @@ InstallMethod(
 		N := IntersectionPreImage@( hom1, hom2, M );
 		p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 		q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-		CoinHN := CoincidenceGroup( 
-			InducedHomomorphism( q, p, hom1 ), 
+		CoinHN := CoincidenceGroup(
+			InducedHomomorphism( q, p, hom1 ),
 			InducedHomomorphism( q, p, hom2 )
 		);
-		deltaLift := DifferenceGroupHomomorphisms@ ( 
+		deltaLift := DifferenceGroupHomomorphisms@ (
 			hom1, hom2,
 			PreImage( q, CoinHN ), M
 		);
@@ -71,14 +71,14 @@ InstallMethod(
 
 InstallMethod(
 	CoincidenceGroup,
-	"for nilpotent-by-finite range", 
+	"for nilpotent-by-finite range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )
 		local G, H, M, N, p, q, CoinHN, hom1N, hom2N, tc, gens, qh, h, n;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or 
+		if not IsPcpGroup( G ) or not IsPcpGroup( H ) or
 		not IsNilpotentByFinite( G ) or IsNilpotent( G ) then
 			TryNextMethod();
 		fi;
@@ -86,8 +86,8 @@ InstallMethod(
 		N := IntersectionPreImage@( hom1, hom2, M );
 		p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 		q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-		CoinHN := CoincidenceGroup( 
-			InducedHomomorphism( q, p, hom1 ), 
+		CoinHN := CoincidenceGroup(
+			InducedHomomorphism( q, p, hom1 ),
 			InducedHomomorphism( q, p, hom2 )
 		);
 		hom1N := RestrictedHomomorphism( hom1, N, M );
@@ -101,7 +101,7 @@ InstallMethod(
 				Add( gens, h*n );
 			fi;
 		od;
-		return ClosureSubgroupNC( 
+		return ClosureSubgroupNC(
 			AsSubgroup( H, CoincidenceGroup( hom1N, hom2N ) ),
 			gens
 		);
@@ -110,7 +110,7 @@ InstallMethod(
 
 InstallMethod(
 	CoincidenceGroup,
-	"for finite source", 
+	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	0,
 	function ( hom1, hom2 )
@@ -119,8 +119,9 @@ InstallMethod(
 		if not IsFinite( H ) then
 			TryNextMethod();
 		fi;
-		return Stabiliser( 
-			H, One( Range( hom1 ) ), 
+		return Stabiliser(
+			H,
+			One( Range( hom1 ) ),
 			TwistedConjugation( hom1, hom2 )
 		);
 	end

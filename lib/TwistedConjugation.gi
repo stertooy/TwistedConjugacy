@@ -18,7 +18,7 @@ InstallMethod(
 ## TwistedConjugation( endo )
 ##
 InstallOtherMethod(
-	TwistedConjugation, 
+	TwistedConjugation,
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo )
 		return TwistedConjugation( endo, IdentityMapping( Source( endo ) ) );
@@ -27,19 +27,19 @@ InstallOtherMethod(
 
 RedispatchOnCondition(
 	TwistedConjugation,
-	true, 
+	true,
 	[ IsGroupHomomorphism ],
 	[ IsEndoGeneralMapping ],
 	0
 );
-	
+
 
 ###############################################################################
 ##
 ## IsTwistedConjugate( hom1, hom2, g1, g2 )
 ##
 InstallMethod(
-	IsTwistedConjugate, 
+	IsTwistedConjugate,
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	function ( hom1, hom2, g1, g2 )
@@ -53,19 +53,20 @@ InstallMethod(
 ## IsTwistedConjugate( endo, g1, g2 )
 ##
 InstallOtherMethod(
-	IsTwistedConjugate, 
+	IsTwistedConjugate,
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	function ( endo, g1, g2 )
-		return IsTwistedConjugate( 
-			endo, IdentityMapping( Source( endo ) ), g1, g2 
+		return IsTwistedConjugate(
+			endo, IdentityMapping( Source( endo ) ),
+			g1, g2
 		);
 	end
 );
 
 RedispatchOnCondition(
 	IsTwistedConjugate,
-	true, 
+	true,
 	[ IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	[ IsEndoGeneralMapping,
@@ -79,12 +80,13 @@ RedispatchOnCondition(
 ## RepresentativeTwistedConjugation( hom1, hom2, g1, g2 )
 ##
 InstallMethod(
-	RepresentativeTwistedConjugation, 
-	[ IsGroupHomomorphism, IsGroupHomomorphism, 
+	RepresentativeTwistedConjugation,
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	function ( hom1, hom2, g1, g2 )
-		return RepTwistConjToId( 
-			hom1 * InnerAutomorphismNC( Range( hom1 ), g2^-1 ), hom2, g1*g2^-1
+		return RepTwistConjToId(
+			hom1 * InnerAutomorphismNC( Range( hom1 ), g2^-1 ), hom2,
+			g1*g2^-1
 		);
 	end
 );
@@ -95,19 +97,20 @@ InstallMethod(
 ## RepresentativeTwistedConjugation( endo, g1, g2 )
 ##
 InstallOtherMethod(
-	RepresentativeTwistedConjugation, 
+	RepresentativeTwistedConjugation,
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	function ( endo, g1, g2 )
-		return RepresentativeTwistedConjugation( 
-			endo, IdentityMapping( Source( endo ) ), g1, g2
+		return RepresentativeTwistedConjugation(
+			endo, IdentityMapping( Source( endo ) ),
+			g1, g2
 		);
 	end
 );
 
 RedispatchOnCondition(
 	RepresentativeTwistedConjugation,
-	true, 
+	true,
 	[ IsGroupHomomorphism, 
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	[ IsEndoGeneralMapping,
@@ -120,7 +123,7 @@ RedispatchOnCondition(
 ##
 ## RepTwistConjToIdByFiniteCoin( hom1, hom2, g, M )
 ##
-RepTwistConjToIdByFiniteCoin@ := function ( hom1, hom2, g, M ) 
+RepTwistConjToIdByFiniteCoin@ := function ( hom1, hom2, g, M )
 	local G, H, N, p, q, hom1HN, hom2HN, qh1, Coin, h1, tc, m1, hom1N, hom2N,
 	qh2, h2, n;
 	G := Range( hom1 );
@@ -175,7 +178,7 @@ RepTwistConjToIdByCentre@ := function ( hom1, hom2, g )
 	h1 := PreImagesRepresentative( q, qh1 );
 	tc := TwistedConjugation( hom1, hom2 );
 	m := tc( g, h1 );
-	deltaLift := DifferenceGroupHomomorphisms@ ( 
+	deltaLift := DifferenceGroupHomomorphisms@ (
 		hom1, hom2,
 		PreImage( q, CoincidenceGroup( hom1HN, hom2HN ) ), M
 	);
@@ -270,7 +273,7 @@ InstallMethod(
 		IsNilpotentByFinite( G ) then
 			TryNextMethod();
 		fi;
-		return RepTwistConjToIdByFiniteCoin@( 
+		return RepTwistConjToIdByFiniteCoin@(
 			hom1, hom2,
 			g, DerivedSubgroup( G )
 		);
@@ -289,7 +292,8 @@ InstallMethod(
 		if not IsFinite( H ) then
 			TryNextMethod();
 		fi;
-		return RepresentativeAction( H, g, One( Range( hom1 ) ), 
+		return RepresentativeAction( 
+			H, g, One( Range( hom1 ) ), 
 			TwistedConjugation( hom1, hom2 ) 
 		);
 	end

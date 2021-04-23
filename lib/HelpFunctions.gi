@@ -5,11 +5,12 @@
 InstallGlobalFunction(
 	InducedHomomorphism,
 	function ( epi1, epi2, hom )
-		return GroupHomomorphismByFunction( Range( epi1 ), Range( epi2 ),
+		return GroupHomomorphismByFunction(
+			Range( epi1 ), Range( epi2 ),
 			h -> ( PreImagesRepresentative( epi1, h )^hom )^epi2,
 			false,
-			g -> PreImagesRepresentative( 
-				hom, 
+			g -> PreImagesRepresentative(
+				hom,
 				PreImagesRepresentative( epi2, g )
 			)^epi1
 		);
@@ -39,6 +40,7 @@ InstallGlobalFunction(
 ## DifferenceGroupHomomorphisms@( hom1, hom2 )
 ##
 ##	Returns the homomorphism that maps h to h^hom2*( h^hom1 )^-1
+##  No verification is done to make sure this is actually a homomorphism
 ##
 DifferenceGroupHomomorphisms@ := function ( hom1, hom2, H, G )
   	local gens;
@@ -54,6 +56,7 @@ end;
 ##
 ## IntersectionPreImage@( hom1, hom2, N )
 ##
+##  Returns hom1^-1(N) cap hom2^-1(N)
 ##  Note that N must be a normal subgroup
 ##
 IntersectionPreImage@ := function ( hom1, hom2, N )

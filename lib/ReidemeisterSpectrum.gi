@@ -19,12 +19,12 @@ InstallMethod(
 				fi;
 				Aut := AutomorphismGroup( G );
 				RepsAut := List(
-					ConjugacyClasses( Aut ), 
+					ConjugacyClasses( Aut ),
 					cc -> Representative( cc )
 				);
 			else
 				Rodd := DivisorsInt( Product( invOdd ) );
-				Reven := ReidemeisterSpectrum( DirectProduct( List( 
+				Reven := ReidemeisterSpectrum( DirectProduct( List(
 					invEven, x -> CyclicGroup( x )
 				)));
 				return Set( Cartesian( Rodd, Reven ), i -> Product( i ) );
@@ -34,17 +34,17 @@ InstallMethod(
 			Inn := InnerAutomorphismsAutomorphismGroup( Aut );
 			p := NaturalHomomorphismByNormalSubgroupNC( Aut, Inn );
 			RepsAut := List(
-				ConjugacyClasses( Image( p ) ), 
+				ConjugacyClasses( Image( p ) ),
 				cc -> PreImagesRepresentative( p, Representative( cc ) )
 			);
 		fi;
 		return Set( RepsAut, f -> ReidemeisterNumber( f ) );
-	end 
+	end
 );
 
 RedispatchOnCondition(
 	ReidemeisterSpectrum,
-	true, 
+	true,
 	[ IsGroup ],
 	[ IsFinite ],
 	0
@@ -69,7 +69,7 @@ InstallMethod(
 	"for finite groups",
 	[ IsGroup and IsFinite ],
 	function ( G )
-		return Set( 
+		return Set(
 			AllHomomorphismClasses( G, G ),
 			f -> ReidemeisterNumber( f )
 		);
@@ -78,7 +78,7 @@ InstallMethod(
 
 RedispatchOnCondition(
 	ExtendedReidemeisterSpectrum,
-	true, 
+	true,
 	[ IsGroup ],
 	[ IsFinite ],
 	0
@@ -123,7 +123,7 @@ InstallMethod(
 
 RedispatchOnCondition(
 	CoincidenceReidemeisterSpectrum,
-	true, 
+	true,
 	[ IsGroup, IsGroup ],
 	[ IsFinite, IsFinite ],
 	0
@@ -152,7 +152,7 @@ InstallOtherMethod(
 
 RedispatchOnCondition(
 	CoincidenceReidemeisterSpectrum,
-	true, 
+	true,
 	[ IsGroup ],
 	[ IsFinite ],
 	0
