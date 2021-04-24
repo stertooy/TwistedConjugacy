@@ -133,7 +133,7 @@ InstallOtherMethod(
 	ReidemeisterClasses,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	101,
+	100,
 	function ( endo )
 		local G, iso, inv, Rcl;
 		G := Range( endo );
