@@ -24,9 +24,13 @@ InstallMethod(
 					ConjugacyClasses( Aut ),
 					cc -> Representative( cc )
 				);
+			elif IsEmpty( invEven ) then
+				return DivisorsInt( Product( invOdd ) );
 			else
 				return Set( Cartesian( 
-					DivisorsInt( Product( invOdd ) ),
+					ReidemeisterSpectrum( DirectProduct( List(
+						invOdd, x -> CyclicGroup( x )
+					))),
 					ReidemeisterSpectrum( DirectProduct( List(
 						invEven, x -> CyclicGroup( x )
 					)))

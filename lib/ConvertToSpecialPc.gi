@@ -593,7 +593,7 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		iso := InverseGeneralMapping( IsomorphismSpecialPcGroup( H ) );
-		h := RepTwistConjToId( iso*hom1, iso*hom2, g1, g2 );
+		h := RepresentativeTwistedConjugation( iso*hom1, iso*hom2, g1, g2 );
 		if h = fail then
 			return fail;
 		fi;
@@ -604,16 +604,16 @@ InstallMethod(
 
 ###############################################################################
 ##
-## RepresentativeTwistedConjugation( endo, g1, g2 )
+## IsTwistedConjugate( endo, g1, g2 )
 ##
 InstallOtherMethod(
-	RepresentativeTwistedConjugation,
-	"for finite pcp range",
+	IsTwistedConjugate,
+	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
-	101,
+	100,
 	function ( endo, g1, g2 )
-		local G, iso, h;
+		local G, iso;
 		G := Range( endo );
 		if (
 			HasSpecialPcgs( G ) or
@@ -623,13 +623,43 @@ InstallOtherMethod(
 			TryNextMethod();
 		fi;
 		iso := IsomorphismSpecialPcGroup( G );
-		h := RepresentativeTwistedConjugation(
+		return IsTwistedConjugate(
 			InverseGeneralMapping( iso ) * endo * iso,
+			g1^iso, g2^iso
+		);
+	end
+);
+
+
+###############################################################################
+##
+## RepresentativeTwistedConjugation( endo, g1, g2 )
+##
+InstallOtherMethod(
+	RepresentativeTwistedConjugation,
+	"turn group into SpecialPcGroup",
+	[ IsGroupHomomorphism and IsEndoGeneralMapping,
+	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
+	100,
+	function ( endo, g1, g2 )
+		local G, iso, inv, h;
+		G := Range( endo );
+		if (
+			HasSpecialPcgs( G ) or
+			not IsPolycyclicGroup( G ) or
+			not IsFinite( G )
+		) then
+			TryNextMethod();
+		fi;
+		iso := IsomorphismSpecialPcGroup( G );
+		inv := InverseGeneralMapping( iso );
+		h := RepresentativeTwistedConjugation(
+			inv * endo * iso,
 			g1^iso, g2^iso
 		);
 		if h = fail then
 			return fail;
 		fi;
-		return h^iso;
+		return h^inv;
 	end
 );

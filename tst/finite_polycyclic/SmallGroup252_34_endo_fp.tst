@@ -3,7 +3,8 @@ gap> START_TEST( "Testing Twisted Conjugacy for finite pc groups" );
 #
 # Polyclic group with endomorphism
 #
-gap> G := SmallGroup( 252, 34 );;
+gap> F := FreeGroup( 5 );;
+gap> G := F / [ F.1^2, F.2^-1*F.1^-1*F.2*F.1, F.3^-1*F.1^-1*F.3*F.1, F.4^-1*F.1^-1*F.4*F.1, F.5^-1*F.1^-1*F.5*F.1*F.5^-5, F.2^2, F.3^-1*F.2^-1*F.3*F.2*F.3^-1, F.4^-1*F.2^-1*F.4*F.2*F.4^-1, F.5^-1*F.2^-1*F.5*F.2, F.3^3, F.4^-1*F.3^-1*F.4*F.3, F.5^-1*F.3^-1*F.5*F.3, F.4^3, F.5^-1*F.4^-1*F.5*F.4, F.5^7 ];;
 gap> imgs := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, Identity(G) ];;
 gap> phi := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs );;
 
@@ -23,8 +24,8 @@ true
 gap> tcc := ReidemeisterClass( phi, G.3 );;
 gap> Print( tcc, "\n" );
 ReidemeisterClass( [ [ f1, f2, f3, f4, f5 ] -> [ f1*f5^6, f1*f2*f3^2*f4^2*f5^6\
-, f3^2, f3*f4^2, <identity> of ... ], [ f1, f2, f3, f4, f5 ] -> [ f1, f2, f3, \
-f4, f5 ] ], f3 )
+, f3^2, f3*f4^2, <identity ...> ], [ f1, f2, f3, f4, f5 ] -> [ f1, f2, f3, f4,\
+ f5 ] ], f3 )
 gap> Representative( tcc );
 f3
 gap> Size( tcc );
@@ -114,7 +115,7 @@ gap> ReidemeisterZetaCoefficients( phiD );
 #
 # Abelianisation (abelian)
 #
-gap> p := NaturalHomomorphismByNormalSubgroupNC( G, DerivedSubgroup( G ) );;
+gap> p := NaturalHomomorphismByNormalSubgroupNC( G, D );;
 gap> H := Image( p );;
 gap> phiH := InducedHomomorphism( p, p, phi );;
 
@@ -133,9 +134,11 @@ true
 # Reidemeister Classes
 gap> tccH := ReidemeisterClass( phiH, H.2 );;
 gap> Print( tccH, "\n" );
-ReidemeisterClass( [ <object>, [ f1, f2 ] -> [ f1, f2 ] ], f2 )
+ReidemeisterClass( [ <object>, [ f2, f1, <identity> of ..., <identity> of ...,\
+ <identity> of ... ] -> [ f2, f1, <identity> of ..., <identity> of ..., <ident\
+ity> of ... ] ], f1 )
 gap> Representative( tccH );
-f2
+f1
 gap> 2*Size( tccH ) = Size( H );
 true
 gap> Random( tccH ) in tccH;
@@ -168,35 +171,6 @@ gap> PrintReidemeisterZeta( phiH );
 "(1-s)^(-2)*(1-s^2)^(-1)"
 gap> ReidemeisterZetaCoefficients( phiH );
 [ [ 2, 4 ], [  ] ]
-
-#
-# Extra Groups
-#
-gap> ProductCyclicGroups := function ( L ) return DirectProduct( List( L, i -> CyclicGroup( i ) ) ); end;;
-
-#
-gap> L1 := [ 2, 3, 5, 6, 24, 30 ];;
-gap> G1 := ProductCyclicGroups( L1 );;
-gap> ReidemeisterSpectrum( G1 ) = 2*DivisorsInt( Size( G1 ) / 2 );
-true
-gap> ExtendedReidemeisterSpectrum( G1 ) = DivisorsInt( Product( L1 ) );
-true
-
-#
-gap> L2 := [ 2, 3, 5, 17, 24 ];;
-gap> G2 := ProductCyclicGroups( L2 );;
-gap> ReidemeisterSpectrum( G2 ) = 4*DivisorsInt( Size( G2 ) / 4 );
-true
-gap> ExtendedReidemeisterSpectrum( G2 ) = DivisorsInt( Product( L2 ) );
-true
-
-#
-gap> L3 := [ 512, 512 ];;
-gap> G3 := ProductCyclicGroups( L3 );;
-gap> ReidemeisterSpectrum( G3 ) = DivisorsInt( 2^18 );
-true
-gap> ExtendedReidemeisterSpectrum( G3 ) = DivisorsInt( 2^18 );
-true
 
 #
 gap> STOP_TEST( "finite_pc_single.tst" );
