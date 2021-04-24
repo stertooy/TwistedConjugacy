@@ -1,82 +1,9 @@
 gap> START_TEST( "Testing Twisted Conjugacy for finite pc groups" );
 
 #
-# Pcp-group
+# Polyclic group with endomorphism
 #
-gap> G := Image( IsomorphismPcpGroup( SmallGroup( 252, 34 ) ) );;
-gap> imgs1 := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, One( G ) ];;
-gap> imgs2 := [ One( G ), G.2*G.3*G.4, G.3, G.3^2*G.4, One( G ) ];;
-gap> endo1 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs1 );;
-gap> endo2 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs2 );;
-
-# Fixed Point Group
-gap> Size( CoincidenceGroup( endo1, endo2 ) );
-14
-gap> Size( FixedPointGroup( endo1 ) );
-2
-gap> Size( FixedPointGroup( endo2 ) );
-3
-
-# Reidemeister Classes
-gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
-gap> Representative( tcc ) = One( G );
-true
-gap> Size( tcc );
-18
-gap> Random( tcc ) in tcc;
-true
-gap> ActingDomain( tcc ) = G;
-true
-gap> ActingCodomain( tcc ) = G;
-true
-gap> R := TwistedConjugacyClasses( endo1, endo2 );;
-gap> Representative( R[1] ) = One( G );
-true
-gap> Size( R );
-42
-gap> NrTwistedConjugacyClasses( endo1, endo2 ) = ReidemeisterNumber( endo2, endo1 );
-true
-gap> NrTwistedConjugacyClasses( endo1 );
-4
-gap> ReidemeisterNumber( endo2 );
-3
-gap> R1 := ReidemeisterClasses( endo1 );;
-gap> R2 := ReidemeisterClasses( endo2 );;
-gap> Representative( R1[1] ) = Representative( R2[1] );
-true
-gap> ReidemeisterClass( endo1, One( G ) ) = ReidemeisterClass( endo2, One( G ) );
-false
-
-# Twisted Conjugacy
-gap> tc := TwistedConjugation( endo1, endo2 );;
-gap> IsTwistedConjugate( endo1, endo2, Random( R[1] ), Random( R[2] ) );
-false
-gap> g1 := Random( R[10] );;
-gap> g2 := Random( R[10] );;
-gap> gc := RepresentativeTwistedConjugation( endo1, endo2, g1, g2 );;
-gap> tc( g1, gc ) = g2;   
-true
-gap> tc1 := TwistedConjugation( endo1 );;
-gap> IsTwistedConjugate( endo1, Random( R1[1] ), Random( R1[2] ) );
-false
-gap> g11 := Random( R1[3] );;
-gap> g12 := Random( R1[3] );;
-gap> g1c := RepresentativeTwistedConjugation( endo1, g11, g12 );;
-gap> tc1( g11, g1c ) = g12;   
-true
-gap> tc2 := TwistedConjugation( endo2 );;
-gap> IsTwistedConjugate( endo2, Random( R2[1] ), Random( R2[2] ) );
-false
-gap> g21 := Random( R2[3] );;
-gap> g22 := Random( R2[3] );;
-gap> g2c := RepresentativeTwistedConjugation( endo2, g21, g22 );;
-gap> tc2( g21, g2c ) = g22;   
-true
-
-#
-# PermGroup
-#
-gap> G := Image( SmallerDegreePermutationRepresentation ( Image( IsomorphismPermGroup( SmallGroup( 252, 34 ) ) ) ) );;
+gap> G := SmallGroup( 252, 34 );;
 gap> imgs1 := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, One( G ) ];;
 gap> imgs2 := [ One( G ), G.2*G.3*G.4, G.3, G.3^2*G.4, Identity(G) ];;
 gap> endo1 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs1 );;
@@ -124,6 +51,8 @@ false
 gap> tc := TwistedConjugation( endo1, endo2 );;
 gap> IsTwistedConjugate( endo1, endo2, Random( R[1] ), Random( R[2] ) );
 false
+gap> RepresentativeTwistedConjugation( endo1, endo2, Random( R[1] ), Random( R[2] ) );
+fail
 gap> g1 := Random( R[10] );;
 gap> g2 := Random( R[10] );;
 gap> gc := RepresentativeTwistedConjugation( endo1, endo2, g1, g2 );;
@@ -132,6 +61,8 @@ true
 gap> tc1 := TwistedConjugation( endo1 );;
 gap> IsTwistedConjugate( endo1, Random( R1[1] ), Random( R1[2] ) );
 false
+gap> RepresentativeTwistedConjugation( endo1, Random( R1[1] ), Random( R1[2] ) );
+fail
 gap> g11 := Random( R1[3] );;
 gap> g12 := Random( R1[3] );;
 gap> g1c := RepresentativeTwistedConjugation( endo1, g11, g12 );;
@@ -140,6 +71,8 @@ true
 gap> tc2 := TwistedConjugation( endo2 );;
 gap> IsTwistedConjugate( endo2, Random( R2[1] ), Random( R2[2] ) );
 false
+gap> RepresentativeTwistedConjugation( endo2, Random( R2[1] ), Random( R2[2] ) );
+fail
 gap> g21 := Random( R2[3] );;
 gap> g22 := Random( R2[3] );;
 gap> g2c := RepresentativeTwistedConjugation( endo2, g21, g22 );;
@@ -185,6 +118,115 @@ gap> PrintReidemeisterZeta( endo2 );
 "(1-s)^(-3)*(1-s^3)^(-1)"
 gap> ReidemeisterZetaCoefficients( endo2 );
 [ [ 3, 3, 6 ], [  ] ]
+
+#
+# Derived Subgroup (abelian)
+#
+gap> G := DerivedSubgroup( G );;
+gap> endo1 := RestrictedHomomorphism( endo1, G, G );;
+gap> endo2 := RestrictedHomomorphism( endo2, G, G );;
+
+# Fixed Point Group
+gap> Size( CoincidenceGroup( endo1, endo2 ) );
+7
+gap> Size( FixedPointGroup( endo1 ) );
+1
+gap> Size( FixedPointGroup( endo2 ) );
+3
+
+# Reidemeister Classes
+gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
+gap> Representative( tcc ) = One( G );
+true
+gap> Size( tcc );
+9
+gap> Random( tcc ) in tcc;
+true
+gap> ActingDomain( tcc ) = G;
+true
+gap> ActingCodomain( tcc ) = G;
+true
+gap> R := TwistedConjugacyClasses( endo1, endo2 );;
+gap> Representative( R[1] ) = One( G );
+true
+gap> Size( R );
+7
+gap> NrTwistedConjugacyClasses( endo1, endo2 ) = ReidemeisterNumber( endo2, endo1 );
+true
+gap> NrTwistedConjugacyClasses( endo1 );
+1
+gap> ReidemeisterNumber( endo2 );
+3
+gap> R1 := ReidemeisterClasses( endo1 );;
+gap> R2 := ReidemeisterClasses( endo2 );;
+gap> Representative( R1[1] ) = Representative( R2[1] );
+true
+gap> ReidemeisterClass( endo1, One( G ) ) = ReidemeisterClass( endo2, One( G ) );
+false
+
+# Twisted Conjugacy
+gap> tc := TwistedConjugation( endo1, endo2 );;
+gap> IsTwistedConjugate( endo1, endo2, Random( R[1] ), Random( R[2] ) );
+false
+gap> RepresentativeTwistedConjugation( endo1, endo2, Random( R[1] ), Random( R[2] ) );
+fail
+gap> g1 := Random( R[5] );;
+gap> g2 := Random( R[5] );;
+gap> gc := RepresentativeTwistedConjugation( endo1, endo2, g1, g2 );;
+gap> tc( g1, gc ) = g2;   
+true
+gap> tc1 := TwistedConjugation( endo1 );;
+gap> g11 := Random( G );;
+gap> g12 := Random( G );;
+gap> g1c := RepresentativeTwistedConjugation( endo1, g11, g12 );;
+gap> tc1( g11, g1c ) = g12;   
+true
+gap> tc2 := TwistedConjugation( endo2 );;
+gap> IsTwistedConjugate( endo2, Random( R2[1] ), Random( R2[2] ) );
+false
+gap> RepresentativeTwistedConjugation( endo2, Random( R2[1] ), Random( R2[2] ) );
+fail
+gap> g21 := Random( R2[3] );;
+gap> g22 := Random( R2[3] );;
+gap> g2c := RepresentativeTwistedConjugation( endo2, g21, g22 );;
+gap> tc2( g21, g2c ) = g22;   
+true
+
+# Reidemeister Spectrum
+gap> ReidemeisterSpectrum( G );
+[ 1, 3, 7, 9, 21, 63 ]
+gap> ExtendedReidemeisterSpectrum( G );
+[ 1, 3, 7, 9, 21, 63 ]
+
+# Reidemeister Zeta
+gap> IsRationalReidemeisterZeta( endo1, endo2 );
+true
+gap> zeta := ReidemeisterZeta( endo1, endo2 );;
+gap> zeta( 10/3 );
+-1144561273430837494885949696427/
+5872800730587046310315302901773887552120493728995593112131303
+gap> PrintReidemeisterZeta( endo1, endo2 );
+"(1-s)^(-7)*(1-s^2)^(-28)"
+gap> ReidemeisterZetaCoefficients( endo1, endo2 );
+[ [ 7, 63 ], [  ] ]
+gap> IsRationalReidemeisterZeta( endo1 );
+true
+gap> zeta1 := ReidemeisterZeta( endo1 );;
+gap> zeta1( 10/3 );
+-19683/636535627
+gap> PrintReidemeisterZeta( endo1 );
+"(1-s)^(-1)*(1-s^2)^(-1)*(1-s^6)^(-1)"
+gap> ReidemeisterZetaCoefficients( endo1 );
+[ [ 1, 3, 1, 3, 1, 9 ], [  ] ]
+gap> IsRationalReidemeisterZeta( endo2 );
+true
+gap> zeta2 := ReidemeisterZeta( endo2 );;
+gap> zeta2( 10/3 );
+-19683/324728047
+gap> PrintReidemeisterZeta( endo2 );
+"(1-s)^(-3)*(1-s^3)^(-2)"
+gap> ReidemeisterZetaCoefficients( endo2 );
+[ [ 3, 3, 9 ], [  ] ]
 
 #
 gap> STOP_TEST( "finite_pc_single.tst" );
