@@ -3,10 +3,6 @@ gap> START_TEST( "Testing Twisted Conjugacy for finite pc groups" );
 #
 # Pcp-group
 #
-gap> G := SmallGroup( 16, 11 );;
-gap> AllHomomorphismClasses( G, G );;
-gap> H := Image( IsomorphismPcpGroup( G ) );;
-gap> AllHomomorphismClasses( H, H );;
 gap> G := Image( IsomorphismPcpGroup( SmallGroup( 252, 34 ) ) );;
 gap> imgs1 := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, One( G ) ];;
 gap> imgs2 := [ One( G ), G.2*G.3*G.4, G.3, G.3^2*G.4, One( G ) ];;
@@ -76,47 +72,6 @@ gap> g22 := Random( R2[3] );;
 gap> g2c := RepresentativeTwistedConjugation( endo2, g21, g22 );;
 gap> tc2( g21, g2c ) = g22;   
 true
-
-# Reidemeister Spectrum
-gap> ReidemeisterSpectrum( G );
-[ 4, 6, 8, 10, 12, 15, 20, 30 ]
-gap> p := NaturalHomomorphismByNormalSubgroup( G, Subgroup( G, [ G.3, G.4 ] ) );;
-gap> Q := Image( p );; # FactorGroup( G, Subgroup( G, [ G.3, G.4 ] ) );;
-gap> ReidemeisterSpectrum( Q );
-[ 2, 4, 8, 10 ]
-gap> ExtendedReidemeisterSpectrum( Q );
-[ 1, 2, 4, 5, 8, 10 ]
-gap> CoincidenceReidemeisterSpectrum( Q );
-[ 1, 2, 4, 5, 7, 8, 10, 14, 16, 28 ]
-
-# Reidemeister Zeta
-gap> IsRationalReidemeisterZeta( endo1, endo2 );
-true
-gap> zeta := ReidemeisterZeta( endo1, endo2 );;
-gap> zeta( 10/3 );
-109418989131512359209/311973482284542371301330321821976049
-gap> PrintReidemeisterZeta( endo1, endo2 );
-"(1-s)^(-42)"
-gap> ReidemeisterZetaCoefficients( endo1, endo2 );
-[ [ 42 ], [  ] ]
-gap> IsRationalReidemeisterZeta( endo1 );
-true
-gap> zeta1 := ReidemeisterZeta( endo1 );;
-gap> zeta1( 10/3 );
--531441/206851765939
-gap> PrintReidemeisterZeta( endo1 );
-"(1-s)^(-4)*(1-s^2)^(-1)*(1-s^3)^(-2)"
-gap> ReidemeisterZetaCoefficients( endo1 );
-[ [ 4, 6, 10, 6, 4, 12 ], [  ] ]
-gap> IsRationalReidemeisterZeta( endo2 );
-true
-gap> zeta2 := ReidemeisterZeta( endo2 );;
-gap> zeta2( 10/3 );
-729/333739
-gap> PrintReidemeisterZeta( endo2 );
-"(1-s)^(-3)*(1-s^3)^(-1)"
-gap> ReidemeisterZetaCoefficients( endo2 );
-[ [ 3, 3, 6 ], [  ] ]
 
 #
 # PermGroup
