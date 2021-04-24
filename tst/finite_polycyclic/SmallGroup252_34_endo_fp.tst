@@ -9,25 +9,13 @@ gap> imgs := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, Identity(
 gap> phi := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs );;
 
 # Fixed Point Group
-gap> FixedPointGroup( phi ) = SubgroupNC( G, [ G.1*G.5^6 ] );
-true
-
-# Twisted Conjugacy
-gap> tc := TwistedConjugation( phi );;
-gap> IsTwistedConjugate( phi, G.2, G.3 );
-false
-gap> g := RepresentativeTwistedConjugation( phi, G.1, G.3 );;
-gap> tc( G.1, g ) = G.3;   
-true
+gap> Size( FixedPointGroup( phi ) );
+2
 
 # Reidemeister Classes
-gap> tcc := ReidemeisterClass( phi, G.3 );;
-gap> Print( tcc, "\n" );
-ReidemeisterClass( [ [ f1, f2, f3, f4, f5 ] -> [ f1*f5^6, f1*f2*f3^2*f4^2*f5^6\
-, f3^2, f3*f4^2, <identity ...> ], [ f1, f2, f3, f4, f5 ] -> [ f1, f2, f3, f4,\
- f5 ] ], f3 )
-gap> Representative( tcc );
-f3
+gap> tcc := ReidemeisterClass( phi, One( G ) );;
+gap> Representative( tcc ) = One( G );
+true
 gap> Size( tcc );
 126
 gap> Random( tcc ) in tcc;
@@ -41,6 +29,16 @@ gap> Size( R );
 4
 gap> NrTwistedConjugacyClasses( phi );
 4
+
+# Twisted Conjugacy
+gap> tc := TwistedConjugation( phi );;
+gap> IsTwistedConjugate( phi, Random( R[1] ), Random( R[2] ) );
+false
+gap> g1 := Random( R[3] );;
+gap> g2 := Random( R[3] );;
+gap> g := RepresentativeTwistedConjugation( phi, g1, g2 );;
+gap> tc( g1, g ) = g2;   
+true
 
 # Reidemeister Spectrum
 gap> ReidemeisterSpectrum( G );
@@ -67,18 +65,10 @@ gap> phiD := RestrictedHomomorphism( phi, D, D );;
 gap> IsTrivial( FixedPointGroup( phiD ) );
 true
 
-# Twisted Conjugacy
-gap> tcD := TwistedConjugation( phiD );;
-gap> d := RepresentativeTwistedConjugation( phi, D.2, D.3 );;
-gap> tcD( D.2, d ) = D.3;   
-true
-
 # Reidemeister Classes
-gap> tccD := ReidemeisterClass( phiD, D.3 );;
-gap> Print( tccD, "\n" );
-ReidemeisterClass( [ <object>, [ f3, f4, f5 ] -> [ f3, f4, f5 ] ], f5 )
-gap> Representative( tccD );
-f5
+gap> tccD := ReidemeisterClass( phiD, D.1 );;
+gap> Representative( tccD ) = D.1;
+true
 gap> Size( tccD ) = Size( D );
 true
 gap> Random( tccD ) in tccD;
@@ -92,6 +82,14 @@ gap> Size( RD );
 1
 gap> NrTwistedConjugacyClasses( phiD );
 1
+
+# Twisted Conjugacy
+gap> tcD := TwistedConjugation( phiD );;
+gap> d1 := Random( D );;
+gap> d2 := Random( D );;
+gap> d := RepresentativeTwistedConjugation( phi, d1, d2 );;
+gap> tcD( d1, d ) = d2;   
+true
 
 # Reidemeister Spectrum
 gap> ReidemeisterSpectrum( D );
@@ -120,25 +118,15 @@ gap> H := Image( p );;
 gap> phiH := InducedHomomorphism( p, p, phi );;
 
 # Fixed Point Group
-gap> FixedPointGroup( phiH ) = Subgroup( H, [ H.1 ] );
+gap> FixH := FixedPointGroup( phiH );;
+gap> FixH = Image( p, FixedPointGroup( phi ) );
 true
-
-# Twisted Conjugacy
-gap> tcH := TwistedConjugation( phiH );;
-gap> IsTwistedConjugate( phiH, H.1, H.2 );
-false
-gap> h := RepresentativeTwistedConjugation( phiH, H.2, H.1*H.2 );;
-gap> tcH( H.2, h ) = H.1*H.2;   
-true
+gap> h1 := MinimalGeneratingSet( FixH )[1];;
 
 # Reidemeister Classes
-gap> tccH := ReidemeisterClass( phiH, H.2 );;
-gap> Print( tccH, "\n" );
-ReidemeisterClass( [ <object>, [ f2, f1, <identity> of ..., <identity> of ...,\
- <identity> of ... ] -> [ f2, f1, <identity> of ..., <identity> of ..., <ident\
-ity> of ... ] ], f1 )
-gap> Representative( tccH );
-f1
+gap> tccH := ReidemeisterClass( phiH, h1 );;
+gap> Representative( tccH ) = h1;
+true
 gap> 2*Size( tccH ) = Size( H );
 true
 gap> Random( tccH ) in tccH;
@@ -152,6 +140,15 @@ gap> Size( RH );
 2
 gap> NrTwistedConjugacyClasses( phiH );
 2
+
+# Twisted Conjugacy
+gap> tcH := TwistedConjugation( phiH );;
+gap> h2 := Random( RH[2] );;
+gap> IsTwistedConjugate( phiH, h1, h2 );
+false
+gap> h := RepresentativeTwistedConjugation( phiH, h2, h1*h2 );;
+gap> tcH( h2, h ) = h1*h2;   
+true
 
 # Reidemeister Spectrum
 gap> ReidemeisterSpectrum(H);

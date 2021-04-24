@@ -8,29 +8,13 @@ gap> imgs := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, Identity(
 gap> phi := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs );;
 
 # Fixed Point Group
-gap> FixedPointGroup( phi ) = SubgroupNC( G, [ G.1*G.5^6 ] );
-true
-
-# Twisted Conjugacy
-gap> tc := TwistedConjugation( phi );;
-gap> IsTwistedConjugate( phi, G.2, G.3 );
-false
-gap> g := RepresentativeTwistedConjugation( phi, G.1, G.3 );;
-gap> tc( G.1, g ) = G.3;   
-true
+gap> Size( FixedPointGroup( phi ) );
+2
 
 # Reidemeister Classes
-gap> tcc := ReidemeisterClass( phi, G.3 );;
-gap> Print( tcc, "\n" );
-ReidemeisterClass( [ [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,\
-5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ] -> [ (10,16)(11,1\
-5)(12,14), (1,9)(2,8)(3,7)(4,6)(10,16)(11,15)(12,14), (1,4,2)(3,7,5)(6,9,8), (\
-1,8,7)(2,9,3)(4,6,5), () ], [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,\
-2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ] -> [ (11,1\
-6)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(\
-4,7,9), (10,11,12,13,14,15,16) ] ], (1,2,4)(3,5,7)(6,8,9) )
-gap> Representative( tcc );
-(1,2,4)(3,5,7)(6,8,9)
+gap> tcc := ReidemeisterClass( phi, One( G ) );;
+gap> Representative( tcc ) = One( G );
+true
 gap> Size( tcc );
 126
 gap> Random( tcc ) in tcc;
@@ -44,6 +28,16 @@ gap> Size( R );
 4
 gap> NrTwistedConjugacyClasses( phi );
 4
+
+# Twisted Conjugacy
+gap> tc := TwistedConjugation( phi );;
+gap> IsTwistedConjugate( phi, Random( R[1] ), Random( R[2] ) );
+false
+gap> g1 := Random( R[3] );;
+gap> g2 := Random( R[3] );;
+gap> g := RepresentativeTwistedConjugation( phi, g1, g2 );;
+gap> tc( g1, g ) = g2;   
+true
 
 # Reidemeister Spectrum
 gap> ReidemeisterSpectrum( G );
@@ -70,20 +64,10 @@ gap> phiD := RestrictedHomomorphism( phi, D, D );;
 gap> IsTrivial( FixedPointGroup( phiD ) );
 true
 
-# Twisted Conjugacy
-gap> tcD := TwistedConjugation( phiD );;
-gap> d := RepresentativeTwistedConjugation( phi, D.2, D.3 );;
-gap> tcD( D.2, d ) = D.3;   
-true
-
 # Reidemeister Classes
-gap> tccD := ReidemeisterClass( phiD, D.3 );;
-gap> Print( tccD, "\n" );
-ReidemeisterClass( [ <object>, [ (10,15,13,11,16,14,12), (1,8,7)(2,9,3)(4,6,5)\
-, (1,2,4)(3,5,7)(6,8,9) ] -> [ (10,15,13,11,16,14,12), (1,8,7)(2,9,3)(4,6,5), \
-(1,2,4)(3,5,7)(6,8,9) ] ], (1,2,4)(3,5,7)(6,8,9) )
-gap> Representative( tccD );
-(1,2,4)(3,5,7)(6,8,9)
+gap> tccD := ReidemeisterClass( phiD, D.1 );;
+gap> Representative( tccD ) = D.1;
+true
 gap> Size( tccD ) = Size( D );
 true
 gap> Random( tccD ) in tccD;
@@ -97,6 +81,14 @@ gap> Size( RD );
 1
 gap> NrTwistedConjugacyClasses( phiD );
 1
+
+# Twisted Conjugacy
+gap> tcD := TwistedConjugation( phiD );;
+gap> d1 := Random( D );;
+gap> d2 := Random( D );;
+gap> d := RepresentativeTwistedConjugation( phi, d1, d2 );;
+gap> tcD( d1, d ) = d2;   
+true
 
 # Reidemeister Spectrum
 gap> ReidemeisterSpectrum( D );
@@ -125,23 +117,15 @@ gap> H := Image( p );;
 gap> phiH := InducedHomomorphism( p, p, phi );;
 
 # Fixed Point Group
-gap> FixedPointGroup( phiH ) = Subgroup( H, [ H.2 ] );
+gap> FixH := FixedPointGroup( phiH );;
+gap> FixH = Image( p, FixedPointGroup( phi ) );
 true
-
-# Twisted Conjugacy
-gap> tcH := TwistedConjugation( phiH );;
-gap> IsTwistedConjugate( phiH, H.1, H.2 );
-false
-gap> h := RepresentativeTwistedConjugation( phiH, H.1, H.1*H.2 );;
-gap> tcH( H.1, h ) = H.1*H.2;   
-true
+gap> h1 := MinimalGeneratingSet( FixH )[1];;
 
 # Reidemeister Classes
-gap> tccH := ReidemeisterClass( phiH, H.2 );;
-gap> Print( tccH, "\n" );
-ReidemeisterClass( [ <object>, [ f1, f2 ] -> [ f1, f2 ] ], f2 )
-gap> Representative( tccH );
-f2
+gap> tccH := ReidemeisterClass( phiH, h1 );;
+gap> Representative( tccH ) = h1;
+true
 gap> 2*Size( tccH ) = Size( H );
 true
 gap> Random( tccH ) in tccH;
@@ -155,6 +139,15 @@ gap> Size( RH );
 2
 gap> NrTwistedConjugacyClasses( phiH );
 2
+
+# Twisted Conjugacy
+gap> tcH := TwistedConjugation( phiH );;
+gap> h2 := Random( RH[2] );;
+gap> IsTwistedConjugate( phiH, h1, h2 );
+false
+gap> h := RepresentativeTwistedConjugation( phiH, h2, h1*h2 );;
+gap> tcH( h2, h ) = h1*h2;   
+true
 
 # Reidemeister Spectrum
 gap> ReidemeisterSpectrum(H);

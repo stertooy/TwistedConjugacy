@@ -1,7 +1,18 @@
 gap> START_TEST( "Testing Twisted Conjugacy for finite pc groups" );
 
 #
-# Extra Groups
+# Quick, stupid tests for PrintObj
+#
+gap> T := TrivialGroup();;
+gap> Print( ReidemeisterClass( IdentityMapping( T ), One( T ) ), "\n" );
+ReidemeisterClass( [ [ ] -> [ ], [ ] -> [ ] ], <identity> of ... )
+gap> C := CyclicGroup( 2 );;
+gap> phi := GroupHomomorphismByImagesNC( C, C, [ C.1 ], [ C.1^2 ] );;
+gap> Print( ReidemeisterClass( phi, C.1 ) , "\n" );
+ReidemeisterClass( [ [ f1 ] -> [ <identity> of ... ], [ f1 ] -> [ f1 ] ], f1 )
+
+#
+# Extra tests for Reidemeister Spectra
 #
 gap> ProductCyclicGroups := function ( L ) return DirectProduct( List( L, i -> CyclicGroup( i ) ) ); end;;
 
