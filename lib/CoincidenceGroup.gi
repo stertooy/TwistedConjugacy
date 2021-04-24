@@ -1,26 +1,5 @@
 ###############################################################################
 ##
-## FixedPointGroup( endo )
-##
-InstallMethod(
-	FixedPointGroup,
-	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	function ( endo )
-		return CoincidenceGroup( endo, IdentityMapping( Source( endo ) ) );
-	end
-);
-
-RedispatchOnCondition(
-	FixedPointGroup,
-	true, 
-	[ IsGroupHomomorphism ],
-	[ IsEndoGeneralMapping ],
-	0
-);
-
-
-###############################################################################
-##
 ## CoincidenceGroupByFiniteCoin@( hom1, hom2, M )
 ##
 CoincidenceGroupByFiniteCoin@ := function ( hom1, hom2, M )
@@ -91,41 +70,6 @@ end;
 ##
 InstallMethod(
 	CoincidenceGroup,
-	"for finite pcp range",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	5,
-	function ( hom1, hom2 )
-		local G, iso;
-		#TryNextMethod();
-		G := Range( hom1 );
-		if not IsFinite( G ) or not IsPcpGroup( G ) then
-			TryNextMethod();
-		fi;
-		iso := IsomorphismPcGroup( G );
-		return CoincidenceGroup( hom1*iso, hom2*iso );
-	end
-);
-
-InstallMethod(
-	CoincidenceGroup,
-	"for finite pcp source",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	5,
-	function ( hom1, hom2 )
-		local H, iso, inv;
-		#TryNextMethod();
-		H := Source( hom1 );
-		if not IsFinite( H ) or not IsPcpGroup( H ) then
-			TryNextMethod();
-		fi;
-		iso := IsomorphismPcGroup( H );
-		inv := InverseGeneralMapping( iso );
-		return Image( inv, CoincidenceGroup( inv*hom1, inv*hom2 ) );
-	end
-);
-
-InstallMethod(
-	CoincidenceGroup,
 	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	4,
@@ -150,8 +94,8 @@ InstallMethod(
 	3,
 	function ( hom1, hom2 )
 		if (
-			not IsAbelian( Range( hom1 ) ) or
-			not IsPolycyclicGroup( Source( hom1 ) )
+			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsAbelian( Range( hom1 ) )
 		) then
 			TryNextMethod();
 		fi;
@@ -168,8 +112,9 @@ InstallMethod(
 		local G, H;
 		G := Range( hom1 );
 		if (
-			not IsNilpotentGroup( G ) or IsAbelian( G ) or
-			not IsPolycyclicGroup( Source( hom1 ) )
+			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsNilpotentGroup( G ) or
+			IsAbelian( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -186,8 +131,9 @@ InstallMethod(
 		local G;
 		G := Range( hom1 );
 		if (
-			not IsNilpotentByFinite( G ) or IsNilpotent( G ) or
-			not IsPolycyclicGroup( Source( hom1 ) )
+			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsNilpotentByFinite( G ) or
+			IsNilpotent( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -206,9 +152,10 @@ InstallMethod(
 	function ( hom1, hom2 )
 		local G;
 		G := Range( hom1 );
-		if ( 
-			not IsPolycyclicGroup( G ) or IsNilpotentByFinite( G ) or
-			not IsPolycyclicGroup( Source( hom1 ) )
+		if (
+			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsPolycyclicGroup( G ) or
+			IsNilpotentByFinite( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -217,4 +164,25 @@ InstallMethod(
 			DerivedSubgroup( G )
 		);
 	end
+);
+
+
+###############################################################################
+##
+## FixedPointGroup( endo )
+##
+InstallMethod(
+	FixedPointGroup,
+	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
+	function ( endo )
+		return CoincidenceGroup( endo, IdentityMapping( Source( endo ) ) );
+	end
+);
+
+RedispatchOnCondition(
+	FixedPointGroup,
+	true, 
+	[ IsGroupHomomorphism ],
+	[ IsEndoGeneralMapping ],
+	0
 );

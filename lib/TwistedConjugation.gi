@@ -204,45 +204,6 @@ end;
 ##
 InstallMethod(
 	RepTwistConjToId,
-	"for finite pcp range",
-	[ IsGroupHomomorphism, IsGroupHomomorphism,
-	  IsMultiplicativeElementWithInverse ],
-	6,
-	function ( hom1, hom2, g )
-		local G, iso;
-		G := Range( hom1 );
-		if not IsFinite( G ) or not IsPcpGroup( G ) then
-			TryNextMethod();
-		fi;
-		iso := IsomorphismPcGroup( G );
-		return RepTwistConjToId( hom1*iso, hom2*iso, g^iso );
-	end
-);
-
-InstallMethod(
-	RepTwistConjToId,
-	"for finite pcp source",
-	[ IsGroupHomomorphism, IsGroupHomomorphism,
-	  IsMultiplicativeElementWithInverse ],
-	5,
-	function ( hom1, hom2, g )
-		local H, iso, inv, rep;
-		H := Source( hom1 );
-		if not IsFinite( H ) or not IsPcpGroup( H ) then
-			TryNextMethod();
-		fi;
-		iso := IsomorphismPcGroup( H );
-		inv := InverseGeneralMapping( iso );
-		rep := RepTwistConjToId( inv*hom1, inv*hom2, g );
-		if rep = fail then
-			return fail;
-		fi;
-		return rep^inv;
-	end
-);
-
-InstallMethod(
-	RepTwistConjToId,
 	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
@@ -270,8 +231,8 @@ InstallMethod(
 	function ( hom1, hom2, g )
 		local diff;
 		if (
-			not IsAbelian( Range( hom1 ) ) or
-			not IsPolycyclicGroup ( Source( hom1 ) )
+			not IsPolycyclicGroup ( Source( hom1 ) ) or
+			not IsAbelian( Range( hom1 ) )
 		) then
 			TryNextMethod();
 		fi;
@@ -293,8 +254,9 @@ InstallMethod(
 		local G;
 		G := Range( hom1 );
 		if (
-			not IsNilpotent( G ) or IsAbelian( G ) or
-			not IsPolycyclicGroup( Source( hom1 ) )
+			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsNilpotent( G ) or
+			IsAbelian( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -312,8 +274,9 @@ InstallMethod(
 		local G;
 		G := Range( hom1 );
 		if (
-			not IsNilpotentByFinite( G ) or	IsNilpotent( G ) or
-			not IsPolycyclicGroup( Source( hom1 ) )
+			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsNilpotentByFinite( G ) or
+			IsNilpotent( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -335,8 +298,9 @@ InstallMethod(
 		local G;
 		G := Range( hom1 );
 		if (
-			not IsPolycyclicGroup( G ) or IsNilpotentByFinite( G ) or
-			not IsPolycyclicGroup( Source( hom1 ) )
+			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsPolycyclicGroup( G ) or
+			IsNilpotentByFinite( G )
 		) then
 			TryNextMethod();
 		fi;

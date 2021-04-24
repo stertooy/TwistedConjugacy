@@ -11,8 +11,11 @@ InstallMethod(
 		local G, H;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if not IsFinite( G ) or not IsFinite( H ) or
-		not IsAbelian( G ) then
+		if  (
+			not IsFinite( H ) or
+			not IsFinite( G ) or
+			not IsAbelian( G )
+		) then
 			TryNextMethod();
 		fi;
 		return Size( G ) / Size( H ) * Size( CoincidenceGroup( hom1, hom2 ) );
@@ -28,8 +31,8 @@ InstallMethod(
 		local G;
 		G := Range( hom1 );
 		if (
-			not IsAbelian( G ) or 
-			not IsPolycyclicGroup( Source( hom1 ) )
+			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsAbelian( G )
 		) then
 			TryNextMethod();
 		fi;

@@ -85,7 +85,7 @@ InstallMethod(
 				homStrings[i] := PrintString( homs[i] );
 			fi;
 		od;
-		Print( Concatenation(
+		Print(
 			"ReidemeisterClass( [ ",
 			homStrings[1],
 			", ",
@@ -93,7 +93,7 @@ InstallMethod(
 			" ], ",
 			PrintString( Representative( tcc ) ),
 			" )"
-		));
+		);
 		return;
 	end
 );
@@ -103,9 +103,10 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
-		local tc;
-		tc := FunctionAction( tcc );
-		return tc( Representative( tcc ), Random( ActingDomain( tcc ) ) );
+		return FunctionAction( tcc )(
+			Representative( tcc ),
+			Random( ActingDomain( tcc ) )
+		);
 	end
 );
 
@@ -118,10 +119,9 @@ InstallMethod(
 		G := ActingCodomain( tcc );
 		H := ActingDomain( tcc );
 		if (
-			not IsFinite( H ) and (
-				not IsPolycyclicGroup( G ) or
-				not IsPolycyclicGroup( H )
-			)
+			( not IsPolycyclicGroup( H ) or 
+			  not IsPolycyclicGroup( G )    ) and
+			not IsFinite( H )
 		) then
 			TryNextMethod();
 		fi;
@@ -138,14 +138,13 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
-		local G, H, homs, g, Coin, tc;
+		local G, H, homs, g, Coin;
 		G := ActingCodomain( tcc );
 		H := ActingDomain( tcc );
 		if (
-			not IsFinite( H ) and (
-				not IsPolycyclicGroup( G ) or
-				not IsPolycyclicGroup( H )
-			)
+			( not IsPolycyclicGroup( H ) or 
+			  not IsPolycyclicGroup( G )    ) and
+			not IsFinite( H )
 		) then
 			TryNextMethod();
 		fi;
@@ -158,8 +157,10 @@ InstallMethod(
 		if Index( H, Coin ) = infinity then
 			TryNextMethod();
 		else
-			tc := FunctionAction( tcc );
-			return List( RightTransversal( H, Coin ), h -> tc( g, h ) );
+			return List(
+				RightTransversal( H, Coin ),
+				h -> FunctionAction( tcc )( g, h )
+			);
 		fi;
 	end
 );
@@ -306,63 +307,25 @@ end;
 ##
 InstallMethod(
 	ReidemeisterClasses,
-	"for finite pcp range",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	6,
-	function ( hom1, hom2 )
-		local G, iso, Rcl;
-		# TryNextMethod();
-		G := Range( hom1 );
-		if not IsFinite( G ) or not IsPcpGroup( G ) then
-			TryNextMethod();
-		fi;
-		iso := IsomorphismPcGroup( G );
-		Rcl := ReidemeisterClasses( hom1*iso, hom2*iso );
-		if Rcl = fail then
-			return fail;
-		fi;
-		return List( Rcl, tcc -> ReidemeisterClass( hom1, hom2, PreImagesRepresentative(
-			iso, Representative( tcc ) ) ) );
-	end
-);
-
-InstallMethod(
-	ReidemeisterClasses,
-	"for finite pcp source",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	5,
-	function ( hom1, hom2 )
-		local G, H, iso, inv, Rcl;
-		# TryNextMethod();
-		H := Source( hom1 );
-		if not IsFinite( H ) or not IsPcpGroup( H ) then
-			TryNextMethod();
-		fi;
-		iso := IsomorphismPcGroup( H );
-		inv := InverseGeneralMapping( iso );
-		Rcl := ReidemeisterClasses( inv*hom1, inv*hom2 );
-		if Rcl = fail then
-			return fail;
-		fi;
-		return List( Rcl, tcc -> ReidemeisterClass( hom1, hom2, Representative( tcc ) ) );
-	end
-);
-
-InstallMethod(
-	ReidemeisterClasses,
 	"for finite groups",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	4,
 	function ( hom1, hom2 )
-		local G, H, tc, Rcl, orbit;
+		local G, H, Rcl, orbit;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if not IsFinite( G ) or not IsFinite( H ) then
+		if (
+			not IsFinite( H ) or
+			not IsFinite( G )
+		) then
 			TryNextMethod();
 		fi;
-		tc := TwistedConjugation( hom1, hom2 );
 		Rcl := [];
-		for orbit in OrbitsDomain( H, AsSSortedListNonstored( G ), tc ) do
+		for orbit in OrbitsDomain( 
+			H,
+			AsSSortedListNonstored( G ),
+			TwistedConjugation( hom1, hom2 )
+		) do
 			if One( G ) in orbit then
 				Add( Rcl, ReidemeisterClass( hom1, hom2, One( G ) ), 1 );
 			else
@@ -382,8 +345,8 @@ InstallMethod(
 		local G, H, N, Rcl, p, R, pg;
 		G := Range( hom1 );
 		if (
-			not IsAbelian( G ) or 
-			not IsPolycyclicGroup ( Source( hom1 ) )
+			not IsPolycyclicGroup ( Source( hom1 ) ) or
+			not IsAbelian( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -417,8 +380,9 @@ InstallMethod(
 		local G;
 		G := Range( hom1 );
 		if (
-			not IsNilpotent( G ) or IsAbelian( G ) or
-			not IsPolycyclicGroup( Source( hom1 ) )
+			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsNilpotent( G ) or
+			IsAbelian( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -435,8 +399,9 @@ InstallMethod(
 		local G;
 		G := Range( hom1 );
 		if (
-			not IsNilpotentByFinite( G ) or IsNilpotent( G ) or
-			not IsPolycyclicGroup( Source( hom1 ) )
+			not IsPolycyclicGroup( Source( hom1 ) ) or 
+			not IsNilpotentByFinite( G ) or
+			IsNilpotent( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -455,8 +420,9 @@ InstallMethod(
 		local G;
 		G := Range( hom1 );
 		if (
-			not IsPolycyclicGroup( G ) or IsNilpotentByFinite( G ) or
-			not IsPolycyclicGroup( Source( hom1 ) )
+			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsPolycyclicGroup( G ) or
+			IsNilpotentByFinite( G )
 		) then
 			TryNextMethod();
 		fi;
