@@ -3,8 +3,8 @@ gap> START_TEST( "Testing Double Twisted Conjugacy for finite pc groups" );
 #
 # Polyclic groups with two homomorphisms
 #
-gap> G := Image( SmallerDegreePermutationRepresentation( Image( IsomorphismPermGroup( SmallGroup( 252, 34 ) ) ) ) );;
-gap> H := Image( SmallerDegreePermutationRepresentation( Image( IsomorphismPermGroup( SmallGroup( 84, 5 ) ) ) ) );;
+gap> G := Group( [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ] );;
+gap> H := Group( [ (2,7)(3,6)(4,5)(8,9,10,12)(11,17,14,19)(13,18,16,15), (8,10)(9,12)(11,14)(13,16)(15,18)(17,19), (8,11,15)(9,13,17)(10,14,18)(12,16,19), (1,2,3,4,5,6,7) ] );;
 gap> gens := [ H.1, H.3*H.4 ];;
 gap> imgs1 := [ G.2*G.4^2, One( G ) ];;
 gap> imgs2 := [ G.1*G.2*G.3*G.5, G.3*G.4^2*G.5^3 ];; 
