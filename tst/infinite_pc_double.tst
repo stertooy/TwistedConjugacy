@@ -19,6 +19,8 @@ ReidemeisterClass( [ [ g1, g2, g3, g4 ] -> [ g1*g4^-1, g3, g2*g3^2*g4^2, g4^-1\
  ], [ g1, g2, g3, g4 ] -> [ g1, g2^2*g3*g4^2, g2*g3*g4, g4 ] ], g3 )
 gap> Size( tcc );
 infinity
+gap> List( tcc );
+fail
 gap> Representative( tcc );
 g3
 gap> Random( tcc ) in tcc;

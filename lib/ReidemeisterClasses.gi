@@ -156,8 +156,8 @@ InstallMethod(
 			homs[1] * InnerAutomorphismNC( G, g^-1 ),
 			homs[2]
 		);
-		if Index( H, Coin ) = infinity then
-			TryNextMethod();
+		if IndexNC( H, Coin ) = infinity then
+			return fail;
 		else
 			return List(
 				RightTransversal( H, Coin ),
