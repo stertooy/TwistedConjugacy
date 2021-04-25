@@ -1,7 +1,7 @@
 gap> START_TEST( "Testing Twisted Conjugacy for finite pc groups" );
 
 #
-# Pcp-group
+# Finite Pcp-group
 #
 gap> G := Image( IsomorphismPcpGroup( SmallGroup( 252, 34 ) ) );;
 gap> imgs1 := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, One( G ) ];;
