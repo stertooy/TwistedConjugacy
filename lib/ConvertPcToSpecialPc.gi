@@ -6,14 +6,13 @@ InstallMethod(
 	CoincidenceGroup,
 	"for finite pcp range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	101,
+	111,
 	function ( hom1, hom2 )
 		local G, iso;
 		G := Range( hom1 );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -26,14 +25,13 @@ InstallMethod(
 	CoincidenceGroup,
 	"for finite pcp source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	100,
+	110,
 	function ( hom1, hom2 )
 		local H, iso;
 		H := Source( hom1 );
 		if (
 			HasSpecialPcgs( H ) or
-			not IsPolycyclicGroup( H ) or
-			not IsFinite( H )
+			not IsPcGroup( H )
 		) then
 			TryNextMethod();
 		fi;
@@ -51,14 +49,13 @@ InstallMethod(
 	FixedPointGroup,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	100,
+	110,
 	function ( endo )
 		local G, iso, inv;
 		G := Range( endo );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -77,14 +74,13 @@ InstallMethod(
 	ReidemeisterClasses,
 	"for finite pcp range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	101,
+	111,
 	function ( hom1, hom2 )
 		local G, iso, Rcl;
 		G := Range( hom1 );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -101,14 +97,13 @@ InstallMethod(
 	ReidemeisterClasses,
 	"for finite pcp source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	100,
+	110,
 	function ( hom1, hom2 )
 		local H, iso, Rcl;
 		H := Source( hom1 );
 		if (
 			HasSpecialPcgs( H ) or
-			not IsPolycyclicGroup( H ) or
-			not IsFinite( H )
+			not IsPcGroup( H )
 		) then
 			TryNextMethod();
 		fi;
@@ -133,14 +128,13 @@ InstallOtherMethod(
 	ReidemeisterClasses,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	100,
+	110,
 	function ( endo )
 		local G, iso, inv, Rcl;
 		G := Range( endo );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -163,14 +157,13 @@ InstallMethod(
 	ReidemeisterNumber,
 	"for finite pcp range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	101,
+	111,
 	function ( hom1, hom2 )
 		local G, iso;
 		G := Range( hom1 );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -183,14 +176,13 @@ InstallMethod(
 	ReidemeisterNumber,
 	"for finite pcp source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	100,
+	110,
 	function ( hom1, hom2 )
 		local H, iso;
 		H := Source( hom1 );
 		if (
 			HasSpecialPcgs( H ) or
-			not IsPolycyclicGroup( H ) or
-			not IsFinite( H )
+			not IsPcGroup( H )
 		) then
 			TryNextMethod();
 		fi;
@@ -208,14 +200,13 @@ InstallOtherMethod(
 	ReidemeisterNumber,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	101,
+	111,
 	function ( endo )
 		local G, iso;
 		G := Range( endo );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -233,11 +224,11 @@ InstallMethod(
 	ReidemeisterSpectrum, 
 	"turn group into SpecialPcGroup",
 	[ IsGroup and IsFinite ],
-	100,
+	110,
 	function ( G )
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -254,11 +245,11 @@ InstallMethod(
 	ExtendedReidemeisterSpectrum, 
 	"turn group into SpecialPcGroup",
 	[ IsGroup and IsFinite ],
-	100,
+	110,
 	function ( G )
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -277,11 +268,11 @@ InstallMethod(
 	CoincidenceReidemeisterSpectrum, 
 	"for finite pcp range",
 	[ IsGroup and IsFinite, IsGroup and IsFinite ],
-	101,
+	111,
 	function ( H, G )
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -296,11 +287,11 @@ InstallMethod(
 	CoincidenceReidemeisterSpectrum, 
 	"for finite pcp source",
 	[ IsGroup and IsFinite, IsGroup and IsFinite ],
-	100,
+	110,
 	function ( H, G )
 		if (
 			HasSpecialPcgs( H ) or
-			not IsPolycyclicGroup( H )
+			not IsPcGroup( H )
 		) then
 			TryNextMethod();
 		fi;
@@ -320,11 +311,11 @@ InstallMethod(
 	CoincidenceReidemeisterSpectrum, 
 	"turn group into SpecialPcGroup",
 	[ IsGroup and IsFinite ],
-	100,
+	110,
 	function ( G )
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -344,14 +335,13 @@ InstallMethod(
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ],
-	100,
+	110,
 	function ( endo1, endo2 )
 		local G, iso, inv;
 		G := Range( endo1 );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -370,14 +360,13 @@ InstallOtherMethod(
 	ReidemeisterZetaCoefficients,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	100,
+	110,
 	function ( endo )
 		local G, iso;
 		G := Range( endo );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -398,14 +387,13 @@ InstallMethod(
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ],
-	100,
+	110,
 	function ( endo1, endo2 )
 		local G, iso, inv;
 		G := Range( endo1 );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -424,14 +412,13 @@ InstallOtherMethod(
 	IsRationalReidemeisterZeta,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	100,
+	110,
 	function ( endo )
 		local G, iso, inv;
 		G := Range( endo );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -451,14 +438,13 @@ InstallMethod(
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ],
-	100,
+	110,
 	function ( endo1, endo2 )
 		local G, iso, inv;
 		G := Range( endo1 );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -477,14 +463,13 @@ InstallOtherMethod(
 	ReidemeisterZeta,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	100,
+	110,
 	function ( endo )
 		local G, iso;
 		G := Range( endo );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -503,14 +488,13 @@ InstallMethod(
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ],
-	100,
+	110,
 	function ( endo1, endo2 )
 		local G, iso, inv;
 		G := Range( endo1 );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -529,14 +513,13 @@ InstallOtherMethod(
 	PrintReidemeisterZeta,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	100,
+	110,
 	function ( endo )
 		local G, iso;
 		G := Range( endo );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -557,14 +540,13 @@ InstallMethod(
 	"for finite pcp range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
-	101,
+	111,
 	function ( hom1, hom2, g1, g2 )
 		local G, iso;
 		G := Range( hom1 );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -581,14 +563,13 @@ InstallMethod(
 	"for finite pcp source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
-	100,
+	110,
 	function ( hom1, hom2, g1, g2 )
 		local H, iso, h;
 		H := Source( hom1 );
 		if (
 			HasSpecialPcgs( H ) or
-			not IsPolycyclicGroup( H ) or
-			not IsFinite( H )
+			not IsPcGroup( H )
 		) then
 			TryNextMethod();
 		fi;
@@ -611,14 +592,13 @@ InstallOtherMethod(
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
-	100,
+	110,
 	function ( endo, g1, g2 )
 		local G, iso;
 		G := Range( endo );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -640,14 +620,13 @@ InstallOtherMethod(
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
-	100,
+	110,
 	function ( endo, g1, g2 )
 		local G, iso, inv, h;
 		G := Range( endo );
 		if (
 			HasSpecialPcgs( G ) or
-			not IsPolycyclicGroup( G ) or
-			not IsFinite( G )
+			not IsPcGroup( G )
 		) then
 			TryNextMethod();
 		fi;
