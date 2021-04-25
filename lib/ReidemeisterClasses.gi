@@ -377,11 +377,12 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	4,
 	function ( hom1, hom2 )
-		local G;
+		local G, H;
 		G := Range( hom1 );
+		H := Source( hom1 );
 		if (
-			( not IsPolycyclicGroup( Source( hom1 ) ) and
-			  not IsFinite( Source( hom1 ) ) ) or 
+			( not IsPolycyclicGroup( H ) and
+			  not IsFinite( H ) ) or 
 			( not ( IsPolycyclicGroup( G ) and
 				    IsNilpotentByFinite( G ) ) or 
 			  not IsFinite( G ) )
@@ -389,6 +390,7 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		if HirschLength( H ) >= HirschLength( G ) then
+			Print("HAI");
 			TryNextMethod();
 		fi;
 		return fail;
