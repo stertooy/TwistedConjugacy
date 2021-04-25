@@ -35,18 +35,29 @@ gap> M := Group( [
 >   [ [ 0, 1, 0, 0, 0 ], [ 1, 0, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ] ],
 >   [ [ 0, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 0 ], [ 1, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 1 ] ]
 > ] );;
-gap> G := Image( IsomorphismPcpGroup( M ) );;
+gap> iso := IsomorphismPcpGroup( M );;
+gap> G := Image( iso );;
 gap> p := NaturalHomomorphismByNormalSubgroup( G, FittingSubgroup( G ) );;
 gap> CoincidenceGroup( p, p ) = G;
 true
 gap> S5 := SymmetricGroup( 5 );;
 gap> S4 := SymmetricGroup( 4 );;
-gap> iso := IsomorphismGroups( Image( p ), S4 );;
+gap> iso2 := IsomorphismGroups( Image( p ), S4 );;
 gap> gens := GeneratorsOfGroup( S4 );;
 gap> inc := GroupHomomorphismByImages( S4, S5, gens, gens );;
-gap> q := p*iso*inc;;
+gap> q := p*iso2*inc;;
 gap> CoincidenceGroup( q, q ) = G;
 true
+gap> ReidemeisterNumber( q, q );
+12
+gap> hom3 := GroupHomomorphismByImagesNC( G, S5, GeneratorsOfGroup( G ), List( GeneratorsOfGroup( G ), i -> One( S5 ) ) );;
+gap> ReidemeisterNumber( q, hom3 );
+5
+gap> inc2 := GroupHomomorphismByImages( S4, G, [(1,2),(1,2,3,4)] , List( [M.5,M.6], i -> i^iso ) );;
+gap> ReidemeisterClasses( inc2, inc2 );
+fail
+gap> ReidemeisterNumber( inc2, inc2 );
+infinity
 
 #
 gap> STOP_TEST( "infinite_non_nbf.tst" );

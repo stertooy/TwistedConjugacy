@@ -173,9 +173,6 @@ InstallMethod(
 ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M )
 	local G, H, N, p, q, hom1HN, hom2HN, RclGM, Rcl, hom1N, hom2N, pg,
 		Coin, g, ighom1N, RclM, igRclM, tc, m, isNew, qh;
-	if IsTrivial( M ) then
-		TryNextMethod();
-	fi;
 	G := Range( hom1 );
 	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
@@ -250,9 +247,6 @@ ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
 	local G, M, p, q, hom1HN, hom2HN, RclGM, GM, Rcl, pg, g, Coin, r, cok, rm;
 	G := Range( hom1 );
 	M := Centre( G );
-	if IsTrivial( M ) then
-		TryNextMethod();
-	fi;
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 	q := NaturalHomomorphismByNormalSubgroupNC(
 		Source( hom1 ),
@@ -307,18 +301,35 @@ end;
 ##
 InstallMethod(
 	ReidemeisterClasses,
-	"for finite groups",
+	"for trivial range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	4,
+	6,
+	function ( hom1, hom2 )
+		local G;
+		G := Range( hom1 );
+		if not IsTrivial( G ) then
+			TryNextMethod();
+		fi;
+		return [ ReidemeisterClass( hom1, hom2, One( G ) ) ];
+	end
+);
+
+InstallMethod(
+	ReidemeisterClasses,
+	"for finite source",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	5,
 	function ( hom1, hom2 )
 		local G, H, Rcl, orbit;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
-			not IsFinite( H ) or
-			not IsFinite( G )
+			not IsFinite( H )
 		) then
 			TryNextMethod();
+		fi;
+		if not IsFinite( G ) then
+			return fail;
 		fi;
 		Rcl := [];
 		for orbit in OrbitsDomain( 
@@ -333,6 +344,28 @@ InstallMethod(
 			fi;
 		od;
 		return Rcl;
+	end
+);
+
+InstallMethod(
+	ReidemeisterClasses,
+	"for polycyclic source and finite range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	4,
+	function ( hom1, hom2 )
+		local G;
+		G := Range( hom1 );
+		if (
+			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsFinite( G ) or
+			IsTrivial( G )
+		) then
+			TryNextMethod();
+		fi;
+		return ReidemeisterClassesByFiniteCoin@(
+			hom1, hom2,
+			TrivialSubgroup( G )
+		);
 	end
 );
 
