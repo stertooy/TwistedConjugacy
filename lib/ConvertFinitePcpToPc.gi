@@ -6,17 +6,17 @@ InstallMethod(
 	CoincidenceGroup,
 	"for finite pcp range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	111,
+	101,
 	function ( hom1, hom2 )
 		local G, iso;
 		G := Range( hom1 );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup(G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		return CoincidenceGroup( hom1*iso, hom2*iso );
 	end
 );
@@ -25,17 +25,17 @@ InstallMethod(
 	CoincidenceGroup,
 	"for finite pcp source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	110,
+	100,
 	function ( hom1, hom2 )
 		local H, iso;
 		H := Source( hom1 );
 		if (
-			HasSpecialPcgs( H ) or
-			not IsPcGroup( H )
+			not IsPcpGroup( H ) or
+			not IsFinite( H )
 		) then
 			TryNextMethod();
 		fi;
-		iso := InverseGeneralMapping( IsomorphismSpecialPcGroup( H ) );
+		iso := InverseGeneralMapping( IsomorphismPcGroup( H ) );
 		return Image( iso, CoincidenceGroup( iso*hom1, iso*hom2 ) );
 	end
 );
@@ -49,17 +49,17 @@ InstallMethod(
 	FixedPointGroup,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	110,
+	100,
 	function ( endo )
 		local G, iso, inv;
 		G := Range( endo );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		inv := InverseGeneralMapping( iso );
 		return Image( inv, FixedPointGroup( inv*endo*iso ) );
 	end
@@ -74,17 +74,17 @@ InstallMethod(
 	ReidemeisterClasses,
 	"for finite pcp range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	111,
+	101,
 	function ( hom1, hom2 )
 		local G, iso, Rcl;
 		G := Range( hom1 );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		Rcl := ReidemeisterClasses( hom1*iso, hom2*iso );
 		return List( Rcl, tcc -> ReidemeisterClass(
 			hom1, hom2,
@@ -97,17 +97,17 @@ InstallMethod(
 	ReidemeisterClasses,
 	"for finite pcp source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	110,
+	100,
 	function ( hom1, hom2 )
 		local H, iso, Rcl;
 		H := Source( hom1 );
 		if (
-			HasSpecialPcgs( H ) or
-			not IsPcGroup( H )
+			not IsPcpGroup( H ) or
+			not IsFinite( H )
 		) then
 			TryNextMethod();
 		fi;
-		iso := InverseGeneralMapping( IsomorphismSpecialPcGroup( H ) );
+		iso := InverseGeneralMapping( IsomorphismPcGroup( H ) );
 		Rcl := ReidemeisterClasses( iso*hom1, iso*hom2 );
 		if Rcl = fail then
 			return fail;
@@ -128,17 +128,17 @@ InstallOtherMethod(
 	ReidemeisterClasses,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	110,
+	100,
 	function ( endo )
 		local G, iso, inv, Rcl;
 		G := Range( endo );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		inv := InverseGeneralMapping( iso );
 		Rcl := ReidemeisterClasses( inv*endo*iso );
 		return List( Rcl, tcc -> ReidemeisterClass(
@@ -157,17 +157,17 @@ InstallMethod(
 	ReidemeisterNumber,
 	"for finite pcp range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	111,
+	101,
 	function ( hom1, hom2 )
 		local G, iso;
 		G := Range( hom1 );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		return ReidemeisterNumber( hom1*iso, hom2*iso );
 	end
 );
@@ -176,17 +176,17 @@ InstallMethod(
 	ReidemeisterNumber,
 	"for finite pcp source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	110,
+	100,
 	function ( hom1, hom2 )
 		local H, iso;
 		H := Source( hom1 );
 		if (
-			HasSpecialPcgs( H ) or
-			not IsPcGroup( H )
+			not IsPcpGroup( H ) or
+			not IsFinite( H )
 		) then
 			TryNextMethod();
 		fi;
-		iso := InverseGeneralMapping( IsomorphismSpecialPcGroup( H ) );
+		iso := InverseGeneralMapping( IsomorphismPcGroup( H ) );
 		return ReidemeisterNumber( iso*hom1, iso*hom2 );
 	end
 );
@@ -200,17 +200,17 @@ InstallOtherMethod(
 	ReidemeisterNumber,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	111,
+	101,
 	function ( endo )
 		local G, iso;
 		G := Range( endo );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		return ReidemeisterNumber( InverseGeneralMapping( iso ) * endo * iso );
 	end
 );
@@ -224,15 +224,14 @@ InstallMethod(
 	ReidemeisterSpectrum, 
 	"turn group into SpecialPcGroup",
 	[ IsGroup and IsFinite ],
-	110,
+	100,
 	function ( G )
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G )
 		) then
 			TryNextMethod();
 		fi;
-		return ReidemeisterSpectrum( Image( IsomorphismSpecialPcGroup( G ) ) );
+		return ReidemeisterSpectrum( Image( IsomorphismPcGroup( G ) ) );
 	end
 );
 
@@ -245,16 +244,15 @@ InstallMethod(
 	ExtendedReidemeisterSpectrum, 
 	"turn group into SpecialPcGroup",
 	[ IsGroup and IsFinite ],
-	110,
+	100,
 	function ( G )
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G )
 		) then
 			TryNextMethod();
 		fi;
 		return ExtendedReidemeisterSpectrum(
-			Image( IsomorphismSpecialPcGroup( G ) )
+			Image( IsomorphismPcGroup( G ) )
 		);
 	end
 );
@@ -268,17 +266,16 @@ InstallMethod(
 	CoincidenceReidemeisterSpectrum, 
 	"for finite pcp range",
 	[ IsGroup and IsFinite, IsGroup and IsFinite ],
-	111,
+	101,
 	function ( H, G )
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G )
 		) then
 			TryNextMethod();
 		fi;
 		return CoincidenceReidemeisterSpectrum(
 			H, 
-			Image( IsomorphismSpecialPcGroup( G ) )
+			Image( IsomorphismPcGroup( G ) )
 		);
 	end
 );
@@ -287,16 +284,15 @@ InstallMethod(
 	CoincidenceReidemeisterSpectrum, 
 	"for finite pcp source",
 	[ IsGroup and IsFinite, IsGroup and IsFinite ],
-	110,
+	100,
 	function ( H, G )
 		if (
-			HasSpecialPcgs( H ) or
-			not IsPcGroup( H )
+			not IsPcpGroup( H )
 		) then
 			TryNextMethod();
 		fi;
 		return CoincidenceReidemeisterSpectrum(
-			Image( IsomorphismSpecialPcGroup( H ) ),
+			Image( IsomorphismPcGroup( H ) ),
 			G
 		);
 	end
@@ -311,16 +307,15 @@ InstallMethod(
 	CoincidenceReidemeisterSpectrum, 
 	"turn group into SpecialPcGroup",
 	[ IsGroup and IsFinite ],
-	110,
+	100,
 	function ( G )
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G )
 		) then
 			TryNextMethod();
 		fi;
 		return CoincidenceReidemeisterSpectrum(
-			Image( IsomorphismSpecialPcGroup( G ) )
+			Image( IsomorphismPcGroup( G ) )
 		);
 	end
 );
@@ -335,17 +330,17 @@ InstallMethod(
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ],
-	110,
+	100,
 	function ( endo1, endo2 )
 		local G, iso, inv;
 		G := Range( endo1 );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		inv := InverseGeneralMapping( iso );
 		return ReidemeisterZetaCoefficients( inv*endo1*iso, inv*endo2*iso );
 	end
@@ -360,17 +355,17 @@ InstallOtherMethod(
 	ReidemeisterZetaCoefficients,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	110,
+	100,
 	function ( endo )
 		local G, iso;
 		G := Range( endo );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		return ReidemeisterZetaCoefficients( 
 			InverseGeneralMapping( iso ) * endo * iso
 		);
@@ -387,17 +382,17 @@ InstallMethod(
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ],
-	110,
+	100,
 	function ( endo1, endo2 )
 		local G, iso, inv;
 		G := Range( endo1 );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		inv := InverseGeneralMapping( iso );
 		return IsRationalReidemeisterZeta( inv*endo1*iso, inv*endo2*iso );
 	end
@@ -412,17 +407,17 @@ InstallOtherMethod(
 	IsRationalReidemeisterZeta,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	110,
+	100,
 	function ( endo )
 		local G, iso, inv;
 		G := Range( endo );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		inv := InverseGeneralMapping( iso );
 		return IsRationalReidemeisterZeta( inv*endo*iso );
 	end
@@ -438,17 +433,17 @@ InstallMethod(
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ],
-	110,
+	100,
 	function ( endo1, endo2 )
 		local G, iso, inv;
 		G := Range( endo1 );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		inv := InverseGeneralMapping( iso );
 		return ReidemeisterZeta( inv*endo1*iso, inv*endo2*iso );
 	end
@@ -463,17 +458,17 @@ InstallOtherMethod(
 	ReidemeisterZeta,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	110,
+	100,
 	function ( endo )
 		local G, iso;
 		G := Range( endo );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		return ReidemeisterZeta( InverseGeneralMapping( iso ) * endo * iso );
 	end
 );
@@ -488,17 +483,17 @@ InstallMethod(
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ],
-	110,
+	100,
 	function ( endo1, endo2 )
 		local G, iso, inv;
 		G := Range( endo1 );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		inv := InverseGeneralMapping( iso );
 		return PrintReidemeisterZeta( inv*endo1*iso, inv*endo2*iso );
 	end
@@ -513,17 +508,17 @@ InstallOtherMethod(
 	PrintReidemeisterZeta,
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	110,
+	100,
 	function ( endo )
 		local G, iso;
 		G := Range( endo );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		return PrintReidemeisterZeta( 
 			InverseGeneralMapping( iso ) * endo * iso
 		);
@@ -540,17 +535,17 @@ InstallMethod(
 	"for finite pcp range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
-	111,
+	101,
 	function ( hom1, hom2, g1, g2 )
 		local G, iso;
 		G := Range( hom1 );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		return RepresentativeTwistedConjugation(
 			hom1*iso, hom2*iso,
 			g1^iso, g2^iso
@@ -563,17 +558,17 @@ InstallMethod(
 	"for finite pcp source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
-	110,
+	100,
 	function ( hom1, hom2, g1, g2 )
 		local H, iso, h;
 		H := Source( hom1 );
 		if (
-			HasSpecialPcgs( H ) or
-			not IsPcGroup( H )
+			not IsPcpGroup( H ) or
+			not IsFinite( H )
 		) then
 			TryNextMethod();
 		fi;
-		iso := InverseGeneralMapping( IsomorphismSpecialPcGroup( H ) );
+		iso := InverseGeneralMapping( IsomorphismPcGroup( H ) );
 		h := RepresentativeTwistedConjugation( iso*hom1, iso*hom2, g1, g2 );
 		if h = fail then
 			return fail;
@@ -592,17 +587,17 @@ InstallOtherMethod(
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
-	110,
+	100,
 	function ( endo, g1, g2 )
 		local G, iso;
 		G := Range( endo );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		return IsTwistedConjugate(
 			InverseGeneralMapping( iso ) * endo * iso,
 			g1^iso, g2^iso
@@ -620,17 +615,17 @@ InstallOtherMethod(
 	"turn group into SpecialPcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
-	110,
+	100,
 	function ( endo, g1, g2 )
 		local G, iso, inv, h;
 		G := Range( endo );
 		if (
-			HasSpecialPcgs( G ) or
-			not IsPcGroup( G )
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
-		iso := IsomorphismSpecialPcGroup( G );
+		iso := IsomorphismPcGroup( G );
 		inv := InverseGeneralMapping( iso );
 		h := RepresentativeTwistedConjugation(
 			inv * endo * iso,
