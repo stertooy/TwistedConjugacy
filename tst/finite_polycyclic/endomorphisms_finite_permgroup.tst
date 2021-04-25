@@ -3,7 +3,7 @@ gap> START_TEST( "Testing Twisted Conjugacy for finite pc groups" );
 #
 # PermGroup
 #
-gap> G := Image( SmallerDegreePermutationRepresentation( Image( IsomorphismPermGroup( SmallGroup( 252, 34 ) ) ) ) );;
+gap> G := Group( [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ] );;
 gap> imgs1 := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, One( G ) ];;
 gap> imgs2 := [ One( G ), G.2*G.3*G.4, G.3, G.3^2*G.4, Identity(G) ];;
 gap> endo1 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs1 );;

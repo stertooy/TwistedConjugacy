@@ -4,9 +4,6 @@
 ##
 CoincidenceGroupByFiniteCoin@ := function ( hom1, hom2, M )
 	local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, gens, qh, h, n;
-	if IsTrivial ( M ) then
-		TryNextMethod();
-	fi;
 	G := Range( hom1 );
 	H := Source( hom1 );
 	N := IntersectionPreImage@( hom1, hom2, M );
@@ -70,9 +67,22 @@ end;
 ##
 InstallMethod(
 	CoincidenceGroup,
+	"for trivial range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	6,
+	function ( hom1, hom2 )
+		if not IsTrivial( Range( hom1 ) ) then
+			TryNextMethod();
+		fi;
+		return Source( hom1 );
+	end
+);
+
+InstallMethod(
+	CoincidenceGroup,
 	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	4,
+	5,
 	function ( hom1, hom2 )
 		local H;
 		H := Source( hom1 );
@@ -89,13 +99,38 @@ InstallMethod(
 
 InstallMethod(
 	CoincidenceGroup,
+	"for polycyclic source and finite range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	4,
+	function ( hom1, hom2 )
+		local G;
+		G := Range( hom1 );
+		if (
+			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsFinite( G ) or
+			IsTrivial( G )
+		) then
+			TryNextMethod();
+		fi;
+		return CoincidenceGroupByFiniteCoin@(
+			hom1, hom2,
+			TrivialSubgroup( G )
+		);
+	end
+);
+
+InstallMethod(
+	CoincidenceGroup,
 	"for polycyclic source and abelian range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	3,
 	function ( hom1, hom2 )
+		local G;
+		G := Range( hom1 );
 		if (
 			not IsPolycyclicGroup( Source( hom1 ) ) or
-			not IsAbelian( Range( hom1 ) )
+			not IsAbelian( G ) or
+			IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -114,7 +149,8 @@ InstallMethod(
 		if (
 			not IsPolycyclicGroup( Source( hom1 ) ) or
 			not IsNilpotentGroup( G ) or
-			IsAbelian( G )
+			IsAbelian( G ) or
+			IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -132,8 +168,10 @@ InstallMethod(
 		G := Range( hom1 );
 		if (
 			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsPolycyclicGroup( G ) or
 			not IsNilpotentByFinite( G ) or
-			IsNilpotent( G )
+			IsNilpotent( G ) or
+			IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
