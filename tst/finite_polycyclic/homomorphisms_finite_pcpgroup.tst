@@ -47,10 +47,6 @@ gap> g := RepresentativeTwistedConjugation( hom1, hom2, g1, g2 );;
 gap> tc( g1, g ) = g2;   
 true
 
-# Reidemeister Spectrum
-gap> CoincidenceReidemeisterSpectrum( G, H );
-[ 42, 84 ]
-
 #
 # Derived Subgroup (abelian)
 #
@@ -94,12 +90,6 @@ gap> m2 := Random( RM[3] );;
 gap> mc := RepresentativeTwistedConjugation( homN1, homN2, m1, m2 );;
 gap> tcM( m1, mc ) = m2;   
 true
-
-# Reidemeister Spectrum
-gap> CoincidenceReidemeisterSpectrum( M, N );
-[ 2, 6, 14, 42 ]
-gap> CoincidenceReidemeisterSpectrum( N, M );
-[ 3, 9, 21, 63 ]
 
 #
 gap> STOP_TEST( "finite_pc_double.tst" );
