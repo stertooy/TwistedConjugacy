@@ -119,9 +119,10 @@ InstallMethod(
 		G := ActingCodomain( tcc );
 		H := ActingDomain( tcc );
 		if (
-			( not IsPolycyclicGroup( H ) or 
-			  not IsPolycyclicGroup( G )    ) and
-			not IsFinite( H )
+			( not IsPolycyclicGroup( H ) and
+			  not IsFinite( H ) ) or
+			( not IsPolycyclicGroup( G ) and
+			  not IsFinite( H ) )
 		) then
 			TryNextMethod();
 		fi;
@@ -142,9 +143,10 @@ InstallMethod(
 		G := ActingCodomain( tcc );
 		H := ActingDomain( tcc );
 		if (
-			( not IsPolycyclicGroup( H ) or 
-			  not IsPolycyclicGroup( G )    ) and
-			not IsFinite( H )
+			( not IsPolycyclicGroup( H ) and
+			  not IsFinite( H ) ) or
+			( not IsPolycyclicGroup( G ) and
+			  not IsFinite( H ) )
 		) then
 			TryNextMethod();
 		fi;
@@ -303,7 +305,7 @@ InstallMethod(
 	ReidemeisterClasses,
 	"for trivial range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	6,
+	7,
 	function ( hom1, hom2 )
 		local G;
 		G := Range( hom1 );
@@ -318,7 +320,7 @@ InstallMethod(
 	ReidemeisterClasses,
 	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	5,
+	6,
 	function ( hom1, hom2 )
 		local G, H, Rcl, orbit;
 		G := Range( hom1 );
@@ -351,7 +353,7 @@ InstallMethod(
 	ReidemeisterClasses,
 	"for polycyclic source and finite range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	4,
+	5,
 	function ( hom1, hom2 )
 		local G;
 		G := Range( hom1 );
@@ -366,6 +368,30 @@ InstallMethod(
 			hom1, hom2,
 			TrivialSubgroup( G )
 		);
+	end
+);
+
+InstallMethod(
+	ReidemeisterClasses,
+	"for polycyclic source and nilpotent-by-finite range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	4,
+	function ( hom1, hom2 )
+		local G;
+		G := Range( hom1 );
+		if (
+			( not IsPolycyclicGroup( Source( hom1 ) ) and
+			  not IsFinite( Source( hom1 ) ) ) or 
+			( not ( IsPolycyclicGroup( G ) and
+				    IsNilpotentByFinite( G ) ) or 
+			  not IsFinite( G ) )
+		) then
+			TryNextMethod();
+		fi;
+		if HirschLength( H ) >= HirschLength( G ) then
+			TryNextMethod();
+		fi;
+		return fail;
 	end
 );
 
@@ -432,9 +458,11 @@ InstallMethod(
 		local G;
 		G := Range( hom1 );
 		if (
-			not IsPolycyclicGroup( Source( hom1 ) ) or 
+			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsPolycyclicGroup( G ) or
 			not IsNilpotentByFinite( G ) or
-			IsNilpotent( G )
+			IsNilpotent( G ) or
+			IsFinite( G )
 		) then
 			TryNextMethod();
 		fi;
