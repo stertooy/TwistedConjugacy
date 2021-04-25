@@ -126,9 +126,6 @@ RedispatchOnCondition(
 RepTwistConjToIdByFiniteCoin@ := function ( hom1, hom2, g, M )
 	local N, p, q, hom1HN, hom2HN, qh1, Coin, h1, tc, m, hom1N, hom2N, qh2, h2,
 		n;
-	if IsTrivial( M ) then
-		TryNextMethod();
-	fi;
 	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( Range( hom1 ), M );
 	q := NaturalHomomorphismByNormalSubgroupNC( Source( hom1 ), N );
@@ -166,9 +163,6 @@ RepTwistConjToIdByCentre@ := function ( hom1, hom2, g )
 	local G, M, N, p, q, hom1HN, hom2HN, qh1, h1, tc, m, Coin, delta, h2;
 	G := Range( hom1 );
 	M := Centre( G );
-	if IsTrivial( M ) then
-		TryNextMethod();
-	fi;
 	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 	q := NaturalHomomorphismByNormalSubgroupNC( Source ( hom1 ), N );
