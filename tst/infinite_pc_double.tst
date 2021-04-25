@@ -51,6 +51,12 @@ gap> ReidemeisterNumber( xi );
 infinity
 gap> FixedPointGroup( xi );
 Pcp-group with orders [ 0 ]
+gap> N := Subgroup( G, [ G.1^2, G.2 ] );;
+gap> i := GroupHomomorphismByImages( N, G, GeneratorsOfGroup( N ), GeneratorsOfGroup( N ) );;
+gap> ReidemeisterClasses( i, i );;
+gap> Q := G/FittingSubgroup(G);;
+gap> j := GroupHomomorphismByImages( Q, G, [Q.1], [One(G)] );;
+gap> ReidemeisterClasses( j, j );;
 
 #
 gap> STOP_TEST( "infinite_pc_double.tst" );

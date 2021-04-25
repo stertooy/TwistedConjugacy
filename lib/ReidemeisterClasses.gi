@@ -373,7 +373,7 @@ InstallMethod(
 
 InstallMethod(
 	ReidemeisterClasses,
-	"for polycyclic source and nilpotent-by-finite range",
+	"for polycyclic or finite source and (polycyclic nilpotent-by-)finite range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	4,
 	function ( hom1, hom2 )
