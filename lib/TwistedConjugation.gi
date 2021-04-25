@@ -198,10 +198,24 @@ end;
 ##
 InstallMethod(
 	RepTwistConjToId,
+	"for trivial range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ],
+	6,
+	function ( hom1, hom2, g )
+		if not IsTrivial( Range( hom1 ) ) then
+			TryNextMethod();
+		fi;
+		return One( Source( hom1 ) );
+	end
+);
+
+InstallMethod(
+	RepTwistConjToId,
 	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
-	4,
+	5,
 	function ( hom1, hom2, g )
 		local H;
 		H := Source( hom1 );
@@ -212,6 +226,30 @@ InstallMethod(
 			H,
 			g, One( Range( hom1 ) ),
 			TwistedConjugation( hom1, hom2 ) 
+		);
+	end
+);
+
+InstallMethod(
+	RepTwistConjToId,
+	"for polycyclic source and finite range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ],
+	4,
+	function ( hom1, hom2, g )
+		local G;
+		G := Range( hom1 );
+		if (
+			not IsPolycyclicGroup( Source( hom1 ) ) or
+			not IsFinite( G ) or
+			IsTrivial( G )
+		) then
+			TryNextMethod();
+		fi;
+		return RepTwistConjToIdByFiniteCoin@(
+			hom1, hom2,
+			g,
+			TrivialSubgroup( G )
 		);
 	end
 );
