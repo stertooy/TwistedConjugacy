@@ -4,7 +4,7 @@
 ##
 InstallMethod(
 	CoincidenceGroup,
-	"for finite pcp range",
+	"turn finite pcp range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	101,
 	function ( hom1, hom2 )
