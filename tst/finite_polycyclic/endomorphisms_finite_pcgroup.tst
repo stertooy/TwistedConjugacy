@@ -82,6 +82,13 @@ true
 # Reidemeister Spectrum
 gap> ReidemeisterSpectrum( G );
 [ 4, 6, 8, 10, 12, 15, 20, 30 ]
+gap> H := SubgroupNC( G, [ G.1, G.2, G.3 ] );;
+gap> ReidemeisterSpectrum( H );
+[ 4, 6 ]
+gap> ExtendedReidemeisterSpectrum( H );
+[ 1, 2, 3, 4, 6 ]
+gap> CoincidenceReidemeisterSpectrum( H );
+[ 1, 2, 3, 4, 6, 8, 12 ]
 gap> Q := FactorGroupNC( G, SubgroupNC( G, [ G.3, G.4 ] ) );;
 gap> ReidemeisterSpectrum( Q );
 [ 2, 4, 8, 10 ]

@@ -42,9 +42,6 @@ CoincidenceGroupByCentre@ := function ( hom1, hom2 )
 	local G, M, p, q, Coin;
 	G := Range( hom1 );
 	M := Centre( G );
-	if IsTrivial( M ) then
-		TryNextMethod();
-	fi;
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 	q := NaturalHomomorphismByNormalSubgroupNC(
 		Source( hom1 ),
