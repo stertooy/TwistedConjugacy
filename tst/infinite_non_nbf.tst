@@ -34,9 +34,9 @@ gap> M := Group( [
 >   [ [ 1, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 1 ], [ 0, 0, 0, 0, 1 ] ],
 >   [ [ 0, 1, 0, 0, 0 ], [ 1, 0, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ] ],
 >   [ [ 0, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 0 ], [ 1, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 1 ] ]
-> ] );
+> ] );;
 gap> G := Image( IsomorphismPcpGroup( M ) );;
-gap> p := NaturalHomomorphismByNormalSubgroup( G, FittingSubgroup( G ) );
+gap> p := NaturalHomomorphismByNormalSubgroup( G, FittingSubgroup( G ) );;
 gap> CoincidenceGroup( p, p ) = G;
 true
 gap> S5 := SymmetricGroup( 5 );;
