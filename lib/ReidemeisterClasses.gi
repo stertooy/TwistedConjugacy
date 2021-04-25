@@ -384,13 +384,12 @@ InstallMethod(
 			( not IsPolycyclicGroup( H ) and
 			  not IsFinite( H ) ) or 
 			( not ( IsPolycyclicGroup( G ) and
-				    IsNilpotentByFinite( G ) ) or 
+				    IsNilpotentByFinite( G ) ) and
 			  not IsFinite( G ) )
 		) then
 			TryNextMethod();
 		fi;
 		if HirschLength( H ) >= HirschLength( G ) then
-			Print("HAI");
 			TryNextMethod();
 		fi;
 		return fail;
