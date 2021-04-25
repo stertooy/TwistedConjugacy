@@ -160,7 +160,7 @@ InstallMethod(
 
 InstallMethod(
 	CoincidenceGroup,
-	"for polycyclic source and nilpotent-by-finite range",
+	"for polycyclic source and polycyclic nilpotent-by-finite range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )

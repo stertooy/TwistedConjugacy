@@ -27,4 +27,26 @@ gap> CoincidenceGroup( phi, khi ) = Centre( H );
 true
 
 #
+gap> M := Group( [
+>   [ [ 1, 0, 0, 0, 1 ], [ 0, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ] ],
+>   [ [ 1, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 1 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ] ],
+>   [ [ 1, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 1 ], [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ] ],
+>   [ [ 1, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 1 ], [ 0, 0, 0, 0, 1 ] ],
+>   [ [ 0, 1, 0, 0, 0 ], [ 1, 0, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ] ],
+>   [ [ 0, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 0 ], [ 1, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 1 ] ]
+> ] );
+gap> G := Image( IsomorphismPcpGroup( M ) );;
+gap> p := NaturalHomomorphismByNormalSubgroup( G, FittingSubgroup( G ) );
+gap> CoincidenceGroup( p, p ) = G;
+true
+gap> S5 := SymmetricGroup( 5 );;
+gap> S4 := SymmetricGroup( 4 );;
+gap> iso := IsomorphismGroups( Image( p ), S4 );;
+gap> gens := GeneratorsOfGroup( S4 );;
+gap> inc := GroupHomomorphismByImages( S4, S5, gens, gens );;
+gap> q := p*iso*inc;;
+gap> CoincidenceGroup( q, q ) = G;
+true
+
+#
 gap> STOP_TEST( "infinite_non_nbf.tst" );
