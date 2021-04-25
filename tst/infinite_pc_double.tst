@@ -61,12 +61,15 @@ gap> ReidemeisterNumber( phiN, psiN );
 gap> i := GroupHomomorphismByImages( N, G, GeneratorsOfGroup( N ), GeneratorsOfGroup( N ) );;
 gap> ReidemeisterClasses( i, i );
 fail
-gap> Q := G/FittingSubgroup(G);;
+gap> p := NaturalHomomorphismByNormalSubgroup( G, FittingSubgroup( G ) );;
+gap> Q := Image( p );;
 gap> j := GroupHomomorphismByImages( Q, G, [Q.1], [One(G)] );;
 gap> ReidemeisterClasses( j, j );
 fail
 gap> ReidemeisterNumber( j, j );
 infinity
+gap> IsTwistedConjugate( p, p, Q.1, One( Q ) );
+false
 
 #
 gap> STOP_TEST( "infinite_pc_double.tst" );
