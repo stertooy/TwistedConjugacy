@@ -15,7 +15,7 @@ jobs:
         include: 
           - gap-branch: master
             packages-to-clone: 'alnuth autpgrp polycyclic'
-            coverage: 'true'
+            coverage: true
           - gap-branch: stable-4.11
           - gap-branch: stable-4.10
           - gap-branch: stable-4.9
@@ -34,10 +34,9 @@ jobs:
       - uses: gap-actions/run-pkg-tests@v2
         with:
           GAP_TESTFILE: 'tst/teststandard.g'
-      - if: ${{ matrix.coverage == 'true' }}
+      - if: matrix.coverage
         uses: gap-actions/process-coverage@v2
-        
-      - if: ${{ matrix.coverage == 'true' }}
+      - if: matrix.coverage
         name: 'Upload coverage'
         run: bash <(curl -s https://codecov.io/bash)
         shell: bash
