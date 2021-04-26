@@ -1,12 +1,8 @@
-gap> START_TEST( "Testing Twisted Conjugacy for finite pc groups" );
+gap> START_TEST( "Testing TwistedConjugacy for PcGroups: extra tests" );
 
-#
-# Help function
 #
 gap> ProductCyclicGroups := function ( L ) return DirectProduct( List( L, i -> CyclicGroup( i ) ) ); end;;
 
-#
-# Quick, stupid tests for PrintObj
 #
 gap> T := TrivialGroup();;
 gap> Print( ReidemeisterClass( IdentityMapping( T ), One( T ) ), "\n" );
@@ -18,8 +14,6 @@ gap> endo := GroupHomomorphismByImagesNC( C2, C2, [ C2.1 ], [ C2.1^2 ] );;
 gap> Print( ReidemeisterClass( endo, C2.1 ) , "\n" );
 ReidemeisterClass( [ [ f1 ] -> [ <identity> of ... ], [ f1 ] -> [ f1 ] ], f1 )
 
-#
-# Extra tests for Reidemeister Spectra
 #
 gap> L1 := [ 2, 3, 5, 6, 24, 30 ];;
 gap> G1 := ProductCyclicGroups( L1 );;
@@ -87,8 +81,6 @@ gap> CoincidenceReidemeisterSpectrum( Q8, A4 );
 gap> CoincidenceReidemeisterSpectrum( A4, Q8 );
 [ 8 ]
 
-#
-# Extra tests for Reidemeister Zeta
 #
 gap> s := Indeterminate( Rationals, "s" );;
 
@@ -223,4 +215,4 @@ gap> PrintReidemeisterZeta( hom1Q8, hom2Q8 );
 s)^(-1/2)"
 
 #
-gap> STOP_TEST( "finite_pc_single.tst" );
+gap> STOP_TEST( "extra.tst" );

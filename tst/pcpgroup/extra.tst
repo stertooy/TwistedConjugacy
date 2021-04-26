@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing Double Twisted Conjugacy for infinite non-nilpotent-by-finite groups" );
+gap> START_TEST( "Testing TwistedConjugacy for PcpGroups: extra tests" );
 
 #
 gap> G := ExamplesOfSomePcpGroups( 5 );;
@@ -30,7 +30,7 @@ gap> FixedPointGroup( homF );
 Pcp-group with orders [ 0 ]
 
 #
-gap> N := Subgroup( G, [ G.1^2, G.2 ] );;
+gap> N := SubgroupNC( G, [ G.1^2, G.2 ] );;
 gap> imgs1 := [ G.1*G.4^-1, G.3, G.2*G.3^2*G.4^2, G.4^-1 ];;
 gap> imgs2 := [ G.1, G.2^2*G.3*G.4^2, G.2*G.3*G.4, G.4 ];;
 gap> hom1 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs1 );;
@@ -39,14 +39,14 @@ gap> hom1N := RestrictedHomomorphism( hom1, N, N );;
 gap> hom2N := RestrictedHomomorphism( hom2, N, N );;
 gap> ReidemeisterNumber( hom1N, hom2N );
 4
-gap> incN := GroupHomomorphismByImages( N, G, GeneratorsOfGroup( N ), GeneratorsOfGroup( N ) );;
+gap> incN := GroupHomomorphismByImagesNC( N, G, GeneratorsOfGroup( N ), GeneratorsOfGroup( N ) );;
 gap> ReidemeisterClasses( incN, incN );
 fail
 
 #
-gap> p := NaturalHomomorphismByNormalSubgroup( G, FittingSubgroup( G ) );;
+gap> p := NaturalHomomorphismByNormalSubgroupNC( G, FittingSubgroup( G ) );;
 gap> Q := Image( p );;
-gap> trivQG := GroupHomomorphismByImages( Q, G, [ Q.1 ], [ One( G ) ] );;
+gap> trivQG := GroupHomomorphismByImagesNC( Q, G, [ Q.1 ], [ One( G ) ] );;
 gap> ReidemeisterClasses( trivQG, trivQG );
 fail
 gap> ReidemeisterNumber( trivQG, trivQG );
@@ -97,11 +97,11 @@ true
 #
 gap> DG := DirectProduct( G, G );;
 gap> G5 := DG / Centre( DG );;
-gap> p5 := NaturalHomomorphismByNormalSubgroup( G5, FittingSubgroup( G5 ) );;
+gap> p5 := NaturalHomomorphismByNormalSubgroupNC( G5, FittingSubgroup( G5 ) );;
 gap> S6 := SymmetricGroup( 6 );;
 gap> K4 := Image( p5 );;
-gap> inc1K4 := GroupHomomorphismByImages( K4, S6, [ K4.1, K4.2 ], [ (5,6), (1,2)(3,4) ] );;
-gap> inc2K4 := GroupHomomorphismByImages( K4, S6, [ K4.1, K4.2 ], [ (1,3)(4,5), () ] );;
+gap> inc1K4 := GroupHomomorphismByImagesNC( K4, S6, [ K4.1, K4.2 ], [ (5,6), (1,2)(3,4) ] );;
+gap> inc2K4 := GroupHomomorphismByImagesNC( K4, S6, [ K4.1, K4.2 ], [ (1,3)(4,5), () ] );;
 gap> hom1G5 := p5*inc1K4;;
 gap> hom2G5 := p5*inc2K4;;
 gap> ReidemeisterNumber( hom1G5, hom1G5 );
@@ -112,8 +112,8 @@ gap> ReidemeisterNumber( hom1G5, hom2G5 );
 180
 gap> CoincidenceGroup( hom1G5, hom2G5 ) = FittingSubgroup( G5 );
 true
-gap> inc1S6 := GroupHomomorphismByImages( S6, G5, [ (1,2,3,4,5,6), (1,2) ] , [ G5.1, G5.1 ] );;
-gap> inc2S6 := GroupHomomorphismByImages( S6, G5, [ (1,2,3,4,5,6), (1,2) ] , [ G5.1*G5.4, G5.1*G5.4 ] );;
+gap> inc1S6 := GroupHomomorphismByImagesNC( S6, G5, [ (1,2,3,4,5,6), (1,2) ] , [ G5.1, G5.1 ] );;
+gap> inc2S6 := GroupHomomorphismByImagesNC( S6, G5, [ (1,2,3,4,5,6), (1,2) ] , [ G5.1*G5.4, G5.1*G5.4 ] );;
 gap> CoincidenceGroup( inc1S6, inc2S6 );
 Group([ (2,6,5,4,3), (1,3,5)(2,4,6) ])
 gap> ReidemeisterClasses( inc1S6, inc2S6 );
@@ -122,4 +122,4 @@ gap> ReidemeisterNumber( inc2S6, inc2S6 );
 infinity
 
 #
-gap> STOP_TEST( "infinite_non_nbf.tst" );
+gap> STOP_TEST( "extra.tst" );

@@ -1,13 +1,13 @@
-gap> START_TEST( "Testing Twisted Conjugacy for finite non-pc groups" );
+gap> START_TEST( "Testing TwistedConjugacy for PermGroups: endomorphisms" );
 
-#
-# Polyclic group with endomorphisms
 #
 gap> G := Group( [ (3,4)(5,6), (1,2,3)(4,5,7) ] );;
-gap> endo1 := GroupHomomorphismByImagesNC( G, G, [ (1,6,7,4,3,5,2), (3,5)(4,6) ], [ (1,3,4,6,7,5,2), (3,4)(5,6) ] );;
-gap> endo2 := GroupHomomorphismByImagesNC( G, G, [ (1,6,7,4,3,5,2), (3,5)(4,6) ], [ (1,2,3,7,4,6,5), (3,4)(5,6) ] );;
+gap> imgs1 := [ (1,3,4,6,7,5,2), (3,4)(5,6) ];;
+gap> imgs2 := [ (1,2,3,7,4,6,5), (3,4)(5,6) ];;
+gap> endo1 := GroupHomomorphismByImagesNC( G, G, [ (1,6,7,4,3,5,2), (3,5)(4,6) ], imgs1 );;
+gap> endo2 := GroupHomomorphismByImagesNC( G, G, [ (1,6,7,4,3,5,2), (3,5)(4,6) ], imgs2 );;
 
-# Fixed Point Group
+#
 gap> Size( CoincidenceGroup( endo1, endo2 ) );
 4
 gap> Size( FixedPointGroup( endo1 ) );
@@ -15,7 +15,7 @@ gap> Size( FixedPointGroup( endo1 ) );
 gap> Size( FixedPointGroup( endo2 ) );
 8
 
-# Reidemeister Classes
+#
 gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
 gap> Representative( tcc ) = One( G );
 true
@@ -45,7 +45,7 @@ true
 gap> ReidemeisterClass( endo1, One( G ) ) = ReidemeisterClass( endo2, One( G ) );
 false
 
-# Twisted Conjugacy
+#
 gap> tc := TwistedConjugation( endo1, endo2 );;
 gap> IsTwistedConjugate( endo1, endo2, Random( R[1] ), Random( R[2] ) );
 false
@@ -77,7 +77,7 @@ gap> g2c := RepresentativeTwistedConjugation( endo2, g21, g22 );;
 gap> tc2( g21, g2c ) = g22;   
 true
 
-# Reidemeister Spectrum
+#
 gap> ReidemeisterSpectrum( G );
 [ 4, 6 ]
 gap> ExtendedReidemeisterSpectrum( G );
@@ -85,7 +85,7 @@ gap> ExtendedReidemeisterSpectrum( G );
 gap> CoincidenceReidemeisterSpectrum( G );
 [ 1, 4, 6, 168 ]
 
-# Reidemeister Zeta
+#
 gap> IsRationalReidemeisterZeta( endo1, endo2 );
 true
 gap> zeta := ReidemeisterZeta( endo1, endo2 );;
@@ -115,4 +115,4 @@ gap> ReidemeisterZetaCoefficients( endo2 );
 [ [ 6 ], [  ] ]
 
 #
-gap> STOP_TEST( "finite_npc_single.tst" );
+gap> STOP_TEST( "endomorphisms.tst" );
