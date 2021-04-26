@@ -1,9 +1,18 @@
 This file describes changes in the GAP package 'TwistedConjugacy'.
 
 
-2.0.0 (23/04/2021)
+2.0.0 (28/04/2021)
 ------------------
 
+- Lowered requirements to GAP version >= 4.9 and GAPDoc version >= 1.6.1
+- Polycyclic is now a suggested package instead of required. Version >= 2.13.1
+  is required, although version >= 2.16 is heavily recommended
+- Changed how the manual is generated. The manual can be recreated using
+  AutoDoc by running the "makedoc.g" script in the main package directory.
+  AutoDoc is now a suggested package, version >= 2018.02.14 is required
+- Renamed "gap" subfolder to "lib"
+- Improved available tests
+  
 - CoincidenceGroup is much more efficient for homomorphisms between finite
   groups
 - CoincidenceGroup can now always be applied to homomorphisms between
@@ -39,12 +48,7 @@ This file describes changes in the GAP package 'TwistedConjugacy'.
   without actually calculating the zeta function
 - ReidemeisterZeta now returns either a rational function or "fail"
 
-- Changed how the manual is generated. The manual can be recreated by running
-  the "makedoc.g" script in the main package directory
-- Renamed "gap" subfolder to "lib"
-- Now requires the AutoDoc package, which is needed to recreate the manual
-- Lowered requirements to GAP version >= 4.9 and Polycylic version >= 2.13.1,
-  however, Polycyclic 2.16 is still heavily recommended
+- Finite PcpGroups will now automatically be converted to PcGroups
 
 
 1.0.1 (07/06/2020)

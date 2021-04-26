@@ -4,7 +4,7 @@
 The GAP 4 package TwistedConjugacy
 ====================================
 
-by Sam Tertooy <sam.tertooy@hotmail.com>
+by Sam Tertooy <sam.tertooy@kuleuven.be>
 
 
 
@@ -18,13 +18,16 @@ finite groups or with polycyclically presented groups.
 
 This package requires GAP version 4.9 or later, with the following packages
 (and their dependencies) installed:
-- Polycyclic (version >= 2.13.1)
 - GAPDoc (version >= 1.6.1)
+
+The following packages (and their dependencies) are optional, though are
+recommended:
+- Polycyclic (version >= 2.13.1)
 - AutoDoc (version >= 2018.02.14)
 
-It is, however, recommended to install Polycyclic version >= 2.16, to avoid 
-some known bugs which could lead to wrong results. It is also recommended to
-install the computer algebra system PARI/GP.
+Note that is recommended to install Polycyclic version >= 2.16, to avoid some
+known bugs which could lead to wrong results. It is also recommended to install
+the computer algebra system PARI/GP.
 
 
 
