@@ -1,7 +1,5 @@
-gap> START_TEST( "Testing Twisted Conjugacy for finite pc groups" );
+gap> START_TEST( "Testing TwistedConjugacy for endomorphisms of PcGroups" );
 
-#
-# Polyclic group with endomorphisms
 #
 gap> G := SmallGroup( 252, 34 );;
 gap> imgs1 := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, One( G ) ];;
@@ -127,8 +125,6 @@ gap> ReidemeisterZetaCoefficients( endo2 );
 [ [ 3, 3, 6 ], [  ] ]
 
 #
-# Derived Subgroup (abelian)
-#
 gap> G := DerivedSubgroup( G );;
 gap> endo1 := RestrictedHomomorphism( endo1, G, G );;
 gap> endo2 := RestrictedHomomorphism( endo2, G, G );;
@@ -236,4 +232,4 @@ gap> ReidemeisterZetaCoefficients( endo2 );
 [ [ 3, 3, 9 ], [  ] ]
 
 #
-gap> STOP_TEST( "finite_pc_single.tst" );
+gap> STOP_TEST( "endomorphisms.tst" );

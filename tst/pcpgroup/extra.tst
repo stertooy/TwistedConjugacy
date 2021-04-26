@@ -10,8 +10,6 @@ true
 gap> trivG := GroupHomomorphismByFunction( G, G, g -> One( G ) );;
 gap> Size( ReidemeisterClasses( trivG ) );
 1
-gap> imgs1 := [ G.1*G.4^-1, G.3, G.2*G.3^2*G.4^2, G.4^-1 ];;
-gap> imgs2 := [ G.1, G.2^2*G.3*G.4^2, G.2*G.3*G.4, G.4 ];;
 
 #
 gap> F := FittingSubgroup( G );;
@@ -33,6 +31,8 @@ Pcp-group with orders [ 0 ]
 
 #
 gap> N := Subgroup( G, [ G.1^2, G.2 ] );;
+gap> imgs1 := [ G.1*G.4^-1, G.3, G.2*G.3^2*G.4^2, G.4^-1 ];;
+gap> imgs2 := [ G.1, G.2^2*G.3*G.4^2, G.2*G.3*G.4, G.4 ];;
 gap> hom1 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs1 );;
 gap> hom2 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs2 );;
 gap> hom1N := RestrictedHomomorphism( hom1, N, N );;
@@ -95,41 +95,30 @@ gap> CoincidenceGroup( hom1H, hom3H ) = Centre( H );
 true
 
 #
-gap> M := Group( [
->   [ [ 1, 0, 0, 0, 1 ], [ 0, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ] ],
->   [ [ 1, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 1 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ] ],
->   [ [ 1, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 1 ], [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ] ],
->   [ [ 1, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 1 ], [ 0, 0, 0, 0, 1 ] ],
->   [ [ 0, 1, 0, 0, 0 ], [ 1, 0, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ] ],
->   [ [ 0, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 0 ], [ 1, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 1 ] ]
-> ] );;
-gap> isoM := IsomorphismPcpGroup( M );;
-gap> G5 := Image( isoM );;
+gap> DG := DirectProduct( G, G );;
+gap> G5 := DG / Centre( DG );;
 gap> p5 := NaturalHomomorphismByNormalSubgroup( G5, FittingSubgroup( G5 ) );;
-gap> CoincidenceGroup( p5, p5 ) = G5;
-true
-gap> S5 := SymmetricGroup( 5 );;
-gap> S4 := SymmetricGroup( 4 );;
-gap> isoS4 := IsomorphismGroups( Image( p5 ), S4 );;
-gap> incS4 := GroupHomomorphismByImages( S4, S5, GeneratorsOfGroup( S4 ), GeneratorsOfGroup( S4 ) );;
-gap> hom1G5 := p5*isoS4*incS4;;
-gap> hom2G5 := GroupHomomorphismByImagesNC( G5, S5, GeneratorsOfGroup( G5 ), List( GeneratorsOfGroup( G5 ), i -> One( S5 ) ) );;
-gap> IsNilpotent( CoincidenceGroup( hom1G5, hom1G5 ) );
-false
+gap> S6 := SymmetricGroup( 6 );;
+gap> K4 := Image( p5 );;
+gap> inc1K4 := GroupHomomorphismByImages( K4, S6, [ K4.1, K4.2 ], [ (5,6), (1,2)(3,4) ] );;
+gap> inc2K4 := GroupHomomorphismByImages( K4, S6, [ K4.1, K4.2 ], [ (1,3)(4,5), () ] );;
+gap> hom1G5 := p5*inc1K4;;
+gap> hom2G5 := p5*inc2K4;;
 gap> ReidemeisterNumber( hom1G5, hom1G5 );
-12
-gap> IsNilpotent( CoincidenceGroup( hom2G5, hom2G5 ) );
-false
+208
 gap> ReidemeisterNumber( hom2G5, hom2G5 );
-120
-gap> IsNilpotent( CoincidenceGroup( hom1G5, hom2G5 ) );
-true
+368
 gap> ReidemeisterNumber( hom1G5, hom2G5 );
-5
-gap> incG5 := GroupHomomorphismByImages( S4, G5, [ (1,2),(1,2,3,4) ] , List( [ M.5, M.6 ], i -> i^isoM ) );;
-gap> ReidemeisterClasses( incG5, incG5 );
+180
+gap> CoincidenceGroup( hom1G5, hom2G5 ) = FittingSubgroup( G5 );
+true
+gap> inc1S6 := GroupHomomorphismByImages( S6, G5, [ (1,2,3,4,5,6), (1,2) ] , [ G5.1, G5.1 ] );;
+gap> inc2S6 := GroupHomomorphismByImages( S6, G5, [ (1,2,3,4,5,6), (1,2) ] , [ G5.1*G5.4, G5.1*G5.4 ] );;
+gap> CoincidenceGroup( inc1S6, inc2S6 );
+Group([ (2,6,5,4,3), (1,3,5)(2,4,6) ])
+gap> ReidemeisterClasses( inc1S6, inc2S6 );
 fail
-gap> ReidemeisterNumber( incG5, incG5 );
+gap> ReidemeisterNumber( inc2S6, inc2S6 );
 infinity
 
 #
