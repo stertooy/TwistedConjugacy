@@ -33,7 +33,10 @@ jobs:
       - uses: gap-actions/run-pkg-tests@v2
         with:
           GAP_TESTFILE: 'tst/teststandard.g'
-      - uses: gap-actions/process-coverage@v1
+      - uses: gap-actions/process-coverage@v2
+      - name: 'Upload coverage'
+        run:  bash <(curl -s https://codecov.io/bash)
+        shell: bash
 
   manual:
     name: Manual
