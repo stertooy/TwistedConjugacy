@@ -70,7 +70,7 @@ Dependencies := rec(
 
 AvailabilityTest := ReturnTrue,
 
-TestFile := "tst/teststandard.g",
+TestFile := "tst/testall.g",
 
 Keywords := [
 	"coincidence group",

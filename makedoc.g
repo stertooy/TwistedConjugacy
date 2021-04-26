@@ -1,5 +1,5 @@
-if fail = LoadPackage( "AutoDoc", ">= 2019.09.04" ) then
-    Error( "AutoDoc 2019.09.04 or newer is required" );
+if fail = LoadPackage( "AutoDoc", ">= 2018.02.14" ) then
+    Error( "AutoDoc 2018.02.14 or newer is required" );
 fi;
 
 AutoDoc( rec( 
