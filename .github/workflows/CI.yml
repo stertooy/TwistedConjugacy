@@ -15,7 +15,7 @@ jobs:
         include: 
           - gap-branch: master
             packages-to-clone: 'alnuth autpgrp polycyclic'
-            coverage: true
+            coverage: 'true'
           - gap-branch: stable-4.11
           - gap-branch: stable-4.10
           - gap-branch: stable-4.9
@@ -38,7 +38,7 @@ jobs:
         if: {{ matrix.coverage == 'true' }}
       - name: 'Upload coverage'
         if: {{ matrix.coverage == 'true' }}
-        run:  bash <(curl -s https://codecov.io/bash)
+        run: bash <(curl -s https://codecov.io/bash)
         shell: bash
 
   manual:
