@@ -12,7 +12,9 @@ gap> hom1 := GroupHomomorphismByImagesNC( H, G, gens, imgs1 );;
 gap> hom2 := GroupHomomorphismByImagesNC( H, G, gens, imgs2 );;
 
 # Coincidence Group
-gap> CoincidenceGroup( hom1, hom2 ) = Centre ( H );
+gap> Coin := CoincidenceGroup( hom1, hom2 );;
+gap> h := Random( H );;
+gap> Coin.1 * h = h*Coin.1;
 true
 
 # Reidemeister Classes
