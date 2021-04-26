@@ -1,7 +1,7 @@
 gap> START_TEST( "Testing TwistedConjugacy for finite PcpGroups: endomorphisms" );
 
 #
-gap> G := Image( IsomorphismPcpGroup( SmallGroup( 252, 34 ) ) );;
+gap> G := PcGroupToPcpGroup( SmallGroup( 252, 34 ) );;
 gap> imgs1 := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, One( G ) ];;
 gap> imgs2 := [ One( G ), G.2*G.3*G.4, G.3, G.3^2*G.4, One( G ) ];;
 gap> endo1 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs1 );;

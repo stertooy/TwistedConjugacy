@@ -1,8 +1,8 @@
 gap> START_TEST( "Testing TwistedConjugacy for finite PcpGroups: homomorphisms" );
 
 #
-gap> G := Image( IsomorphismPcpGroup( SmallGroup( 252, 34 ) ) );;
-gap> H := Image( IsomorphismPcpGroup( SmallGroup( 84, 5 ) ) );;
+gap> G := PcGroupToPcpGroup( SmallGroup( 252, 34 ) );;
+gap> H := PcGroupToPcpGroup( SmallGroup( 84, 5 ) );;
 gap> imgs1 := [ G.2*G.4^2, One( G ) ];;
 gap> imgs2 := [ G.1*G.2*G.3*G.5, G.3*G.4^2*G.5^3 ];; 
 gap> hom1 := GroupHomomorphismByImagesNC( H, G, [ H.1, H.3*H.4 ], imgs1 );;

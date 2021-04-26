@@ -4,7 +4,7 @@
 ##
 InstallMethod(
 	CoincidenceGroup,
-	"turn finite pcp range",
+	"turn finite PcpGroup range into PcGroup",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	101,
 	function ( hom1, hom2 )
@@ -23,7 +23,7 @@ InstallMethod(
 
 InstallMethod(
 	CoincidenceGroup,
-	"for finite pcp source",
+	"turn finite PcpGroup source into PcGroup",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	100,
 	function ( hom1, hom2 )
@@ -47,7 +47,7 @@ InstallMethod(
 ##
 InstallMethod(
 	FixedPointGroup,
-	"turn group into SpecialPcGroup",
+	"turn finite PcpGroup into PcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	100,
 	function ( endo )
@@ -72,7 +72,7 @@ InstallMethod(
 ##
 InstallMethod(
 	ReidemeisterClasses,
-	"for finite pcp range",
+	"turn finite PcpGroup range into PcGroup",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	101,
 	function ( hom1, hom2 )
@@ -95,7 +95,7 @@ InstallMethod(
 
 InstallMethod(
 	ReidemeisterClasses,
-	"for finite pcp source",
+	"turn finite PcpGroup source into PcGroup",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	100,
 	function ( hom1, hom2 )
@@ -126,7 +126,7 @@ InstallMethod(
 ##
 InstallOtherMethod(
 	ReidemeisterClasses,
-	"turn group into SpecialPcGroup",
+	"turn finite PcpGroup into PcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	100,
 	function ( endo )
@@ -155,7 +155,7 @@ InstallOtherMethod(
 ##
 InstallMethod(
 	ReidemeisterNumber,
-	"for finite pcp range",
+	"turn finite PcpGroup range into PcGroup",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	101,
 	function ( hom1, hom2 )
@@ -174,7 +174,7 @@ InstallMethod(
 
 InstallMethod(
 	ReidemeisterNumber,
-	"for finite pcp source",
+	"turn finite PcpGroup source into PcGroup",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	100,
 	function ( hom1, hom2 )
@@ -198,7 +198,7 @@ InstallMethod(
 ##
 InstallOtherMethod(
 	ReidemeisterNumber,
-	"turn group into SpecialPcGroup",
+	"turn finite PcpGroup into PcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	101,
 	function ( endo )
@@ -218,11 +218,87 @@ InstallOtherMethod(
 
 ###############################################################################
 ##
+## IsTwistedConjugate( hom1, hom2, g1, g2 )
+##
+InstallMethod(
+	IsTwistedConjugate,
+	"turn finite PcpGroup range into PcGroup",
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
+	101,
+	function ( hom1, hom2, g1, g2 )
+		local G, iso;
+		G := Range( hom1 );
+		if (
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
+		) then
+			TryNextMethod();
+		fi;
+		iso := IsomorphismPcGroup( G );
+		return IsTwistedConjugate(
+			hom1*iso, hom2*iso,
+			g1^iso, g2^iso
+		);
+	end
+);
+
+InstallMethod(
+	IsTwistedConjugate,
+	"turn finite PcpGroup source into PcGroup",
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
+	100,
+	function ( hom1, hom2, g1, g2 )
+		local H, iso, h;
+		H := Source( hom1 );
+		if (
+			not IsPcpGroup( H ) or
+			not IsFinite( H )
+		) then
+			TryNextMethod();
+		fi;
+		iso := InverseGeneralMapping( IsomorphismPcGroup( H ) );
+		return IsTwistedConjugate( iso*hom1, iso*hom2, g1, g2 );
+	end
+);
+
+
+###############################################################################
+##
+## IsTwistedConjugate( endo, g1, g2 )
+##
+InstallOtherMethod(
+	IsTwistedConjugate,
+	"turn finite PcpGroup into PcGroup",
+	[ IsGroupHomomorphism and IsEndoGeneralMapping,
+	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
+	100,
+	function ( endo, g1, g2 )
+		local G, iso;
+		G := Range( endo );
+		if (
+			not IsPcpGroup( G ) or
+			not IsFinite( G )
+		) then
+			TryNextMethod();
+		fi;
+		iso := IsomorphismPcGroup( G );
+		return IsTwistedConjugate(
+			InverseGeneralMapping( iso ) * endo * iso,
+			g1^iso, g2^iso
+		);
+	end
+);
+
+
+###############################################################################
+##
 ## RepresentativeTwistedConjugation( hom1, hom2, g1, g2 )
 ##
 InstallMethod(
 	RepresentativeTwistedConjugation,
-	"for finite pcp range",
+	"turn finite PcpGroup range into PcGroup",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	101,
@@ -245,7 +321,7 @@ InstallMethod(
 
 InstallMethod(
 	RepresentativeTwistedConjugation,
-	"for finite pcp source",
+	"turn finite PcpGroup source into PcGroup",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	100,
@@ -270,39 +346,11 @@ InstallMethod(
 
 ###############################################################################
 ##
-## IsTwistedConjugate( endo, g1, g2 )
-##
-InstallOtherMethod(
-	IsTwistedConjugate,
-	"turn group into SpecialPcGroup",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping,
-	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
-	100,
-	function ( endo, g1, g2 )
-		local G, iso;
-		G := Range( endo );
-		if (
-			not IsPcpGroup( G ) or
-			not IsFinite( G )
-		) then
-			TryNextMethod();
-		fi;
-		iso := IsomorphismPcGroup( G );
-		return IsTwistedConjugate(
-			InverseGeneralMapping( iso ) * endo * iso,
-			g1^iso, g2^iso
-		);
-	end
-);
-
-
-###############################################################################
-##
 ## RepresentativeTwistedConjugation( endo, g1, g2 )
 ##
 InstallOtherMethod(
 	RepresentativeTwistedConjugation,
-	"turn group into SpecialPcGroup",
+	"turn finite PcpGroup into PcGroup",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	100,
