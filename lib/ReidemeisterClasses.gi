@@ -173,7 +173,7 @@ InstallMethod(
 
 InstallMethod(
 	ReidemeisterClasses,
-	"for finite source",
+	"for finite source and range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	5,
 	function ( hom1, hom2 )
@@ -181,12 +181,10 @@ InstallMethod(
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
-			not IsFinite( H )
+			not IsFinite( H ) or
+			not IsFinite( G )
 		) then
 			TryNextMethod();
-		fi;
-		if not IsFinite( G ) then
-			return fail;
 		fi;
 		Rcl := [];
 		for orbit in OrbitsDomain( 
