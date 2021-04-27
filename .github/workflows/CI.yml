@@ -34,15 +34,15 @@ jobs:
         with:
           GAP_PKGS_TO_CLONE: ${{ matrix.packages-to-clone }}
           GAPBRANCH: ${{ matrix.gap-branch }}
-      - name: 'Build GAP packages'
+      - name: 'Add package to GAP'
         uses: gap-actions/build-pkg@v1
       - name: 'Run tests with default packages'
-        uses: gap-actions/run-pkg-tests@v2
+        uses: sTertooy/run-pkg-tests@v2
         with:
           GAP_TESTFILE: 'tst/teststandard.g'
           NO_COVERAGE: ${{ matrix.no-coverage }}
       - name: 'Run tests with all packages loaded'
-        uses: gap-actions/run-pkg-tests@v2
+        uses: sTertooy/run-pkg-tests@v2
         with:
           GAP_TESTFILE: 'tst/testallpackages.g'
           NO_COVERAGE: true
