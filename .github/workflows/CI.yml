@@ -41,6 +41,12 @@ jobs:
         with:
           GAP_TESTFILE: 'tst/teststandard.g'
           NO_COVERAGE: ${{ matrix.no-coverage }}
+      - name: 'Run tests with OnlyNeeded'
+        uses: sTertooy/run-pkg-tests@v2
+        with:
+          GAP_TESTFILE: 'tst/testonlyneeded.g'
+          GAP_FLAGS: '-r -A'
+          NO_COVERAGE: true
       - name: 'Run tests with all packages loaded'
         uses: sTertooy/run-pkg-tests@v2
         with:
