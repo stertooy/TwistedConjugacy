@@ -15,10 +15,12 @@ jobs:
         include: 
           - gap-branch: master
             packages-to-clone: 'alnuth autpgrp polycyclic'
-            coverage: true
           - gap-branch: stable-4.11
+            no-coverage: true
           - gap-branch: stable-4.10
+            no-coverage: true
           - gap-branch: stable-4.9
+            no-coverage: true
 
     steps:
       - name: 'Checkout'
@@ -27,26 +29,28 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install pari-gp
-      - name: 'Setup GAP'
+      - name: 'Install GAP'
         uses: gap-actions/setup-gap@v2
         with:
           GAP_PKGS_TO_CLONE: ${{ matrix.packages-to-clone }}
           GAPBRANCH: ${{ matrix.gap-branch }}
-      - name: 'Build packages'
+      - name: 'Build GAP packages'
         uses: gap-actions/build-pkg@v1
-      - name: 'Run test files in default configuration'
+      - name: 'Run tests with default packages'
         uses: gap-actions/run-pkg-tests@v2
         with:
-          GAP_TESTFILE: 'tst/testonlyneeded.g'
-      - name: 'Run test files with all packages loaded'
+          GAP_TESTFILE: 'tst/teststandard.g'
+          NO_COVERAGE: ${{ matrix.no-coverage }}
+      - name: 'Run tests with all packages loaded'
         uses: gap-actions/run-pkg-tests@v2
         with:
           GAP_TESTFILE: 'tst/testallpackages.g'
+          NO_COVERAGE: true
       - name: 'Process coverage'
         uses: gap-actions/process-coverage@v2
-        if: ${{ matrix.coverage }}
+        if: ${{ !matrix.no-coverage }}
       - name: 'Upload coverage'
-        if: ${{ matrix.coverage }}
+        if: ${{ !matrix.no-coverage }}
         run: bash <(curl -s https://codecov.io/bash)
         shell: bash
 
@@ -56,9 +60,12 @@ jobs:
     if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: gap-actions/setup-gap@v2
-      - uses: gap-actions/build-pkg-docs@v1
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+      - name: 'Install GAP'
+        uses: gap-actions/setup-gap@v2
+      - name: 'Build documentation'
+        uses: gap-actions/build-pkg-docs@v1
         with:
           use-latex: 'true'
       - name: 'Upload documentation'
