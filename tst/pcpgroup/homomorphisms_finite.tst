@@ -20,6 +20,8 @@ gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );
 42
+gap> Length( List( tcc ) );
+42
 gap> Random( tcc ) in tcc;
 true
 gap> ActingDomain( tcc ) = H;
@@ -48,7 +50,7 @@ true
 
 #
 gap> M := DerivedSubgroup( G );;
-gap> N := IntersectionPreImage@TwistedConjugacy( hom1, hom2, M );;
+gap> N := Subgroup( H, [ H.2, H.3, H.4 ] );;
 gap> homN1 := RestrictedHomomorphism( hom1, N, M );;
 gap> homN2 := RestrictedHomomorphism( hom2, N, M );;
 
@@ -61,6 +63,8 @@ gap> tccM := ReidemeisterClass( homN1, homN2, One( M ) );;
 gap> Representative( tccM ) = One( M );
 true
 gap> Size( tccM );
+21
+gap> Length( List( tccM ) );
 21
 gap> Random( tccM ) in tccM;
 true

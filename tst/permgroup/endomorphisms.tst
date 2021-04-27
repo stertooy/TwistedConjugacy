@@ -21,6 +21,8 @@ gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );
 42
+gap> Length( List( tcc ) );
+42
 gap> Random( tcc ) in tcc;
 true
 gap> ActingDomain( tcc ) = G;

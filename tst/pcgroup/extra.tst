@@ -5,9 +5,14 @@ gap> ProductCyclicGroups := function ( L ) return DirectProduct( List( L, i -> C
 
 #
 gap> T := TrivialGroup();;
-gap> IsTrivial( FixedPointGroup( IdentityMapping( T ) ) );
+gap> idT := IdentityMapping( T );;
+gap> IsTrivial( FixedPointGroup( idT ) );
 true
-gap> Print( ReidemeisterClass( IdentityMapping( T ), One( T ) ), "\n" );
+gap> ReidemeisterClasses( idT );
+[ <identity> of ...^G ]
+gap> IsTwistedConjugate( idT, One( T ), One( T ) );
+true
+gap> Print( ReidemeisterClass( idT, One( T ) ), "\n" );
 ReidemeisterClass( [ [ ] -> [ ], [ ] -> [ ] ], <identity> of ... )
 
 #

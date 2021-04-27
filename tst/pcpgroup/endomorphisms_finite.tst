@@ -21,6 +21,8 @@ gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );
 18
+gap> Length( List( tcc ) );
+18
 gap> Random( tcc ) in tcc;
 true
 gap> ActingDomain( tcc ) = G;
@@ -95,6 +97,8 @@ gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
 gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );
+9
+gap> Length( List( tcc ) );
 9
 gap> Random( tcc ) in tcc;
 true
