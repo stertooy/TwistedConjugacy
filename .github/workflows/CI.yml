@@ -34,9 +34,9 @@ jobs:
       - uses: gap-actions/run-pkg-tests@v2
         with:
           GAP_TESTFILE: 'tst/teststandard.g'
-      - if: matrix.coverage
+      - if: ${{ matrix.coverage : false }}
         uses: gap-actions/process-coverage@v2
-      - if: matrix.coverage
+      - if: ${{ matrix.coverage : false }}
         name: 'Upload coverage'
         run: bash <(curl -s https://codecov.io/bash)
         shell: bash
