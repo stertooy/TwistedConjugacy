@@ -15,21 +15,13 @@ jobs:
         include: 
           - gap-branch: master
             packages-to-clone: 'alnuth autpgrp polycyclic'
-            testfile: 'tst/teststandard.g'
             coverage: true
           - gap-branch: master
             packages-to-clone: 'alnuth autpgrp polycyclic'
-            testfile: 'tst/testonlyneeded.g'
             coverage: true
-          - gap-branch: master
-            packages-to-clone: 'alnuth autpgrp polycyclic'
-            testfile: 'tst/testallpackages.g'
           - gap-branch: stable-4.11
-            testfile: 'tst/teststandard.g'
           - gap-branch: stable-4.10
-            testfile: 'tst/teststandard.g'
           - gap-branch: stable-4.9
-            testfile: 'tst/teststandard.g'
 
     steps:
       - uses: actions/checkout@v2
@@ -44,7 +36,7 @@ jobs:
       - uses: gap-actions/build-pkg@v1
       - uses: gap-actions/run-pkg-tests@v2
         with:
-          GAP_TESTFILE: ${{ matrix.testfile }}
+          GAP_TESTFILE: 'tst/testonlyneeded.g'
       - if: ${{ matrix.coverage }}
         uses: gap-actions/process-coverage@v2
       - if: ${{ matrix.coverage }}
