@@ -5,11 +5,16 @@ gap> ProductCyclicGroups := function ( L ) return DirectProduct( List( L, i -> C
 
 #
 gap> T := TrivialGroup();;
+gap> IsTrivial( FixedPointGroup( IdentityMapping( T ) ) );
+true
 gap> Print( ReidemeisterClass( IdentityMapping( T ), One( T ) ), "\n" );
 ReidemeisterClass( [ [ ] -> [ ], [ ] -> [ ] ], <identity> of ... )
 
 #
 gap> C2 := CyclicGroup( 2 );;
+gap> triv := GroupHomomorphismByFunction( C2, T, x -> One( T ) );;
+gap> C2 = CoincidenceGroup( triv, triv );
+true
 gap> endo := GroupHomomorphismByImagesNC( C2, C2, [ C2.1 ], [ C2.1^2 ] );;
 gap> Print( ReidemeisterClass( endo, C2.1 ) , "\n" );
 ReidemeisterClass( [ [ f1 ] -> [ <identity> of ... ], [ f1 ] -> [ f1 ] ], f1 )
