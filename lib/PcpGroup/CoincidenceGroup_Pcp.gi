@@ -3,7 +3,7 @@
 ## CoincidenceGroupByFiniteCoin@( hom1, hom2, M )
 ##
 CoincidenceGroupByFiniteCoin@ := function ( hom1, hom2, M )
-	local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, gens, qh, h, n;
+	local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, gens, CoinN, qh, h, n;
 	G := Range( hom1 );
 	H := Source( hom1 );
 	N := IntersectionPreImage@( hom1, hom2, M );
@@ -27,8 +27,9 @@ CoincidenceGroupByFiniteCoin@ := function ( hom1, hom2, M )
 			Add( gens, h*n );
 		fi;
 	od;
+	CoinN := CoincidenceGroup( hom1N, hom2N );
 	return ClosureSubgroupNC(
-		AsSubgroup( H, CoincidenceGroup( hom1N, hom2N ) ),
+		AsSubgroup( H, CoinN ),
 		gens
 	);
 end;
@@ -39,22 +40,23 @@ end;
 ## CoincidenceGroupByCentre@( hom1, hom2 )
 ##
 CoincidenceGroupByCentre@ := function ( hom1, hom2 )
-	local G, M, p, q, Coin;
+	local G, H, M, N, p, q, CoinHN, Coin, diff;
 	G := Range( hom1 );
+	H := Source( hom1 );
 	M := Centre( G );
+	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
-	q := NaturalHomomorphismByNormalSubgroupNC(
-		Source( hom1 ),
-		IntersectionPreImage@( hom1, hom2, M )
-	);
-	Coin := PreImage( q, CoincidenceGroup(
+	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
+	CoinHN := CoincidenceGroup(
 		InducedHomomorphism( q, p, hom1 ),
 		InducedHomomorphism( q, p, hom2 )
-	));
-	return Kernel( DifferenceGroupHomomorphisms@ (
+	);
+	Coin := PreImage( q, CoinHN );
+	diff := DifferenceGroupHomomorphisms@ (
 		RestrictedHomomorphism( hom1, Coin, G ),
 		RestrictedHomomorphism( hom2, Coin, G )
-	));
+	);
+	return Kernel( diff );
 end;
 
 
@@ -69,10 +71,11 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	4,
 	function ( hom1, hom2 )
-		local G;
+		local G, H;
 		G := Range( hom1 );
+		H := Source( hom1 );
 		if (
-			not IsPcpGroup( Source( hom1 ) ) or
+			not IsPcpGroup( H ) or
 			not IsFinite( G )
 		) then
 			TryNextMethod();
@@ -90,16 +93,18 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	3,
 	function ( hom1, hom2 )
-		local G;
+		local G, H, diff;
 		G := Range( hom1 );
+		H := Source( hom1 );
 		if (
-			not IsPcpGroup( Source( hom1 ) ) or
+			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
 			not IsAbelian( G )
 		) then
 			TryNextMethod();
 		fi;
-		return Kernel( DifferenceGroupHomomorphisms@ ( hom1, hom2 ) );
+		diff := DifferenceGroupHomomorphisms@ ( hom1, hom2 );
+		return Kernel( diff );
 	end
 );
 
@@ -111,8 +116,9 @@ InstallMethod(
 	function ( hom1, hom2 )
 		local G, H;
 		G := Range( hom1 );
+		H := Source( hom1 );
 		if (
-			not IsPcpGroup( Source( hom1 ) ) or
+			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
 			not IsNilpotentGroup( G )
 		) then
@@ -128,10 +134,11 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )
-		local G;
+		local G, H;
 		G := Range( hom1 );
+		H := Source( hom1 );
 		if (
-			not IsPcpGroup( Source( hom1 ) ) or
+			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
 			not IsNilpotentByFinite( G )
 		) then
@@ -150,10 +157,11 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	0,
 	function ( hom1, hom2 )
-		local G;
+		local G, H;
 		G := Range( hom1 );
+		H := Source( hom1 );
 		if (
-			not IsPcpGroup( Source( hom1 ) ) or
+			not IsPcpGroup( H ) or
 			not IsPcpGroup( G )
 		) then
 			TryNextMethod();

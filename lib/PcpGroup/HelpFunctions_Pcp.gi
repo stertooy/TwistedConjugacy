@@ -6,13 +6,12 @@
 ##  No verification is done to make sure this is actually a homomorphism
 ##
 DifferenceGroupHomomorphisms@ := function ( hom1, hom2 )
-  	local H, gens;
+  	local G, H, gens, imgs;
+	G := Range( hom1 );
 	H := Source( hom1 );
 	gens := GeneratorsOfGroup( H );
-	return GroupHomomorphismByImagesNC(
-		H, Range( hom1 ),
-		gens, List( gens, h -> h^hom2 * ( h^hom1 )^-1 )
-	);
+	imgs := List( gens, h -> h^hom2 * ( h^hom1 )^-1 );
+	return GroupHomomorphismByImagesNC( H, G, gens, imgs );
 end;
 
 

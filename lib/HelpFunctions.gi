@@ -5,14 +5,17 @@
 InstallGlobalFunction(
 	InducedHomomorphism,
 	function ( epi1, epi2, hom )
+		local GM, HN;
+		GM := Range( epi2 );
+		HN := Range( epi1 );
 		return GroupHomomorphismByFunction(
-			Range( epi1 ), Range( epi2 ),
+			HN, GM,
 			h -> ( PreImagesRepresentative( epi1, h )^hom )^epi2,
 			false,
-			g -> PreImagesRepresentative(
+			g -> ( PreImagesRepresentative(
 				hom,
 				PreImagesRepresentative( epi2, g )
-			)^epi1
+			) )^epi1
 		);
 	end
 );

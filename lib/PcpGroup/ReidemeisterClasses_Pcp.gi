@@ -3,12 +3,15 @@
 ## ReidemeisterClassesByFiniteCoin@( hom1, hom2, M )
 ##
 ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M )
-	local G, H, N, p, q, hom1HN, hom2HN, RclGM, Rcl, hom1N, hom2N, pg,
-		Coin, g, ighom1N, RclM, igRclM, tc, m, isNew, qh;
+	local G, H, N, p, q, GM, hom1HN, hom2HN, RclGM, Rcl, hom1N, hom2N, pg,
+		inn_pg, Coin, g, conj_g, inn_g_hom1N, RclM, igRclM, inn_g, tc, m1,
+		isNew, qh, h, m2;
 	G := Range( hom1 );
+	H := Source( hom1 );
 	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
-	q := NaturalHomomorphismByNormalSubgroupNC( Source( hom1 ), N );
+	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
+	GM := Range( p );
 	hom1HN := InducedHomomorphism( q, p, hom1 );
 	hom2HN := InducedHomomorphism( q, p, hom2 );
 	RclGM := ReidemeisterClasses(
@@ -23,35 +26,32 @@ ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M )
 	hom1N := RestrictedHomomorphism( hom1, N, M );
 	hom2N := RestrictedHomomorphism( hom2, N, M );
 	for pg in RclGM do
-		Coin := CoincidenceGroup(
-			hom1HN * InnerAutomorphismNC( Range( p ), pg^-1 ),
-			hom2HN
-		);
+		inn_pg := InnerAutomorphismNC( GM, pg^-1 );
+		Coin := CoincidenceGroup( hom1HN*inn_pg, hom2HN );
 		if not IsFinite( Coin ) then
 			TryNextMethod();
 		fi;
 		g := PreImagesRepresentative( p, pg );
-		ighom1N := hom1N * ConjugatorAutomorphismNC( M, g^-1 );
-		RclM := ReidemeisterClasses(
-			ighom1N,
-			hom2N
-		);
+		conj_g := ConjugatorAutomorphismNC( M, g^-1 );
+		inn_g_hom1N := hom1N * conj_g;
+		RclM := ReidemeisterClasses( inn_g_hom1N, hom2N );
 		if RclM = fail then
 			return fail;
 		fi;
 		RclM := List( RclM, g -> Representative( g ) );
 		igRclM := [ Remove( RclM, 1 ) ];
-		tc := TwistedConjugation(
-			hom1 * InnerAutomorphismNC( G, g^-1 ),
-			hom2
-		);
-		for m in RclM do
+		inn_g := InnerAutomorphismNC( G, g^-1 );
+		tc := TwistedConjugation( hom1*inn_g, hom2 );
+		for m1 in RclM do
 			isNew := true;
 			for qh in Coin do
+				h := PreImagesRepresentative( q, qh );
+				m2 := tc( m1, h );
 				if ForAny(
-					igRclM, k -> IsTwistedConjugate(
-						ighom1N, hom2N,
-						k, tc( m, PreImagesRepresentative( q, qh ) )
+					igRclM,
+					k -> IsTwistedConjugate(
+						inn_g_hom1N, hom2N,
+						k, m2
 					)
 				) then
 					isNew := false;
@@ -59,7 +59,7 @@ ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M )
 				fi;
 			od;
 			if isNew then
-				Add( igRclM, m );
+				Add( igRclM, m1 );
 			fi;
 		od;
 		Append(

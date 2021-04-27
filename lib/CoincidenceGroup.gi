@@ -8,10 +8,13 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	6,
 	function ( hom1, hom2 )
-		if not IsTrivial( Range( hom1 ) ) then
+		local G, H;
+		G := Range( hom1 );
+		H := Source( hom1 );
+		if not IsTrivial( G ) then
 			TryNextMethod();
 		fi;
-		return Source( hom1 );
+		return H;
 	end
 );
 
@@ -21,16 +24,14 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	5,
 	function ( hom1, hom2 )
-		local H;
+		local G, H, tc;
+		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsFinite( H ) then
 			TryNextMethod();
 		fi;
-		return Stabiliser(
-			H,
-			One( Range( hom1 ) ),
-			TwistedConjugation( hom1, hom2 )
-		);
+		tc := TwistedConjugation( hom1, hom2 );
+		return Stabiliser( H, One( G ), tc );
 	end
 );
 
@@ -43,7 +44,9 @@ InstallMethod(
 	FixedPointGroup,
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo )
-		return CoincidenceGroup( endo, IdentityMapping( Source( endo ) ) );
+		local G;
+		G := Range( endo );
+		return CoincidenceGroup( endo, IdentityMapping( G ) );
 	end
 );
 

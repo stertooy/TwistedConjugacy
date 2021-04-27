@@ -7,8 +7,10 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
 	function ( hom1, hom2, g )
-		local G, tcc;
+		local G, H, tc, tcc;
 		G := Range( hom1 );
+		H := Source( hom1 );
+		tc := TwistedConjugation( hom1, hom2 );
 		tcc := rec();
 		ObjectifyWithAttributes(
 			tcc, NewType(
@@ -17,10 +19,10 @@ InstallMethod(
 				HasActingCodomain and HasRepresentative and 
 				HasFunctionAction and HasGroupHomomorphismsOfReidemeisterClass
 			),
-			ActingDomain, Source( hom1 ),
+			ActingDomain, H,
 			ActingCodomain, G,
 			Representative, g,
-			FunctionAction, TwistedConjugation( hom1, hom2 ),
+			FunctionAction, tc,
 			GroupHomomorphismsOfReidemeisterClass, [ hom1, hom2 ]
 		);
 		return tcc;
@@ -37,7 +39,9 @@ InstallOtherMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsMultiplicativeElementWithInverse ],
 	function ( endo, g )
-		return ReidemeisterClass( endo, IdentityMapping( Source( endo ) ), g );
+		local G;
+		G := Range( endo );
+		return ReidemeisterClass( endo, IdentityMapping( G ), g );
 	end
 );
 
@@ -59,10 +63,10 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsMultiplicativeElementWithInverse, IsReidemeisterClassGroupRep ],
 	function ( g, tcc )
-		local homs;
-		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
+		local hom;
+		hom := GroupHomomorphismsOfReidemeisterClass( tcc );
 		return IsTwistedConjugate( 
-			homs[1], homs[2],
+			hom[1], hom[2],
 			g, Representative( tcc )
 		);
 	end
@@ -73,25 +77,26 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
-		local homStrings, homs, G, i, gens;
-		homStrings := [];
-		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
+		local hom, G, g, homString, i, gens;
+		hom := GroupHomomorphismsOfReidemeisterClass( tcc );
 		G := ActingCodomain( tcc );
+		g := Representative( tcc );
+		homString := [];
 		for i in [1..2] do
-			if homs[i] = IdentityMapping( G ) then
+			if hom[i] = IdentityMapping( G ) then
 				gens := PrintString( GeneratorsOfGroup( G ) );
-				homStrings[i] := Concatenation( gens, " -> ", gens );
+				homString[i] := Concatenation( gens, " -> ", gens );
 			else
-				homStrings[i] := PrintString( homs[i] );
+				homString[i] := PrintString( hom[i] );
 			fi;
 		od;
 		Print(
 			"ReidemeisterClass( [ ",
-			homStrings[1],
+			homString[1],
 			", ",
-			homStrings[2],
+			homString[2],
 			" ], ",
-			PrintString( Representative( tcc ) ),
+			PrintString( g ),
 			" )"
 		);
 		return;
@@ -103,10 +108,12 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
-		return FunctionAction( tcc )(
-			Representative( tcc ),
-			Random( ActingDomain( tcc ) )
-		);
+		local H, g, h, tc;
+		H := ActingDomain( tcc );
+		g := Representative( tcc );
+		h := Random( H );
+		tc := FunctionAction( tcc );
+		return tc( g, h );
 	end
 );
 
@@ -115,14 +122,14 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
-		local G, H, homs;
+		local G, H, g, inn, hom, Coin;
 		G := ActingCodomain( tcc );
 		H := ActingDomain( tcc );
-		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
-		return IndexNC( H, CoincidenceGroup(
-			homs[1] * InnerAutomorphismNC( G, Representative( tcc )^-1 ),
-			homs[2]
-		));
+		g := Representative( tcc );
+		inn := InnerAutomorphismNC( G, g^-1 );
+		hom := GroupHomomorphismsOfReidemeisterClass( tcc );
+		Coin := CoincidenceGroup( hom[1]*inn, hom[2] );
+		return IndexNC( H, Coin );
 	end
 );
 
@@ -131,21 +138,20 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
-		local G, H, homs, g, Coin;
+		local G, H, g, inn, hom, Coin, tc;
 		G := ActingCodomain( tcc );
 		H := ActingDomain( tcc );
-		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
 		g := Representative( tcc );
-		Coin := CoincidenceGroup(
-			homs[1] * InnerAutomorphismNC( G, g^-1 ),
-			homs[2]
-		);
+		inn := InnerAutomorphismNC( G, g^-1 );
+		hom := GroupHomomorphismsOfReidemeisterClass( tcc );
+		Coin := CoincidenceGroup( hom[1]*inn, hom[2] );
 		if IndexNC( H, Coin ) = infinity then
 			return fail;
 		else
+			tc := FunctionAction( tcc );
 			return List(
 				RightTransversal( H, Coin ),
-				h -> FunctionAction( tcc )( g, h )
+				h -> tc( g, h )
 			);
 		fi;
 	end
@@ -177,7 +183,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	5,
 	function ( hom1, hom2 )
-		local G, H, Rcl, orbit;
+		local G, H, Rcl, tc, G_List, orbits, orbit;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -187,11 +193,10 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		Rcl := [];
-		for orbit in OrbitsDomain( 
-			H,
-			AsSSortedListNonstored( G ),
-			TwistedConjugation( hom1, hom2 )
-		) do
+		tc := TwistedConjugation( hom1, hom2 );
+		G_List := AsSSortedListNonstored( G );
+		orbits := OrbitsDomain( H, G_List, tc );
+		for orbit in orbits do
 			if One( G ) in orbit then
 				Add( Rcl, ReidemeisterClass( hom1, hom2, One( G ) ), 1 );
 			else
@@ -211,7 +216,9 @@ InstallOtherMethod(
 	ReidemeisterClasses,
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo )
-		return ReidemeisterClasses( endo, IdentityMapping( Source( endo ) ) );
+		local G;
+		G := Range( endo );
+		return ReidemeisterClasses( endo, IdentityMapping( G ) );
 	end
 );
 
