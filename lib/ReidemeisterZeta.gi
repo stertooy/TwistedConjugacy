@@ -8,22 +8,21 @@ InstallMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo1, endo2 )
-		local G, G1, G2, steps, k, l, endo, R, P, Q;
-		G := Source( endo1 );
+		local G, k, l, steps, G1, G2, endo, R, P, Q;
+		G := Range( endo1 );
 		if not IsFinite( G ) then
 			TryNextMethod();
 		fi;
 		k := 1;
 		l := 0;
-		for endo in [ endo1, endo2 ] do 
-			G1 := fail;
-			G2 := G;
+		for endo in [ endo1, endo2 ] do
 			steps := -1;
-			while G1 <> G2 do
+			G2 := G;
+			repeat
 				steps := steps + 1;
 				G1 := G2;
-				G2 := Image( endo, G1 );
-			od;
+				G2 := ImagesSet( endo, G1 );
+			until G1 = G2;
 			k := LcmInt( k, Order( RestrictedMapping( endo, G1 ) ) );
 			l := Maximum( l, steps );
 		od;
@@ -57,10 +56,9 @@ InstallOtherMethod(
 	ReidemeisterZetaCoefficients,
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo )
-		return ReidemeisterZetaCoefficients(
-			endo,
-			IdentityMapping( Source( endo ) )
-		);
+		local G;
+		G := Range( endo );
+		return ReidemeisterZetaCoefficients( endo, IdentityMapping( G )	);
 	end
 );
 
@@ -83,8 +81,9 @@ InstallMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo1, endo2 )
-		local coeffs;
-		if not IsFinite( Source( endo1 ) ) then
+		local G, coeffs;
+		G := Range( endo1 );
+		if not IsFinite( G ) then
 			TryNextMethod();
 		fi;
 		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
@@ -117,7 +116,9 @@ InstallOtherMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	1,
 	function ( endo )
-		if IsFinite( Source( endo ) ) then
+		local G;
+		G := Range( endo );
+		if IsFinite( G ) then
 			return true;
 		else
 			TryNextMethod();
@@ -144,8 +145,9 @@ InstallMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo1, endo2 )
-		local coeffs, p;
-		if not IsFinite( Source( endo1 ) ) then
+		local G, coeffs, p;
+		G := Range( endo1 );
+		if not IsFinite( G ) then
 			TryNextMethod();
 		fi;
 		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
@@ -186,7 +188,9 @@ InstallOtherMethod(
 	ReidemeisterZeta,
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo )
-		return ReidemeisterZeta( endo, IdentityMapping( Source( endo ) ) );
+		local G;
+		G := Range( endo );
+		return ReidemeisterZeta( endo, IdentityMapping( G ) );
 	end
 );
 
@@ -209,8 +213,9 @@ InstallMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo1, endo2 )
-		local coeffs, P, Q, q, i, qi, zeta, factors, powers, p, k, pi;
-		if not IsFinite( Source( endo1 ) ) then
+		local G, coeffs, P, Q, q, i, qi, zeta, factors, powers, p, k, pi;
+		G := Range( endo1 );
+		if not IsFinite( G ) then
 			TryNextMethod();
 		fi;
 		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
@@ -340,10 +345,9 @@ InstallOtherMethod(
 	PrintReidemeisterZeta,
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo )
-		return PrintReidemeisterZeta(
-			endo,
-			IdentityMapping( Source( endo ) )
-		);
+		local G;
+		G := Range( endo );
+		return PrintReidemeisterZeta( endo, IdentityMapping( G ) );
 	end
 );
 

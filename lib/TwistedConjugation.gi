@@ -7,7 +7,8 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	function ( hom1, hom2 )
 		return function ( g, h )
-			return ( h^hom2 )^-1 * g * h^hom1;
+			return ImagesRepresentative( hom2, h )^-1 * g *
+				ImagesRepresentative( hom1, h );
 		end;
 	end
 );
@@ -21,7 +22,9 @@ InstallOtherMethod(
 	TwistedConjugation,
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo )
-		return TwistedConjugation( endo, IdentityMapping( Source( endo ) ) );
+		local G;
+		G := Range( endo );
+		return TwistedConjugation( endo, IdentityMapping( G ) );
 	end
 );
 
@@ -57,10 +60,9 @@ InstallOtherMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	function ( endo, g1, g2 )
-		return IsTwistedConjugate(
-			endo, IdentityMapping( Source( endo ) ),
-			g1, g2
-		);
+		local G;
+		G := Range( endo );
+		return IsTwistedConjugate( endo, IdentityMapping( G ), g1, g2 );
 	end
 );
 
@@ -84,10 +86,11 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	function ( hom1, hom2, g1, g2 )
-		return RepTwistConjToId(
-			hom1 * InnerAutomorphismNC( Range( hom1 ), g2^-1 ), hom2,
-			g1*g2^-1
-		);
+		local G, g2inv, inn_g2;
+		G := Range( hom1 );
+		g2inv := g2^-1;
+		inn_g2 := InnerAutomorphismNC( G, g2inv );
+		return RepTwistConjToId( hom1*inn_g2, hom2, g1*g2inv );
 	end
 );
 
@@ -101,8 +104,10 @@ InstallOtherMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	function ( endo, g1, g2 )
+		local G;
+		G := Range( endo );
 		return RepresentativeTwistedConjugation(
-			endo, IdentityMapping( Source( endo ) ),
+			endo, IdentityMapping( G ),
 			g1, g2
 		);
 	end
@@ -130,10 +135,13 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse ],
 	6,
 	function ( hom1, hom2, g )
-		if not IsTrivial( Range( hom1 ) ) then
+		local G, H;
+		G := Range( hom1 );
+		H := Source( hom1 );
+		if not IsTrivial( G ) then
 			TryNextMethod();
 		fi;
-		return One( Source( hom1 ) );
+		return One( H );
 	end
 );
 
@@ -144,15 +152,13 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse ],
 	5,
 	function ( hom1, hom2, g )
-		local H;
+		local G, H, tc;
+		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsFinite( H ) then
 			TryNextMethod();
 		fi;
-		return RepresentativeAction(
-			H,
-			g, One( Range( hom1 ) ),
-			TwistedConjugation( hom1, hom2 ) 
-		);
+		tc := TwistedConjugation( hom1, hom2 );
+		return RepresentativeAction( H,	g, One( G ), tc	);
 	end
 );

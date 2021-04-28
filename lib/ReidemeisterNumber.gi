@@ -8,7 +8,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )
-		local G, H;
+		local G, H, Coin;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if  (
@@ -18,7 +18,8 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		return Size( G ) / Size( H ) * Size( CoincidenceGroup( hom1, hom2 ) );
+		Coin := CoincidenceGroup( hom1, hom2 );
+		return Size( G ) / Size( H ) * Size( Coin );
 	end
 );
 
@@ -47,7 +48,9 @@ InstallOtherMethod(
 	ReidemeisterNumber,
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	function ( endo )
-		return ReidemeisterNumber( endo, IdentityMapping( Source( endo ) ) );
+		local G;
+		G := Range( endo );
+		return ReidemeisterNumber( endo, IdentityMapping( G ) );
 	end
 );
 

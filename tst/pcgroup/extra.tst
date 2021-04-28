@@ -1,7 +1,7 @@
 gap> START_TEST( "Testing TwistedConjugacy for PcGroups: extra tests" );
 
 #
-gap> ProductCyclicGroups := function ( L ) return DirectProduct( List( L, i -> CyclicGroup( i ) ) ); end;;
+gap> ProductCyclicGroups := function ( L ) return DirectProduct( List( L, CyclicGroup ) ); end;;
 
 #
 gap> T := TrivialGroup();;

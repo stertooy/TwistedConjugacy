@@ -11,10 +11,8 @@ InstallMethod(
 		local G, H;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if ((
-				not IsPcpGroup( H ) and
-				not IsFinite( H )
-			) or
+		if (
+			not IsPcpGroup( H ) and not IsFinite( H ) or
 			not IsNilpotentByFinite( G ) or
 			HirschLength( H ) >= HirschLength( G )
 		) then
@@ -30,17 +28,18 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	2,
 	function ( hom1, hom2 )
-		local G;
+		local G, H, diff, N;
+		H := Source( hom1 );
 		G := Range( hom1 );
 		if (
-			not IsPcpGroup( Source( hom1 ) ) or
+			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
 			not IsAbelian( G )
 		) then
 			TryNextMethod();
 		fi;
-		return IndexNC( G, Image(
-			DifferenceGroupHomomorphisms@( hom1, hom2 )
-		));
+		diff := DifferenceGroupHomomorphisms@( hom1, hom2 );
+		N := Image( diff );
+		return IndexNC( G, N );
 	end
 );

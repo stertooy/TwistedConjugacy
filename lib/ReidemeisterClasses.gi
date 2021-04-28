@@ -77,15 +77,16 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
-		local hom, G, g, homString, i, gens;
+		local hom, G, g, homString, i;
 		hom := GroupHomomorphismsOfReidemeisterClass( tcc );
 		G := ActingCodomain( tcc );
 		g := Representative( tcc );
 		homString := [];
 		for i in [1..2] do
 			if hom[i] = IdentityMapping( G ) then
-				gens := PrintString( GeneratorsOfGroup( G ) );
-				homString[i] := Concatenation( gens, " -> ", gens );
+				homString[i] := PrintString(
+					GroupHomomorphismByImagesNC( G, G )
+				);
 			else
 				homString[i] := PrintString( hom[i] );
 			fi;

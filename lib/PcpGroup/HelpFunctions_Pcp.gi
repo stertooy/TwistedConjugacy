@@ -6,11 +6,15 @@
 ##  No verification is done to make sure this is actually a homomorphism
 ##
 DifferenceGroupHomomorphisms@ := function ( hom1, hom2 )
-  	local G, H, gens, imgs;
+  	local G, H, gens, diff, imgs;
 	G := Range( hom1 );
 	H := Source( hom1 );
 	gens := GeneratorsOfGroup( H );
-	imgs := List( gens, h -> h^hom2 * ( h^hom1 )^-1 );
+	diff := function( h )
+		return ImagesRepresentative( hom2, h ) *
+			ImagesRepresentative( hom1, h )^-1;
+	end;
+	imgs := List( gens, diff );
 	return GroupHomomorphismByImagesNC( H, G, gens, imgs );
 end;
 
@@ -23,8 +27,8 @@ end;
 ##  Note that N must be a normal subgroup
 ##
 IntersectionPreImage@ := function ( hom1, hom2, N )
-	return Intersection(
-		PreImage( hom1, Intersection( N, Image( hom1 ) ) ),
-		PreImage( hom2, Intersection( N, Image( hom2 ) ) )
+	return Intersection2(
+		PreImagesSet( hom1, Intersection2( N, ImagesSource( hom1 ) ) ),
+		PreImagesSet( hom2, Intersection2( N, ImagesSource( hom2 ) ) )
 	);
 end;

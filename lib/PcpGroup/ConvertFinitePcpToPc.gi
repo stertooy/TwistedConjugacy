@@ -11,7 +11,7 @@ InstallMethod(
 		local G, iso;
 		G := Range( hom1 );
 		if (
-			not IsPcpGroup(G ) or
+			not IsPcpGroup( G ) or
 			not IsFinite( G )
 		) then
 			TryNextMethod();
@@ -27,7 +27,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	100,
 	function ( hom1, hom2 )
-		local H, iso;
+		local H, inv;
 		H := Source( hom1 );
 		if (
 			not IsPcpGroup( H ) or
@@ -35,8 +35,8 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		iso := InverseGeneralMapping( IsomorphismPcGroup( H ) );
-		return Image( iso, CoincidenceGroup( iso*hom1, iso*hom2 ) );
+		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
+		return ImagesSet( inv, CoincidenceGroup( inv*hom1, inv*hom2 ) );
 	end
 );
 
@@ -61,7 +61,7 @@ InstallMethod(
 		fi;
 		iso := IsomorphismPcGroup( G );
 		inv := InverseGeneralMapping( iso );
-		return Image( inv, FixedPointGroup( inv*endo*iso ) );
+		return ImagesSet( inv, FixedPointGroup( inv*endo*iso ) );
 	end
 );
 
@@ -86,10 +86,13 @@ InstallMethod(
 		fi;
 		iso := IsomorphismPcGroup( G );
 		Rcl := ReidemeisterClasses( hom1*iso, hom2*iso );
-		return List( Rcl, tcc -> ReidemeisterClass(
-			hom1, hom2,
-			PreImagesRepresentative( iso, Representative( tcc ) )
-		));
+		return List( 
+			Rcl,
+			tcc -> ReidemeisterClass(
+				hom1, hom2,
+				PreImagesRepresentative( iso, Representative( tcc ) )
+			)
+		);
 	end
 );
 
@@ -99,7 +102,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	100,
 	function ( hom1, hom2 )
-		local H, iso, Rcl;
+		local H, inv, Rcl;
 		H := Source( hom1 );
 		if (
 			not IsPcpGroup( H ) or
@@ -107,15 +110,18 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		iso := InverseGeneralMapping( IsomorphismPcGroup( H ) );
-		Rcl := ReidemeisterClasses( iso*hom1, iso*hom2 );
+		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
+		Rcl := ReidemeisterClasses( inv*hom1, inv*hom2 );
 		if Rcl = fail then
 			return fail;
 		fi;
-		return List( Rcl, tcc -> ReidemeisterClass(
-			hom1, hom2,
-			Representative( tcc )
-		));
+		return List(
+			Rcl,
+			tcc -> ReidemeisterClass(
+				hom1, hom2,
+				Representative( tcc )
+			)
+		);
 	end
 );
 
@@ -141,10 +147,13 @@ InstallOtherMethod(
 		iso := IsomorphismPcGroup( G );
 		inv := InverseGeneralMapping( iso );
 		Rcl := ReidemeisterClasses( inv*endo*iso );
-		return List( Rcl, tcc -> ReidemeisterClass(
-			endo,
-			PreImagesRepresentative( iso, Representative( tcc ) )
-		));
+		return List(
+			Rcl,
+			tcc -> ReidemeisterClass(
+				endo,
+				PreImagesRepresentative( iso, Representative( tcc ) )
+			)
+		);
 	end
 );
 
@@ -178,7 +187,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	100,
 	function ( hom1, hom2 )
-		local H, iso;
+		local H, inv;
 		H := Source( hom1 );
 		if (
 			not IsPcpGroup( H ) or
@@ -186,8 +195,8 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		iso := InverseGeneralMapping( IsomorphismPcGroup( H ) );
-		return ReidemeisterNumber( iso*hom1, iso*hom2 );
+		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
+		return ReidemeisterNumber( inv*hom1, inv*hom2 );
 	end
 );
 
@@ -202,7 +211,7 @@ InstallOtherMethod(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	101,
 	function ( endo )
-		local G, iso;
+		local G, iso, inv;
 		G := Range( endo );
 		if (
 			not IsPcpGroup( G ) or
@@ -211,7 +220,8 @@ InstallOtherMethod(
 			TryNextMethod();
 		fi;
 		iso := IsomorphismPcGroup( G );
-		return ReidemeisterNumber( InverseGeneralMapping( iso ) * endo * iso );
+		inv := InverseGeneralMapping( iso );
+		return ReidemeisterNumber( inv*endo*iso );
 	end
 );
 
@@ -238,7 +248,7 @@ InstallMethod(
 		iso := IsomorphismPcGroup( G );
 		return IsTwistedConjugate(
 			hom1*iso, hom2*iso,
-			g1^iso, g2^iso
+			ImagesRepresentative( iso, g1 ), ImagesRepresentative( iso, g2 )
 		);
 	end
 );
@@ -250,7 +260,7 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	100,
 	function ( hom1, hom2, g1, g2 )
-		local H, iso, h;
+		local H, inv, h;
 		H := Source( hom1 );
 		if (
 			not IsPcpGroup( H ) or
@@ -258,8 +268,8 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		iso := InverseGeneralMapping( IsomorphismPcGroup( H ) );
-		return IsTwistedConjugate( iso*hom1, iso*hom2, g1, g2 );
+		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
+		return IsTwistedConjugate( inv*hom1, inv*hom2, g1, g2 );
 	end
 );
 
@@ -275,7 +285,7 @@ InstallOtherMethod(
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	100,
 	function ( endo, g1, g2 )
-		local G, iso;
+		local G, iso, inv;
 		G := Range( endo );
 		if (
 			not IsPcpGroup( G ) or
@@ -284,9 +294,10 @@ InstallOtherMethod(
 			TryNextMethod();
 		fi;
 		iso := IsomorphismPcGroup( G );
+		inv := InverseGeneralMapping( iso );
 		return IsTwistedConjugate(
-			InverseGeneralMapping( iso ) * endo * iso,
-			g1^iso, g2^iso
+			inv*endo*iso,
+			ImagesRepresentative( iso, g1 ), ImagesRepresentative( iso, g2 )
 		);
 	end
 );
@@ -314,7 +325,7 @@ InstallMethod(
 		iso := IsomorphismPcGroup( G );
 		return RepresentativeTwistedConjugation(
 			hom1*iso, hom2*iso,
-			g1^iso, g2^iso
+			ImagesRepresentative( iso, g1 ), ImagesRepresentative( iso, g2 )
 		);
 	end
 );
@@ -326,7 +337,7 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	100,
 	function ( hom1, hom2, g1, g2 )
-		local H, iso, h;
+		local H, inv, h;
 		H := Source( hom1 );
 		if (
 			not IsPcpGroup( H ) or
@@ -334,12 +345,12 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		iso := InverseGeneralMapping( IsomorphismPcGroup( H ) );
-		h := RepresentativeTwistedConjugation( iso*hom1, iso*hom2, g1, g2 );
+		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
+		h := RepresentativeTwistedConjugation( inv*hom1, inv*hom2, g1, g2 );
 		if h = fail then
 			return fail;
 		fi;
-		return h^iso;
+		return ImagesRepresentative( inv, h );
 	end
 );
 
@@ -366,12 +377,12 @@ InstallOtherMethod(
 		iso := IsomorphismPcGroup( G );
 		inv := InverseGeneralMapping( iso );
 		h := RepresentativeTwistedConjugation(
-			inv * endo * iso,
-			g1^iso, g2^iso
+			inv*endo*iso,
+			ImagesRepresentative( iso, g1 ), ImagesRepresentative( iso, g2 )
 		);
 		if h = fail then
 			return fail;
 		fi;
-		return h^inv;
+		return ImagesRepresentative( inv, h );
 	end
 );
