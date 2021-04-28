@@ -41,17 +41,17 @@ jobs:
         with:
           GAP_TESTFILE: 'tst/teststandard.g'
           NO_COVERAGE: ${{ matrix.no-coverage }}
-      - name: 'Run tests with OnlyNeeded'
+      - name: 'Run tests with necessary packages'
         uses: sTertooy/run-pkg-tests@v3
         with:
           GAP_TESTFILE: 'tst/testonlyneeded.g'
           GAP_FLAGS: '-r -A'
-          NO_COVERAGE: true
-      - name: 'Run tests with all packages loaded'
+          NO_COVERAGE: ${{ matrix.no-coverage }}
+      - name: 'Run tests with all packages'
         uses: sTertooy/run-pkg-tests@v3
         with:
           GAP_TESTFILE: 'tst/testallpackages.g'
-          NO_COVERAGE: true
+          NO_COVERAGE: ${{ matrix.no-coverage }}
       - name: 'Process coverage'
         uses: gap-actions/process-coverage@v2
         if: ${{ !matrix.no-coverage }}
@@ -68,7 +68,7 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
-      - name: 'Install GAP'
+      - name: 'Setup GAP'
         uses: gap-actions/setup-gap@v2
       - name: 'Build documentation'
         uses: gap-actions/build-pkg-docs@v1

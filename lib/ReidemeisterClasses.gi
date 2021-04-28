@@ -179,18 +179,17 @@ InstallMethod(
 
 InstallMethod(
 	ReidemeisterClasses,
-	"for finite source and range",
+	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	5,
 	function ( hom1, hom2 )
 		local G, H, Rcl, tc, G_List, orbits, orbit;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if (
-			not IsFinite( H ) or
-			not IsFinite( G )
-		) then
+		if not IsFinite( H ) then
 			TryNextMethod();
+		elif not IsFinite( G ) then
+			return fail;
 		fi;
 		Rcl := [];
 		tc := TwistedConjugation( hom1, hom2 );
