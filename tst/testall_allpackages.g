@@ -21,6 +21,14 @@ TestDirectory(
 TestDirectory(
 	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/permgroup" ),
 	rec(
+		exitGAP := false,
+		testOptions := rec(compareFunction := "uptowhitespace")
+	)
+);
+
+TestDirectory(
+	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/other" ),
+	rec(
 		exitGAP := true,
 		testOptions := rec(compareFunction := "uptowhitespace")
 	)
