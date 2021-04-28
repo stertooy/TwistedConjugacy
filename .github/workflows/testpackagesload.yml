@@ -24,7 +24,7 @@ jobs:
       - name: 'Add package to GAP'
         uses: gap-actions/build-pkg@v1
       - name: 'Test package loading'
-        uses: sTertooy/pkg-load-test@v1
+        uses: sTertooy/pkg-load-test@v2
       - name: 'Upload output'
         uses: actions/upload-artifact@v2
         with:

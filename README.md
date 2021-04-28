@@ -12,9 +12,9 @@ About
 ------------
 
 This package provides algorithms to calculate Reidemeister classes, numbers,
-spectra and zeta functions, as well as fixed point and coincidence groups. It
-is designed to be used with (homomorphisms of) finite groups and/or infinite
-polycyclically presented groups.
+spectra and zeta functions, as well as fixed point groups and coincidence
+groups of group homomorphisms. This package is designed to be used with finite
+and polycyclically presented groups.
 
 This package requires GAP version 4.9 or later, with the following packages
 (and their dependencies) installed:

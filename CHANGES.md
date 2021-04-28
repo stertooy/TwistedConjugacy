@@ -1,15 +1,15 @@
 This file describes changes in the GAP package 'TwistedConjugacy'.
 
 
-2.0.0 (28/04/2021)
+2.0.0 (29/04/2021)
 ------------------
 
 - Lowered requirements to GAP version >= 4.9 and GAPDoc version >= 1.6.1
 - Polycyclic is now a suggested package instead of required. Version >= 2.13.1
-  is required, although version >= 2.16 is heavily recommended
+  is required, although version >= 2.16 is recommended
+- AutoDoc is now a suggested package, version >= 2018.02.14 is required
 - Changed how the manual is generated. The manual can be recreated using
   AutoDoc by running the "makedoc.g" script in the main package directory.
-  AutoDoc is now a suggested package, version >= 2018.02.14 is required
 - Renamed "gap" subfolder to "lib"
 - Improved available tests
   
@@ -36,6 +36,7 @@ This file describes changes in the GAP package 'TwistedConjugacy'.
  
 - Improved calculation of Reidemeister numbers for (finite) abelian groups
 
+- Improved calculation of Reidemeister spectra for finite abelian groups
 - Added CoincidenceReidemeisterSpectrum
 - Significant improvements in calculation time for 
   ExtendedReidemeisterSpectrum
