@@ -9,7 +9,7 @@ TestDirectory(
 );
 
 TestDirectory(
-	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/permroup" ),
+	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/permgroup" ),
 	rec(
 		exitGAP := true,
 		testOptions := rec(compareFunction := "uptowhitespace")

@@ -1,4 +1,6 @@
-LoadAllPackages();;
+if TestPackageAvailability("TwistedConjugacy") <> true then
+	LoadPackage( "TwistedConjugacy" );;
+fi;
 
 if TestPackageAvailability("polycyclic","2.13.1") = true then
 	TestDirectory(
@@ -19,7 +21,7 @@ TestDirectory(
 );
 
 TestDirectory(
-	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/permroup" ),
+	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/permgroup" ),
 	rec(
 		exitGAP := true,
 		testOptions := rec(compareFunction := "uptowhitespace")
