@@ -1,7 +1,7 @@
 LoadPackage( "TwistedConjugacy" : OnlyNeeded );;
 
 TestDirectory(
-	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcgroup" ),
+	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/PcGroup" ),
 	rec(
 		exitGAP := false,
 		testOptions := rec(compareFunction := "uptowhitespace")
@@ -9,7 +9,7 @@ TestDirectory(
 );
 
 TestDirectory(
-	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/permgroup" ),
+	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/PermGroup" ),
 	rec(
 		exitGAP := true,
 		testOptions := rec(compareFunction := "uptowhitespace")
