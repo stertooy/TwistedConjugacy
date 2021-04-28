@@ -2,7 +2,7 @@ LoadAllPackages();;
 
 if TestPackageAvailability("polycyclic","2.13.1") = true then
 	TestDirectory(
-		DirectoriesPackageLibrary( "TwistedConjugacy", "tst/PcpGroup" ),
+		DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcpgroup" ),
 		rec(
 			exitGAP := false,
 			testOptions := rec(compareFunction := "uptowhitespace")
@@ -11,7 +11,7 @@ if TestPackageAvailability("polycyclic","2.13.1") = true then
 fi;
 
 TestDirectory(
-	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/PcGroup" ),
+	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcgroup" ),
 	rec(
 		exitGAP := false,
 		testOptions := rec(compareFunction := "uptowhitespace")
@@ -19,7 +19,7 @@ TestDirectory(
 );
 
 TestDirectory(
-	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/PermGroup" ),
+	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/permroup" ),
 	rec(
 		exitGAP := true,
 		testOptions := rec(compareFunction := "uptowhitespace")
