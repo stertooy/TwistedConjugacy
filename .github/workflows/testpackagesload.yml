@@ -29,5 +29,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: testpackagesload-logs
-          path: ./dev/log/
+          path: $HOME/gap/dev/log/*
           if-no-files-found: error
