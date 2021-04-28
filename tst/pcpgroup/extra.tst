@@ -42,6 +42,8 @@ gap> ReidemeisterNumber( hom1N, hom2N );
 gap> incN := GroupHomomorphismByImagesNC( N, G, GeneratorsOfGroup( N ), GeneratorsOfGroup( N ) );;
 gap> ReidemeisterClasses( incN, incN );
 fail
+gap> ReidemeisterNumber( incN, incN );
+infinity
 
 #
 gap> p := NaturalHomomorphismByNormalSubgroupNC( G, FittingSubgroup( G ) );;
