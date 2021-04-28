@@ -53,7 +53,7 @@ jobs:
         with:
           GAP_TESTFILE: 'tst/testall_allpackages.g'
           GAP_FLAGS: '-q'
-          NO_COVERAGE: ${{ matrix.no-coverage }}
+          NO_COVERAGE: true
       - name: 'Process coverage'
         uses: gap-actions/process-coverage@v2
         if: ${{ !matrix.no-coverage }}
