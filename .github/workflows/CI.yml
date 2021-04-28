@@ -39,20 +39,20 @@ jobs:
       - name: 'Run tests with default packages'
         uses: sTertooy/run-pkg-tests@v3
         with:
-          GAP_TESTFILE: 'tst/teststandard.g'
-          GAP_FLAGS: '-b'
+          GAP_TESTFILE: 'tst/testall.g'
+          GAP_FLAGS: '-q'
           NO_COVERAGE: ${{ matrix.no-coverage }}
       - name: 'Run tests with necessary packages'
         uses: sTertooy/run-pkg-tests@v3
         with:
-          GAP_TESTFILE: 'tst/testonlyneeded.g'
-          GAP_FLAGS: '-b -r -A'
+          GAP_TESTFILE: 'tst/testall_onlyneeded.g'
+          GAP_FLAGS: '-q -r -A'
           NO_COVERAGE: ${{ matrix.no-coverage }}
       - name: 'Run tests with all packages'
         uses: sTertooy/run-pkg-tests@v3
         with:
-          GAP_TESTFILE: 'tst/testallpackages.g'
-          GAP_FLAGS: '-b'
+          GAP_TESTFILE: 'tst/testall_allpackages.g'
+          GAP_FLAGS: '-q'
           NO_COVERAGE: ${{ matrix.no-coverage }}
       - name: 'Process coverage'
         uses: gap-actions/process-coverage@v2
