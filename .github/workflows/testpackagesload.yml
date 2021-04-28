@@ -12,9 +12,6 @@ jobs:
       matrix:
         include: 
           - gap-branch: master
-          - gap-branch: stable-4.11
-          - gap-branch: stable-4.10
-          - gap-branch: stable-4.9
 
     steps:
       - name: 'Checkout'
@@ -28,6 +25,6 @@ jobs:
       - name: 'Upload output'
         uses: actions/upload-artifact@v2
         with:
-          name: 'testpackagesload-logs'
-          path: '~/gap/dev/log/*'
+          name: testpackagesload-logs-${{ matrix.gap-branch }}
+          path: ~/gap/dev/log/*
           if-no-files-found: error
