@@ -28,8 +28,8 @@ jobs:
       - name: 'Add package to GAP'
         uses: gap-actions/build-pkg@v1
       - name: 'Run testinstall.g with default packages'
-        uses: sTertooy/pkg-install-test@v0.5
+        uses: sTertooy/pkg-install-test@v0.6
       - name: 'Run testinstall.g with only needed packages'
-        uses: sTertooy/pkg-install-test@v0.5
+        uses: sTertooy/pkg-install-test@v0.6
         with:
           ONLY_NEEDED: true
