@@ -3,6 +3,7 @@ name: CI
 on:
   - push
   - pull_request
+  - workflow_dispatch
 
 jobs:
   test:
@@ -81,3 +82,4 @@ jobs:
         with:
           name: manual
           path: ./doc/manual.pdf
+          if-no-files-found: error
