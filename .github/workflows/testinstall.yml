@@ -32,4 +32,4 @@ jobs:
       - name: 'Run testinstall.g with only needed packages'
         uses: sTertooy/pkg-install-test@v0.3
         with:
-          - ONLY_NEEDED: true
+          ONLY_NEEDED: true
