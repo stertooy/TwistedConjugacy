@@ -5,7 +5,7 @@
 #####
 
 #! @Copyright
-#! &copyright; 2020 by Sam Tertooy
+#! &copyright; 2020-2021 by Sam Tertooy
 #! <Br /><Br />
 #! The <B>TwistedConjugacy</B> package is free software, it may be redistributed and/or modified under the terms and conditions of the <URL Text="GNU Public License Version 2">https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</URL> or (at your option) any later version.
 
