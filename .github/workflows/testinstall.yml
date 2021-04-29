@@ -28,4 +28,4 @@ jobs:
       - name: 'Add package to GAP'
         uses: gap-actions/build-pkg@v1
       - name: 'Test package loading'
-        uses: sTertooy/pkg-install-test@v0.1
+        uses: sTertooy/pkg-install-test@v0.2
