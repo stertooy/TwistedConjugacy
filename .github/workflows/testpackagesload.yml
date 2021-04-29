@@ -14,18 +14,24 @@ jobs:
           - gap-branch: master
             packages-to-clone: 'alnuth autpgrp polycyclic'
           - gap-branch: stable-4.11
-            no-coverage: true
           - gap-branch: stable-4.10
-            no-coverage: true
           - gap-branch: stable-4.9
-            no-coverage: true
 
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
       - name: 'Setup GAP'
         uses: gap-actions/setup-gap@v2
+        with:
+          GAP_PKGS_TO_CLONE: ${{ matrix.packages-to-clone }}
+          GAPBRANCH: ${{ matrix.gap-branch }}
       - name: 'Add package to GAP'
         uses: gap-actions/build-pkg@v1
-      - name: 'Make packagesload'
-        uses: sTertooy/pkg-load-test@v1
+      - name: 'Test package loading'
+        uses: sTertooy/pkg-load-test@v2
+      - name: 'Upload output'
+        uses: actions/upload-artifact@v2
+        with:
+          name: testpackagesload-${{ matrix.gap-branch }}
+          path: ~/gap/dev/log/*
+          if-no-files-found: error

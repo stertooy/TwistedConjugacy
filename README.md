@@ -1,22 +1,34 @@
-[![Build Status](https://travis-ci.org/sTertooy/TwistedConjugacy.svg?branch=master)](https://travis-ci.org/sTertooy/TwistedConjugacy)
-[![Code Coverage](https://codecov.io/github/sTertooy/TwistedConjugacy/coverage.svg?branch=master&token=)](https://codecov.io/gh/sTertooy/TwistedConjugacy)
+[![Build Status](https://github.com/sTertooy/TwistedConjugacy/workflows/CI/badge.svg?branch=master)](https://github.com/sTertooy/TwistedConjugacy/actions?query=workflow%3ACI+branch%3Amaster)
+[![Code Coverage](https://codecov.io/gh/sTertooy/TwistedConjugacy/branch/master/graph/badge.svg)](https://codecov.io/gh/sTertooy/TwistedConjugacy)
 
-The GAP 4 package `TwistedConjugacy'
+The GAP 4 package TwistedConjugacy
 ====================================
 
-by Sam Tertooy <sam.tertooy@hotmail.com>
+by Sam Tertooy <sam.tertooy@kuleuven.be>
 
 
-Introduction
+
+About
 ------------
 
-This package is designed to be used for either finite groups or for
-(infinite) polycyclically presented groups (pcp-groups).
+This package provides algorithms to calculate Reidemeister classes, numbers,
+spectra and zeta functions, as well as fixed point groups and coincidence
+groups of group homomorphisms. This package is designed to be used with finite
+and polycyclically presented groups.
 
-This package was originally designed for GAP version 4.10 with the
-following packages (and their dependencies) installed:
-- Polycyclic (version >= 2.14)
-- GAPDoc (version >= 1.6.2)
+This package requires GAP version 4.9 or later, with the following packages
+(and their dependencies) installed:
+- GAPDoc (version >= 1.6.1)
+
+The following packages (and their dependencies) are optional, though are
+recommended:
+- Polycyclic (version >= 2.13.1)
+- AutoDoc (version >= 2018.02.14)
+
+Note that is recommended to install Polycyclic version >= 2.16, to avoid some
+known bugs which could lead to wrong results. It is also recommended to install
+the computer algebra system PARI/GP.
+
 
 
 Installation
@@ -28,28 +40,23 @@ recognizes the TwistedConjugacy package using the following command:
 
     gap> LoadPackage("TwistedConjugacy");
 	─────────────────────────────────────────────────────────────────────────────
-	Loading  TwistedConjugacy 1.0.1 (Computation with twisted conjugacy classes)
-	by Sam Tertooy (https://www.kuleuven-kulak.be/~u0092325/).
+	Loading  TwistedConjugacy 2.0.0 (Computation with twisted conjugacy classes)
+	by Sam Tertooy (https://stertooy.github.io/).
 	Homepage: https://sTertooy.github.io/TwistedConjugacy/
 	Report issues at https://github.com/sTertooy/TwistedConjugacy/issues
 	─────────────────────────────────────────────────────────────────────────────
 	true
 
-Note that the line "Report issues at ..." is new in GAP 4.11, and does not
-appear when loading this package in earlier versions of GAP.
-
-If you are using a custom directory, make a 'pkg' subdirectory and place
-the TwistedConjugacy folder in this subdirectory. You will need to tell 
-GAP to look for packages in this directory using the -l option:
-
-	sh > gap -l ';mydirectory/';
+The manual may be compiled by running the 'makedoc.g' script, located in
+the package's main directory.  It is also available on the webpages of this
+package, at <https://stertooy.github.io/TwistedConjugacy/doc/chap0.html>
 
 
- 
+
 Support
 -------
  
-Please report any problems you may encounter using `TwistedConjugacy' 
+Please report any problems you may encounter using TwistedConjugacy 
 at <https://github.com/sTertooy/TwistedConjugacy>
 
 
@@ -57,5 +64,5 @@ at <https://github.com/sTertooy/TwistedConjugacy>
 License
 -------
 
-The `TwistedConjugacy' package is licensed under the GNU General
+The TwistedConjugacy package is licensed under the GNU General
 Public License v2.0 or later. A copy of this license is included.

@@ -1,6 +1,4 @@
-if TestPackageAvailability("TwistedConjugacy") <> true then
-	LoadPackage( "TwistedConjugacy" );;
-fi;
+LoadAllPackages();;
 
 if TestPackageAvailability("polycyclic","2.13.1") = true then
 	TestDirectory(

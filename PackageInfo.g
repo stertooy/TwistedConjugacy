@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
-Version := "1.0.1",
-Date := "07/06/2020",
+Version := "2.0.0",
+Date := "29/04/2021",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -12,8 +12,8 @@ Persons := [
     IsMaintainer := true,
     FirstNames := "Sam",
     LastName := "Tertooy",
-    WWWHome := "https://www.kuleuven-kulak.be/~u0092325/",
-    Email := "sam.tertooy@hotmail.com",
+    WWWHome := "https://stertooy.github.io/",
+    Email := "sam.tertooy@kuleuven.be",
     PostalAddress := Concatenation( "Wiskunde\n",
 			"KU Leuven Campus Kulak Kortrijk\n",
 			"Etienne Sabbelaan 53\n",
@@ -39,7 +39,13 @@ ArchiveFormats := ".tar.gz",
 
 Status := "dev",
 
-AbstractHTML   :=  "",
+AbstractHTML   :=  Concatenation( 
+    "The <span class=\"pkgname\">TwistedConjugacy</span> package provides",
+	"algorithms to calculate Reidemeister classes, numbers, spectra and zeta ",
+	"functions, as well as fixed point groups and coincidence groups of ",
+	"group homomorphisms. This package is designed to be used with finite ",
+    "and polycyclically presented groups."
+),
 
 PackageDoc := rec(
   BookName  := "TwistedConjugacy",
@@ -47,14 +53,18 @@ PackageDoc := rec(
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "Computation with twisted conjugacy classes",
+  LongTitle := ~.Subtitle,
 ),
 
 Dependencies := rec(
-  GAP := ">= 4.10",
-  NeededOtherPackages := [ [ "Polycyclic", "2.14" ],
-						   [ "GAPDoc", "1.6.2" ] ],
-  SuggestedOtherPackages := [ ],
+  GAP := ">= 4.9",
+  NeededOtherPackages := [
+    [ "GAPDoc", "1.6.1" ]
+  ],
+  SuggestedOtherPackages := [
+    [ "AutoDoc", "2018.02.14" ],
+    [ "Polycyclic", "2.13.1" ]
+  ],
   ExternalConditions := [ ],
 ),
 
@@ -63,9 +73,12 @@ AvailabilityTest := ReturnTrue,
 TestFile := "tst/testall.g",
 
 Keywords := [
-	"twisted conjugacy",
+	"coincidence group",
+	"fixed point group",
 	"Reidemeister number",
-	"Reidemeister zeta",
+	"Reidemeister spectrum",
+	"Reidemeister zeta function",
+	"twisted conjugacy",
 	],
 
 ));
