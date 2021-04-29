@@ -11,8 +11,6 @@ gap> ReidemeisterClasses( hom1, hom2 );
 fail
 gap> ReidemeisterNumber( hom1, hom2 );
 infinity
-gap> false;
-true
 
 #
 gap> STOP_TEST( "extra.tst" );
