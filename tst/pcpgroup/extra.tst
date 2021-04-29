@@ -122,6 +122,8 @@ gap> ReidemeisterClasses( inc1S6, inc2S6 );
 fail
 gap> ReidemeisterNumber( inc2S6, inc2S6 );
 infinity
+gap> true;
+false
 
 #
 gap> STOP_TEST( "extra.tst" );
