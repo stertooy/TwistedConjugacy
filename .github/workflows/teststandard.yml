@@ -14,6 +14,8 @@ jobs:
           - gap-branch: master
             packages-to-clone: 'alnuth autpgrp polycyclic'
           - gap-branch: stable-4.11
+          - gap-branch: stable-4.10
+          - gap-branch: stable-4.9
 
     steps:
       - name: 'Checkout'
