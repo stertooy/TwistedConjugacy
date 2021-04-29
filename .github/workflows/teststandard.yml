@@ -25,7 +25,7 @@ jobs:
           GAPBRANCH: ${{ matrix.gap-branch }}
       - name: 'Add package to GAP'
         uses: gap-actions/build-pkg@v1
-      - name: 'Run teststandard.g with default packages'
+      - name: 'Run teststandard.g with necessary packages'
         uses: sTertooy/pkg-install-test@v0.8
         with:
           COMPLETE: true
