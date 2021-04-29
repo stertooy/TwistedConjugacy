@@ -1,4 +1,4 @@
-name: testinstall
+name: teststandard
 
 on:
   - workflow_dispatch
@@ -27,9 +27,12 @@ jobs:
           GAPBRANCH: ${{ matrix.gap-branch }}
       - name: 'Add package to GAP'
         uses: gap-actions/build-pkg@v1
-      - name: 'Run testinstall.g with default packages'
-        uses: sTertooy/pkg-install-test@v0.8
-      - name: 'Run testinstall.g with only needed packages'
+      - name: 'Run teststandard.g with default packages'
         uses: sTertooy/pkg-install-test@v0.8
         with:
+          COMPLETE: true
+      - name: 'Run teststandard.g with only needed packages'
+        uses: sTertooy/pkg-install-test@v0.8
+        with:
+          COMPLETE: true
           ONLY_NEEDED: true
