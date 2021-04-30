@@ -37,17 +37,18 @@ jobs:
           GAPBRANCH: ${{ matrix.gap-branch }}
       - name: 'Add package to GAP'
         uses: gap-actions/build-pkg@v1
+      - name: 'Run package tests with only necessary packages loaded'
+        uses: sTertooy/run-pkg-tests@v5
+        with:
+          GAP_TESTFILE: 'tst/testall.g'
+          GAP_FLAGS: '-q -A'
+          NO_COVERAGE: ${{ matrix.no-coverage }}
+          ONLY_NEEDED: true
       - name: 'Run package tests with default + suggested packages loaded'
         uses: sTertooy/run-pkg-tests@v5
         with:
           GAP_FLAGS: '-q'
           NO_COVERAGE: ${{ matrix.no-coverage }}
-      - name: 'Run package tests with only necessary packages loaded'
-        uses: sTertooy/run-pkg-tests@v5
-        with:
-          GAP_FLAGS: '-q -A'
-          NO_COVERAGE: ${{ matrix.no-coverage }}
-          ONLY_NEEDED: true
       - name: 'Run package tests with all packages loaded'
         uses: sTertooy/run-pkg-tests@v5
         with:
