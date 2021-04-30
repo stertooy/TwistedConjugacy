@@ -66,7 +66,8 @@ jobs:
       - name: 'Upload coverage'
         uses: codecov/codecov-action@v1
         if: ${{ !matrix.no-coverage }}
-        fail_ci_if_error: true
+        with:
+          fail_ci_if_error: true
 
   manual:
     name: Manual
