@@ -22,8 +22,6 @@ gap> List( tcc );
 fail
 gap> ActingDomain( tcc ) = H;
 true
-gap> ActingCodomain( tcc ) = G;
-true
 gap> R := TwistedConjugacyClasses( hom1, hom2 );;
 gap> Representative( R[1] ) = One( G );
 true

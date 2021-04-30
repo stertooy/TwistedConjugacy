@@ -27,8 +27,6 @@ gap> Random( tcc ) in tcc;
 true
 gap> ActingDomain( tcc ) = G;
 true
-gap> ActingCodomain( tcc ) = G;
-true
 gap> R := TwistedConjugacyClasses( endo1, endo2 );
 fail
 gap> NrTwistedConjugacyClasses( endo1, endo2 ) = ReidemeisterNumber( endo2, endo1 );

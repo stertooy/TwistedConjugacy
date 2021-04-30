@@ -15,12 +15,13 @@ InstallMethod(
 		ObjectifyWithAttributes(
 			tcc, NewType(
 				FamilyObj( G ),
-				IsReidemeisterClassGroupRep and HasActingDomain and
-				HasActingCodomain and HasRepresentative and 
-				HasFunctionAction and HasGroupHomomorphismsOfReidemeisterClass
+				IsReidemeisterClassGroupRep and
+				HasActingDomain and
+				HasRepresentative and
+				HasFunctionAction and
+				HasGroupHomomorphismsOfReidemeisterClass
 			),
 			ActingDomain, H,
-			ActingCodomain, G,
 			Representative, g,
 			FunctionAction, tc,
 			GroupHomomorphismsOfReidemeisterClass, [ hom1, hom2 ]
@@ -79,7 +80,7 @@ InstallMethod(
 	function ( tcc )
 		local hom, G, g, homString, i;
 		hom := GroupHomomorphismsOfReidemeisterClass( tcc );
-		G := ActingCodomain( tcc );
+		G := Range( hom[1] );
 		g := Representative( tcc );
 		homString := [];
 		for i in [1..2] do
@@ -124,12 +125,8 @@ InstallMethod(
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
 		local G, H, g, inn, hom, Coin;
-		G := ActingCodomain( tcc );
 		H := ActingDomain( tcc );
-		g := Representative( tcc );
-		inn := InnerAutomorphismNC( G, g^-1 );
-		hom := GroupHomomorphismsOfReidemeisterClass( tcc );
-		Coin := CoincidenceGroup( hom[1]*inn, hom[2] );
+		Coin := StabiliserOfExternalSet( tcc );
 		return IndexNC( H, Coin );
 	end
 );
@@ -140,12 +137,9 @@ InstallMethod(
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
 		local G, H, g, inn, hom, Coin, tc;
-		G := ActingCodomain( tcc );
 		H := ActingDomain( tcc );
 		g := Representative( tcc );
-		inn := InnerAutomorphismNC( G, g^-1 );
-		hom := GroupHomomorphismsOfReidemeisterClass( tcc );
-		Coin := CoincidenceGroup( hom[1]*inn, hom[2] );
+		Coin := StabiliserOfExternalSet( tcc );
 		if IndexNC( H, Coin ) = infinity then
 			return fail;
 		else
@@ -155,6 +149,21 @@ InstallMethod(
 				h -> tc( g, h )
 			);
 		fi;
+	end
+);
+
+InstallMethod(
+	StabiliserOfExternalSet,
+	"for Reidemeister classes",
+	[ IsReidemeisterClassGroupRep ],
+	function ( tcc )
+		local G, H, g, inn, hom, Coin, tc;
+		H := ActingDomain( tcc );
+		g := Representative( tcc );
+		hom := GroupHomomorphismsOfReidemeisterClass( tcc );
+		G := Range( hom[1] );
+		inn := InnerAutomorphismNC( G, g^-1 );
+		return CoincidenceGroup( hom[1]*inn, hom[2] );
 	end
 );
 

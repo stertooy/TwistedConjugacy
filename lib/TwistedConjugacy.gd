@@ -115,7 +115,3 @@ DeclareAttribute(
 	"GroupHomomorphismsOfReidemeisterClass",
 	IsReidemeisterClassGroupRep
 );
-DeclareAttribute(
-	"ActingCodomain",
-	IsReidemeisterClassGroupRep
-);

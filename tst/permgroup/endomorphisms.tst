@@ -27,8 +27,6 @@ gap> Random( tcc ) in tcc;
 true
 gap> ActingDomain( tcc ) = G;
 true
-gap> ActingCodomain( tcc ) = G;
-true
 gap> R := TwistedConjugacyClasses( endo1, endo2 );;
 gap> Representative( R[1] ) = One( G );
 true

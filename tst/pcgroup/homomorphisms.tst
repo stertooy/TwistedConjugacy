@@ -26,8 +26,6 @@ gap> Random( tcc ) in tcc;
 true
 gap> ActingDomain( tcc ) = H;
 true
-gap> ActingCodomain( tcc ) = G;
-true
 gap> R := TwistedConjugacyClasses( hom1, hom2 );;
 gap> Representative( R[1] ) = One( G );
 true
@@ -73,8 +71,6 @@ gap> Length( List( tccM ) );
 gap> Random( tccM ) in tccM;
 true
 gap> ActingDomain( tccM ) = N;
-true
-gap> ActingCodomain( tccM ) = M;
 true
 gap> RM := TwistedConjugacyClasses( homN1, homN2 );;
 gap> Representative( RM[1] ) = One( M );
