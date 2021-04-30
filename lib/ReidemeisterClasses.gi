@@ -138,11 +138,11 @@ InstallMethod(
 	function ( tcc )
 		local G, H, g, inn, hom, Coin, tc;
 		H := ActingDomain( tcc );
-		g := Representative( tcc );
 		Coin := StabiliserOfExternalSet( tcc );
 		if IndexNC( H, Coin ) = infinity then
 			return fail;
 		else
+			g := Representative( tcc );
 			tc := FunctionAction( tcc );
 			return List(
 				RightTransversal( H, Coin ),
