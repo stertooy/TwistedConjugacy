@@ -54,19 +54,19 @@ jobs:
           GAP_FLAGS: '-q'
           NO_COVERAGE: true
           ALL_PACKAGES: true
-      - name: 'Run GAP tests with suggested packages loaded'
-        uses: sTertooy/pkg-install-test@v0.8
       - name: 'Run GAP tests with only necessary packages loaded'
         uses: sTertooy/pkg-install-test@v0.8
         with:
           ONLY_NEEDED: true
+      - name: 'Run GAP tests with suggested packages loaded'
+        uses: sTertooy/pkg-install-test@v0.8
       - name: 'Process coverage'
         uses: gap-actions/process-coverage@v2
         if: ${{ !matrix.no-coverage }}
       - name: 'Upload coverage'
+        uses: codecov/codecov-action@v1
         if: ${{ !matrix.no-coverage }}
-        run: bash <(curl -s https://codecov.io/bash)
-        shell: bash
+        fail_ci_if_error: true
 
   manual:
     name: Manual
