@@ -274,7 +274,7 @@
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xkhi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],[127X[104X
-    [4X[25X>[125X [27X>  [ (1,2,6,3,5), (1,4,5) ] );;[127X[104X
+    [4X[25X>[125X [27X [ (1,2,6,3,5), (1,4,5) ] );;[127X[104X
     [4X[25Xgap>[125X [27XReidemeisterZetaCoefficients( khi );[127X[104X
     [4X[28X[ [ 7 ], [ ] ][128X[104X
     [4X[25Xgap>[125X [27XIsRationalReidemeisterZeta( khi );[127X[104X
