@@ -1,27 +1,21 @@
-This file describes changes in the GAP package 'TwistedConjugacy'.
+This file describes changes in the GAP package TwistedConjugacy.
 
 
-2.0.0 (29/04/2021)
+2.0.0 (01/05/2021)
 ------------------
 
 - Lowered requirements to GAP version >= 4.9 and GAPDoc version >= 1.6.1
 - Polycyclic is now a suggested package instead of required. Version >= 2.13.1
   is required, although version >= 2.16 is recommended
 - AutoDoc is now a suggested package, version >= 2018.02.14 is required
+
+- The documentation has been largely rewritten.
+
 - Changed how the manual is generated. The manual can be recreated using
   AutoDoc by running the "makedoc.g" script in the main package directory.
 - Renamed "gap" subfolder to "lib"
 - Improved available tests
-  
-- CoincidenceGroup is much more efficient for homomorphisms between finite
-  groups
-- CoincidenceGroup can now always be applied to homomorphisms between
-  distinct groups. A result is only guaranteed, however, if the range is 
-  nilpotent-by-finite or if the homomorphisms are endomorphisms with finite
-  Reidemeister number
-
-- InducedEndomorphism and RestrictedEndomorphism replaced by the more general
-  InducedHomomorphism and RestrictedHomomorphism respectively
+ 
   
 - IsTwistedConjugate can now always be applied to homomorphisms between
   distinct groups. A result is only guaranteed, however, if the range is 
@@ -33,6 +27,7 @@ This file describes changes in the GAP package 'TwistedConjugacy'.
   nilpotent-by-finite or if the homomorphisms are endomorphisms
 - Applying "Size" to an infinite Reidemeister class will now return "infinity"
   instead of running indefinitely, if the range is nilpotent-by-finite
+- Implemented "StabiliserOfExternalSet" for Reidemeister classes
  
 - Improved calculation of Reidemeister numbers for (finite) abelian groups
 
@@ -41,13 +36,22 @@ This file describes changes in the GAP package 'TwistedConjugacy'.
 - Significant improvements in calculation time for 
   ExtendedReidemeisterSpectrum
 
-- Reidemeister Zeta functions expanded to Coincidence Reidemeister Zeta
-  functions
+- Reidemeister Zeta functions expanded to pairs of endomorphisms of finite
+  groups, instead of a single endomorphism
 - Changed the output of ReidemeisterZetaCoefficients to accomodate for the
   above change
-- Added IsRationalReidemeisterZeta function to quickly confirm rationality
-  without actually calculating the zeta function
+- Added IsRationalReidemeisterZeta
 - ReidemeisterZeta now returns either a rational function or "fail"
+
+- CoincidenceGroup is much more efficient for homomorphisms between finite
+  groups
+- CoincidenceGroup can now always be applied to homomorphisms between
+  distinct groups. A result is only guaranteed, however, if the range is 
+  nilpotent-by-finite or if the homomorphisms are endomorphisms with finite
+  Reidemeister number
+
+- InducedEndomorphism and RestrictedEndomorphism replaced by the more general
+  InducedHomomorphism and RestrictedHomomorphism respectively
 
 - Finite PcpGroups will now automatically be converted to PcGroups
 

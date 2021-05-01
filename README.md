@@ -11,10 +11,11 @@ by Sam Tertooy <sam.tertooy@kuleuven.be>
 About
 ------------
 
-This package provides algorithms to calculate Reidemeister classes, numbers,
-spectra and zeta functions, as well as fixed point groups and coincidence
-groups of group homomorphisms. This package is designed to be used with finite
-and polycyclically presented groups.
+The TwistedConjugacy package provides methods to calculate Reidemeister 
+classes, numbers, spectra and zeta functions, as well as coincidence groups 
+of group homomorphisms. These methods are, for the most part, designed to be 
+used with (group homomorphisms between) finite groups and, if the package 
+polycyclic is also installed, polycyclically presented groups.
 
 This package requires GAP version 4.9 or later, with the following packages
 (and their dependencies) installed:
