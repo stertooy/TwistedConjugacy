@@ -45,15 +45,14 @@ ArchiveFormats := ".tar.gz",
 
 Status := "dev",
 
-AbstractHTML   :=  """
-	The <span class=\"pkgname\">TwistedConjugacy</span> package provides 
-	methods to calculate Reidemeister classes, numbers, spectra and zeta 
-	functions, as well as coincidence groups of group homomorphisms. These 
-	ethods are, for the most part, designed to be used with (group 
-	homomorphisms between) finite groups and, if the package 
-	<span class=\"pkgname\">polycyclic</span> is also installed,
-	polycyclically presented groups.
-""",
+AbstractHTML   :=  Concatenation(
+	"The TwistedConjugacy package provides methods to calculate Reidemeister ",
+	"classes, numbers, spectra and zeta functions, as well as coincidence ",
+	"groups of group homomorphisms. These methods are, for the most part, ",
+	"designed to be used with (group homomorphisms between) finite groups ",
+	"and, if the package polycyclic is also installed, polycyclically ",
+	"presented groups."
+),
 
 PackageDoc := rec(
 	BookName  := ~.PackageName,
