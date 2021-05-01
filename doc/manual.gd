@@ -12,7 +12,7 @@
 #! $$G \times H \to G: (g,h) \mapsto g \cdot h = \psi(h)^{-1} g\varphi(h).$$
 #! This group action is called **$(\varphi,\psi)$-twisted conjugation**, and induces an equivalence relation $\sim_{\varphi,\psi}$ on $G$:
 #! $$g_1 \sim_{\varphi,\psi} g_2 \iff \exists h \in H: g_1 \cdot h = g2.$$
-#! The equivalence classes (i.e. the orbits of the action) are called **Reidemeister classes** and the number of Reidemeister classes is called the Reidemeister number of the pair $(\varphi,\psi)$.
+#! The equivalence classes (i.e. the orbits of the action) are called **Reidemeister classes** and the number of Reidemeister classes is called the Reidemeister number $R(\varphi,\psi)$ of the pair $(\varphi,\psi)$.
 #! The stabiliser of the identity $1_G$ for this action is the coincidence group $\mathrm{Coin}(\varphi, \psi )$, i.e. the subgroup of $H$ given by
 #! $$ \mathrm{Coin}(\varphi,\psi) := \{ h \in H \mid \varphi(h) = \psi(h) \}.$$
 
@@ -20,7 +20,7 @@
 
 #! The <B>TwistedConjugacy</B> packageprovides methods to calculate Reidemeister classes, Reidemeister numbers and coincidence groups of pairs of group homomorphisms. 
 #! These methods are implemented for finite groups and (infinite) polycyclically presented groups. If $H$ and $G$ are both infinite polycyclically presented groups, then 
-#! many of the methods in this package are only guaranteed to produce a result if either $G = H$ and $R(\varphi,\psi) < \infinity$, or $G$ is nilpotent-by-finite.
+#! many of the methods in this package are only guaranteed to produce a result if either $G = H$ and $R(\varphi,\psi)$ is finite, or $G$ is nilpotent-by-finite.
 #! If this is not case, methods may either produce a (correct!) result, or throw an error: "<C>Error, no method found!</C>"
 
 #! <P/>
@@ -245,7 +245,7 @@ DeclareOperation( "PrintReidemeisterZeta", [ IsGroupHomomorphism and IsEndoGener
 
 #! @BeginExample
 khi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],
->  [ (1,2,6,3,5), (1,4,5) ] );;
+ [ (1,2,6,3,5), (1,4,5) ] );;
 ReidemeisterZetaCoefficients( khi );
 #! [ [ 7 ], [ ] ]
 IsRationalReidemeisterZeta( khi );
