@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<title>GAP (TwistedConjugacy) - Chapter 3: Miscellaneous</title>
+<title>GAP (TwistedConjugacy) - Chapter 3: Coincidence and Fixed Point Groups</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="GAPDoc2HTML" />
 <link rel="stylesheet" type="text/css" href="manual.css" />
@@ -15,100 +15,62 @@
 <body class="chap3"  onload="jscontent()">
 
 
-<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
 
-<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib.html">[Next Chapter]</a>&nbsp;  </div>
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4.html">[Next Chapter]</a>&nbsp;  </div>
 
 <p id="mathjaxlink" class="pcenter"><a href="chap3_mj.html">[MathJax on]</a></p>
-<p><a id="X7C5563A37D566DA5" name="X7C5563A37D566DA5"></a></p>
-<div class="ChapSects"><a href="chap3.html#X7C5563A37D566DA5">3 <span class="Heading">Miscellaneous</span></a>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X8716635F7951801B">3.1 <span class="Heading">Groups</span></a>
+<p><a id="X8164A34A86155DFB" name="X8164A34A86155DFB"></a></p>
+<div class="ChapSects"><a href="chap3.html#X8164A34A86155DFB">3 <span class="Heading">Coincidence and Fixed Point Groups</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X8164A34A86155DFB">3.1 <span class="Heading">Coincidence and Fixed Point Groups</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X788C5BF17F3D13A8">3.1-1 FixedPointGroup</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8049C332878CB6AB">3.1-2 CoincidenceGroup</a></span>
-</div></div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X7BEB6C617FED52DA">3.2 <span class="Heading">Morphisms</span></a>
-</span>
-<div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X855E497B847DC931">3.2-1 InducedEndomorphism</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X87897A777FE879B8">3.2-2 RestrictedEndomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X8049C332878CB6AB">3.1-1 CoincidenceGroup</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7DA512EA7BF6355E">3.1-2 FixedPointGroup</a></span>
 </div></div>
 </div>
 
-<h3>3 <span class="Heading">Miscellaneous</span></h3>
+<h3>3 <span class="Heading">Coincidence and Fixed Point Groups</span></h3>
 
-<p><a id="X8716635F7951801B" name="X8716635F7951801B"></a></p>
+<p><a id="X8164A34A86155DFB" name="X8164A34A86155DFB"></a></p>
 
-<h4>3.1 <span class="Heading">Groups</span></h4>
-
-<p><a id="X788C5BF17F3D13A8" name="X788C5BF17F3D13A8"></a></p>
-
-<h5>3.1-1 FixedPointGroup</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FixedPointGroup</code>( <var class="Arg">endo</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Let <var class="Arg">endo</var> be an endomorphism of a group G. This command returns the subgroup of G consisting of the elements fixed under the endomorphism <var class="Arg">endo</var>. This command is implemented only for endomorphisms of finite groups and abelian groups.</p>
+<h4>3.1 <span class="Heading">Coincidence and Fixed Point Groups</span></h4>
 
 <p><a id="X8049C332878CB6AB" name="X8049C332878CB6AB"></a></p>
 
-<h5>3.1-2 CoincidenceGroup</h5>
+<h5>3.1-1 CoincidenceGroup</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CoincidenceGroup</code>( <var class="Arg">hom1</var>, <var class="Arg">hom2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Let <var class="Arg">hom1</var>, <var class="Arg">hom2</var> be group homomorphisms from H to G. This command returns the subgroup of H consisting of the elements <code class="code">h</code> for which <code class="code">h^<var class="Arg">hom1</var> = h^<var class="Arg">hom2</var></code>. This command is implemented only for homomorphisms where either H is finite or G is abelian.</p>
+<p>Let <var class="Arg">hom1</var> and <var class="Arg">hom2</var> be group homomorphisms from a group H to a group G. This command returns the subgroup of H consisting of the elements h for which h^<var class="Arg">hom1</var> = h^<var class="Arg">hom2</var>.</p>
+
+<p><a id="X7DA512EA7BF6355E" name="X7DA512EA7BF6355E"></a></p>
+
+<h5>3.1-2 FixedPointGroup</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FixedPointGroup</code>( <var class="Arg">endo</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Let <var class="Arg">endo</var> be an endomorphism of a group G. This command returns the subgroup of G consisting of the elements fixed under the endomorphism <var class="Arg">endo</var>.</p>
 
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := AlternatingGroup( 6 );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">phi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (1,2,6,3,5), (1,4,5) ] );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FixedPointGroup( phi );</span>
-Group([ (), (1,6,5,2,4), (1,5,4,6,2), (1,2,6,4,5), (1,4,2,5,6) ])
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H := SymmetricGroup( 5 );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (1,2)(3,4), () ] );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (1,4)(3,6), () ] );; </span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CoincidenceGroup( khi, psi );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (1,2)(3,4), () ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CoincidenceGroup( phi, psi );</span>
 &lt;permutation group with 60 generators&gt;
-</pre></div>
-
-<p><a id="X7BEB6C617FED52DA" name="X7BEB6C617FED52DA"></a></p>
-
-<h4>3.2 <span class="Heading">Morphisms</span></h4>
-
-<p><a id="X855E497B847DC931" name="X855E497B847DC931"></a></p>
-
-<h5>3.2-1 InducedEndomorphism</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InducedEndomorphism</code>( <var class="Arg">epi</var>, <var class="Arg">endo</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Let <var class="Arg">endo</var> be an endomorphism of a group G and <var class="Arg">epi</var> be an epimorphism from G to a group H such that the kernel of <var class="Arg">epi</var> is fixed under <var class="Arg">endo</var>. This command returns the endomorphism of H induced by <var class="Arg">endo</var> via <var class="Arg">epi</var>, that is, the endomorphism of H which maps g<code class="code">^<var class="Arg">epi</var></code> to <code class="code">(</code>g<code class="code">^<var class="Arg">endo</var>)^<var class="Arg">epi</var></code>, for any element g of G. This generalises <code class="code">InducedAutomorphism</code> to endomorphisms.</p>
-
-<p><a id="X87897A777FE879B8" name="X87897A777FE879B8"></a></p>
-
-<h5>3.2-2 RestrictedEndomorphism</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RestrictedEndomorphism</code>( <var class="Arg">endo</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Let <var class="Arg">endo</var> be an endomorphism of a group G and <var class="Arg">N</var> be subgroup of G invariant under <var class="Arg">endo</var>. This command returns the endomorphism of N induced by <var class="Arg">endo</var>. This is similar to <code class="code">RestrictedMapping</code>, but the range is explicitly set to <var class="Arg">N</var>.</p>
-
-
-<div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := ExamplesOfSomePcpGroups( 5 );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">phi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3, G.4 ],</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^2, G.4^-1  ] );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N := DerivedSubgroup(G);;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">p := NaturalHomomorphismByNormalSubgroup( G, N );</span>
-[ g1, g2, g3, g4, g2^2, g3^2, g4^2 ] -&gt; [ g1, g2, g3, g4, id, id, id ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">InducedEndomorphism( p, phi );</span>
-[ g1, g2, g3, g4 ] -&gt; [ g1*g4, g3, g2, g4 ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RestrictedEndomorphism( phi, N );</span>
-[ g2^2, g3^2, g4^2 ] -&gt; [ g3^2, g2^2*g3^4*g4^8, g4^-2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">khi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (1,2,6,3,5), (1,4,5) ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FixedPointGroup( khi );</span>
+Group([ (), (1,6,5,2,4), (1,5,4,6,2), (1,2,6,4,5), (1,4,2,5,6) ])
 </pre></div>
 
 
-<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib.html">[Next Chapter]</a>&nbsp;  </div>
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4.html">[Next Chapter]</a>&nbsp;  </div>
 
 
-<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
 
 <hr />
 <p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>

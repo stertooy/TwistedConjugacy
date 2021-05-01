@@ -1,73 +1,36 @@
   
-  [1X3 [33X[0;0YMiscellaneous[133X[101X
+  [1X3 [33X[0;0YCoincidence and Fixed Point Groups[133X[101X
   
   
-  [1X3.1 [33X[0;0YGroups[133X[101X
+  [1X3.1 [33X[0;0YCoincidence and Fixed Point Groups[133X[101X
   
-  [1X3.1-1 FixedPointGroup[101X
+  [1X3.1-1 CoincidenceGroup[101X
+  
+  [33X[1;0Y[29X[2XCoincidenceGroup[102X( [3Xhom1[103X, [3Xhom2[103X ) [32X operation[133X
+  
+  [33X[0;0YLet  [3Xhom1[103X  and [3Xhom2[103X be group homomorphisms from a group H to a group G. This
+  command  returns  the  subgroup  of H consisting of the elements h for which
+  h^[3Xhom1[103X = h^[3Xhom2[103X.[133X
+  
+  [1X3.1-2 FixedPointGroup[101X
   
   [33X[1;0Y[29X[2XFixedPointGroup[102X( [3Xendo[103X ) [32X operation[133X
   
   [33X[0;0YLet  [3Xendo[103X be an endomorphism of a group G. This command returns the subgroup
-  of  G  consisting  of  the  elements fixed under the endomorphism [3Xendo[103X. This
-  command  is  implemented only for endomorphisms of finite groups and abelian
-  groups.[133X
-  
-  [1X3.1-2 CoincidenceGroup[101X
-  
-  [33X[1;0Y[29X[2XCoincidenceGroup[102X( [3Xhom1[103X, [3Xhom2[103X ) [32X operation[133X
-  
-  [33X[0;0YLet  [3Xhom1[103X, [3Xhom2[103X be group homomorphisms from H to G. This command returns the
-  subgroup  of  H consisting of the elements [10Xh[110X for which [10Xh^[3Xhom1[103X[10X = h^[3Xhom2[103X[10X[110X. This
-  command  is implemented only for homomorphisms where either H is finite or G
-  is abelian.[133X
+  of G consisting of the elements fixed under the endomorphism [3Xendo[103X.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XG := AlternatingGroup( 6 );;[127X[104X
-    [4X[25Xgap>[125X [27Xphi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],[127X[104X
-    [4X[25X>[125X [27X [ (1,2,6,3,5), (1,4,5) ] );;[127X[104X
-    [4X[25Xgap>[125X [27XFixedPointGroup( phi );[127X[104X
-    [4X[28XGroup([ (), (1,6,5,2,4), (1,5,4,6,2), (1,2,6,4,5), (1,4,2,5,6) ])[128X[104X
     [4X[25Xgap>[125X [27XH := SymmetricGroup( 5 );;[127X[104X
-    [4X[25Xgap>[125X [27Xkhi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],[127X[104X
-    [4X[25X>[125X [27X [ (1,2)(3,4), () ] );;[127X[104X
-    [4X[25Xgap>[125X [27Xpsi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],[127X[104X
+    [4X[25Xgap>[125X [27Xphi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],[127X[104X
     [4X[25X>[125X [27X [ (1,4)(3,6), () ] );; [127X[104X
-    [4X[25Xgap>[125X [27XCoincidenceGroup( khi, psi );[127X[104X
+    [4X[25Xgap>[125X [27Xpsi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],[127X[104X
+    [4X[25X>[125X [27X [ (1,2)(3,4), () ] );;[127X[104X
+    [4X[25Xgap>[125X [27XCoincidenceGroup( phi, psi );[127X[104X
     [4X[28X<permutation group with 60 generators>[128X[104X
-  [4X[32X[104X
-  
-  
-  [1X3.2 [33X[0;0YMorphisms[133X[101X
-  
-  [1X3.2-1 InducedEndomorphism[101X
-  
-  [33X[1;0Y[29X[2XInducedEndomorphism[102X( [3Xepi[103X, [3Xendo[103X ) [32X function[133X
-  
-  [33X[0;0YLet [3Xendo[103X be an endomorphism of a group G and [3Xepi[103X be an epimorphism from G to
-  a  group  H  such  that  the kernel of [3Xepi[103X is fixed under [3Xendo[103X. This command
-  returns  the  endomorphism  of  H  induced  by  [3Xendo[103X  via  [3Xepi[103X, that is, the
-  endomorphism  of H which maps g[10X^[3Xepi[103X[10X[110X to [10X([110Xg[10X^[3Xendo[103X[10X)^[3Xepi[103X[10X[110X, for any element g of G.
-  This generalises [10XInducedAutomorphism[110X to endomorphisms.[133X
-  
-  [1X3.2-2 RestrictedEndomorphism[101X
-  
-  [33X[1;0Y[29X[2XRestrictedEndomorphism[102X( [3Xendo[103X, [3XN[103X ) [32X function[133X
-  
-  [33X[0;0YLet  [3Xendo[103X  be  an endomorphism of a group G and [3XN[103X be subgroup of G invariant
-  under [3Xendo[103X. This command returns the endomorphism of N induced by [3Xendo[103X. This
-  is similar to [10XRestrictedMapping[110X, but the range is explicitly set to [3XN[103X.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XG := ExamplesOfSomePcpGroups( 5 );;[127X[104X
-    [4X[25Xgap>[125X [27Xphi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3, G.4 ],[127X[104X
-    [4X[25X>[125X [27X [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^2, G.4^-1  ] );;[127X[104X
-    [4X[25Xgap>[125X [27XN := DerivedSubgroup(G);;[127X[104X
-    [4X[25Xgap>[125X [27Xp := NaturalHomomorphismByNormalSubgroup( G, N );[127X[104X
-    [4X[28X[ g1, g2, g3, g4, g2^2, g3^2, g4^2 ] -> [ g1, g2, g3, g4, id, id, id ][128X[104X
-    [4X[25Xgap>[125X [27XInducedEndomorphism( p, phi );[127X[104X
-    [4X[28X[ g1, g2, g3, g4 ] -> [ g1*g4, g3, g2, g4 ][128X[104X
-    [4X[25Xgap>[125X [27XRestrictedEndomorphism( phi, N );[127X[104X
-    [4X[28X[ g2^2, g3^2, g4^2 ] -> [ g3^2, g2^2*g3^4*g4^8, g4^-2 ][128X[104X
+    [4X[25Xgap>[125X [27Xkhi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],[127X[104X
+    [4X[25X>[125X [27X [ (1,2,6,3,5), (1,4,5) ] );;[127X[104X
+    [4X[25Xgap>[125X [27XFixedPointGroup( khi );[127X[104X
+    [4X[28XGroup([ (), (1,6,5,2,4), (1,5,4,6,2), (1,2,6,4,5), (1,4,2,5,6) ])[128X[104X
   [4X[32X[104X
   

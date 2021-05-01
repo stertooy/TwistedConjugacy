@@ -2,12 +2,21 @@
   
   [1XReferences[101X
   
-  [[20XDT20[120X]  [16XDekimpe,  K.  and Tertooy, S.[116X, [17XAlgorithms for twisted conjugacy
-  classes  of  polycyclic-by-finite  groups[117X,  [18XarXiv:2002.08285  [math.GR][118X
-  (2020).
+  [[20XDT21[120X] [16XDekimpe, K. and Tertooy, S.[116X, [17XAlgorithms for twisted conjugacy classes
+  of  polycyclic-by-finite  groups[117X, [18XTopology and its Applications[118X, [19X293[119X (2021),
+  107565.
   
-  [[20XFel00[120X]  [16XFel'shtyn,  A.[116X,  [17XDynamical  zeta functions, Nielsen theory and
+  [[20XFel00[120X]   [16XFel'shtyn,  A.[116X,  [17XDynamical  zeta  functions,  Nielsen  theory  and
   Reidemeister torsion[117X, [18XMem. Amer. Math. Soc.[118X, [19X147[119X, 699 (2000), xii+146.
+  
+  [[20XRom16[120X]  [16XRoman'kov,  V.[116X,  [17XOn  solvability of equations with endomorphisms in
+  nilpotent groups[117X, [18XSib. Elektron. Mat. Izv.[118X, [19X13[119X (2016), 716--725.
+  
+  [[20XTer21a[120X]  [16XTertooy,  S.[116X,  [17XReidemeister  coincidence numbers, spectra and zeta
+  functions for finite groups[117X, [18XIn preparation[118X (2021).
+  
+  [[20XTer21b[120X]    [16XTertooy,    S.[116X,    [17XTwisted    conjugacy   and   coincidence   in
+  nilpotent-by-finite groups[117X, [18XIn preparation[118X (2021).
   
   
   

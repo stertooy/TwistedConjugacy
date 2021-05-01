@@ -8,7 +8,7 @@
 <script type="text/javascript"
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
-<title>GAP (TwistedConjugacy) - Chapter 4: Test</title>
+<title>GAP (TwistedConjugacy) - Chapter 4: Miscellaneous</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="GAPDoc2HTML" />
 <link rel="stylesheet" type="text/css" href="manual.css" />
@@ -23,27 +23,49 @@
 <div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
 
 <p id="mathjaxlink" class="pcenter"><a href="chap4.html">[MathJax off]</a></p>
-<p><a id="X87712F9D8732193C" name="X87712F9D8732193C"></a></p>
-<div class="ChapSects"><a href="chap4_mj.html#X87712F9D8732193C">4 <span class="Heading">Test</span></a>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X7FCA42D5792B82C8">4.1 <span class="Heading">Hi</span></a>
+<p><a id="X7C5563A37D566DA5" name="X7C5563A37D566DA5"></a></p>
+<div class="ChapSects"><a href="chap4_mj.html#X7C5563A37D566DA5">4 <span class="Heading">Miscellaneous</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X8084A06782AE362E">4.1 <span class="Heading">Induced and restricted group homomorphisms</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X788C5BF17F3D13A8">4.1-1 FixedPointGroup</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7F6D0625837B7B94">4.1-1 InducedHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7DBA352982923900">4.1-2 RestrictedHomomorphism</a></span>
 </div></div>
 </div>
 
-<h3>4 <span class="Heading">Test</span></h3>
+<h3>4 <span class="Heading">Miscellaneous</span></h3>
 
-<p><a id="X7FCA42D5792B82C8" name="X7FCA42D5792B82C8"></a></p>
+<p><a id="X8084A06782AE362E" name="X8084A06782AE362E"></a></p>
 
-<h4>4.1 <span class="Heading">Hi</span></h4>
+<h4>4.1 <span class="Heading">Induced and restricted group homomorphisms</span></h4>
 
-<p><a id="X788C5BF17F3D13A8" name="X788C5BF17F3D13A8"></a></p>
+<p><a id="X7F6D0625837B7B94" name="X7F6D0625837B7B94"></a></p>
 
-<h5>4.1-1 FixedPointGroup</h5>
+<h5>4.1-1 InducedHomomorphism</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FixedPointGroup</code>( <var class="Arg">arg1</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Hi</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InducedHomomorphism</code>( <var class="Arg">epi1</var>, <var class="Arg">epi2</var>, <var class="Arg">hom</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Let <var class="Arg">hom</var> be a group homomorphism from a group H to a group G, let <var class="Arg">epi1</var> be an epimorphism from H to a group Q and let <var class="Arg">epi2</var> be an epimorphism from G to a group P such that the kernel of <var class="Arg">epi1</var> is mapped into the kernel of <var class="Arg">epi2</var> by <var class="Arg">hom</var>. This command returns the homomorphism from Q to P induced by <var class="Arg">hom</var> via <var class="Arg">epi1</var> and <var class="Arg">epi2</var>, that is, the homomorphism from Q to P which maps h<code class="code">^<var class="Arg">epi1</var></code> to <code class="code">(</code>h<code class="code">^<var class="Arg">hom</var>)^<var class="Arg">epi2</var></code>, for any element h of H. This generalises <code class="code">InducedAutomorphism</code> to homomorphisms.</p>
+
+<p><a id="X7DBA352982923900" name="X7DBA352982923900"></a></p>
+
+<h5>4.1-2 RestrictedHomomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RestrictedHomomorphism</code>( <var class="Arg">hom</var>, <var class="Arg">N</var>, <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Let <var class="Arg">hom</var> be a group homomorphism from a group H to a group G, and let <var class="Arg">N</var> be subgroup of H such that its image under <var class="Arg">hom</var> is a subgroup of <var class="Arg">M</var>. This command returns the homomorphism from N to M induced by <var class="Arg">hom</var>. This is similar to <code class="code">RestrictedMapping</code>, but the range is explicitly set to <var class="Arg">M</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := ExamplesOfSomePcpGroups( 5 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">phi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3, G.4 ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^2, G.4^-1  ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N := DerivedSubgroup(G);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">p := NaturalHomomorphismByNormalSubgroup( G, N );</span>
+[ g1, g2, g3, g4, g2^2, g3^2, g4^2 ] -&gt; [ g1, g2, g3, g4, id, id, id ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">InducedHomomorphism( p, p, phi );</span>
+[ g1, g2, g3, g4 ] -&gt; [ g1*g4, g3, g2, g4 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RestrictedEndomorphism( phi, N, N );</span>
+[ g2^2, g3^2, g4^2 ] -&gt; [ g3^2, g2^2*g3^4*g4^8, g4^-2 ]
+</pre></div>
 
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>

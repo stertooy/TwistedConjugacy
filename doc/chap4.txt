@@ -1,12 +1,40 @@
   
-  [1X4 [33X[0;0YTest[133X[101X
+  [1X4 [33X[0;0YMiscellaneous[133X[101X
   
   
-  [1X4.1 [33X[0;0YHi[133X[101X
+  [1X4.1 [33X[0;0YInduced and restricted group homomorphisms[133X[101X
   
-  [1X4.1-1 FixedPointGroup[101X
+  [1X4.1-1 InducedHomomorphism[101X
   
-  [33X[1;0Y[29X[2XFixedPointGroup[102X( [3Xarg1[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XInducedHomomorphism[102X( [3Xepi1[103X, [3Xepi2[103X, [3Xhom[103X ) [32X function[133X
   
-  [33X[0;0YHi[133X
+  [33X[0;0YLet  [3Xhom[103X be a group homomorphism from a group H to a group G, let [3Xepi1[103X be an
+  epimorphism  from  H to a group Q and let [3Xepi2[103X be an epimorphism from G to a
+  group  P  such  that the kernel of [3Xepi1[103X is mapped into the kernel of [3Xepi2[103X by
+  [3Xhom[103X.  This  command  returns the homomorphism from Q to P induced by [3Xhom[103X via
+  [3Xepi1[103X  and  [3Xepi2[103X,  that is, the homomorphism from Q to P which maps h[10X^[3Xepi1[103X[10X[110X to
+  [10X([110Xh[10X^[3Xhom[103X[10X)^[3Xepi2[103X[10X[110X,  for  any element h of H. This generalises [10XInducedAutomorphism[110X
+  to homomorphisms.[133X
+  
+  [1X4.1-2 RestrictedHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XRestrictedHomomorphism[102X( [3Xhom[103X, [3XN[103X, [3XM[103X ) [32X function[133X
+  
+  [33X[0;0YLet  [3Xhom[103X  be  a group homomorphism from a group H to a group G, and let [3XN[103X be
+  subgroup of H such that its image under [3Xhom[103X is a subgroup of [3XM[103X. This command
+  returns  the  homomorphism  from  N  to M induced by [3Xhom[103X. This is similar to
+  [10XRestrictedMapping[110X, but the range is explicitly set to [3XM[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XG := ExamplesOfSomePcpGroups( 5 );;[127X[104X
+    [4X[25Xgap>[125X [27Xphi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3, G.4 ],[127X[104X
+    [4X[25X>[125X [27X [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^2, G.4^-1  ] );;[127X[104X
+    [4X[25Xgap>[125X [27XN := DerivedSubgroup(G);;[127X[104X
+    [4X[25Xgap>[125X [27Xp := NaturalHomomorphismByNormalSubgroup( G, N );[127X[104X
+    [4X[28X[ g1, g2, g3, g4, g2^2, g3^2, g4^2 ] -> [ g1, g2, g3, g4, id, id, id ][128X[104X
+    [4X[25Xgap>[125X [27XInducedHomomorphism( p, p, phi );[127X[104X
+    [4X[28X[ g1, g2, g3, g4 ] -> [ g1*g4, g3, g2, g4 ][128X[104X
+    [4X[25Xgap>[125X [27XRestrictedEndomorphism( phi, N, N );[127X[104X
+    [4X[28X[ g2^2, g3^2, g4^2 ] -> [ g3^2, g2^2*g3^4*g4^8, g4^-2 ][128X[104X
+  [4X[32X[104X
   

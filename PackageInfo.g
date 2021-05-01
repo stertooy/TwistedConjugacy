@@ -2,60 +2,78 @@ SetPackageInfo( rec(
 
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
-Version := "1.0.1",
-Date := "07/06/2020",
+Version := "2.0.0",
+Date := "01/05/2021",
 License := "GPL-2.0-or-later",
 
 Persons := [
-  rec(
-    IsAuthor := true,
-    IsMaintainer := true,
-    FirstNames := "Sam",
-    LastName := "Tertooy",
-    WWWHome := "https://www.kuleuven-kulak.be/~u0092325/",
-    Email := "sam.tertooy@hotmail.com",
-    PostalAddress := Concatenation( "Wiskunde\n",
+	rec(
+		IsAuthor := true,
+		IsMaintainer := true,
+		FirstNames := "Sam",
+		LastName := "Tertooy",
+		WWWHome := "https://stertooy.github.io/",
+		Email := "sam.tertooy@kuleuven.be",
+		PostalAddress := Concatenation( 
+			"Wiskunde\n",
 			"KU Leuven Campus Kulak Kortrijk\n",
 			"Etienne Sabbelaan 53\n",
 			"8500 Kortrijk\n",
-			"Belgium" ),
-    Place := "Kortrijk",
-    Institution := "KU Leuven Campus Kulak Kortrijk",
-  ),
+			"Belgium"
+		),
+		Place := "Kortrijk",
+		Institution := "KU Leuven Campus Kulak Kortrijk",
+	),
 ],
 
 SourceRepository := rec(
-    Type := "git",
-    URL := "https://github.com/sTertooy/TwistedConjugacy",
+	Type := "git",
+	URL := "https://github.com/sTertooy/TwistedConjugacy",
 ),
+
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
 PackageWWWHome  := "https://sTertooy.github.io/TwistedConjugacy/",
 PackageInfoURL  := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 README_URL      := Concatenation( ~.PackageWWWHome, "README.md" ),
-ArchiveURL      := Concatenation( ~.SourceRepository.URL,
-                                 "/archive/", ~.Version ),
+ArchiveURL      := Concatenation( 
+	~.SourceRepository.URL,
+	"/releases/download/v", ~.Version,
+	"/", ~.PackageName, "-", ~.Version
+),
 
 ArchiveFormats := ".tar.gz",
 
 Status := "dev",
 
-AbstractHTML   :=  "",
+AbstractHTML   :=  """
+	The <span class=\"pkgname\">TwistedConjugacy</span> package provides 
+	methods to calculate Reidemeister classes, numbers, spectra and zeta 
+	functions, as well as coincidence groups of group homomorphisms. These 
+	ethods are, for the most part, designed to be used with (group 
+	homomorphisms between) finite groups and, if the package 
+	<span class=\"pkgname\">polycyclic</span> is also installed,
+	polycyclically presented groups.
+""",
 
 PackageDoc := rec(
-  BookName  := "TwistedConjugacy",
-  ArchiveURLSubset := ["doc"],
-  HTMLStart := "doc/chap0.html",
-  PDFFile   := "doc/manual.pdf",
-  SixFile   := "doc/manual.six",
-  LongTitle := "Computation with twisted conjugacy classes",
+	BookName  := ~.PackageName,
+	ArchiveURLSubset := ["doc"],
+	HTMLStart := "doc/chap0.html",
+	PDFFile   := "doc/manual.pdf",
+	SixFile   := "doc/manual.six",
+	LongTitle := ~.Subtitle,
 ),
 
 Dependencies := rec(
-  GAP := ">= 4.10",
-  NeededOtherPackages := [ [ "Polycyclic", "2.14" ],
-						   [ "GAPDoc", "1.6.2" ] ],
-  SuggestedOtherPackages := [ ],
-  ExternalConditions := [ ],
+	GAP := ">= 4.9",
+	NeededOtherPackages := [
+		[ "GAPDoc", "1.6.1" ]
+	],
+	SuggestedOtherPackages := [
+		[ "AutoDoc", "2018.02.14" ],
+		[ "Polycyclic", "2.13.1" ]
+	],
+	ExternalConditions := [ ],
 ),
 
 AvailabilityTest := ReturnTrue,
@@ -63,9 +81,37 @@ AvailabilityTest := ReturnTrue,
 TestFile := "tst/testall.g",
 
 Keywords := [
-	"twisted conjugacy",
+	"coincidence group",
+	"fixed point group",
 	"Reidemeister number",
-	"Reidemeister zeta",
-	],
+	"Reidemeister spectrum",
+	"Reidemeister zeta function",
+	"twisted conjugacy",
+],
+	
+AutoDoc := rec(
+	TitlePage := rec(
+		Abstract := """
+			The <B>TwistedConjugacy</B> package provides methods to calculate 
+			Reidemeister classes, numbers, spectra and zeta functions, as well 
+			as coincidence groups of group homomorphisms. These methods are, 
+			for the most part, designed to be used with (group homomorphisms 
+			between) finite groups and, if the package <B>polycyclic</B> is 
+			also installed, polycyclically presented groups.
+        """,
+        Acknowledgements := """
+			This documentation was created using the <B>GAPDoc</B> and 
+			<B>AutoDoc</B> packages.
+        """,
+        Copyright := """
+			&copyright; 2020-2021 Sam Tertooy <P/>
+			The <B>TwistedConjugacy</B> package is free software, it may be 
+			redistributed and/or modified under the terms and conditions of the 
+			<URL Text="GNU Public License Version 2">
+			https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</URL> or 
+			(at your option) any later version.
+        """
+    )
+),
 
 ));

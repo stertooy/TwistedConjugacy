@@ -1,222 +1,43 @@
   
-  [1X1 [33X[0;0YTwisted Conjugacy[133X[101X
+  [1X1 [33X[0;0YPreface[133X[101X
   
-  [33X[0;0YPlease  note  that  currently  the functions in this chapter are implemented
-  only for (endomorphisms of) finite groups and pcp-groups.[133X
-  
-  
-  [1X1.1 [33X[0;0YTwisted Conjugation Action[133X[101X
-  
-  [33X[0;0YLet  [23XG[123X be a group and [23X\varphi: G \to G[123X an endomorphism. Then [23X\varphi[123X induces
-  a (right) group action on [23XG[123X given by [23XG \times G \to G: (g,h) \mapsto g \cdot
-  h  =  h^{-1}  g\varphi(h)[123X.  This  group  action  is  called  [13X[23X\varphi[123X-twisted
-  conjugation[113X,  and  induces an equivalence relation on the group. We say that
-  [23Xg_1,  g_2 \in G[123X are [23X\varphi[123X-twisted conjugate, denoted by [23Xg_1 \sim_{\varphi}
-  g_2[123X,  if and only if there exists some element [23Xh \in G[123X such that [23Xg_1 \cdot h
-  = g_2[123X, or equivalently [23Xg_1 = h g_2 \varphi(h)^{-1}[123X.[133X
-  
-  [1X1.1-1 TwistedConjugation[101X
-  
-  [33X[1;0Y[29X[2XTwistedConjugation[102X( [3Xendo[103X ) [32X operation[133X
-  
-  [33X[0;0YImplements  the  twisted  conjugation  (right)  group  action induced by the
-  endomorphism [3Xendo[103X. This is the twisted conjugacy analogue of [10XOnPoints[110X.[133X
-  
-  [1X1.1-2 IsTwistedConjugate[101X
-  
-  [33X[1;0Y[29X[2XIsTwistedConjugate[102X( [3Xendo[103X, [3Xg1[103X, [3Xg2[103X ) [32X operation[133X
-  
-  [33X[0;0YTests whether the elements [3Xg1[103X and [3Xg2[103X are twisted conjugate under the twisted
-  conjugacy  action  of  the  endomorphism [3Xendo[103X. This is the twisted conjugacy
-  analogue of [10XIsConjugate[110X.[133X
-  
-  [1X1.1-3 RepresentativeTwistedConjugation[101X
-  
-  [33X[1;0Y[29X[2XRepresentativeTwistedConjugation[102X( [3Xendo[103X, [3Xg1[103X, [3Xg2[103X ) [32X operation[133X
-  
-  [33X[0;0YComputes an element that maps [3Xg1[103X to [3Xg2[103X under the twisted conjugacy action of
-  the  endomorphism  [3Xendo[103X  and returns [10Xfail[110X if no such element exists. This is
-  the twisted conjugacy analogue of [10XRepresentativeAction[110X.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XG := Group([ (3,4)(5,6), (1,2,3)(4,5,7) ]);;[127X[104X
-    [4X[25Xgap>[125X [27Xphi := GroupHomomorphismByImages( G, G, [ (2,7)(4,6), (1,4,5,6,7,2,3) ],[127X[104X
-    [4X[25X>[125X [27X [ (2,4)(6,7), (1,2,4,6,5,7,3) ] );;[127X[104X
-    [4X[25Xgap>[125X [27Xtc := TwistedConjugation( phi );;[127X[104X
-    [4X[25Xgap>[125X [27XIsTwistedConjugate( phi, G.1, G.1^2 );[127X[104X
-    [4X[28Xfalse[128X[104X
-    [4X[25Xgap>[125X [27Xg := RepresentativeTwistedConjugation( phi, G.1, G.2 );[127X[104X
-    [4X[28X(1,6,7,5)(3,4)[128X[104X
-    [4X[25Xgap>[125X [27Xtc( G.1, g ) = G.2;[127X[104X
-    [4X[28Xtrue[128X[104X
-  [4X[32X[104X
+  [33X[0;0YLet  [23XG,  H[123X be groups and [23X\varphi,\psi: H \to G[123X group homomorphisms. Then the
+  pair [23X(\varphi,\psi)[123X induces a (right) group action on [23XG[123X given by[133X
   
   
-  [1X1.2 [33X[0;0YReidemeister Classes[133X[101X
-  
-  [33X[0;0YThe  equivalence  classes  of  the  equivalence  relation [23X\sim_{\varphi}[123X are
-  called  the [13XReidemeister classes of [23X\varphi[123X[113X or the [13X[23X\varphi[123X-twisted conjugacy
-  classes[113X.  We  denote the Reidemeister class of [23Xg \in G[123X by [23X[g]_{\varphi}[123X. The
-  number  of Reidemeister classes is called the Reidemeister number [23XR(\varphi)[123X
-  and is always a positive integer or infinity.[133X
-  
-  [1X1.2-1 ReidemeisterClass[101X
-  
-  [33X[1;0Y[29X[2XReidemeisterClass[102X( [3Xendo[103X, [3Xg[103X ) [32X operation[133X
-  [33X[1;0Y[29X[2XTwistedConjugacyClass[102X( [3Xendo[103X, [3Xg[103X ) [32X operation[133X
-  
-  [33X[0;0YCreates  the  Reidemeister  class  of an endomorphism [3Xendo[103X of a group G with
-  representative [3Xg[103X. The following attributes and operations are available:[133X
-  
-  [30X    [33X[0;6Y[10XRepresentative[110X, which returns [3Xg[103X,[133X
-  
-  [30X    [33X[0;6Y[10XGroupHomomorphismsOfReidemeisterClass[110X, which returns a list containing
-        [3Xendo[103X  and  the identity map on G (to be compatible with double twisted
-        conjugacy classes),[133X
-  
-  [30X    [33X[0;6Y[10XActingDomain[110X, which returns the group G,[133X
-  
-  [30X    [33X[0;6Y[10XFunctionAction[110X,  which returns the twisted conjugacy action of [3Xendo[103X on
-        G,[133X
-  
-  [30X    [33X[0;6Y[10XRandom[110X,  which  returns a random element belonging to the Reidemeister
-        class,[133X
-  
-  [30X    [33X[0;6Y[10X\in[110X,  which  can  be  used  to  test  if  an  element  belongs  to the
-        Reidemeister  class  -  only  guaranteed  to  work if the Reidemeister
-        number of [3Xendo[103X is finite,[133X
-  
-  [30X    [33X[0;6Y[10XAsList[110X,  which  lists  all  elements  in the Reidemeister class - only
-        works for finite groups.[133X
-  
-  [30X    [33X[0;6Y[10XSize[110X,  which  gives the number of elements in the Reidemeister class -
-        only works for finite groups.[133X
-  
-  [33X[0;0YThis is the twisted conjugacy analogue of [10XConjugacyClass[110X.[133X
-  
-  [1X1.2-2 ReidemeisterClasses[101X
-  
-  [33X[1;0Y[29X[2XReidemeisterClasses[102X( [3Xendo[103X ) [32X operation[133X
-  [33X[1;0Y[29X[2XTwistedConjugacyClasses[102X( [3Xendo[103X ) [32X operation[133X
-  
-  [33X[0;0YReturns   a  list  containing  the  Reidemeister  classes  of  [3Xendo[103X  if  the
-  Reidemeister  number  of  [3Xendo[103X  is finite, and returns [10Xfail[110X otherwise. It is
-  guaranteed  that  the  Reidemeister  class  of  the identity is in the first
-  position. This is the twisted conjugacy analogue of [10XConjugacyClasses[110X.[133X
-  
-  [1X1.2-3 ReidemeisterNumber[101X
-  
-  [33X[1;0Y[29X[2XReidemeisterNumber[102X( [3Xendo[103X ) [32X operation[133X
-  [33X[1;0Y[29X[2XNrTwistedConjugacyClasses[102X( [3Xendo[103X ) [32X operation[133X
-  
-  [33X[0;0YReturns  the  Reidemeister  number  of [3Xendo[103X, i.e. the number of Reidemeister
-  classes. This is the twisted conjugacy analogue of [10XNrConjugacyClasses[110X.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27Xtcc := ReidemeisterClass( phi, G.1 );[127X[104X
-    [4X[28X(3,4)(5,6)^G[128X[104X
-    [4X[25Xgap>[125X [27XRepresentative( tcc );[127X[104X
-    [4X[28X(3,4)(5,6)[128X[104X
-    [4X[25Xgap>[125X [27XGroupHomomorphismsOfReidemeisterClass( tcc );[127X[104X
-    [4X[28X[ [ (2,7)(4,6), (1,4,5,6,7,2,3) ] -> [ (2,4)(6,7), (1,2,4,6,5,7,3) ],[128X[104X
-    [4X[28X  IdentityMapping( Group([ (3,4)(5,6), (1,2,3)(4,5,7) ]) ) ][128X[104X
-    [4X[25Xgap>[125X [27XActingDomain( tcc ) = G;[127X[104X
-    [4X[28Xtrue[128X[104X
-    [4X[25Xgap>[125X [27XFunctionAction( tcc )( G.1, g );[127X[104X
-    [4X[28X(1,2,3)(4,5,7)[128X[104X
-    [4X[25Xgap>[125X [27XRandom( tcc ) in tcc;[127X[104X
-    [4X[28Xtrue[128X[104X
-    [4X[25Xgap>[125X [27XList( tcc );[127X[104X
-    [4X[28X[ (3,4)(5,6), (1,3)(2,6), (1,6,7)(2,4,3), ... ][128X[104X
-    [4X[25Xgap>[125X [27XSize( tcc );[127X[104X
-    [4X[28X42[128X[104X
-    [4X[25Xgap>[125X [27XReidemeisterClasses( phi );[127X[104X
-    [4X[28X[ ()^G, (3,4)(5,6)^G, (3,6)(4,5)^G, (2,3,6)(4,7,5)^G ][128X[104X
-    [4X[25Xgap>[125X [27XNrTwistedConjugacyClasses( phi );[127X[104X
-    [4X[28X4[128X[104X
-  [4X[32X[104X
-  
-  
-  [1X1.3 [33X[0;0YReidemeister Spectra[133X[101X
-  
-  [33X[0;0YThe  set  of  all  Reidemeister  numbers  of  automorphisms  is  called  the
-  [13XReidemeister spectrum[113X and is denoted by [23X\mathrm{Spec}_R(G)[123X, i.e.[133X
-  
-  
-  [24X[33X[0;6Y\mathrm{Spec}_R(G) := \{ R(\varphi) \mid \varphi \in \mathrm{Aut}(G)\}.[133X
+  [24X[33X[0;6YG \times H \to G: (g,h) \mapsto g \cdot h = \psi(h)^{-1} g\varphi(h).[133X
   
   [124X
   
-  [33X[0;0YThe  set of all Reidemeister numbers of endomorphisms is called the [13Xextended
-  Reidemeister spectrum[113X and is denoted by [23X\mathrm{ESpec}_R(G)[123X, i.e.[133X
+  [33X[0;0YThis  group action is called [13X[23X(\varphi,\psi)[123X-twisted conjugation[113X, and induces
+  an equivalence relation [23X\sim_{\varphi,\psi}[123X on [23XG[123X:[133X
   
   
-  [24X[33X[0;6Y\mathrm{ESpec}_R(G) := \{ R(\varphi) \mid \varphi \in \mathrm{End}(G)\}.[133X
-  
-  [124X
-  
-  [1X1.3-1 ReidemeisterSpectrum[101X
-  
-  [33X[1;0Y[29X[2XReidemeisterSpectrum[102X( [3XG[103X ) [32X attribute[133X
-  
-  [33X[0;0YReturns the Reidemeister spectrum of [3XG[103X.[133X
-  
-  [1X1.3-2 ExtendedReidemeisterSpectrum[101X
-  
-  [33X[1;0Y[29X[2XExtendedReidemeisterSpectrum[102X( [3XG[103X ) [32X attribute[133X
-  
-  [33X[0;0YReturns the extended Reidemeister spectrum of [3XG[103X.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XReidemeisterSpectrum( G );[127X[104X
-    [4X[28X[ 4, 6 ][128X[104X
-    [4X[25Xgap>[125X [27XExtendedReidemeisterSpectrum( G );[127X[104X
-    [4X[28X[ 1, 4, 6 ][128X[104X
-  [4X[32X[104X
-  
-  
-  [1X1.4 [33X[0;0YZeta Functions[133X[101X
-  
-  [33X[0;0YLet  [23X\varphi: G \to G[123X be an endomorphism such that [23XR(\varphi^n) < \infty[123X for
-  all  [23Xn \in \mathbb{N}[123X. Then the Reidemeister zeta function [23XR_{\varphi}(z)[123X of
-  [23X\varphi[123X is defined as[133X
-  
-  
-  [24X[33X[0;6YR_{\varphi}(z) := \exp \sum_{n=1}^\infty R(\varphi^n) \frac{z^n}{n}.[133X
+  [24X[33X[0;6Yg_1 \sim_{\varphi,\psi} g_2 \iff \exists h \in H: g_1 \cdot h = g2.[133X
   
   [124X
   
-  [33X[0;0YPlease  note that the functions below are only implemented for endomorphisms
-  of finite groups.[133X
+  [33X[0;0YThe  equivalence  classes  (i.e.  the  orbits  of  the  action)  are  called
+  [13XReidemeister  classes[113X  and  the number of Reidemeister classes is called the
+  Reidemeister   number   [23XR(\varphi,\psi)[123X  of  the  pair  [23X(\varphi,\psi)[123X.  The
+  stabiliser  of  the  identity  [23X1_G[123X  for this action is the coincidence group
+  [23X\mathrm{Coin}(\varphi, \psi )[123X, i.e. the subgroup of [23XH[123X given by[133X
   
-  [1X1.4-1 ReidemeisterZeta[101X
   
-  [33X[1;0Y[29X[2XReidemeisterZeta[102X( [3Xendo[103X ) [32X operation[133X
+  [24X[33X[0;6Y\mathrm{Coin}(\varphi,\psi) := \{ h \in H \mid \varphi(h) = \psi(h) \}.[133X
   
-  [33X[0;0YReturns the Reidemeister zeta function of [3Xendo[103X.[133X
+  [124X
   
-  [1X1.4-2 PrintReidemeisterZeta[101X
+  [33X[0;0YThe  [12XTwistedConjugacy[112X  packageprovides  methods  to  calculate  Reidemeister
+  classes,  Reidemeister  numbers  and  coincidence  groups  of pairs of group
+  homomorphisms.   These   methods  are  implemented  for  finite  groups  and
+  (infinite)  polycyclically  presented  groups.  If [23XH[123X and [23XG[123X are both infinite
+  polycyclically  presented  groups,  then many of the methods in this package
+  are  only guaranteed to produce a result if either [23XG = H[123X and [23XR(\varphi,\psi)[123X
+  is  finite,  or  [23XG[123X  is nilpotent-by-finite. If this is not case, methods may
+  either  produce  a  (correct!)  result, or throw an error: "[10XError, no method
+  found![110X"[133X
   
-  [33X[1;0Y[29X[2XPrintReidemeisterZeta[102X( [3Xendo[103X ) [32X operation[133X
-  
-  [33X[0;0YReturns a string describing the Reidemeister zeta function of [3Xendo[103X.[133X
-  
-  [1X1.4-3 ReidemeisterZetaCoefficients[101X
-  
-  [33X[1;0Y[29X[2XReidemeisterZetaCoefficients[102X( [3Xendo[103X ) [32X attribute[133X
-  
-  [33X[0;0YFor  a finite group, the sequence of Reidemeister numbers of the iterates of
-  [3Xendo[103X,  i.e.  the  sequence R([3Xendo[103X), R([3Xendo[103X^2), ..., is periodic (see [Fel00,
-  Theorem  16]).  This  function returns a list containing the first period of
-  this sequence.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27Xzeta1 := ReidemeisterZeta( phi );;[127X[104X
-    [4X[25Xgap>[125X [27Xzeta1( 10/3 );[127X[104X
-    [4X[28X-729/218491[128X[104X
-    [4X[25Xgap>[125X [27XPrintReidemeisterZeta( phi );[127X[104X
-    [4X[28X"( 1-z^1 )^-4 * ( 1-z^2 )^-1"[128X[104X
-    [4X[25Xgap>[125X [27XReidemeisterZetaCoefficients( phi );[127X[104X
-    [4X[28X[ 4, 6 ][128X[104X
-  [4X[32X[104X
+  [33X[0;0YThe  methods  in  this  package  are  based  on algorithms and theorems from
+  [Fel00], [Rom16], [DT21], [Ter21a] and [Ter21b].[133X
   
