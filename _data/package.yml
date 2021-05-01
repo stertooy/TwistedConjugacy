@@ -37,14 +37,13 @@ downloads:
       url: https://github.com/sTertooy/TwistedConjugacy/releases/download/v2.0.0/TwistedConjugacy-2.0.0.tar.gz
 
 abstract: |
-    
-    	The <span class=\"pkgname\">TwistedConjugacy</span> package provides 
-    	methods to calculate Reidemeister classes, numbers, spectra and zeta 
-    	functions, as well as coincidence groups of group homomorphisms. These 
-    	ethods are, for the most part, designed to be used with (group 
-    	homomorphisms between) finite groups and, if the package 
-    	<span class=\"pkgname\">polycyclic</span> is also installed,
-    	polycyclically presented groups.
+    The <span class=\"pkgname\">TwistedConjugacy</span> package provides 
+    methods to calculate Reidemeister classes, numbers, spectra and zeta 
+    functions, as well as coincidence groups of group homomorphisms. These 
+    ethods are, for the most part, designed to be used with (group 
+    homomorphisms between) finite groups and, if the package 
+    <span class=\"pkgname\">polycyclic</span> is also installed,
+    polycyclically presented groups.
 
 status: dev
 doc-html: doc/chap0.html
