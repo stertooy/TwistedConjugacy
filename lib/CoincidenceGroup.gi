@@ -31,7 +31,7 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		tc := TwistedConjugation( hom1, hom2 );
-		return Stabiliser( H, One( G ), tc );
+		return Stabilizer( H, One( G ), tc );
 	end
 );
 

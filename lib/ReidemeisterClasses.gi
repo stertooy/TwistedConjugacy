@@ -126,7 +126,7 @@ InstallMethod(
 	function ( tcc )
 		local G, H, g, inn, hom, Coin;
 		H := ActingDomain( tcc );
-		Coin := StabiliserOfExternalSet( tcc );
+		Coin := StabilizerOfExternalSet( tcc );
 		return IndexNC( H, Coin );
 	end
 );
@@ -138,7 +138,7 @@ InstallMethod(
 	function ( tcc )
 		local G, H, g, inn, hom, Coin, tc;
 		H := ActingDomain( tcc );
-		Coin := StabiliserOfExternalSet( tcc );
+		Coin := StabilizerOfExternalSet( tcc );
 		if IndexNC( H, Coin ) = infinity then
 			return fail;
 		else
@@ -153,7 +153,7 @@ InstallMethod(
 );
 
 InstallMethod(
-	StabiliserOfExternalSet,
+	StabilizerOfExternalSet,
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
