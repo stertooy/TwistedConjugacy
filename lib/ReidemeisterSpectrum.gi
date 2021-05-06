@@ -12,7 +12,9 @@ InstallMethod(
 		inv := AbelianInvariants( G );
 		invOdd := Filtered( inv, IsOddInt );
 		invEven := Filtered( inv, IsEvenInt );
-		if IsEmpty( invOdd ) then
+		if IsEmpty( invOdd ) and IsEmpty( invEven ) then
+			return [1];
+		elif IsEmpty( invOdd ) then
 			occ := TransposedMat( Collected( invEven ) )[2];
 			singleOcc := Filtered( occ, IsOne );
 			if IsEmpty( singleOcc ) then
