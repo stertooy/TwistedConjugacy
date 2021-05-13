@@ -124,4 +124,17 @@ gap> ReidemeisterNumber( inc2S6, inc2S6 );
 infinity
 
 #
+gap> G6 := DirectProduct( ExamplesOfSomePcpGroups( 5 ), ExamplesOfSomePcpGroups( 1 ) );;
+gap> imgs1G6 := [ G6.1*G6.4^-1, G6.3, G6.2*(G6.3*G6.4)^3, G6.4^-1, G6.5, G6.6, G6.7, G6.8  ];;
+gap> imgs2G6 := [ G6.4^-1*G6.1, G6.3, G6.2, G6.4^-1, G6.5, G6.6, G6.7, G6.8  ];;
+gap> aut1G6 := GroupHomomorphismByImagesNC( G6, G6, GeneratorsOfGroup( G6 ), imgs2G6 );;
+gap> aut2G6 := GroupHomomorphismByImagesNC( G6, G6, GeneratorsOfGroup( G6 ), imgs1G6 );;
+gap> FixedPointGroup( aut1G6 );
+Pcp-group with orders [ 0, 0, 0, 0, 0 ]
+gap> FixedPointGroup( aut2G6 );
+Pcp-group with orders [ 0, 0, 0, 0 ]
+gap> CoincidenceGroup( aut1G6, aut2G6 );
+Pcp-group with orders [ 2, 0, 0, 0, 0, 0, 0 ]
+
+#
 gap> STOP_TEST( "extra.tst" );

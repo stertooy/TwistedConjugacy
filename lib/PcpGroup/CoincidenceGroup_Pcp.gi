@@ -69,7 +69,7 @@ InstallMethod(
 	CoincidenceGroup,
 	"for infinite polycyclic source and finite range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	4,
+	5,
 	function ( hom1, hom2 )
 		local G, H;
 		G := Range( hom1 );
@@ -91,7 +91,7 @@ InstallMethod(
 	CoincidenceGroup,
 	"for infinite polycyclic source and infinite abelian range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	3,
+	4,
 	function ( hom1, hom2 )
 		local G, H, diff;
 		G := Range( hom1 );
@@ -112,7 +112,7 @@ InstallMethod(
 	CoincidenceGroup,
 	"for infinite polycyclic source and infinite nilpotent range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	2,
+	3,
 	function ( hom1, hom2 )
 		local G, H;
 		G := Range( hom1 );
@@ -132,7 +132,7 @@ InstallMethod(
 	CoincidenceGroup,
 	"for infinite polycyclic source and infinite nilpotent-by-finite range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	1,
+	2,
 	function ( hom1, hom2 )
 		local G, H;
 		G := Range( hom1 );
@@ -148,6 +148,29 @@ InstallMethod(
 			hom1, hom2,
 			FittingSubgroup( G )
 		);
+	end
+);
+
+InstallMethod(
+	CoincidenceGroup,
+	"for isomorphisms with infinite polycyclic source and range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	1,
+	function ( aut1, aut2 )
+		local G, H, aut;
+		G := Range( aut1 );
+		H := Source( aut1 );
+		if (
+			not IsPcpGroup( H ) or
+			not IsPcpGroup( G ) or
+			IsNilpotentByFinite( G ) or
+			not IsBijective( aut1 ) or
+			not IsBijective( aut2 )
+		) then
+			TryNextMethod();
+		fi;
+		aut := aut1 * Inverse( aut2 );
+		return FixedPointGroup( aut );
 	end
 );
 
@@ -170,5 +193,32 @@ InstallMethod(
 			hom1, hom2,
 			DerivedSubgroup( G )
 		);
+	end
+);
+
+###############################################################################
+##
+## FixedPointGroup( aut )
+##
+InstallMethod(
+	FixedPointGroup,
+	"for automorphisms of infinite polycyclic groups",
+	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
+	1,
+	function ( aut )
+		local G, S, emb, inc, fix;
+		G := Source( aut );
+		if (
+			not IsPcpGroup( G ) or
+			IsNilpotentByFinite( G ) or 
+			not IsBijective( aut )
+		) then
+			TryNextMethod();
+		fi;
+		S := SemidirectProductWithAutomorphism@( G, aut );;
+		emb := Embedding( S, 2 );
+		inc := RestrictedHomomorphism( emb, G, ImagesSource( emb ) );
+		fix := Intersection2( Range( inc ), Centralizer( S, S.1 ) );;
+		return PreImagesSet( inc, fix );
 	end
 );

@@ -6,7 +6,7 @@ InstallMethod(
 	CoincidenceGroup,
 	"for trivial range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	6,
+	7,
 	function ( hom1, hom2 )
 		local G, H;
 		G := Range( hom1 );
@@ -22,7 +22,7 @@ InstallMethod(
 	CoincidenceGroup,
 	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	5,
+	6,
 	function ( hom1, hom2 )
 		local G, H, tc;
 		G := Range( hom1 );
@@ -42,7 +42,9 @@ InstallMethod(
 ##
 InstallMethod(
 	FixedPointGroup,
+	"for infinite polycyclic groups",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
+	0,
 	function ( endo )
 		local G;
 		G := Range( endo );
