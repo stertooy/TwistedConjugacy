@@ -133,7 +133,7 @@ InstallMethod(
 	"for trivial range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
-	6,
+	7,
 	function ( hom1, hom2, g )
 		local G, H;
 		G := Range( hom1 );
@@ -150,7 +150,7 @@ InstallMethod(
 	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
-	5,
+	6,
 	function ( hom1, hom2, g )
 		local G, H, tc;
 		G := Range( hom1 );

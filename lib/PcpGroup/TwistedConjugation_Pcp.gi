@@ -86,7 +86,7 @@ InstallMethod(
 	"for infinite polycyclic source and finite range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
-	4,
+	5,
 	function ( hom1, hom2, g )
 		local G, H;
 		G := Range( hom1 );
@@ -110,7 +110,7 @@ InstallMethod(
 	"for infinite polycyclic source and infinite abelian range", 
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
-	3,
+	4,
 	function ( hom1, hom2, g )
 		local G, H, diff;
 		G := Range( hom1 );
@@ -135,7 +135,7 @@ InstallMethod(
 	"for infinite polycyclic source and infinite nilpotent range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
-	2,
+	3,
 	function ( hom1, hom2, g )
 		local G, H;
 		G := Range( hom1 );
@@ -156,7 +156,7 @@ InstallMethod(
 	"for infinite polycyclic source and infinite nilpotent-by-finite range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
-	1,
+	2,
 	function ( hom1, hom2, g )
 		local G, H;
 		G := Range( hom1 );
@@ -173,6 +173,41 @@ InstallMethod(
 			g,
 			FittingSubgroup( G )
 		);
+	end
+);
+
+InstallMethod(
+	RepTwistConjToId,
+	"for isomorphisms with infinite polycyclic source and range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ],
+	1,
+	function ( aut1, aut2, g )
+		local G, H, S, emb, s, hs;
+		G := Range( aut1 );
+		H := Source( aut1 );
+		if (
+			not IsPcpGroup( H ) or
+			not IsPcpGroup( G ) or
+			IsNilpotentByFinite( G ) or
+			not IsBijective( aut1 ) or
+			not IsBijective( aut2 )
+		) then
+			TryNextMethod();
+		fi;
+		S := SemidirectProductWithAutomorphism@( H, aut2 * Inverse( aut1 ) );
+		emb := Embedding( S, 2 );
+		s := ImagesRepresentative( emb, PreImagesRepresentative( aut1, g ) );
+		hs := ConjugacyElementsBySeries( 
+			S,
+			S.1, S.1*s,
+			PcpsOfEfaSeries( S )
+		);
+		if hs = false then
+			return fail;
+		fi;
+		hs := S.1^( -ExponentsByPcp( Pcp( S ), hs )[1] ) * hs;
+		return PreImagesRepresentative( emb, hs )^-1;
 	end
 );
 

@@ -63,6 +63,8 @@ gap> ReidemeisterNumber( idG2 );
 infinity
 gap> IsTwistedConjugate( idG2, G2.1, G2.2 );
 false
+gap> IsTwistedConjugate( idG2, G2.1, G2.1^(G2.2) );
+true
 
 #
 gap> G3 := ExamplesOfSomePcpGroups( 11 );;
