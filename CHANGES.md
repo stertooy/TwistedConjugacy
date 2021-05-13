@@ -1,6 +1,18 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
+2.1.0 (13/05/2021)
+------------------
+
+- Fixed a bug that made ReidemeisterSpectrum not work for the trivial
+  group.
+- FixedPointGroup now works for any automorphism of an infinite PCP-group
+- CoincidenceGroup now works for any pair of isomorphisms between infinite
+  PCP-groups
+- RepresentativeTwistedConjugation and IsTwistedConjugate now work for
+  pairs of isomorphisms between infinite PCP-groups
+
+
 2.0.0 (01/05/2021)
 ------------------
 
