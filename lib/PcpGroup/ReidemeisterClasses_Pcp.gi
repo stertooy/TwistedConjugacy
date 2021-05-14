@@ -155,7 +155,8 @@ InstallMethod(
 		H := Source( hom1 );
 		if (
 			not IsPcpGroup( H ) or
-			not IsFinite( G )
+			not IsFinite( G ) or
+			IsTrivial( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -216,7 +217,8 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
-			not IsNilpotent( G )
+			not IsNilpotent( G ) or
+			IsAbelian( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -236,7 +238,8 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
-			not IsNilpotentByFinite( G )
+			not IsNilpotentByFinite( G ) or
+			IsNilpotent( G )
 		) then
 			TryNextMethod();
 		fi;

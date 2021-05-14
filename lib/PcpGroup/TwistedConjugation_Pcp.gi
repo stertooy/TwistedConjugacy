@@ -93,7 +93,8 @@ InstallMethod(
 		H := Source( hom1 );
 		if (
 			not IsPcpGroup( H ) or
-			not IsFinite( G )
+			not IsFinite( G ) or
+			IsTrivial( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -143,7 +144,8 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
-			not IsNilpotent( G )
+			not IsNilpotent( G ) or
+			IsAbelian( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -164,7 +166,8 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
-			not IsNilpotentByFinite( G )
+			not IsNilpotentByFinite( G ) or
+			IsNilpotent( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -178,10 +181,34 @@ InstallMethod(
 
 InstallMethod(
 	RepTwistConjToId,
-	"for isomorphisms with infinite polycyclic source and range",
+	"for infinite polycyclic source and range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
 	1,
+	function ( hom1, hom2, g )
+		local G, H;
+		G := Range( hom1 );
+		H := Source( hom1 );
+		if (
+			not IsPcpGroup( H ) or
+			not IsPcpGroup( G )
+		) then
+			TryNextMethod();
+		fi;
+		return RepTwistConjToIdByFiniteCoin@(
+			hom1, hom2,
+			g,
+			DerivedSubgroup( G )
+		);
+	end
+);
+
+InstallMethod(
+	RepTwistConjToId,
+	"for isomorphisms with infinite polycyclic source and range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ],
+	0,
 	function ( aut1, aut2, g )
 		local G, H, S, emb, s, hs;
 		G := Range( aut1 );
@@ -189,7 +216,6 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
-			IsNilpotentByFinite( G ) or
 			not IsBijective( aut1 ) or
 			not IsBijective( aut2 )
 		) then
@@ -208,29 +234,5 @@ InstallMethod(
 		fi;
 		hs := S.1^( -ExponentsByPcp( Pcp( S ), hs )[1] ) * hs;
 		return PreImagesRepresentative( emb, hs )^-1;
-	end
-);
-
-InstallMethod(
-	RepTwistConjToId,
-	"for infinite polycyclic source and range",
-	[ IsGroupHomomorphism, IsGroupHomomorphism,
-	  IsMultiplicativeElementWithInverse ],
-	0,
-	function ( hom1, hom2, g )
-		local G, H;
-		G := Range( hom1 );
-		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsPcpGroup( G )
-		) then
-			TryNextMethod();
-		fi;
-		return RepTwistConjToIdByFiniteCoin@(
-			hom1, hom2,
-			g,
-			DerivedSubgroup( G )
-		);
 	end
 );

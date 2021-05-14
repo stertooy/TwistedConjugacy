@@ -62,6 +62,21 @@ end;
 
 ###############################################################################
 ##
+## FixedPointGroupBySemidirectProduct@( aut )
+##
+FixedPointGroupBySemidirectProduct@ := function( aut )
+	local G, S, emb, inc, fix;
+	G := Source( aut );
+	S := SemidirectProductWithAutomorphism@( G, aut );
+	emb := Embedding( S, 2 );
+	inc := RestrictedHomomorphism( emb, G, ImagesSource( emb ) );
+	fix := Intersection2( Range( inc ), Centralizer( S, S.1 ) );
+	return PreImagesSet( inc, fix );
+end;
+
+
+###############################################################################
+##
 ## CoincidenceGroup( hom1, hom2 )
 ##
 
@@ -76,7 +91,8 @@ InstallMethod(
 		H := Source( hom1 );
 		if (
 			not IsPcpGroup( H ) or
-			not IsFinite( G )
+			not IsFinite( G ) or
+			IsTrivial( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -120,7 +136,8 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
-			not IsNilpotentGroup( G )
+			not IsNilpotentGroup( G ) or
+			IsAbelian( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -140,7 +157,8 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
-			not IsNilpotentByFinite( G )
+			not IsNilpotentByFinite( G ) or
+			IsNilpotent( G )
 		) then
 			TryNextMethod();
 		fi;
@@ -153,32 +171,9 @@ InstallMethod(
 
 InstallMethod(
 	CoincidenceGroup,
-	"for isomorphisms with infinite polycyclic source and range",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	1,
-	function ( aut1, aut2 )
-		local G, H, aut;
-		G := Range( aut1 );
-		H := Source( aut1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsPcpGroup( G ) or
-			IsNilpotentByFinite( G ) or
-			not IsBijective( aut1 ) or
-			not IsBijective( aut2 )
-		) then
-			TryNextMethod();
-		fi;
-		aut := aut1 * Inverse( aut2 );
-		return FixedPointGroup( aut );
-	end
-);
-
-InstallMethod(
-	CoincidenceGroup,
 	"for infinite polycyclic source and range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	0,
+	1,
 	function ( hom1, hom2 )
 		local G, H;
 		G := Range( hom1 );
@@ -196,29 +191,24 @@ InstallMethod(
 	end
 );
 
-###############################################################################
-##
-## FixedPointGroup( aut )
-##
 InstallMethod(
-	FixedPointGroup,
-	"for automorphisms of infinite polycyclic groups",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	1,
-	function ( aut )
-		local G, S, emb, inc, fix;
-		G := Source( aut );
+	CoincidenceGroup,
+	"for isomorphisms with infinite polycyclic source and range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	0,
+	function ( aut1, aut2 )
+		local G, H, aut;
+		G := Range( aut1 );
+		H := Source( aut1 );
 		if (
+			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
-			IsNilpotentByFinite( G ) or 
-			not IsBijective( aut )
+			not IsBijective( aut1 ) or
+			not IsBijective( aut2 )
 		) then
 			TryNextMethod();
 		fi;
-		S := SemidirectProductWithAutomorphism@( G, aut );;
-		emb := Embedding( S, 2 );
-		inc := RestrictedHomomorphism( emb, G, ImagesSource( emb ) );
-		fix := Intersection2( Range( inc ), Centralizer( S, S.1 ) );;
-		return PreImagesSet( inc, fix );
+		aut := aut1 * Inverse( aut2 );
+		return FixedPointGroupBySemidirectProduct@( aut );
 	end
 );

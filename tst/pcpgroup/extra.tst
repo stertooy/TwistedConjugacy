@@ -63,6 +63,8 @@ gap> ReidemeisterNumber( idG2 );
 infinity
 gap> IsTwistedConjugate( idG2, G2.1, G2.2 );
 false
+gap> IsTwistedConjugate( idG2, G2.4, G2.4*G2.6^2 );
+false
 gap> IsTwistedConjugate( idG2, G2.1, G2.1^(G2.2) );
 true
 
