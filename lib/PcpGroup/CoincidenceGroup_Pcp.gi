@@ -3,7 +3,7 @@
 ## CoincidenceGroupByFiniteCoin@( hom1, hom2, M )
 ##
 CoincidenceGroupByFiniteCoin@ := function ( hom1, hom2, M )
-	local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, gens, CoinN, qh, h, n;
+	local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, igs, qh, h, n;
 	G := Range( hom1 );
 	H := Source( hom1 );
 	N := IntersectionPreImage@( hom1, hom2, M );
@@ -19,19 +19,15 @@ CoincidenceGroupByFiniteCoin@ := function ( hom1, hom2, M )
 	hom1N := RestrictedHomomorphism( hom1, N, M );
 	hom2N := RestrictedHomomorphism( hom2, N, M );
 	tc := TwistedConjugation( hom1, hom2 );
-	gens := [];
+	igs := Igs( CoincidenceGroup( hom1N, hom2N ) );
 	for qh in CoinHN do
 		h := PreImagesRepresentative( q, qh );
 		n := RepTwistConjToId( hom1N, hom2N, tc( One( G ), h ) );
 		if n <> fail then
-			Add( gens, h*n );
+			igs := AddToIgs( igs, [ h*n ] );
 		fi;
 	od;
-	CoinN := CoincidenceGroup( hom1N, hom2N );
-	return ClosureSubgroupNC(
-		AsSubgroup( H, CoinN ),
-		gens
-	);
+	return SubgroupByIgs( H, igs );
 end;
 
 
@@ -51,7 +47,7 @@ CoincidenceGroupByCentre@ := function ( hom1, hom2 )
 		InducedHomomorphism( q, p, hom1 ),
 		InducedHomomorphism( q, p, hom2 )
 	);
-	Coin := PreImage( q, CoinHN );
+	Coin := PreImagesSet( q, CoinHN );
 	diff := DifferenceGroupHomomorphisms@ (
 		RestrictedHomomorphism( hom1, Coin, G ),
 		RestrictedHomomorphism( hom2, Coin, G )
@@ -70,7 +66,7 @@ FixedPointGroupBySemidirectProduct@ := function( aut )
 	S := SemidirectProductWithAutomorphism@( G, aut );
 	emb := Embedding( S, 2 );
 	inc := RestrictedHomomorphism( emb, G, ImagesSource( emb ) );
-	fix := Intersection2( Range( inc ), Centralizer( S, S.1 ) );
+	fix := NormalIntersection( Range( inc ), Centralizer( S, S.1 ) );
 	return PreImagesSet( inc, fix );
 end;
 

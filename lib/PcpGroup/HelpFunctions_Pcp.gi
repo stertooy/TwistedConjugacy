@@ -11,8 +11,8 @@ DifferenceGroupHomomorphisms@ := function ( hom1, hom2 )
 	H := Source( hom1 );
 	gens := GeneratorsOfGroup( H );
 	diff := function( h )
-		return ImagesRepresentative( hom2, h ) *
-			ImagesRepresentative( hom1, h )^-1;
+		return ImagesRepresentative( hom2, h ) /
+			ImagesRepresentative( hom1, h );
 	end;
 	imgs := List( gens, diff );
 	return GroupHomomorphismByImagesNC( H, G, gens, imgs );
@@ -27,9 +27,9 @@ end;
 ##  Note that N must be a normal subgroup
 ##
 IntersectionPreImage@ := function ( hom1, hom2, N )
-	return Intersection2(
-		PreImagesSet( hom1, Intersection2( N, ImagesSource( hom1 ) ) ),
-		PreImagesSet( hom2, Intersection2( N, ImagesSource( hom2 ) ) )
+	return NormalIntersection(
+		PreImagesSet( hom1, NormalIntersection( N, ImagesSource( hom1 ) ) ),
+		PreImagesSet( hom2, NormalIntersection( N, ImagesSource( hom2 ) ) )
 	);
 end;
 
@@ -47,14 +47,14 @@ SemidirectProductWithAutomorphism@ := function ( G, aut )
 	r := List( g, RelativeOrderPcp );
 	coll := FromTheLeftCollector( n + 1 );
 	SetRelativeOrderNC( coll, 1, 0 );
-	for i in [ 1 .. n ] do
+	for i in [1..n] do
 		SetRelativeOrderNC( coll, i+1, r[i] );
 		if r[i] > 0 then
-			exp := Concatenation( [0], ExponentsByIgs( g, g[i] ^ r[i] ) );
+			exp := Concatenation( [0], ExponentsByIgs( g, g[i]^r[i] ) );
 			e := ObjByExponents( coll, exp );
 			SetPowerNC( coll, i+1, e );
 		fi;
-		for j in [ 0 .. i - 1 ] do
+		for j in [0..i-1] do
 			if j = 0 then
 				elm := ImagesRepresentative( aut, g[i] );
 			else

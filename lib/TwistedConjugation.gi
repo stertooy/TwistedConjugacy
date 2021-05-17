@@ -7,7 +7,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	function ( hom1, hom2 )
 		return function ( g, h )
-			return ImagesRepresentative( hom2, h )^-1 * g *
+			return OnLeftInverse( g, ImagesRepresentative( hom2, h ) ) *
 				ImagesRepresentative( hom1, h );
 		end;
 	end

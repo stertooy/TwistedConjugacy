@@ -102,7 +102,8 @@ DecomposePeriodicList@ := function ( L )
 		if not IsInt( l[i] ) then
 			return fail;
 		fi;
-		per := Concatenation( ListWithIdenticalEntries( i-1, 0 ), [ i ] );
+		per := ListWithIdenticalEntries( i-1, 0 );
+		Add( per, i );
 		ei := Concatenation( ListWithIdenticalEntries( n/i, per ) );
 		L := L - l[i]*ei;
 	od;
