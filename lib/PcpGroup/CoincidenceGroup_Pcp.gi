@@ -4,7 +4,7 @@
 ##
 CoincidenceGroupByFiniteCoin@ := function ( hom1, hom2, M )
 	local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, igs, pcgs, orbit, l, i, qh,
-		pos, j, h, m, stab, n;
+		pos, j, h, stab, n;
 	G := Range( hom1 );
 	H := Source( hom1 );
 	N := IntersectionPreImage@( hom1, hom2, M );
@@ -33,36 +33,30 @@ CoincidenceGroupByFiniteCoin@ := function ( hom1, hom2, M )
 		for j in [1..Length( orbit )] do
 			h := PreImagesRepresentative( q, orbit[j] / qh );
 			if RepTwistConjToId( hom1N, hom2N, tc( One( G ), h ) ) <> fail then
-				pos := j;
+				pos := j-1;
 				break;
 			fi;
 		od;
 		if IsInt( pos ) then
 			stab := ListWithIdenticalEntries( Length( pcgs ), 0 );
 			stab[i] := 1;
-			j := i + 2;
-			while pos <> 1 do
-				while l[j] >= pos do
-					j := j + 1;
-				od;
-				stab[j-1] := - QuoInt( pos-1, l[j] );
-				pos := ( pos-1 ) mod l[j] + 1;
+			while pos > 0 do
+				j := First( [i..Length( pcgs )] + 2, j -> l[j] <= pos );
+				stab[j-1] := - QuoInt( pos, l[j] );
+				pos := RemInt( pos, l[j] );
 			od;
 			qh := LinearCombinationPcgs( pcgs, stab );
 			h := PreImagesRepresentative( q, qh );
 			n := RepTwistConjToId( hom1N, hom2N, tc( One( G ), h ) );
 			igs := AddToIgs( igs, [ h*n ] );
 		else
-			m := l[i+1];
-			Append( orbit, orbit{[1..m]} * qh );
-			for j in [ 3..RelativeOrders( pcgs )[i] ] do
-				Append( orbit, orbit{[1-m..0] + Length( orbit )} * qh );
+			for j in [2..RelativeOrders( pcgs )[i]] do
+				Append( orbit, orbit{ [1-l[i+1]..0] + Length( orbit ) } * qh );
 			od;
 		fi;
 		l[i] := Length( orbit );
 	od;
 	return SubgroupByIgs( H, igs );
-	
 end;
 
 
@@ -110,7 +104,6 @@ end;
 ##
 ## CoincidenceGroup( hom1, hom2 )
 ##
-
 InstallMethod(
 	CoincidenceGroup,
 	"for infinite polycyclic source and finite range",
