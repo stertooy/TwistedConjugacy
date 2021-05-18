@@ -3,7 +3,8 @@
 ## CoincidenceGroupByFiniteCoin@( hom1, hom2, M )
 ##
 CoincidenceGroupByFiniteCoin@ := function ( hom1, hom2, M )
-	local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, igs, qh, h, n;
+	local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, igs, pcgs, orbit, l, i, qh,
+		pos, j, h, m, stab, n;
 	G := Range( hom1 );
 	H := Source( hom1 );
 	N := IntersectionPreImage@( hom1, hom2, M );
@@ -20,14 +21,48 @@ CoincidenceGroupByFiniteCoin@ := function ( hom1, hom2, M )
 	hom2N := RestrictedHomomorphism( hom2, N, M );
 	tc := TwistedConjugation( hom1, hom2 );
 	igs := Igs( CoincidenceGroup( hom1N, hom2N ) );
-	for qh in CoinHN do
-		h := PreImagesRepresentative( q, qh );
-		n := RepTwistConjToId( hom1N, hom2N, tc( One( G ), h ) );
-		if n <> fail then
+	q := q * IsomorphismPcGroup( CoinHN );
+	CoinHN := Range( q );
+	pcgs := Pcgs( CoinHN );
+	orbit := [ One( CoinHN ) ];
+	l := ListWithIdenticalEntries( Length( pcgs ), 0 );
+	Add( l, 1 );
+	for i in Reversed( [1..Length( pcgs )] ) do
+		qh := pcgs[i];
+		pos := fail;
+		for j in [1..Length( orbit )] do
+			h := PreImagesRepresentative( q, orbit[j] / qh );
+			if RepTwistConjToId( hom1N, hom2N, tc( One( G ), h ) ) <> fail then
+				pos := j;
+				break;
+			fi;
+		od;
+		if IsInt( pos ) then
+			stab := ListWithIdenticalEntries( Length( pcgs ), 0 );
+			stab[i] := 1;
+			j := i + 2;
+			while pos <> 1 do
+				while l[j] >= pos do
+					j := j + 1;
+				od;
+				stab[j-1] := - QuoInt( pos-1, l[j] );
+				pos := ( pos-1 ) mod l[j] + 1;
+			od;
+			qh := LinearCombinationPcgs( pcgs, stab );
+			h := PreImagesRepresentative( q, qh );
+			n := RepTwistConjToId( hom1N, hom2N, tc( One( G ), h ) );
 			igs := AddToIgs( igs, [ h*n ] );
+		else
+			m := l[i+1];
+			Append( orbit, orbit{[1..m]} * qh );
+			for j in [ 3..RelativeOrders( pcgs )[i] ] do
+				Append( orbit, orbit{[1-m..0] + Length( orbit )} * qh );
+			od;
 		fi;
+		l[i] := Length( orbit );
 	od;
 	return SubgroupByIgs( H, igs );
+	
 end;
 
 
