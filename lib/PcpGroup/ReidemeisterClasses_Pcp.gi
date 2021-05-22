@@ -132,7 +132,7 @@ InstallMethod(
 		H := Source( hom1 );
 		if (
 			not IsPcpGroup( H ) or
-			not ( 
+			not (
 				IsPcpGroup( G ) and IsNilpotentByFinite( G ) or
 				IsFinite( G )
 			) or

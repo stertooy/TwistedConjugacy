@@ -87,10 +87,10 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
-		if not IsEmpty( coeffs[2] ) then
-			return false;
-		fi;
-		if DecomposePeriodicList@( coeffs[1] ) = fail then
+		if (
+			not IsEmpty( coeffs[2] ) or
+			DecomposePeriodicList@( coeffs[1] ) = fail
+		) then
 			return false;
 		fi;
 		return true;
@@ -118,11 +118,10 @@ InstallOtherMethod(
 	function ( endo )
 		local G;
 		G := Range( endo );
-		if IsFinite( G ) then
-			return true;
-		else
+		if not IsFinite( G ) then
 			TryNextMethod();
 		fi;
+		return true;
 	end
 );
 
@@ -196,7 +195,7 @@ InstallOtherMethod(
 
 RedispatchOnCondition(
 	ReidemeisterZeta,
-	true, 
+	true,
 	[ IsGroupHomomorphism ],
 	[ IsEndoGeneralMapping ],
 	0

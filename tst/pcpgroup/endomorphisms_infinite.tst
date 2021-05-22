@@ -46,7 +46,7 @@ false
 gap> RepresentativeTwistedConjugation( endo1, endo2, G.1, G.2 );
 fail
 gap> gc := RepresentativeTwistedConjugation( endo1, endo2, G.1, G.1*G.3^2 );;
-gap> tc( G.1, gc ) = G.1*G.3^2;   
+gap> tc( G.1, gc ) = G.1*G.3^2;
 true
 gap> tc1 := TwistedConjugation( endo1 );;
 gap> IsTwistedConjugate( endo1, Random( R1[1] ), Random( R1[2] ) );
@@ -56,7 +56,7 @@ fail
 gap> g11 := Random( R1[3] );;
 gap> g12 := Random( R1[3] );;
 gap> g1c := RepresentativeTwistedConjugation( endo1, g11, g12 );;
-gap> tc1( g11, g1c ) = g12;   
+gap> tc1( g11, g1c ) = g12;
 true
 gap> tc2 := TwistedConjugation( endo2 );;
 gap> IsTwistedConjugate( endo2, G.1, G.2 );
@@ -64,7 +64,7 @@ false
 gap> RepresentativeTwistedConjugation( endo2, G.1, G.2 );
 fail
 gap> g2c := RepresentativeTwistedConjugation( endo2, G.1, G.1*G.2*G.3 );;
-gap> tc2( G.1, g2c ) = G.1*G.2*G.3;   
+gap> tc2( G.1, g2c ) = G.1*G.2*G.3;
 true
 
 #

@@ -2,8 +2,8 @@ if fail = LoadPackage( "AutoDoc", ">= 2018.02.14" ) then
     Error( "AutoDoc 2018.02.14 or newer is required" );
 fi;
 
-AutoDoc( rec( 
-	autodoc := rec( 
+AutoDoc( rec(
+	autodoc := rec(
 		files := [ "doc/manual.gd" ]
 	),
 	scaffold := rec(

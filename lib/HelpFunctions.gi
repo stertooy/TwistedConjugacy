@@ -23,7 +23,7 @@ InstallGlobalFunction(
 		inv := function( g )
 			return ImagesRepresentative(
 				epi1,
-				PreImagesRepresentative( 
+				PreImagesRepresentative(
 					hom,
 					PreImagesRepresentative(
 						epi2,
@@ -94,9 +94,8 @@ DecomposePeriodicList@ := function ( L )
 		if n mod i <> 0 then
 			if L[i] <> 0 then
 				return fail;
-			else
-				continue;
 			fi;
+			continue;
 		fi;
 		l[i] := L[i]/i;
 		if not IsInt( l[i] ) then

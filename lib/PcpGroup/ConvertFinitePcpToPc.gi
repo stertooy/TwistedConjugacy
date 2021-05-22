@@ -86,7 +86,7 @@ InstallMethod(
 		fi;
 		iso := IsomorphismPcGroup( G );
 		Rcl := ReidemeisterClasses( hom1*iso, hom2*iso );
-		return List( 
+		return List(
 			Rcl,
 			tcc -> ReidemeisterClass(
 				hom1, hom2,

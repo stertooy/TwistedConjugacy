@@ -4,7 +4,7 @@ gap> START_TEST( "Testing TwistedConjugacy for PcGroups: homomorphisms" );
 gap> G := SmallGroup( 252, 34 );;
 gap> H := SmallGroup( 84, 5 );;
 gap> imgs1 := [ G.2*G.4^2, One( G ) ];;
-gap> imgs2 := [ G.1*G.2*G.3*G.5, G.3*G.4^2*G.5^3 ];; 
+gap> imgs2 := [ G.1*G.2*G.3*G.5, G.3*G.4^2*G.5^3 ];;
 gap> hom1 := GroupHomomorphismByImagesNC( H, G, [ H.1, H.3*H.4 ], imgs1 );;
 gap> hom2 := GroupHomomorphismByImagesNC( H, G, [ H.1, H.3*H.4 ], imgs2 );;
 
@@ -43,7 +43,7 @@ fail
 gap> g1 := Random( R[3] );;
 gap> g2 := Random( R[3] );;
 gap> g := RepresentativeTwistedConjugation( hom1, hom2, g1, g2 );;
-gap> tc( g1, g ) = g2;   
+gap> tc( g1, g ) = g2;
 true
 
 #
@@ -89,7 +89,7 @@ fail
 gap> m1 := Random( RM[3] );;
 gap> m2 := Random( RM[3] );;
 gap> mc := RepresentativeTwistedConjugation( homN1, homN2, m1, m2 );;
-gap> tcM( m1, mc ) = m2;   
+gap> tcM( m1, mc ) = m2;
 true
 
 #

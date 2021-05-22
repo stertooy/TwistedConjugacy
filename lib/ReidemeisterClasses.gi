@@ -66,7 +66,7 @@ InstallMethod(
 	function ( g, tcc )
 		local hom;
 		hom := GroupHomomorphismsOfReidemeisterClass( tcc );
-		return IsTwistedConjugate( 
+		return IsTwistedConjugate(
 			hom[1], hom[2],
 			g, Representative( tcc )
 		);

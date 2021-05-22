@@ -54,7 +54,7 @@ fail
 gap> g1 := Random( R[10] );;
 gap> g2 := Random( R[10] );;
 gap> gc := RepresentativeTwistedConjugation( endo1, endo2, g1, g2 );;
-gap> tc( g1, gc ) = g2;   
+gap> tc( g1, gc ) = g2;
 true
 gap> tc1 := TwistedConjugation( endo1 );;
 gap> IsTwistedConjugate( endo1, Random( R1[1] ), Random( R1[2] ) );
@@ -64,7 +64,7 @@ fail
 gap> g11 := Random( R1[3] );;
 gap> g12 := Random( R1[3] );;
 gap> g1c := RepresentativeTwistedConjugation( endo1, g11, g12 );;
-gap> tc1( g11, g1c ) = g12;   
+gap> tc1( g11, g1c ) = g12;
 true
 gap> tc2 := TwistedConjugation( endo2 );;
 gap> IsTwistedConjugate( endo2, Random( R2[1] ), Random( R2[2] ) );
@@ -74,7 +74,7 @@ fail
 gap> g21 := Random( R2[3] );;
 gap> g22 := Random( R2[3] );;
 gap> g2c := RepresentativeTwistedConjugation( endo2, g21, g22 );;
-gap> tc2( g21, g2c ) = g22;   
+gap> tc2( g21, g2c ) = g22;
 true
 
 #
@@ -129,13 +129,13 @@ fail
 gap> g1 := Random( R[5] );;
 gap> g2 := Random( R[5] );;
 gap> gc := RepresentativeTwistedConjugation( endo1, endo2, g1, g2 );;
-gap> tc( g1, gc ) = g2;   
+gap> tc( g1, gc ) = g2;
 true
 gap> tc1 := TwistedConjugation( endo1 );;
 gap> g11 := Random( G );;
 gap> g12 := Random( G );;
 gap> g1c := RepresentativeTwistedConjugation( endo1, g11, g12 );;
-gap> tc1( g11, g1c ) = g12;   
+gap> tc1( g11, g1c ) = g12;
 true
 gap> tc2 := TwistedConjugation( endo2 );;
 gap> IsTwistedConjugate( endo2, Random( R2[1] ), Random( R2[2] ) );
@@ -145,7 +145,7 @@ fail
 gap> g21 := Random( R2[3] );;
 gap> g22 := Random( R2[3] );;
 gap> g2c := RepresentativeTwistedConjugation( endo2, g21, g22 );;
-gap> tc2( g21, g2c ) = g22;   
+gap> tc2( g21, g2c ) = g22;
 true
 
 #

@@ -3,7 +3,7 @@
 ## ReidemeisterSpectrum( G )
 ##
 InstallMethod(
-	ReidemeisterSpectrum, 
+	ReidemeisterSpectrum,
 	"for finite abelian groups",
 	[ IsGroup and IsFinite and IsAbelian ],
 	function ( G )
@@ -36,7 +36,7 @@ InstallMethod(
 );
 
 InstallMethod(
-	ReidemeisterSpectrum, 
+	ReidemeisterSpectrum,
 	"for finite groups",
 	[ IsGroup and IsFinite ],
 	function ( G )

@@ -42,7 +42,7 @@ end;
 ##
 ## RepTwistConjToIdByCentre( hom1, hom2, g )
 ##
-RepTwistConjToIdByCentre@ := function ( hom1, hom2, g ) 
+RepTwistConjToIdByCentre@ := function ( hom1, hom2, g )
 	local G, H, M, N, p, q, hom1HN, hom2HN, pg, qh1, h1, tc, m1, Coin,
 		hom1Coin, hom2Coin, delta, h2, m2, hom1N, hom2N, n;
 	G := Range( hom1 );
@@ -108,7 +108,7 @@ InstallMethod(
 
 InstallMethod(
 	RepTwistConjToId,
-	"for infinite polycyclic source and infinite abelian range", 
+	"for infinite polycyclic source and infinite abelian range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
 	4,
@@ -171,7 +171,7 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		return RepTwistConjToIdByFiniteCoin@( 
+		return RepTwistConjToIdByFiniteCoin@(
 			hom1, hom2,
 			g,
 			FittingSubgroup( G )
@@ -224,7 +224,7 @@ InstallMethod(
 		S := SemidirectProductWithAutomorphism@( H, aut2 * Inverse( aut1 ) );
 		emb := Embedding( S, 2 );
 		s := ImagesRepresentative( emb, PreImagesRepresentative( aut1, g ) );
-		hs := ConjugacyElementsBySeries( 
+		hs := ConjugacyElementsBySeries(
 			S,
 			S.1, S.1*s,
 			PcpsOfEfaSeries( S )

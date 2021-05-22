@@ -81,7 +81,7 @@ gap> ExtendedReidemeisterSpectrum( A4 );
 gap> CoincidenceReidemeisterSpectrum( A4 );
 [ 1, 2, 3, 4, 6, 12 ]
 
-# 
+#
 gap> CoincidenceReidemeisterSpectrum( Q8, C4 );
 [ 2, 4 ]
 gap> CoincidenceReidemeisterSpectrum( C4, Q8 );

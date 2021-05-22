@@ -39,7 +39,7 @@ fail
 gap> g1 := Random( R[3] );;
 gap> g2 := Random( R[3] );;
 gap> g := RepresentativeTwistedConjugation( hom1, hom2, g1, g2 );;
-gap> tc( g1, g ) = g2;   
+gap> tc( g1, g ) = g2;
 true
 
 #

@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: 
+        include:
           - gap-branch: master
             packages-to-clone: 'alnuth autpgrp polycyclic'
           - gap-branch: stable-4.11

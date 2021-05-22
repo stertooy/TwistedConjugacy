@@ -54,7 +54,7 @@ InstallMethod(
 
 RedispatchOnCondition(
 	FixedPointGroup,
-	true, 
+	true,
 	[ IsGroupHomomorphism ],
 	[ IsEndoGeneralMapping ],
 	0

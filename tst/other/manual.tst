@@ -3,10 +3,10 @@ gap> START_TEST( "Testing TwistedConjugacy: examples from the manual" );
 #
 gap> G := AlternatingGroup( 6 );;
 gap> H := SymmetricGroup( 5 );;
-gap> phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+gap> phi := GroupHomomorphismByImagesNC( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
 >  [ (1,2)(3,4), () ] );;
-gap> psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
->  [ (1,4)(3,6), () ] );; 
+gap> psi := GroupHomomorphismByImagesNC( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+>  [ (1,4)(3,6), () ] );;
 gap> tc := TwistedConjugation( phi, psi );;
 gap> g1 := (4,6,5);;
 gap> g2 := (1,6,4,2)(3,5);;
@@ -57,7 +57,7 @@ gap> CoincidenceReidemeisterSpectrum( G, H );
 [ 120 ]
 
 #
-gap> khi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],
+gap> khi := GroupHomomorphismByImagesNC( G, G, [ (1,2,3,4,5), (4,5,6) ],
 >  [ (1,2,6,3,5), (1,4,5) ] );;
 gap> ReidemeisterZetaCoefficients( khi );
 [ [ 7 ], [ ] ]

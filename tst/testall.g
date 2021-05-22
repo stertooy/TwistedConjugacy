@@ -7,7 +7,7 @@ Directories_To_Test := [
 ];
 
 if TestPackageAvailability("polycyclic","2.13.1") = true then
-	Append( 
+	Append(
 		Directories_To_Test,
 		DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcpgroup" )
 	);

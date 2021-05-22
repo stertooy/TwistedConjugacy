@@ -4,7 +4,7 @@ gap> START_TEST( "Testing TwistedConjugacy for PermGroups: homomorphisms" );
 gap> G := AlternatingGroup( 6 );;
 gap> H := SymmetricGroup( 5 );;
 gap> hom1 := GroupHomomorphismByImagesNC( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,2)(3,4), () ] );;
-gap> hom2 := GroupHomomorphismByImagesNC( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,4)(3,6), () ] );; 
+gap> hom2 := GroupHomomorphismByImagesNC( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,4)(3,6), () ] );;
 
 #
 gap> IndexNC( H, CoincidenceGroup( hom1, hom2 ) );
@@ -39,7 +39,7 @@ fail
 gap> g1 := Random( R[3] );;
 gap> g2 := Random( R[3] );;
 gap> g := RepresentativeTwistedConjugation( hom1, hom2, g1, g2 );;
-gap> tc( g1, g ) = g2;   
+gap> tc( g1, g ) = g2;
 true
 
 #

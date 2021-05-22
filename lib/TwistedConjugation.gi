@@ -116,7 +116,7 @@ InstallOtherMethod(
 RedispatchOnCondition(
 	RepresentativeTwistedConjugation,
 	true,
-	[ IsGroupHomomorphism, 
+	[ IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
 	[ IsEndoGeneralMapping,
 	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],

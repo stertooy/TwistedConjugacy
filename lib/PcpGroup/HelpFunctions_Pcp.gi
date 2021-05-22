@@ -65,7 +65,7 @@ SemidirectProductWithAutomorphism@ := function ( G, aut )
 			SetConjugateNC( coll, i+1, j+1, e );
 		od;
 	od;
-	S := PcpGroupByCollector( coll ); 
+	S := PcpGroupByCollector( coll );
 	s := GeneratorsOfPcp( Pcp( S ) );
 	H := SubgroupNC( S, [ s[1] ] );
 	embG := GroupHomomorphismByImagesNC( G, S, g, s{[2..n+1]} );;
