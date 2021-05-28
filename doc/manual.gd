@@ -140,7 +140,7 @@ Representative( tcc );
 #! (4,6,5)
 GroupHomomorphismsOfReidemeisterClass( tcc );
 #! [ [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,2)(3,4), () ],
-#!   [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,4)(3,6), () ] ]
+#! [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,4)(3,6), () ] ]
 ActingDomain( tcc ) = H;
 #! true
 FunctionAction( tcc )( g1, h );
@@ -247,7 +247,7 @@ DeclareOperation( "PrintReidemeisterZeta", [ IsGroupHomomorphism and IsEndoGener
 khi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],
  [ (1,2,6,3,5), (1,4,5) ] );;
 ReidemeisterZetaCoefficients( khi );
-#! [ [ 7 ], [ ] ]
+#! [ [ 7 ], [  ] ]
 IsRationalReidemeisterZeta( khi );
 #! true
 ReidemeisterZeta( khi );
@@ -263,7 +263,7 @@ PrintReidemeisterZeta( khi );
 
 #####
 #
-# CHAPTER 2
+# CHAPTER 3
 #
 #####
 
@@ -297,18 +297,18 @@ phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
 psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,2)(3,4), () ] );;
 CoincidenceGroup( phi, psi );
-#! <permutation group with 60 generators>
+#! Group([ (1,2,3,4,5), (1,3,4,5,2) ])
 khi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],
  [ (1,2,6,3,5), (1,4,5) ] );;
 FixedPointGroup( khi );
-#! Group([ (), (1,6,5,2,4), (1,5,4,6,2), (1,2,6,4,5), (1,4,2,5,6) ])
+#! Group([ (1,2,6,4,3) ])
 #! @EndExample
 
 
 
 #####
 #
-# CHAPTER 3
+# CHAPTER 4
 #
 #####
 
@@ -337,11 +337,17 @@ DeclareGlobalFunction( "RestrictedHomomorphism" );
 G := ExamplesOfSomePcpGroups( 5 );;
 phi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3, G.4 ],
  [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^2, G.4^-1  ] );;
-N := DerivedSubgroup(G);;
+N := DerivedSubgroup( G );;
 p := NaturalHomomorphismByNormalSubgroup( G, N );
 #! [ g1, g2, g3, g4, g2^2, g3^2, g4^2 ] -> [ g1, g2, g3, g4, id, id, id ]
-InducedHomomorphism( p, p, phi );
-#! [ g1, g2, g3, g4 ] -> [ g1*g4, g3, g2, g4 ]
-RestrictedEndomorphism( phi, N, N );
-#! [ g2^2, g3^2, g4^2 ] -> [ g3^2, g2^2*g3^4*g4^8, g4^-2 ]
+ind := InducedHomomorphism( p, p, phi );
+#! MappingByFunction( Pcp-group with orders
+#! [ 2, 2, 2, 2 ], Pcp-group with orders [ 2, 2, 2, 2 ], function( h ) ... end )
+Source( ind ) = Range( p ) and Range( ind ) = Range( p );
+#! true
+res := RestrictedHomomorphism( phi, N, N );
+#! MappingByFunction( Pcp-group with orders [ 0, 0, 0 ], Pcp-group with orders
+#! [ 0, 0, 0 ], function( n ) ... end )
+Source( res ) = N and Range( res ) = N;
+#! true
 #! @EndExample

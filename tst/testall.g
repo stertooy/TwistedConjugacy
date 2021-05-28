@@ -6,7 +6,7 @@ Directories_To_Test := [
 	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/other" )
 ];
 
-if TestPackageAvailability("polycyclic","2.13.1") = true then
+if TestPackageAvailability( "polycyclic", "2.13.1" ) = true then
 	Append(
 		Directories_To_Test,
 		DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcpgroup" )
@@ -17,8 +17,8 @@ TestDirectory(
 	Directories_To_Test,
 	rec(
 		exitGAP := true,
-		testOptions := rec(compareFunction := "uptowhitespace")
+		testOptions := rec( compareFunction := "uptowhitespace" )
 	)
 );
 
-FORCE_QUIT_GAP(1);
+FORCE_QUIT_GAP( 1 );
