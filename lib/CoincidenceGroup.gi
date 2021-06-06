@@ -21,7 +21,7 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## CoincidenceGroupOp( hom1, hom2 )
+## CoincidenceGroup2( hom1, hom2 )
 ##
 InstallMethod(
 	CoincidenceGroup2,
