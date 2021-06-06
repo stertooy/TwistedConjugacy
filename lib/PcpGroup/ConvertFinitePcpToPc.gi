@@ -1,9 +1,9 @@
 ###############################################################################
 ##
-## CoincidenceGroup( hom1, hom2 )
+## CoincidenceGroup2( hom1, hom2 )
 ##
 InstallMethod(
-	CoincidenceGroup,
+	CoincidenceGroup2,
 	"turn finite PcpGroup range into PcGroup",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	101,
@@ -17,12 +17,12 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		iso := IsomorphismPcGroup( G );
-		return CoincidenceGroup( hom1*iso, hom2*iso );
+		return CoincidenceGroup2( hom1*iso, hom2*iso );
 	end
 );
 
 InstallMethod(
-	CoincidenceGroup,
+	CoincidenceGroup2,
 	"turn finite PcpGroup source into PcGroup",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	100,
@@ -36,7 +36,7 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
-		return ImagesSet( inv, CoincidenceGroup( inv*hom1, inv*hom2 ) );
+		return ImagesSet( inv, CoincidenceGroup2( inv*hom1, inv*hom2 ) );
 	end
 );
 

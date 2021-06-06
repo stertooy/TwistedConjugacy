@@ -225,4 +225,15 @@ gap> PrintReidemeisterZeta( hom1Q8, hom2Q8 );
 s)^(-1/2)"
 
 #
+gap> G := SmallGroup( 252, 34 );;
+gap> hom1 := GroupHomomorphismByImagesNC( G, G, [ G.1, G.2, G.3, G.4, G.5 ], [ G.1*G.5^6, G.2*G.3*G.4^2, G.3, G.3*G.4^2, G.5^2 ] );;
+gap> hom2 := GroupHomomorphismByImagesNC( G, G, [ G.1, G.2, G.3, G.4, G.5 ], [ G.1*G.5^3, G.2*G.4^2, G.3^2*G.4, G.3*G.4, G.5^5 ] );;
+gap> hom3 := GroupHomomorphismByImagesNC( G, G, [ G.1, G.2, G.3, G.4, G.5 ], [ G.1, G.2, G.3*G.4^2, G.3^2*G.4^2, G.5 ] );;
+gap> CoincidenceGroup( hom1, hom2, hom3 ) = Subgroup( G, [ G.1*G.5, G.2*G.3*G.4 ] );
+true
+gap> triv :=GroupHomomorphismByFunction( G, TrivialSubgroup( G ), g -> One( G ) );;
+gap> CoincidenceGroup( triv, triv, triv, triv ) = G;
+true
+
+#
 gap> STOP_TEST( "extra.tst" );
