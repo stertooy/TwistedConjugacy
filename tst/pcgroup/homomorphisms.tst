@@ -58,6 +58,8 @@ true
 gap> h2 := RepresentativeTwistedConjugation( hom1L, hom2L, g1L, g2L );;
 gap> g2L = [ tc( g1, h2 ), tc2( g2, h2 ) ];
 true
+gap> IsTwistedConjugate( hom1L, hom2L, [ G.1, G.2 ], [ G.2, G.1 ] );
+false
 
 #
 gap> CoincidenceReidemeisterSpectrum( G, H );
