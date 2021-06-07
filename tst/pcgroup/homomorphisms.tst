@@ -47,6 +47,19 @@ gap> tc( g1, g ) = g2;
 true
 
 #
+gap> h := Random( H );;
+gap> tc2 := TwistedConjugation( hom2, hom1 );;
+gap> g1L := [ g1, g2 ];;
+gap> g2L := [ tc( g1, h ), tc2( g2, h ) ];;
+gap> hom1L := [ hom1, hom2 ];;
+gap> hom2L := [ hom2, hom1 ];;
+gap> IsTwistedConjugate( hom1L, hom2L, g1L, g2L );
+true
+gap> h2 := RepresentativeTwistedConjugation( hom1L, hom2L, g1L, g2L );;
+gap> g2L = [ tc( g1, h2 ), tc2( g2, h2 ) ];
+true
+
+#
 gap> CoincidenceReidemeisterSpectrum( G, H );
 [ 42, 84 ]
 

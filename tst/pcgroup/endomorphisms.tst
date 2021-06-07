@@ -78,6 +78,17 @@ gap> tc2( g21, g2c ) = g22;
 true
 
 #
+gap> h := Random( G );;
+gap> g1L := [ g11, g21 ];;
+gap> g2L := [ tc1( g11, h ), tc2( g21, h ) ];;
+gap> endoL := [ endo1, endo2 ];;
+gap> IsTwistedConjugate( endoL, g1L, g2L );
+true
+gap> h2 := RepresentativeTwistedConjugation( endoL, g1L, g2L );;
+gap> g2L = [ tc1( g11, h2 ), tc2( g21, h2 ) ];
+true
+
+#
 gap> ReidemeisterSpectrum( G );
 [ 4, 6, 8, 10, 12, 15, 20, 30 ]
 gap> H := SubgroupNC( G, [ G.1, G.2, G.3 ] );;
