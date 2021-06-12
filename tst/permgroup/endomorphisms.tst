@@ -14,6 +14,8 @@ gap> Size( FixedPointGroup( endo1 ) );
 4
 gap> Size( FixedPointGroup( endo2 ) );
 8
+gap> CoincidenceGroup( IdentityMapping( G ), endo1, endo2 );
+Group(())
 
 #
 gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;

@@ -90,9 +90,10 @@ DeclareOperation(
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ]
 );
 DeclareOperation(
-	"CoincidenceGroup",
+	"CoincidenceGroup2",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
+DeclareGlobalFunction( "CoincidenceGroup" );
 
 
 DeclareGlobalFunction( "InducedHomomorphism" );

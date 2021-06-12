@@ -99,6 +99,8 @@ gap> IsTwistedConjugate( hom1H, hom3H, G4.2, G4.2*G4.3^2 );
 true
 gap> CoincidenceGroup( hom1H, hom3H ) = Centre( H );
 true
+gap> CoincidenceGroup( hom1H, hom2H, hom3H ) = Centre( H );
+true
 
 #
 gap> DG := DirectProduct( G, G );;
@@ -161,6 +163,19 @@ gap> CoincidenceGroup( aut1G7, aut3G7 );
 Pcp-group with orders [ 2, 2, 2, 2, 2, 2, 0 ]
 gap> CoincidenceGroup( aut2G7, aut3G7 );
 Pcp-group with orders [ 2, 2, 5, 2, 2, 2, 2 ]
+gap> CoincidenceGroup( aut1G7, aut2G7, aut3G7 );
+Pcp-group with orders [ 2, 2, 2, 2 ]
+
+#
+gap> G := PcGroupToPcpGroup( SmallGroup( 252, 34 ) );;
+gap> hom1 := GroupHomomorphismByImagesNC( G, G, [ G.1, G.2, G.3, G.4, G.5 ], [ G.1*G.5^6, G.2*G.3*G.4^2, G.3, G.3*G.4^2, G.5^2 ] );;
+gap> hom2 := GroupHomomorphismByImagesNC( G, G, [ G.1, G.2, G.3, G.4, G.5 ], [ G.1*G.5^3, G.2*G.4^2, G.3^2*G.4, G.3*G.4, G.5^5 ] );;
+gap> hom3 := GroupHomomorphismByImagesNC( G, G, [ G.1, G.2, G.3, G.4, G.5 ], [ G.1, G.2, G.3*G.4^2, G.3^2*G.4^2, G.5 ] );;
+gap> CoincidenceGroup( hom1, hom2, hom3 ) = Subgroup( G, [ G.1*G.5, G.2*G.3*G.4 ] );
+true
+gap> triv :=GroupHomomorphismByFunction( G, TrivialSubgroup( G ), g -> One( G ) );;
+gap> CoincidenceGroup( triv, triv, triv, triv ) = G;
+true
 
 #
 gap> STOP_TEST( "extra.tst" );
