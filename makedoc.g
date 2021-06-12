@@ -29,9 +29,12 @@ AutoDoc( rec(
 if not ValidatePackageInfo( "PackageInfo.g" ) then
 	Info( InfoGAPDoc, 1, "#I One or more files could not be created.\n" );
 	FORCE_QUIT_GAP( 1 );
+else
+	Info( InfoGAPDoc, 1, "#I Manual files sucessfully created.\n" );
 fi;
 
-checkExamples := true;
+errorFound := false;
+Info( InfoGAPDoc, 1, "#I Testing examples found in manual.\n" );
 
 for i in [1..99] do
 	filename := Concatenation(
@@ -40,16 +43,19 @@ for i in [1..99] do
 		".tst"
 	);
 	if not IsExistingFile( filename ) then break; fi;
-	checkExamples := checkExamples and Test(
+	errorFound := errorFound or not Test(
 		filename,
 		rec( compareFunction := "uptowhitespace" )
 	);
 	RemoveFile( filename );
 od;
 
-if not checkExamples then
+if errorFound then
 	Info( InfoGAPDoc, 1, "#I One or more examples are incorrect.\n" );
 	FORCE_QUIT_GAP( 1 );
+else
+	Info( InfoGAPDoc, 1, "#I All tests passed.\n" );
 fi;
 
+Info( InfoGAPDoc, 1, "#I Documentation successfully created.\n" );
 QUIT_GAP( 0 );

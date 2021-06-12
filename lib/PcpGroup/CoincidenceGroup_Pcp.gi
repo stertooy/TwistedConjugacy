@@ -102,10 +102,10 @@ end;
 
 ###############################################################################
 ##
-## CoincidenceGroup( hom1, hom2 )
+## CoincidenceGroup2( hom1, hom2 )
 ##
 InstallMethod(
-	CoincidenceGroup,
+	CoincidenceGroup2,
 	"for infinite polycyclic source and finite range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	5,
@@ -128,7 +128,7 @@ InstallMethod(
 );
 
 InstallMethod(
-	CoincidenceGroup,
+	CoincidenceGroup2,
 	"for infinite polycyclic source and infinite abelian range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	4,
@@ -149,7 +149,7 @@ InstallMethod(
 );
 
 InstallMethod(
-	CoincidenceGroup,
+	CoincidenceGroup2,
 	"for infinite polycyclic source and infinite nilpotent range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	3,
@@ -170,7 +170,7 @@ InstallMethod(
 );
 
 InstallMethod(
-	CoincidenceGroup,
+	CoincidenceGroup2,
 	"for infinite polycyclic source and infinite nilpotent-by-finite range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	2,
@@ -194,7 +194,7 @@ InstallMethod(
 );
 
 InstallMethod(
-	CoincidenceGroup,
+	CoincidenceGroup2,
 	"for infinite polycyclic source and range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
@@ -216,7 +216,7 @@ InstallMethod(
 );
 
 InstallMethod(
-	CoincidenceGroup,
+	CoincidenceGroup2,
 	"for isomorphisms with infinite polycyclic source and range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	0,

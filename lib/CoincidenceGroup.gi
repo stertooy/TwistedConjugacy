@@ -1,9 +1,30 @@
 ###############################################################################
 ##
-## CoincidenceGroup( hom1, hom2 )
+## CoincidenceGroup( hom1, hom2, ... )
+##
+InstallGlobalFunction(
+	CoincidenceGroup,
+	function ( hom1, hom2, arg... )
+		local G, Coin, homi;
+		G := Range( hom1 );
+		Coin := CoincidenceGroup2( hom1, hom2 );
+		for homi in arg do
+			Coin := CoincidenceGroup2(
+				RestrictedHomomorphism( hom1, Coin, G ),
+				RestrictedHomomorphism( homi, Coin, G )
+			);
+		od;
+		return Coin;
+	end
+);
+
+
+###############################################################################
+##
+## CoincidenceGroup2( hom1, hom2 )
 ##
 InstallMethod(
-	CoincidenceGroup,
+	CoincidenceGroup2,
 	"for trivial range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	7,
@@ -19,7 +40,7 @@ InstallMethod(
 );
 
 InstallMethod(
-	CoincidenceGroup,
+	CoincidenceGroup2,
 	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	6,
@@ -42,7 +63,6 @@ InstallMethod(
 ##
 InstallMethod(
 	FixedPointGroup,
-	"for infinite polycyclic groups",
 	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
 	0,
 	function ( endo )

@@ -279,10 +279,9 @@ PrintReidemeisterZeta( khi );
 #! @Section Coincidence and Fixed Point Groups
 
 #! @Description
-#! Let <A>hom1</A> and <A>hom2</A> be group homomorphisms from a group H to a group G. This command returns the subgroup of H consisting of the elements h for which h^<A>hom1</A> = h^<A>hom2</A>.
-#! @Arguments hom1, hom2
-DeclareOperation( "CoincidenceGroup", [IsGroupHomomorphism, IsGroupHomomorphism] );
-
+#! Let <A>hom1</A>, <A>hom2</A>, ... be group homomorphisms from a group H to a group G. This command returns the subgroup of H consisting of the elements h for which h^<A>hom1</A> = h^<A>hom2</A> = ...
+#! @Arguments hom1, hom2[, ...]
+DeclareGlobalFunction( "CoincidenceGroup" );
 
 #! @Description
 #! Let <A>endo</A> be an endomorphism of a group G. This command returns the subgroup of G consisting of the elements fixed under the endomorphism <A>endo</A>.
