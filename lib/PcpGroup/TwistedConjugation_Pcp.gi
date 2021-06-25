@@ -6,7 +6,7 @@ RepTwistConjToIdByTrivialSubgroup@ := function ( hom1, hom2, g )
 	local G, H, N, id, q, hom1HN, hom2HN, qh;
 	G := Range( hom1 );
 	H := Source( hom1 );
-	N := NormalIntersection( Kernel( hom1 ), Kernel( hom2 ) );
+	N := IntersectionKernels@( hom1, hom2 );
 	id := IdentityMapping( G );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
 	hom1HN := InducedHomomorphism( q, id, hom1 );

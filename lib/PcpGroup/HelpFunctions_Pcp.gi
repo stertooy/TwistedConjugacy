@@ -34,6 +34,15 @@ end;
 
 ###############################################################################
 ##
+## IntersectionKernels@( hom1, hom2 )
+##
+IntersectionKernels@ := function ( hom1, hom2 )
+	return NormalIntersection( Kernel( hom1 ), Kernel( hom2 ) );
+end;
+
+
+###############################################################################
+##
 ## SemidirectProductWithAutomorphism@( G, aut )
 ##
 ##  Returns the semidirect product of G with Z, where Z acts on G by aut
