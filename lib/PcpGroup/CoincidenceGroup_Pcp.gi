@@ -3,16 +3,15 @@
 ## CoincidenceGroupByTrivialSubgroup@( hom1, hom2 )
 ##
 CoincidenceGroupByTrivialSubgroup@ := function ( hom1, hom2 )
-	local G, H, M, N, p, q, CoinHN;
+	local G, H, N, id, q, CoinHN;
 	G := Range( hom1 );
 	H := Source( hom1 );
-	M := TrivialSubgroup( G );
 	N := NormalIntersection( Kernel( hom1 ), Kernel( hom2 ) );
-	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
+	id := IdentityMapping( G );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
 	CoinHN := CoincidenceGroup(
-		InducedHomomorphism( q, p, hom1 ),
-		InducedHomomorphism( q, p, hom2 )
+		InducedHomomorphism( q, id, hom1 ),
+		InducedHomomorphism( q, id, hom2 )
 	);
 	return PreImagesSet( q, CoinHN );
 end;

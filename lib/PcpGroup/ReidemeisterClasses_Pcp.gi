@@ -3,18 +3,17 @@
 ## ReidemeisterClassesByTrivialSubgroup@( hom1, hom2 )
 ##
 ReidemeisterClassesByTrivialSubgroup@ := function ( hom1, hom2 )
-	local G, H, M, N, p, q, hom1HN, hom2HN, RclGM;
+	local G, H, N, id, q, hom1HN, hom2HN, R;
 	G := Range( hom1 );
 	H := Source( hom1 );
-	M := TrivialSubgroup( G );
 	N := NormalIntersection( Kernel( hom1 ), Kernel( hom2 ) );
-	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
+	id := IdentityMapping( G );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-	hom1HN := InducedHomomorphism( q, p, hom1 );
-	hom2HN := InducedHomomorphism( q, p, hom2 );
-	RclGM := ReidemeisterClasses( hom1HN, hom2HN );
+	hom1HN := InducedHomomorphism( q, id, hom1 );
+	hom2HN := InducedHomomorphism( q, id, hom2 );
+	R := ReidemeisterClasses( hom1HN, hom2HN );
 	return List( 
-		RclGM, 
+		R, 
 		g -> ReidemeisterClass( hom1, hom2, Representative ( g ) )
 	);
 end;

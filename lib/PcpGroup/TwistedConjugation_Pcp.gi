@@ -3,17 +3,15 @@
 ## RepTwistConjToIdByTrivialSubgroup@( hom1, hom2 )
 ##
 RepTwistConjToIdByTrivialSubgroup@ := function ( hom1, hom2, g )
-	local G, H, M, N, p, q, hom1HN, hom2HN, pg, qh;
+	local G, H, N, id, q, hom1HN, hom2HN, qh;
 	G := Range( hom1 );
 	H := Source( hom1 );
-	M := TrivialSubgroup( G );
 	N := NormalIntersection( Kernel( hom1 ), Kernel( hom2 ) );
-	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
+	id := IdentityMapping( G );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-	hom1HN := InducedHomomorphism( q, p, hom1 );
-	hom2HN := InducedHomomorphism( q, p, hom2 );
-	pg := ImagesRepresentative( p, g );
-	qh := RepTwistConjToId( hom1HN, hom2HN, pg );
+	hom1HN := InducedHomomorphism( q, id, hom1 );
+	hom2HN := InducedHomomorphism( q, id, hom2 );
+	qh := RepTwistConjToId( hom1HN, hom2HN, g );
 	if qh = fail then
 		return fail;
 	fi;
