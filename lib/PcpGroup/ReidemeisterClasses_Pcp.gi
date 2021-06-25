@@ -1,5 +1,27 @@
 ###############################################################################
 ##
+## ReidemeisterClassesByTrivialSubgroup@( hom1, hom2 )
+##
+ReidemeisterClassesByTrivialSubgroup@ := function ( hom1, hom2 )
+	local G, H, M, N, p, q, hom1HN, hom2HN, RclGM;
+	G := Range( hom1 );
+	H := Source( hom1 );
+	M := TrivialSubgroup( G );
+	N := NormalIntersection( Kernel( hom1 ), Kernel( hom2 ) );
+	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
+	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
+	hom1HN := InducedHomomorphism( q, p, hom1 );
+	hom2HN := InducedHomomorphism( q, p, hom2 );
+	RclGM := ReidemeisterClasses( hom1HN, hom2HN );
+	return List( 
+		RclGM, 
+		g -> ReidemeisterClass( hom1, hom2, Representative ( g ) )
+	);
+end;
+
+
+###############################################################################
+##
 ## ReidemeisterClassesByFiniteQuotient@( hom1, hom2, N, M )
 ##
 ReidemeisterClassesByFiniteQuotient@ := function ( hom1, hom2, N, M )
@@ -145,7 +167,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	4,
 	function ( hom1, hom2 )
-		local G, H, M, N;
+		local G, H;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -155,9 +177,7 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		M := TrivialSubgroup( G );
-		N := IntersectionPreImage@( hom1, hom2, M );
-		return ReidemeisterClassesByFiniteQuotient@( hom1, hom2, N, M );
+		return ReidemeisterClassesByTrivialSubgroup@( hom1, hom2 );
 	end
 );
 
