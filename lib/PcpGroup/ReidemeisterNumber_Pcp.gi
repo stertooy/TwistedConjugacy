@@ -41,7 +41,7 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		diff := DifferenceGroupHomomorphisms@( hom1, hom2 );
+		diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
 		N := Image( diff );
 		return IndexNC( G, N );
 	end

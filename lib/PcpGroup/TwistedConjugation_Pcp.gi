@@ -1,13 +1,12 @@
 ###############################################################################
 ##
-## RepTwistConjToIdByFiniteCoin( hom1, hom2, g, M )
+## RepTwistConjToIdByFiniteQuotient( hom1, hom2, g, N, M )
 ##
-RepTwistConjToIdByFiniteCoin@ := function ( hom1, hom2, g, M )
-	local G, H, N, p, q, hom1HN, hom2HN, pg, qh1, Coin, h1, tc, m1, hom1N,
-		hom2N, qh2, h2, m2,	n;
+RepTwistConjToIdByFiniteQuotient@ := function ( hom1, hom2, g, N, M )
+	local G, H, p, q, hom1HN, hom2HN, pg, qh1, Coin, h1, tc, m1, hom1N, hom2N,
+		qh2, h2, m2, n;
 	G := Range( hom1 );
 	H := Source( hom1 );
-	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
 	hom1HN := InducedHomomorphism( q, p, hom1 );
@@ -40,15 +39,13 @@ end;
 
 ###############################################################################
 ##
-## RepTwistConjToIdByCentre( hom1, hom2, g )
+## RepTwistConjToIdByCentralSubgroup( hom1, hom2, g, N, M)
 ##
-RepTwistConjToIdByCentre@ := function ( hom1, hom2, g )
-	local G, H, M, N, p, q, hom1HN, hom2HN, pg, qh1, h1, tc, m1, Coin,
-		hom1Coin, hom2Coin, delta, h2, m2, hom1N, hom2N, n;
+RepTwistConjToIdByCentralSubgroup@ := function ( hom1, hom2, g, N, M )
+	local G, H, p, q, hom1HN, hom2HN, pg, qh1, h1, tc, m1, Coin, delta, h2, m2,
+		hom1N, hom2N, n;
 	G := Range( hom1 );
 	H := Source( hom1 );
-	M := Centre( G );
-	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
 	hom1HN := InducedHomomorphism( q, p, hom1 );
@@ -62,9 +59,7 @@ RepTwistConjToIdByCentre@ := function ( hom1, hom2, g )
 	tc := TwistedConjugation( hom1, hom2 );
 	m1 := tc( g, h1 );
 	Coin := PreImagesSet( q, CoincidenceGroup( hom1HN, hom2HN ) );
-	hom1Coin := RestrictedHomomorphism( hom1, Coin, G );
-	hom2Coin := RestrictedHomomorphism( hom2, Coin, G );
-	delta := DifferenceGroupHomomorphisms@ ( hom1Coin, hom2Coin );
+	delta := DifferenceGroupHomomorphisms@ ( hom1, hom2, Coin, G );
 	if not m1 in ImagesSource( delta ) then
 		return fail;
 	fi;
@@ -88,7 +83,7 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse ],
 	5,
 	function ( hom1, hom2, g )
-		local G, H;
+		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -98,11 +93,9 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		return RepTwistConjToIdByFiniteCoin@(
-			hom1, hom2,
-			g,
-			TrivialSubgroup( G )
-		);
+		M := TrivialSubgroup( G );
+		N := IntersectionPreImage@( hom1, hom2, M );
+		return RepTwistConjToIdByFiniteQuotient@( hom1, hom2, g, N, M );
 	end
 );
 
@@ -123,7 +116,7 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		diff := DifferenceGroupHomomorphisms@( hom1, hom2 );
+		diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
 		if not g in ImagesSource( diff ) then
 			return fail;
 		fi;
@@ -138,7 +131,7 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse ],
 	3,
 	function ( hom1, hom2, g )
-		local G, H;
+		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -149,7 +142,9 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		return RepTwistConjToIdByCentre@( hom1, hom2, g );
+		M := Centre( G );
+		N := IntersectionPreImage@( hom1, hom2, M );
+		return RepTwistConjToIdByCentralSubgroup@( hom1, hom2, g, N, M );
 	end
 );
 
@@ -160,7 +155,7 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse ],
 	2,
 	function ( hom1, hom2, g )
-		local G, H;
+		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -171,11 +166,9 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		return RepTwistConjToIdByFiniteCoin@(
-			hom1, hom2,
-			g,
-			FittingSubgroup( G )
-		);
+		M := FittingSubgroup( G );
+		N := IntersectionPreImage@( hom1, hom2, M );
+		return RepTwistConjToIdByFiniteQuotient@( hom1, hom2, g, N, M );
 	end
 );
 
@@ -186,7 +179,7 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse ],
 	1,
 	function ( hom1, hom2, g )
-		local G, H;
+		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -195,11 +188,9 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		return RepTwistConjToIdByFiniteCoin@(
-			hom1, hom2,
-			g,
-			DerivedSubgroup( G )
-		);
+		M := DerivedSubgroup( G );
+		N := IntersectionPreImage@( hom1, hom2, M );
+		return RepTwistConjToIdByFiniteQuotient@( hom1, hom2, g, N, M );
 	end
 );
 
