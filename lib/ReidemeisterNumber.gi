@@ -30,7 +30,7 @@ InstallMethod(
 	0,
 	function ( hom1, hom2 )
 		local Rcl;
-		Rcl := ReidemeisterClasses( hom1, hom2 );
+		Rcl := RepresentativesReidemeisterClasses( hom1, hom2 );
 		if Rcl <> fail then
 			return Size( Rcl );
 		else

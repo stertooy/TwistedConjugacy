@@ -18,22 +18,17 @@ DeclareOperation(
 );
 
 
+DeclareGlobalFunction( "ReidemeisterClass" );
+DeclareSynonym( "TwistedConjugacyClass", ReidemeisterClass );
+DeclareGlobalFunction( "ReidemeisterClasses" );
+DeclareSynonym(	"TwistedConjugacyClasses", ReidemeisterClasses );
 DeclareOperation(
-	"ReidemeisterClass",
-	[ IsGroupHomomorphism, IsGroupHomomorphism,
-	  IsMultiplicativeElementWithInverse ]
-);
-DeclareSynonym(
-	"TwistedConjugacyClass",
-	ReidemeisterClass
-);
-DeclareOperation(
-	"ReidemeisterClasses",
+	"RepresentativesReidemeisterClasses",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 DeclareSynonym(
-	"TwistedConjugacyClasses",
-	ReidemeisterClasses
+	"RepresentativesTwistedConjugacyClasses",
+	RepresentativesReidemeisterClasses
 );
 DeclareOperation(
 	"ReidemeisterNumber",
@@ -86,15 +81,11 @@ DeclareOperation(
 
 
 DeclareOperation(
-	"FixedPointGroup",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping ]
-);
-DeclareOperation(
 	"CoincidenceGroup2",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 DeclareGlobalFunction( "CoincidenceGroup" );
-
+DeclareGlobalFunction( "FixedPointGroup" );
 
 DeclareGlobalFunction( "InducedHomomorphism" );
 DeclareGlobalFunction( "RestrictedHomomorphism" );

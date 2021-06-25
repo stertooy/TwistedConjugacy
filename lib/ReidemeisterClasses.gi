@@ -1,15 +1,20 @@
 ###############################################################################
 ##
-## ReidemeisterClass( hom1, hom2, g )
+## ReidemeisterClass( hom1, x, arg... )
 ##
-InstallMethod(
+InstallGlobalFunction(
 	ReidemeisterClass,
-	[ IsGroupHomomorphism, IsGroupHomomorphism,
-	  IsMultiplicativeElementWithInverse ],
-	function ( hom1, hom2, g )
-		local G, H, tc, tcc;
+	function ( hom1, x, arg... )
+		local G, H, hom2, g, tc, tcc;
 		G := Range( hom1 );
 		H := Source( hom1 );
+		if Length( arg ) = 0 then
+			hom2 := IdentityMapping( G );
+			g := x;
+		else
+			hom2 := x;
+			g := arg[1];
+		fi;
 		tc := TwistedConjugation( hom1, hom2 );
 		tcc := rec();
 		ObjectifyWithAttributes(
@@ -28,30 +33,6 @@ InstallMethod(
 		);
 		return tcc;
 	end
-);
-
-
-###############################################################################
-##
-## ReidemeisterClass( endo, g )
-##
-InstallOtherMethod(
-	ReidemeisterClass,
-	[ IsGroupHomomorphism and IsEndoGeneralMapping,
-	  IsMultiplicativeElementWithInverse ],
-	function ( endo, g )
-		local G;
-		G := Range( endo );
-		return ReidemeisterClass( endo, IdentityMapping( G ), g );
-	end
-);
-
-RedispatchOnCondition(
-	ReidemeisterClass,
-	true,
-	[ IsGroupHomomorphism, IsMultiplicativeElementWithInverse ],
-	[ IsEndoGeneralMapping, IsMultiplicativeElementWithInverse ],
-	0
 );
 
 
@@ -170,10 +151,32 @@ InstallMethod(
 
 ###############################################################################
 ##
-## ReidemeisterClasses( hom1, hom2 )
+## ReidemeisterClasses( hom1, arg... )
+##
+InstallGlobalFunction(
+	ReidemeisterClasses,
+	function ( hom1, arg... )
+		local G, hom2, R;
+		G := Range( hom1 );
+		if Length( arg ) = 0 then
+			hom2 := IdentityMapping( G );
+		else
+			hom2 := arg[1];
+		fi;
+		R := RepresentativesReidemeisterClasses( hom1, hom2 );
+		if R = fail then
+			return fail;
+		fi;
+		return List( R, g -> ReidemeisterClass( hom1, hom2, g ) );
+	end
+);
+	
+###############################################################################
+##
+## RepresentativesReidemeisterClasses( hom1, hom2 )
 ##
 InstallMethod(
-	ReidemeisterClasses,
+	RepresentativesReidemeisterClasses,
 	"for trivial range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	6,
@@ -183,17 +186,17 @@ InstallMethod(
 		if not IsTrivial( G ) then
 			TryNextMethod();
 		fi;
-		return [ ReidemeisterClass( hom1, hom2, One( G ) ) ];
+		return [ One( G ) ];
 	end
 );
 
 InstallMethod(
-	ReidemeisterClasses,
+	RepresentativesReidemeisterClasses,
 	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	5,
 	function ( hom1, hom2 )
-		local G, H, Rcl, tc, G_List, orbits, orbit;
+		local G, H, Rcl, tc, G_List, orbits, foundOne, orbit;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsFinite( H ) then
@@ -205,36 +208,15 @@ InstallMethod(
 		tc := TwistedConjugation( hom1, hom2 );
 		G_List := AsSSortedListNonstored( G );
 		orbits := OrbitsDomain( H, G_List, tc );
+		foundOne := false;
 		for orbit in orbits do
-			if One( G ) in orbit then
-				Add( Rcl, ReidemeisterClass( hom1, hom2, One( G ) ), 1 );
+			if ( not foundOne ) and One( G ) in orbit then
+				Add( Rcl, One( G ), 1 );
+				foundOne := true;
 			else
-				Add( Rcl, ReidemeisterClass( hom1, hom2, orbit[1] ) );
+				Add( Rcl, orbit[1] );
 			fi;
 		od;
 		return Rcl;
 	end
-);
-
-
-###############################################################################
-##
-## ReidemeisterClasses( endo )
-##
-InstallOtherMethod(
-	ReidemeisterClasses,
-	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	function ( endo )
-		local G;
-		G := Range( endo );
-		return ReidemeisterClasses( endo, IdentityMapping( G ) );
-	end
-);
-
-RedispatchOnCondition(
-	ReidemeisterClasses,
-	true,
-	[ IsGroupHomomorphism ],
-	[ IsEndoGeneralMapping ],
-	0
 );
