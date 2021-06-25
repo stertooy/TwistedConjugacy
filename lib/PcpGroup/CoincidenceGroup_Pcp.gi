@@ -1,13 +1,12 @@
 ###############################################################################
 ##
-## CoincidenceGroupByFiniteCoin@( hom1, hom2, M )
+## CoincidenceGroupByFiniteQuotient@( hom1, hom2, N, M )
 ##
-CoincidenceGroupByFiniteCoin@ := function ( hom1, hom2, M )
-	local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, igs, pcgs, orbit, l, i, qh,
+CoincidenceGroupByFiniteQuotient@ := function ( hom1, hom2, N, M )
+	local G, H, p, q, CoinHN, hom1N, hom2N, tc, igs, pcgs, orbit, l, i, qh,
 		pos, j, h, stab, n;
 	G := Range( hom1 );
 	H := Source( hom1 );
-	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
 	CoinHN := CoincidenceGroup(
@@ -62,14 +61,12 @@ end;
 
 ###############################################################################
 ##
-## CoincidenceGroupByCentre@( hom1, hom2 )
+## CoincidenceGroupByCentralSubgroup@( hom1, hom2, N, M )
 ##
-CoincidenceGroupByCentre@ := function ( hom1, hom2 )
-	local G, H, M, N, p, q, CoinHN, Coin, diff;
+CoincidenceGroupByCentralSubgroup@ := function ( hom1, hom2, N, M )
+	local G, H, p, q, CoinHN, Coin, diff;
 	G := Range( hom1 );
 	H := Source( hom1 );
-	M := Centre( G );
-	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
 	CoinHN := CoincidenceGroup(
@@ -77,10 +74,7 @@ CoincidenceGroupByCentre@ := function ( hom1, hom2 )
 		InducedHomomorphism( q, p, hom2 )
 	);
 	Coin := PreImagesSet( q, CoinHN );
-	diff := DifferenceGroupHomomorphisms@ (
-		RestrictedHomomorphism( hom1, Coin, G ),
-		RestrictedHomomorphism( hom2, Coin, G )
-	);
+	diff := DifferenceGroupHomomorphisms@( hom1, hom2, Coin, G );
 	return Kernel( diff );
 end;
 
@@ -110,7 +104,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	5,
 	function ( hom1, hom2 )
-		local G, H;
+		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -120,10 +114,9 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		return CoincidenceGroupByFiniteCoin@(
-			hom1, hom2,
-			TrivialSubgroup( G )
-		);
+		M := TrivialSubgroup( G );
+		N := IntersectionPreImage@( hom1, hom2, M );
+		return CoincidenceGroupByFiniteQuotient@( hom1, hom2, N, M );
 	end
 );
 
@@ -143,7 +136,7 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		diff := DifferenceGroupHomomorphisms@ ( hom1, hom2 );
+		diff := DifferenceGroupHomomorphisms@ ( hom1, hom2, H, G );
 		return Kernel( diff );
 	end
 );
@@ -154,7 +147,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	3,
 	function ( hom1, hom2 )
-		local G, H;
+		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -165,7 +158,9 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		return CoincidenceGroupByCentre@( hom1, hom2 );
+		M := Centre( G );
+		N := IntersectionPreImage@( hom1, hom2, M );
+		return CoincidenceGroupByCentralSubgroup@( hom1, hom2, N, M );
 	end
 );
 
@@ -175,7 +170,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	2,
 	function ( hom1, hom2 )
-		local G, H;
+		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -186,10 +181,9 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		return CoincidenceGroupByFiniteCoin@(
-			hom1, hom2,
-			FittingSubgroup( G )
-		);
+		M := FittingSubgroup( G );
+		N := IntersectionPreImage@( hom1, hom2, M );
+		return CoincidenceGroupByFiniteQuotient@( hom1, hom2, N, M );
 	end
 );
 
@@ -199,7 +193,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )
-		local G, H;
+		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -208,10 +202,9 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		return CoincidenceGroupByFiniteCoin@(
-			hom1, hom2,
-			DerivedSubgroup( G )
-		);
+		M := DerivedSubgroup( G );
+		N := IntersectionPreImage@( hom1, hom2, M );
+		return CoincidenceGroupByFiniteQuotient@( hom1, hom2, N, M );
 	end
 );
 

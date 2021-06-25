@@ -1,14 +1,13 @@
 ###############################################################################
 ##
-## ReidemeisterClassesByFiniteCoin@( hom1, hom2, M )
+## ReidemeisterClassesByFiniteQuotient@( hom1, hom2, N, M )
 ##
-ReidemeisterClassesByFiniteCoin@ := function ( hom1, hom2, M )
-	local G, H, N, p, q, GM, hom1HN, hom2HN, RclGM, tccGM, Rcl, hom1N, hom2N,
-		pg, inn_pg, Coin, g, conj_g, inn_g_hom1N, RclM, igRclM,	inn_g, tc, m1,
+ReidemeisterClassesByFiniteQuotient@ := function ( hom1, hom2, N, M )
+	local G, H, p, q, GM, hom1HN, hom2HN, RclGM, tccGM, Rcl, hom1N, hom2N, pg,
+		inn_pg, Coin, g, conj_g, inn_g_hom1N, RclM, igRclM,	inn_g, tc, m1,
 		isNew, qh, h, m2;
 	G := Range( hom1 );
 	H := Source( hom1 );
-	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
 	GM := Range( p );
@@ -69,15 +68,13 @@ end;
 
 ###############################################################################
 ##
-## ReidemeisterClassesByCentre@( hom1, hom2 )
+## ReidemeisterClassesByCentralSubgroup@( hom1, hom2, N, M )
 ##
-ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
-	local G, H, M, N, p, q, hom1HN, hom2HN, RclGM, GM, Rcl, pg, inn_pg, CoinHN,
-		Coin, g, inn_g, hom1Coin, hom2Coin, diff, r, coker, rm, tcc, m;
+ReidemeisterClassesByCentralSubgroup@ := function ( hom1, hom2, N, M )
+	local G, H, p, q, hom1HN, hom2HN, RclGM, GM, Rcl, pg, inn_pg, CoinHN, Coin,
+		g, inn_g, diff, r, coker, rm, tcc, m;
 	G := Range( hom1 );
 	H := Source( hom1 );
-	M := Centre( G );
-	N := IntersectionPreImage@( hom1, hom2, M );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
 	hom1HN := InducedHomomorphism( q, p, hom1 );
@@ -94,9 +91,7 @@ ReidemeisterClassesByCentre@ := function ( hom1, hom2 )
 		Coin := PreImagesSet( q, CoinHN );
 		g := PreImagesRepresentative( p, pg );
 		inn_g := InnerAutomorphismNC( G, g^-1 );
-		hom1Coin := RestrictedHomomorphism( hom1, Coin, G );
-		hom2Coin := RestrictedHomomorphism( hom2, Coin, G );
-		diff := DifferenceGroupHomomorphisms@ ( hom1Coin*inn_g, hom2Coin );
+		diff := DifferenceGroupHomomorphisms@ ( hom1*inn_g, hom2, Coin, G );
 		r := NaturalHomomorphismByNormalSubgroupNC(	M, ImagesSource( diff ) );
 		coker := Range( r );
 		if not IsFinite( coker ) then
@@ -150,7 +145,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	4,
 	function ( hom1, hom2 )
-		local G, H;
+		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -160,10 +155,9 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		return ReidemeisterClassesByFiniteCoin@(
-			hom1, hom2,
-			TrivialSubgroup( G )
-		);
+		M := TrivialSubgroup( G );
+		N := IntersectionPreImage@( hom1, hom2, M );
+		return ReidemeisterClassesByFiniteQuotient@( hom1, hom2, N, M );
 	end
 );
 
@@ -183,7 +177,7 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		diff := DifferenceGroupHomomorphisms@( hom1, hom2 );
+		diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
 		N := ImagesSource( diff );
 		if IndexNC( G, N ) = infinity then
 			return fail;
@@ -211,7 +205,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	2,
 	function ( hom1, hom2 )
-		local G, H;
+		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -222,7 +216,10 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		return ReidemeisterClassesByCentre@( hom1, hom2 );
+		
+		M := Centre( G );
+		N := IntersectionPreImage@( hom1, hom2, M );
+		return ReidemeisterClassesByCentralSubgroup@( hom1, hom2, N, M );
 	end
 );
 
@@ -232,7 +229,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )
-		local G, H;
+		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -243,10 +240,9 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		return ReidemeisterClassesByFiniteCoin@(
-			hom1, hom2,
-			FittingSubgroup( G )
-		);
+		M := FittingSubgroup( G );
+		N := IntersectionPreImage@( hom1, hom2, M );
+		return ReidemeisterClassesByFiniteQuotient@( hom1, hom2, N, M );
 	end
 );
 
@@ -256,7 +252,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	0,
 	function ( hom1, hom2 )
-		local G, H;
+		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -265,9 +261,8 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		return ReidemeisterClassesByFiniteCoin@(
-			hom1, hom2,
-			DerivedSubgroup( G )
-		);
+		M := DerivedSubgroup( G );
+		N := IntersectionPreImage@( hom1, hom2, M );
+		return ReidemeisterClassesByFiniteQuotient@( hom1, hom2, N, M );
 	end
 );
