@@ -43,35 +43,10 @@ InstallMethod(
 
 ###############################################################################
 ##
-## FixedPointGroup( endo )
+## RepresentativesReidemeisterClasses( hom1, hom2 )
 ##
 InstallMethod(
-	FixedPointGroup,
-	"turn finite PcpGroup into PcGroup",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	100,
-	function ( endo )
-		local G, iso, inv;
-		G := Range( endo );
-		if (
-			not IsPcpGroup( G ) or
-			not IsFinite( G )
-		) then
-			TryNextMethod();
-		fi;
-		iso := IsomorphismPcGroup( G );
-		inv := InverseGeneralMapping( iso );
-		return ImagesSet( inv, FixedPointGroup( inv*endo*iso ) );
-	end
-);
-
-
-###############################################################################
-##
-## ReidemeisterClasses( hom1, hom2 )
-##
-InstallMethod(
-	ReidemeisterClasses,
+	RepresentativesReidemeisterClasses,
 	"turn finite PcpGroup range into PcGroup",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	101,
@@ -85,19 +60,13 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		iso := IsomorphismPcGroup( G );
-		Rcl := ReidemeisterClasses( hom1*iso, hom2*iso );
-		return List(
-			Rcl,
-			tcc -> ReidemeisterClass(
-				hom1, hom2,
-				PreImagesRepresentative( iso, Representative( tcc ) )
-			)
-		);
+		Rcl := RepresentativesReidemeisterClasses( hom1*iso, hom2*iso );
+		return List( Rcl, g -> PreImagesRepresentative( iso, g ) );
 	end
 );
 
 InstallMethod(
-	ReidemeisterClasses,
+	RepresentativesReidemeisterClasses,
 	"turn finite PcpGroup source into PcGroup",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	100,
@@ -111,49 +80,7 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
-		Rcl := ReidemeisterClasses( inv*hom1, inv*hom2 );
-		if Rcl = fail then
-			return fail;
-		fi;
-		return List(
-			Rcl,
-			tcc -> ReidemeisterClass(
-				hom1, hom2,
-				Representative( tcc )
-			)
-		);
-	end
-);
-
-
-###############################################################################
-##
-## ReidemeisterClasses( endo )
-##
-InstallOtherMethod(
-	ReidemeisterClasses,
-	"turn finite PcpGroup into PcGroup",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	100,
-	function ( endo )
-		local G, iso, inv, Rcl;
-		G := Range( endo );
-		if (
-			not IsPcpGroup( G ) or
-			not IsFinite( G )
-		) then
-			TryNextMethod();
-		fi;
-		iso := IsomorphismPcGroup( G );
-		inv := InverseGeneralMapping( iso );
-		Rcl := ReidemeisterClasses( inv*endo*iso );
-		return List(
-			Rcl,
-			tcc -> ReidemeisterClass(
-				endo,
-				PreImagesRepresentative( iso, Representative( tcc ) )
-			)
-		);
+		return RepresentativesReidemeisterClasses( inv*hom1, inv*hom2 );
 	end
 );
 

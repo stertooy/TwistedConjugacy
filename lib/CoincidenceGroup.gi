@@ -1,6 +1,6 @@
 ###############################################################################
 ##
-## CoincidenceGroup( hom1, hom2, ... )
+## CoincidenceGroup( hom1, hom2, arg... )
 ##
 InstallGlobalFunction(
 	CoincidenceGroup,
@@ -61,21 +61,11 @@ InstallMethod(
 ##
 ## FixedPointGroup( endo )
 ##
-InstallMethod(
+InstallGlobalFunction(
 	FixedPointGroup,
-	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	0,
 	function ( endo )
 		local G;
 		G := Range( endo );
 		return CoincidenceGroup( endo, IdentityMapping( G ) );
 	end
-);
-
-RedispatchOnCondition(
-	FixedPointGroup,
-	true,
-	[ IsGroupHomomorphism ],
-	[ IsEndoGeneralMapping ],
-	0
 );
