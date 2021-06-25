@@ -1,9 +1,28 @@
 ###############################################################################
 ##
-## ReidemeisterNumber( hom1, hom2 )
+## ReidemeisterNumber( hom1, arg... )
+##
+InstallGlobalFunction(
+	ReidemeisterNumber,
+	function ( hom1, arg... )
+		local G, hom2;
+		G := Range( hom1 );
+		if Length( arg ) = 0 then
+			hom2 := IdentityMapping( G );
+		else
+			hom2 := arg[1];
+		fi;
+		return ReidemeisterNumberOp( hom1, hom2 );
+	end
+);
+
+
+###############################################################################
+##
+## ReidemeisterNumberOp( hom1, hom2 )
 ##
 InstallMethod(
-	ReidemeisterNumber,
+	ReidemeisterNumberOp,
 	"for finite source and finite abelian range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
@@ -24,7 +43,7 @@ InstallMethod(
 );
 
 InstallMethod(
-	ReidemeisterNumber,
+	ReidemeisterNumberOp,
 	"by counting Reidemeister classes",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	0,
@@ -37,27 +56,4 @@ InstallMethod(
 			return infinity;
 		fi;
 	end
-);
-
-
-###############################################################################
-##
-## ReidemeisterNumber( endo )
-##
-InstallOtherMethod(
-	ReidemeisterNumber,
-	[ IsGroupHomomorphism and IsEndoGeneralMapping ],
-	function ( endo )
-		local G;
-		G := Range( endo );
-		return ReidemeisterNumber( endo, IdentityMapping( G ) );
-	end
-);
-
-RedispatchOnCondition(
-	ReidemeisterNumber,
-	true,
-	[ IsGroupHomomorphism ],
-	[ IsEndoGeneralMapping ],
-	0
 );

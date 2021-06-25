@@ -2,19 +2,13 @@
 ##
 ## Declarations
 ##
+DeclareGlobalFunction( "TwistedConjugation" );
+DeclareGlobalFunction( "IsTwistedConjugate" );
+DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 DeclareOperation(
-	"TwistedConjugation",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ]
-);
-DeclareOperation(
-	"IsTwistedConjugate",
+	"RepTwistConjToId",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
-	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ]
-);
-DeclareOperation(
-	"RepresentativeTwistedConjugation",
-	[ IsGroupHomomorphism, IsGroupHomomorphism,
-	  IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ]
+	  IsMultiplicativeElementWithInverse ]
 );
 
 
@@ -22,6 +16,17 @@ DeclareGlobalFunction( "ReidemeisterClass" );
 DeclareSynonym( "TwistedConjugacyClass", ReidemeisterClass );
 DeclareGlobalFunction( "ReidemeisterClasses" );
 DeclareSynonym(	"TwistedConjugacyClasses", ReidemeisterClasses );
+DeclareRepresentation(
+	"IsReidemeisterClassGroupRep",
+	IsExternalOrbit,
+	[]
+);
+DeclareAttribute(
+	"GroupHomomorphismsOfReidemeisterClass",
+	IsReidemeisterClassGroupRep
+);
+
+
 DeclareOperation(
 	"RepresentativesReidemeisterClasses",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]
@@ -30,13 +35,16 @@ DeclareSynonym(
 	"RepresentativesTwistedConjugacyClasses",
 	RepresentativesReidemeisterClasses
 );
-DeclareOperation(
-	"ReidemeisterNumber",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ]
-);
+
+
+DeclareGlobalFunction( "ReidemeisterNumber" );
 DeclareSynonym(
 	"NrTwistedConjugacyClasses",
 	ReidemeisterNumber
+);
+DeclareOperation(
+	"ReidemeisterNumberOp",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 
 
@@ -80,30 +88,13 @@ DeclareOperation(
 );
 
 
+DeclareGlobalFunction( "CoincidenceGroup" );
+DeclareGlobalFunction( "FixedPointGroup" );
 DeclareOperation(
 	"CoincidenceGroup2",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
-DeclareGlobalFunction( "CoincidenceGroup" );
-DeclareGlobalFunction( "FixedPointGroup" );
+
 
 DeclareGlobalFunction( "InducedHomomorphism" );
 DeclareGlobalFunction( "RestrictedHomomorphism" );
-
-
-DeclareOperation(
-	"RepTwistConjToId",
-	[ IsGroupHomomorphism, IsGroupHomomorphism,
-	  IsMultiplicativeElementWithInverse ]
-);
-
-
-DeclareRepresentation(
-	"IsReidemeisterClassGroupRep",
-	IsExternalOrbit,
-	[]
-);
-DeclareAttribute(
-	"GroupHomomorphismsOfReidemeisterClass",
-	IsReidemeisterClassGroupRep
-);
