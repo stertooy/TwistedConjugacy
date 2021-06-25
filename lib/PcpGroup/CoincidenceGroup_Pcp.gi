@@ -1,5 +1,24 @@
 ###############################################################################
 ##
+## CoincidenceGroupByTrivialSubgroup@( hom1, hom2 )
+##
+CoincidenceGroupByTrivialSubgroup@ := function ( hom1, hom2 )
+	local G, H, N, id, q, CoinHN;
+	G := Range( hom1 );
+	H := Source( hom1 );
+	N := NormalIntersection( Kernel( hom1 ), Kernel( hom2 ) );
+	id := IdentityMapping( G );
+	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
+	CoinHN := CoincidenceGroup(
+		InducedHomomorphism( q, id, hom1 ),
+		InducedHomomorphism( q, id, hom2 )
+	);
+	return PreImagesSet( q, CoinHN );
+end;
+
+
+###############################################################################
+##
 ## CoincidenceGroupByFiniteQuotient@( hom1, hom2, N, M )
 ##
 CoincidenceGroupByFiniteQuotient@ := function ( hom1, hom2, N, M )
@@ -104,7 +123,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	5,
 	function ( hom1, hom2 )
-		local G, H, M, N;
+		local G, H;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if (
@@ -114,9 +133,7 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		M := TrivialSubgroup( G );
-		N := IntersectionPreImage@( hom1, hom2, M );
-		return CoincidenceGroupByFiniteQuotient@( hom1, hom2, N, M );
+		return CoincidenceGroupByTrivialSubgroup@( hom1, hom2 );
 	end
 );
 
