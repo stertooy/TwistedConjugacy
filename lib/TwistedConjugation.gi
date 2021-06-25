@@ -246,23 +246,26 @@ InstallOtherMethod(
 	RepTwistConjToId,
 	[ IsList, IsList, IsList ],
 	function ( hom1L, hom2L, gL )
-		local n, Coin, h, i, G, hom1, hom2, tc, g, hi;
+		local hom1, hom2, h, n, i, Coin, tc, g, G, hi;
+		hom1 := hom1L[1];
+		hom2 := hom2L[1];
+		h := RepTwistConjToId( hom1, hom2, gL[1] );
+		if h = fail then
+			return fail;
+		fi;
 		n := Length( hom1L );
-		Coin := Source( hom1L[1] );
-		h := One( Coin );
-		for i in [1..n] do
+		for i in [2..n] do
+			Coin := CoincidenceGroup( hom1, hom2 );
 			hom1 := hom1L[i];
 			hom2 := hom2L[i];
-			G := Range( hom1 );
 			tc := TwistedConjugation( hom1, hom2 );
 			g := tc( gL[i], h );
+			G := Range( hom1 );
 			hom1 := RestrictedHomomorphism( hom1, Coin, G );
 			hom2 := RestrictedHomomorphism( hom2, Coin, G );
 			hi := RepTwistConjToId( hom1, hom2, g );
 			if hi = fail then
 				return fail;
-			elif i < n then
-				Coin := CoincidenceGroup( hom1, hom2 );
 			fi;
 			h := h*hi;
 		od;
