@@ -55,6 +55,8 @@ gap> ReidemeisterNumber( trivQG, trivQG );
 infinity
 gap> IsTwistedConjugate( p, p, Q.1, One( Q ) );
 false
+gap> IsTwistedConjugate( p, p, Q.1, Q.1 );
+true
 
 #
 gap> G2 := ExamplesOfSomePcpGroups( 2 );;
