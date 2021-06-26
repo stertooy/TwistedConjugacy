@@ -53,21 +53,21 @@
 #! @Description
 #! Implements the twisted conjugation (right) group action induced by the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) as a function.
 #! @Arguments hom1[, hom2]
-DeclareOperation( "TwistedConjugation" , [IsGroupHomomorphism, IsGroupHomomorphism] );
+DeclareGlobalFunction( "TwistedConjugation" );
 #! @EndGroup
 
 #! @BeginGroup IsTwistedConjugateGroup
 #! @Description
 #! Tests whether the elements <A>g1</A> and <A>g2</A> are twisted conjugate under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ).
 #! @Arguments hom1[, hom2], g1, g2
-DeclareOperation( "IsTwistedConjugate", [IsGroupHomomorphism, IsGroupHomomorphism, IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse] );
+DeclareGlobalFunction( "IsTwistedConjugate" );
 #! @EndGroup
 
 #! @BeginGroup RepresentativeTwistedConjugationGroup
 #! @Description
 #! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) or returns <K>fail</K> if no such element exists.
 #! @Arguments hom1[, hom2], g1, g2
-DeclareOperation( "RepresentativeTwistedConjugation", [IsGroupHomomorphism, IsGroupHomomorphism, IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse] );
+DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 #! @EndGroup
 
 #! @BeginExample
@@ -110,27 +110,27 @@ tc( g1, h ) = g2;
 #! * <C>StabiliserOfExternalSet</C>, which gives the stabiliser of the Reidemeister class under the twisted conjugacy action.
 #!
 #! @Arguments hom1[, hom2], g
-DeclareOperation( "ReidemeisterClass", [IsGroupHomomorphism, IsGroupHomomorphism, IsMultiplicativeElementWithInverse] );
+DeclareGlobalFunction( "ReidemeisterClass" );
 #! @Arguments hom1[, hom2], g
-DeclareOperation( "TwistedConjugacyClass", [IsGroupHomomorphism, IsGroupHomomorphism, IsMultiplicativeElementWithInverse] );
+DeclareGlobalFunction( "TwistedConjugacyClass" );
 #! @EndGroup
 
 #! @BeginGroup ReidemeisterClassesGroup
 #! @Description
 #! Returns a list containing the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number R( <A>hom1</A>, <A>hom2</A> ) is finite, or returns <K>fail</K> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position.
 #! @Arguments hom1[, hom2]
-DeclareOperation( "ReidemeisterClasses", [IsGroupHomomorphism, IsGroupHomomorphism] );
+DeclareGlobalFunction( "ReidemeisterClasses" );
 #! @Arguments hom1[, hom2]
-DeclareOperation( "TwistedConjugacyClasses", [IsGroupHomomorphism, IsGroupHomomorphism] );
+DeclareGlobalFunction( "TwistedConjugacyClasses" );
 #! @EndGroup
 
 #! @BeginGroup ReidemeisterNumberGroup
 #! @Description
 #! Returns the Reidemeister number of ( <A>hom1</A>, <A>hom2</A> ), i.e. the number of Reidemeister classes.
 #! @Arguments hom1[, hom2]
-DeclareOperation( "ReidemeisterNumber", [IsGroupHomomorphism, IsGroupHomomorphism] );
+DeclareGlobalFunction( "ReidemeisterNumber" );
 #! @Arguments hom1[, hom2]
-DeclareOperation( "NrTwistedConjugacyClasses", [IsGroupHomomorphism, IsGroupHomomorphism] );
+DeclareGlobalFunction( "NrTwistedConjugacyClasses" );
 #! @EndGroup
 
 #! @BeginExample
@@ -176,17 +176,17 @@ NrTwistedConjugacyClasses( phi, psi );
 #! @Description
 #! Returns the Reidemeister spectrum of <A>G</A>.
 #! @Arguments G
-DeclareAttribute( "ReidemeisterSpectrum", IsGroup );
+DeclareGlobalFunction( "ReidemeisterSpectrum" );
 
 #! @Description
 #! Returns the extended Reidemeister spectrum of <A>G</A>.
 #! @Arguments G
-DeclareAttribute( "ExtendedReidemeisterSpectrum", IsGroup );
+DeclareGlobalFunction( "ExtendedReidemeisterSpectrum" );
 
 #! @Description
 #! Returns the coincidence Reidemeister spectrum of <A>H</A> and <A>G</A>.
 #! @Arguments [H, ]G
-DeclareOperation( "CoincidenceReidemeisterSpectrum", [ IsGroup, IsGroup ] );
+DeclareGlobalFunction( "CoincidenceReidemeisterSpectrum" );
 
 #! @BeginExample
 ReidemeisterSpectrum( G );
@@ -219,28 +219,28 @@ CoincidenceReidemeisterSpectrum( G, H );
 #! $$\forall n \in \mathbb{N}: R(\varphi^n,\psi^n) = P_n + Q_n.$$
 #! This function returns a list containing two sublists: the first sublist contains one period of the sequence $(P_n)_{n \in \mathbb{N}}$, the second sublist contains $(Q_n)_{n \in \mathbb{N}}$ up to the part where it becomes the constant zero sequence.
 #! @Arguments endo1[, endo2]
-DeclareOperation( "ReidemeisterZetaCoefficients", [ IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and IsEndoGeneralMapping ] );
+DeclareGlobalFunction( "ReidemeisterZetaCoefficients" );
 #! @EndGroup
 
 #! @BeginGroup IsRationalReidemeisterZetaGroup
 #! @Description
 #! Returns <K>true</K> if the Reidemeister zeta function of <A>endo1</A> and <A>endo2</A> is rational, and <K>false</K> otherwise.
 #! @Arguments endo1[, endo2]
-DeclareOperation( "IsRationalReidemeisterZeta", [ IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and IsEndoGeneralMapping ] );
+DeclareGlobalFunction( "IsRationalReidemeisterZeta" );
 #! @EndGroup
 
 #! @BeginGroup ReidemeisterZetaGroup
 #! @Description
 #! Returns the Reidemeister zeta function of <A>endo1</A> and <A>endo2</A> if it is rational, and <K>fail</K> otherwise.
 #! @Arguments endo1[, endo2]
-DeclareOperation( "ReidemeisterZeta", [ IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and IsEndoGeneralMapping ] );
+DeclareGlobalFunction( "ReidemeisterZeta" );
 #! @EndGroup
 
 #! @BeginGroup PrintReidemeisterZetaGroup
 #! @Description
 #! Returns a string describing the Reidemeister zeta function of <A>endo1</A> and <A>endo2</A>. This is often more readable than evaluating <C>ReidemeisterZeta</C> in an indeterminate, and does not require rationality.
 #! @Arguments endo1[, endo2] 
-DeclareOperation( "PrintReidemeisterZeta", [ IsGroupHomomorphism and IsEndoGeneralMapping, IsGroupHomomorphism and IsEndoGeneralMapping ] );
+DeclareGlobalFunction( "PrintReidemeisterZeta" );
 #! @EndGroup
 
 #! @BeginExample
@@ -263,7 +263,58 @@ PrintReidemeisterZeta( khi );
 
 #####
 #
-# CHAPTER 3
+# CHAPTER 4
+#
+#####
+
+#! @Chapter Multiple Twisted Conjugacy Problem
+#! @ChapterLabel mult
+#! @ChapterTitle Multiple Twisted Conjugacy Problem
+
+
+###
+# SECTION 1
+###
+
+#! @Section The Multiple Twisted Conjugacy Problem
+#! Let $H$ and $G_1, \ldots, G_n$ be groups. For each $i \in \{1,\ldots,n\}$, let $g_i,g_i' \in G_i$ and let $\varphi_i,\psi_i: H \to G_i$ be group homomorphisms. The multiple twisted conjugacy problem is the problem of finding some $h \in H$ such that $g_i = \psi_i(h)g_i'\varphi_i(h)^{-1}$ for all $i \in \{1,\ldots,n\}$.
+#! 
+
+#! @Description
+#! Verifies whether the multiple twisted conjugacy problem for the given homomorphisms and elements has a solution.
+#! @Arguments hom1List[, hom2List], g1List, g2List
+#! @Label IsTwistedConjugateMultiple
+DeclareGlobalFunction( "IsTwistedConjugate" );
+
+#! @Description
+#! Computes a solution to the multiple twisted conjugacy problem for the given homomorphisms and elements, or returns <K>fail</K> if no solution exists.
+#! @Arguments hom1List[, hom2List], g1List, g2List
+#! @Label RepresentativeTwistedConjugationMultiple
+DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
+
+#! @BeginExample
+H := SymmetricGroup( 5 );;
+G := AlternatingGroup( 6 );;
+tau := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,3)(4,6), () ] );; 
+phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,2)(3,6), () ] );; 
+psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,4)(3,6), () ] );; 
+khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,2)(3,4), () ] );;
+IsTwistedConjugate( [ tau, phi ], [ psi, khi ], [ (1,5)(4,6), (1,4)(3,5) ],
+ [ (1,4,5,3,6), (2,4,5,6,3) ] );
+#! true
+RepresentativeTwistedConjugation( [ tau, phi ], [ psi, khi ], [ (1,5)(4,6), (1,4)(3,5) ],
+ [ (1,4,5,3,6), (2,4,5,6,3) ] );
+#! (1,2)
+#! @EndExample
+
+
+#####
+#
+# CHAPTER 4
 #
 #####
 
@@ -279,35 +330,35 @@ PrintReidemeisterZeta( khi );
 #! @Section Coincidence and Fixed Point Groups
 
 #! @Description
+#! Let <A>endo</A> be an endomorphism of a group G. This command returns the subgroup of G consisting of the elements fixed under the endomorphism <A>endo</A>.
+#! @Arguments endo
+DeclareGlobalFunction( "FixedPointGroup" );
+
+#! @Description
 #! Let <A>hom1</A>, <A>hom2</A>, ... be group homomorphisms from a group H to a group G. This command returns the subgroup of H consisting of the elements h for which h^<A>hom1</A> = h^<A>hom2</A> = ...
 #! @Arguments hom1, hom2[, ...]
 DeclareGlobalFunction( "CoincidenceGroup" );
 
-#! @Description
-#! Let <A>endo</A> be an endomorphism of a group G. This command returns the subgroup of G consisting of the elements fixed under the endomorphism <A>endo</A>.
-#! @Arguments endo
-DeclareOperation( "FixedPointGroup", [IsGroupHomomorphism and IsEndoGeneralMapping] );
-
 #! @BeginExample
 G := AlternatingGroup( 6 );;
-H := SymmetricGroup( 5 );;
-phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,4)(3,6), () ] );; 
-psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,2)(3,4), () ] );;
-CoincidenceGroup( phi, psi );
-#! Group([ (1,2,3,4,5), (1,3,4,5,2) ])
-khi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],
+phi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],
  [ (1,2,6,3,5), (1,4,5) ] );;
-FixedPointGroup( khi );
+FixedPointGroup( phi );
 #! Group([ (1,2,6,4,3) ])
+H := SymmetricGroup( 5 );;
+psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,4)(3,6), () ] );; 
+khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,2)(3,4), () ] );;
+CoincidenceGroup( psi, khi );
+#! Group([ (1,2,3,4,5), (1,3,4,5,2) ])
+
+
+
 #! @EndExample
-
-
-
 #####
 #
-# CHAPTER 4
+# CHAPTER 5
 #
 #####
 
@@ -317,7 +368,7 @@ FixedPointGroup( khi );
 
 
 ###
-# SECTION 2
+# SECTION 1
 ###
 
 #! @Section Induced and restricted group homomorphisms

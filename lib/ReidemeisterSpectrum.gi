@@ -2,8 +2,20 @@
 ##
 ## ReidemeisterSpectrum( G )
 ##
-InstallMethod(
+InstallGlobalFunction(
 	ReidemeisterSpectrum,
+	function ( G )
+		return ReidemeisterSpectrumOp( G );
+	end
+);
+
+
+###############################################################################
+##
+## ReidemeisterSpectrumOp( G )
+##
+InstallMethod(
+	ReidemeisterSpectrumOp,
 	"for finite abelian groups",
 	[ IsGroup and IsFinite and IsAbelian ],
 	function ( G )
@@ -28,15 +40,15 @@ InstallMethod(
 		else
 			productOdd := DirectProduct( List( invOdd, CyclicGroup ) );
 			productEven := DirectProduct( List( invEven, CyclicGroup ) );
-			specOdd := ReidemeisterSpectrum( productOdd );
-			specEven := ReidemeisterSpectrum( productEven );
+			specOdd := ReidemeisterSpectrumOp( productOdd );
+			specEven := ReidemeisterSpectrumOp( productEven );
 			return Set( Cartesian( specOdd, specEven ), Product );
 		fi;
 	end
 );
 
 InstallMethod(
-	ReidemeisterSpectrum,
+	ReidemeisterSpectrumOp,
 	"for finite groups",
 	[ IsGroup and IsFinite ],
 	function ( G )
@@ -52,7 +64,7 @@ InstallMethod(
 );
 
 RedispatchOnCondition(
-	ReidemeisterSpectrum,
+	ReidemeisterSpectrumOp,
 	true,
 	[ IsGroup ],
 	[ IsFinite ],
@@ -64,8 +76,20 @@ RedispatchOnCondition(
 ##
 ## ExtendedReidemeisterSpectrum( G )
 ##
-InstallMethod(
+InstallGlobalFunction(
 	ExtendedReidemeisterSpectrum,
+	function ( G )
+		return ExtendedReidemeisterSpectrumOp( G );
+	end
+);
+
+
+###############################################################################
+##
+## ExtendedReidemeisterSpectrumOp( G )
+##
+InstallMethod(
+	ExtendedReidemeisterSpectrumOp,
 	"for finite abelian groups",
 	[ IsGroup and IsFinite and IsAbelian ],
 	function ( G )
@@ -74,18 +98,19 @@ InstallMethod(
 );
 
 InstallMethod(
-	ExtendedReidemeisterSpectrum,
+	ExtendedReidemeisterSpectrumOp,
 	"for finite groups",
 	[ IsGroup and IsFinite ],
 	function ( G )
-		local Hom_reps;
-		Hom_reps := AllHomomorphismClasses( G, G );
-		return Set( Hom_reps, ReidemeisterNumber );
+		local End_reps, id;
+		End_reps := AllHomomorphismClasses( G, G );
+		id := IdentityMapping( G );
+		return Set( End_reps, endo -> ReidemeisterNumberOp( endo, id ) );
 	end
 );
 
 RedispatchOnCondition(
-	ExtendedReidemeisterSpectrum,
+	ExtendedReidemeisterSpectrumOp,
 	true,
 	[ IsGroup ],
 	[ IsFinite ],
@@ -95,10 +120,32 @@ RedispatchOnCondition(
 
 ###############################################################################
 ##
+## CoincidenceReidemeisterSpectrum( H, ... )
+##
+InstallGlobalFunction(
+	CoincidenceReidemeisterSpectrum,
+	function ( H, arg... )
+		local G;
+		if Length( arg ) = 0 then
+			if IsAbelian( H ) then
+				return ExtendedReidemeisterSpectrumOp( H );
+			else
+				return CoincidenceReidemeisterSpectrumOp( H, H );
+			fi;
+		else
+			G := arg[1];
+		fi;
+		return CoincidenceReidemeisterSpectrumOp( H, G );
+	end
+);
+
+
+###############################################################################
+##
 ## CoincidenceReidemeisterSpectrum( H, G )
 ##
 InstallMethod(
-	CoincidenceReidemeisterSpectrum,
+	CoincidenceReidemeisterSpectrumOp,
 	"for finite abelian range",
 	[ IsGroup, IsGroup and IsFinite and IsAbelian ],
 	function ( H, G )
@@ -115,7 +162,7 @@ InstallMethod(
 );
 
 InstallMethod(
-	CoincidenceReidemeisterSpectrum,
+	CoincidenceReidemeisterSpectrumOp,
 	"for finite range",
 	[ IsGroup, IsGroup and IsFinite ],
 	function ( H, G )
@@ -133,38 +180,9 @@ InstallMethod(
 );
 
 RedispatchOnCondition(
-	CoincidenceReidemeisterSpectrum,
+	CoincidenceReidemeisterSpectrumOp,
 	true,
 	[ IsGroup, IsGroup ],
 	[ IsGroup, IsFinite ],
-	0
-);
-
-
-###############################################################################
-##
-## CoincidenceReidemeisterSpectrum( G )
-##
-InstallOtherMethod(
-	CoincidenceReidemeisterSpectrum,
-	[ IsGroup and IsFinite and IsAbelian ],
-	function ( G )
-		return ExtendedReidemeisterSpectrum( G );
-	end
-);
-
-InstallOtherMethod(
-	CoincidenceReidemeisterSpectrum,
-	[ IsGroup and IsFinite ],
-	function ( G )
-		return CoincidenceReidemeisterSpectrum( G, G );
-	end
-);
-
-RedispatchOnCondition(
-	CoincidenceReidemeisterSpectrum,
-	true,
-	[ IsGroup ],
-	[ IsFinite ],
 	0
 );

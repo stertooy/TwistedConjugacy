@@ -1,9 +1,28 @@
 ###############################################################################
 ##
-## ReidemeisterZetaCoefficients( endo1, endo2 )
+## ReidemeisterZetaCoefficients( hom1, arg... )
+##
+InstallGlobalFunction(
+	ReidemeisterZetaCoefficients,
+	function ( endo1, arg... )
+		local G, endo2;
+		G := Range( endo1 );
+		if Length( arg ) = 0 then
+			endo2 := IdentityMapping( G );
+		else
+			endo2 := arg[1];
+		fi;
+		return ReidemeisterZetaCoefficientsOp( endo1, endo2 );
+	end
+);
+
+
+###############################################################################
+##
+## ReidemeisterZetaCoefficientsOp( endo1, endo2 )
 ##
 InstallMethod(
-	ReidemeisterZetaCoefficients,
+	ReidemeisterZetaCoefficientsOp,
 	"for finite groups",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	function ( endo1, endo2 )
@@ -41,25 +60,32 @@ InstallMethod(
 
 ###############################################################################
 ##
-## ReidemeisterZetaCoefficients( endo )
+## IsRationalReidemeisterZeta( hom1, arg... )
 ##
-InstallOtherMethod(
-	ReidemeisterZetaCoefficients,
-	[ IsGroupHomomorphism ],
-	function ( endo )
-		local G;
-		G := Range( endo );
-		return ReidemeisterZetaCoefficients( endo, IdentityMapping( G )	);
+InstallGlobalFunction(
+	IsRationalReidemeisterZeta,
+	function ( endo1, arg... )
+		local G, endo2;
+		G := Range( endo1 );
+		if Length( arg ) = 0 then
+			if IsFinite( G ) then
+				return true;
+			fi;
+			endo2 := IdentityMapping( G );
+		else
+			endo2 := arg[1];
+		fi;
+		return IsRationalReidemeisterZetaOp( endo1, endo2 );
 	end
 );
 
 
 ###############################################################################
 ##
-## IsRationalReidemeisterZeta( endo1, endo2 )
+## IsRationalReidemeisterZetaOp( endo1, endo2 )
 ##
 InstallMethod(
-	IsRationalReidemeisterZeta,
+	IsRationalReidemeisterZetaOp,
 	"for finite groups",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	function ( endo1, endo2 )
@@ -68,7 +94,7 @@ InstallMethod(
 		if not IsFinite( G ) then
 			TryNextMethod();
 		fi;
-		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
+		coeffs := ReidemeisterZetaCoefficientsOp( endo1, endo2 );
 		if (
 			not IsEmpty( coeffs[2] ) or
 			DecomposePeriodicList@( coeffs[1] ) = fail
@@ -82,30 +108,29 @@ InstallMethod(
 
 ###############################################################################
 ##
-## IsRationalReidemeisterZeta( endo )
+## ReidemeisterZeta( hom1, arg... )
 ##
-InstallOtherMethod(
-	IsRationalReidemeisterZeta,
-	"for finite groups",
-	[ IsGroupHomomorphism ],
-	1,
-	function ( endo )
-		local G;
-		G := Range( endo );
-		if not IsFinite( G ) then
-			TryNextMethod();
+InstallGlobalFunction(
+	ReidemeisterZeta,
+	function ( endo1, arg... )
+		local G, endo2;
+		G := Range( endo1 );
+		if Length( arg ) = 0 then
+			endo2 := IdentityMapping( G );
+		else
+			endo2 := arg[1];
 		fi;
-		return true;
+		return ReidemeisterZetaOp( endo1, endo2 );
 	end
 );
 
 
 ###############################################################################
 ##
-## ReidemeisterZeta( endo1, endo2 )
+## ReidemeisterZetaOp( endo1, endo2 )
 ##
 InstallMethod(
-	ReidemeisterZeta,
+	ReidemeisterZetaOp,
 	"for rational Reidemeister zeta functions of finite groups",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	function ( endo1, endo2 )
@@ -114,7 +139,7 @@ InstallMethod(
 		if not IsFinite( G ) then
 			TryNextMethod();
 		fi;
-		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
+		coeffs := ReidemeisterZetaCoefficientsOp( endo1, endo2 );
 		if not IsEmpty( coeffs[2] ) then
 			return fail;
 		fi;
@@ -138,25 +163,29 @@ InstallMethod(
 
 ###############################################################################
 ##
-## ReidemeisterZeta( endo )
+## PrintReidemeisterZeta( hom1, arg... )
 ##
-InstallOtherMethod(
-	ReidemeisterZeta,
-	[ IsGroupHomomorphism ],
-	function ( endo )
-		local G;
-		G := Range( endo );
-		return ReidemeisterZeta( endo, IdentityMapping( G ) );
+InstallGlobalFunction(
+	PrintReidemeisterZeta,
+	function ( endo1, arg... )
+		local G, endo2;
+		G := Range( endo1 );
+		if Length( arg ) = 0 then
+			endo2 := IdentityMapping( G );
+		else
+			endo2 := arg[1];
+		fi;
+		return PrintReidemeisterZetaOp( endo1, endo2 );
 	end
 );
 
 
 ###############################################################################
 ##
-## PrintReidemeisterZeta( endo1, endo2 )
+## PrintReidemeisterZetaOp( endo1, endo2 )
 ##
 InstallMethod(
-	PrintReidemeisterZeta,
+	PrintReidemeisterZetaOp,
 	"for finite groups",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	function ( endo1, endo2 )
@@ -165,7 +194,7 @@ InstallMethod(
 		if not IsFinite( G ) then
 			TryNextMethod();
 		fi;
-		coeffs := ReidemeisterZetaCoefficients( endo1, endo2 );
+		coeffs := ReidemeisterZetaCoefficientsOp( endo1, endo2 );
 		P := coeffs[1];
 		Q := coeffs[2];
 		if not IsEmpty( Q ) then
@@ -272,20 +301,5 @@ InstallMethod(
 			fi;
 		od;
 		return zeta;
-	end
-);
-
-
-###############################################################################
-##
-## PrintReidemeisterZeta( endo )
-##
-InstallOtherMethod(
-	PrintReidemeisterZeta,
-	[ IsGroupHomomorphism ],
-	function ( endo )
-		local G;
-		G := Range( endo );
-		return PrintReidemeisterZeta( endo, IdentityMapping( G ) );
 	end
 );

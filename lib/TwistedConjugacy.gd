@@ -3,19 +3,16 @@
 ## Declarations
 ##
 DeclareGlobalFunction( "TwistedConjugation" );
+DeclareGlobalFunction( "IsTwistedConjugate" );
+DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 DeclareOperation(
 	"RepTwistConjToId",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ]
 );
-DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
-DeclareGlobalFunction( "IsTwistedConjugate" );
-
 
 DeclareGlobalFunction( "ReidemeisterClass" );
 DeclareSynonym( "TwistedConjugacyClass", ReidemeisterClass );
-
-
 DeclareRepresentation(
 	"IsReidemeisterClassGroupRep",
 	IsExternalOrbit,
@@ -27,6 +24,8 @@ DeclareAttribute(
 );
 
 
+DeclareGlobalFunction( "ReidemeisterClasses" );
+DeclareSynonym(	"TwistedConjugacyClasses", ReidemeisterClasses );
 DeclareOperation(
 	"RepresentativesReidemeisterClasses",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]
@@ -35,10 +34,6 @@ DeclareSynonym(
 	"RepresentativesTwistedConjugacyClasses",
 	RepresentativesReidemeisterClasses
 );
-
-
-DeclareGlobalFunction( "ReidemeisterClasses" );
-DeclareSynonym(	"TwistedConjugacyClasses", ReidemeisterClasses );
 
 
 DeclareGlobalFunction( "ReidemeisterNumber" );
@@ -52,38 +47,41 @@ DeclareOperation(
 );
 
 
-DeclareAttribute(
-	"ReidemeisterSpectrum",
-	IsGroup
-);
-DeclareAttribute(
-	"ExtendedReidemeisterSpectrum",
-	IsGroup
-);
-DeclareAttribute(
-	"CoincidenceReidemeisterSpectrum",
-	IsGroup
-);
+DeclareGlobalFunction( "ReidemeisterSpectrum" );
 DeclareOperation(
-	"CoincidenceReidemeisterSpectrum",
+	"ReidemeisterSpectrumOp",
+	[ IsGroup ]
+);
+DeclareGlobalFunction( "ExtendedReidemeisterSpectrum" );
+DeclareOperation(
+	"ExtendedReidemeisterSpectrumOp",
+	[ IsGroup ]
+);
+DeclareGlobalFunction( "CoincidenceReidemeisterSpectrum" );
+DeclareOperation(
+	"CoincidenceReidemeisterSpectrumOp",
 	[ IsGroup, IsGroup ]
 );
 
 
+DeclareGlobalFunction( "ReidemeisterZetaCoefficients" );
 DeclareOperation(
-	"ReidemeisterZetaCoefficients",
+	"ReidemeisterZetaCoefficientsOp",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
+DeclareGlobalFunction( "IsRationalReidemeisterZeta" );
 DeclareOperation(
-	"IsRationalReidemeisterZeta",
+	"IsRationalReidemeisterZetaOp",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
+DeclareGlobalFunction( "ReidemeisterZeta" );
 DeclareOperation(
-	"ReidemeisterZeta",
+	"ReidemeisterZetaOp",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
+DeclareGlobalFunction( "PrintReidemeisterZeta" );
 DeclareOperation(
-	"PrintReidemeisterZeta",
+	"PrintReidemeisterZetaOp",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 
