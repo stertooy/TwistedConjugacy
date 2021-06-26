@@ -68,9 +68,6 @@ InstallGlobalFunction(
 		local G, endo2;
 		G := Range( endo1 );
 		if Length( arg ) = 0 then
-			if IsFinite( G ) then
-				return true;
-			fi;
 			endo2 := IdentityMapping( G );
 		else
 			endo2 := arg[1];
@@ -93,6 +90,12 @@ InstallMethod(
 		G := Range( endo1 );
 		if not IsFinite( G ) then
 			TryNextMethod();
+		fi;
+		if (
+			( IsBijective( endo1 ) or IsBijective( endo2 ) ) and
+			endo1*endo2 = endo2*endo1
+		) then
+			return true;
 		fi;
 		coeffs := ReidemeisterZetaCoefficientsOp( endo1, endo2 );
 		if (
