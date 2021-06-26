@@ -28,15 +28,14 @@ InstallGlobalFunction(
 ##
 InstallMethod(
 	RepTwistConjToId,
-	"for trivial range",
+	"for trivial element",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
 	7,
 	function ( hom1, hom2, g )
-		local G, H;
-		G := Range( hom1 );
+		local H;
 		H := Source( hom1 );
-		if not IsTrivial( G ) then
+		if not IsOne( g ) then
 			TryNextMethod();
 		fi;
 		return One( H );
@@ -50,21 +49,47 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse ],
 	6,
 	function ( hom1, hom2, g )
-		local G, H, tc;
+		local G, H, tc, d, orbit, by, frm, g1, hi, g2, h, i;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsFinite( H ) then
 			TryNextMethod();
 		fi;
 		tc := TwistedConjugation( hom1, hom2 );
-		return RepresentativeAction( H,	g, One( G ), tc	);
+		g := Immutable( g );
+		d := NewDictionary( g, true );
+		orbit := [ g ];
+		AddDictionary( d, g, 1 );
+		by := [ One( H ) ];
+		frm := [ 1 ];
+		for g1 in orbit do
+			for hi in GeneratorsOfGroup( H ) do
+				g2 := tc( g1, hi );
+				MakeImmutable( g2 );
+				if IsOne( g2 ) then
+					h := hi;
+					while g1 <> g do
+						i := LookupDictionary( d, g1 );
+						h := by[i] * h;
+						g1 := frm[i];
+					od;
+					return h;
+				elif not KnowsDictionary( d, g2 ) then
+					Add( orbit, g2 );
+					AddDictionary( d, g2, Length( orbit ) );
+					Add( frm, g1 );
+					Add( by, hi );
+				fi;
+			od;
+        od;
+        return fail;
 	end
 );
 
 
 ###############################################################################
 ##
-## RepTwistConjToIdMultiple@( a )
+## RepTwistConjToIdMultiple@( hom1L, hom2L, gL )
 ##
 RepTwistConjToIdMultiple@ := function ( hom1L, hom2L, gL  )
 	local hom1, hom2, h, n, i, Coin, tc, g, G, hi;
@@ -76,7 +101,7 @@ RepTwistConjToIdMultiple@ := function ( hom1L, hom2L, gL  )
 	fi;
 	n := Length( hom1L );
 	for i in [2..n] do
-		Coin := CoincidenceGroup( hom1, hom2 );
+		Coin := CoincidenceGroup2( hom1, hom2 );
 		hom1 := hom1L[i];
 		hom2 := hom2L[i];
 		tc := TwistedConjugation( hom1, hom2 );
@@ -101,7 +126,7 @@ end;
 InstallGlobalFunction(
 	RepresentativeTwistedConjugation,
 	function ( hom1, x, y, arg... )
-		local n, ighom1, g, G, hom2, g1, g2, i, g2inv, inn_g2;
+		local n, ighom1, g, G, hom2, g1, g2, i, g2inv, inn;
 		if IsList( hom1 ) then
 			n := Length( hom1 );
 			ighom1 := ShallowCopy( hom1 );
@@ -119,8 +144,8 @@ InstallGlobalFunction(
 			for i in [1..n] do
 				G := Range( hom1[i] );
 				g2inv := g2[i]^-1;
-				inn_g2 := InnerAutomorphismNC( G, g2inv );
-				ighom1[i] := hom1[i]*inn_g2;
+				inn := InnerAutomorphismNC( G, g2inv );
+				ighom1[i] := hom1[i]*inn;
 				g[i] := g1[i]*g2inv;
 			od;
 			return RepTwistConjToIdMultiple@( ighom1, hom2, g );
@@ -136,8 +161,8 @@ InstallGlobalFunction(
 			g2 := arg[1];
 		fi;
 		g2inv := g2^-1;
-		inn_g2 := InnerAutomorphismNC( G, g2inv );
-		ighom1 := hom1*inn_g2;
+		inn := InnerAutomorphismNC( G, g2inv );
+		ighom1 := hom1*inn;
 		g := g1*g2inv;
 		return RepTwistConjToId( ighom1, hom2, g );
 	end

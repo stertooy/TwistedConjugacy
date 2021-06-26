@@ -99,15 +99,15 @@ RedispatchOnCondition(
 ##
 InstallMethod(
 	CoincidenceReidemeisterSpectrum,
-	"for finite source and finite abelian range",
-	[ IsGroup and IsFinite, IsGroup and IsFinite and IsAbelian ],
+	"for finite abelian range",
+	[ IsGroup, IsGroup and IsFinite and IsAbelian ],
 	function ( H, G )
 		local Hom_reps, SpecR, hom1, hom2, R;
 		Hom_reps := AllHomomorphismClasses( H, G );
 		SpecR := [];
 		hom1 := Hom_reps[1];
 		for hom2 in Hom_reps do
-			R := ReidemeisterNumber( hom1, hom2 );
+			R := ReidemeisterNumberOp( hom1, hom2 );
 			AddSet( SpecR, R );
 		od;
 		return SpecR;
@@ -116,15 +116,15 @@ InstallMethod(
 
 InstallMethod(
 	CoincidenceReidemeisterSpectrum,
-	"for finite source and range",
-	[ IsGroup and IsFinite, IsGroup and IsFinite ],
+	"for finite range",
+	[ IsGroup, IsGroup and IsFinite ],
 	function ( H, G )
 		local Hom_reps, SpecR, hom1, hom2, R;
 		Hom_reps := AllHomomorphismClasses( H, G );
 		SpecR := [];
 		for hom1 in Hom_reps do
 			for hom2 in Hom_reps do
-				R := ReidemeisterNumber( hom1, hom2 );
+				R := ReidemeisterNumberOp( hom1, hom2 );
 				AddSet( SpecR, R );
 			od;
 		od;
@@ -136,7 +136,7 @@ RedispatchOnCondition(
 	CoincidenceReidemeisterSpectrum,
 	true,
 	[ IsGroup, IsGroup ],
-	[ IsFinite, IsFinite ],
+	[ IsGroup, IsFinite ],
 	0
 );
 

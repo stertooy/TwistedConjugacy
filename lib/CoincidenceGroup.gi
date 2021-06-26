@@ -1,5 +1,19 @@
 ###############################################################################
 ##
+## FixedPointGroup( endo )
+##
+InstallGlobalFunction(
+	FixedPointGroup,
+	function ( endo )
+		local G;
+		G := Range( endo );
+		return CoincidenceGroup2( endo, IdentityMapping( G ) );
+	end
+);
+
+
+###############################################################################
+##
 ## CoincidenceGroup( hom1, hom2, arg... )
 ##
 InstallGlobalFunction(
@@ -45,27 +59,18 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	6,
 	function ( hom1, hom2 )
-		local G, H, tc;
+		local G, H, gens, tc;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsFinite( H ) then
 			TryNextMethod();
 		fi;
+		if CanEasilyComputePcgs( H ) then
+			gens := Pcgs( H );
+		else
+			gens := GeneratorsOfGroup( H );
+		fi;
 		tc := TwistedConjugation( hom1, hom2 );
-		return Stabilizer( H, One( G ), tc );
-	end
-);
-
-
-###############################################################################
-##
-## FixedPointGroup( endo )
-##
-InstallGlobalFunction(
-	FixedPointGroup,
-	function ( endo )
-		local G;
-		G := Range( endo );
-		return CoincidenceGroup( endo, IdentityMapping( G ) );
+		return StabilizerOp( H, One( G ), gens, gens, tc );
 	end
 );

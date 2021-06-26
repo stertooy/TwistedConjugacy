@@ -37,8 +37,8 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		Coin := CoincidenceGroup( hom1, hom2 );
-		return Size( G ) / Size( H ) * Size( Coin );
+		Coin := CoincidenceGroup2( hom1, hom2 );
+		return Size( G ) * Size( Coin ) / Size( H );
 	end
 );
 

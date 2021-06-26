@@ -3,19 +3,19 @@
 ## Declarations
 ##
 DeclareGlobalFunction( "TwistedConjugation" );
-DeclareGlobalFunction( "IsTwistedConjugate" );
-DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 DeclareOperation(
 	"RepTwistConjToId",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ]
 );
+DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
+DeclareGlobalFunction( "IsTwistedConjugate" );
 
 
 DeclareGlobalFunction( "ReidemeisterClass" );
 DeclareSynonym( "TwistedConjugacyClass", ReidemeisterClass );
-DeclareGlobalFunction( "ReidemeisterClasses" );
-DeclareSynonym(	"TwistedConjugacyClasses", ReidemeisterClasses );
+
+
 DeclareRepresentation(
 	"IsReidemeisterClassGroupRep",
 	IsExternalOrbit,
@@ -35,6 +35,10 @@ DeclareSynonym(
 	"RepresentativesTwistedConjugacyClasses",
 	RepresentativesReidemeisterClasses
 );
+
+
+DeclareGlobalFunction( "ReidemeisterClasses" );
+DeclareSynonym(	"TwistedConjugacyClasses", ReidemeisterClasses );
 
 
 DeclareGlobalFunction( "ReidemeisterNumber" );
@@ -68,28 +72,24 @@ DeclareOperation(
 
 DeclareOperation(
 	"ReidemeisterZetaCoefficients",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping,
-	  IsGroupHomomorphism and IsEndoGeneralMapping ]
+	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 DeclareOperation(
 	"IsRationalReidemeisterZeta",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping,
-	  IsGroupHomomorphism and IsEndoGeneralMapping ]
+	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 DeclareOperation(
 	"ReidemeisterZeta",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping,
-	  IsGroupHomomorphism and IsEndoGeneralMapping ]
+	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 DeclareOperation(
 	"PrintReidemeisterZeta",
-	[ IsGroupHomomorphism and IsEndoGeneralMapping,
-	  IsGroupHomomorphism and IsEndoGeneralMapping ]
+	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 
 
-DeclareGlobalFunction( "CoincidenceGroup" );
 DeclareGlobalFunction( "FixedPointGroup" );
+DeclareGlobalFunction( "CoincidenceGroup" );
 DeclareOperation(
 	"CoincidenceGroup2",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]

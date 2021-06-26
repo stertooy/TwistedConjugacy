@@ -37,7 +37,7 @@ RepTwistConjToIdByFiniteQuotient@ := function ( hom1, hom2, g, N, M )
 	if qh1 = fail then
 		return fail;
 	fi;
-	Coin := CoincidenceGroup( hom1HN, hom2HN );
+	Coin := CoincidenceGroup2( hom1HN, hom2HN );
 	if not IsFinite( Coin ) then
 		TryNextMethod();
 	fi;
@@ -63,8 +63,8 @@ end;
 ## RepTwistConjToIdByCentralSubgroup@( hom1, hom2, g, N, M)
 ##
 RepTwistConjToIdByCentralSubgroup@ := function ( hom1, hom2, g, N, M )
-	local G, H, p, q, hom1HN, hom2HN, pg, qh1, h1, tc, m1, Coin, delta, h2, m2,
-		hom1N, hom2N, n;
+	local G, H, p, q, hom1HN, hom2HN, pg, qh1, h1, tc, m1, CoinHN, Coin, delta,
+		h2, m2, hom1N, hom2N, n;
 	G := Range( hom1 );
 	H := Source( hom1 );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
@@ -79,7 +79,8 @@ RepTwistConjToIdByCentralSubgroup@ := function ( hom1, hom2, g, N, M )
 	h1 := PreImagesRepresentative( q, qh1 );
 	tc := TwistedConjugation( hom1, hom2 );
 	m1 := tc( g, h1 );
-	Coin := PreImagesSet( q, CoincidenceGroup( hom1HN, hom2HN ) );
+	CoinHN := CoincidenceGroup2( hom1HN, hom2HN );
+	Coin := PreImagesSet( q, CoinHN );
 	delta := DifferenceGroupHomomorphisms@ ( hom1, hom2, Coin, G );
 	if not m1 in ImagesSource( delta ) then
 		return fail;
@@ -220,7 +221,7 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse ],
 	0,
 	function ( aut1, aut2, g )
-		local G, H, S, emb, s, hs;
+		local G, H, aut, S, emb, s, pcp, hs;
 		G := Range( aut1 );
 		H := Source( aut1 );
 		if (
@@ -231,14 +232,12 @@ InstallMethod(
 		) then
 			TryNextMethod();
 		fi;
-		S := SemidirectProductWithAutomorphism@( H, aut2 * Inverse( aut1 ) );
+		aut := aut2 * Inverse( aut1 );
+		S := SemidirectProductWithAutomorphism@( H, aut );
 		emb := Embedding( S, 2 );
 		s := ImagesRepresentative( emb, PreImagesRepresentative( aut1, g ) );
-		hs := ConjugacyElementsBySeries(
-			S,
-			S.1, S.1*s,
-			PcpsOfEfaSeries( S )
-		);
+		pcp := PcpsOfEfaSeries( S );
+		hs := ConjugacyElementsBySeries( S, S.1, S.1*s, pcp );
 		if hs = false then
 			return fail;
 		fi;

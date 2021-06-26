@@ -9,7 +9,7 @@ CoincidenceGroupByTrivialSubgroup@ := function ( hom1, hom2 )
 	N := IntersectionKernels@( hom1, hom2 );
 	id := IdentityMapping( G );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-	CoinHN := CoincidenceGroup(
+	CoinHN := CoincidenceGroup2(
 		InducedHomomorphism( q, id, hom1 ),
 		InducedHomomorphism( q, id, hom2 )
 	);
@@ -28,7 +28,7 @@ CoincidenceGroupByFiniteQuotient@ := function ( hom1, hom2, N, M )
 	H := Source( hom1 );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-	CoinHN := CoincidenceGroup(
+	CoinHN := CoincidenceGroup2(
 		InducedHomomorphism( q, p, hom1 ),
 		InducedHomomorphism( q, p, hom2 )
 	);
@@ -38,7 +38,7 @@ CoincidenceGroupByFiniteQuotient@ := function ( hom1, hom2, N, M )
 	hom1N := RestrictedHomomorphism( hom1, N, M );
 	hom2N := RestrictedHomomorphism( hom2, N, M );
 	tc := TwistedConjugation( hom1, hom2 );
-	igs := Igs( CoincidenceGroup( hom1N, hom2N ) );
+	igs := Igs( CoincidenceGroup2( hom1N, hom2N ) );
 	q := q * IsomorphismPcGroup( CoinHN );
 	CoinHN := Range( q );
 	pcgs := Pcgs( CoinHN );
@@ -88,7 +88,7 @@ CoincidenceGroupByCentralSubgroup@ := function ( hom1, hom2, N, M )
 	H := Source( hom1 );
 	p := NaturalHomomorphismByNormalSubgroupNC( G, M );
 	q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-	CoinHN := CoincidenceGroup(
+	CoinHN := CoincidenceGroup2(
 		InducedHomomorphism( q, p, hom1 ),
 		InducedHomomorphism( q, p, hom2 )
 	);
@@ -103,12 +103,14 @@ end;
 ## FixedPointGroupBySemidirectProduct@( aut )
 ##
 FixedPointGroupBySemidirectProduct@ := function( aut )
-	local G, S, emb, inc, fix;
+	local G, S, emb, inc, pcp, C, fix;
 	G := Source( aut );
 	S := SemidirectProductWithAutomorphism@( G, aut );
 	emb := Embedding( S, 2 );
 	inc := RestrictedHomomorphism( emb, G, ImagesSource( emb ) );
-	fix := NormalIntersection( Range( inc ), Centralizer( S, S.1 ) );
+	pcp := PcpsOfEfaSeries( S );
+	C := CentralizerBySeries( S, [ S.1 ], pcp );
+	fix := NormalIntersection( Range( inc ), C );
 	return PreImagesSet( inc, fix );
 end;
 

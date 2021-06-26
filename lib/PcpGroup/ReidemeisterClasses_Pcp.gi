@@ -39,7 +39,7 @@ ReidemeisterClassesByFiniteQuotient@ := function ( hom1, hom2, N, M )
 	hom2N := RestrictedHomomorphism( hom2, N, M );
 	for pg in RclGM do
 		inn_pg := InnerAutomorphismNC( GM, pg^-1 );
-		Coin := CoincidenceGroup( hom1HN*inn_pg, hom2HN );
+		Coin := CoincidenceGroup2( hom1HN*inn_pg, hom2HN );
 		if not IsFinite( Coin ) then
 			TryNextMethod();
 		fi;
@@ -101,7 +101,7 @@ ReidemeisterClassesByCentralSubgroup@ := function ( hom1, hom2, N, M )
 	foundOne := false;
 	for pg in RclGM do
 		inn_pg := InnerAutomorphismNC( GM, pg^-1 );
-		CoinHN := CoincidenceGroup(	hom1HN*inn_pg, hom2HN	);
+		CoinHN := CoincidenceGroup2( hom1HN*inn_pg, hom2HN );
 		Coin := PreImagesSet( q, CoinHN );
 		g := PreImagesRepresentative( p, pg );
 		inn_g := InnerAutomorphismNC( G, g^-1 );

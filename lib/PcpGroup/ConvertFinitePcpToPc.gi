@@ -104,7 +104,7 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		iso := IsomorphismPcGroup( G );
-		return ReidemeisterNumber( hom1*iso, hom2*iso );
+		return ReidemeisterNumberOp( hom1*iso, hom2*iso );
 	end
 );
 
@@ -123,7 +123,7 @@ InstallMethod(
 			TryNextMethod();
 		fi;
 		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
-		return ReidemeisterNumber( inv*hom1, inv*hom2 );
+		return ReidemeisterNumberOp( inv*hom1, inv*hom2 );
 	end
 );
 

@@ -59,25 +59,14 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
-		local hom, G, g, homString, i;
+		local hom, g;
 		hom := GroupHomomorphismsOfReidemeisterClass( tcc );
-		G := Range( hom[1] );
 		g := Representative( tcc );
-		homString := [];
-		for i in [1..2] do
-			if hom[i] = IdentityMapping( G ) then
-				homString[i] := PrintString(
-					GroupHomomorphismByImagesNC( G, G )
-				);
-			else
-				homString[i] := PrintString( hom[i] );
-			fi;
-		od;
 		Print(
 			"ReidemeisterClass( [ ",
-			homString[1],
+			PrintString( hom[1] ),
 			", ",
-			homString[2],
+			PrintString( hom[2] ),
 			" ], ",
 			PrintString( g ),
 			" )"
@@ -105,7 +94,7 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
-		local G, H, g, inn, hom, Coin;
+		local H, Coin;
 		H := ActingDomain( tcc );
 		Coin := StabilizerOfExternalSet( tcc );
 		return IndexNC( H, Coin );
@@ -117,19 +106,18 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
-		local G, H, g, inn, hom, Coin, tc;
+		local H, Coin, g, tc;
+		if Size( tcc ) = infinity then
+			return fail;
+		fi;
 		H := ActingDomain( tcc );
 		Coin := StabilizerOfExternalSet( tcc );
-		if IndexNC( H, Coin ) = infinity then
-			return fail;
-		else
-			g := Representative( tcc );
-			tc := FunctionAction( tcc );
-			return List(
-				RightTransversal( H, Coin ),
-				h -> tc( g, h )
-			);
-		fi;
+		g := Representative( tcc );
+		tc := FunctionAction( tcc );
+		return List(
+			RightTransversal( H, Coin ),
+			h -> tc( g, h )
+		);
 	end
 );
 
@@ -138,13 +126,12 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
-		local G, H, g, inn, hom, Coin, tc;
-		H := ActingDomain( tcc );
+		local g, hom, G, inn;
 		g := Representative( tcc );
 		hom := GroupHomomorphismsOfReidemeisterClass( tcc );
 		G := Range( hom[1] );
 		inn := InnerAutomorphismNC( G, g^-1 );
-		return CoincidenceGroup( hom[1]*inn, hom[2] );
+		return CoincidenceGroup2( hom[1]*inn, hom[2] );
 	end
 );
 
@@ -156,21 +143,22 @@ InstallMethod(
 InstallGlobalFunction(
 	ReidemeisterClasses,
 	function ( hom1, arg... )
-		local G, hom2, R;
+		local G, hom2, Rcl;
 		G := Range( hom1 );
 		if Length( arg ) = 0 then
 			hom2 := IdentityMapping( G );
 		else
 			hom2 := arg[1];
 		fi;
-		R := RepresentativesReidemeisterClasses( hom1, hom2 );
-		if R = fail then
+		Rcl := RepresentativesReidemeisterClasses( hom1, hom2 );
+		if Rcl = fail then
 			return fail;
 		fi;
-		return List( R, g -> ReidemeisterClass( hom1, hom2, g ) );
+		return List( Rcl, g -> ReidemeisterClass( hom1, hom2, g ) );
 	end
 );
-	
+
+
 ###############################################################################
 ##
 ## RepresentativesReidemeisterClasses( hom1, hom2 )
@@ -196,7 +184,7 @@ InstallMethod(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	5,
 	function ( hom1, hom2 )
-		local G, H, Rcl, tc, G_List, orbits, foundOne, orbit;
+		local G, H, Rcl, tc, G_List, gens, orbits, foundOne, orbit;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsFinite( H ) then
@@ -207,7 +195,12 @@ InstallMethod(
 		Rcl := [];
 		tc := TwistedConjugation( hom1, hom2 );
 		G_List := AsSSortedListNonstored( G );
-		orbits := OrbitsDomain( H, G_List, tc );
+		if CanEasilyComputePcgs( H ) then
+			gens := Pcgs( H );
+		else
+			gens := GeneratorsOfGroup( H );
+		fi;
+		orbits := OrbitsDomain( H, G_List, gens, gens, tc );
 		foundOne := false;
 		for orbit in orbits do
 			if ( not foundOne ) and One( G ) in orbit then
