@@ -59,14 +59,22 @@ InstallMethod(
 	"for Reidemeister classes",
 	[ IsReidemeisterClassGroupRep ],
 	function ( tcc )
-		local hom, g;
-		hom := GroupHomomorphismsOfReidemeisterClass( tcc );
+		local homs, g, hom, homGensImgs;
+		homs := GroupHomomorphismsOfReidemeisterClass( tcc );
 		g := Representative( tcc );
+		for hom in homs do
+			homGensImgs := MappingGeneratorsImages( hom );
+			hom := Concatenation( 
+				String( homGensImgs[1] ),
+				" -> ",
+				String( homGensImgs[2] )
+			);
+		od;
 		Print(
 			"ReidemeisterClass( [ ",
-			PrintString( hom[1] ),
+			PrintString( homs[1] ),
 			", ",
-			PrintString( hom[2] ),
+			PrintString( homs[2] ),
 			" ], ",
 			PrintString( g ),
 			" )"

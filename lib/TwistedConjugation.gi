@@ -49,7 +49,7 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse ],
 	6,
 	function ( hom1, hom2, g )
-		local G, H, tc, d, orbit, by, frm, g1, hi, g2, h, i;
+		local G, H, tc, d, todo, conj, trail, h, i, k, l;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsFinite( H ) then
@@ -58,27 +58,26 @@ InstallMethod(
 		tc := TwistedConjugation( hom1, hom2 );
 		g := Immutable( g );
 		d := NewDictionary( g, true );
-		orbit := [ g ];
-		AddDictionary( d, g, 1 );
-		by := [ One( H ) ];
-		frm := [ 1 ];
-		for g1 in orbit do
-			for hi in GeneratorsOfGroup( H ) do
-				g2 := tc( g1, hi );
-				MakeImmutable( g2 );
-				if IsOne( g2 ) then
-					h := hi;
-					while g1 <> g do
-						i := LookupDictionary( d, g1 );
-						h := by[i] * h;
-						g1 := frm[i];
+		AddDictionary( d, g, 0 );
+		todo := [ g ];
+		conj := [];
+		trail := [];
+		while not IsEmpty( todo ) do
+			k := Remove( todo );
+			for h in GeneratorsOfGroup( H ) do
+				l := Immutable( tc( k, h ) );
+				if IsOne( l ) then
+					while k <> g do
+						i := LookupDictionary( d, k );
+						k := trail[i];
+						h := conj[i]*h;
 					od;
 					return h;
-				elif not KnowsDictionary( d, g2 ) then
-					Add( orbit, g2 );
-					AddDictionary( d, g2, Length( orbit ) );
-					Add( frm, g1 );
-					Add( by, hi );
+				elif not KnowsDictionary( d, l ) then
+					Add( trail, k );
+					Add( todo, l );
+					Add( conj, h );
+					AddDictionary( d, l, Length( trail ) );
 				fi;
 			od;
         od;
