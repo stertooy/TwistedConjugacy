@@ -25,7 +25,7 @@
 
 #! <P/>
 
-#! The methods in this package are based on algorithms and theorems from <Cite Key='fels00-1' />, <Cite Key='roma16-1' />, <Cite Key='dt20-1' />, <Cite Key='tert21-2' /> and <Cite Key='tert21-1' />.
+#! The methods in this package are based on algorithms and theorems from <Cite Key='fels00-1' />, <Cite Key='eick04-1' />, <Cite Key='roma16-1' />, <Cite Key='dt20-1' />, <Cite Key='tert21-2' /> and <Cite Key='tert21-1' />.
 
 
 #####
@@ -283,13 +283,13 @@ PrintReidemeisterZeta( khi );
 #! @Description
 #! Verifies whether the multiple twisted conjugacy problem for the given homomorphisms and elements has a solution.
 #! @Arguments hom1List[, hom2List], g1List, g2List
-#! @Label IsTwistedConjugateMultiple
+#! @Label IsTwistedConjugate for the multiple twisted conjugacy problem
 DeclareGlobalFunction( "IsTwistedConjugate" );
 
 #! @Description
 #! Computes a solution to the multiple twisted conjugacy problem for the given homomorphisms and elements, or returns <K>fail</K> if no solution exists.
 #! @Arguments hom1List[, hom2List], g1List, g2List
-#! @Label RepresentativeTwistedConjugationMultiple
+#! @Label RepresentativeTwistedConjugation for the multiple twisted conjugacy problem
 DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 
 #! @BeginExample

@@ -1,7 +1,7 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
-2.1.0 (06/06/2021)
+2.1.0 (27/06/2021)
 ------------------
 
 - Various improvements to efficiency, both speed- and memory-related.
