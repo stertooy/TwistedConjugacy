@@ -13,7 +13,7 @@ gap> ReidemeisterClasses( idT );
 gap> IsTwistedConjugate( idT, One( T ), One( T ) );
 true
 gap> Print( ReidemeisterClass( idT, One( T ) ), "\n" );
-ReidemeisterClass( [ IdentityMapping( Group( <identity> of ... ) ), IdentityMapping( Group( <identity> of ... ) ) ], <identity> of ... )
+ReidemeisterClass( [ [ ] -> [ ], [ ] -> [ ] ], <identity> of ... )
 
 #
 gap> C2 := CyclicGroup( 2 );;
@@ -22,7 +22,7 @@ gap> C2 = CoincidenceGroup( triv, triv );
 true
 gap> endo := GroupHomomorphismByImagesNC( C2, C2, [ C2.1 ], [ C2.1^2 ] );;
 gap> Print( ReidemeisterClass( endo, C2.1 ) , "\n" );
-ReidemeisterClass( [ [ f1 ] -> [ <identity> of ... ], IdentityMapping( Group( [ f1 ] ) ) ], f1 )
+ReidemeisterClass( [ [ f1 ] -> [ <identity> of ... ], [ f1 ] -> [ f1 ] ], f1 )
 
 #
 gap> L1 := [ 2, 3, 5, 6, 24, 30 ];;

@@ -69,6 +69,8 @@ gap> IsTwistedConjugate( idG2, G2.4, G2.4*G2.6^2 );
 false
 gap> IsTwistedConjugate( idG2, G2.1, G2.1^(G2.2) );
 true
+gap> IsTwistedConjugate( idG2, G2.4, G2.4*G2.6 );
+true
 
 #
 gap> G3 := ExamplesOfSomePcpGroups( 11 );;
@@ -175,8 +177,18 @@ gap> hom2 := GroupHomomorphismByImagesNC( G, G, [ G.1, G.2, G.3, G.4, G.5 ], [ G
 gap> hom3 := GroupHomomorphismByImagesNC( G, G, [ G.1, G.2, G.3, G.4, G.5 ], [ G.1, G.2, G.3*G.4^2, G.3^2*G.4^2, G.5 ] );;
 gap> CoincidenceGroup( hom1, hom2, hom3 ) = Subgroup( G, [ G.1*G.5, G.2*G.3*G.4 ] );
 true
-gap> triv :=GroupHomomorphismByFunction( G, TrivialSubgroup( G ), g -> One( G ) );;
+gap> triv := GroupHomomorphismByFunction( G, TrivialSubgroup( G ), g -> One( G ) );;
 gap> CoincidenceGroup( triv, triv, triv, triv ) = G;
+true
+
+#
+gap> G := AbelianPcpGroup( [ 0, 0, 3 ] );;
+gap> p := NaturalHomomorphismByNormalSubgroupNC( G, SubgroupNC( G, [ G.1, G.2 ] ) );;
+gap> Q := Image( p );;
+gap> hom := GroupHomomorphismByImagesNC( G, Q, [ G.1, G.2, G.3 ], [ One( Q ), One( Q ), Q.1^2 ] );;
+gap> IsTwistedConjugate( p, p, Q.1, Q.1^2 );
+false
+gap> IsTwistedConjugate( hom, p, Q.1, Q.1^2 );
 true
 
 #
