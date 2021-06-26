@@ -196,7 +196,7 @@ InstallMethod(
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
 			not IsNilpotentByFinite( G ) or
-			IsNilpotent( G )
+			IsNilpotentGroup( G )
 		) then
 			TryNextMethod();
 		fi;

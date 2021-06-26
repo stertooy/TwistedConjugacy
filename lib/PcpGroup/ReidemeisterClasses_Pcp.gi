@@ -222,7 +222,7 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
-			not IsNilpotent( G ) or
+			not IsNilpotentGroup( G ) or
 			IsAbelian( G )
 		) then
 			TryNextMethod();
@@ -247,7 +247,7 @@ InstallMethod(
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
 			not IsNilpotentByFinite( G ) or
-			IsNilpotent( G )
+			IsNilpotentGroup( G )
 		) then
 			TryNextMethod();
 		fi;
