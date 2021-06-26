@@ -1,9 +1,9 @@
 ###############################################################################
 ##
-## ReidemeisterNumber( hom1, hom2 )
+## ReidemeisterNumberOp( hom1, hom2 )
 ##
 InstallMethod(
-	ReidemeisterNumber,
+	ReidemeisterNumberOp,
 	"for polycyclic source and (polycyclic nilpotent-by-)finite range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	3,
@@ -26,7 +26,7 @@ InstallMethod(
 );
 
 InstallMethod(
-	ReidemeisterNumber,
+	ReidemeisterNumberOp,
 	"for infinite polycyclic source and infinite abelian range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	2,
