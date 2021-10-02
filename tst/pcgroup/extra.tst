@@ -49,6 +49,14 @@ gap> ExtendedReidemeisterSpectrum( G3 ) = DivisorsInt( 2^18 );
 true
 
 #
+gap> L7 := [ 2, 4, 4, 8, 16, 32, 64, 128, 128, 256, 512 ];;
+gap> G7 := ProductCyclicGroups( L7 );;
+gap> ReidemeisterSpectrum( G7 ) = List( [4..54], x -> 2^x );
+true
+gap> ExtendedReidemeisterSpectrum( G7 ) = DivisorsInt( Product( L7 ) );
+true
+
+#
 gap> C3 := CyclicGroup( 3 );;
 gap> CoincidenceReidemeisterSpectrum( C3 );
 [ 1, 3 ]

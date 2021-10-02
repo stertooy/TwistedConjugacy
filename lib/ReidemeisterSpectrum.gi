@@ -47,7 +47,7 @@ InstallMethod(
 		inv := List( Filtered( inv, x -> x[2] = 1 ), y -> y[1] );
 		m := 0;
 		while not IsEmpty( inv ) do
-			fac := Remove( inv );
+			fac := Remove( inv, 1 );
 			if not IsEmpty( inv ) and fac*2 = inv[1] then
 				Remove( inv );
 			fi;
