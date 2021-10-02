@@ -5,6 +5,8 @@
 InstallGlobalFunction(
 	ReidemeisterSpectrum,
 	function ( G )
+		IsFinite( G );
+		IsAbelian( G );
 		return ReidemeisterSpectrumOp( G );
 	end
 );
@@ -16,34 +18,61 @@ InstallGlobalFunction(
 ##
 InstallMethod(
 	ReidemeisterSpectrumOp,
+	"for finite abelian groups of odd order",
+	[ IsGroup and IsFinite and IsAbelian ],
+	2,
+	function ( G )
+		local ord;
+		ord := Size( G );
+		if IsEvenInt( ord ) then
+			TryNextMethod();
+		fi;
+		return DivisorsInt( ord );
+	end
+);
+
+InstallMethod(
+	ReidemeisterSpectrumOp,
+	"for finite abelian 2-groups",
+	[ IsGroup and IsFinite and IsAbelian ],
+	1,
+	function ( G )
+		local ord, pow, inv, m, fac;
+		ord := Size( G );
+		pow := Log2Int( ord );
+		if ord <> 2^pow then
+			TryNextMethod();
+		fi;
+		inv := Collected( AbelianInvariants( G ) );
+		inv := List( Filtered( inv, x -> x[2] = 1 ), y -> y[1] );
+		m := 0;
+		while not IsEmpty( inv ) do
+			fac := Remove( inv );
+			if not IsEmpty( inv ) and fac*2 = inv[1] then
+				Remove( inv );
+			fi;
+			m := m+1;
+		od;
+		return List( [m..pow], x -> 2^x );
+	end
+);
+
+InstallMethod(
+	ReidemeisterSpectrumOp,
 	"for finite abelian groups",
 	[ IsGroup and IsFinite and IsAbelian ],
+	0,
 	function ( G )
-		local inv, invOdd, invEven, occ, singleOcc, Aut, Aut_reps, productOdd,
-			productEven, specOdd, specEven;
+		local inv, invEven, invOdd, ordEven, ordOdd, H, specEven, specOdd;
 		inv := AbelianInvariants( G );
-		invOdd := Filtered( inv, IsOddInt );
 		invEven := Filtered( inv, IsEvenInt );
-		if IsEmpty( invOdd ) and IsEmpty( invEven ) then
-			return [1];
-		elif IsEmpty( invOdd ) then
-			occ := TransposedMat( Collected( invEven ) )[2];
-			singleOcc := Filtered( occ, IsOne );
-			if IsEmpty( singleOcc ) then
-				return DivisorsInt( Product( invEven ) );
-			fi;
-			Aut := AutomorphismGroup( G );
-			Aut_reps := List( ConjugacyClasses( Aut ), Representative );
-			return Set( Aut_reps, ReidemeisterNumber );
-		elif IsEmpty( invEven ) then
-			return DivisorsInt( Product( invOdd ) );
-		else
-			productOdd := DirectProduct( List( invOdd, CyclicGroup ) );
-			productEven := DirectProduct( List( invEven, CyclicGroup ) );
-			specOdd := ReidemeisterSpectrumOp( productOdd );
-			specEven := ReidemeisterSpectrumOp( productEven );
-			return Set( Cartesian( specOdd, specEven ), Product );
-		fi;
+		invOdd := Filtered( inv, IsOddInt );
+		ordEven := Product( invEven );
+		ordOdd := Product( invOdd );
+		H := AbelianGroupCons( IsPcGroup, invEven );
+		specEven := ReidemeisterSpectrumOp( H );
+		specOdd := DivisorsInt( ordOdd );
+		return Set( Cartesian( specEven, specOdd ), Product );
 	end
 );
 
@@ -63,14 +92,6 @@ InstallMethod(
 	end
 );
 
-RedispatchOnCondition(
-	ReidemeisterSpectrumOp,
-	true,
-	[ IsGroup ],
-	[ IsFinite ],
-	0
-);
-
 
 ###############################################################################
 ##
@@ -79,6 +100,8 @@ RedispatchOnCondition(
 InstallGlobalFunction(
 	ExtendedReidemeisterSpectrum,
 	function ( G )
+		IsFinite( G );
+		IsAbelian( G );
 		return ExtendedReidemeisterSpectrumOp( G );
 	end
 );
@@ -109,14 +132,6 @@ InstallMethod(
 	end
 );
 
-RedispatchOnCondition(
-	ExtendedReidemeisterSpectrumOp,
-	true,
-	[ IsGroup ],
-	[ IsFinite ],
-	0
-);
-
 
 ###############################################################################
 ##
@@ -129,11 +144,12 @@ InstallGlobalFunction(
 		if Length( arg ) = 0 then
 			if IsAbelian( H ) then
 				return ExtendedReidemeisterSpectrumOp( H );
-			else
-				return CoincidenceReidemeisterSpectrumOp( H, H );
 			fi;
+			G := H;
 		else
 			G := arg[1];
+			IsFinite( G );
+			IsAbelian( G );
 		fi;
 		return CoincidenceReidemeisterSpectrumOp( H, G );
 	end
@@ -177,12 +193,4 @@ InstallMethod(
 		od;
 		return SpecR;
 	end
-);
-
-RedispatchOnCondition(
-	CoincidenceReidemeisterSpectrumOp,
-	true,
-	[ IsGroup, IsGroup ],
-	[ IsGroup, IsFinite ],
-	0
 );
