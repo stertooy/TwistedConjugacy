@@ -6,8 +6,8 @@ InstallGlobalFunction(
 	InducedHomomorphism,
 	function ( epi1, epi2, hom )
 		local GM, HN, ind, inv;
-		GM := Range( epi2 );
-		HN := Range( epi1 );
+		GM := ImagesSource( epi2 );
+		HN := ImagesSource( epi1 );
 		ind := function( h )
 			return ImagesRepresentative(
 				epi2,

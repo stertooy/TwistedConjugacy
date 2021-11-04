@@ -96,7 +96,7 @@ ReidemeisterClassesByCentralSubgroup@ := function ( hom1, hom2, N, M )
 	if RclGM = fail then
 		return fail;
 	fi;
-	GM := Range( p );
+	GM := ImagesSource( p );
 	Rcl := [];
 	foundOne := false;
 	for pg in RclGM do
@@ -196,7 +196,7 @@ InstallMethod(
 			Rcl := [];
 			p := NaturalHomomorphismByNormalSubgroupNC( G, N );
 			foundOne := false;
-			for pg in Range( p ) do
+			for pg in ImagesSource( p ) do
 				if IsOne( pg ) then
 					Add( Rcl, One( G ), 1 );
 					foundOne := true;
