@@ -20,18 +20,18 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v2
       - name: 'Setup GAP'
-        uses: sTertooy/setup-gap@v3
+        uses: sTertooy/setup-gap@v4
         with:
           GAP_PKGS_TO_CLONE: ${{ matrix.packages-to-clone }}
           GAPBRANCH: ${{ matrix.gap-branch }}
       - name: 'Add package to GAP'
-        uses: gap-actions/build-pkg@v1
+        uses: sTertooy/build-pkg@v2
       - name: 'Run teststandard.g with only necessary packages loaded'
-        uses: sTertooy/pkg-install-test@v0.8
+        uses: sTertooy/pkg-install-test@v1
         with:
           COMPLETE: true
           ONLY_NEEDED: true
       - name: 'Run teststandard.g with suggested packages loaded'
-        uses: sTertooy/pkg-install-test@v0.8
+        uses: sTertooy/pkg-install-test@v1
         with:
           COMPLETE: true
