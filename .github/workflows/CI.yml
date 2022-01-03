@@ -64,7 +64,7 @@ jobs:
         uses: sTertooy/process-coverage@v3
         if: ${{ !matrix.no-coverage }}
       - name: 'Upload coverage'
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v2
         if: ${{ !matrix.no-coverage }}
         with:
           fail_ci_if_error: true
