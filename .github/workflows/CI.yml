@@ -61,7 +61,7 @@ jobs:
       - name: 'Run GAP tests with suggested packages loaded'
         uses: sTertooy/pkg-install-test@v1
       - name: 'Process coverage'
-        uses: gap-actions/process-coverage@v2
+        uses: sTertooy/process-coverage@v3
         if: ${{ !matrix.no-coverage }}
       - name: 'Upload coverage'
         uses: codecov/codecov-action@v1
