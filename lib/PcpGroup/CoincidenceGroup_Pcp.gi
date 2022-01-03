@@ -39,6 +39,7 @@ CoincidenceGroupByFiniteQuotient@ := function ( hom1, hom2, N, M )
 	hom2N := RestrictedHomomorphism( hom2, N, M );
 	tc := TwistedConjugation( hom1, hom2 );
 	igs := Igs( CoincidenceGroup2( hom1N, hom2N ) );
+	q := RestrictedHomomorphism( q, Source( q ), ImagesSource( q ) );
 	q := q * IsomorphismPcGroup( CoinHN );
 	CoinHN := Range( q );
 	pcgs := Pcgs( CoinHN );
