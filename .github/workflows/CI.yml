@@ -25,31 +25,31 @@ jobs:
 
     steps:
       - name: 'Checkout'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.4.0
       - name: 'Install PARI/GP'
         run: |
           sudo apt-get update
           sudo apt-get install pari-gp
       - name: 'Setup GAP'
-        uses: sTertooy/setup-gap@v4
+        uses: gap-actions/setup-gap@v2.2.0
         with:
           GAP_PKGS_TO_CLONE: ${{ matrix.packages-to-clone }}
           GAPBRANCH: ${{ matrix.gap-branch }}
       - name: 'Add package to GAP'
-        uses: sTertooy/build-pkg@v2
+        uses: gap-actions/build-pkg@v1.1.0
       - name: 'Run package tests with only necessary packages loaded'
-        uses: sTertooy/run-pkg-tests@v6
+        uses: sTertooy/run-pkg-tests@v2.1.0s1
         with:
           GAP_FLAGS: '-q -A'
           NO_COVERAGE: ${{ matrix.no-coverage }}
           ONLY_NEEDED: true
       - name: 'Run package tests with default + suggested packages loaded'
-        uses: sTertooy/run-pkg-tests@v6
+        uses: sTertooy/run-pkg-tests@v2.1.0s1
         with:
           GAP_FLAGS: '-q'
           NO_COVERAGE: ${{ matrix.no-coverage }}
       - name: 'Run package tests with all packages loaded'
-        uses: sTertooy/run-pkg-tests@v6
+        uses: sTertooy/run-pkg-tests@v2.1.0s1
         with:
           GAP_FLAGS: '-q'
           NO_COVERAGE: true
@@ -61,10 +61,10 @@ jobs:
       - name: 'Run GAP tests with suggested packages loaded'
         uses: sTertooy/pkg-install-test@v1
       - name: 'Process coverage'
-        uses: sTertooy/process-coverage@v3
+        uses: gap-actions/process-coverage@v2.1.1
         if: ${{ !matrix.no-coverage }}
       - name: 'Upload coverage'
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v2.1.0
         if: ${{ !matrix.no-coverage }}
         with:
           fail_ci_if_error: true
@@ -76,17 +76,17 @@ jobs:
 
     steps:
       - name: 'Checkout'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.4.0
       - name: 'Setup GAP'
-        uses: gap-actions/setup-gap@v2
+        uses: gap-actions/setup-gap@v2.2.0
         with:
           GAP_PKGS_TO_BUILD: ''
       - name: 'Build documentation'
-        uses: gap-actions/build-pkg-docs@v1
+        uses: gap-actions/build-pkg-docs@v1.0.2
         with:
           use-latex: 'true'
       - name: 'Upload documentation'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2.3.1
         with:
           name: manual
           path: ./doc/manual.pdf
