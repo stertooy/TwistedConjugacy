@@ -20,12 +20,12 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v2
       - name: 'Setup GAP'
-        uses: sTertooy/setup-gap@v4
+        uses: gap-actions/setup-gap@v2
         with:
           GAP_PKGS_TO_CLONE: ${{ matrix.packages-to-clone }}
           GAPBRANCH: ${{ matrix.gap-branch }}
       - name: 'Add package to GAP'
-        uses: sTertooy/build-pkg@v2
+        uses: gap-actions/build-pkg@v1
       - name: 'Run teststandard.g with only necessary packages loaded'
         uses: sTertooy/pkg-install-test@v1
         with:
