@@ -85,6 +85,7 @@ DeclareOperation(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 
+
 DeclareOperation(
 	"RepresentativesHomomorphismClasses",
 	[ IsGroup, IsGroup ]

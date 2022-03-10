@@ -1,4 +1,4 @@
-OuterAutomorphismInfo := function( G )
+OuterAutomorphismInfo@ := function( G )
 	local Aut, Inn, p, Out;
 	Aut := AutomorphismGroup( G );
 	Inn := InnerAutomorphismsAutomorphismGroup( Aut );
@@ -6,9 +6,7 @@ OuterAutomorphismInfo := function( G )
     return [ p, ImagesSource( p ) ];
 end;
 
-
-
-fingerprint := function( G )
+GroupFingerprint@ := function( G )
 	if IdGroupsAvailable( Size( G ) ) then
 		return IdGroup( G );
 	else 
@@ -18,17 +16,27 @@ fingerprint := function( G )
 		));
 	fi;
 end;
-  
-  
-asAuto := function( G, hom ) 
-	return ImagesSet( hom, G );
-end;
 
 
 ###############################################################################
 ##
 ## RepresentativesHomomorphismClasses( H, G )
 ##
+InstallMethod(
+	RepresentativesHomomorphismClasses,
+	"for 2-generated source",
+	[ IsGroup, IsGroup and IsAbelian ],
+    SUM_FLAGS+1,
+	function ( H, G )
+        local s;
+        s := SmallGeneratingSet( H );
+        if Size( s ) > 2 and IsFinite( G ) then
+            TryNextMethod();
+        fi;
+		return AllHomomorphismClasses( H, G );
+	end
+);
+
 InstallMethod(
 	RepresentativesHomomorphismClasses,
 	"for 2-generated source",
@@ -50,13 +58,11 @@ InstallMethod(
 	[ IsGroup and IsFinite, IsGroup and IsFinite ],
     0,
     function( H, G )
-        local isEndo, cl, c, AutH, AutG, OutH, Conj, Imgs, Kers, KerOrbits, e, kerOrbit, N, isoRepsN, p, Q, idQ, possibleImgs, le, M, iso, m, i, Outs2, j, k, A, B, C, imgOrbit, ImgOrbits, isoRepsM, l, jk;
+        local asAuto, isEndo, cl, c, AutH, AutG, OutH, Conj, Imgs, Kers, KerOrbits, e, kerOrbit, N, isoRepsN, p, Q, idQ, possibleImgs, le, M, iso, m, i, Outs2, j, k, A, B, C, imgOrbit, ImgOrbits, isoRepsM, l, jk;
         isEndo := H = G;
         if not isEndo and IsAbelian( G ) and not IsAbelian( H ) then
             p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
-            return List( RepresentativesHomomorphismClasses( ImagesSource( p ), G ), function ( x )
-                    return p * x;
-                end );
+            return List( RepresentativesHomomorphismClasses( ImagesSource( p ), G ), x -> p*x );
         fi;
         if IsTrivial( G ) then
             return [ GroupHomomorphismByFunction( H, G, x -> One( G ) ) ];
@@ -73,6 +79,7 @@ InstallMethod(
             cl := Filtered( cl, x -> IsInt( c / Order( x ) ) );
             return List( cl, x -> GroupHomomorphismByImagesNC( H, G, [ k ], [ x ] ) );
         fi;
+        asAuto := function( G, hom ) return ImagesSet( hom, G ); end;
         AutH := AutomorphismGroup( H );
         AutG := AutomorphismGroup( G );
         Conj := ConjugacyClassesSubgroups( G );
@@ -87,7 +94,7 @@ InstallMethod(
         for kerOrbit in KerOrbits do
             N := kerOrbit[1];
             if isEndo and IsTrivial( N ) then
-                OutH := OuterAutomorphismInfo( H );
+                OutH := OuterAutomorphismInfo@( H );
                 Append( e, List( OutH[2], x -> PreImagesRepresentative( OutH[1], x ) ) );
                 continue;
             fi;
@@ -97,9 +104,9 @@ InstallMethod(
             if IsEmpty( possibleImgs ) then
                 continue;
             fi;
-            idQ := fingerprint( Q );
+            idQ := GroupFingerprint@( Q );
             isoRepsN := List( kerOrbit, x -> RepresentativeAction( AutH, N, x, asAuto ) );
-            possibleImgs := Filtered( possibleImgs, x -> fingerprint( x ) = idQ );
+            possibleImgs := Filtered( possibleImgs, x -> GroupFingerprint@( x ) = idQ );
             ImgOrbits := Orbits( AutG, possibleImgs, asAuto );
             le:=[];
             for imgOrbit in ImgOrbits do

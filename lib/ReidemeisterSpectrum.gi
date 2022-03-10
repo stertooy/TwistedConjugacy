@@ -82,7 +82,7 @@ InstallMethod(
 	[ IsGroup and IsFinite ],
 	function ( G )
 		local Out, Out_reps, Aut_reps;
-        Out := OuterAutomorphismInfo( G );
+        Out := OuterAutomorphismInfo@( G );
 		Out_reps := List( ConjugacyClasses( Out[2] ), Representative );
 		Aut_reps := List( Out_reps, r -> PreImagesRepresentative( Out[1], r ) );
 		return Set( Aut_reps, ReidemeisterNumber );
