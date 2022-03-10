@@ -9,6 +9,8 @@ end;
 GroupFingerprint@ := function( G )
 	if IdGroupsAvailable( Size( G ) ) then
 		return IdGroup( G );
+    elif IsAbelian( G ) then
+        return Collected( AbelianInvariants( G ) );
 	else 
 		return Collected( List(
 			ConjugacyClasses( G ),
@@ -24,28 +26,78 @@ end;
 ##
 InstallMethod(
 	RepresentativesHomomorphismClasses,
-	"for 2-generated source",
-	[ IsGroup, IsGroup and IsAbelian ],
-    SUM_FLAGS+1,
+	"for trivial source",
+	[ IsGroup, IsGroup ],
+    5,
 	function ( H, G )
-        local s;
-        s := SmallGeneratingSet( H );
-        if Size( s ) > 2 and IsFinite( G ) then
+        if not IsTrivial( H ) then
             TryNextMethod();
         fi;
-		return AllHomomorphismClasses( H, G );
+        return [ GroupHomomorphismByImagesNC( H, G, [ One( H ) ], [ One( G ) ] ) ];
 	end
 );
 
 InstallMethod(
 	RepresentativesHomomorphismClasses,
-	"for 2-generated source",
-	[ IsGroup and IsFinite, IsGroup ],
-    SUM_FLAGS+1,
+	"for trivial range",
+	[ IsGroup, IsGroup ],
+    4,
+	function ( H, G )
+        if not IsTrivial( G ) then
+            TryNextMethod();
+        fi;
+        return [ GroupHomomorphismByFunction( H, G, h -> One( G ) ) ];
+	end
+);
+
+
+InstallMethod(
+	RepresentativesHomomorphismClasses,
+	"for non-abelian source and abelian range",
+	[ IsGroup, IsGroup ],
+    3,
+	function ( H, G )
+        local p;
+        if IsAbelian( H ) or not IsAbelian( G ) then
+            TryNextMethod();
+        fi;
+        p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
+        return List( RepresentativesHomomorphismClasses( ImagesSource( p ), G ), hom -> p*hom );
+	end
+);
+
+InstallMethod(
+	RepresentativesHomomorphismClasses,
+	"for finite cyclic source and finite range",
+	[ IsGroup, IsGroup ],
+    2,
+	function ( H, G )
+        local h, o, L;
+        if not IsCyclic( H ) or not IsFinite( H ) or not IsFinite( G ) then
+            TryNextMethod();
+        fi;
+        h := MinimalGeneratingSet( H )[1];
+        o := Order( h );
+        if IsAbelian( G ) then
+            L := List( G );
+        else
+            L := List( ConjugacyClasses( G ), Representative );
+        fi;
+        L := Filtered( L, g -> IsInt( o / Order( g ) ) );
+        return List( L, g -> GroupHomomorphismByImagesNC( H, G, [ h ], [ g ] ) );
+	end
+);
+
+
+InstallMethod(
+	RepresentativesHomomorphismClasses,
+	"for finite 2-generated source",
+	[ IsGroup, IsGroup ],
+    1,
 	function ( H, G )
         local s;
         s := SmallGeneratingSet( H );
-        if Size( s ) > 2 and IsFinite( G ) then
+        if Size( s ) > 2 and IsFinite( G ) or not IsFinite( H ) then
             TryNextMethod();
         fi;
 		return AllHomomorphismClasses( H, G );
@@ -55,30 +107,14 @@ InstallMethod(
 InstallMethod(
 	RepresentativesHomomorphismClasses,
     "for abitrary finite groups",
-	[ IsGroup and IsFinite, IsGroup and IsFinite ],
+	[ IsGroup, IsGroup ],
     0,
     function( H, G )
-        local asAuto, isEndo, cl, c, AutH, AutG, OutH, Conj, Imgs, Kers, KerOrbits, e, kerOrbit, N, isoRepsN, p, Q, idQ, possibleImgs, le, M, iso, m, i, Outs2, j, k, A, B, C, imgOrbit, ImgOrbits, isoRepsM, l, jk;
+        local asAuto, isEndo, AutH, AutG, OutH, Conj, Imgs, Kers, KerOrbits, e, kerOrbit, N, isoRepsN, p, Q, idQ, possibleImgs, le, M, iso, m, i, Outs2, j, k, A, B, C, imgOrbit, ImgOrbits, isoRepsM, l, jk;
+        if not IsFinite( H ) or not IsFinite( G ) then
+            TryNextMethod();
+        fi;
         isEndo := H = G;
-        if not isEndo and IsAbelian( G ) and not IsAbelian( H ) then
-            p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
-            return List( RepresentativesHomomorphismClasses( ImagesSource( p ), G ), x -> p*x );
-        fi;
-        if IsTrivial( G ) then
-            return [ GroupHomomorphismByFunction( H, G, x -> One( G ) ) ];
-        elif IsTrivial( H ) then
-            return [ GroupHomomorphismByImagesNC( H, G, [ One( H ) ], [ One( G ) ] ) ];
-        elif IsCyclic( H ) then
-            k := MinimalGeneratingSet( H )[1];
-            c := Order( k );
-            if IsAbelian( G ) then
-                cl := List( G );
-            else
-                cl := List( ConjugacyClasses( G ), Representative );
-            fi;
-            cl := Filtered( cl, x -> IsInt( c / Order( x ) ) );
-            return List( cl, x -> GroupHomomorphismByImagesNC( H, G, [ k ], [ x ] ) );
-        fi;
         asAuto := function( G, hom ) return ImagesSet( hom, G ); end;
         AutH := AutomorphismGroup( H );
         AutG := AutomorphismGroup( G );
