@@ -17,9 +17,10 @@ of group homomorphisms. These methods are, for the most part, designed to be
 used with (group homomorphisms between) finite groups and, if the package
 polycyclic is also installed, polycyclically presented groups.
 
-This package requires GAP version 4.9 or later, with the following packages
+This package requires GAP version 4.10 or later, with the following packages
 (and their dependencies) installed:
 - GAPDoc (version >= 1.6.1)
+- SmallGrp (version >= 1.4)
 
 The following packages (and their dependencies) are optional, though are
 recommended:
