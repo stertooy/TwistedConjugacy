@@ -122,13 +122,16 @@ InstallMethod(
 	"for finite groups",
 	[ IsGroup and IsFinite ],
 	function ( G )
-		local R, R2, End_reps, id;
+		local R, R2, End_reps, id, Orbs, End_reps2;
         #R := ReidemeisterSpectrumOp( G );
 		id := IdentityMapping( G );
 		#End_reps := AllNonBijectiveEndomorphisms( G );
         #R2 := Set( End_reps, endo -> ReidemeisterNumberOp( endo, id ) );
        #UniteSet( R, R2 );
        End_reps := RepresentativesHomomorphismClasses( G, G );
+       #Orbs := Orbits( AutomorphismGroup( G ), End_reps );
+       #End_reps2 := Filtered( List( Orbs, x -> First( Filtered( x, y -> y in End_reps ) ) ), z -> z <> fail );
+       #Print("Original size: ",Size(End_reps)," and new size is ",Size(End_reps2),"\n");
        R := Set( End_reps, endo -> ReidemeisterNumberOp( endo, id ) );
 		return R;
 	end

@@ -40,7 +40,6 @@ InstallMethod(
         if Size( s ) > 2 and IsFinite( H ) then
             TryNextMethod();
         fi;
-        Print("DERP\n");
 		return AllHomomorphismClasses( H, G );
 	end
 );
@@ -52,7 +51,6 @@ InstallMethod(
     0,
     function( H, G )
         local isEndo, cl, c, AutH, AutG, OutH, Conj, Imgs, Kers, KerOrbits, e, kerOrbit, N, isoRepsN, p, Q, idQ, possibleImgs, le, M, iso, m, i, Outs2, j, k, A, B, C, imgOrbit, ImgOrbits, isoRepsM, l, jk;
-        Print("HERP\n");
         isEndo := H = G;
         if not isEndo and IsAbelian( G ) and not IsAbelian( H ) then
             p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
