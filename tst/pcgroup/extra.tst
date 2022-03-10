@@ -244,4 +244,9 @@ gap> CoincidenceGroup( triv, triv, triv, triv ) = G;
 true
 
 #
+gap> G := SmallGroup( 32, 50 );;
+gap> ExtendedReidemeisterSpectrum( G );
+[ 1, 2, 3, 5, 9, 17 ]
+
+#
 gap> STOP_TEST( "extra.tst" );

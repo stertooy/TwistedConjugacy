@@ -32,12 +32,12 @@ end;
 InstallMethod(
 	RepresentativesHomomorphismClasses,
 	"for 2-generated source",
-	[ IsGroup and IsFinite, IsGroup and IsFinite ],
-    1,
+	[ IsGroup and IsFinite, IsGroup ],
+    SUM_FLAGS+1,
 	function ( H, G )
         local s;
         s := SmallGeneratingSet( H );
-        if Size( s ) > 2 and IsFinite( H ) then
+        if Size( s ) > 2 and IsFinite( G ) then
             TryNextMethod();
         fi;
 		return AllHomomorphismClasses( H, G );
