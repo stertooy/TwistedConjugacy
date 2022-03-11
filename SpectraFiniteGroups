@@ -1,0 +1,76 @@
+gap> SpecRtriv := [];
+[  ]
+gap> ESpecRtriv := [];
+[  ]
+gap> SpecRfull := [];
+[  ]
+gap> ESpecRfull := [];
+[  ]
+gap> for i in [ 1 .. 55 ] do
+> 	for j in [ 1 .. NrSmallGroups( i ) ] do
+> 		G := SmallGroup( i, j );
+> 		SpecR := ReidemeisterSpectrum( G );
+> 		ESpecR := ExtendedReidemeisterSpectrum( G );
+> 		kG := Maximum( SpecR );
+> 		if SpecR = [ kG ] then
+> 			Add( SpecRtriv, IdGroup( G ) );
+> 			Print("SmallGroup( ", i, ", ", j, " ) has trivial SpecR\n");
+> 		fi;
+> 		if ESpecR = [ kG ] then
+> 			Add( ESpecRtriv, IdGroup( G ) );
+> 			Print("SmallGroup( ", i, ", ", j, " ) has trivial ESpecR\n");
+> 		fi;
+> 		if SpecR = [ 1 .. kG ] then
+> 			Add( SpecRfull, IdGroup( G ) );
+> 			Print("SmallGroup( ", i, ", ", j, " ) has full SpecR\n");
+> 		fi;
+> 		if ESpecR = [ 1 .. kG ] then
+> 			Add( ESpecRfull, IdGroup( G ) );
+> 			Print("SmallGroup( ", i, ", ", j, " ) has full ESpecR\n");
+> 		fi;
+> 	od;
+> od;
+SmallGroup( 1, 1 ) has trivial SpecR
+SmallGroup( 1, 1 ) has trivial ESpecR
+SmallGroup( 1, 1 ) has full SpecR
+SmallGroup( 1, 1 ) has full ESpecR
+SmallGroup( 2, 1 ) has trivial SpecR
+SmallGroup( 2, 1 ) has full ESpecR
+SmallGroup( 6, 1 ) has trivial SpecR
+SmallGroup( 6, 1 ) has full ESpecR
+SmallGroup( 12, 3 ) has full ESpecR
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+SmallGroup( 20, 3 ) has trivial SpecR
+SmallGroup( 24, 12 ) has trivial SpecR
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+SmallGroup( 42, 1 ) has trivial SpecR
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+SmallGroup( 54, 6 ) has trivial SpecR
+#I  The group tested requires many generators. `AllHomomorphismClasses' often
+#I  does not perform well for such groups -- see the documentation.
+gap> LogTo();
