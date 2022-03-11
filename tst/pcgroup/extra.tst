@@ -253,6 +253,9 @@ gap> ExtendedReidemeisterSpectrum( G );
 
 #
 gap> T := TrivialGroup( IsPcGroup );;
+gap> Homs := RepresentativesEndomorphismClasses( T );;
+gap> Size( Homs );
+1
 gap> Homs := RepresentativesHomomorphismClasses( G, T );;
 gap> Size( Homs );
 1
@@ -263,7 +266,12 @@ gap> Size( Homs );
 1
 gap> IsTrivial( ImagesSource( Homs[1] ) );
 true
+gap> C2 := CyclicGroup( 2 );;
+gap> Homs := RepresentativesEndomorphismClasses( C2 );;
+gap> Size( Homs );
+2
 
+#
 gap> G := DirectProduct( SmallGroup( 8, 3 ), SmallGroup( 261, 1 ) );;
 gap> GroupFingerprint@TwistedConjugacy(G)[1];
 [ [ 1, 1 ], 1 ]
