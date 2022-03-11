@@ -19,6 +19,87 @@ GroupFingerprint@ := function( G )
 	fi;
 end;
 
+RepresentativesHomomorphismClassesGeneral@ := function( H, arg... )
+	local G, asAuto, isEndo, AutH, AutG, OutH, Conj, Imgs, Kers, KerOrbits, e, kerOrbit, N, isoRepsN, p, Q, idQ, possibleImgs, le, M, iso, m, i, Outs2, j, k, A, B, C, imgOrbit, ImgOrbits, isoRepsM, l, jk;
+	if Length( arg ) = 0 then
+		G := H;
+		isEndo := true;
+	else
+		G := arg[1];
+		isEndo := false;
+	fi;
+	asAuto := function( G, hom ) return ImagesSet( hom, G ); end;
+	AutH := AutomorphismGroup( H );
+	AutG := AutomorphismGroup( G );
+	Conj := ConjugacyClassesSubgroups( G );
+	Imgs := List( Conj, Representative );
+	if isEndo then
+		Kers := List( Filtered( Conj, IsTrivial ), Representative );
+	else
+		Kers := NormalSubgroups( H );
+	fi;
+	KerOrbits := Orbits( AutH, Kers, asAuto );
+	e:=[];
+	for kerOrbit in KerOrbits do
+		N := kerOrbit[1];
+		if isEndo and IsTrivial( N ) then
+			OutH := OuterAutomorphismInfo@( H );
+			Append( e, List( OutH[2], x -> PreImagesRepresentative( OutH[1], x ) ) );
+			continue;
+		fi;
+		p := NaturalHomomorphismByNormalSubgroupNC( H, N );
+		Q := ImagesSource( p );
+		possibleImgs := Filtered( Imgs, x-> Size( x ) = Size( Q ) );
+		if IsEmpty( possibleImgs ) then
+			continue;
+		fi;
+		idQ := GroupFingerprint@( Q );
+		isoRepsN := List( kerOrbit, x -> RepresentativeAction( AutH, N, x, asAuto ) );
+		possibleImgs := Filtered( possibleImgs, x -> GroupFingerprint@( x ) = idQ );
+		ImgOrbits := Orbits( AutG, possibleImgs, asAuto );
+		le:=[];
+		for imgOrbit in ImgOrbits do
+			imgOrbit := Filtered( imgOrbit, x -> x in Imgs ); # Get rid of duplicates up to conjugacy
+			M := imgOrbit[1];
+			iso := IsomorphismGroups( Q, M );
+			if iso <> fail then
+				isoRepsM := List( imgOrbit, x -> RepresentativeAction( AutG, M, x, asAuto ) );
+				m := p*iso;
+				i := GroupHomomorphismByFunction( M, G, x -> x );
+				Outs2 := List( OrbitsDomain( 
+					Normalizer( G, M ), 
+					AutomorphismGroup( M ), 
+					function( aut, g ) return aut*ConjugatorAutomorphismNC( M, g ); end
+				), x -> x[1] );
+				C := isoRepsM;
+				if Size( isoRepsN ) < Size( Outs2 ) then
+					A := List( isoRepsN, x -> x*m );
+					B := Outs2;
+				else
+					A := isoRepsN;
+					B := List( Outs2, x -> m*x );
+				fi;
+				if Size( Outs2 ) < Size( isoRepsM ) then
+					B := List( B, x -> x*i );
+					C := isoRepsM;
+				else
+					C := List( isoRepsM, x -> i*x );
+				fi;
+				for j in A do
+					for k in B do
+						jk := j*k;
+						for l in C do
+							Add( le, jk*l );
+						od;
+					od;
+				od;
+			fi;
+		od;
+		Append(e,le);
+	od;
+	return e;
+end;
+
 
 ###############################################################################
 ##
@@ -104,93 +185,80 @@ InstallMethod(
 	end
 );
 
-InstallOtherMethod(
+InstallMethod(
 	RepresentativesHomomorphismClasses,
     "for abitrary finite groups",
 	[ IsGroup, IsGroup ],
     0,
-    function( H, arg... )
-        local G, asAuto, noAuto, isEndo, AutH, AutG, OutH, Conj, Imgs, Kers, KerOrbits, e, kerOrbit, N, isoRepsN, p, Q, idQ, possibleImgs, le, M, iso, m, i, Outs2, j, k, A, B, C, imgOrbit, ImgOrbits, isoRepsM, l, jk;
-        if Length( arg ) = 0 or IsBool( arg[1] ) then
-			G := H;
-			isEndo := true;
-			noAuto := IsBound( arg[1] ) and arg[1];
-		else
-			isEndo := false;
-			G := arg[1];
-		fi;
+    function ( H, G )
 		if not IsFinite( H ) or not IsFinite( G ) then
+			TryNextMethod();
+		fi;
+		return RepresentativesHomomorphismClassesGeneral@( H, G );
+	end
+);
+
+###############################################################################
+##
+## RepresentativesEndomorphismClasses( G )
+##
+InstallMethod(
+	RepresentativesEndomorphismClasses,
+	"for trivial group",
+	[ IsGroup ],
+    5,
+	function ( G )
+        if not IsTrivial( G ) then
             TryNextMethod();
         fi;
-        asAuto := function( G, hom ) return ImagesSet( hom, G ); end;
-        AutH := AutomorphismGroup( H );
-        AutG := AutomorphismGroup( G );
-        Conj := ConjugacyClassesSubgroups( G );
-        Imgs := List( Conj, Representative );
-        if isEndo then
-            Kers := List( Filtered( Conj, IsTrivial ), Representative );
-        else
-            Kers := NormalSubgroups( H );
-        fi;
-        KerOrbits := Orbits( AutH, Kers, asAuto );
-        e:=[];
-        for kerOrbit in KerOrbits do
-            N := kerOrbit[1];
-            if isEndo and IsTrivial( N ) then
-                OutH := OuterAutomorphismInfo@( H );
-                Append( e, List( OutH[2], x -> PreImagesRepresentative( OutH[1], x ) ) );
-                continue;
-            fi;
-            p := NaturalHomomorphismByNormalSubgroupNC( H, N );
-            Q := ImagesSource( p );
-            possibleImgs := Filtered( Imgs, x-> Size( x ) = Size( Q ) );
-            if IsEmpty( possibleImgs ) then
-                continue;
-            fi;
-            idQ := GroupFingerprint@( Q );
-            isoRepsN := List( kerOrbit, x -> RepresentativeAction( AutH, N, x, asAuto ) );
-            possibleImgs := Filtered( possibleImgs, x -> GroupFingerprint@( x ) = idQ );
-            ImgOrbits := Orbits( AutG, possibleImgs, asAuto );
-            le:=[];
-            for imgOrbit in ImgOrbits do
-                imgOrbit := Filtered( imgOrbit, x -> x in Imgs ); # Get rid of duplicates up to conjugacy
-                M := imgOrbit[1];
-                iso := IsomorphismGroups( Q, M );
-                if iso <> fail then
-                    isoRepsM := List( imgOrbit, x -> RepresentativeAction( AutG, M, x, asAuto ) );
-                    m := p*iso;
-                    i := GroupHomomorphismByFunction( M, G, x -> x );
-                    Outs2 := List( OrbitsDomain( 
-                        Normalizer( G, M ), 
-                        AutomorphismGroup( M ), 
-                        function( aut, g ) return aut*ConjugatorAutomorphismNC( M, g ); end
-                    ), x -> x[1] );
-                    C := isoRepsM;
-                    if Size( isoRepsN ) < Size( Outs2 ) then
-                        A := List( isoRepsN, x -> x*m );
-                        B := Outs2;
-                    else
-                        A := isoRepsN;
-                        B := List( Outs2, x -> m*x );
-                    fi;
-                    if Size( Outs2 ) < Size( isoRepsM ) then
-                        B := List( B, x -> x*i );
-                        C := isoRepsM;
-                    else
-                        C := List( isoRepsM, x -> i*x );
-                    fi;
-                    for j in A do
-                        for k in B do
-                            jk := j*k;
-                            for l in C do
-                                Add( le, jk*l );
-                            od;
-                        od;
-                    od;
-                fi;
-            od;
-            Append(e,le);
-        od;
-        return e;
-    end
+        return [ GroupHomomorphismByImagesNC( G, G, [ One( G ) ], [ One( G ) ] ) ];
+	end
 );
+
+
+InstallMethod(
+	RepresentativesEndomorphismClasses,
+	"for finite cyclic group",
+	[ IsGroup ],
+    2,
+	function ( G )
+        local g, o;
+        if not IsCyclic( G ) or not IsFinite( G ) then
+            TryNextMethod();
+        fi;
+        g := MinimalGeneratingSet( G )[1];
+        o := Order( g );
+        return List( DivisorsInt( o ), k -> GroupHomomorphismByImagesNC( G, G, [ g ], [ g^k ] ) );
+	end
+);
+
+
+InstallMethod(
+	RepresentativesEndomorphismClasses,
+	"for finite 2-generated source",
+	[ IsGroup ],
+    1,
+	function ( G )
+        local s;
+        s := SmallGeneratingSet( G );
+        if Size( s ) > 2 or not IsFinite( G ) then
+            TryNextMethod();
+        fi;
+		return AllHomomorphismClasses( G, G );
+	end
+);
+
+
+InstallMethod(
+	RepresentativesEndomorphismClasses,
+    "for abitrary finite groups",
+	[ IsGroup ],
+    0,
+    function ( G )
+		if not IsFinite( G ) then
+			TryNextMethod();
+		fi;
+		return RepresentativesHomomorphismClassesGeneral@( G );
+	end
+);
+
