@@ -19,6 +19,49 @@ GroupFingerprint@ := function( G )
 	fi;
 end;
 
+# Note: this is essentially the code of AllHomomorphismClasses, with minor changes
+# It is assumed that SmallGeneratingSet( H ); has length 2
+RepresentativesHomomorphismClasses2Generated@ := function( H, G )
+	local cl, cnt, bg, bw, bo, bi, k, gens, go, imgs, params, clg, 
+	vsu, c, i, blah;
+	cl := ConjugacyClasses( G );
+	bw := infinity;
+	bo := [ 0, 0 ];
+	cnt := 0;
+	repeat
+		if cnt = 0 then
+			gens := SmallGeneratingSet( H );
+		else
+			repeat
+				gens := [ Random( H ), Random( H ) ];
+				for k in [ 1, 2 ] do
+					go := Order( gens[k] );
+					if Random( 1, 6 ) = 1 then
+						gens[k] := gens[k] ^ (go / Random( Factors( go ) ));
+					fi;
+				od;
+			until IndexNC( H, SubgroupNC( H, gens ) ) = 1;
+		fi;
+		go := List( gens, Order );
+		imgs := List( go, i -> Filtered( cl, j -> IsInt( i / Order( Representative( j ) ) ) ) );
+		blah := Product( imgs, i -> Sum( i, Size ) );
+		if blah < bw then
+			bg := gens;
+			bo := go;
+			bi := imgs;
+			bw := blah;
+		elif Set( go ) = Set( bo ) then
+			cnt := cnt + Int( bw / Size( G ) * 3 );
+		fi;
+		cnt := cnt + 1;
+	until bw / Size( G ) * 3 < cnt;
+	params := rec(
+		gens := bg,
+		from := H
+	);
+	return MorClassLoop( G, bi, params, 9 );
+end;
+
 RepresentativesHomomorphismClassesGeneral@ := function( H, arg... )
 	local G, asAuto, isEndo, AutH, AutG, OutH, Conj, Imgs, Kers, KerOrbits, e, kerOrbit, N, isoRepsN, p, Q, idQ, possibleImgs, le, M, iso, m, i, Outs2, j, k, A, B, C, imgOrbit, ImgOrbits, isoRepsM, l, jk;
 	if Length( arg ) = 0 then
@@ -181,7 +224,7 @@ InstallMethod(
         if Size( s ) > 2 and IsFinite( G ) or not IsFinite( H ) then
             TryNextMethod();
         fi;
-		return AllHomomorphismClasses( H, G );
+		return RepresentativesHomomorphismClasses2Generated@( H, G );
 	end
 );
 
@@ -244,7 +287,7 @@ InstallMethod(
         if Size( s ) > 2 or not IsFinite( G ) then
             TryNextMethod();
         fi;
-		return AllHomomorphismClasses( G, G );
+		return RepresentativesHomomorphismClasses2Generated@( G, G );
 	end
 );
 
