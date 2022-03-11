@@ -81,10 +81,13 @@ InstallMethod(
 	"for finite groups",
 	[ IsGroup and IsFinite ],
 	function ( G )
-		local Out, Out_reps, Aut_reps;
-        Out := OuterAutomorphismInfo@( G );
-		Out_reps := List( ConjugacyClasses( Out[2] ), Representative );
-		Aut_reps := List( Out_reps, r -> PreImagesRepresentative( Out[1], r ) );
+		local Aut, Inn, p, Out, Out_reps, Aut_reps;
+		Aut := AutomorphismGroup( G );
+		Inn := InnerAutomorphismsAutomorphismGroup( Aut );
+		p := NaturalHomomorphismByNormalSubgroupNC( Aut, Inn );
+        Out := ImagesSource( p );
+		Out_reps := List( ConjugacyClasses( Out ), Representative );
+		Aut_reps := List( Out_reps, r -> PreImagesRepresentative( p, r ) );
 		return Set( Aut_reps, ReidemeisterNumber );
 	end
 );

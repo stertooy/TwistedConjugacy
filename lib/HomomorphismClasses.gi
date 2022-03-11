@@ -1,11 +1,3 @@
-OuterAutomorphismInfo@ := function( G )
-	local Aut, Inn, p, Out;
-	Aut := AutomorphismGroup( G );
-	Inn := InnerAutomorphismsAutomorphismGroup( Aut );
-	p := NaturalHomomorphismByNormalSubgroupNC( Aut, Inn );
-    return [ p, ImagesSource( p ) ];
-end;
-
 GroupFingerprint@ := function( G )
 	if IdGroupsAvailable( Size( G ) ) then
 		return IdGroup( G );
@@ -63,7 +55,7 @@ RepresentativesHomomorphismClasses2Generated@ := function( H, G )
 end;
 
 RepresentativesHomomorphismClassesGeneral@ := function( H, arg... )
-	local G, asAuto, isEndo, AutH, AutG, OutH, Conj, Imgs, Kers, KerOrbits, e, kerOrbit, N, isoRepsN, p, Q, idQ, possibleImgs, le, M, iso, m, i, Outs2, j, k, A, B, C, imgOrbit, ImgOrbits, isoRepsM, l, jk;
+	local G, asAuto, isEndo, AutH, AutG, InnH, Conj, Imgs, Kers, KerOrbits, e, kerOrbit, N, isoRepsN, p, Q, idQ, possibleImgs, le, M, iso, m, i, Outs2, j, k, A, B, C, imgOrbit, ImgOrbits, isoRepsM, l, jk;
 	if Length( arg ) = 0 then
 		G := H;
 		isEndo := true;
@@ -86,8 +78,8 @@ RepresentativesHomomorphismClassesGeneral@ := function( H, arg... )
 	for kerOrbit in KerOrbits do
 		N := kerOrbit[1];
 		if isEndo and IsTrivial( N ) then
-			OutH := OuterAutomorphismInfo@( H );
-			Append( e, List( OutH[2], x -> PreImagesRepresentative( OutH[1], x ) ) );
+			InnH := InnerAutomorphismsAutomorphismGroup( AutH );
+			Append( e, List( RightTransversal( AutH, InnH ) ) );
 			continue;
 		fi;
 		p := NaturalHomomorphismByNormalSubgroupNC( H, N );
