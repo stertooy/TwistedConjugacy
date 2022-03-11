@@ -104,22 +104,29 @@ InstallMethod(
 	end
 );
 
-InstallMethod(
+InstallOtherMethod(
 	RepresentativesHomomorphismClasses,
     "for abitrary finite groups",
 	[ IsGroup, IsGroup ],
     0,
-    function( H, G )
-        local asAuto, isEndo, AutH, AutG, OutH, Conj, Imgs, Kers, KerOrbits, e, kerOrbit, N, isoRepsN, p, Q, idQ, possibleImgs, le, M, iso, m, i, Outs2, j, k, A, B, C, imgOrbit, ImgOrbits, isoRepsM, l, jk;
-        if not IsFinite( H ) or not IsFinite( G ) then
+    function( H, arg... )
+        local G, asAuto, noAuto, isEndo, AutH, AutG, OutH, Conj, Imgs, Kers, KerOrbits, e, kerOrbit, N, isoRepsN, p, Q, idQ, possibleImgs, le, M, iso, m, i, Outs2, j, k, A, B, C, imgOrbit, ImgOrbits, isoRepsM, l, jk;
+        if Length( arg ) = 0 or IsBool( arg[1] ) then
+			G := H;
+			isEndo := true;
+			noAuto := IsBound( arg[1] ) and arg[1];
+		else
+			isEndo := false;
+			G := arg[1];
+		fi;
+		if not IsFinite( H ) or not IsFinite( G ) then
             TryNextMethod();
         fi;
-        isEndo := H = G;
         asAuto := function( G, hom ) return ImagesSet( hom, G ); end;
         AutH := AutomorphismGroup( H );
         AutG := AutomorphismGroup( G );
         Conj := ConjugacyClassesSubgroups( G );
-        Imgs := List( ConjugacyClassesSubgroups( G ), Representative );
+        Imgs := List( Conj, Representative );
         if isEndo then
             Kers := List( Filtered( Conj, IsTrivial ), Representative );
         else
