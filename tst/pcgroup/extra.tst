@@ -273,10 +273,10 @@ gap> Size( Homs );
 
 #
 gap> G := DirectProduct( SmallGroup( 8, 3 ), SmallGroup( 261, 1 ) );;
-gap> GroupFingerprint@TwistedConjugacy(G)[1];
+gap> Fingerprint@TwistedConjugacy(G)[1];
 [ [ 1, 1 ], 1 ]
 gap> G := DirectProduct( SmallGroup( 8, 1 ), SmallGroup( 261, 1 ) );;
-gap> GroupFingerprint@TwistedConjugacy(G)[1];
+gap> Fingerprint@TwistedConjugacy(G)[1];
 [ 8, 1 ]
 
 #
