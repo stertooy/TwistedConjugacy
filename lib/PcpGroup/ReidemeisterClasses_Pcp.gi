@@ -40,9 +40,7 @@ ReidemeisterClassesByFiniteQuotient@ := function ( hom1, hom2, N, M )
 	for pg in RclGM do
 		inn_pg := InnerAutomorphismNC( GM, pg^-1 );
 		Coin := CoincidenceGroup2( hom1HN*inn_pg, hom2HN );
-		if not IsFinite( Coin ) then
-			TryNextMethod();
-		fi;
+		if not IsFinite( Coin ) then TryNextMethod(); fi;
 		g := PreImagesRepresentative( p, pg );
 		conj_g := ConjugatorAutomorphismNC( M, g^-1 );
 		inn_g_hom1N := hom1N*conj_g;

@@ -82,7 +82,7 @@ jobs:
         with:
           GAP_PKGS_TO_BUILD: ''
       - name: 'Build documentation'
-        uses: gap-actions/build-pkg-docs@v1
+        uses: sTertooy/build-pkg-docs@v1
         with:
           use-latex: 'true'
       - name: 'Upload documentation'
