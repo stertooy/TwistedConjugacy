@@ -165,9 +165,7 @@ RepresentativesHomomorphismClassesMGenerated@ := function( H, arg... )
 		fi;
         p := NaturalHomomorphismByNormalSubgroupNC( H, N );
 		Q := ImagesSource( p );
-        if not IsSurjective( p ) then
-            p := RestrictedHomomorphism( p, H, Q );
-        fi;
+        p := RestrictedHomomorphism( p, H, Q );
 		idQ := Fingerprint@( Q );
 		possibleImgs := Filtered( 
             possibleImgs, 
@@ -380,7 +378,7 @@ InstallMethod(
     3,
 	function ( G )
         if not IsTrivial( G ) then TryNextMethod(); fi;
-        return [ GroupHomomorphismByImagesNC( 
+        return [ GroupHomomorphismByImagesNC(
             G, G,
             [ One( G ) ], [ One( G ) ]
         )];
