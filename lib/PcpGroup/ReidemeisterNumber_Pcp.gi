@@ -18,9 +18,7 @@ InstallMethod(
 				IsFinite( G )
 			) or
 			HirschLength( H ) >= HirschLength( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		return infinity;
 	end
 );
@@ -38,9 +36,7 @@ InstallMethod(
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
 			not IsAbelian( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
 		N := Image( diff );
 		return IndexNC( G, N );

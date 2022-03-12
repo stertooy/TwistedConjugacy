@@ -28,9 +28,7 @@ InstallMethod(
 	function ( endo1, endo2 )
 		local G, k, l, steps, G1, G2, endo, R, P, Q;
 		G := Range( endo1 );
-		if not IsFinite( G ) then
-			TryNextMethod();
-		fi;
+		if not IsFinite( G ) then TryNextMethod(); fi;
 		k := 1;
 		l := 0;
 		for endo in [ endo1, endo2 ] do
@@ -88,9 +86,7 @@ InstallMethod(
 	function ( endo1, endo2 )
 		local G, coeffs;
 		G := Range( endo1 );
-		if not IsFinite( G ) then
-			TryNextMethod();
-		fi;
+		if not IsFinite( G ) then TryNextMethod(); fi;
 		if (
 			( IsBijective( endo1 ) or IsBijective( endo2 ) ) and
 			endo1*endo2 = endo2*endo1
@@ -139,9 +135,7 @@ InstallMethod(
 	function ( endo1, endo2 )
 		local G, coeffs, p;
 		G := Range( endo1 );
-		if not IsFinite( G ) then
-			TryNextMethod();
-		fi;
+		if not IsFinite( G ) then TryNextMethod(); fi;
 		coeffs := ReidemeisterZetaCoefficientsOp( endo1, endo2 );
 		if not IsEmpty( coeffs[2] ) then
 			return fail;
@@ -194,9 +188,7 @@ InstallMethod(
 	function ( endo1, endo2 )
 		local G, coeffs, P, Q, q, i, qi, zeta, factors, powers, p, k, pi;
 		G := Range( endo1 );
-		if not IsFinite( G ) then
-			TryNextMethod();
-		fi;
+		if not IsFinite( G ) then TryNextMethod(); fi;
 		coeffs := ReidemeisterZetaCoefficientsOp( endo1, endo2 );
 		P := coeffs[1];
 		Q := coeffs[2];

@@ -32,9 +32,7 @@ CoincidenceGroupByFiniteQuotient@ := function ( hom1, hom2, N, M )
 		InducedHomomorphism( q, p, hom1 ),
 		InducedHomomorphism( q, p, hom2 )
 	);
-	if not IsFinite( CoinHN ) then
-		TryNextMethod();
-	fi;
+	if not IsFinite( CoinHN ) then TryNextMethod(); fi;
 	hom1N := RestrictedHomomorphism( hom1, N, M );
 	hom2N := RestrictedHomomorphism( hom2, N, M );
 	tc := TwistedConjugation( hom1, hom2 );
@@ -133,9 +131,7 @@ InstallMethod(
 			not IsPcpGroup( H ) or
 			not IsFinite( G ) or
 			IsTrivial( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		return CoincidenceGroupByTrivialSubgroup@( hom1, hom2 );
 	end
 );
@@ -153,9 +149,7 @@ InstallMethod(
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
 			not IsAbelian( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		diff := DifferenceGroupHomomorphisms@ ( hom1, hom2, H, G );
 		return Kernel( diff );
 	end
@@ -175,9 +169,7 @@ InstallMethod(
 			not IsPcpGroup( G ) or
 			not IsNilpotentGroup( G ) or
 			IsAbelian( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		M := Centre( G );
 		N := IntersectionPreImage@( hom1, hom2, M );
 		return CoincidenceGroupByCentralSubgroup@( hom1, hom2, N, M );
@@ -198,9 +190,7 @@ InstallMethod(
 			not IsPcpGroup( G ) or
 			not IsNilpotentByFinite( G ) or
 			IsNilpotentGroup( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		M := FittingSubgroup( G );
 		N := IntersectionPreImage@( hom1, hom2, M );
 		return CoincidenceGroupByFiniteQuotient@( hom1, hom2, N, M );
@@ -219,9 +209,7 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		M := DerivedSubgroup( G );
 		N := IntersectionPreImage@( hom1, hom2, M );
 		return CoincidenceGroupByFiniteQuotient@( hom1, hom2, N, M );
@@ -242,9 +230,7 @@ InstallMethod(
 			not IsPcpGroup( G ) or
 			not IsBijective( aut1 ) or
 			not IsBijective( aut2 )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		aut := aut1 * Inverse( aut2 );
 		return FixedPointGroupBySemidirectProduct@( aut );
 	end

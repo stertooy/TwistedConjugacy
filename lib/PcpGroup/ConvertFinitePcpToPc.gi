@@ -13,9 +13,7 @@ InstallMethod(
 		if (
 			not IsPcpGroup( G ) or
 			not IsFinite( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		iso := IsomorphismPcGroup( G );
 		return CoincidenceGroup2( hom1*iso, hom2*iso );
 	end
@@ -32,9 +30,7 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsFinite( H )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
 		return ImagesSet( inv, CoincidenceGroup2( inv*hom1, inv*hom2 ) );
 	end
@@ -56,9 +52,7 @@ InstallMethod(
 		if (
 			not IsPcpGroup( G ) or
 			not IsFinite( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		iso := IsomorphismPcGroup( G );
 		Rcl := RepresentativesReidemeisterClasses( hom1*iso, hom2*iso );
 		return List( Rcl, g -> PreImagesRepresentative( iso, g ) );
@@ -76,9 +70,7 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsFinite( H )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
 		return RepresentativesReidemeisterClasses( inv*hom1, inv*hom2 );
 	end
@@ -100,9 +92,7 @@ InstallMethod(
 		if (
 			not IsPcpGroup( G ) or
 			not IsFinite( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		iso := IsomorphismPcGroup( G );
 		return ReidemeisterNumberOp( hom1*iso, hom2*iso );
 	end
@@ -119,9 +109,7 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsFinite( H )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
 		return ReidemeisterNumberOp( inv*hom1, inv*hom2 );
 	end
@@ -144,9 +132,7 @@ InstallMethod(
 		if (
 			not IsPcpGroup( G ) or
 			not IsFinite( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		iso := IsomorphismPcGroup( G );
 		return RepTwistConjToId(
 			hom1*iso, hom2*iso,
@@ -167,9 +153,7 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsFinite( H )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
 		h := RepTwistConjToId( inv*hom1, inv*hom2, g );
 		if h = fail then
