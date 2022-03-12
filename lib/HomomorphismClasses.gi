@@ -276,7 +276,10 @@ InstallMethod(
         if not IsTrivial( H ) then
             TryNextMethod();
         fi;
-        return [ GroupHomomorphismByImagesNC( H, G, [ One( H ) ], [ One( G ) ] ) ];
+        return [ GroupHomomorphismByImagesNC( 
+            H, G,
+            [ One( H ) ], [ One( G ) ]
+        )];
 	end
 );
 
@@ -289,10 +292,12 @@ InstallMethod(
         if not IsTrivial( G ) then
             TryNextMethod();
         fi;
-        return [ GroupHomomorphismByFunction( H, G, h -> One( G ) ) ];
+        return [ GroupHomomorphismByFunction( 
+            H, G,
+            h -> One( G )
+        )];
 	end
 );
-
 
 InstallMethod(
 	RepresentativesHomomorphismClasses,
@@ -305,7 +310,10 @@ InstallMethod(
             TryNextMethod();
         fi;
         p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
-        return List( RepresentativesHomomorphismClasses( ImagesSource( p ), G ), hom -> p*hom );
+        return List( 
+            RepresentativesHomomorphismClasses( ImagesSource( p ), G ),
+            hom -> p*hom
+        );
 	end
 );
 
@@ -327,10 +335,12 @@ InstallMethod(
             L := List( ConjugacyClasses( G ), Representative );
         fi;
         L := Filtered( L, g -> IsInt( o / Order( g ) ) );
-        return List( L, g -> GroupHomomorphismByImagesNC( H, G, [ h ], [ g ] ) );
+        return List( L, g -> GroupHomomorphismByImagesNC( 
+            H, G,
+            [ h ], [ g ]
+        ));
 	end
 );
-
 
 InstallMethod(
 	RepresentativesHomomorphismClasses,
@@ -373,7 +383,10 @@ InstallMethod(
         if not IsTrivial( G ) then
             TryNextMethod();
         fi;
-        return [ GroupHomomorphismByImagesNC( G, G, [ One( G ) ], [ One( G ) ] ) ];
+        return [ GroupHomomorphismByImagesNC( 
+            G, G,
+            [ One( G ) ], [ One( G ) ]
+        )];
 	end
 );
 
@@ -390,7 +403,10 @@ InstallMethod(
         fi;
         g := MinimalGeneratingSet( G )[1];
         o := Order( g );
-        return List( DivisorsInt( o ), k -> GroupHomomorphismByImagesNC( G, G, [ g ], [ g^k ] ) );
+        return List( 
+            DivisorsInt( o ), 
+            k -> GroupHomomorphismByImagesNC( G, G, [ g ], [ g^k ] )
+        );
 	end
 );
 
@@ -401,9 +417,7 @@ InstallMethod(
 	[ IsGroup ],
     1,
 	function ( G )
-        local s;
-        s := SmallGeneratingSet( G );
-        if Size( s ) > 2 or not IsFinite( G ) then
+        if not IsFinite( G ) or Size( SmallGeneratingSet( G ) ) > 2 then
             TryNextMethod();
         fi;
 		return RepresentativesHomomorphismClasses2Generated@( G, G );
