@@ -35,9 +35,7 @@ InstallMethod(
 	function ( hom1, hom2, g )
 		local H;
 		H := Source( hom1 );
-		if not IsOne( g ) then
-			TryNextMethod();
-		fi;
+		if not IsOne( g ) then TryNextMethod(); fi;
 		return One( H );
 	end
 );
@@ -52,9 +50,7 @@ InstallMethod(
 		local G, H, tc, d, todo, conj, trail, h, i, k, l;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if not IsFinite( H ) then
-			TryNextMethod();
-		fi;
+		if not IsFinite( H ) then TryNextMethod(); fi;
 		tc := TwistedConjugation( hom1, hom2 );
 		g := Immutable( g );
 		d := NewDictionary( g, true );

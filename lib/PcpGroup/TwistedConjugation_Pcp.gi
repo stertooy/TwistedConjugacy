@@ -38,9 +38,7 @@ RepTwistConjToIdByFiniteQuotient@ := function ( hom1, hom2, g, N, M )
 		return fail;
 	fi;
 	Coin := CoincidenceGroup2( hom1HN, hom2HN );
-	if not IsFinite( Coin ) then
-		TryNextMethod();
-	fi;
+	if not IsFinite( Coin ) then TryNextMethod(); fi;
 	h1 := PreImagesRepresentative( q, qh1 );
 	tc := TwistedConjugation( hom1, hom2 );
 	m1 := tc( g, h1 );
@@ -112,9 +110,7 @@ InstallMethod(
 			not IsPcpGroup( H ) or
 			not IsFinite( G ) or
 			IsTrivial( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		return RepTwistConjToIdByTrivialSubgroup@( hom1, hom2, g );
 	end
 );
@@ -133,9 +129,7 @@ InstallMethod(
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G ) or
 			not IsAbelian( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
 		if not g in ImagesSource( diff ) then
 			return fail;
@@ -159,9 +153,7 @@ InstallMethod(
 			not IsPcpGroup( G ) or
 			not IsNilpotentGroup( G ) or
 			IsAbelian( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		M := Centre( G );
 		N := IntersectionPreImage@( hom1, hom2, M );
 		return RepTwistConjToIdByCentralSubgroup@( hom1, hom2, g, N, M );
@@ -183,9 +175,7 @@ InstallMethod(
 			not IsPcpGroup( G ) or
 			not IsNilpotentByFinite( G ) or
 			IsNilpotentGroup( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		M := FittingSubgroup( G );
 		N := IntersectionPreImage@( hom1, hom2, M );
 		return RepTwistConjToIdByFiniteQuotient@( hom1, hom2, g, N, M );
@@ -205,9 +195,7 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		M := DerivedSubgroup( G );
 		N := IntersectionPreImage@( hom1, hom2, M );
 		return RepTwistConjToIdByFiniteQuotient@( hom1, hom2, g, N, M );
@@ -229,9 +217,7 @@ InstallMethod(
 			not IsPcpGroup( G ) or
 			not IsBijective( aut1 ) or
 			not IsBijective( aut2 )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		aut := aut2 * Inverse( aut1 );
 		S := SemidirectProductWithAutomorphism@( H, aut );
 		emb := Embedding( S, 2 );

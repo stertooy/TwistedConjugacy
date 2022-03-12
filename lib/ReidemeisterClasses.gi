@@ -180,9 +180,7 @@ InstallMethod(
 	function ( hom1, hom2 )
 		local G;
 		G := Range( hom1 );
-		if not IsTrivial( G ) then
-			TryNextMethod();
-		fi;
+		if not IsTrivial( G ) then TryNextMethod(); fi;
 		return [ One( G ) ];
 	end
 );
@@ -196,9 +194,8 @@ InstallMethod(
 		local G, H, Rcl, tc, G_List, gens, orbits, foundOne, orbit;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if not IsFinite( H ) then
-			TryNextMethod();
-		elif not IsFinite( G ) then
+		if not IsFinite( H ) then TryNextMethod(); fi;
+		if not IsFinite( G ) then
 			return fail;
 		fi;
 		Rcl := [];

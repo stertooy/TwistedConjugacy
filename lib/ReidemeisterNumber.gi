@@ -34,9 +34,7 @@ InstallMethod(
 			not IsFinite( H ) or
 			not IsFinite( G ) or
 			not IsAbelian( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		Coin := CoincidenceGroup2( hom1, hom2 );
 		return Size( G ) * Size( Coin ) / Size( H );
 	end

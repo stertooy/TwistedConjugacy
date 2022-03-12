@@ -145,9 +145,7 @@ InstallMethod(
 				IsFinite( G )
 			) or
 			HirschLength( H ) >= HirschLength( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		return fail;
 	end
 );
@@ -165,9 +163,7 @@ InstallMethod(
 			not IsPcpGroup( H ) or
 			not IsFinite( G ) or
 			IsTrivial( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		return ReidemeisterClassesByTrivialSubgroup@( hom1, hom2 );
 	end
 );
@@ -185,9 +181,7 @@ InstallMethod(
 			not IsPcpGroup ( H ) or
 			not IsPcpGroup( G ) or
 			not IsAbelian( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
 		N := ImagesSource( diff );
 		if IndexNC( G, N ) = infinity then
@@ -224,10 +218,7 @@ InstallMethod(
 			not IsPcpGroup( G ) or
 			not IsNilpotentGroup( G ) or
 			IsAbelian( G )
-		) then
-			TryNextMethod();
-		fi;
-		
+		) then TryNextMethod(); fi;
 		M := Centre( G );
 		N := IntersectionPreImage@( hom1, hom2, M );
 		return ReidemeisterClassesByCentralSubgroup@( hom1, hom2, N, M );
@@ -248,9 +239,7 @@ InstallMethod(
 			not IsPcpGroup( G ) or
 			not IsNilpotentByFinite( G ) or
 			IsNilpotentGroup( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		M := FittingSubgroup( G );
 		N := IntersectionPreImage@( hom1, hom2, M );
 		return ReidemeisterClassesByFiniteQuotient@( hom1, hom2, N, M );
@@ -269,9 +258,7 @@ InstallMethod(
 		if (
 			not IsPcpGroup( H ) or
 			not IsPcpGroup( G )
-		) then
-			TryNextMethod();
-		fi;
+		) then TryNextMethod(); fi;
 		M := DerivedSubgroup( G );
 		N := IntersectionPreImage@( hom1, hom2, M );
 		return ReidemeisterClassesByFiniteQuotient@( hom1, hom2, N, M );

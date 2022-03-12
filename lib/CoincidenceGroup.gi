@@ -46,9 +46,7 @@ InstallMethod(
 		local G, H;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if not IsTrivial( G ) then
-			TryNextMethod();
-		fi;
+		if not IsTrivial( G ) then TryNextMethod(); fi;
 		return H;
 	end
 );
@@ -62,9 +60,7 @@ InstallMethod(
 		local G, H, gens, tc;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if not IsFinite( H ) then
-			TryNextMethod();
-		fi;
+		if not IsFinite( H ) then TryNextMethod(); fi;
 		if CanEasilyComputePcgs( H ) then
 			gens := Pcgs( H );
 		else

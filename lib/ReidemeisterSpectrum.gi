@@ -24,9 +24,7 @@ InstallMethod(
 	function ( G )
 		local ord;
 		ord := Size( G );
-		if IsEvenInt( ord ) then
-			TryNextMethod();
-		fi;
+		if IsEvenInt( ord ) then TryNextMethod(); fi;
 		return DivisorsInt( ord );
 	end
 );
@@ -40,9 +38,7 @@ InstallMethod(
 		local ord, pow, inv, m, fac;
 		ord := Size( G );
 		pow := Log2Int( ord );
-		if ord <> 2^pow then
-			TryNextMethod();
-		fi;
+		if ord <> 2^pow then TryNextMethod(); fi;
 		inv := Collected( AbelianInvariants( G ) );
 		inv := List( Filtered( inv, x -> x[2] = 1 ), y -> y[1] );
 		m := 0;
