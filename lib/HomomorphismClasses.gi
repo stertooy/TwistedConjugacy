@@ -75,10 +75,8 @@ end;
 ##
 ## RepresentativesHomomorphismClassesMGenerated@( G )
 ##
-##  Note: this is an expanded version of code suggested by A. Hulpke at
-##  https://math.stackexchange.com/q/4113275
+##  Note: this code follows the idea of https://math.stackexchange.com/q/4113275
 ##
-## Todo: check if projections p are surjective!!
 RepresentativesHomomorphismClassesMGenerated@ := function( H, arg... )
     local G, isEndo, asAuto, AutH, AutG, Imgs, c, r, Kers, newImgs, i, Pairs,
     KerOrbits, Quos, Heads, kerOrbit, N, possibleImgs, p, Q, idQ, ImgOrbits,
@@ -273,9 +271,7 @@ InstallMethod(
 	[ IsGroup, IsGroup ],
     5,
 	function ( H, G )
-        if not IsTrivial( H ) then
-            TryNextMethod();
-        fi;
+        if not IsTrivial( H ) then TryNextMethod(); fi;
         return [ GroupHomomorphismByImagesNC( 
             H, G,
             [ One( H ) ], [ One( G ) ]
@@ -289,9 +285,7 @@ InstallMethod(
 	[ IsGroup, IsGroup ],
     4,
 	function ( H, G )
-        if not IsTrivial( G ) then
-            TryNextMethod();
-        fi;
+        if not IsTrivial( G ) then TryNextMethod(); fi;
         return [ GroupHomomorphismByFunction( 
             H, G,
             h -> One( G )
@@ -306,9 +300,10 @@ InstallMethod(
     3,
 	function ( H, G )
         local p;
-        if IsAbelian( H ) or not IsAbelian( G ) then
-            TryNextMethod();
-        fi;
+        if (
+            IsAbelian( H ) or 
+            not IsAbelian( G )
+        ) then TryNextMethod(); fi;
         p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
         return List( 
             RepresentativesHomomorphismClasses( ImagesSource( p ), G ),
@@ -324,9 +319,11 @@ InstallMethod(
     2,
 	function ( H, G )
         local h, o, L;
-        if not IsCyclic( H ) or not IsFinite( H ) or not IsFinite( G ) then
-            TryNextMethod();
-        fi;
+        if (
+            not IsCyclic( H ) or 
+            not IsFinite( H ) or 
+            not IsFinite( G ) 
+        ) then TryNextMethod(); fi;
         h := MinimalGeneratingSet( H )[1];
         o := Order( h );
         if IsAbelian( G ) then
@@ -348,11 +345,11 @@ InstallMethod(
 	[ IsGroup, IsGroup ],
     1,
 	function ( H, G )
-        local s;
-        s := SmallGeneratingSet( H );
-        if Size( s ) > 2 and IsFinite( G ) or not IsFinite( H ) then
-            TryNextMethod();
-        fi;
+        if (
+            not IsFinite( H ) or 
+            not IsFinite( G ) or 
+            Size( SmallGeneratingSet( H ) ) > 2
+        ) then TryNextMethod(); fi;
 		return RepresentativesHomomorphismClasses2Generated@( H, G );
 	end
 );
@@ -363,12 +360,14 @@ InstallMethod(
 	[ IsGroup, IsGroup ],
     0,
     function ( H, G )
-		if not IsFinite( H ) or not IsFinite( G ) then
-			TryNextMethod();
-		fi;
+		if (
+            not IsFinite( H ) or 
+            not IsFinite( G )
+        ) then TryNextMethod(); fi;
 		return RepresentativesHomomorphismClassesMGenerated@( H, G );
 	end
 );
+
 
 ###############################################################################
 ##
@@ -378,18 +377,15 @@ InstallMethod(
 	RepresentativesEndomorphismClasses,
 	"for trivial group",
 	[ IsGroup ],
-    5,
+    3,
 	function ( G )
-        if not IsTrivial( G ) then
-            TryNextMethod();
-        fi;
+        if not IsTrivial( G ) then TryNextMethod(); fi;
         return [ GroupHomomorphismByImagesNC( 
             G, G,
             [ One( G ) ], [ One( G ) ]
         )];
 	end
 );
-
 
 InstallMethod(
 	RepresentativesEndomorphismClasses,
@@ -398,9 +394,10 @@ InstallMethod(
     2,
 	function ( G )
         local g, o;
-        if not IsCyclic( G ) or not IsFinite( G ) then
-            TryNextMethod();
-        fi;
+        if (
+            not IsCyclic( G ) or 
+            not IsFinite( G )
+        ) then TryNextMethod(); fi;
         g := MinimalGeneratingSet( G )[1];
         o := Order( g );
         return List( 
@@ -410,20 +407,19 @@ InstallMethod(
 	end
 );
 
-
 InstallMethod(
 	RepresentativesEndomorphismClasses,
 	"for finite 2-generated source",
 	[ IsGroup ],
     1,
 	function ( G )
-        if not IsFinite( G ) or Size( SmallGeneratingSet( G ) ) > 2 then
-            TryNextMethod();
-        fi;
+        if (
+            not IsFinite( G ) or 
+            Size( SmallGeneratingSet( G ) ) > 2
+        ) then TryNextMethod(); fi;
 		return RepresentativesHomomorphismClasses2Generated@( G, G );
 	end
 );
-
 
 InstallMethod(
 	RepresentativesEndomorphismClasses,
@@ -431,9 +427,7 @@ InstallMethod(
 	[ IsGroup ],
     0,
     function ( G )
-		if not IsFinite( G ) then
-			TryNextMethod();
-		fi;
+		if not IsFinite( G ) then TryNextMethod(); fi;
 		return RepresentativesHomomorphismClassesMGenerated@( G );
 	end
 );
