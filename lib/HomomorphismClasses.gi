@@ -266,7 +266,7 @@ end;
 InstallMethod(
 	RepresentativesHomomorphismClasses,
 	"for trivial source",
-	[ IsGroup, IsGroup ],
+	[ IsGroup and IsFinite, IsGroup and IsFinite ],
     5,
 	function ( H, G )
         if not IsTrivial( H ) then TryNextMethod(); fi;
@@ -280,7 +280,7 @@ InstallMethod(
 InstallMethod(
 	RepresentativesHomomorphismClasses,
 	"for trivial range",
-	[ IsGroup, IsGroup ],
+	[ IsGroup and IsFinite, IsGroup and IsFinite ],
     4,
 	function ( H, G )
         if not IsTrivial( G ) then TryNextMethod(); fi;
@@ -294,7 +294,7 @@ InstallMethod(
 InstallMethod(
 	RepresentativesHomomorphismClasses,
 	"for non-abelian source and abelian range",
-	[ IsGroup, IsGroup ],
+	[ IsGroup and IsFinite, IsGroup and IsFinite ],
     3,
 	function ( H, G )
         local p;
@@ -313,15 +313,11 @@ InstallMethod(
 InstallMethod(
 	RepresentativesHomomorphismClasses,
 	"for finite cyclic source and finite range",
-	[ IsGroup, IsGroup ],
+	[ IsGroup and IsFinite, IsGroup and IsFinite ],
     2,
 	function ( H, G )
         local h, o, L;
-        if (
-            not IsCyclic( H ) or 
-            not IsFinite( H ) or 
-            not IsFinite( G ) 
-        ) then TryNextMethod(); fi;
+        if not IsCyclic( H ) then TryNextMethod(); fi;
         h := MinimalGeneratingSet( H )[1];
         o := Order( h );
         if IsAbelian( G ) then
@@ -339,15 +335,11 @@ InstallMethod(
 
 InstallMethod(
 	RepresentativesHomomorphismClasses,
-	"for finite 2-generated source",
-	[ IsGroup, IsGroup ],
+	"for finite 2-generated source and finite range",
+	[ IsGroup and IsFinite, IsGroup and IsFinite ],
     1,
 	function ( H, G )
-        if (
-            not IsFinite( H ) or 
-            not IsFinite( G ) or 
-            Size( SmallGeneratingSet( H ) ) > 2
-        ) then TryNextMethod(); fi;
+        if Size( SmallGeneratingSet( H ) ) > 2 then TryNextMethod(); fi;
 		return RepresentativesHomomorphismClasses2Generated@( H, G );
 	end
 );
@@ -355,13 +347,9 @@ InstallMethod(
 InstallMethod(
 	RepresentativesHomomorphismClasses,
     "for abitrary finite groups",
-	[ IsGroup, IsGroup ],
+	[ IsGroup and IsFinite, IsGroup and IsFinite ],
     0,
     function ( H, G )
-		if (
-            not IsFinite( H ) or 
-            not IsFinite( G )
-        ) then TryNextMethod(); fi;
 		return RepresentativesHomomorphismClassesMGenerated@( H, G );
 	end
 );
@@ -374,7 +362,7 @@ InstallMethod(
 InstallMethod(
 	RepresentativesEndomorphismClasses,
 	"for trivial group",
-	[ IsGroup ],
+	[ IsGroup and IsFinite ],
     3,
 	function ( G )
         if not IsTrivial( G ) then TryNextMethod(); fi;
@@ -388,14 +376,11 @@ InstallMethod(
 InstallMethod(
 	RepresentativesEndomorphismClasses,
 	"for finite cyclic group",
-	[ IsGroup ],
+	[ IsGroup and IsFinite ],
     2,
 	function ( G )
         local g, o;
-        if (
-            not IsCyclic( G ) or 
-            not IsFinite( G )
-        ) then TryNextMethod(); fi;
+        if not IsCyclic( G ) then TryNextMethod(); fi;
         g := MinimalGeneratingSet( G )[1];
         o := Order( g );
         return List( 
@@ -408,13 +393,10 @@ InstallMethod(
 InstallMethod(
 	RepresentativesEndomorphismClasses,
 	"for finite 2-generated source",
-	[ IsGroup ],
+	[ IsGroup and IsFinite ],
     1,
 	function ( G )
-        if (
-            not IsFinite( G ) or 
-            Size( SmallGeneratingSet( G ) ) > 2
-        ) then TryNextMethod(); fi;
+        if Size( SmallGeneratingSet( G ) ) > 2 then TryNextMethod(); fi;
 		return RepresentativesHomomorphismClasses2Generated@( G, G );
 	end
 );
@@ -422,10 +404,9 @@ InstallMethod(
 InstallMethod(
 	RepresentativesEndomorphismClasses,
     "for abitrary finite groups",
-	[ IsGroup ],
+	[ IsGroup and IsFinite ],
     0,
     function ( G )
-		if not IsFinite( G ) then TryNextMethod(); fi;
 		return RepresentativesHomomorphismClassesMGenerated@( G );
 	end
 );
