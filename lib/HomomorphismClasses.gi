@@ -81,7 +81,7 @@ RepresentativesHomomorphismClassesMGenerated@ := function( H, arg... )
     local G, isEndo, asAuto, AutH, AutG, Imgs, c, r, Kers, newImgs, i, Pairs,
     KerOrbits, Quos, Heads, kerOrbit, N, possibleImgs, p, Q, idQ, ImgOrbits,
     Tails, j, newPairs, orbs, reps, n, k, imgOrbit, M, AutM, InnGM, head, tail,
-    inc, e, InnH, le, iso;
+    inc, e, InnH, le, iso, norm;
 	if Length( arg ) = 0 then
 		G := H;
 		isEndo := true;
@@ -100,8 +100,9 @@ RepresentativesHomomorphismClassesMGenerated@ := function( H, arg... )
     Imgs := ConjugacyClassesSubgroups( G );
     for c in Imgs do
         r := Representative( c );
-        SetIsNormalInParent( r, IsTrivial( c ) );
-        SetNormalizerInParent( r, StabilizerOfExternalSet( c ) );
+        norm := StabilizerOfExternalSet( c );
+        SetIsNormalInParent( r, IndexNC( G, norm ) = 1 );
+        SetNormalizerInParent( r, norm );
     od;
 	if isEndo then
 		Kers := Filtered( List( Imgs, Representative ), IsNormalInParent );
