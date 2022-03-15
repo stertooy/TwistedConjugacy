@@ -201,11 +201,7 @@ InstallMethod(
 		Rcl := [];
 		tc := TwistedConjugation( hom1, hom2 );
 		G_List := AsSSortedListNonstored( G );
-		if CanEasilyComputePcgs( H ) then
-			gens := Pcgs( H );
-		else
-			gens := GeneratorsOfGroup( H );
-		fi;
+        gens := SmallGeneratingSet( H );
 		orbits := OrbitsDomain( H, G_List, gens, gens, tc );
 		foundOne := false;
 		for orbit in orbits do

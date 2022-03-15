@@ -189,12 +189,13 @@ end;
 RepresentativesEndomorphismClassesMGenerated@ := function( G )
     local asAuto, AutG, Conj, c, r, norm, SubReps, SubOrbits, Pairs,
     Heads, Quos, i, subOrbit, N, possibleImgs, p, Q, idQ, head, Imgs,
-    Tails, j, imgOrbit, M, AutM, InnGM, tail, e, iso, Proj, Reps, InnG;
+    Tails, j, imgOrbit, M, AutM, InnGM, tail, e, iso, Proj, Reps, InnG, gensAutG;
 
     
     # Step 1: Determine automorphism groups of H and G
 	asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
 	AutG := AutomorphismGroup( G );
+    gensAutG := SmallGeneratingSet( AutG );
     
     # Step 2: Determine all possible kernels and images, i.e.
     # the normal subgroups of H and the subgroups of G
@@ -207,7 +208,7 @@ RepresentativesEndomorphismClassesMGenerated@ := function( G )
     od;
     
     SubReps := List( Conj, Representative );
-    SubOrbits := OrbitsDomain( AutG, Flat( List( Conj, List ) ), asAuto );
+    SubOrbits := OrbitsDomain( AutG, Flat( List( Conj, List ) ), gensAutG, gensAutG, asAuto );
     SubOrbits := List( SubOrbits, x -> Filtered( SubReps, y -> y in x ) );
     
     
@@ -254,7 +255,7 @@ RepresentativesEndomorphismClassesMGenerated@ := function( G )
                 GeneratorsOfGroup( NormalizerInParent( M ) ),
                 g ->  ConjugatorAutomorphismNC( M, g )
         ));
-        head := List( RightCosetsNC( AutM, InnGM ), Representative );
+        head := RightTransversal( AutM, InnGM );
         if not IsBound( Reps[j] ) then
             tail := List( subOrbit, x -> RepresentativeAction( AutG, M, x, asAuto ) );
         else
@@ -269,7 +270,7 @@ RepresentativesEndomorphismClassesMGenerated@ := function( G )
     
     e := [];
     InnG := InnerAutomorphismsAutomorphismGroup( AutG );
-    Append( e, List( RightCosetsNC( AutG, InnG ), Representative ) );
+    Append( e, List( RightTransversal( AutG, InnG ) ) );
     
     # Step 6: Calculate the homomorphisms
 
