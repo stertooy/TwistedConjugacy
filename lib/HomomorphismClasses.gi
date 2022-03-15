@@ -6,7 +6,8 @@
 ##  https://math.stackexchange.com/q/4113275
 ##
 Fingerprint@ := function( G )
-	if IdGroupsAvailable( Size( G ) ) then
+    # Ideally we would use IdGroupsAvailable here if we drop GAP 4.9 support
+	if ID_AVAILABLE( Size( G ) ) <> fail then
 		return IdGroup( G );
     elif IsAbelian( G ) then
         return Collected( AbelianInvariants( G ) );
@@ -77,18 +78,11 @@ end;
 ##
 ##  Note: this code follows the idea of https://math.stackexchange.com/q/4113275
 ##
-RepresentativesHomomorphismClassesMGenerated@ := function( H, arg... )
-    local G, isEndo, asAuto, AutH, AutG, Imgs, c, r, Kers, newImgs, i, Pairs,
-    KerOrbits, Quos, Heads, kerOrbit, N, possibleImgs, p, Q, idQ, ImgOrbits,
-    Tails, j, newPairs, orbs, reps, n, k, imgOrbit, M, AutM, InnGM, head, tail,
-    inc, e, InnH, le, iso, norm;
-	if Length( arg ) = 0 then
-		G := H;
-		isEndo := true;
-	else
-		G := arg[1];
-		isEndo := false;
-	fi;
+RepresentativesHomomorphismClassesMGenerated@ := function( H, G )
+    local asAuto, AutH, AutG, Conj, c, r, norm, ImgReps, ImgOrbits, KerOrbits, Pairs,
+    Heads, Quos, i, kerOrbit, N, possibleImgs, p, Q, idQ, head, Imgs,
+    Tails, j, imgOrbit, M, AutM, InnGM, tail, e, iso;
+
     
     # Step 1: Determine automorphism groups of H and G
 	asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
@@ -97,69 +91,29 @@ RepresentativesHomomorphismClassesMGenerated@ := function( H, arg... )
     
     # Step 2: Determine all possible kernels and images, i.e.
     # the normal subgroups of H and the subgroups of G
-    Imgs := ConjugacyClassesSubgroups( G );
-    for c in Imgs do
+    Conj := ConjugacyClassesSubgroups( G );
+    for c in Conj do
         r := Representative( c );
         norm := StabilizerOfExternalSet( c );
         SetIsNormalInParent( r, IndexNC( G, norm ) = 1 );
         SetNormalizerInParent( r, norm );
     od;
-	if isEndo then
-		Kers := Filtered( List( Imgs, Representative ), IsNormalInParent );
-	else
-		Kers := NormalSubgroups( H );
-	fi;
     
-    # Step 3: Group images together that are mapped to each other by some
-    # automorphism of G
+    ImgReps := List( Conj, Representative );
+    ImgOrbits := OrbitsDomain( AutG, Flat( List( Conj, List ) ), asAuto );
+    ImgOrbits := List( ImgOrbits, x -> Filtered( ImgReps, y -> y in x ) );
     
-    # Step 3.1: Filter images by size of conjugacy class
-    Imgs := List( 
-        Set( Imgs, Size ), 
-        i -> Filtered( Imgs, x -> Size( x ) = i )
-    );
+    KerOrbits := OrbitsDomain( AutH, NormalSubgroups( H ), asAuto );
     
-    # Step 3.2: Filter images by size of representative
-    newImgs := [];
-    for i in Imgs do
-        if Length( i ) = 1 then
-            Add( newImgs, i );
-            continue;
-        fi;
-        Append( newImgs, List(
-            Set( i, x -> Size( Representative( x ) ) ),
-            j -> Filtered( i, x -> Size( Representative( x ) ) = j )
-        ));
-    od;
-    Imgs := newImgs;
-    
-    # Step 3.3: Filter images by fingerprints
-    newImgs := [];
-    for i in Imgs do
-        if Length( i ) = 1 then
-            Add( newImgs, i );
-            continue;
-        fi;
-        Append( newImgs, List(
-            Set( i, x -> Fingerprint@( Representative( x ) ) ),
-            j -> Filtered( i, x -> Fingerprint@( Representative( x ) ) = j )
-        ));
-    od;
-    Imgs := newImgs;
-    
-    # Step 4: Find pairs of kernels and images that can be mapped to each other
+    # Step 3: Calculate info on kernels
     Pairs := [];
-    KerOrbits := [];
-    Quos := [];
     Heads := [];
-    for kerOrbit in OrbitsDomain( AutH, Kers, asAuto ) do
-        N := Representative( kerOrbit );
-        if isEndo and IsTrivial( N ) then
-            continue;
-        fi;
+    for i in [ 1 .. Size( KerOrbits ) ] do
+        kerOrbit := KerOrbits[i];
+		N := kerOrbit[1];
         possibleImgs := Filtered( 
-            [ 1 .. Size( Imgs ) ], 
-            i -> Size( Representative( Imgs[i][1] ) ) = IndexNC( H, N )
+            [ 1 .. Size( ImgOrbits ) ], i ->
+            Size( ImgOrbits[i][1] ) = IndexNC( H, N )
         );
 		if IsEmpty( possibleImgs ) then
 			continue;
@@ -170,91 +124,58 @@ RepresentativesHomomorphismClassesMGenerated@ := function( H, arg... )
 		idQ := Fingerprint@( Q );
 		possibleImgs := Filtered( 
             possibleImgs, 
-            i -> Fingerprint@( Representative( Imgs[i][1] ) ) = idQ
+            i -> Fingerprint@( ImgOrbits[i][1] ) = idQ
         );
         if IsEmpty( possibleImgs ) then
 			continue;
 		fi;
-        Add( KerOrbits, kerOrbit );
-        Add( Quos, Q );
-        Add( Heads, List( 
-            kerOrbit, 
-            i -> RepresentativeAction( AutH, N, i, asAuto )*p
-        ));
-        Append( Pairs, List( possibleImgs, j -> [ Size( KerOrbits ), j ] ) );
+        head := List( kerOrbit, x -> RepresentativeAction( AutH, N, x, asAuto ) );
+        Heads[i] := head*p;
+        Append( Pairs, List( possibleImgs, j -> [ i, j ] ) );
     od;
     
     # Step 5: Calculate info on images
-    ImgOrbits := [];
     Tails := [];
-    j := 0;
-    newPairs := [];
-    for i in Set( Pairs, x -> x[2] ) do
-        if Length( Imgs[i] ) = 1 then
-            # Length one, hence just one conjugacy class
-            orbs := [[ Representative( Imgs[i][1] ) ]];
-        else
-            reps := List( Imgs[i], Representative );
-            orbs := List( Imgs[i], List );
-            orbs := OrbitsDomain( AutG, Flat( orbs ), asAuto );
-            orbs := List( orbs, x -> Intersection2( x, reps ) );
-        fi;
-        n := Length( orbs );
-        for k in Filtered( Pairs, x -> x[2] = i ) do
-            Append( newPairs, List( [1..n], x -> [ k[1], j+x ] ) );
-        od;
-        j := j + n;
-        for imgOrbit in orbs do
-            Add( ImgOrbits, imgOrbit );
-            M := Representative( imgOrbit );
-
-            AutM := AutomorphismGroup( M );
-            InnGM := SubgroupNC( AutM, List( 
+    for j in Set( Pairs, x -> x[2] ) do
+        imgOrbit := ImgOrbits[j];
+        M := imgOrbit[1];
+        AutM := AutomorphismGroup( M );
+        InnGM := SubgroupNC( AutM, List( 
                 GeneratorsOfGroup( NormalizerInParent( M ) ),
                 g ->  ConjugatorAutomorphismNC( M, g )
-            ));
-            head := List( RightTransversal( AutM, InnGM ) );
-            tail := List( 
-                imgOrbit, 
-                x -> RepresentativeAction( AutG, M, x, asAuto )
-            );
-            inc := GroupHomomorphismByFunction( M, G, x -> x );
-            if Length( head ) < Length( tail ) then
-                head := List( head, x -> x*inc );
-            else
-                tail := List( tail, x -> inc*x );
-            fi;
-            Add( Tails, ListX( head, tail, \* ) );
-        od;
+        ));
+        head := List( RightCosetsNC( AutM, InnGM ), Representative );
+        tail := List( 
+            imgOrbit, 
+            x -> RepresentativeAction( AutG, M, x, asAuto )
+        );
+        head := List( head, x -> GroupHomomorphismByImagesNC( 
+            M, G,
+            MappingGeneratorsImages( x )[1], MappingGeneratorsImages( x )[2]
+        ));
+        Tails[j] := ListX( head, tail, \* );
     od;
-    Pairs := newPairs;
     
     # Step 6: Calculate the homomorphisms
     e := [];
-    if isEndo then
-		InnH := InnerAutomorphismsAutomorphismGroup( AutH );
-		Append( e, List( RightTransversal( AutH, InnH ) ) );
-	fi;
-	for i in [ 1 .. Length( KerOrbits ) ] do
-        kerOrbit := KerOrbits[i];
-		Q := Quos[i];
-		le:=[];
+	for i in Set( Pairs, x -> x[1] ) do
+
         for j in ListX( Pairs, x -> x[1] = i, y -> y[2] ) do
-            imgOrbit := ImgOrbits[j];
-			M := imgOrbit[1];
+            head := Heads[i];
+            tail := Tails[j];
+            Q := Range(head[1]);
+			M := Source(tail[1]);
 			iso := IsomorphismGroups( Q, M );
 			if iso <> fail then
-                head := Heads[i];
-				tail := Tails[j];
+                
                 if Length( head ) < Length( tail ) then
                     head := List( head, x -> x*iso );
                 else
                     tail := List( tail, x -> iso*x );
                 fi;
-                Append( le, ListX( head, tail, \* ) );
+                Append( e, ListX( head, tail, \* ) );
 			fi;
 		od;
-		Append(e,le);
 	od;
 	return e;
 end;
@@ -408,6 +329,6 @@ InstallMethod(
 	[ IsGroup and IsFinite ],
     0,
     function ( G )
-		return RepresentativesHomomorphismClassesMGenerated@( G );
+		return RepresentativesHomomorphismClassesMGenerated@( G, G );
 	end
 );
