@@ -153,7 +153,7 @@ RepresentativesHomomorphismClassesMGenerated@ := function( H, G )
             M, G,
             MappingGeneratorsImages( x )[1], MappingGeneratorsImages( x )[2]
         ));
-        Tails[j] := ListX( head, tail, \* );
+        Tails[j] := Flat( List( head, x -> List( tail, y -> x*y ) ) );
     od;
     
     # Step 6: Calculate the homomorphisms
@@ -173,7 +173,7 @@ RepresentativesHomomorphismClassesMGenerated@ := function( H, G )
                 else
                     tail := List( tail, x -> iso*x );
                 fi;
-                Append( e, ListX( head, tail, \* ) );
+                Append( e, Flat( List( head, x -> List( tail, y -> x*y ) ) ) );
 			fi;
 		od;
 	od;

@@ -40,7 +40,7 @@ InstallMethod(
 		pow := Log2Int( ord );
 		if ord <> 2^pow then TryNextMethod(); fi;
 		inv := Collected( AbelianInvariants( G ) );
-        inv := ListX( inv, x -> x[2] = 1, First );
+        inv := List( Filtered( inv, x -> x[2] = 1 ), y -> y[1] );
 		m := 0;
 		while not IsEmpty( inv ) do
 			fac := Remove( inv, 1 );
@@ -68,7 +68,7 @@ InstallMethod(
 		H := AbelianGroupCons( IsPcGroup, invEven );
 		specEven := ReidemeisterSpectrumOp( H );
 		specOdd := DivisorsInt( ordOdd );
-		return SetX( specEven, specOdd, \* );
+		return Set( Cartesian( specEven, specOdd ), Product );
 	end
 );
 
@@ -161,11 +161,15 @@ InstallMethod(
 	"for finite abelian range",
 	[ IsGroup, IsGroup and IsFinite and IsAbelian ],
 	function ( H, G )
-		local Hom_reps, hom;
+		local Hom_reps, SpecR, hom1, hom2, R;
 		Hom_reps := RepresentativesHomomorphismClasses( H, G );
-        hom := Hom_reps[1];
-        return SetX( [ hom ], Hom_reps, ReidemeisterNumberOp );
-	end
+		SpecR := [];
+		hom1 := Hom_reps[1];
+		for hom2 in Hom_reps do
+			R := ReidemeisterNumberOp( hom1, hom2 );
+			AddSet( SpecR, R );
+		od;
+		return SpecR;
 );
 
 InstallMethod(
@@ -173,8 +177,15 @@ InstallMethod(
 	"for finite range",
 	[ IsGroup, IsGroup and IsFinite ],
 	function ( H, G )
-		local Hom_reps;
+		local Hom_reps, SpecR, hom1, hom2, R;
 		Hom_reps := RepresentativesHomomorphismClasses( H, G );
-        return SetX( Hom_reps, Hom_reps, ReidemeisterNumberOp );
+        SpecR := [];
+		for hom1 in Hom_reps do
+			for hom2 in Hom_reps do
+				R := ReidemeisterNumberOp( hom1, hom2 );
+				AddSet( SpecR, R );
+			od;
+		od;
+		return SpecR;
 	end
 );
