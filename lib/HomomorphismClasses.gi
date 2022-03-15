@@ -64,7 +64,7 @@ RepresentativesHomomorphismClasses2Generated@ := function( H, G )
 		fi;
 		cnt := cnt + 1;
 	until bw / Size( G ) * 3 < cnt;
-	params := rec(
+        params := rec(
 		gens := bg,
 		from := H
 	);
@@ -81,13 +81,15 @@ end;
 RepresentativesHomomorphismClassesMGenerated@ := function( H, G )
     local asAuto, AutH, AutG, Conj, c, r, norm, ImgReps, ImgOrbits, KerOrbits, Pairs,
     Heads, Quos, i, kerOrbit, N, possibleImgs, p, Q, idQ, head, Imgs,
-    Tails, j, imgOrbit, M, AutM, InnGM, tail, e, iso;
+    Tails, j, imgOrbit, M, AutM, InnGM, tail, e, iso, gensAutG, gensAutH;
 
     
     # Step 1: Determine automorphism groups of H and G
 	asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
 	AutH := AutomorphismGroup( H );
 	AutG := AutomorphismGroup( G );
+    gensAutG := SmallGeneratingSet( AutG );
+    gensAutH := SmallGeneratingSet( AutH );
     
     # Step 2: Determine all possible kernels and images, i.e.
     # the normal subgroups of H and the subgroups of G
@@ -100,10 +102,10 @@ RepresentativesHomomorphismClassesMGenerated@ := function( H, G )
     od;
     
     ImgReps := List( Conj, Representative );
-    ImgOrbits := OrbitsDomain( AutG, Flat( List( Conj, List ) ), asAuto );
+    ImgOrbits := OrbitsDomain( AutG, Flat( List( Conj, List ) ), gensAutG, gensAutG, asAuto );
     ImgOrbits := List( ImgOrbits, x -> Filtered( ImgReps, y -> y in x ) );
     
-    KerOrbits := OrbitsDomain( AutH, NormalSubgroups( H ), asAuto );
+    KerOrbits := OrbitsDomain( AutH, NormalSubgroups( H ), gensAutH, gensAutH, asAuto );
     
     # Step 3: Calculate info on kernels
     Pairs := [];
@@ -144,7 +146,7 @@ RepresentativesHomomorphismClassesMGenerated@ := function( H, G )
                 GeneratorsOfGroup( NormalizerInParent( M ) ),
                 g ->  ConjugatorAutomorphismNC( M, g )
         ));
-        head := List( RightCosetsNC( AutM, InnGM ), Representative );
+        head := RightTransversal( AutM, InnGM );
         tail := List( 
             imgOrbit, 
             x -> RepresentativeAction( AutG, M, x, asAuto )
@@ -335,14 +337,14 @@ InstallMethod(
 	[ IsGroup and IsFinite, IsGroup and IsFinite ],
     3,
 	function ( H, G )
-        local p;
-        if (
-            IsAbelian( H ) or 
-            not IsAbelian( G )
-        ) then TryNextMethod(); fi;
-        p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
-        return List( 
-            RepresentativesHomomorphismClasses( ImagesSource( p ), G ),
+		local p;
+		if (
+			IsAbelian( H ) or 
+			not IsAbelian( G )
+		) then TryNextMethod(); fi;
+		p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
+		return List( 
+		RepresentativesHomomorphismClasses( ImagesSource( p ), G ),
             hom -> p*hom
         );
 	end
