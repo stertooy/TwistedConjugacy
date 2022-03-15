@@ -169,7 +169,8 @@ InstallMethod(
 			R := ReidemeisterNumberOp( hom1, hom2 );
 			AddSet( SpecR, R );
 		od;
-		return SpecR;
+        return SpecR;
+    end
 );
 
 InstallMethod(
