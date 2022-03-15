@@ -64,7 +64,7 @@ InstallMethod(
 		if CanEasilyComputePcgs( H ) then
 			gens := Pcgs( H );
 		else
-			gens := GeneratorsOfGroup( H );
+			gens := SmallGeneratingSet( H );
 		fi;
 		tc := TwistedConjugation( hom1, hom2 );
 		return StabilizerOp( H, One( G ), gens, gens, tc );

@@ -85,13 +85,15 @@ DeclareOperation(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 
+DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 DeclareOperation(
-	"RepresentativesEndomorphismClasses",
-	[ IsGroup ]
-);
-DeclareOperation(
-	"RepresentativesHomomorphismClasses",
+	"RepresentativesHomomorphismClassesOp",
 	[ IsGroup, IsGroup ]
+);
+DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
+DeclareOperation(
+	"RepresentativesEndomorphismClassesOp",
+	[ IsGroup ]
 );
 
 

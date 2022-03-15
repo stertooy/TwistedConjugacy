@@ -204,7 +204,7 @@ InstallMethod(
 		if CanEasilyComputePcgs( H ) then
 			gens := Pcgs( H );
 		else
-			gens := GeneratorsOfGroup( H );
+			gens := SmallGeneratingSet( H );
 		fi;
 		orbits := OrbitsDomain( H, G_List, gens, gens, tc );
 		foundOne := false;

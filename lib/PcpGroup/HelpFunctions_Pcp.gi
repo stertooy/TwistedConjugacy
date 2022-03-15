@@ -7,7 +7,11 @@
 ##
 DifferenceGroupHomomorphisms@ := function ( hom1, hom2, N, M )
   	local gens, diff, imgs;
-	gens := GeneratorsOfGroup( N );
+	if CanEasilyComputePcgs( N ) then
+		gens := Pcgs( N );
+	else
+		gens := SmallGeneratingSet( N );
+	fi;
 	diff := function( n )
 		return ImagesRepresentative( hom2, n ) /
 			ImagesRepresentative( hom1, n );

@@ -35,6 +35,7 @@ InstallMethod(
 	[ IsGroup and IsFinite and IsAbelian ],
 	1,
 	function ( G )
+		# Proven by P. Senden
 		local ord, pow, inv, m, fac;
 		ord := Size( G );
 		pow := Log2Int( ord );
@@ -137,17 +138,20 @@ InstallGlobalFunction(
 	CoincidenceReidemeisterSpectrum,
 	function ( H, arg... )
 		local G;
+		IsFinite( H );
+		IsAbelian( H );
 		if Length( arg ) = 0 then
 			if IsAbelian( H ) then
 				return ExtendedReidemeisterSpectrumOp( H );
+			else
+				return CoincidenceReidemeisterSpectrumOp( H );
 			fi;
-			G := H;
 		else
 			G := arg[1];
 			IsFinite( G );
 			IsAbelian( G );
+			return CoincidenceReidemeisterSpectrumOp( H, G );
 		fi;
-		return CoincidenceReidemeisterSpectrumOp( H, G );
 	end
 );
 
@@ -159,7 +163,7 @@ InstallGlobalFunction(
 InstallMethod(
 	CoincidenceReidemeisterSpectrumOp,
 	"for finite abelian range",
-	[ IsGroup, IsGroup and IsFinite and IsAbelian ],
+	[ IsGroup and IsFinite, IsGroup and IsFinite and IsAbelian ],
 	function ( H, G )
 		local Hom_reps, SpecR, hom1, hom2, R;
 		Hom_reps := RepresentativesHomomorphismClasses( H, G );
@@ -169,18 +173,36 @@ InstallMethod(
 			R := ReidemeisterNumberOp( hom1, hom2 );
 			AddSet( SpecR, R );
 		od;
-        return SpecR;
-    end
+		return SpecR;
+	end
 );
 
 InstallMethod(
 	CoincidenceReidemeisterSpectrumOp,
 	"for finite range",
-	[ IsGroup, IsGroup and IsFinite ],
+	[ IsGroup and IsFinite, IsGroup and IsFinite ],
 	function ( H, G )
 		local Hom_reps, SpecR, hom1, hom2, R;
 		Hom_reps := RepresentativesHomomorphismClasses( H, G );
-        SpecR := [];
+		SpecR := [];
+		for hom1 in Hom_reps do
+			for hom2 in Hom_reps do
+				R := ReidemeisterNumberOp( hom1, hom2 );
+				AddSet( SpecR, R );
+			od;
+		od;
+		return SpecR;
+	end
+);
+
+InstallOtherMethod(
+	CoincidenceReidemeisterSpectrumOp,
+	"for finite group to itself",
+	[ IsGroup and IsFinite ],
+	function ( G )
+		local Hom_reps, SpecR, hom1, hom2, R;
+		Hom_reps := RepresentativesEndomorphismClasses( G );
+		SpecR := [];
 		for hom1 in Hom_reps do
 			for hom2 in Hom_reps do
 				R := ReidemeisterNumberOp( hom1, hom2 );
