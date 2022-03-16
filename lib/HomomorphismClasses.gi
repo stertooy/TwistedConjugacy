@@ -58,9 +58,11 @@ InstallGlobalFunction(
 	RepresentativesHomomorphismClasses,
 	function ( H, G )
 		IsFinite( H );
-		IsAbelian( H );
+		IsCyclic( H );
+		IsTrivial( H );
 		IsFinite( G );
 		IsAbelian( G );
+		IsTrivial( G );
 		return RepresentativesHomomorphismClassesOp( H, G );
 	end
 );
@@ -125,8 +127,8 @@ end;
 InstallMethod(
 	RepresentativesHomomorphismClassesOp,
 	"for trivial source",
-	[ IsGroup and IsFinite, IsGroup and IsFinite ],
-	5,
+	[ IsGroup and IsFinite and IsTrivial, IsGroup and IsFinite ],
+	2*SUM_FLAGS+1,
 	function ( H, G )
 		if not IsTrivial( H ) then TryNextMethod(); fi;
 		return [ GroupHomomorphismByImagesNC( 
@@ -139,8 +141,8 @@ InstallMethod(
 InstallMethod(
 	RepresentativesHomomorphismClassesOp,
 	"for trivial range",
-	[ IsGroup and IsFinite, IsGroup and IsFinite ],
-	4,
+	[ IsGroup and IsFinite, IsGroup and IsFinite and IsTrivial ],
+	2*SUM_FLAGS+1,
 	function ( H, G )
 		if not IsTrivial( G ) then TryNextMethod(); fi;
 		return [ GroupHomomorphismByFunction( 
@@ -153,14 +155,11 @@ InstallMethod(
 InstallMethod(
 	RepresentativesHomomorphismClassesOp,
 	"for non-abelian source and abelian range",
-	[ IsGroup and IsFinite, IsGroup and IsFinite ],
-	3,
+	[ IsGroup and IsFinite, IsGroup and IsFinite and IsAbelian ],
+	SUM_FLAGS,
 	function ( H, G )
 		local p;
-		if (
-			IsAbelian( H ) or 
-			not IsAbelian( G )
-		) then TryNextMethod(); fi;
+		if IsAbelian( H ) then TryNextMethod(); fi;
 		p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
 		return List( 
 		RepresentativesHomomorphismClasses( ImagesSource( p ), G ),
@@ -172,8 +171,8 @@ InstallMethod(
 InstallMethod(
 	RepresentativesHomomorphismClassesOp,
 	"for finite cyclic source and finite range",
-	[ IsGroup and IsFinite, IsGroup and IsFinite ],
-	2,
+	[ IsGroup and IsFinite and IsCyclic, IsGroup and IsFinite ],
+	SUM_FLAGS,
 	function ( H, G )
 		local h, o, L;
 		if not IsCyclic( H ) then TryNextMethod(); fi;
@@ -198,7 +197,10 @@ InstallMethod(
 	[ IsGroup and IsFinite, IsGroup and IsFinite ],
 	1,
 	function ( H, G )
-		if Size( SmallGeneratingSet( H ) ) > 2 then TryNextMethod(); fi;
+		if (
+			not IsPermGroup( H ) and not IsPermGroup( G ) or
+			Size( SmallGeneratingSet( H ) ) > 2
+		) then TryNextMethod(); fi;
 		return RepresentativesHomomorphismClasses2Generated@( H, G );
 	end
 );
@@ -330,6 +332,8 @@ InstallGlobalFunction(
 	function ( G )
 		IsFinite( G );
 		IsAbelian( G );
+		IsCyclic( G );
+		IsTrivial( G );
 		return RepresentativesEndomorphismClassesOp( G );
 	end
 );
@@ -342,8 +346,8 @@ InstallGlobalFunction(
 InstallMethod(
 	RepresentativesEndomorphismClassesOp,
 	"for trivial group",
-	[ IsGroup and IsFinite ],
-	3,
+	[ IsGroup and IsFinite and IsTrivial ],
+	2*SUM_FLAGS+1,
 	function ( G )
 		if not IsTrivial( G ) then TryNextMethod(); fi;
 		return [ GroupHomomorphismByImagesNC(
@@ -356,8 +360,8 @@ InstallMethod(
 InstallMethod(
 	RepresentativesEndomorphismClassesOp,
 	"for finite cyclic group",
-	[ IsGroup and IsFinite ],
-	2,
+	[ IsGroup and IsFinite and IsCyclic ],
+	SUM_FLAGS,
 	function ( G )
 		local g, o;
 		if not IsCyclic( G ) then TryNextMethod(); fi;
@@ -376,7 +380,10 @@ InstallMethod(
 	[ IsGroup and IsFinite ],
 	1,
 	function ( G )
-		if Size( SmallGeneratingSet( G ) ) <> 2 then TryNextMethod(); fi;
+		if (
+			not IsPermGroup( G ) or
+			Size( SmallGeneratingSet( G ) ) <> 2
+		) then TryNextMethod(); fi;
 		return RepresentativesHomomorphismClasses2Generated@( G, G );
 	end
 );
