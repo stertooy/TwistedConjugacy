@@ -108,25 +108,23 @@ end;
 ##
 ##
 RepresentativesHomomorphismClassesAbelian@ := function( H, G )
-	local gens, gensG, ordsG, allimgs, i, oh, imgsSingleG, j, g, og, pows,
-	e, imgs;
-	gens := IndependentGeneratorsOfAbelianGroup( H );
+	local gensH, gensG, imgs, h, oh, imgsG, g, og, pows, e;
+	gensH := IndependentGeneratorsOfAbelianGroup( H );
 	gensG := IndependentGeneratorsOfAbelianGroup( G );
-	allimgs := [];
-	for i in [1..Length(gens)] do
-		oh := Order( gens[i] );
-		imgsSingleG := [];
-		for j in [1..Length(gensG)] do
-			g := gensG[j];
+	imgs := [];
+	for h in gensH do
+		oh := Order( h );
+		imgsG := [];
+		for g in gensG do
 			og := Order( g );
 			pows := Filtered( [0..og-1], x -> ((x*oh) mod og) = 0 );
-			Add( imgsSingleG, List( pows, x -> g^x ) );
+			Add( imgsG, List( pows, x -> g^x ) );
 		od;
-		allimgs[i] := List( Cartesian( imgsSingleG ), Product );
+		Add( imgs, List( Cartesian( imgsG ), Product ) );
 	od;
 	e := [];
-	for imgs in IteratorOfCartesianProduct( allimgs ) do
-		Add( e, GroupHomomorphismByImagesNC( H, G, gens, imgs ) );
+	for imgsG in IteratorOfCartesianProduct( imgs ) do
+		Add( e, GroupHomomorphismByImagesNC( H, G, gensH, imgsG ) );
 	od;
 	return e;
 end;
