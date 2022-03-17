@@ -1,10 +1,14 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
-2.1.0 (27/06/2021)
+2.1.0 (18/03/2022)
 ------------------
 
 - Various improvements to efficiency, both speed- and memory-related.
+
+- RepresentativesHomomorphismClasses and RepresentativesEndomorphismClasses
+  have been added, which should be (much) more efficient than GAP's standard
+  AllHomomorphismClasses function.
 
 - Fixed a bug that made ReidemeisterSpectrum not work for the trivial group.
 
