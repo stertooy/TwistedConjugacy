@@ -52,24 +52,6 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## RepresentativesHomomorphismClasses( H, G )
-##
-InstallGlobalFunction(
-	RepresentativesHomomorphismClasses,
-	function ( H, G )
-		IsFinite( H );
-		IsCyclic( H );
-		IsTrivial( H );
-		IsFinite( G );
-		IsAbelian( G );
-		IsTrivial( G );
-		return RepresentativesHomomorphismClassesOp( H, G );
-	end
-);
-
-
-###############################################################################
-##
 ## RepresentativesHomomorphismClasses2Generated@( G )
 ##
 ##  Note: this is essentially the code of AllHomomorphismClasses, but with some
@@ -127,7 +109,7 @@ end;
 ##
 RepresentativesHomomorphismClassesAbelian@ := function( H, G )
 	local gens, gensG, ordsG, allimgs, i, oh, imgsSingleG, j, g, og, pows,
-	filter, type, e, imgs, hom, pcgs;
+	e, imgs;
 	gens := IndependentGeneratorsOfAbelianGroup( H );
 	gensG := IndependentGeneratorsOfAbelianGroup( G );
 	allimgs := [];
@@ -142,55 +124,32 @@ RepresentativesHomomorphismClassesAbelian@ := function( H, G )
 		od;
 		allimgs[i] := List( Cartesian( imgsSingleG ), Product );
 	od;
-
-	filter := IsMapping and IsGroupGeneralMappingByImages and 
-		HasSource and HasRange and HasMappingGeneratorsImages;
-    
-	# Add source type
-	if IsPcGroup( H ) then
-		pcgs := PcgsByPcSequenceNC( FamilyObj( Random( H ) ), gens );
-		filter := filter and IsPcGroupGeneralMappingByImages;
-	elif IsPermGroup( H ) then
-        filter := filter and IsPermGroupGeneralMappingByImages;
-    elif IsSubgroupFpGroup( H ) then
-        filter := filter and IsFromFpGroupGeneralMappingByImages;
-    fi;
-	
-	# Add range type
-	if IsPcGroup( G ) then
-        filter := filter and IsToPcGroupGeneralMappingByImages;
-    elif IsPermGroup( G ) then
-        filter := filter and IsToPermGroupGeneralMappingByImages;
-    elif IsSubgroupFpGroup( G ) then
-        filter := filter and IsToFpGroupGeneralMappingByImages;
-    fi;
-	
-	type := NewType( 
-		GeneralMappingsFamily(
-			ElementsFamily( FamilyObj( H ) ),
-			ElementsFamily( FamilyObj( G ) )
-		),
-		filter
-	);
-	
 	e := [];
-	
 	for imgs in IteratorOfCartesianProduct( allimgs ) do
-		hom := rec();
-		if IsPcGroup( H ) then
-			hom.sourcePcgs := pcgs;
-			hom.sourcePcgsImages := imgs;
-		fi;
-		ObjectifyWithAttributes( 
-			hom, type, 
-			Source, H,
-			Range, G,
-			MappingGeneratorsImages, [ gens, Immutable( imgs ) ]
-		);
-		Add( e, hom );
+		Add( e, GroupHomomorphismByImagesNC( H, G, gens, imgs ) );
 	od;
 	return e;
 end;
+
+
+###############################################################################
+##
+## RepresentativesHomomorphismClasses( H, G )
+##
+InstallGlobalFunction(
+	RepresentativesHomomorphismClasses,
+	function ( H, G )
+		IsFinite( H );
+		IsAbelian( H );
+		IsCyclic( H );
+		IsTrivial( H );
+		IsFinite( G );
+		IsAbelian( G );
+		IsTrivial( G );
+		return RepresentativesHomomorphismClassesOp( H, G );
+	end
+);
+
 
 ###############################################################################
 ##
@@ -200,7 +159,7 @@ InstallMethod(
 	RepresentativesHomomorphismClassesOp,
 	"for trivial source",
 	[ IsGroup and IsFinite and IsTrivial, IsGroup and IsFinite ],
-	2*SUM_FLAGS+1,
+	3*SUM_FLAGS+4,
 	function ( H, G )
 		if not IsTrivial( H ) then TryNextMethod(); fi;
 		return [ GroupHomomorphismByImagesNC( 
@@ -214,9 +173,8 @@ InstallMethod(
 	RepresentativesHomomorphismClassesOp,
 	"for trivial range",
 	[ IsGroup and IsFinite, IsGroup and IsFinite and IsTrivial ],
-	2*SUM_FLAGS+1,
+	3*SUM_FLAGS+4,
 	function ( H, G )
-		if not IsTrivial( G ) then TryNextMethod(); fi;
 		return [ GroupHomomorphismByFunction( 
 			H, G,
 			h -> One( G )
@@ -228,7 +186,7 @@ InstallMethod(
 	RepresentativesHomomorphismClassesOp,
 	"for non-abelian source and abelian range",
 	[ IsGroup and IsFinite, IsGroup and IsFinite and IsAbelian ],
-	SUM_FLAGS,
+	2*SUM_FLAGS+3,
 	function ( H, G )
 		local p;
 		if IsAbelian( H ) then TryNextMethod(); fi;
@@ -244,7 +202,7 @@ InstallMethod(
 	RepresentativesHomomorphismClassesOp,
 	"for abelian source and abelian range",
 	[ IsGroup and IsFinite and IsAbelian, IsGroup and IsFinite and IsAbelian ],
-	SUM_FLAGS,
+	SUM_FLAGS+2,
 	RepresentativesHomomorphismClassesAbelian@
 );
 
@@ -252,7 +210,7 @@ InstallMethod(
 	RepresentativesHomomorphismClassesOp,
 	"for finite cyclic source and finite range",
 	[ IsGroup and IsFinite and IsCyclic, IsGroup and IsFinite ],
-	SUM_FLAGS,
+	SUM_FLAGS+2,
 	function ( H, G )
 		local h, o, L;
 		if IsAbelian( G ) then TryNextMethod(); fi;
@@ -408,7 +366,6 @@ InstallGlobalFunction(
 	function ( G )
 		IsFinite( G );
 		IsAbelian( G );
-		IsCyclic( G );
 		IsTrivial( G );
 		return RepresentativesEndomorphismClassesOp( G );
 	end
@@ -422,10 +379,9 @@ InstallGlobalFunction(
 InstallMethod(
 	RepresentativesEndomorphismClassesOp,
 	"for trivial group",
-	[ IsGroup and IsFinite and IsTrivial ],
-	2*SUM_FLAGS+1,
+	[ IsGroup and IsTrivial ],
+	2*SUM_FLAGS+3,
 	function ( G )
-		if not IsTrivial( G ) then TryNextMethod(); fi;
 		return [ GroupHomomorphismByImagesNC(
 			G, G,
 			[ One( G ) ], [ One( G ) ]
@@ -435,24 +391,17 @@ InstallMethod(
 
 InstallMethod(
 	RepresentativesEndomorphismClassesOp,
-	"for finite cyclic group",
-	[ IsGroup and IsFinite and IsCyclic ],
-	SUM_FLAGS,
+	"for finite abelian group",
+	[ IsGroup and IsFinite and IsAbelian ],
+	SUM_FLAGS+2,
 	function ( G )
-		local g, o;
-		if not IsCyclic( G ) then TryNextMethod(); fi;
-		g := MinimalGeneratingSet( G )[1];
-		o := Order( g );
-		return List( 
-			DivisorsInt( o ), 
-			k -> GroupHomomorphismByImagesNC( G, G, [ g ], [ g^k ] )
-		);
+		return RepresentativesHomomorphismClassesAbelian@( G, G );
 	end
 );
 
 InstallMethod(
 	RepresentativesEndomorphismClassesOp,
-	"for finite 2-generated source",
+	"for finite 2-generated group",
 	[ IsGroup and IsFinite ],
 	1,
 	function ( G )
@@ -466,7 +415,7 @@ InstallMethod(
 
 InstallMethod(
 	RepresentativesEndomorphismClassesOp,
-	"for abitrary finite groups",
+	"for abitrary finite group",
 	[ IsGroup and IsFinite ],
 	0,
 	function( G )
