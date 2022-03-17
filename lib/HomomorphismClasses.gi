@@ -122,6 +122,78 @@ end;
 
 ###############################################################################
 ##
+## RepresentativesHomomorphismClassesAbelian@( G )
+##
+##
+RepresentativesHomomorphismClassesAbelian@ := function( H, G )
+	local gens, gensG, ordsG, allimgs, i, oh, imgsSingleG, j, g, og, pows,
+	filter, type, e, imgs, hom, pcgs;
+	gens := IndependentGeneratorsOfAbelianGroup( H );
+	gensG := IndependentGeneratorsOfAbelianGroup( G );
+	allimgs := [];
+	for i in [1..Length(gens)] do
+		oh := Order( gens[i] );
+		imgsSingleG := [];
+		for j in [1..Length(gensG)] do
+			g := gensG[j];
+			og := Order( g );
+			pows := Filtered( [0..og-1], x -> ((x*oh) mod og) = 0 );
+			Add( imgsSingleG, List( pows, x -> g^x ) );
+		od;
+		allimgs[i] := List( Cartesian( imgsSingleG ), Product );
+	od;
+
+	filter := IsMapping and IsGroupGeneralMappingByImages and 
+		HasSource and HasRange and HasMappingGeneratorsImages;
+    
+	# Add source type
+	if IsPcGroup( H ) then
+		pcgs := PcgsByPcSequenceNC( FamilyObj( Random( H ) ), gens );
+		filter := filter and IsPcGroupGeneralMappingByImages;
+	elif IsPermGroup( H ) then
+        filter := filter and IsPermGroupGeneralMappingByImages;
+    elif IsSubgroupFpGroup( H ) then
+        filter := filter and IsFromFpGroupGeneralMappingByImages;
+    fi;
+	
+	# Add range type
+	if IsPcGroup( G ) then
+        filter := filter and IsToPcGroupGeneralMappingByImages;
+    elif IsPermGroup( G ) then
+        filter := filter and IsToPermGroupGeneralMappingByImages;
+    elif IsSubgroupFpGroup( G ) then
+        filter := filter and IsToFpGroupGeneralMappingByImages;
+    fi;
+	
+	type := NewType( 
+		GeneralMappingsFamily(
+			ElementsFamily( FamilyObj( H ) ),
+			ElementsFamily( FamilyObj( G ) )
+		),
+		filter
+	);
+	
+	e := [];
+	
+	for imgs in IteratorOfCartesianProduct( allimgs ) do
+		hom := rec();
+		if IsPcGroup( H ) then
+			hom.sourcePcgs := pcgs;
+			hom.sourcePcgsImages := imgs;
+		fi;
+		ObjectifyWithAttributes( 
+			hom, type, 
+			Source, H,
+			Range, G,
+			MappingGeneratorsImages, [ gens, Immutable( imgs ) ]
+		);
+		Add( e, hom );
+	od;
+	return e;
+end;
+
+###############################################################################
+##
 ## RepresentativesHomomorphismClassesOp( H, G )
 ##
 InstallMethod(
@@ -170,19 +242,23 @@ InstallMethod(
 
 InstallMethod(
 	RepresentativesHomomorphismClassesOp,
+	"for abelian source and abelian range",
+	[ IsGroup and IsFinite and IsAbelian, IsGroup and IsFinite and IsAbelian ],
+	SUM_FLAGS,
+	RepresentativesHomomorphismClassesAbelian@
+);
+
+InstallMethod(
+	RepresentativesHomomorphismClassesOp,
 	"for finite cyclic source and finite range",
 	[ IsGroup and IsFinite and IsCyclic, IsGroup and IsFinite ],
 	SUM_FLAGS,
 	function ( H, G )
 		local h, o, L;
-		if not IsCyclic( H ) then TryNextMethod(); fi;
+		if IsAbelian( G ) then TryNextMethod(); fi;
 		h := MinimalGeneratingSet( H )[1];
 		o := Order( h );
-		if IsAbelian( G ) then
-			L := List( G );
-		else
-			L := List( ConjugacyClasses( G ), Representative );
-		fi;
+		L := List( ConjugacyClasses( G ), Representative );
 		L := Filtered( L, g -> IsInt( o / Order( g ) ) );
 		return List( L, g -> GroupHomomorphismByImagesNC( 
 			H, G,
