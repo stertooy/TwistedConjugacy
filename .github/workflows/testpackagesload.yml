@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: 'Checkout'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: 'Setup GAP'
         uses: gap-actions/setup-gap@v2
         with:
@@ -30,7 +30,7 @@ jobs:
       - name: 'Test package loading'
         uses: sTertooy/pkg-load-test@v2
       - name: 'Upload output'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: testpackagesload-${{ matrix.gap-branch }}
           path: ~/gap/dev/log/*
