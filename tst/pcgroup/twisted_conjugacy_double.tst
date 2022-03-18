@@ -57,10 +57,6 @@ gap> IsTwistedConjugate( hom1L, hom2L, [ G.1, G.2 ], [ G.2, G.1 ] );
 false
 
 #
-gap> CoincidenceReidemeisterSpectrum( G, H );
-[ 42, 84 ]
-
-#
 gap> M := DerivedSubgroup( G );;
 gap> N := Subgroup( H, [ H.2, H.3, H.4 ] );;
 gap> homN1 := RestrictedHomomorphism( hom1, N, M );;
@@ -97,12 +93,6 @@ gap> m2 := Random( RM[3] );;
 gap> mc := RepresentativeTwistedConjugation( homN1, homN2, m1, m2 );;
 gap> tcM( m1, mc ) = m2;
 true
-
-#
-gap> CoincidenceReidemeisterSpectrum( M, N );
-[ 2, 6, 14, 42 ]
-gap> CoincidenceReidemeisterSpectrum( N, M );
-[ 3, 9, 21, 63 ]
 
 #
 gap> STOP_TEST( "homomorphisms.tst" );

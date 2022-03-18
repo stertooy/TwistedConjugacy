@@ -1,12 +1,13 @@
-gap> START_TEST( "Testing TwistedConjugacy for finite PcpGroups: homomorphisms" );
+gap> START_TEST( "Testing TwistedConjugacy for PcGroups: homomorphisms" );
 
 #
-gap> G := PcGroupToPcpGroup( SmallGroup( 252, 34 ) );;
-gap> H := PcGroupToPcpGroup( SmallGroup( 84, 5 ) );;
+gap> G := SmallGroup( 252, 34 );;
+gap> H := SmallGroup( 84, 5 );;
+gap> gens := [ H.1, H.3*H.4 ];;
 gap> imgs1 := [ G.2*G.4^2, One( G ) ];;
 gap> imgs2 := [ G.1*G.2*G.3*G.5, G.3*G.4^2*G.5^3 ];;
-gap> hom1 := GroupHomomorphismByImagesNC( H, G, [ H.1, H.3*H.4 ], imgs1 );;
-gap> hom2 := GroupHomomorphismByImagesNC( H, G, [ H.1, H.3*H.4 ], imgs2 );;
+gap> hom1 := GroupHomomorphismByImages( H, G, gens, imgs1 );;
+gap> hom2 := GroupHomomorphismByImages( H, G, gens, imgs2 );;
 
 #
 gap> tcc := ReidemeisterClass( hom1, hom2, One( G ) );;
@@ -94,4 +95,4 @@ gap> tcM( m1, mc ) = m2;
 true
 
 #
-gap> STOP_TEST( "homomorphisms_finite.tst" );
+gap> STOP_TEST( "homomorphisms.tst" );

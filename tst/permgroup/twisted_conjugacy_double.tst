@@ -1,10 +1,8 @@
 gap> START_TEST( "Testing TwistedConjugacy for PcGroups: homomorphisms" );
 
 #
-gap> gensG :=  [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ];;
-gap> gensH := [ (2,7)(3,6)(4,5)(8,9,10,12)(11,17,14,19)(13,18,16,15), (8,10)(9,12)(11,14)(13,16)(15,18)(17,19), (8,11,15)(9,13,17)(10,14,18)(12,16,19), (1,2,3,4,5,6,7) ];;
-gap> G := Group( gensG );;
-gap> H := Group( gensH );;
+gap> G := Group( [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ] );;
+gap> H := Group( [ (2,7)(3,6)(4,5)(8,9,10,12)(11,17,14,19)(13,18,16,15), (8,10)(9,12)(11,14)(13,16)(15,18)(17,19), (8,11,15)(9,13,17)(10,14,18)(12,16,19), (1,2,3,4,5,6,7) ] );;
 gap> gens := [ H.1, H.3*H.4 ];;
 gap> imgs1 := [ G.2*G.4^2, One( G ) ];;
 gap> imgs2 := [ G.1*G.2*G.3*G.5, G.3*G.4^2*G.5^3 ];;
@@ -59,10 +57,6 @@ gap> IsTwistedConjugate( hom1L, hom2L, [ G.1, G.2 ], [ G.2, G.1 ] );
 false
 
 #
-gap> CoincidenceReidemeisterSpectrum( G, H );
-[ 42, 84 ]
-
-#
 gap> M := DerivedSubgroup( G );;
 gap> N := Subgroup( H, [ H.2, H.3, H.4 ] );;
 gap> homN1 := RestrictedHomomorphism( hom1, N, M );;
@@ -99,12 +93,6 @@ gap> m2 := Random( RM[3] );;
 gap> mc := RepresentativeTwistedConjugation( homN1, homN2, m1, m2 );;
 gap> tcM( m1, mc ) = m2;
 true
-
-#
-gap> CoincidenceReidemeisterSpectrum( M, N );
-[ 2, 6, 14, 42 ]
-gap> CoincidenceReidemeisterSpectrum( N, M );
-[ 3, 9, 21, 63 ]
 
 #
 gap> STOP_TEST( "homomorphisms.tst" );
