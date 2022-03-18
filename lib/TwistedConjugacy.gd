@@ -85,6 +85,17 @@ DeclareOperation(
 	[ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 
+DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
+DeclareOperation(
+	"RepresentativesHomomorphismClassesOp",
+	[ IsGroup, IsGroup ]
+);
+DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
+DeclareOperation(
+	"RepresentativesEndomorphismClassesOp",
+	[ IsGroup ]
+);
+
 
 DeclareGlobalFunction( "FixedPointGroup" );
 DeclareGlobalFunction( "CoincidenceGroup" );

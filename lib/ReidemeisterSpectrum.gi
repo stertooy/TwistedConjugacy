@@ -35,17 +35,18 @@ InstallMethod(
 	[ IsGroup and IsFinite and IsAbelian ],
 	1,
 	function ( G )
+		# Proven by P. Senden
 		local ord, pow, inv, m, fac;
 		ord := Size( G );
 		pow := Log2Int( ord );
 		if ord <> 2^pow then TryNextMethod(); fi;
 		inv := Collected( AbelianInvariants( G ) );
-		inv := List( Filtered( inv, x -> x[2] = 1 ), y -> y[1] );
+		inv := ListX( inv, x -> x[2] = 1, y -> y[1] );
 		m := 0;
 		while not IsEmpty( inv ) do
 			fac := Remove( inv, 1 );
 			if not IsEmpty( inv ) and fac*2 = inv[1] then
-				Remove( inv );
+				Remove( inv, 1 );
 			fi;
 			m := m+1;
 		od;
@@ -59,16 +60,15 @@ InstallMethod(
 	[ IsGroup and IsFinite and IsAbelian ],
 	0,
 	function ( G )
-		local inv, invEven, invOdd, ordEven, ordOdd, H, specEven, specOdd;
+		local inv, invE, invO, GE, GO, specE, specO;
 		inv := AbelianInvariants( G );
-		invEven := Filtered( inv, IsEvenInt );
-		invOdd := Filtered( inv, IsOddInt );
-		ordEven := Product( invEven );
-		ordOdd := Product( invOdd );
-		H := AbelianGroupCons( IsPcGroup, invEven );
-		specEven := ReidemeisterSpectrumOp( H );
-		specOdd := DivisorsInt( ordOdd );
-		return Set( Cartesian( specEven, specOdd ), Product );
+		invE := Filtered( inv, IsEvenInt );
+		invO := Filtered( inv, IsOddInt );
+		GE := AbelianGroupCons( IsPcGroup, invE );
+		GO := AbelianGroupCons( IsPcGroup, invO );
+		specE := ReidemeisterSpectrumOp( GE );
+		specO := ReidemeisterSpectrumOp( GO );
+		return SetX( specE, specO, \* );
 	end
 );
 
@@ -121,9 +121,9 @@ InstallMethod(
 	"for finite groups",
 	[ IsGroup and IsFinite ],
 	function ( G )
-		local End_reps, id;
-		End_reps := AllHomomorphismClasses( G, G );
+		local id, End_reps;
 		id := IdentityMapping( G );
+		End_reps := RepresentativesEndomorphismClasses( G );
 		return Set( End_reps, endo -> ReidemeisterNumberOp( endo, id ) );
 	end
 );
@@ -137,17 +137,20 @@ InstallGlobalFunction(
 	CoincidenceReidemeisterSpectrum,
 	function ( H, arg... )
 		local G;
+		IsFinite( H );
+		IsAbelian( H );
 		if Length( arg ) = 0 then
 			if IsAbelian( H ) then
 				return ExtendedReidemeisterSpectrumOp( H );
+			else
+				return CoincidenceReidemeisterSpectrumOp( H );
 			fi;
-			G := H;
 		else
 			G := arg[1];
 			IsFinite( G );
 			IsAbelian( G );
+			return CoincidenceReidemeisterSpectrumOp( H, G );
 		fi;
-		return CoincidenceReidemeisterSpectrumOp( H, G );
 	end
 );
 
@@ -159,34 +162,33 @@ InstallGlobalFunction(
 InstallMethod(
 	CoincidenceReidemeisterSpectrumOp,
 	"for finite abelian range",
-	[ IsGroup, IsGroup and IsFinite and IsAbelian ],
+	[ IsGroup and IsFinite, IsGroup and IsFinite and IsAbelian ],
 	function ( H, G )
-		local Hom_reps, SpecR, hom1, hom2, R;
-		Hom_reps := AllHomomorphismClasses( H, G );
-		SpecR := [];
+		local Hom_reps, hom1;
+		Hom_reps := RepresentativesHomomorphismClasses( H, G );
 		hom1 := Hom_reps[1];
-		for hom2 in Hom_reps do
-			R := ReidemeisterNumberOp( hom1, hom2 );
-			AddSet( SpecR, R );
-		od;
-		return SpecR;
+		return Set( Hom_reps, hom2 -> ReidemeisterNumberOp( hom1, hom2 ) );
 	end
 );
 
 InstallMethod(
 	CoincidenceReidemeisterSpectrumOp,
 	"for finite range",
-	[ IsGroup, IsGroup and IsFinite ],
+	[ IsGroup and IsFinite, IsGroup and IsFinite ],
 	function ( H, G )
+		local Hom_reps;
+		Hom_reps := RepresentativesHomomorphismClasses( H, G );
+		return SetX( Hom_reps, Hom_reps, ReidemeisterNumberOp );
+	end
+);
+
+InstallOtherMethod(
+	CoincidenceReidemeisterSpectrumOp,
+	"for finite group to itself",
+	[ IsGroup and IsFinite ],
+	function ( G )
 		local Hom_reps, SpecR, hom1, hom2, R;
-		Hom_reps := AllHomomorphismClasses( H, G );
-		SpecR := [];
-		for hom1 in Hom_reps do
-			for hom2 in Hom_reps do
-				R := ReidemeisterNumberOp( hom1, hom2 );
-				AddSet( SpecR, R );
-			od;
-		od;
-		return SpecR;
+		Hom_reps := RepresentativesEndomorphismClasses( G );
+		return SetX( Hom_reps, Hom_reps, ReidemeisterNumberOp );
 	end
 );

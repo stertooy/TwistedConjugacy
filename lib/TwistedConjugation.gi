@@ -47,7 +47,7 @@ InstallMethod(
 	  IsMultiplicativeElementWithInverse ],
 	6,
 	function ( hom1, hom2, g )
-		local G, H, tc, d, todo, conj, trail, h, i, k, l;
+		local G, H, tc, d, todo, conj, trail, h, i, k, gens, l;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsFinite( H ) then TryNextMethod(); fi;
@@ -60,7 +60,12 @@ InstallMethod(
 		trail := [];
 		while not IsEmpty( todo ) do
 			k := Remove( todo );
-			for h in GeneratorsOfGroup( H ) do
+			if CanEasilyComputePcgs( H ) then
+				gens := Pcgs( H );
+			else
+				gens := SmallGeneratingSet( H );
+			fi;
+			for h in gens do
 				l := Immutable( tc( k, h ) );
 				if IsOne( l ) then
 					while k <> g do

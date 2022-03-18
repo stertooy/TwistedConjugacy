@@ -244,4 +244,47 @@ gap> CoincidenceGroup( triv, triv, triv, triv ) = G;
 true
 
 #
+gap> G := SmallGroup( 32, 40 );;
+gap> ExtendedReidemeisterSpectrum( G );
+[ 1, 2, 4, 5, 6, 7, 8, 10, 14 ]
+gap> G := SmallGroup( 32, 50 );;
+gap> ExtendedReidemeisterSpectrum( G );
+[ 1, 2, 3, 5, 9, 17 ]
+gap> G := SmallGroup( 96, 204 );;
+gap> ExtendedReidemeisterSpectrum( G );
+[ 1, 2, 3, 4, 5, 7, 8, 11 ]
+gap> G := SmallGroup( 8, 5 );;
+gap> H := SmallGroup( 16, 10 );;
+gap> CoincidenceReidemeisterSpectrum( G, H );
+[ 2, 4, 8, 16 ]
+
+#
+gap> T := TrivialGroup( IsPcGroup );;
+gap> Homs := RepresentativesEndomorphismClasses( T );;
+gap> Size( Homs );
+1
+gap> Homs := RepresentativesHomomorphismClasses( G, T );;
+gap> Size( Homs );
+1
+gap> IsTrivial( ImagesSource( Homs[1] ) );
+true
+gap> Homs := RepresentativesHomomorphismClasses( T, G );;
+gap> Size( Homs );
+1
+gap> IsTrivial( ImagesSource( Homs[1] ) );
+true
+gap> C2 := CyclicGroup( 2 );;
+gap> Homs := RepresentativesEndomorphismClasses( C2 );;
+gap> Size( Homs );
+2
+
+#
+gap> G := DirectProduct( SmallGroup( 8, 3 ), SmallGroup( 261, 1 ) );;
+gap> Fingerprint@TwistedConjugacy(G)[1];
+[ [ 1, 1 ], 1 ]
+gap> G := DirectProduct( SmallGroup( 8, 1 ), SmallGroup( 261, 1 ) );;
+gap> Fingerprint@TwistedConjugacy(G)[1];
+[ 8, 1 ]
+
+#
 gap> STOP_TEST( "extra.tst" );

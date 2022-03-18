@@ -1,59 +1,23 @@
 ###############################################################################
 ##
-## InducedHomomorphism( epi1, epi2, hom )
+## Fingerprint@( G )
 ##
-InstallGlobalFunction(
-	InducedHomomorphism,
-	function ( epi1, epi2, hom )
-		local GM, HN, ind, inv;
-		GM := ImagesSource( epi2 );
-		HN := ImagesSource( epi1 );
-		ind := function( h )
-			return ImagesRepresentative(
-				epi2,
-				ImagesRepresentative(
-					hom,
-					PreImagesRepresentative(
-						epi1,
-						h
-					)
-				)
-			);
-		end;
-		inv := function( g )
-			return ImagesRepresentative(
-				epi1,
-				PreImagesRepresentative(
-					hom,
-					PreImagesRepresentative(
-						epi2,
-						g
-					)
-				)
-			);
-		end;
-		return GroupHomomorphismByFunction(	HN, GM, ind, false, inv );
-	end
-);
-
-
-###############################################################################
+##  Note: this is an expanded version of code suggested by A. Hulpke at
+##  https://math.stackexchange.com/q/4113275
 ##
-## RestrictedHomomorphism( hom, N, M )
-##
-InstallGlobalFunction(
-	RestrictedHomomorphism,
-	function ( hom, N, M )
-		local res, inv;
-		res := function( n )
-			return ImagesRepresentative( hom, n );
-		end;
-		inv := function( m )
-			return PreImagesRepresentative( hom, m );
-		end;
-		return GroupHomomorphismByFunction( N, M, res, false, inv );
-	end
-);
+Fingerprint@ := function( G )
+	# Ideally we would use IdGroupsAvailable here if we drop GAP 4.9 support
+	if ID_AVAILABLE( Size( G ) ) <> fail then
+		return IdGroup( G );
+	elif IsAbelian( G ) then
+		return Collected( AbelianInvariants( G ) );
+	else 
+		return Collected( List(
+			ConjugacyClasses( G ),
+			c -> [ Order( Representative( c ) ), Size( c ) ]
+		));
+	fi;
+end;
 
 
 ###############################################################################
