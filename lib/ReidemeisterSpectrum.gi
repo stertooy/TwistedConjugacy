@@ -41,7 +41,7 @@ InstallMethod(
 		pow := Log2Int( ord );
 		if ord <> 2^pow then TryNextMethod(); fi;
 		inv := Collected( AbelianInvariants( G ) );
-		inv := List( Filtered( inv, x -> x[2] = 1 ), y -> y[1] );
+		inv := ListX( inv, x -> x[2] = 1, y -> y[1] );
 		m := 0;
 		while not IsEmpty( inv ) do
 			fac := Remove( inv, 1 );
@@ -68,7 +68,7 @@ InstallMethod(
 		GO := AbelianGroupCons( IsPcGroup, invO );
 		specE := ReidemeisterSpectrumOp( GE );
 		specO := ReidemeisterSpectrumOp( GO );
-		return Set( Cartesian( specE, specO ), Product );
+		return SetX( specE, specO, \* );
 	end
 );
 
@@ -121,7 +121,7 @@ InstallMethod(
 	"for finite groups",
 	[ IsGroup and IsFinite ],
 	function ( G )
-		local R, id, End_reps;
+		local id, End_reps;
 		id := IdentityMapping( G );
 		End_reps := RepresentativesEndomorphismClasses( G );
 		return Set( End_reps, endo -> ReidemeisterNumberOp( endo, id ) );
@@ -164,15 +164,10 @@ InstallMethod(
 	"for finite abelian range",
 	[ IsGroup and IsFinite, IsGroup and IsFinite and IsAbelian ],
 	function ( H, G )
-		local Hom_reps, SpecR, hom1, hom2, R;
+		local Hom_reps, hom1;
 		Hom_reps := RepresentativesHomomorphismClasses( H, G );
-		SpecR := [];
 		hom1 := Hom_reps[1];
-		for hom2 in Hom_reps do
-			R := ReidemeisterNumberOp( hom1, hom2 );
-			AddSet( SpecR, R );
-		od;
-		return SpecR;
+		return Set( Hom_reps, hom2 -> ReidemeisterNumberOp( hom1, hom2 ) );
 	end
 );
 
@@ -181,16 +176,9 @@ InstallMethod(
 	"for finite range",
 	[ IsGroup and IsFinite, IsGroup and IsFinite ],
 	function ( H, G )
-		local Hom_reps, SpecR, hom1, hom2, R;
+		local Hom_reps;
 		Hom_reps := RepresentativesHomomorphismClasses( H, G );
-		SpecR := [];
-		for hom1 in Hom_reps do
-			for hom2 in Hom_reps do
-				R := ReidemeisterNumberOp( hom1, hom2 );
-				AddSet( SpecR, R );
-			od;
-		od;
-		return SpecR;
+		return SetX( Hom_reps, Hom_reps, ReidemeisterNumberOp );
 	end
 );
 
@@ -201,13 +189,6 @@ InstallOtherMethod(
 	function ( G )
 		local Hom_reps, SpecR, hom1, hom2, R;
 		Hom_reps := RepresentativesEndomorphismClasses( G );
-		SpecR := [];
-		for hom1 in Hom_reps do
-			for hom2 in Hom_reps do
-				R := ReidemeisterNumberOp( hom1, hom2 );
-				AddSet( SpecR, R );
-			od;
-		od;
-		return SpecR;
+		return SetX( Hom_reps, Hom_reps, ReidemeisterNumberOp );
 	end
 );
