@@ -8,16 +8,6 @@ gap> endo1 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs1 )
 gap> endo2 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs2 );;
 
 #
-gap> Size( CoincidenceGroup( endo1, endo2 ) );
-14
-gap> Size( FixedPointGroup( endo1 ) );
-2
-gap> Size( FixedPointGroup( endo2 ) );
-3
-gap> CoincidenceGroup( IdentityMapping( G ), endo1, endo2 );
-Pcp-group with orders [  ]
-
-#
 gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
 gap> Representative( tcc ) = One( G );
 true
@@ -96,14 +86,6 @@ false
 gap> G := DerivedSubgroup( G );;
 gap> endo1 := RestrictedHomomorphism( endo1, G, G );;
 gap> endo2 := RestrictedHomomorphism( endo2, G, G );;
-
-#
-gap> Size( CoincidenceGroup( endo1, endo2 ) );
-7
-gap> Size( FixedPointGroup( endo1 ) );
-1
-gap> Size( FixedPointGroup( endo2 ) );
-3
 
 #
 gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;

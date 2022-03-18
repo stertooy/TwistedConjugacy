@@ -9,12 +9,6 @@ gap> hom1 := GroupHomomorphismByImagesNC( H, G, [ H.1, H.3*H.4 ], imgs1 );;
 gap> hom2 := GroupHomomorphismByImagesNC( H, G, [ H.1, H.3*H.4 ], imgs2 );;
 
 #
-gap> Coin := CoincidenceGroup( hom1, hom2 );;
-gap> h := Random( H );;
-gap> Coin.1 * h = h*Coin.1;
-true
-
-#
 gap> tcc := ReidemeisterClass( hom1, hom2, One( G ) );;
 gap> Representative( tcc ) = One( G );
 true
@@ -66,10 +60,6 @@ gap> M := DerivedSubgroup( G );;
 gap> N := Subgroup( H, [ H.2, H.3, H.4 ] );;
 gap> homN1 := RestrictedHomomorphism( hom1, N, M );;
 gap> homN2 := RestrictedHomomorphism( hom2, N, M );;
-
-#
-gap> CoincidenceGroup( homN1, homN2 ) = SubgroupNC( N, [ MinimalGeneratingSet( N )[1]^21 ] ) ;
-true
 
 #
 gap> tccM := ReidemeisterClass( homN1, homN2, One( M ) );;
