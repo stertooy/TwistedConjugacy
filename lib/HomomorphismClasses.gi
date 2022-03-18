@@ -326,13 +326,13 @@ InstallMethod(
 				MappingGeneratorsImages( x )[1],
 				MappingGeneratorsImages( x )[2]
 			));
-			Tails[j] := Flat( List( head, x -> List( tail, y -> x*y ) ) );
+			Tails[j] := ListX( head, tail, \* );
 		od;
 		
 		# Step 5: Calculate the homomorphisms
 		e := [];
 		for i in Set( Pairs, x -> x[1] ) do
-			for j in Set( Filtered( Pairs, x -> x[1] = i ), y -> y[2] ) do
+			for j in SetX( Pairs, x -> x[1] = i , y -> y[2] ) do
 				head := Heads[i];
 				tail := Tails[j];
 				Q := Range(head[1]);
@@ -344,9 +344,7 @@ InstallMethod(
 					else
 						tail := List( tail, x -> iso*x );
 					fi;
-					Append( e, Flat( 
-						List( head, x -> List( tail, y -> x*y ) )
-					));
+					Append( e, ListX( head, tail, \* ) );
 				fi;
 			od;
 		od;
@@ -503,7 +501,7 @@ InstallMethod(
 				MappingGeneratorsImages( x )[1],
 				MappingGeneratorsImages( x )[2]
 			));
-			Tails[j] := Flat( List( head, x -> List( tail, y -> x*y ) ) );
+			Tails[j] := ListX( head, tail, \* );
 		od;
 
 		e := [];
@@ -512,7 +510,7 @@ InstallMethod(
 
 		# Step 5: Calculate the homomorphisms
 		for i in Set( Pairs, x -> x[1] ) do
-			for j in Set( Filtered( Pairs, x -> x[1] = i ), y -> y[2] ) do
+			for j in SetX( Pairs, x -> x[1] = i , y -> y[2] ) do
 				head := Reps[i];
 				tail := Tails[j];
 				p := Proj[i];
@@ -526,9 +524,7 @@ InstallMethod(
 					else
 						tail := List( tail, x -> iso*x );
 					fi;
-					Append( e, Flat(
-						List( head, x -> List( tail, y -> x*y ) )
-					));
+					Append( e, ListX( head, tail, \* ) );
 				fi;
 			od;
 		od;
