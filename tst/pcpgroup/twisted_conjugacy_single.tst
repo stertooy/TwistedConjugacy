@@ -88,6 +88,8 @@ gap> g2L = [ tc1( g11, h2 ), tc2( g21, h2 ) ];
 true
 gap> IsTwistedConjugate( endoL, [ G.1, G.2 ], [ G.2, G.1 ] );
 false
+gap> IsTwistedConjugate( endoL, [ G.1, G.1, G.2 ], [ G.1, G.2, G.1 ] );
+false
 
 #
 gap> D := DerivedSubgroup( G );;
