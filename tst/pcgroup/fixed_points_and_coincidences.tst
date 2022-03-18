@@ -3,16 +3,18 @@ gap> START_TEST( "Testing TwistedConjugacy for PcGroups: Fixed Point Groups and 
 # Preparation
 gap> G := SmallGroup( 252, 34 );;
 gap> H := SmallGroup( 84, 5 );;
+gap> T := TrivialGroup( IsPcGroup );;
 gap> gensG := GeneratorsOfGroup( G );;
 gap> gensH := [ H.1, H.3*H.4 ];;
 gap> imgs1 := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, One( G ) ];;
 gap> imgs2 := [ One( G ), G.2*G.3*G.4, G.3, G.3^2*G.4, One( G ) ];;
 gap> imgs3 := [ G.2*G.4^2, One( G ) ];;
 gap> imgs4 := [ G.1*G.2*G.3*G.5, G.3*G.4^2*G.5^3 ];;
-gap> endo1 := GroupHomomorphismByImagesNC( G, G, gensG, imgs1 );;
-gap> endo2 := GroupHomomorphismByImagesNC( G, G, gensG, imgs2 );;
+gap> endo1 := GroupHomomorphismByImages( G, G, gensG, imgs1 );;
+gap> endo2 := GroupHomomorphismByImages( G, G, gensG, imgs2 );;
 gap> hom1 := GroupHomomorphismByImages( H, G, gensH, imgs3 );;
 gap> hom2 := GroupHomomorphismByImages( H, G, gensH, imgs4 );;
+gap> idT := IdentityMapping( T );;
 
 # Fixed point group of an endomorphism
 gap> Fixd := FixedPointGroup( endo2 );;
@@ -47,6 +49,10 @@ gap> ForAll( Coin, h -> h^hom1 = h^hom2 );
 true
 gap> ForAny( H, h -> not h in Coin and h^hom1 = h^hom2 );
 false
+
+#
+gap> IsTrivial( FixedPointGroup( idT ) );
+true
 
 #
 gap> STOP_TEST( "endomorphisms.tst" );

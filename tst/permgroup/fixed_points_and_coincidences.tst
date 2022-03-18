@@ -1,18 +1,20 @@
 gap> START_TEST( "Testing TwistedConjugacy for PcGroups: Fixed Point Groups and Coincidence Groups" );
 
 # Preparation
-gap> gensG :=  [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ];;
-gap> gensH := [ (2,7)(3,6)(4,5)(8,9,10,12)(11,17,14,19)(13,18,16,15), (1,2,3,4,5,6,7)(8,11,15)(9,13,17)(10,14,18)(12,16,19) ];;
-gap> G := Group( gensG );;
-gap> H := Group( gensH );;
+gap> G := Group( [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ] );;
+gap> H := Group( [ (2,7)(3,6)(4,5)(8,9,10,12)(11,17,14,19)(13,18,16,15), (8,10)(9,12)(11,14)(13,16)(15,18)(17,19), (8,11,15)(9,13,17)(10,14,18)(12,16,19), (1,2,3,4,5,6,7) ] );;
+gap> T := TrivialGroup( IsPermGroup );;
+gap> gensG := GeneratorsOfGroup( G );;
+gap> gensH := [ H.1, H.3*H.4 ];;
 gap> imgs1 := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, One( G ) ];;
 gap> imgs2 := [ One( G ), G.2*G.3*G.4, G.3, G.3^2*G.4, One( G ) ];;
 gap> imgs3 := [ G.2*G.4^2, One( G ) ];;
 gap> imgs4 := [ G.1*G.2*G.3*G.5, G.3*G.4^2*G.5^3 ];;
-gap> endo1 := GroupHomomorphismByImagesNC( G, G, gensG, imgs1 );;
-gap> endo2 := GroupHomomorphismByImagesNC( G, G, gensG, imgs2 );;
+gap> endo1 := GroupHomomorphismByImages( G, G, gensG, imgs1 );;
+gap> endo2 := GroupHomomorphismByImages( G, G, gensG, imgs2 );;
 gap> hom1 := GroupHomomorphismByImages( H, G, gensH, imgs3 );;
 gap> hom2 := GroupHomomorphismByImages( H, G, gensH, imgs4 );;
+gap> idT := IdentityMapping( T );;
 
 # Fixed point group of an endomorphism
 gap> Fixd := FixedPointGroup( endo2 );;
@@ -47,6 +49,10 @@ gap> ForAll( Coin, h -> h^hom1 = h^hom2 );
 true
 gap> ForAny( H, h -> not h in Coin and h^hom1 = h^hom2 );
 false
+
+#
+gap> IsTrivial( FixedPointGroup( idT ) );
+true
 
 #
 gap> STOP_TEST( "endomorphisms.tst" );

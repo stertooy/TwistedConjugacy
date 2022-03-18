@@ -25,79 +25,8 @@ gap> Print( ReidemeisterClass( endo, C2.1 ) , "\n" );
 ReidemeisterClass( [ [ f1 ] -> [ <identity> of ... ], [ f1 ] -> [ f1 ] ], f1 )
 
 #
-gap> L1 := [ 2, 3, 5, 6, 24, 30 ];;
-gap> G1 := ProductCyclicGroups( L1 );;
-gap> ReidemeisterSpectrum( G1 ) = 2*DivisorsInt( Size( G1 ) / 2 );
-true
-gap> ExtendedReidemeisterSpectrum( G1 ) = DivisorsInt( Product( L1 ) );
-true
-
-#
-gap> L2 := [ 2, 3, 5, 17, 24 ];;
-gap> G2 := ProductCyclicGroups( L2 );;
-gap> ReidemeisterSpectrum( G2 ) = 4*DivisorsInt( Size( G2 ) / 4 );
-true
-gap> ExtendedReidemeisterSpectrum( G2 ) = DivisorsInt( Product( L2 ) );
-true
-
-#
-gap> L3 := [ 512, 512 ];;
-gap> G3 := ProductCyclicGroups( L3 );;
-gap> ReidemeisterSpectrum( G3 ) = DivisorsInt( 2^18 );
-true
-gap> ExtendedReidemeisterSpectrum( G3 ) = DivisorsInt( 2^18 );
-true
-
-#
-gap> L7 := [ 2, 4, 4, 8, 16, 32, 64, 128, 128, 256, 512 ];;
-gap> G7 := ProductCyclicGroups( L7 );;
-gap> ReidemeisterSpectrum( G7 ) = List( [4..54], x -> 2^x );
-true
-gap> ExtendedReidemeisterSpectrum( G7 ) = DivisorsInt( Product( L7 ) );
-true
-
-#
-gap> C3 := CyclicGroup( 3 );;
-gap> CoincidenceReidemeisterSpectrum( C3 );
-[ 1, 3 ]
-
-#
-gap> D6 := DihedralGroup( 6 );;
-gap> CoincidenceReidemeisterSpectrum( D6 );
-[ 1, 2, 3, 4, 6 ]
-
-#
 gap> C4 := CyclicGroup( 4 );;
-gap> CoincidenceReidemeisterSpectrum( C4 );
-[ 1, 2, 4 ]
-
-#
 gap> Q8 := QuaternionGroup( 8 );;
-gap> ReidemeisterSpectrum( Q8 );
-[ 2, 3, 5 ]
-gap> ExtendedReidemeisterSpectrum( Q8 );
-[ 1, 2, 3, 5 ]
-gap> CoincidenceReidemeisterSpectrum( Q8 );
-[ 1, 2, 3, 4, 5, 8 ]
-
-#
-gap> A4 := SmallGroup( 12, 3 );;
-gap> ReidemeisterSpectrum( A4 );
-[ 2, 4 ]
-gap> ExtendedReidemeisterSpectrum( A4 );
-[ 1, 2, 3, 4 ]
-gap> CoincidenceReidemeisterSpectrum( A4 );
-[ 1, 2, 3, 4, 6, 12 ]
-
-#
-gap> CoincidenceReidemeisterSpectrum( Q8, C4 );
-[ 2, 4 ]
-gap> CoincidenceReidemeisterSpectrum( C4, Q8 );
-[ 2, 4, 6, 8 ]
-gap> CoincidenceReidemeisterSpectrum( Q8, A4 );
-[ 3, 4, 5, 6, 8, 12 ]
-gap> CoincidenceReidemeisterSpectrum( A4, Q8 );
-[ 8 ]
 
 #
 gap> s := Indeterminate( Rationals, "s" );;
@@ -243,20 +172,6 @@ gap> triv :=GroupHomomorphismByFunction( G, TrivialSubgroup( G ), g -> One( G ) 
 gap> CoincidenceGroup( triv, triv, triv, triv ) = G;
 true
 
-#
-gap> G := SmallGroup( 32, 40 );;
-gap> ExtendedReidemeisterSpectrum( G );
-[ 1, 2, 4, 5, 6, 7, 8, 10, 14 ]
-gap> G := SmallGroup( 32, 50 );;
-gap> ExtendedReidemeisterSpectrum( G );
-[ 1, 2, 3, 5, 9, 17 ]
-gap> G := SmallGroup( 96, 204 );;
-gap> ExtendedReidemeisterSpectrum( G );
-[ 1, 2, 3, 4, 5, 7, 8, 11 ]
-gap> G := SmallGroup( 8, 5 );;
-gap> H := SmallGroup( 16, 10 );;
-gap> CoincidenceReidemeisterSpectrum( G, H );
-[ 2, 4, 8, 16 ]
 
 #
 gap> T := TrivialGroup( IsPcGroup );;

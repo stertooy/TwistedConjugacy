@@ -84,24 +84,6 @@ gap> IsTwistedConjugate( endoL, [ G.1, G.2 ], [ G.2, G.1 ] );
 false
 
 #
-gap> ReidemeisterSpectrum( G );
-[ 4, 6, 8, 10, 12, 15, 20, 30 ]
-gap> H := SubgroupNC( G, [ G.1, G.2, G.3 ] );;
-gap> ReidemeisterSpectrum( H );
-[ 4, 6 ]
-gap> ExtendedReidemeisterSpectrum( H );
-[ 1, 2, 3, 4, 6 ]
-gap> CoincidenceReidemeisterSpectrum( H );
-[ 1, 2, 3, 4, 6, 8, 12 ]
-gap> Q := FactorGroupNC( G, SubgroupNC( G, [ G.3, G.4 ] ) );;
-gap> ReidemeisterSpectrum( Q );
-[ 2, 4, 8, 10 ]
-gap> ExtendedReidemeisterSpectrum( Q );
-[ 1, 2, 4, 5, 8, 10 ]
-gap> CoincidenceReidemeisterSpectrum( Q );
-[ 1, 2, 4, 5, 7, 8, 10, 14, 16, 28 ]
-
-#
 gap> IsRationalReidemeisterZeta( endo1, endo2 );
 true
 gap> zeta := ReidemeisterZeta( endo1, endo2 );;
@@ -193,11 +175,6 @@ gap> g2c := RepresentativeTwistedConjugation( endo2, g21, g22 );;
 gap> tc2( g21, g2c ) = g22;
 true
 
-#
-gap> ReidemeisterSpectrum( G );
-[ 1, 3, 7, 9, 21, 63 ]
-gap> ExtendedReidemeisterSpectrum( G );
-[ 1, 3, 7, 9, 21, 63 ]
 
 #
 gap> IsRationalReidemeisterZeta( endo1, endo2 );
