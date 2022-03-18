@@ -2,20 +2,11 @@ gap> START_TEST( "Testing TwistedConjugacy for PcGroups: endomorphisms" );
 
 #
 gap> G := SmallGroup( 252, 34 );;
+gap> gens := GeneratorsOfGroup( G );;
 gap> imgs1 := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, One( G ) ];;
 gap> imgs2 := [ One( G ), G.2*G.3*G.4, G.3, G.3^2*G.4, One( G ) ];;
-gap> endo1 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs1 );;
-gap> endo2 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs2 );;
-
-#
-gap> Size( CoincidenceGroup( endo1, endo2 ) );
-14
-gap> Size( FixedPointGroup( endo1 ) );
-2
-gap> Size( FixedPointGroup( endo2 ) );
-3
-gap> CoincidenceGroup( IdentityMapping( G ), endo1, endo2 );
-Group([  ])
+gap> endo1 := GroupHomomorphismByImagesNC( G, G, gens, imgs1 );;
+gap> endo2 := GroupHomomorphismByImagesNC( G, G, gens, imgs2 );;
 
 #
 gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
@@ -143,14 +134,6 @@ gap> ReidemeisterZetaCoefficients( endo2 );
 gap> G := DerivedSubgroup( G );;
 gap> endo1 := RestrictedHomomorphism( endo1, G, G );;
 gap> endo2 := RestrictedHomomorphism( endo2, G, G );;
-
-#
-gap> Size( CoincidenceGroup( endo1, endo2 ) );
-7
-gap> Size( FixedPointGroup( endo1 ) );
-1
-gap> Size( FixedPointGroup( endo2 ) );
-3
 
 #
 gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
