@@ -41,12 +41,12 @@ InstallMethod(
 		pow := Log2Int( ord );
 		if ord <> 2^pow then TryNextMethod(); fi;
 		inv := Collected( AbelianInvariants( G ) );
-        inv := List( Filtered( inv, x -> x[2] = 1 ), y -> y[1] );
+		inv := List( Filtered( inv, x -> x[2] = 1 ), y -> y[1] );
 		m := 0;
 		while not IsEmpty( inv ) do
 			fac := Remove( inv, 1 );
 			if not IsEmpty( inv ) and fac*2 = inv[1] then
-				Remove( inv );
+				Remove( inv, 1 );
 			fi;
 			m := m+1;
 		od;
@@ -60,16 +60,15 @@ InstallMethod(
 	[ IsGroup and IsFinite and IsAbelian ],
 	0,
 	function ( G )
-		local inv, invEven, invOdd, ordEven, ordOdd, H, specEven, specOdd;
+		local inv, invE, invO, GE, GO, specE, specO;
 		inv := AbelianInvariants( G );
-		invEven := Filtered( inv, IsEvenInt );
-		invOdd := Filtered( inv, IsOddInt );
-		ordEven := Product( invEven );
-		ordOdd := Product( invOdd );
-		H := AbelianGroupCons( IsPcGroup, invEven );
-		specEven := ReidemeisterSpectrumOp( H );
-		specOdd := DivisorsInt( ordOdd );
-		return Set( Cartesian( specEven, specOdd ), Product );
+		invE := Filtered( inv, IsEvenInt );
+		invO := Filtered( inv, IsOddInt );
+		GE := AbelianGroupCons( IsPcGroup, invE );
+		GO := AbelianGroupCons( IsPcGroup, invO );
+		specE := ReidemeisterSpectrumOp( GE );
+		specO := ReidemeisterSpectrumOp( GO );
+		return Set( Cartesian( specE, specO ), Product );
 	end
 );
 
