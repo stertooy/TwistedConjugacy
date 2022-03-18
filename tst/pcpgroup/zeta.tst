@@ -5,8 +5,8 @@ gap> G := PcGroupToPcpGroup( SmallGroup( 252, 34 ) );;
 gap> gens := GeneratorsOfGroup( G );;
 gap> imgs1 := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, One( G ) ];;
 gap> imgs2 := [ One( G ), G.2*G.3*G.4, G.3, G.3^2*G.4, One( G ) ];;
-gap> endo1 := GroupHomomorphismByImagesNC( G, G, gens, imgs1 );;
-gap> endo2 := GroupHomomorphismByImagesNC( G, G, gens, imgs2 );;
+gap> endo1 := GroupHomomorphismByImages( G, G, gens, imgs1 );;
+gap> endo2 := GroupHomomorphismByImages( G, G, gens, imgs2 );;
 
 #
 gap> IsRationalReidemeisterZeta( endo1, endo2 );
