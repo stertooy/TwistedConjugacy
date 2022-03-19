@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for PcGroups: endomorphisms" );
+gap> START_TEST( "Testing TwistedConjugacy for PermGroups: Reidemeister spectra" );
 
 # Preparation
 gap> filt := IsPermGroup;;
@@ -188,4 +188,4 @@ gap> CoincidenceReidemeisterSpectrum( G7 ) = DivisorsInt( 18014398509481984 );
 true
 
 #
-gap> STOP_TEST( "endomorphisms.tst" );
+gap> STOP_TEST( "spectra.tst" );
