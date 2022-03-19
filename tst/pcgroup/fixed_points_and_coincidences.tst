@@ -1,6 +1,7 @@
-gap> START_TEST( "Testing TwistedConjugacy for PcGroups: Fixed Point Groups and Coincidence Groups" );
+gap> START_TEST( "Testing TwistedConjugacy for PcGroups: fixed point groups and coincidence groups" );
 
 # Preparation
+gap> filt := IsPcGroup;;
 gap> G := SmallGroup( 252, 34 );;
 gap> H := SmallGroup( 84, 5 );;
 gap> T := TrivialGroup( IsPcGroup );;
@@ -66,4 +67,4 @@ gap> CoincidenceGroup( triv, triv, triv, triv ) = G;
 true
 
 #
-gap> STOP_TEST( "endomorphisms.tst" );
+gap> STOP_TEST( "fixed_points_and_coincidences.tst" );

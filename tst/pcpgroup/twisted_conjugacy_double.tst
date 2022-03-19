@@ -97,4 +97,4 @@ gap> tcM( m1, mc ) = m2;
 true
 
 #
-gap> STOP_TEST( "homomorphisms.tst" );
+gap> STOP_TEST( "twisted_conjugacy_double.tst" );
