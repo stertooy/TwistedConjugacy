@@ -163,4 +163,13 @@ gap> tc2D( g21D, g2cD ) = g22D;
 true
 
 #
+gap> T := TrivialSubgroup( G );;
+gap> endoT := GroupHomomorphismByImages( T, T, [ One( T ) ], [ One( T ) ] );;
+gap> Size( ReidemeisterClasses( endoT ) );
+1
+gap> homT := GroupHomomorphismByImages( T, G, [ One( T ) ], [ One( G ) ] );;
+gap> Size( ReidemeisterClasses( homT, homT ) ) = Size( G );
+true
+
+#
 gap> STOP_TEST( "endomorphisms.tst" );
