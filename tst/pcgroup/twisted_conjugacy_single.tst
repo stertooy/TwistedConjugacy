@@ -10,6 +10,8 @@ gap> endo2 := GroupHomomorphismByImages( G, G, gens, imgs2 );;
 
 #
 gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
+gap> Print( tcc );
+ReidemeisterClass( [ [ f1, f2, f3, f4, f5 ] -> [ f1*f5^6, f1*f2*f3^2*f4^2*f5^6, f3^2, f3*f4^2, <identity> of ... ], [ f1, f2, f3, f4, f5 ] -> [ <identity> of ..., f2*f3*f4, f3, f3^2*f4, <identity> of ... ] ], <identity> of ... )
 gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );

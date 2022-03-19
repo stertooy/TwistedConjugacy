@@ -93,7 +93,6 @@ gap> PrintReidemeisterZeta( hom1C4, hom2C4 );
 "exp(-2*s)*(1-s)^(-4)"
 
 #
-gap> M := SmallGroup( 120, 2 );;
 gap> hom1M := GroupHomomorphismByImagesNC( M, M, [ M.1, M.2 ], [ M.1^6, One( M ) ] );;
 gap> hom2M := GroupHomomorphismByImagesNC( M, M, [ M.1, M.2 ], [ One( M ), One( M ) ] );;
 gap> ReidemeisterZetaCoefficients( hom1M, hom2M );
@@ -106,21 +105,7 @@ gap> PrintReidemeisterZeta( hom1M, hom2M );
 "exp(-90*s-30*s^2)*(1-s)^(-120)"
 
 #
-gap> Q8 := QuaternionGroup( filt, 8 );;
-gap> hom1Q8 := GroupHomomorphismByImagesNC( Q8, Q8, [ Q8.1, Q8.2 ],[ Q8.1, Q8.1*Q8.2 ] );;
-gap> hom2Q8 := GroupHomomorphismByImagesNC( Q8, Q8, [ Q8.1, Q8.2 ],[ Q8.2, Q8.1*Q8.2 ] );;
-gap> ReidemeisterZetaCoefficients( hom1Q8, hom2Q8 );
-[ [ 3, 2, 3, 2, 3, 5 ], [  ] ]
-gap> IsRationalReidemeisterZeta( hom1Q8, hom2Q8 );
-false
-gap> zeta12Q8 := ReidemeisterZeta( hom6G5, hom9G5 );
-fail
-gap> PrintReidemeisterZeta( hom1Q8, hom2Q8 );
-"(1-s)^(-3)*(1-E(6)*s)^(-1/2)*(1-E(6)^2*s)^(-1/2)*(1+E(6)*s)^(-1/2)*(1+E(6)^2*s)^(-1/2)"
-
-#
-gap> L4 := [ 2, 2, 4 ];;
-gap> G4 := ProductCyclicGroups( L4 );;
+gap> G4 := AbelianGroup( filt, [ 2, 2, 4 ] );;
 gap> hom1G4 := GroupHomomorphismByImagesNC( G4, G4, [ G4.1, G4.2, G4.3 ], [ G4.1*G4.2, One( G4 ), G4.3^2 ] );;
 gap> hom2G4 := GroupHomomorphismByImagesNC( G4, G4, [ G4.1, G4.2, G4.3 ], [ G4.1*G4.2, G4.1, One( G4 ) ] );;
 gap> ReidemeisterZetaCoefficients( hom1G4, hom2G4 );
@@ -133,7 +118,6 @@ gap> PrintReidemeisterZeta( hom1G4, hom2G4 );
 "exp(-4*s)*(1-s)^(-20/3)*(1-E(3)*s)^(4/3*E(3))*(1-E(3)^2*s)^(4/3*E(3)^2)"
 
 #
-gap> L5 := [ 2, 2, 2 ];;
 gap> G5 := AbelianGroup( filt, [ 2, 2, 2 ] );;
 gap> hom1G5 := GroupHomomorphismByImagesNC( G5, G5, [ G5.1, G5.2, G5.3 ], [ One( G5 ), G5.2, G5.1*G5.2*G5.3 ] );;
 gap> hom2G5 := GroupHomomorphismByImagesNC( G5, G5, [ G5.1, G5.2, G5.3 ], [ One( G5 ), G5.1*G5.3, G5.1*G5.2*G5.3 ] );;
@@ -212,6 +196,19 @@ gap> zeta12G6( s );
 4*s^7+254*s^6-192*s^5+129*s^4-72*s^3+30*s^2-8*s+1)
 gap> PrintReidemeisterZeta( hom1G6, hom2G6 );
 "(1-s)^(-8)*(1-s^2)^2*(1-s^6)^(-2)"
+
+#
+gap> Q8 := QuaternionGroup( filt, 8 );;
+gap> hom1Q8 := GroupHomomorphismByImagesNC( Q8, Q8, [ Q8.1, Q8.2 ],[ Q8.1, Q8.1*Q8.2 ] );;
+gap> hom2Q8 := GroupHomomorphismByImagesNC( Q8, Q8, [ Q8.1, Q8.2 ],[ Q8.2, Q8.1*Q8.2 ] );;
+gap> ReidemeisterZetaCoefficients( hom1Q8, hom2Q8 );
+[ [ 3, 2, 3, 2, 3, 5 ], [  ] ]
+gap> IsRationalReidemeisterZeta( hom1Q8, hom2Q8 );
+false
+gap> zeta12Q8 := ReidemeisterZeta( hom6G5, hom9G5 );
+fail
+gap> PrintReidemeisterZeta( hom1Q8, hom2Q8 );
+"(1-s)^(-3)*(1-E(6)*s)^(-1/2)*(1-E(6)^2*s)^(-1/2)*(1+E(6)*s)^(-1/2)*(1+E(6)^2*s)^(-1/2)"
 
 #
 gap> STOP_TEST( "endomorphisms.tst" );
