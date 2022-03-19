@@ -403,7 +403,8 @@ InstallMethod(
 	function ( G )
 		if (
 			not IsPermGroup( G ) or
-			Size( SmallGeneratingSet( G ) ) <> 2
+			Size( SmallGeneratingSet( G ) ) <> 2 or
+			Size( G ) > 2000
 		) then TryNextMethod(); fi;
 		return RepresentativesHomomorphismClasses2Generated@( G, G );
 	end

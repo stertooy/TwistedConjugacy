@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for PcGroups: extra tests" );
+gap> START_TEST( "Testing TwistedConjugacy for PcGroups: homomorphisms" );
 
 #
 gap> filt := IsPcGroup;;
@@ -42,4 +42,4 @@ gap> Size(last);
 32
 
 #
-gap> STOP_TEST( "extra.tst" );
+gap> STOP_TEST( "homomorphisms.tst" );

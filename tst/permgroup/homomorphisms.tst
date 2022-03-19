@@ -1,67 +1,45 @@
 gap> START_TEST( "Testing TwistedConjugacy for PermGroups: homomorphisms" );
 
 #
-gap> G := AlternatingGroup( 6 );;
-gap> H := SymmetricGroup( 5 );;
-gap> hom1 := GroupHomomorphismByImagesNC( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,2)(3,4), () ] );;
-gap> hom2 := GroupHomomorphismByImagesNC( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,4)(3,6), () ] );;
+gap> filt := IsPermGroup;;
+gap> G := Group( [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ] );;
+gap> H := DirectProduct( Group([ (1,2,5,8)(3,12,10,16)(4,14,11,7)(6,15,13,9), (1,3,5,10)(2,6,8,13)(4,15,11,9)(7,16,14,12), (1,4,5,11)(2,7,8,14)(3,9,10,15)(6,12,13,16), (1,5)(2,8)(3,10)(4,11)(6,13)(7,14)(9,15)(12,16) ]), Group([ (1,2,3,4,5,6,7,8,9), (10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38) ]) );;
+gap> T := TrivialGroup( filt );;
+gap> C := CyclicGroup( filt, 2 );;
 
 #
-gap> IndexNC( H, CoincidenceGroup( hom1, hom2 ) );
+gap> HomsG := RepresentativesEndomorphismClasses( G );;
+gap> Size( HomsG );
+308
+gap> HomsT := RepresentativesEndomorphismClasses( T );;
+gap> Size( HomsT );
+1
+gap> HomsC := RepresentativesEndomorphismClasses( C );;
+gap> Size( HomsC );
 2
+gap> HomsH := RepresentativesEndomorphismClasses( H );;
+gap> Size( HomsH );
+2088
 
 #
-gap> tcc := ReidemeisterClass( hom1, hom2, (4,6,5) );;
-gap> Representative( tcc ) = (4,6,5);
+gap> HomsGT := RepresentativesHomomorphismClasses( G, T );;
+gap> Size( HomsGT );
+1
+gap> IsTrivial( ImagesSource( HomsGT[1] ) );
 true
-gap> Size( tcc );
-2
-gap> Length( List( tcc ) );
-2
-gap> Random( tcc ) in tcc;
-true
-gap> ActingDomain( tcc ) = H;
-true
-gap> R := TwistedConjugacyClasses( hom1, hom2 );;
-gap> Representative( R[1] ) = One( G );
-true
-gap> Size( R );
-184
-gap> ReidemeisterNumber( hom1, hom2 );
-184
-
-#
-gap> tc := TwistedConjugation( hom1, hom2 );;
-gap> IsTwistedConjugate( hom1, hom2, Random( R[1] ), Random( R[2] ) );
-false
-gap> RepresentativeTwistedConjugation( hom1, hom2, Random( R[1] ), Random( R[2] ) );
-fail
-gap> g1 := Random( R[3] );;
-gap> g2 := Random( R[3] );;
-gap> g := RepresentativeTwistedConjugation( hom1, hom2, g1, g2 );;
-gap> tc( g1, g ) = g2;
+gap> HomsTG := RepresentativesHomomorphismClasses( T, G );;
+gap> Size( HomsTG );
+1
+gap> IsTrivial( ImagesSource( HomsTG[1] ) );
 true
 
 #
-gap> h := Random( H );;
-gap> tc2 := TwistedConjugation( hom2, hom1 );;
-gap> g1L := [ g1, g2 ];;
-gap> g2L := [ tc( g1, h ), tc2( g2, h ) ];;
-gap> hom1L := [ hom1, hom2 ];;
-gap> hom2L := [ hom2, hom1 ];;
-gap> IsTwistedConjugate( hom1L, hom2L, g1L, g2L );
-true
-gap> h2 := RepresentativeTwistedConjugation( hom1L, hom2L, g1L, g2L );;
-gap> g2L = [ tc( g1, h2 ), tc2( g2, h2 ) ];
-true
-gap> IsTwistedConjugate( hom1L, hom2L, [ G.1, G.2 ], [ G.2, G.1 ] );
-false
-
-#
-gap> CoincidenceReidemeisterSpectrum( G, H );
-[ 120 ]
-gap> CoincidenceReidemeisterSpectrum( H, G );
-[ 180, 184, 360 ]
+gap> HomsGH := RepresentativesHomomorphismClasses( G, H );;
+gap> Size(last);
+4
+gap> HomsHG := RepresentativesHomomorphismClasses( H, G );;
+gap> Size(last);
+32
 
 #
 gap> STOP_TEST( "homomorphisms.tst" );
