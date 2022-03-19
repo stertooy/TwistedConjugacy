@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for PcGroups: endomorphisms" );
+gap> START_TEST( "Testing TwistedConjugacy for PcGroups: zeta functions" );
 
 #
 gap> G := PcGroupToPcpGroup( SmallGroup( 252, 34 ) );;

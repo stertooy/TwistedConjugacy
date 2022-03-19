@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for PcGroups: endomorphisms" );
+gap> START_TEST( "Testing TwistedConjugacy for PermGroups: twisted conjugation by endomorphisms" );
 
 #
 gap> G := Group( [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ] );;
@@ -10,6 +10,8 @@ gap> endo2 := GroupHomomorphismByImages( G, G, gens, imgs2 );;
 
 #
 gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
+gap> Print( tcc );
+ReidemeisterClass( [ [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ] -> [ (10,16)(11,15)(12,14), (1,9)(2,8)(3,7)(4,6)(10,16)(11,15)(12,14), (1,4,2)(3,7,5)(6,9,8), (1,8,7)(2,9,3)(4,6,5), () ], [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ] -> [ (), (1,5)(2,3)(4,7)(6,8), (1,2,4)(3,5,7)(6,8,9), (1,7,8)(2,3,9)(4,5,6), () ] ], () )
 gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );
@@ -161,4 +163,10 @@ gap> tc2D( g21D, g2cD ) = g22D;
 true
 
 #
-gap> STOP_TEST( "endomorphisms.tst" );
+gap> T := TrivialSubgroup( G );;
+gap> endoT := GroupHomomorphismByImages( T, T, [ One( T ) ], [ One( T ) ] );;
+gap> Size( ReidemeisterClasses( endoT ) );
+1
+
+#
+gap> STOP_TEST( "twisted_conjugacy_single.tst" );

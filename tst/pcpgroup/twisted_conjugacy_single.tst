@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for PcGroups: endomorphisms" );
+gap> START_TEST( "Testing TwistedConjugacy for PcpGroups: twisted conjugation by endomorphisms" );
 
 #
 gap> G := PcGroupToPcpGroup( SmallGroup( 252, 34 ) );;
@@ -10,6 +10,8 @@ gap> endo2 := GroupHomomorphismByImages( G, G, gens, imgs2 );;
 
 #
 gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
+gap> Print( tcc );
+ReidemeisterClass( [ [ g1, g2, g3, g4, g5 ] -> [ g1*g5^6, g1*g2*g3^2*g4^2*g5^6, g3^2, g3*g4^2, id ], [ g1, g2, g3, g4, g5 ] -> [ id, g2*g3*g4, g3, g3^2*g4, id ] ], id )
 gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );
@@ -161,4 +163,10 @@ gap> tc2D( g21D, g2cD ) = g22D;
 true
 
 #
-gap> STOP_TEST( "endomorphisms.tst" );
+gap> T := TrivialSubgroup( G );;
+gap> endoT := GroupHomomorphismByImages( T, T, [ One( T ) ], [ One( T ) ] );;
+gap> Size( ReidemeisterClasses( endoT ) );
+1
+
+#
+gap> STOP_TEST( "twisted_conjugacy_single.tst" );

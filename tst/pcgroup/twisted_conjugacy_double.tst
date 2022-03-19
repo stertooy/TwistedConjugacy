@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for PcGroups: homomorphisms" );
+gap> START_TEST( "Testing TwistedConjugacy for PcGroups: twisted conjugation by homomorphisms" );
 
 #
 gap> G := SmallGroup( 252, 34 );;
@@ -11,6 +11,8 @@ gap> hom2 := GroupHomomorphismByImages( H, G, gens, imgs2 );;
 
 #
 gap> tcc := ReidemeisterClass( hom1, hom2, One( G ) );;
+gap> Print( tcc );
+ReidemeisterClass( [ [ f1, f3*f4 ] -> [ f2*f4^2, <identity> of ... ], [ f1, f3*f4 ] -> [ f1*f2*f3*f5, f3*f4^2*f5^3 ] ], <identity> of ... )
 gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );

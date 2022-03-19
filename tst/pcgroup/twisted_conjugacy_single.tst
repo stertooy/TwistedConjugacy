@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for PcGroups: endomorphisms" );
+gap> START_TEST( "Testing TwistedConjugacy for PcGroups: twisted conjugation by endomorphisms" );
 
 #
 gap> G := SmallGroup( 252, 34 );;
@@ -167,9 +167,6 @@ gap> T := TrivialSubgroup( G );;
 gap> endoT := GroupHomomorphismByImages( T, T, [ One( T ) ], [ One( T ) ] );;
 gap> Size( ReidemeisterClasses( endoT ) );
 1
-gap> homT := GroupHomomorphismByImages( T, G, [ One( T ) ], [ One( G ) ] );;
-gap> Size( ReidemeisterClasses( homT, homT ) ) = Size( G );
-true
 
 #
-gap> STOP_TEST( "endomorphisms.tst" );
+gap> STOP_TEST( "twisted_conjugacy_single.tst" );

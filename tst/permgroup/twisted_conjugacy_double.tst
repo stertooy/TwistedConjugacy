@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for PcGroups: homomorphisms" );
+gap> START_TEST( "Testing TwistedConjugacy for PermGroups: twisted conjugation by homomorphisms" );
 
 #
 gap> G := Group( [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ] );;
@@ -11,6 +11,8 @@ gap> hom2 := GroupHomomorphismByImages( H, G, gens, imgs2 );;
 
 #
 gap> tcc := ReidemeisterClass( hom1, hom2, One( G ) );;
+gap> Print( tcc );
+ReidemeisterClass( [ [ (2,7)(3,6)(4,5)(8,9,10,12)(11,17,14,19)(13,18,16,15), (1,2,3,4,5,6,7)(8,11,15)(9,13,17)(10,14,18)(12,16,19) ] -> [ (1,6)(2,9)(4,8)(5,7), () ], [ (2,7)(3,6)(4,5)(8,9,10,12)(11,17,14,19)(13,18,16,15), (1,2,3,4,5,6,7)(8,11,15)(9,13,17)(10,14,18)(12,16,19) ] -> [ (1,2)(3,8)(5,6)(7,9)(10,11)(12,16)(13,15), (1,8,7)(2,9,3)(4,6,5)(10,13,16,12,15,11,14) ] ], () )
 gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );
