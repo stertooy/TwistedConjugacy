@@ -415,7 +415,7 @@ InstallMethod(
 	function( G )
 		local asAuto, AutG, gensAutG, Conj, c, r, norm, SubReps, SubOrbits,
 		Pairs, Proj, Reps, i, subOrbit, N, possibleImgs, p, Q, idQ, head,
-		Tails, j, M, AutM, InnGM, tail, e, InnG, iso, Isos;
+		Tails, j, M, AutM, InnGM, tail, e, iso, Isos;
 
 		# Step 1: Determine automorphism group of G
 		asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
@@ -508,9 +508,7 @@ InstallMethod(
 			Tails[j] := ListX( head, tail, \* );
 		od;
 
-		e := [];
-		InnG := InnerAutomorphismsAutomorphismGroup( AutG );
-		Append( e, List( RightTransversal( AutG, InnG ) ) );
+		e := RepresentativesAutomorphismClassesOp( G );
 
 		# Step 5: Calculate the homomorphisms
 		for p in Pairs do
@@ -525,5 +523,33 @@ InstallMethod(
 			Append( e, ListX( head, tail, \* ) );
 		od;
 		return e;
+	end
+);
+
+
+###############################################################################
+##
+## RepresentativesAutomorphismClasses( G )
+##
+InstallGlobalFunction(
+	RepresentativesAutomorphismClasses,
+	function( G )
+		return RepresentativesAutomorphismClassesOp( G );
+	end
+);
+
+
+###############################################################################
+##
+## RepresentativesAutomorphismClassesOp( G )
+##
+InstallMethod(
+	RepresentativesAutomorphismClassesOp,
+	[ IsGroup ],
+	function ( G )
+		local AutG, InnG;
+		AutG := AutomorphismGroup( G );
+		InnG := InnerAutomorphismsAutomorphismGroup( AutG );
+		return List( RightTransversal( AutG, InnG ) );
 	end
 );

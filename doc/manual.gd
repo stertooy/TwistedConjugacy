@@ -45,7 +45,7 @@
 
 #! @Section Twisted Conjugation Action
 #! Let $G, H$ be groups and $\varphi,\psi: H \to G$ group homomorphisms. Then the pair $(\varphi,\psi)$ induces a (right) group action on $G$ given by
-#! $$G \times H \to G: (g,h) \mapsto g \cdot h = \psi(h)^{-1} g\varphi(h).$$
+#! $$G \times H \to G: (g,h) \mapsto g \cdot h := \psi(h)^{-1} g\varphi(h).$$
 #! This group action is called **$(\varphi,\psi)$-twisted conjugation**, and induces an equivalence relation on the group $G$. We say that $g_1, g_2 \in G$ are $(\varphi,\psi)$-twisted conjugate, denoted by $g_1 \sim_{\varphi,\psi} g_2$, if and only if there exists some element $h \in H$ such that $g_1 \cdot h = g_2$, or equivalently $g_1 = \psi(h) g_2 \varphi(h)^{-1}$.
 #! <P/>If $\varphi: G \to G$ is an endomorphism of a group $G$, then by **$\varphi$-twisted conjugacy** we mean $(\varphi,\mathrm{id}_G)$-twisted conjugacy. Most functions in this package will allow you to input a single endomorphism instead of a pair of homomorphisms. The "missing" endomorphism will automatically be assumed to be the identity mapping.
 
@@ -312,19 +312,49 @@ RepresentativeTwistedConjugation( [ tau, phi ], [ psi, khi ], [ (1,5)(4,6), (1,4
 #! @EndExample
 
 
+
 #####
 #
 # CHAPTER 4
 #
 #####
 
-#! @Chapter Coincidence and Fixed Point Groups
-#! @ChapterLabel coin
-#! @ChapterTitle Coincidence and Fixed Point Groups
+#! @Chapter Homomorphisms
+#! @ChapterLabel homs
+#! @ChapterTitle Homomorphisms
 
 
 ###
 # SECTION 1
+###
+
+#! @Section Representatives of homomorphisms between groups
+
+#! @Description
+#! Let G be a group. 
+#! @Arguments H, G
+DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
+
+#! @Description
+#! Let <A>hom1</A>, <A>hom2</A>, ... be group homomorphisms from a group H to a group G. This command returns the subgroup of H consisting of the elements h for which h^<A>hom1</A> = h^<A>hom2</A> = ...
+#! @Arguments g
+DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
+
+#! @BeginExample
+G := AlternatingGroup( 6 );;
+gap> RepresentativesEndomorphismClasses( G );
+#! [ [ (1,2,3,4,5), (4,5,6) ] -> [ (), () ], [ (1,2,3,4,5), (4,5,6) ] -> [ (2,3,4,6,5), (1,2,3) ],
+#!   [ (1,2,3,4,5), (4,5,6) ] -> [ (2,4,3,5,6), (1,2,3)(4,5,6) ],
+#!   [ (1,2,3,4,5), (4,5,6) ] -> [ (2,3,4,5,6), (1,2,3) ],
+#!   [ (1,2,3,4,5), (4,5,6) ] -> [ (1,2,4,3,5), (1,2,3)(4,5,6) ] ]
+H := SymmetricGroup( 5 );;
+gap> RepresentativesHomomorphismClasses( H, G );
+#! [ [ (1,2,3,4,5), (1,2) ] -> [ (), () ], [ (1,2,3,4,5), (1,2) ] -> [ (), (1,2)(3,4) ] ]
+#! @EndExample
+
+
+###
+# SECTION 2
 ###
 
 #! @Section Coincidence and Fixed Point Groups
@@ -340,35 +370,21 @@ DeclareGlobalFunction( "FixedPointGroup" );
 DeclareGlobalFunction( "CoincidenceGroup" );
 
 #! @BeginExample
-G := AlternatingGroup( 6 );;
 phi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],
  [ (1,2,6,3,5), (1,4,5) ] );;
 FixedPointGroup( phi );
 #! Group([ (1,2,6,4,3) ])
-H := SymmetricGroup( 5 );;
 psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,4)(3,6), () ] );; 
 khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,2)(3,4), () ] );;
 CoincidenceGroup( psi, khi );
 #! Group([ (1,2,3,4,5), (1,3,4,5,2) ])
-
-
-
 #! @EndExample
-#####
-#
-# CHAPTER 5
-#
-#####
-
-#! @Chapter Miscellaneous
-#! @ChapterLabel misc
-#! @ChapterTitle Miscellaneous
 
 
 ###
-# SECTION 1
+# SECTION 3
 ###
 
 #! @Section Induced and restricted group homomorphisms

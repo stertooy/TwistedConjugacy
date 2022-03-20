@@ -95,6 +95,11 @@ DeclareOperation(
 	"RepresentativesEndomorphismClassesOp",
 	[ IsGroup ]
 );
+DeclareGlobalFunction( "RepresentativesAutomorphismClasses" );
+DeclareOperation(
+	"RepresentativesAutomorphismClassesOp",
+	[ IsGroup ]
+);
 
 
 DeclareGlobalFunction( "FixedPointGroup" );
