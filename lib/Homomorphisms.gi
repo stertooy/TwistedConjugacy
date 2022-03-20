@@ -245,7 +245,7 @@ InstallMethod(
 	function( H, G )
 		local asAuto, AutH, AutG, gensAutG, gensAutH, Conj, c, r, ImgReps,
 		ImgOrbits, KerOrbits, Pairs, Heads, i, kerOrbit, N, possibleImgs, p, Q,
-		idQ, head, Tails, j, imgOrbit, M, AutM, InnGM, tail, e, iso;
+		idQ, head, Tails, j, imgOrbit, M, AutM, InnGM, tail, e, iso, Isos;
 
 		# Step 1: Determine automorphism groups of H and G
 		asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
@@ -278,6 +278,7 @@ InstallMethod(
 		# Step 3: Calculate info on kernels
 		Pairs := [];
 		Heads := [];
+		Isos := [];
 		for i in [ 1 .. Size( KerOrbits ) ] do
 			kerOrbit := KerOrbits[i];
 			N := kerOrbit[1];
@@ -288,23 +289,26 @@ InstallMethod(
 			if IsEmpty( possibleImgs ) then
 				continue;
 			fi;
+			Isos[i] := [];
 			p := NaturalHomomorphismByNormalSubgroupNC( H, N );
 			Q := ImagesSource( p );
 			p := RestrictedHomomorphism( p, H, Q );
-			idQ := Fingerprint@( Q );
-			possibleImgs := Filtered( 
-				possibleImgs, 
-				j -> Fingerprint@( ImgOrbits[j][1] ) = idQ
-			);
-			if IsEmpty( possibleImgs ) then
-				continue;
+			
+			for j in possibleImgs do
+				M := ImgOrbits[j][1];
+				iso := IsomorphismGroups( Q, M );
+				if iso <> fail then
+					Isos[i][j] := p*iso;
+					Add( Pairs, [ i, j ] );
+				fi;
+			od;
+			
+			if not IsEmpty( SetX( Pairs, x -> x[1] = i, x -> x[1] ) ) then
+				Heads[i] := List(
+					kerOrbit,
+					x -> RepresentativeAction( AutH, N, x, asAuto )
+				);
 			fi;
-			head := List(
-				kerOrbit,
-				x -> RepresentativeAction( AutH, N, x, asAuto )
-			);
-			Heads[i] := head*p;
-			Append( Pairs, List( possibleImgs, j -> [ i, j ] ) );
 		od;
 		
 		# Step 4: Calculate info on images
@@ -331,22 +335,16 @@ InstallMethod(
 		
 		# Step 5: Calculate the homomorphisms
 		e := [];
-		for i in Set( Pairs, x -> x[1] ) do
-			for j in SetX( Pairs, x -> x[1] = i , y -> y[2] ) do
-				head := Heads[i];
-				tail := Tails[j];
-				Q := Range(head[1]);
-				M := Source(tail[1]);
-				iso := IsomorphismGroups( Q, M );
-				if iso <> fail then
-					if Length( head ) < Length( tail ) then
-						head := List( head, x -> x*iso );
-					else
-						tail := List( tail, x -> iso*x );
-					fi;
-					Append( e, ListX( head, tail, \* ) );
-				fi;
-			od;
+		for p in Pairs do
+			head := Heads[ p[1] ];
+			tail := Tails[ p[2] ];
+			iso := Isos[ p[1] ][ p[2] ];
+			if Length( head ) < Length( tail ) then
+				head := head*iso;
+			else
+				tail := iso*tail;
+			fi;
+			Append( e, ListX( head, tail, \* ) );
 		od;
 		return e;
 	end
@@ -403,8 +401,7 @@ InstallMethod(
 	function ( G )
 		if (
 			not IsPermGroup( G ) or
-			Size( SmallGeneratingSet( G ) ) <> 2 or
-			Size( G ) > 2000
+			Size( SmallGeneratingSet( G ) ) <> 2
 		) then TryNextMethod(); fi;
 		return RepresentativesHomomorphismClasses2Generated@( G, G );
 	end
@@ -418,7 +415,7 @@ InstallMethod(
 	function( G )
 		local asAuto, AutG, gensAutG, Conj, c, r, norm, SubReps, SubOrbits,
 		Pairs, Proj, Reps, i, subOrbit, N, possibleImgs, p, Q, idQ, head,
-		Tails, j, M, AutM, InnGM, tail, e, InnG, iso;
+		Tails, j, M, AutM, InnGM, tail, e, InnG, iso, Isos;
 
 		# Step 1: Determine automorphism group of G
 		asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
@@ -444,6 +441,7 @@ InstallMethod(
 		SubOrbits := List( SubOrbits, x -> Filtered( SubReps, y -> y in x ) );
 
 		# Step 3: Calculate info on kernels
+		Isos := [];
 		Pairs := [];
 		Proj := [];
 		Reps := [];
@@ -463,20 +461,25 @@ InstallMethod(
 			p := NaturalHomomorphismByNormalSubgroupNC( G, N );
 			Q := ImagesSource( p );
 			p := RestrictedHomomorphism( p, G, Q );
-			idQ := Fingerprint@( Q );
-			possibleImgs := Filtered( 
-				possibleImgs, 
-				j -> Fingerprint@( SubOrbits[j][1] ) = idQ
-			);
-			if IsEmpty( possibleImgs ) then
-				continue;
+			
+			
+			Isos[i] := [];
+			for j in possibleImgs do
+				M := SubOrbits[j][1];
+				iso := IsomorphismGroups( Q, M );
+				if iso <> fail then
+					Isos[i][j] := p*iso;
+					Add( Pairs, [ i, j ] );
+				fi;
+			od;
+			
+			if not IsEmpty( SetX( Pairs, x -> x[1] = i, x -> x[1] ) ) then
+				Reps[i] := List( 
+					subOrbit,
+					x -> RepresentativeAction( AutG, N, x, asAuto )
+				);
+				Proj[i] := p;
 			fi;
-			Reps[i] := List( 
-				subOrbit,
-				x -> RepresentativeAction( AutG, N, x, asAuto )
-			);
-			Proj[i] := p;
-			Append( Pairs, List( possibleImgs, j -> [ i, j ] ) );
 		od;
 
 		# Step 4: Calculate info on images
@@ -510,24 +513,16 @@ InstallMethod(
 		Append( e, List( RightTransversal( AutG, InnG ) ) );
 
 		# Step 5: Calculate the homomorphisms
-		for i in Set( Pairs, x -> x[1] ) do
-			for j in SetX( Pairs, x -> x[1] = i , y -> y[2] ) do
-				head := Reps[i];
-				tail := Tails[j];
-				p := Proj[i];
-				Q := Range(p);
-				M := Source(tail[1]);
-				iso := IsomorphismGroups( Q, M );
-				if iso <> fail then
-					iso := p*iso;
-					if Length( head ) < Length( tail ) then
-						head := List( head, x -> x*iso );
-					else
-						tail := List( tail, x -> iso*x );
-					fi;
-					Append( e, ListX( head, tail, \* ) );
-				fi;
-			od;
+		for p in Pairs do
+			head := Reps[ p[1] ];
+			tail := Tails[ p[2] ];
+			iso := Isos[ p[1] ][ p[2] ];
+			if Length( head ) < Length( tail ) then
+				head := head*iso;
+			else
+				tail := iso*tail;
+			fi;
+			Append( e, ListX( head, tail, \* ) );
 		od;
 		return e;
 	end

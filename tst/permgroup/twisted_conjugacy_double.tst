@@ -1,21 +1,18 @@
-gap> START_TEST( "Testing TwistedConjugacy for finite PcpGroups: homomorphisms" );
+gap> START_TEST( "Testing TwistedConjugacy for PermGroups: twisted conjugation by homomorphisms" );
 
 #
-gap> G := PcGroupToPcpGroup( SmallGroup( 252, 34 ) );;
-gap> H := PcGroupToPcpGroup( SmallGroup( 84, 5 ) );;
+gap> G := Group( [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ] );;
+gap> H := Group( [ (2,7)(3,6)(4,5)(8,9,10,12)(11,17,14,19)(13,18,16,15), (8,10)(9,12)(11,14)(13,16)(15,18)(17,19), (8,11,15)(9,13,17)(10,14,18)(12,16,19), (1,2,3,4,5,6,7) ] );;
+gap> gens := [ H.1, H.3*H.4 ];;
 gap> imgs1 := [ G.2*G.4^2, One( G ) ];;
 gap> imgs2 := [ G.1*G.2*G.3*G.5, G.3*G.4^2*G.5^3 ];;
-gap> hom1 := GroupHomomorphismByImagesNC( H, G, [ H.1, H.3*H.4 ], imgs1 );;
-gap> hom2 := GroupHomomorphismByImagesNC( H, G, [ H.1, H.3*H.4 ], imgs2 );;
-
-#
-gap> Coin := CoincidenceGroup( hom1, hom2 );;
-gap> h := Random( H );;
-gap> Coin.1 * h = h*Coin.1;
-true
+gap> hom1 := GroupHomomorphismByImages( H, G, gens, imgs1 );;
+gap> hom2 := GroupHomomorphismByImages( H, G, gens, imgs2 );;
 
 #
 gap> tcc := ReidemeisterClass( hom1, hom2, One( G ) );;
+gap> Print( tcc );
+ReidemeisterClass( [ [ (2,7)(3,6)(4,5)(8,9,10,12)(11,17,14,19)(13,18,16,15), (1,2,3,4,5,6,7)(8,11,15)(9,13,17)(10,14,18)(12,16,19) ] -> [ (1,6)(2,9)(4,8)(5,7), () ], [ (2,7)(3,6)(4,5)(8,9,10,12)(11,17,14,19)(13,18,16,15), (1,2,3,4,5,6,7)(8,11,15)(9,13,17)(10,14,18)(12,16,19) ] -> [ (1,2)(3,8)(5,6)(7,9)(10,11)(12,16)(13,15), (1,8,7)(2,9,3)(4,6,5)(10,13,16,12,15,11,14) ] ], () )
 gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );
@@ -68,10 +65,6 @@ gap> homN1 := RestrictedHomomorphism( hom1, N, M );;
 gap> homN2 := RestrictedHomomorphism( hom2, N, M );;
 
 #
-gap> CoincidenceGroup( homN1, homN2 ) = SubgroupNC( N, [ MinimalGeneratingSet( N )[1]^21 ] ) ;
-true
-
-#
 gap> tccM := ReidemeisterClass( homN1, homN2, One( M ) );;
 gap> Representative( tccM ) = One( M );
 true
@@ -104,4 +97,4 @@ gap> tcM( m1, mc ) = m2;
 true
 
 #
-gap> STOP_TEST( "homomorphisms_finite.tst" );
+gap> STOP_TEST( "twisted_conjugacy_double.tst" );

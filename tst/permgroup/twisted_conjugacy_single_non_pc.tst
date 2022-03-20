@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for PermGroups: endomorphisms" );
+gap> START_TEST( "Testing TwistedConjugacy for PermGroups: endomorphisms of a non-polycyclic group" );
 
 #
 gap> G := Group( [ (3,4)(5,6), (1,2,3)(4,5,7) ] );;
@@ -6,16 +6,6 @@ gap> imgs1 := [ (1,3,4,6,7,5,2), (3,4)(5,6) ];;
 gap> imgs2 := [ (1,2,3,7,4,6,5), (3,4)(5,6) ];;
 gap> endo1 := GroupHomomorphismByImagesNC( G, G, [ (1,6,7,4,3,5,2), (3,5)(4,6) ], imgs1 );;
 gap> endo2 := GroupHomomorphismByImagesNC( G, G, [ (1,6,7,4,3,5,2), (3,5)(4,6) ], imgs2 );;
-
-#
-gap> Size( CoincidenceGroup( endo1, endo2 ) );
-4
-gap> Size( FixedPointGroup( endo1 ) );
-4
-gap> Size( FixedPointGroup( endo2 ) );
-8
-gap> CoincidenceGroup( IdentityMapping( G ), endo1, endo2 );
-Group(())
 
 #
 gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
@@ -93,41 +83,4 @@ gap> IsTwistedConjugate( endoL, [ G.1, G.2 ], [ G.2, G.1 ] );
 false
 
 #
-gap> ReidemeisterSpectrum( G );
-[ 4, 6 ]
-gap> ExtendedReidemeisterSpectrum( G );
-[ 1, 4, 6 ]
-gap> CoincidenceReidemeisterSpectrum( G );
-[ 1, 4, 6, 168 ]
-
-#
-gap> IsRationalReidemeisterZeta( endo1, endo2 );
-true
-gap> zeta := ReidemeisterZeta( endo1, endo2 );;
-gap> zeta( 10/3 );
--729/218491
-gap> PrintReidemeisterZeta( endo1, endo2 );
-"(1-s)^(-4)*(1-s^2)^(-1)"
-gap> ReidemeisterZetaCoefficients( endo1, endo2 );
-[ [ 4, 6 ], [  ] ]
-gap> IsRationalReidemeisterZeta( endo1 );
-true
-gap> zeta1 := ReidemeisterZeta( endo1 );;
-gap> zeta1( 10/3 );
--729/218491
-gap> PrintReidemeisterZeta( endo1 );
-"(1-s)^(-4)*(1-s^2)^(-1)"
-gap> ReidemeisterZetaCoefficients( endo1 );
-[ [ 4, 6 ], [  ] ]
-gap> IsRationalReidemeisterZeta( endo2 );
-true
-gap> zeta2 := ReidemeisterZeta( endo2 );;
-gap> zeta2( 10/3 );
-729/117649
-gap> PrintReidemeisterZeta( endo2 );
-"(1-s)^(-6)"
-gap> ReidemeisterZetaCoefficients( endo2 );
-[ [ 6 ], [  ] ]
-
-#
-gap> STOP_TEST( "endomorphisms.tst" );
+gap> STOP_TEST( "twisted_conjugacy_single_non_pc.tst" );

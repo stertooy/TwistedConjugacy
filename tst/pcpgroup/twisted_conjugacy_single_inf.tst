@@ -1,19 +1,11 @@
-gap> START_TEST( "Testing TwistedConjugacy for infinite PcpGroups: endomorphisms" );
+gap> START_TEST( "Testing TwistedConjugacy for infinite PcpGroups: twisted conjugation by endomorphisms" );
 
 #
 gap> G := ExamplesOfSomePcpGroups( 5 );;
 gap> imgs1 := [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^3, G.4^-1  ];;
 gap> imgs2 := [ G.4^-1*G.1, G.3, G.2, G.4^-1  ];;
-gap> endo1 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs1 );;
-gap> endo2 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs2 );;
-
-#
-gap> CoincidenceGroup( endo1, endo2 );
-Pcp-group with orders [ 2, 0, 0 ]
-gap> FixedPointGroup( endo1 ) ;
-Pcp-group with orders [  ]
-gap> FixedPointGroup( endo2 );
-Pcp-group with orders [ 0 ]
+gap> endo1 := GroupHomomorphismByImages( G, G, GeneratorsOfGroup( G ), imgs1 );;
+gap> endo2 := GroupHomomorphismByImages( G, G, GeneratorsOfGroup( G ), imgs2 );;
 
 #
 gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
@@ -83,4 +75,4 @@ gap> IsTwistedConjugate( endoL, [ G.1, G.2 ], [ G.2, G.1 ] );
 false
 
 #
-gap> STOP_TEST( "endomorphisms_infinite.tst" );
+gap> STOP_TEST( "twisted_conjugacy_single_inf.tst" );

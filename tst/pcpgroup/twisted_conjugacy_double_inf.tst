@@ -1,16 +1,12 @@
-gap> START_TEST( "Testing TwistedConjugacy for infinite PcpGroups: homomorphisms" );
+gap> START_TEST( "Testing TwistedConjugacy for infinite PcpGroups: twisted conjugation by homomorphisms" );
 
 #
 gap> G := ExamplesOfSomePcpGroups( 5 );;
 gap> H := DirectProduct( ExamplesOfSomePcpGroups( 5 ), AbelianPcpGroup( 1 ) );;
 gap> imgs1 := [ G.1*G.4^-1, G.3, G.2*G.3^2*G.4^2, G.4^-1, One( G )  ];;
 gap> imgs2 := [ G.1, G.2^2*G.3*G.4^2, G.2*G.3*G.4, G.4, One( G )  ];;
-gap> hom1 := GroupHomomorphismByImagesNC( H, G, GeneratorsOfGroup( H ), imgs1 );;
-gap> hom2 := GroupHomomorphismByImagesNC( H, G, GeneratorsOfGroup( H ), imgs2 );;
-
-#
-gap> CoincidenceGroup( hom1, hom2 ) = SubgroupNC( H, [ H.5 ] );
-true
+gap> hom1 := GroupHomomorphismByImages( H, G, GeneratorsOfGroup( H ), imgs1 );;
+gap> hom2 := GroupHomomorphismByImages( H, G, GeneratorsOfGroup( H ), imgs2 );;
 
 #
 gap> tcc := ReidemeisterClass( hom1, hom2, One( G ) );;
@@ -58,4 +54,4 @@ gap> IsTwistedConjugate( hom1L, hom2L, [ G.1, G.2 ], [ G.2, G.1 ] );
 false
 
 #
-gap> STOP_TEST( "homomorphisms_infinite.tst" );
+gap> STOP_TEST( "twisted_conjugacy_double_inf.tst" );
