@@ -8,14 +8,6 @@ gap> endo1 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs1 )
 gap> endo2 := GroupHomomorphismByImagesNC( G, G, GeneratorsOfGroup( G ), imgs2 );;
 
 #
-gap> CoincidenceGroup( endo1, endo2 );
-Pcp-group with orders [ 2, 0, 0 ]
-gap> FixedPointGroup( endo1 ) ;
-Pcp-group with orders [  ]
-gap> FixedPointGroup( endo2 );
-Pcp-group with orders [ 0 ]
-
-#
 gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
 gap> Representative( tcc ) = One( G );
 true

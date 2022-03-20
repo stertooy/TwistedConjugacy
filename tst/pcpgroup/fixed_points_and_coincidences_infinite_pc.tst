@@ -1,0 +1,94 @@
+gap> START_TEST( "Testing TwistedConjugacy for PcpGroups: fixed point groups and coincidence groups for infinite groups" );
+
+# Preparation
+gap> G := ExamplesOfSomePcpGroups( 5 );;
+gap> H := DirectProduct( ExamplesOfSomePcpGroups( 5 ), AbelianPcpGroup( 1 ) );;
+gap> F := FittingSubgroup( G );;
+gap> G2 := ExamplesOfSomePcpGroups( 4 );;
+gap> H2 := DirectProduct( G2, AbelianPcpGroup( 1 ) );;
+gap> gensG := GeneratorsOfGroup( G );;
+gap> gensH := GeneratorsOfGroup( H );;
+gap> gensF := GeneratorsOfGroup( F );;
+gap> imgs1 := [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^3, G.4^-1  ];;
+gap> imgs2 := [ G.4^-1*G.1, G.3, G.2, G.4^-1  ];;
+gap> imgs3 := [ G.1*G.4^-1, G.3, G.2*G.3^2*G.4^2, G.4^-1, One( G )  ];;
+gap> imgs4 := [ G.1, G.2^2*G.3*G.4^2, G.2*G.3*G.4, G.4, One( G )  ];;
+gap> imgs5 := [ G.1, G.2, G.3, G.4, One( G ) ];;
+gap> imgsF := [ F.1^2*F.2, F.1^3*F.2^2, F.3 ];;
+gap> endo1 := GroupHomomorphismByImages( G, G, gensG, imgs1 );;
+gap> endo2 := GroupHomomorphismByImages( G, G, gensG, imgs2 );;
+gap> hom1 := GroupHomomorphismByImages( H, G, gensH, imgs3 );;
+gap> hom2 := GroupHomomorphismByImages( H, G, gensH, imgs4 );;
+gap> hom3 := GroupHomomorphismByImages( H, G, gensH, imgs5 );;
+gap> idG := IdentityMapping( G );;
+gap> incF := GroupHomomorphismByImages( F, G, gensF, gensF );;
+gap> homF := GroupHomomorphismByImages( F, F, gensF, imgsF );;
+gap> hom4 := GroupHomomorphismByImages( H2, G2, [ H2.1, H2.2, H2.4 ],[ G2.1^2, One( G2 ), One( G2 ) ] );;
+gap> hom5 := GroupHomomorphismByImages( H2, G2, [ H2.1, H2.2, H2.4 ],[ G2.3, One( G2 ), One( G2 ) ] );;
+gap> hom6 := GroupHomomorphismByImages( H2, G2, [ H2.1, H2.2, H2.4 ],[ G2.1, G2.2^2, One( G2 ) ] );;
+
+# Fixed point group of an endomorphism
+gap> Fixd := FixedPointGroup( endo1 );
+Pcp-group with orders [  ]
+gap> IsTrivial( Fixd );
+true
+
+# Fixed point group of an endomorphism
+gap> Fixd := FixedPointGroup( endo2 );
+Pcp-group with orders [ 0 ]
+gap> ForAll( GeneratorsOfGroup( Fixd ), g -> g = g^endo2 );
+true
+gap> Fixd = Subgroup( G, [ G.2*G.3*G.4 ] );
+true
+
+# Fixed point group of an endomorphism
+gap> Fixd := FixedPointGroup( idG );
+Pcp-group with orders [ 2, 0, 0, 0 ]
+gap> Fixd = G;
+true
+
+# Coincidence group of two endomorphisms
+gap> Coin := CoincidenceGroup( endo1, endo2 );
+Pcp-group with orders [ 2, 0, 0 ]
+gap> ForAll( GeneratorsOfGroup( Coin ), g -> g^endo1 = g^endo2 );
+true
+gap> Coin = Subgroup( G, [ G.1, G.2, G.4 ] );
+true
+
+# Coincidence group of three endomorphisms
+gap> Coin := CoincidenceGroup( idG, endo1, endo2 );;
+gap> IsTrivial( Coin );
+true
+
+# Coincidence group of two homomorphisms
+gap> Coin := CoincidenceGroup( hom1, hom2 );
+Pcp-group with orders [ 0 ]
+gap> ForAll( GeneratorsOfGroup( Coin ), h -> h^hom1 = h^hom2 );
+true
+gap> Coin = Subgroup( H, [ H.5 ] );
+true
+
+# Coincidence group of three endomorphisms
+gap> Coin := CoincidenceGroup( hom1, hom2, hom3 );
+Pcp-group with orders [ 0 ]
+gap> ForAll( GeneratorsOfGroup( Coin ), h -> h^hom1 = h^hom2 and h^hom1 = h^hom3 );
+true
+gap> Coin = Subgroup( H, [ H.5 ] );
+true
+
+# Fitting subgroup
+gap> CoincidenceGroup( incF, incF ) = F;
+true
+gap> FixedPointGroup( homF );
+Pcp-group with orders [ 0 ]
+
+#
+gap> CoincidenceGroup( hom4, hom5 ) = FittingSubgroup( H2 );
+true
+gap> CoincidenceGroup( hom4, hom6 ) = Centre( H2 );
+true
+gap> CoincidenceGroup( hom4, hom5, hom6 ) = Centre( H2 );
+true
+
+#
+gap> STOP_TEST( "fixed_points_and_coincidences_infinite_pc.tst" );

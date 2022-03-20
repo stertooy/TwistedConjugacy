@@ -5,8 +5,6 @@ gap> G := ExamplesOfSomePcpGroups( 5 );;
 gap> idG := IdentityMapping( G );;
 gap> ReidemeisterNumber( idG ); # quotient gives infinity
 infinity
-gap> FixedPointGroup( idG ) = G;
-true
 gap> trivG := GroupHomomorphismByFunction( G, G, g -> One( G ) );;
 gap> Size( ReidemeisterClasses( trivG ) );
 1
@@ -22,12 +20,8 @@ gap> Size( tcc );
 1
 gap> List( tcc );
 [ id ]
-gap> CoincidenceGroup( incF, incF ) = F;
-true
 gap> ReidemeisterNumber( homF );
 infinity
-gap> FixedPointGroup( homF );
-Pcp-group with orders [ 0 ]
 
 #
 gap> N := SubgroupNC( G, [ G.1^2, G.2 ] );;
@@ -88,8 +82,6 @@ gap> ReidemeisterNumber( hom1H, hom2H );
 infinity
 gap> IsTwistedConjugate( hom1H, hom2H, G4.1, G4.2 );
 false
-gap> CoincidenceGroup( hom1H, hom2H ) = FittingSubgroup( H );
-true
 gap> R := TwistedConjugacyClasses( hom1H, hom3H );;
 gap> Representative( R[1] ) = One( G4 );
 true
@@ -100,10 +92,6 @@ gap> NrTwistedConjugacyClasses( hom1H, hom3H );
 gap> IsTwistedConjugate( hom1H, hom3H, G4.2, G4.3 );
 false
 gap> IsTwistedConjugate( hom1H, hom3H, G4.2, G4.2*G4.3^2 );
-true
-gap> CoincidenceGroup( hom1H, hom3H ) = Centre( H );
-true
-gap> CoincidenceGroup( hom1H, hom2H, hom3H ) = Centre( H );
 true
 
 #
