@@ -333,12 +333,12 @@ RepresentativeTwistedConjugation( [ tau, phi ], [ psi, khi ], [ (1,5)(4,6), (1,4
 
 #! @Description
 #! Let <A>G</A> be a group. This command returns a list of the automorphisms of <A>G</A> up to composition with inner automorphisms. 
-#! @Arguments g
+#! @Arguments G
 DeclareGlobalFunction( "RepresentativesAutomorphismClasses" );
 
 #! @Description
 #! Let <A>G</A> be a group. This command returns a list of the endomorphisms of <A>G</A> up to composition with inner automorphisms. This is essentially the same as calling <C>AllHomomorphismClasses(<A>G</A>,<A>G</A>)</C>, but should be much faster for large groups.
-#! @Arguments g
+#! @Arguments G
 DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
 
 #! @Description

@@ -508,7 +508,7 @@ InstallMethod(
 			Tails[j] := ListX( head, tail, \* );
 		od;
 
-		e := RepresentativesAutomorphismClassesOp( G );
+		e := RepresentativesAutomorphismClasses( G );
 
 		# Step 5: Calculate the homomorphisms
 		for p in Pairs do
@@ -534,7 +534,7 @@ InstallMethod(
 InstallGlobalFunction(
 	RepresentativesAutomorphismClasses,
 	function( G )
-		return RepresentativesAutomorphismClasses( G );
+		return RepresentativesAutomorphismClassesOp( G );
 	end
 );
 
