@@ -534,7 +534,7 @@ InstallMethod(
 InstallGlobalFunction(
 	RepresentativesAutomorphismClasses,
 	function( G )
-		return RepresentativesAutomorphismClassesOp( G );
+		return RepresentativesAutomorphismClasses( G );
 	end
 );
 

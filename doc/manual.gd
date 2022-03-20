@@ -330,26 +330,40 @@ RepresentativeTwistedConjugation( [ tau, phi ], [ psi, khi ], [ (1,5)(4,6), (1,4
 
 #! @Section Representatives of homomorphisms between groups
 
-#! @Description
-#! Let G be a group. 
-#! @Arguments H, G
-DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 
 #! @Description
-#! Let <A>hom1</A>, <A>hom2</A>, ... be group homomorphisms from a group H to a group G. This command returns the subgroup of H consisting of the elements h for which h^<A>hom1</A> = h^<A>hom2</A> = ...
+#! Let <A>G</A> be a group. This command returns a list of the automorphisms of <A>G</A> up to composition with inner automorphisms. 
+#! @Arguments g
+DeclareGlobalFunction( "RepresentativesAutomorphismClasses" );
+
+#! @Description
+#! Let <A>G</A> be a group. This command returns a list of the endomorphisms of <A>G</A> up to composition with inner automorphisms. This is essentially the same as calling <C>AllHomomorphismClasses(<A>G</A>,<A>G</A>)</C>, but should be much faster for large groups.
 #! @Arguments g
 DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
 
+#! @Description
+#! Let <A>G</A> and <A>H</A> be groups. This command returns a list of the homomorphisms from <A>H</A> to <A>G</A>, up to composition with inner automorphisms of <A>G</A>. This is essentially the same as calling <C>AllHomomorphismClasses(<A>H</A>,<A>G</A>)</C>, but should be much faster for large groups.
+#! @Arguments H, G
+DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
+
 #! @BeginExample
 G := AlternatingGroup( 6 );;
-gap> RepresentativesEndomorphismClasses( G );
-#! [ [ (1,2,3,4,5), (4,5,6) ] -> [ (), () ], [ (1,2,3,4,5), (4,5,6) ] -> [ (2,3,4,6,5), (1,2,3) ],
-#!   [ (1,2,3,4,5), (4,5,6) ] -> [ (2,4,3,5,6), (1,2,3)(4,5,6) ],
-#!   [ (1,2,3,4,5), (4,5,6) ] -> [ (2,3,4,5,6), (1,2,3) ],
-#!   [ (1,2,3,4,5), (4,5,6) ] -> [ (1,2,4,3,5), (1,2,3)(4,5,6) ] ]
+Auts := RepresentativesAutomorphismClasses( G );;
+Size( Auts );
+#! 4
+ForAll( Auts, IsGroupHomomorphism and IsEndoMapping and IsBijective );
+#! true
+Ends := RepresentativesEndomorphismClasses( G );;
+Size( Ends );
+#! 5
+ForAll( Ends, IsGroupHomomorphism and IsEndoMapping );
+#! true
 H := SymmetricGroup( 5 );;
-gap> RepresentativesHomomorphismClasses( H, G );
-#! [ [ (1,2,3,4,5), (1,2) ] -> [ (), () ], [ (1,2,3,4,5), (1,2) ] -> [ (), (1,2)(3,4) ] ]
+Homs := RepresentativesHomomorphismClasses( H, G );;
+Size( Homs );
+#! 2
+ForAll( Homs, IsGroupHomomorphism );
+#! true
 #! @EndExample
 
 
