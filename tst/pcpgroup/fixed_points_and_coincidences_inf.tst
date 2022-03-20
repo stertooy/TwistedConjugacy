@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for PcpGroups: fixed point groups and coincidence groups for infinite groups" );
+gap> START_TEST( "Testing TwistedConjugacy for infinite PcpGroups: fixed point groups and coincidence groups" );
 
 # Preparation
 gap> G := ExamplesOfSomePcpGroups( 5 );;
@@ -91,4 +91,58 @@ gap> CoincidenceGroup( hom4, hom5, hom6 ) = Centre( H2 );
 true
 
 #
-gap> STOP_TEST( "fixed_points_and_coincidences_infinite_pc.tst" );
+gap> DG := DirectProduct( G, G );;
+gap> G5 := DG / Centre( DG );;
+gap> p5 := NaturalHomomorphismByNormalSubgroup( G5, FittingSubgroup( G5 ) );;
+gap> S6 := SymmetricGroup( 6 );;
+gap> K4 := Image( p5 );;
+gap> inc1K4 := GroupHomomorphismByImages( K4, S6, [ K4.1, K4.2 ], [ (5,6), (1,2)(3,4) ] );;
+gap> inc2K4 := GroupHomomorphismByImages( K4, S6, [ K4.1, K4.2 ], [ (1,3)(4,5), () ] );;
+gap> hom1G5 := p5*inc1K4;;
+gap> hom2G5 := p5*inc2K4;;
+gap> CoincidenceGroup( hom1G5, hom2G5 ) = FittingSubgroup( G5 );
+true
+gap> inc1S6 := GroupHomomorphismByImages( S6, G5, [ (1,2,3,4,5,6), (1,2) ] , [ G5.1, G5.1 ] );;
+gap> inc2S6 := GroupHomomorphismByImages( S6, G5, [ (1,2,3,4,5,6), (1,2) ] , [ G5.1*G5.4, G5.1*G5.4 ] );;
+gap> CoincidenceGroup( inc1S6, inc2S6 );
+Group([ (2,6,5,4,3), (1,3,5)(2,4,6) ])
+
+#
+gap> G6 := DirectProduct( ExamplesOfSomePcpGroups( 5 ), ExamplesOfSomePcpGroups( 1 ) );;
+gap> imgs1G6 := [ G6.1*G6.4^-1, G6.3, G6.2*(G6.3*G6.4)^3, G6.4^-1, G6.5, G6.6, G6.7, G6.8  ];;
+gap> imgs2G6 := [ G6.4^-1*G6.1, G6.3, G6.2, G6.4^-1, G6.5, G6.6, G6.7, G6.8  ];;
+gap> aut1G6 := GroupHomomorphismByImages( G6, G6, GeneratorsOfGroup( G6 ), imgs2G6 );;
+gap> aut2G6 := GroupHomomorphismByImages( G6, G6, GeneratorsOfGroup( G6 ), imgs1G6 );;
+gap> FixedPointGroup( aut1G6 );
+Pcp-group with orders [ 0, 0, 0, 0, 0 ]
+gap> FixedPointGroup( aut2G6 );
+Pcp-group with orders [ 0, 0, 0, 0 ]
+gap> CoincidenceGroup( aut1G6, aut2G6 );
+Pcp-group with orders [ 2, 0, 0, 0, 0, 0, 0 ]
+
+#
+gap> G7 := DirectProduct( PcGroupToPcpGroup( SmallGroup( 1600, 10260 ) ), AbelianPcpGroup( 1 ) );;
+gap> gensG7 := [ G7.1*G7.5, G7.3*G7.4, G7.9 ];;
+gap> imgs1G7 := [ G7.1*G7.4^4*G7.5*G7.6, G7.3*G7.4^2*G7.5*G7.8, G7.9 ];;
+gap> imgs2G7 := [ G7.1*G7.5, G7.3*G7.4, G7.9^-1 ];;
+gap> imgs3G7 := [ G7.1*G7.5*G7.7, G7.3*G7.4*G7.6*G7.7, G7.9 ];;
+gap> aut1G7 := GroupHomomorphismByImages( G7, G7, gensG7, imgs1G7 );;
+gap> aut2G7 := GroupHomomorphismByImages( G7, G7, gensG7, imgs2G7 );;
+gap> aut3G7 := GroupHomomorphismByImages( G7, G7, gensG7, imgs3G7 );;
+gap> FixedPointGroup( aut1G7 );
+Pcp-group with orders [ 2, 2, 2, 2, 2, 0 ]
+gap> FixedPointGroup( aut2G7 );
+Pcp-group with orders [ 2, 2, 5, 5, 2, 2, 2, 2 ]
+gap> FixedPointGroup( aut3G7 );
+Pcp-group with orders [ 2, 2, 5, 2, 2, 2, 2, 0 ]
+gap> CoincidenceGroup( aut1G7, aut2G7 );
+Pcp-group with orders [ 2, 2, 2, 2, 2 ]
+gap> CoincidenceGroup( aut1G7, aut3G7 );
+Pcp-group with orders [ 2, 2, 2, 2, 2, 2, 0 ]
+gap> CoincidenceGroup( aut2G7, aut3G7 );
+Pcp-group with orders [ 2, 2, 5, 2, 2, 2, 2 ]
+gap> CoincidenceGroup( aut1G7, aut2G7, aut3G7 );
+Pcp-group with orders [ 2, 2, 2, 2 ]
+
+#
+gap> STOP_TEST( "fixed_points_and_coincidences_inf.tst" );
