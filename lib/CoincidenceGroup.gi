@@ -53,9 +53,24 @@ InstallMethod(
 
 InstallMethod(
 	CoincidenceGroup2,
+	"for abelian range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	5,
+	function ( hom1, hom2 )
+		local G, H, diff;
+		G := Range( hom1 );
+		H := Source( hom1 );
+		if not IsAbelian( G ) then TryNextMethod(); fi;
+		diff := DifferenceGroupHomomorphisms@ ( hom1, hom2, H, G );
+		return Kernel( diff );
+	end
+);
+
+InstallMethod(
+	CoincidenceGroup2,
 	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	6,
+	4,
 	function ( hom1, hom2 )
 		local G, H, gens, tc;
 		G := Range( hom1 );
