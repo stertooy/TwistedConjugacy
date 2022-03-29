@@ -84,6 +84,7 @@ InstallMethod(
 		Out := ImagesSource( p );
 		Out_reps := List( ConjugacyClasses( Out ), Representative );
 		Aut_reps := List( Out_reps, r -> PreImagesRepresentative( p, r ) );
+		ConjugacyClasses( G );
 		return Set( Aut_reps, ReidemeisterNumber );
 	end
 );

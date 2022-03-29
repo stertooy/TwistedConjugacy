@@ -25,10 +25,14 @@ InstallGlobalFunction(
 		G := Range( hom1 );
 		IsAbelian( G );
 		if Length( arg ) = 0 then
-			if IsAbelian( G ) or not IsFinite( G ) then
-				hom2 := IdentityMapping( G );
-			else
+			if (
+				IsFinite( G ) and 
+				HasConjugacyClasses( G ) and
+				not IsAbelian( G )
+			) then
 				return ReidemeisterNumberByConjugacyClasses@( hom1 );
+			else
+				hom2 := IdentityMapping( G );
 			fi;
 		else
 			hom2 := arg[1];
@@ -36,9 +40,6 @@ InstallGlobalFunction(
 		return ReidemeisterNumberOp( hom1, hom2 );
 	end
 );
-
-
-
 
 
 ###############################################################################
