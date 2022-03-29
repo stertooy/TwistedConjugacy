@@ -1,5 +1,21 @@
 ###############################################################################
 ##
+## ReidemeisterNumberByConjugacyClasses@( endo )
+##
+ReidemeisterNumberByConjugacyClasses@ := function( endo )
+	local G, cc; 
+	G := Source( endo );
+	cc := ShallowCopy( ConjugacyClasses( G ) );
+	Remove( cc, 1 );
+	return 1 + Number(
+		cc,
+		c -> ImagesRepresentative( endo, Representative( c ) ) in AsList( c )
+	);
+end;
+
+
+###############################################################################
+##
 ## ReidemeisterNumber( hom1, arg... )
 ##
 InstallGlobalFunction(
@@ -7,14 +23,22 @@ InstallGlobalFunction(
 	function ( hom1, arg... )
 		local G, hom2;
 		G := Range( hom1 );
+		IsAbelian( G );
 		if Length( arg ) = 0 then
-			hom2 := IdentityMapping( G );
+			if IsAbelian( G ) or not IsFinite( G ) then
+				hom2 := IdentityMapping( G );
+			else
+				return ReidemeisterNumberByConjugacyClasses@( hom1 );
+			fi;
 		else
 			hom2 := arg[1];
 		fi;
 		return ReidemeisterNumberOp( hom1, hom2 );
 	end
 );
+
+
+
 
 
 ###############################################################################
