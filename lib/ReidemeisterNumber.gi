@@ -1,21 +1,5 @@
 ###############################################################################
 ##
-## ReidemeisterNumberByConjugacyClasses@( endo )
-##
-ReidemeisterNumberByConjugacyClasses@ := function( endo )
-	local G, cc; 
-	G := Source( endo );
-	cc := ShallowCopy( ConjugacyClasses( G ) );
-	Remove( cc, 1 );
-	return 1 + Number(
-		cc,
-		c -> ImagesRepresentative( endo, Representative( c ) ) in AsList( c )
-	);
-end;
-
-
-###############################################################################
-##
 ## ReidemeisterNumber( hom1, arg... )
 ##
 InstallGlobalFunction(
@@ -30,7 +14,7 @@ InstallGlobalFunction(
 				HasConjugacyClasses( G ) and
 				not IsAbelian( G )
 			) then
-				return ReidemeisterNumberByConjugacyClasses@( hom1 );
+				return ReidemeisterNumberOp( hom1 );
 			else
 				hom2 := IdentityMapping( G );
 			fi;
@@ -78,5 +62,22 @@ InstallMethod(
 		else
 			return infinity;
 		fi;
+	end
+);
+
+InstallOtherMethod(
+	ReidemeisterNumberOp,
+	"for finite non-abelian groups",
+	[ IsGroupHomomorphism ],
+	0,
+	function ( endo )
+		local G, cc; 
+		G := Source( endo );
+		cc := ShallowCopy( ConjugacyClasses( G ) );
+		Remove( cc, 1 );
+		return 1 + Number(
+			cc,
+			c -> ImagesRepresentative( endo, Representative( c ) ) in AsList( c )
+		);
 	end
 );
