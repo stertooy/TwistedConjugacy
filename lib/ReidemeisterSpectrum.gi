@@ -84,7 +84,8 @@ InstallMethod(
 		Out := ImagesSource( p );
 		Out_reps := List( ConjugacyClasses( Out ), Representative );
 		Aut_reps := List( Out_reps, r -> PreImagesRepresentative( p, r ) );
-		return Set( Aut_reps, ReidemeisterNumber );
+		ConjugacyClasses( G );
+		return Set( Aut_reps, ReidemeisterNumberOp );
 	end
 );
 
@@ -121,10 +122,10 @@ InstallMethod(
 	"for finite groups",
 	[ IsGroup and IsFinite ],
 	function ( G )
-		local id, End_reps;
-		id := IdentityMapping( G );
+		local End_reps;
 		End_reps := RepresentativesEndomorphismClasses( G );
-		return Set( End_reps, endo -> ReidemeisterNumberOp( endo, id ) );
+		ConjugacyClasses( G );
+		return Set( End_reps, ReidemeisterNumberOp );
 	end
 );
 
@@ -173,7 +174,7 @@ InstallMethod(
 
 InstallMethod(
 	CoincidenceReidemeisterSpectrumOp,
-	"for finite range",
+	"for distinct finite groups",
 	[ IsGroup and IsFinite, IsGroup and IsFinite ],
 	function ( H, G )
 		local Hom_reps;
