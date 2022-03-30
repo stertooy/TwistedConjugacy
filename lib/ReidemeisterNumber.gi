@@ -4,24 +4,8 @@
 ##
 InstallGlobalFunction(
 	ReidemeisterNumber,
-	function ( hom1, arg... )
-		local G, hom2;
-		G := Range( hom1 );
-		IsAbelian( G );
-		if Length( arg ) = 0 then
-			if (
-				IsFinite( G ) and 
-				HasConjugacyClasses( G ) and
-				not IsAbelian( G )
-			) then
-				return ReidemeisterNumberOp( hom1 );
-			else
-				hom2 := IdentityMapping( G );
-			fi;
-		else
-			hom2 := arg[1];
-		fi;
-		return ReidemeisterNumberOp( hom1, hom2 );
+	function ( arg... )
+		return CallFuncList( ReidemeisterNumberOp, arg );
 	end
 );
 
@@ -69,15 +53,33 @@ InstallOtherMethod(
 	ReidemeisterNumberOp,
 	"for finite non-abelian groups",
 	[ IsGroupHomomorphism ],
-	0,
+	1,
 	function ( endo )
 		local G, cc; 
 		G := Source( endo );
+		if not (
+			IsFinite( G ) and
+			IsAbelian( G ) and
+			HasConjugacyClasses( G )
+		) then TryNextMethod(); fi; 
 		cc := ShallowCopy( ConjugacyClasses( G ) );
 		Remove( cc, 1 );
-		return 1 + Number(
-			cc,
-			c -> ImagesRepresentative( endo, Representative( c ) ) in AsList( c )
-		);
+		return 1 + Number( cc, c -> ImagesRepresentative( 
+			endo, 
+			Representative( c )
+		) in AsList( c ) );
+	end
+);
+
+InstallOtherMethod(
+	ReidemeisterNumberOp,
+	"default to two-agument version",
+	[ IsGroupHomomorphism ],
+	0,
+	function ( endo )
+		local G, id; 
+		G := Source( endo );
+		id := IdentityMapping( G );
+		return ReidemeisterNumberOp( endo, id );
 	end
 );
