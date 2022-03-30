@@ -125,7 +125,7 @@ InstallMethod(
 		local End_reps;
 		End_reps := RepresentativesEndomorphismClasses( G );
 		ConjugacyClasses( G );
-		return Set( End_reps, endo -> ReidemeisterNumberOp( endo ) );
+		return Set( End_reps, ReidemeisterNumberOp );
 	end
 );
 
