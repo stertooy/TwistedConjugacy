@@ -187,17 +187,42 @@ InstallMethod(
 
 InstallMethod(
 	RepresentativesReidemeisterClasses,
+	"for abelian range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism ],
+	4,
+	function ( hom1, hom2 )
+		local G, H, diff, N, Rcl, p, pg, g;
+		G := Range( hom1 );
+		H := Source( hom1 );
+		if not IsAbelian( G ) then TryNextMethod(); fi;
+		diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
+		N := ImagesSource( diff );
+		if IndexNC( G, N ) = infinity then return fail; fi;
+		Rcl := [];
+		p := NaturalHomomorphismByNormalSubgroupNC( G, N );
+		for pg in ImagesSource( p ) do
+			if IsOne( pg ) then
+				Add( Rcl, One( G ), 1 );
+			else
+				g := PreImagesRepresentative( p, pg );
+				Add( Rcl, g );
+			fi;
+		od;
+		return Rcl;
+	end
+);
+
+InstallMethod(
+	RepresentativesReidemeisterClasses,
 	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	5,
+	3,
 	function ( hom1, hom2 )
 		local G, H, Rcl, tc, G_List, gens, orbits, foundOne, orbit;
 		G := Range( hom1 );
 		H := Source( hom1 );
 		if not IsFinite( H ) then TryNextMethod(); fi;
-		if not IsFinite( G ) then
-			return fail;
-		fi;
+		if not IsFinite( G ) then return fail; fi;
 		Rcl := [];
 		tc := TwistedConjugation( hom1, hom2 );
 		G_List := AsSSortedListNonstored( G );

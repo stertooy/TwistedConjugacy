@@ -1,3 +1,4 @@
+ReadPackage( "TwistedConjugacy", "lib/HelpFunctions.gi" );
 ReadPackage( "TwistedConjugacy", "lib/CoincidenceGroup.gi" );
 ReadPackage( "TwistedConjugacy", "lib/Homomorphisms.gi" );
 ReadPackage( "TwistedConjugacy", "lib/TwistedConjugation.gi" );
