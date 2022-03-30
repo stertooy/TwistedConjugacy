@@ -421,13 +421,11 @@ N := DerivedSubgroup( G );;
 p := NaturalHomomorphismByNormalSubgroup( G, N );
 #! [ g1, g2, g3, g4, g2^2, g3^2, g4^2 ] -> [ g1, g2, g3, g4, id, id, id ]
 ind := InducedHomomorphism( p, p, phi );
-#! MappingByFunction( Pcp-group with orders
-#! [ 2, 2, 2, 2 ], Pcp-group with orders [ 2, 2, 2, 2 ], function( h ) ... end )
+#! [ g1, g2, g3 ] -> [ g1*g4, g3, g2 ]
 Source( ind ) = Range( p ) and Range( ind ) = Range( p );
 #! true
 res := RestrictedHomomorphism( phi, N, N );
-#! MappingByFunction( Pcp-group with orders [ 0, 0, 0 ], Pcp-group with orders
-#! [ 0, 0, 0 ], function( n ) ... end )
+#! [ g2^2, g3^2, g4^2 ] -> [ g3^2, g2^2*g3^4*g4^8, g4^-2 ]
 Source( res ) = N and Range( res ) = N;
 #! true
 #! @EndExample

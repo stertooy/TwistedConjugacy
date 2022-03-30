@@ -4,10 +4,11 @@ gap> START_TEST( "Testing TwistedConjugacy for PcGroups: Reidemeister spectra" )
 gap> filt := IsPcGroup;;
 
 # For given group, calculate spectra of group, subgroups and quotients
-# Reidemeister spectrum only, endomorphisms take too long
 gap> G := SmallGroup( 252, 34 );;
 gap> ReidemeisterSpectrum( G );
 [ 4, 6, 8, 10, 12, 15, 20, 30 ]
+gap> ExtendedReidemeisterSpectrum( G );
+[ 1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 30 ]
 
 # All spectra
 gap> H := Subgroup( G, [ G.1, G.2, G.3 ] );;
