@@ -45,18 +45,16 @@ jobs:
       - name: 'Run package tests with only necessary packages loaded'
         uses: sTertooy/run-pkg-tests@v2
         with:
-          GAP_FLAGS: '-q -A'
+          GAP_FLAGS: '-A'
           NO_COVERAGE: ${{ matrix.no-coverage }}
           ONLY_NEEDED: true
       - name: 'Run package tests with default + suggested packages loaded'
         uses: sTertooy/run-pkg-tests@v2
         with:
-          GAP_FLAGS: '-q'
           NO_COVERAGE: ${{ matrix.no-coverage }}
       - name: 'Run package tests with all packages loaded'
         uses: sTertooy/run-pkg-tests@v2
         with:
-          GAP_FLAGS: '-q'
           NO_COVERAGE: true
           ALL_PACKAGES: true
       - name: 'Run GAP tests with only necessary packages loaded'
