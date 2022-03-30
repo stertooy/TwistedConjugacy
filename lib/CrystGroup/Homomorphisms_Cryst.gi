@@ -304,7 +304,7 @@ end;
 
 ###############################################################################
 ##
-## RepresentativesAutomorphismClassesOp( G )
+## IsCrystallographic( G )
 ##
 InstallMethod(
 	IsCrystallographic,
@@ -317,22 +317,23 @@ InstallMethod(
 	end
 );
 
+
+###############################################################################
+##
+## RepresentativesAutomorphismClassesOp( G )
+##
 InstallMethod(
 	RepresentativesAutomorphismClassesOp,
 	[ IsPcpGroup ],
 	1,
 	function( G )
-		local T, C, der, ind;
+		local C, der, ind;
 		if not IsCrystallographic( G ) then TryNextMethod(); fi;
-		T := FittingSubgroup( G );
-		C := CRRecordBySubgroup( G, T );
+		C := CRRecordBySubgroup( G, FittingSubgroup( G ) );
 		C.full := Concatenation( C.factor!.gens, C.normal!.gens );
 
-
 		ind := InduciblePairsCG( C );
-		if IsBool( ind ) then
-			return fail;
-		fi;
+		if IsBool( ind ) then return fail; fi;
 
 		der := DerivationAutosCG( C );
 
