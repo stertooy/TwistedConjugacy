@@ -156,10 +156,10 @@ InstallMethod(
 	[ IsGroup and IsFinite, IsGroup and IsFinite and IsTrivial ],
 	3*SUM_FLAGS+4,
 	function ( H, G )
-		return [ GroupHomomorphismByFunction( 
-			H, G,
-			h -> One( G )
-		)];
+		local gens, imgs;
+		gens := SmallGeneratingSet( H );
+		imgs := List( gens, h -> One( G ) );
+		return [ GroupHomomorphismByImagesNC( H, G, gens, imgs ) ];
 	end
 );
 
