@@ -8,7 +8,7 @@ InstallGlobalFunction(
 		local GM, HN, gens, imgs;
 		GM := ImagesSource( epi2 );
 		HN := ImagesSource( epi1 );
-		gens := GeneratorsOfGroup( HN );
+		gens := SmallGeneratingSet( HN );
 		imgs := List( gens, h -> ImagesRepresentative( 
 			epi2, 
 			ImagesRepresentative( hom, PreImagesRepresentative( epi1, h ) )
@@ -26,7 +26,7 @@ InstallGlobalFunction(
 	RestrictedHomomorphism,
 	function ( hom, N, M )
 		local gens, imgs;
-		gens := GeneratorsOfGroup( N );
+		gens := SmallGeneratingSet( N );
 		imgs := List( gens, n -> ImagesRepresentative( hom, n ) );
 		return GroupHomomorphismByImagesNC( N, M, gens, imgs );
 	end
