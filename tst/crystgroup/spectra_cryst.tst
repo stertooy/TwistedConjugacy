@@ -21,4 +21,20 @@ gap> ReidemeisterSpectrum( G );
 [ 4, infinity ]
 
 #
+gap> mats := [ [ [ 0, -1, 0, 0 ], [ -1, 0, 0, 0 ], [ 0, 0, 0, -1 ], [ 0, 0, -1, 0 ] ], [ [ 1, 0, 0, 0 ], [ 0, 1, 0, 0 ], [ 0, 0, -1, 0 ], [ 0, 0, 0, -1 ] ], [ [ 0, -1, 0, 0 ], [ 1, 0, 0, 0 ], [ 0, 0, 0, -1 ], [ 0, 0, 1, 0 ] ] ];;
+gap> P := Image( IsomorphismPcpGroup( Group( mats ) ) );;
+gap> G := SplitExtensionPcpGroup( P, mats );;
+gap> ReidemeisterSpectrum( G );
+[ 4, 8, infinity ]
+gap> C := CRRecordBySubgroup( G, FittingSubgroup( G ) );;
+gap> c := [ 0, 0, 0, 0, 1, 1, 0, 0, -1, -1, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, -1, 1, 0 ];;
+gap> H := ExtensionCR( C, c );;
+gap> ReidemeisterSpectrum( H );
+[ 4, 8, infinity ]
+gap> c := [ 0, 0, 0, 0, 1, 1, 0, 0, -1, -1, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, -1, 0, 1 ];;
+gap> H := ExtensionCR( C, c );;
+gap> ReidemeisterSpectrum( H );
+[ infinity ]
+
+#
 gap> STOP_TEST( "spectra.tst" );
