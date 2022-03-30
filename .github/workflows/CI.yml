@@ -18,7 +18,7 @@ jobs:
             packages-to-clone: 'alnuth autpgrp caratinterface polycyclic'
             packages-to-build: 'caratinterface io profiling'
           - gap-branch: stable-4.11
-            packages-to-build: 'caratinterface io profiling'
+            packages-to-build: 'io profiling'
             no-coverage: true
           - gap-branch: stable-4.10
             packages-to-build: 'io profiling'
@@ -46,7 +46,7 @@ jobs:
         uses: sTertooy/run-pkg-tests@v2
         with:
           GAP_FLAGS: '-A'
-          NO_COVERAGE: ${{ matrix.no-coverage }}
+          NO_COVERAGE: true
           ONLY_NEEDED: true
       - name: 'Run package tests with default + suggested packages loaded'
         uses: sTertooy/run-pkg-tests@v2
