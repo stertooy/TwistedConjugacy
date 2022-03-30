@@ -47,11 +47,10 @@ Status := "dev",
 
 AbstractHTML   :=  Concatenation(
 	"The TwistedConjugacy package provides methods to calculate Reidemeister ",
-	"classes, numbers, spectra and zeta functions, as well as coincidence ",
-	"groups of group homomorphisms. These methods are, for the most part, ",
-	"designed to be used with (group homomorphisms between) finite groups ",
-	"and, if the package Polycyclic is also installed, polycyclically ",
-	"presented groups."
+	"classes, numbers, spectra and zeta functions, as well as other methods ",
+	"related to homomorphisms, endomorphisms and automorphisms of groups. ",
+	"These methods are, for the most part, designed to be used with finite ",
+	"groups and polycyclically presented groups."
 ),
 
 PackageDoc := rec(
@@ -70,7 +69,8 @@ Dependencies := rec(
 	],
 	SuggestedOtherPackages := [
 		[ "AutoDoc", "2018.02.14" ],
-		[ "Polycyclic", "2.13.1" ]
+		[ "Polycyclic", "2.13.1" ],
+		[ "CaratInterface", "2.3.1" ]
 	],
 	ExternalConditions := [ ],
 ),
@@ -81,7 +81,9 @@ TestFile := "tst/testall.g",
 
 Keywords := [
 	"coincidence group",
+	"endomorphism",
 	"fixed point group",
+	"homomorphism",
 	"Reidemeister number",
 	"Reidemeister spectrum",
 	"Reidemeister zeta function",
@@ -93,10 +95,10 @@ AutoDoc := rec(
 		Abstract := """
 			The <B>TwistedConjugacy</B> package provides methods to calculate
 			Reidemeister classes, numbers, spectra and zeta functions, as well
-			as coincidence groups of group homomorphisms. These methods are,
-			for the most part, designed to be used with (group homomorphisms
-			between) finite groups and, if the package <B>Polycyclic</B> is
-			also installed, polycyclically presented groups.
+			as other methods related to homomorphisms, endomorphisms and
+			automorphisms of groups. These methods are, for the most part,
+			designed to be used with finite groups and polycyclically presented
+			groups.
         """,
         Acknowledgements := """
 			This documentation was created using the <B>GAPDoc</B> and

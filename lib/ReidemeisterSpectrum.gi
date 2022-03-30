@@ -76,6 +76,7 @@ InstallMethod(
 	ReidemeisterSpectrumOp,
 	"for finite groups",
 	[ IsGroup and IsFinite ],
+	1,
 	function ( G )
 		local Aut, Inn, p, Out, Out_reps, Aut_reps;
 		Aut := AutomorphismGroup( G );
@@ -85,6 +86,19 @@ InstallMethod(
 		Out_reps := List( ConjugacyClasses( Out ), Representative );
 		Aut_reps := List( Out_reps, r -> PreImagesRepresentative( p, r ) );
 		ConjugacyClasses( G );
+		return Set( Aut_reps, ReidemeisterNumberOp );
+	end
+);
+
+InstallMethod(
+	ReidemeisterSpectrumOp,
+	"for arbitrary groups with finite Out",
+	[ IsGroup ],
+	0,
+	function ( G )
+		local Aut_reps;
+		Aut_reps := RepresentativesAutomorphismClasses( G );
+		if Aut_reps = fail then TryNextMethod(); fi;
 		return Set( Aut_reps, ReidemeisterNumberOp );
 	end
 );
