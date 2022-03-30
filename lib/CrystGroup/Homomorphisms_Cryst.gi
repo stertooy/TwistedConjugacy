@@ -241,8 +241,11 @@ InduciblePairsCG := function( C )
 	else
 		N := NormalizerInGLnZ( M );
 	fi;
+	
 	if Size( N ) = infinity then
 		return fail;
+	elif Size( N ) = Size( M ) then
+		return [ IdentityMapping( C!.group ) ];
 	fi;
 	
 	# natural isomorphism from M to F := G/T
@@ -251,7 +254,7 @@ InduciblePairsCG := function( C )
     SetIsBijective( iso, true );
 
 	s := MakeCompatiblePairsCG( iso, N );
-	t := MakeCompatiblePairsCG( iso, M );
+	
 	
     # turn com into group
     D := Group( s );
@@ -268,21 +271,16 @@ InduciblePairsCG := function( C )
 	    l := SolutionIntMat( cf.full, Concatenation( c ) ){[ 1..Length( cf.prei ) ]};
 		c := List( [ 1..Length(l) ], x -> l[x] mod cf.rels[x] );
 	fi;
-
-	sub := Group( t );
 	
     if c = 0*c then 
 		stab := D;
-		#return RightTransversal( D, sub );#C;
 	else
 		# get tuples
 		tup := List( s, x -> MatrixOperOfTupleCG( C, cf, x ) );
 
-		if ForAll( tup, x -> x = x^0 ) then 
+		if ForAll( tup, x -> x = x^0 ) then
 			stab := D;
-			#return RightTransversal( D, sub );
 		else
-
 			# determine stabilizer
 			act := function( vec, mat )
 				local new, i;
@@ -294,9 +292,9 @@ InduciblePairsCG := function( C )
 			end;
 			stab := Stabilizer( D, c, s, tup, act );
 		fi;
-	
-		
 	fi;
+	t := MakeCompatiblePairsCG( iso, M );
+	sub := Group( t );
 	R := RelatorMatrix( C );
     return List( RightTransversal( stab, sub ), i -> LiftAutoCG( C, R, i ) );
 end;

@@ -4,8 +4,12 @@ gap> START_TEST( "Testing TwistedConjugacy for crystallographic PcpGroups: Reide
 gap> G := AbelianPcpGroup( 1 );;
 gap> ReidemeisterSpectrum( G );
 [ 2, infinity ]
-gap> G := DihedralPcpGroup( 0 );;
-gap> ReidemeisterSpectrum( G );
+gap> H := DihedralPcpGroup( 0 );;
+gap> ReidemeisterSpectrum( H );
+[ infinity ]
+gap> phi := GroupHomomorphismByImages( G, G, [ G.1 ], [ G.1^-1 ] );;
+gap> K := SemidirectProductWithAutomorphism@TwistedConjugacy( G, phi );;
+gap> ReidemeisterSpectrum( K );
 [ infinity ]
 
 #
@@ -32,8 +36,8 @@ gap> H := ExtensionCR( C, c );;
 gap> ReidemeisterSpectrum( H );
 [ 4, 8, infinity ]
 gap> c := [ 0, 0, 0, 0, 1, 1, 0, 0, -1, -1, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, -1, 0, 1 ];;
-gap> H := ExtensionCR( C, c );;
-gap> ReidemeisterSpectrum( H );
+gap> K := ExtensionCR( C, c );;
+gap> ReidemeisterSpectrum( K );
 [ infinity ]
 
 #
