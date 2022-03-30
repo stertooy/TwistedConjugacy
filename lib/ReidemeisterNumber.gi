@@ -59,8 +59,8 @@ InstallOtherMethod(
 		G := Source( endo );
 		if not (
 			IsFinite( G ) and
-			IsAbelian( G ) and
-			HasConjugacyClasses( G )
+			HasConjugacyClasses( G ) and
+			not IsAbelian( G )
 		) then TryNextMethod(); fi; 
 		cc := ShallowCopy( ConjugacyClasses( G ) );
 		Remove( cc, 1 );
