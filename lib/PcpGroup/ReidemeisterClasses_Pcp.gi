@@ -136,13 +136,13 @@ InstallMethod(
 		local G, H;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not (
+		if not (
+			IsPcpGroup( H ) and
+			(
 				IsPcpGroup( G ) and IsNilpotentByFinite( G ) or
 				IsFinite( G )
-			) or
-			HirschLength( H ) >= HirschLength( G )
+			) and
+			HirschLength( H ) < HirschLength( G )
 		) then TryNextMethod(); fi;
 		return fail;
 	end
@@ -157,10 +157,10 @@ InstallMethod(
 		local G, H;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsFinite( G ) or
-			IsTrivial( G )
+		if not (
+			IsPcpGroup( H ) and
+			IsFinite( G ) and
+			not IsTrivial( G )
 		) then TryNextMethod(); fi;
 		return ReidemeisterClassesByTrivialSubgroup@( hom1, hom2 );
 	end
@@ -175,11 +175,11 @@ InstallMethod(
 		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsPcpGroup( G ) or
-			not IsNilpotentGroup( G ) or
-			IsAbelian( G )
+		if not (
+			IsPcpGroup( H ) and
+			IsPcpGroup( G ) and
+			IsNilpotentGroup( G ) and
+			not IsAbelian( G )
 		) then TryNextMethod(); fi;
 		M := Centre( G );
 		N := IntersectionPreImage@( hom1, hom2, M );
@@ -196,11 +196,11 @@ InstallMethod(
 		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsPcpGroup( G ) or
-			not IsNilpotentByFinite( G ) or
-			IsNilpotentGroup( G )
+		if not (
+			IsPcpGroup( H ) and
+			IsPcpGroup( G ) and
+			IsNilpotentByFinite( G ) and
+			not IsNilpotentGroup( G )
 		) then TryNextMethod(); fi;
 		M := FittingSubgroup( G );
 		N := IntersectionPreImage@( hom1, hom2, M );
@@ -217,9 +217,9 @@ InstallMethod(
 		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsPcpGroup( G )
+		if not (
+			IsPcpGroup( H ) and
+			IsPcpGroup( G )
 		) then TryNextMethod(); fi;
 		M := DerivedSubgroup( G );
 		N := IntersectionPreImage@( hom1, hom2, M );

@@ -16,20 +16,17 @@ InstallGlobalFunction(
 ##
 InstallMethod(
 	ReidemeisterNumberOp,
-	"for finite source and finite abelian range",
+	"for abelian range",
 	[ IsGroupHomomorphism, IsGroupHomomorphism ],
 	1,
 	function ( hom1, hom2 )
-		local G, H, Coin;
-		G := Range( hom1 );
+		local G, H, diff, N;
 		H := Source( hom1 );
-		if not (
-			IsFinite( H ) and
-			IsFinite( G ) and
-			IsAbelian( G )
-		) then TryNextMethod(); fi;
-		Coin := CoincidenceGroup2( hom1, hom2 );
-		return Size( G ) * Size( Coin ) / Size( H );
+		G := Range( hom1 );
+		if not IsAbelian( G ) then TryNextMethod(); fi;
+		diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
+		N := Image( diff );
+		return IndexNC( G, N );
 	end
 );
 

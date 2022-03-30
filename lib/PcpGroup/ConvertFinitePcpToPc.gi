@@ -10,9 +10,9 @@ InstallMethod(
 	function ( hom1, hom2 )
 		local G, iso;
 		G := Range( hom1 );
-		if (
-			not IsPcpGroup( G ) or
-			not IsFinite( G )
+		if not (
+			IsPcpGroup( G ) and
+			IsFinite( G )
 		) then TryNextMethod(); fi;
 		iso := IsomorphismPcGroup( G );
 		return CoincidenceGroup2( hom1*iso, hom2*iso );
@@ -27,9 +27,9 @@ InstallMethod(
 	function ( hom1, hom2 )
 		local H, inv;
 		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsFinite( H )
+		if not (
+			IsPcpGroup( H ) and
+			IsFinite( H )
 		) then TryNextMethod(); fi;
 		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
 		return ImagesSet( inv, CoincidenceGroup2( inv*hom1, inv*hom2 ) );
@@ -49,9 +49,9 @@ InstallMethod(
 	function ( hom1, hom2 )
 		local G, iso, Rcl;
 		G := Range( hom1 );
-		if (
-			not IsPcpGroup( G ) or
-			not IsFinite( G )
+		if not (
+			IsPcpGroup( G ) and
+			IsFinite( G )
 		) then TryNextMethod(); fi;
 		iso := IsomorphismPcGroup( G );
 		Rcl := RepresentativesReidemeisterClasses( hom1*iso, hom2*iso );
@@ -67,9 +67,9 @@ InstallMethod(
 	function ( hom1, hom2 )
 		local H, inv, Rcl;
 		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsFinite( H )
+		if not (
+			IsPcpGroup( H ) and
+			IsFinite( H )
 		) then TryNextMethod(); fi;
 		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
 		return RepresentativesReidemeisterClasses( inv*hom1, inv*hom2 );
@@ -89,9 +89,9 @@ InstallMethod(
 	function ( hom1, hom2 )
 		local G, iso;
 		G := Range( hom1 );
-		if (
-			not IsPcpGroup( G ) or
-			not IsFinite( G )
+		if not (
+			IsPcpGroup( G ) and
+			IsFinite( G )
 		) then TryNextMethod(); fi;
 		iso := IsomorphismPcGroup( G );
 		return ReidemeisterNumberOp( hom1*iso, hom2*iso );
@@ -106,9 +106,9 @@ InstallMethod(
 	function ( hom1, hom2 )
 		local H, inv;
 		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsFinite( H )
+		if not (
+			IsPcpGroup( H ) and
+			IsFinite( H )
 		) then TryNextMethod(); fi;
 		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
 		return ReidemeisterNumberOp( inv*hom1, inv*hom2 );
@@ -129,9 +129,9 @@ InstallMethod(
 	function ( hom1, hom2, g )
 		local G, iso;
 		G := Range( hom1 );
-		if (
-			not IsPcpGroup( G ) or
-			not IsFinite( G )
+		if not (
+			IsPcpGroup( G ) and
+			IsFinite( G )
 		) then TryNextMethod(); fi;
 		iso := IsomorphismPcGroup( G );
 		return RepTwistConjToId(
@@ -150,9 +150,9 @@ InstallMethod(
 	function ( hom1, hom2, g )
 		local H, inv, h;
 		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsFinite( H )
+		if not (
+			IsPcpGroup( H ) and
+			IsFinite( H )
 		) then TryNextMethod(); fi;
 		inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
 		h := RepTwistConjToId( inv*hom1, inv*hom2, g );

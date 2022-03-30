@@ -254,11 +254,11 @@ InduciblePairsCG := function( C )
     SetIsBijective( iso, true );
 
 	s := MakeCompatiblePairsCG( iso, N );
-	
+	t := MakeCompatiblePairsCG( iso, M );
 	
     # turn com into group
     D := Group( s );
-
+	sub := Group( t );
 
     cf := TwoCohomologyCR( C ).factor;
 	cf.full := Concatenation( cf.prei, cf.denom );
@@ -293,8 +293,7 @@ InduciblePairsCG := function( C )
 			stab := Stabilizer( D, c, s, tup, act );
 		fi;
 	fi;
-	t := MakeCompatiblePairsCG( iso, M );
-	sub := Group( t );
+
 	R := RelatorMatrix( C );
     return List( RightTransversal( stab, sub ), i -> LiftAutoCG( C, R, i ) );
 end;

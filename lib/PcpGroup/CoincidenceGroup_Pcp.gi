@@ -127,10 +127,10 @@ InstallMethod(
 		local G, H;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsFinite( G ) or
-			IsTrivial( G )
+		if not (
+			IsPcpGroup( H ) and
+			IsFinite( G ) and
+			not IsTrivial( G )
 		) then TryNextMethod(); fi;
 		return CoincidenceGroupByTrivialSubgroup@( hom1, hom2 );
 	end
@@ -145,11 +145,11 @@ InstallMethod(
 		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsPcpGroup( G ) or
-			not IsNilpotentGroup( G ) or
-			IsAbelian( G )
+		if not (
+			IsPcpGroup( H ) and
+			IsPcpGroup( G ) and
+			IsNilpotentGroup( G ) and
+			not IsAbelian( G )
 		) then TryNextMethod(); fi;
 		M := Centre( G );
 		N := IntersectionPreImage@( hom1, hom2, M );
@@ -166,11 +166,11 @@ InstallMethod(
 		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsPcpGroup( G ) or
-			not IsNilpotentByFinite( G ) or
-			IsNilpotentGroup( G )
+		if not (
+			IsPcpGroup( H ) and
+			IsPcpGroup( G ) and
+			IsNilpotentByFinite( G ) and
+			not IsNilpotentGroup( G )
 		) then TryNextMethod(); fi;
 		M := FittingSubgroup( G );
 		N := IntersectionPreImage@( hom1, hom2, M );
@@ -187,9 +187,9 @@ InstallMethod(
 		local G, H, M, N;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsPcpGroup( G )
+		if not (
+			IsPcpGroup( H ) and
+			IsPcpGroup( G )
 		) then TryNextMethod(); fi;
 		M := DerivedSubgroup( G );
 		N := IntersectionPreImage@( hom1, hom2, M );
@@ -206,11 +206,11 @@ InstallMethod(
 		local G, H, aut;
 		G := Range( aut1 );
 		H := Source( aut1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsPcpGroup( G ) or
-			not IsBijective( aut1 ) or
-			not IsBijective( aut2 )
+		if not (
+			IsPcpGroup( H ) and
+			IsPcpGroup( G ) and
+			IsBijective( aut1 ) and
+			IsBijective( aut2 )
 		) then TryNextMethod(); fi;
 		aut := aut1 * Inverse( aut2 );
 		return FixedPointGroupBySemidirectProduct@( aut );

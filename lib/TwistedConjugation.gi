@@ -42,10 +42,29 @@ InstallMethod(
 
 InstallMethod(
 	RepTwistConjToId,
+	"for abelian range",
+	[ IsGroupHomomorphism, IsGroupHomomorphism,
+	  IsMultiplicativeElementWithInverse ],
+	5,
+	function ( hom1, hom2, g )
+		local G, H, diff;
+		G := Range( hom1 );
+		H := Source( hom1 );
+		if not IsAbelian( G ) then TryNextMethod(); fi;
+		diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
+		if not g in ImagesSource( diff ) then
+			return fail;
+		fi;
+		return PreImagesRepresentative( diff, g );
+	end
+);
+
+InstallMethod(
+	RepTwistConjToId,
 	"for finite source",
 	[ IsGroupHomomorphism, IsGroupHomomorphism,
 	  IsMultiplicativeElementWithInverse ],
-	6,
+	4,
 	function ( hom1, hom2, g )
 		local G, H, tc, d, todo, conj, trail, h, i, k, gens, l;
 		G := Range( hom1 );

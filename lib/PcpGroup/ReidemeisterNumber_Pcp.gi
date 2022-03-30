@@ -11,34 +11,14 @@ InstallMethod(
 		local G, H;
 		G := Range( hom1 );
 		H := Source( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not (
+		if not (
+			IsPcpGroup( H ) and
+			(
 				IsPcpGroup( G ) and IsNilpotentByFinite( G ) or
 				IsFinite( G )
-			) or
-			HirschLength( H ) >= HirschLength( G )
+			) and
+			HirschLength( H ) < HirschLength( G )
 		) then TryNextMethod(); fi;
 		return infinity;
-	end
-);
-
-InstallMethod(
-	ReidemeisterNumberOp,
-	"for infinite polycyclic source and infinite abelian range",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ],
-	2,
-	function ( hom1, hom2 )
-		local G, H, diff, N;
-		H := Source( hom1 );
-		G := Range( hom1 );
-		if (
-			not IsPcpGroup( H ) or
-			not IsPcpGroup( G ) or
-			not IsAbelian( G )
-		) then TryNextMethod(); fi;
-		diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
-		N := Image( diff );
-		return IndexNC( G, N );
 	end
 );
