@@ -3,22 +3,19 @@
 ##
 DerivationAutosCG := function( C )
     local G, n, z, rels, der, i, k, a, cf, pows, h;
-    
     # get info
-	G := C!.group;
+    G := C!.group;
     n := Length( C.factor );
-
     # compute 1-cocycles
-	cf := OneCohomologyCR( C ).factor;
-	z := cf.prei;
-	rels := cf.rels;
-
-	if Length(z) = 0 then
-		return [ IdentityMapping( G ) ];
-	fi;
+    cf := OneCohomologyCR( C ).factor;
+    z := cf.prei;
+    rels := cf.rels;
+    if Length(z) = 0 then
+        return [ IdentityMapping( G ) ];
+    fi;
     # translate to autos
     der := [];
-	h := C!.full;
+    h := C!.full;
     for i in [1..Length(z)] do
         k := List( CutVector(z[i], n), x -> MappedVector( x, C.normal ) );
         k := List( [1..n], j -> C.factor[j]*k[j] );
@@ -27,29 +24,29 @@ DerivationAutosCG := function( C )
         SetIsBijective( a, true );
         Add(der, a);
     od;
-	pows := Cartesian( List( cf.rels, i -> [0..i-1] ) );
-	return List( pows, x -> Product( List( [ 1..Size( der ) ], i -> der[i]^x[i] ) ) );
+    pows := Cartesian( List( cf.rels, i -> [0..i-1] ) );
+    return List( pows, x -> Product( List( [ 1..Size( der ) ], i -> der[i]^x[i] ) ) );
 end;
 
 ##
 ## pairs that act compatible on G/T and on T
 ##
 MakeCompatiblePairsCG := function( iso, N )
-	local mgi, gens, imgs, F, n, s, a, w, b;
-	mgi := MappingGeneratorsImages( iso );
-	gens := mgi[2];
-	imgs := mgi[1];
-	F := Range( iso );
-	n := SmallGeneratingSet( N );
-	if Size( n ) = 0 then n := [ One( N ) ]; fi;
-	s := [];
-	for a in n do
+    local mgi, gens, imgs, F, n, s, a, w, b;
+    mgi := MappingGeneratorsImages( iso );
+    gens := mgi[2];
+    imgs := mgi[1];
+    F := Range( iso );
+    n := SmallGeneratingSet( N );
+    if Size( n ) = 0 then n := [ One( N ) ]; fi;
+    s := [];
+    for a in n do
         w := List( imgs, x -> ImagesRepresentative( iso, x^a ) );
         b := GroupHomomorphismByImagesNC( F, F, gens, w );
         SetIsBijective( b, true );
         Add( s, Tuple( [ a, b ] ) );
     od;
-	return s;
+    return s;
 end;
 
 
@@ -66,7 +63,7 @@ TailOfRelator := function( C, T, g, i, j )
     else
         a := g[i]^( g[j-i]^-1 );
     fi;
-    if Length( C.relators[i][j] ) > 0 then 
+    if Length( C.relators[i][j] ) > 0 then
         b := Product( C.relators[i][j], x -> g[x[1]]^x[2] );
     else
         b := g[1]^0;
@@ -92,8 +89,8 @@ TailImage := function( C, c, tup )
 
     # map with tup[2]^-1
     a := Inverse(tup[2]);
-    k := List( [1..n], x -> MappedVector( Exponents( Image( a, f[x] ) ), h{[1..n]} ) ); 
- 
+    k := List( [1..n], x -> MappedVector( Exponents( Image( a, f[x] ) ), h{[1..n]} ) );
+
     # push through relators
     t := List( C.enumrels, x -> TailOfRelator( C, Pcp( FittingSubgroup( H ) ), k, x[1], x[2] ) );
     t := List( t, x -> x * tup[1] );
@@ -137,10 +134,10 @@ RelatorMatrix := function( C )
         A := List( [1..n], x -> NullMat( d,d ) );
         e := C.enumrels[k];
         i := e[1]; j := e[2];
-        if j < i then 
+        if j < i then
             A[j] := IdentityMat( d ) - m[i]^m[j];
             A[i] := m[j];
-        elif j > i then 
+        elif j > i then
             A[j-i] := m[i]*m[j-i]^-1 - m[j-i]^-1;
             A[i] := m[j-i]^-1;
         else
@@ -176,9 +173,9 @@ LiftAutoCG := function( C, R, tup )
     n := Length( C.factor );
     d := Length( C.normal );
     l := Length( C.enumrels );
-	h := C!.full;
+    h := C!.full;
     k := [];
-	f := Pcp( Source( tup[2] ) );
+    f := Pcp( Source( tup[2] ) );
     # set up
     for i in [1..n] do
         k[i] := MappedVector( Exponents( Image( tup[2], f[i] ) ), C.factor );
@@ -189,9 +186,9 @@ LiftAutoCG := function( C, R, tup )
 
     # the trivial case
     if n = 0 then
-		a := GroupHomomorphismByImagesNC( G, G, h, k );
-		SetIsBijective( a, true );
-		return a;
+        a := GroupHomomorphismByImagesNC( G, G, h, k );
+        SetIsBijective( a, true );
+        return a;
     fi;
 
     # tail
@@ -220,10 +217,10 @@ LiftAutoCG := function( C, R, tup )
     for i in [1..n] do
         k[i] := k[i]*MappedVector( c[i], C.normal );
     od;
-    
+
     # construct homomorphism
     a := GroupHomomorphismByImagesNC( G, G, h, k );
-	SetIsBijective( a, true );
+    SetIsBijective( a, true );
     return a;
 end;
 
@@ -234,67 +231,67 @@ end;
 ##
 InduciblePairsCG := function( C )
     local M, F, iso, N, s, t, c, tup, cf, act, stab, D, sub, l, R;
-	
-	M := Group( C.mats, C.one );
-	if DimensionOfMatrixGroup( M ) = 1 then
-		N := Group( [ [ [ -1 ] ] ] );
-	else
-		N := NormalizerInGLnZ( M );
-	fi;
-	
-	if Size( N ) = infinity then
-		return fail;
-	elif Size( N ) = Size( M ) then
-		return [ IdentityMapping( C!.group ) ];
-	fi;
-	
-	# natural isomorphism from M to F := G/T
+
+    M := Group( C.mats, C.one );
+    if DimensionOfMatrixGroup( M ) = 1 then
+        N := Group( [ [ [ -1 ] ] ] );
+    else
+        N := NormalizerInGLnZ( M );
+    fi;
+
+    if Size( N ) = infinity then
+        return fail;
+    elif Size( N ) = Size( M ) then
+        return [ IdentityMapping( C!.group ) ];
+    fi;
+
+    # natural isomorphism from M to F := G/T
     F := PcpGroupByPcp( C.factor );
     iso := GroupHomomorphismByImagesNC( M, F, C.mats, Igs( F ) );
     SetIsBijective( iso, true );
 
-	s := MakeCompatiblePairsCG( iso, N );
-	t := MakeCompatiblePairsCG( iso, M );
-	
+    s := MakeCompatiblePairsCG( iso, N );
+    t := MakeCompatiblePairsCG( iso, M );
+
     # turn com into group
     D := Group( s );
-	sub := Group( t );
+    sub := Group( t );
 
     cf := TwoCohomologyCR( C ).factor;
-	cf.full := Concatenation( cf.prei, cf.denom );
-	 
+    cf.full := Concatenation( cf.prei, cf.denom );
+
     # find expression of c with respect to basis of cc
     if Length( cf.full ) = 0 then
-		c := [];
-	else
-		c := List( C.enumrels, x -> TailOfRelator( C, C.normal, C.factor, x[1], x[2] ) );
-	    l := SolutionIntMat( cf.full, Concatenation( c ) ){[ 1..Length( cf.prei ) ]};
-		c := List( [ 1..Length(l) ], x -> l[x] mod cf.rels[x] );
-	fi;
-	
-    if c = 0*c then 
-		stab := D;
-	else
-		# get tuples
-		tup := List( s, x -> MatrixOperOfTupleCG( C, cf, x ) );
+        c := [];
+    else
+        c := List( C.enumrels, x -> TailOfRelator( C, C.normal, C.factor, x[1], x[2] ) );
+        l := SolutionIntMat( cf.full, Concatenation( c ) ){[ 1..Length( cf.prei ) ]};
+        c := List( [ 1..Length(l) ], x -> l[x] mod cf.rels[x] );
+    fi;
 
-		if ForAll( tup, x -> x = x^0 ) then
-			stab := D;
-		else
-			# determine stabilizer
-			act := function( vec, mat )
-				local new, i;
-				new := ShallowCopy( vec * mat );
-				for i in [ 1..Length( new ) ] do
-					new[i] := new[i] mod cf.rels[i];
-				od;
-				return new;
-			end;
-			stab := Stabilizer( D, c, s, tup, act );
-		fi;
-	fi;
+    if c = 0*c then
+        stab := D;
+    else
+        # get tuples
+        tup := List( s, x -> MatrixOperOfTupleCG( C, cf, x ) );
 
-	R := RelatorMatrix( C );
+        if ForAll( tup, x -> x = x^0 ) then
+            stab := D;
+        else
+            # determine stabilizer
+            act := function( vec, mat )
+                local new, i;
+                new := ShallowCopy( vec * mat );
+                for i in [ 1..Length( new ) ] do
+                    new[i] := new[i] mod cf.rels[i];
+                od;
+                return new;
+            end;
+            stab := Stabilizer( D, c, s, tup, act );
+        fi;
+    fi;
+
+    R := RelatorMatrix( C );
     return List( RightTransversal( stab, sub ), i -> LiftAutoCG( C, R, i ) );
 end;
 
@@ -304,14 +301,14 @@ end;
 ## IsCrystallographic( G )
 ##
 InstallMethod(
-	IsCrystallographic,
-	"for Pcp Groups",
-	[ IsPcpGroup ],
-	function ( G )
-		local T, N;
-		T := FittingSubgroup( G );
-		return IsInt( IndexNC( G, T ) ) and IsFreeAbelian( T );
-	end
+    IsCrystallographic,
+    "for Pcp Groups",
+    [ IsPcpGroup ],
+    function ( G )
+        local T, N;
+        T := FittingSubgroup( G );
+        return IsInt( IndexNC( G, T ) ) and IsFreeAbelian( T );
+    end
 );
 
 
@@ -320,20 +317,20 @@ InstallMethod(
 ## RepresentativesAutomorphismClassesOp( G )
 ##
 InstallMethod(
-	RepresentativesAutomorphismClassesOp,
-	[ IsPcpGroup ],
-	1,
-	function( G )
-		local C, der, ind;
-		if not IsCrystallographic( G ) then TryNextMethod(); fi;
-		C := CRRecordBySubgroup( G, FittingSubgroup( G ) );
-		C.full := Concatenation( C.factor!.gens, C.normal!.gens );
+    RepresentativesAutomorphismClassesOp,
+    [ IsPcpGroup ],
+    1,
+    function( G )
+        local C, der, ind;
+        if not IsCrystallographic( G ) then TryNextMethod(); fi;
+        C := CRRecordBySubgroup( G, FittingSubgroup( G ) );
+        C.full := Concatenation( C.factor!.gens, C.normal!.gens );
 
-		ind := InduciblePairsCG( C );
-		if IsBool( ind ) then return fail; fi;
+        ind := InduciblePairsCG( C );
+        if IsBool( ind ) then return fail; fi;
 
-		der := DerivationAutosCG( C );
+        der := DerivationAutosCG( C );
 
-		return ListX( der, ind, \* );
-	end
+        return ListX( der, ind, \* );
+    end
 );
