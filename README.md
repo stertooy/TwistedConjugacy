@@ -19,12 +19,14 @@ polycyclic is also installed, polycyclically presented groups.
 
 This package requires GAP version 4.9 or later, with the following packages
 (and their dependencies) installed:
-- GAPDoc (version >= 1.6.1)
+- GAPDoc ( version >= 1.6.1 )
 
 The following packages (and their dependencies) are optional, though are
 recommended:
+- AutoDoc ( version >= 2018.02.14)
+- AutPGrp ( version >= 1.9 )
+- CaratInterface (version >= 2.3.1)
 - Polycyclic (version >= 2.13.1)
-- AutoDoc (version >= 2018.02.14)
 
 Note that is recommended to install Polycyclic version >= 2.16, to avoid some
 known bugs which could lead to wrong results. It is also recommended to install
