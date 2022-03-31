@@ -1,37 +1,8 @@
+###############################################################################
 ##
-## autos inducing the identity of G/T and on T
+## MakePairsTranslationPointGroup@( iso, N )
 ##
-DerivationAutosCG := function( C )
-    local G, n, z, rels, der, i, k, a, cf, pows, h;
-    # get info
-    G := C!.group;
-    n := Length( C.factor );
-    # compute 1-cocycles
-    cf := OneCohomologyCR( C ).factor;
-    z := cf.prei;
-    rels := cf.rels;
-    if Length(z) = 0 then
-        return [ IdentityMapping( G ) ];
-    fi;
-    # translate to autos
-    der := [];
-    h := C!.full;
-    for i in [1..Length(z)] do
-        k := List( CutVector(z[i], n), x -> MappedVector( x, C.normal ) );
-        k := List( [1..n], j -> C.factor[j]*k[j] );
-        k := Concatenation( k, C.normal!.gens );
-        a := GroupHomomorphismByImagesNC( G, G, h, k );
-        SetIsBijective( a, true );
-        Add(der, a);
-    od;
-    pows := Cartesian( List( cf.rels, i -> [0..i-1] ) );
-    return List( pows, x -> Product( List( [ 1..Size( der ) ], i -> der[i]^x[i] ) ) );
-end;
-
-##
-## pairs that act compatible on G/T and on T
-##
-MakeCompatiblePairsCG := function( iso, N )
+MakePairsTranslationPointGroup@ := function( iso, N )
     local mgi, gens, imgs, F, n, s, a, w, b;
     mgi := MappingGeneratorsImages( iso );
     gens := mgi[2];
@@ -50,10 +21,11 @@ MakeCompatiblePairsCG := function( iso, N )
 end;
 
 
+###############################################################################
 ##
-## technical details ..
+## TailOfRelator@( C, T, g, i, j )
 ##
-TailOfRelator := function( C, T, g, i, j )
+TailOfRelator@ := function( C, T, g, i, j )
     local e, a, b;
     e := RelativeOrdersOfPcp( C.factor )[i]; #factor2
     if i = j then
@@ -72,10 +44,11 @@ TailOfRelator := function( C, T, g, i, j )
 end;
 
 
+###############################################################################
 ##
-## technical details ...
+## TailImage@( C, c, tup )
 ##
-TailImage := function( C, c, tup )
+TailImage@ := function( C, c, tup )
     local n, F, f, H, h, a, k, t;
 
     # get info
@@ -92,19 +65,21 @@ TailImage := function( C, c, tup )
     k := List( [1..n], x -> MappedVector( Exponents( Image( a, f[x] ) ), h{[1..n]} ) );
 
     # push through relators
-    t := List( C.enumrels, x -> TailOfRelator( C, Pcp( FittingSubgroup( H ) ), k, x[1], x[2] ) );
+    t := List( C.enumrels, x -> TailOfRelator@( C, Pcp( FittingSubgroup( H ) ), k, x[1], x[2] ) );
     t := List( t, x -> x * tup[1] );
     return Concatenation( t );
 end;
 
+
+###############################################################################
 ##
-## determine the action of a compatible pair on the two-cohomology
+## MatrixOperOfTupleCryst@( C )
 ##
-MatrixOperOfTupleCG := function( C, cf, tup )
+MatrixOperOfTupleCryst@ := function( C, cf, tup )
     local ig, c, l;
     ig := [];
     for c in cf.prei do
-        l := TailImage( C, c, tup );
+        l := TailImage@( C, c, tup );
         l := SolutionIntMat( cf.full, l ){[ 1..Length( cf.prei ) ]};
         l := List( [ 1..Length( l ) ], x -> l[x] mod cf.rels[x] );
         Add( ig, l );
@@ -113,12 +88,11 @@ MatrixOperOfTupleCG := function( C, cf, tup )
 end;
 
 
-
-
+###############################################################################
 ##
-## technical detail ...
+## RelatorMatrix@( C )
 ##
-RelatorMatrix := function( C )
+RelatorMatrix@ := function( C )
     local n, d, l, m, f, E, k, e, i, j, h, A, B, r, w, s, t;
 
     #if IsBound( C!.relma ) then return C!.relma; fi;
@@ -162,10 +136,12 @@ RelatorMatrix := function( C )
     return E;
 end;
 
+
+###############################################################################
 ##
-## lift inducible pair to an automorphism
+## LiftAutoToCrystGroup@( C, R, tup )
 ##
-LiftAutoCG := function( C, R, tup )
+LiftAutoToCrystGroup@ := function( C, R, tup )
     local G, n, d, l, h, k, f, i, a, b, v, F, j, c, s, L, m;
 
     # get info
@@ -192,8 +168,8 @@ LiftAutoCG := function( C, R, tup )
     fi;
 
     # tail
-    a := List( C.enumrels, x -> TailOfRelator( C, C.normal, k, x[1], x[2] ) );
-    b := List( C.enumrels, x -> TailOfRelator( C, C.normal, h, x[1], x[2] )*tup[1] );
+    a := List( C.enumrels, x -> TailOfRelator@( C, C.normal, k, x[1], x[2] ) );
+    b := List( C.enumrels, x -> TailOfRelator@( C, C.normal, h, x[1], x[2] )*tup[1] );
     v := Concatenation( b-a );
 
     # relator mat
@@ -225,11 +201,11 @@ LiftAutoCG := function( C, R, tup )
 end;
 
 
+###############################################################################
 ##
-## compute inducible pairs from compatible pairs as a stabilizer with
-## finite index
+## InducedOutPointGroup@( C )
 ##
-InduciblePairsCG := function( C )
+InducedOutPointGroup@ := function( C )
     local M, F, iso, N, s, t, c, tup, cf, act, stab, D, sub, l, R;
 
     M := Group( C.mats, C.one );
@@ -250,8 +226,8 @@ InduciblePairsCG := function( C )
     iso := GroupHomomorphismByImagesNC( M, F, C.mats, Igs( F ) );
     SetIsBijective( iso, true );
 
-    s := MakeCompatiblePairsCG( iso, N );
-    t := MakeCompatiblePairsCG( iso, M );
+    s := MakePairsTranslationPointGroup@( iso, N );
+    t := MakePairsTranslationPointGroup@( iso, M );
 
     # turn com into group
     D := Group( s );
@@ -264,7 +240,7 @@ InduciblePairsCG := function( C )
     if Length( cf.full ) = 0 then
         c := [];
     else
-        c := List( C.enumrels, x -> TailOfRelator( C, C.normal, C.factor, x[1], x[2] ) );
+        c := List( C.enumrels, x -> TailOfRelator@( C, C.normal, C.factor, x[1], x[2] ) );
         l := SolutionIntMat( cf.full, Concatenation( c ) ){[ 1..Length( cf.prei ) ]};
         c := List( [ 1..Length(l) ], x -> l[x] mod cf.rels[x] );
     fi;
@@ -273,7 +249,7 @@ InduciblePairsCG := function( C )
         stab := D;
     else
         # get tuples
-        tup := List( s, x -> MatrixOperOfTupleCG( C, cf, x ) );
+        tup := List( s, x -> MatrixOperOfTupleCryst@( C, cf, x ) );
 
         if ForAll( tup, x -> x = x^0 ) then
             stab := D;
@@ -291,25 +267,44 @@ InduciblePairsCG := function( C )
         fi;
     fi;
 
-    R := RelatorMatrix( C );
-    return List( RightTransversal( stab, sub ), i -> LiftAutoCG( C, R, i ) );
+    R := RelatorMatrix@( C );
+    return List( 
+        RightTransversal( stab, sub ),
+        i -> LiftAutoToCrystGroup@( C, R, i )
+    );
 end;
 
 
 ###############################################################################
 ##
-## IsCrystallographic( G )
+## OneCohomologyPointGroup@( C )
 ##
-InstallMethod(
-    IsCrystallographic,
-    "for Pcp Groups",
-    [ IsPcpGroup ],
-    function ( G )
-        local T, N;
-        T := FittingSubgroup( G );
-        return IsInt( IndexNC( G, T ) ) and IsFreeAbelian( T );
-    end
-);
+OneCohomologyPointGroup@ := function( C )
+    local G, n, z, rels, der, i, k, a, cf, pows, h;
+    # get info
+    G := C!.group;
+    n := Length( C.factor );
+    # compute 1-cocycles
+    cf := OneCohomologyCR( C ).factor;
+    z := cf.prei;
+    rels := cf.rels;
+    if Length(z) = 0 then
+        return [ IdentityMapping( G ) ];
+    fi;
+    # translate to autos
+    der := [];
+    h := C!.full;
+    for i in [1..Length(z)] do
+        k := List( CutVector(z[i], n), x -> MappedVector( x, C.normal ) );
+        k := List( [1..n], j -> C.factor[j]*k[j] );
+        k := Concatenation( k, C.normal!.gens );
+        a := GroupHomomorphismByImagesNC( G, G, h, k );
+        SetIsBijective( a, true );
+        Add(der, a);
+    od;
+    pows := Cartesian( List( cf.rels, i -> [0..i-1] ) );
+    return List( pows, x -> Product( List( [ 1..Size( der ) ], i -> der[i]^x[i] ) ) );
+end;
 
 
 ###############################################################################
@@ -325,12 +320,9 @@ InstallMethod(
         if not IsCrystallographic( G ) then TryNextMethod(); fi;
         C := CRRecordBySubgroup( G, FittingSubgroup( G ) );
         C.full := Concatenation( C.factor!.gens, C.normal!.gens );
-
-        ind := InduciblePairsCG( C );
+        ind := InducedOutPointGroup@( C );
         if IsBool( ind ) then return fail; fi;
-
-        der := DerivationAutosCG( C );
-
+        der := OneCohomologyPointGroup@( C );
         return ListX( der, ind, \* );
     end
 );

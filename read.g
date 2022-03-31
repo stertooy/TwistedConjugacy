@@ -8,17 +8,18 @@ ReadPackage( "TwistedConjugacy", "lib/ReidemeisterSpectrum.gi" );
 ReadPackage( "TwistedConjugacy", "lib/ReidemeisterZeta.gi" );
 
 if TestPackageAvailability( "polycyclic", "2.13.1" ) = true then
-	ReadPackage( "TwistedConjugacy", "lib/PcpGroup/HelpFunctions_Pcp.gi" );
-	ReadPackage( "TwistedConjugacy", "lib/PcpGroup/CoincidenceGroup_Pcp.gi" );
-	ReadPackage( "TwistedConjugacy", "lib/PcpGroup/ConvertFinitePcpToPc.gi" );
-	ReadPackage( "TwistedConjugacy", "lib/PcpGroup/TwistedConjugation_Pcp.gi" );
-	ReadPackage( "TwistedConjugacy", "lib/PcpGroup/ReidemeisterClasses_Pcp.gi" );
-	ReadPackage( "TwistedConjugacy", "lib/PcpGroup/ReidemeisterNumber_Pcp.gi" );
-fi;
 
-if (
-	true = TestPackageAvailability( "polycyclic", "2.13.1" ) and
-	true = TestPackageAvailability( "CaratInterface", "2.3.1" )
-) then
-	ReadPackage( "TwistedConjugacy", "lib/CrystGroup/Homomorphisms_Cryst.gi" );
+    ReadPackage( "TwistedConjugacy", "lib/PcpGroup/HelpFunctions_Pcp.gi" );
+    ReadPackage( "TwistedConjugacy", "lib/PcpGroup/CoincidenceGroup_Pcp.gi" );
+    ReadPackage( "TwistedConjugacy", "lib/PcpGroup/ConvertFinitePcpToPc.gi" );
+    ReadPackage( "TwistedConjugacy", "lib/PcpGroup/TwistedConjugation_Pcp.gi" );
+    ReadPackage( "TwistedConjugacy", "lib/PcpGroup/ReidemeisterClasses_Pcp.gi" );
+    ReadPackage( "TwistedConjugacy", "lib/PcpGroup/ReidemeisterNumber_Pcp.gi" );
+    
+    if TestPackageAvailability( "CaratInterface", "2.3.1" ) = true then
+    
+        ReadPackage( "TwistedConjugacy", "lib/CrystGroup/HelpFunctions_Cryst.gi" );
+        ReadPackage( "TwistedConjugacy", "lib/CrystGroup/Homomorphisms_Cryst.gi" );
+
+    fi;
 fi;
