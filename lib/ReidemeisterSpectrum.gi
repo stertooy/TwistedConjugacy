@@ -85,7 +85,6 @@ InstallMethod(
         Out := ImagesSource( p );
         Out_reps := List( ConjugacyClasses( Out ), Representative );
         Aut_reps := List( Out_reps, r -> PreImagesRepresentative( p, r ) );
-        ConjugacyClasses( G );
         return Set( Aut_reps, ReidemeisterNumberOp );
     end
 );
@@ -138,7 +137,6 @@ InstallMethod(
     function ( G )
         local End_reps;
         End_reps := RepresentativesEndomorphismClasses( G );
-        ConjugacyClasses( G );
         return Set( End_reps, ReidemeisterNumberOp );
     end
 );

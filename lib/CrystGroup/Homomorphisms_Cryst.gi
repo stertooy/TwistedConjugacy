@@ -61,7 +61,7 @@ TailImage@ := function( C, c, tup )
     h := Pcp( H );
 
     # map with tup[2]^-1
-    a := Inverse(tup[2]);
+    a := Inverse( tup[2] );
     k := List( [1..n], x -> MappedVector( Exponents( Image( a, f[x] ) ), h{[1..n]} ) );
 
     # push through relators

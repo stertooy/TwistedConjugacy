@@ -52,19 +52,16 @@ InstallOtherMethod(
     [ IsGroupHomomorphism ],
     1,
     function ( endo )
-        local G, cc;
+        local G;
         G := Source( endo );
         if not (
             IsFinite( G ) and
-            HasConjugacyClasses( G ) and
             not IsAbelian( G )
         ) then TryNextMethod(); fi;
-        cc := ShallowCopy( ConjugacyClasses( G ) );
-        Remove( cc, 1 );
-        return 1 + Number( cc, c -> ImagesRepresentative(
-            endo,
-            Representative( c )
-        ) in AsList( c ) );
+        return Number(
+            ConjugacyClasses( G ),
+            c -> ImagesRepresentative( endo, Representative( c ) ) in AsList( c )
+        );
     end
 );
 
