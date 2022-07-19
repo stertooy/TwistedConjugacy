@@ -26,10 +26,10 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v3
-      - name: 'Install PARI/GP'
+      - name: 'Install PARI/GP & Singular'
         run: |
           sudo apt-get update
-          sudo apt-get install pari-gp
+          sudo apt-get install pari-gp singular
       - name: 'Setup GAP'
         uses: gap-actions/setup-gap@v2
         with:
