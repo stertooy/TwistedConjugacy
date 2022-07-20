@@ -14,58 +14,54 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - gap-branch: master
-            packages-to-clone: 'alnuth autpgrp polycyclic'
-          - gap-branch: stable-4.11
-            no-coverage: true
-          - gap-branch: stable-4.10
-            no-coverage: true
-          - gap-branch: stable-4.9
-            no-coverage: true
+          - gap-branch: 'master'
+            coverage: true
+            packages: 'alnuth autpgrp polycyclic'
+          - gap-branch: '4.11'
+            coverage: false
+          - gap-branch: '4.10'
+            coverage: false
+          - gap-branch: '4.9'
+            coverage: false
+            
+    container:
+      image: ghcr.io/stertooy/gap-docker-alpine:${{ matrix.gap-branch }}
 
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v3
-      - name: 'Install PARI/GP & Singular'
-        run: |
-          sudo apt-get update
-          sudo apt-get install pari-gp singular
-      - name: 'Setup GAP'
-        uses: gap-actions/setup-gap@v2
-        with:
-          GAP_PKGS_TO_CLONE: ${{ matrix.packages-to-clone }}
-          GAPBRANCH: ${{ matrix.gap-branch }}
       - name: 'Add package to GAP'
-        uses: gap-actions/build-pkg@v1
-      - name: 'Run package tests with only necessary packages loaded'
-        uses: sTertooy/run-pkg-tests@v2
+        uses: sTertooy/GAD-extra-packages@v0.1
         with:
-          GAP_FLAGS: '-q -A'
-          NO_COVERAGE: ${{ matrix.no-coverage }}
+          PACKAGES: 'alnuth autpgrp polycyclic'
+      - name: 'Add package to GAP'
+        uses: sTertooy/GAD-build-package@v0.3
+      - name: 'Run package tests with only necessary packages loaded'
+        uses: sTertooy/GAD-test-package@v0.4
+        with:
+          GAP_FLAGS: '-A'
+          COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
       - name: 'Run package tests with default + suggested packages loaded'
-        uses: sTertooy/run-pkg-tests@v2
+        uses: sTertooy/GAD-test-package@v0.4
         with:
-          GAP_FLAGS: '-q'
-          NO_COVERAGE: ${{ matrix.no-coverage }}
+          COVERAGE: ${{ matrix.coverage }}
       - name: 'Run package tests with all packages loaded'
-        uses: sTertooy/run-pkg-tests@v2
+        uses: sTertooy/GAD-test-package@v0.4
         with:
-          GAP_FLAGS: '-q'
-          NO_COVERAGE: true
           ALL_PACKAGES: true
       - name: 'Run GAP tests with only necessary packages loaded'
-        uses: sTertooy/pkg-install-test@v1
+        uses: sTertooy/CAD-gap-tests@v0.1
         with:
           ONLY_NEEDED: true
       - name: 'Run GAP tests with suggested packages loaded'
-        uses: sTertooy/pkg-install-test@v1
+        uses: sTertooy/CAD-gap-tests@v0.1
       - name: 'Process coverage'
-        uses: gap-actions/process-coverage@v2
-        if: ${{ !matrix.no-coverage }}
+        uses: stertooy/GAD-process-coverage@v0.2
+        if: ${{ matrix.coverage }}
       - name: 'Upload coverage'
         uses: codecov/codecov-action@v3
-        if: ${{ !matrix.no-coverage }}
+        if: ${{ matrix.coverage }}
         with:
           files: ./gap-coverage.json
           fail_ci_if_error: true
@@ -74,18 +70,13 @@ jobs:
     name: Manual
     runs-on: ubuntu-latest
     if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
-
+    container:
+      image: ghcr.io/stertooy/gap-docker-alpine:tex
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v3
-      - name: 'Setup GAP'
-        uses: gap-actions/setup-gap@v2
-        with:
-          GAP_PKGS_TO_BUILD: ''
       - name: 'Build documentation'
-        uses: gap-actions/build-pkg-docs@v1
-        with:
-          use-latex: 'true'
+        uses: stertooy/GAD-build-manual@v0.1
       - name: 'Upload documentation'
         uses: actions/upload-artifact@v3
         with:
