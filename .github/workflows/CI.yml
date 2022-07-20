@@ -50,12 +50,6 @@ jobs:
         uses: sTertooy/GAD-test-package@v0.4
         with:
           ALL_PACKAGES: true
-      - name: 'Run GAP tests with only necessary packages loaded'
-        uses: sTertooy/CAD-gap-tests@v0.1
-        with:
-          ONLY_NEEDED: true
-      - name: 'Run GAP tests with suggested packages loaded'
-        uses: sTertooy/CAD-gap-tests@v0.1
       - name: 'Process coverage'
         uses: stertooy/GAD-process-coverage@v0.2
         if: ${{ matrix.coverage }}
