@@ -11,28 +11,28 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - gap-branch: master
-            packages-to-clone: 'alnuth autpgrp polycyclic'
-          - gap-branch: stable-4.11
-          # stable-4.10 or older will take ~3 hours each, not recommended
-
+          - gap-branch: 'master'
+            packages: 'alnuth autpgrp polycyclic'
+          - gap-branch: '4.11'
+          
+    container:
+      image: ghcr.io/stertooy/gap-docker-alpine:${{ matrix.gap-branch }}
+      
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v3
-      - name: 'Setup GAP'
-        uses: gap-actions/setup-gap@v2
-        with:
-          GAP_PKGS_TO_CLONE: ${{ matrix.packages-to-clone }}
-          GAPBRANCH: ${{ matrix.gap-branch }}
       - name: 'Add package to GAP'
-        uses: gap-actions/build-pkg@v1
+        uses: sTertooy/GAD-extra-packages@v0.1
+        with:
+          PACKAGES: 'alnuth autpgrp polycyclic'
+      - name: 'Add package to GAP'
+        uses: sTertooy/GAD-build-package@v0.3
       - name: 'Run teststandard.g with only necessary packages loaded'
-        uses: sTertooy/pkg-install-test@v1
+        uses: sTertooy/CAD-gap-tests@v0.1
         with:
           COMPLETE: true
           ONLY_NEEDED: true
       - name: 'Run teststandard.g with suggested packages loaded'
-        uses: sTertooy/pkg-install-test@v1
+        uses: sTertooy/CAD-gap-tests@v0.1
         with:
           COMPLETE: true
- 
