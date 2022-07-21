@@ -47,7 +47,7 @@ jobs:
         with:
           COVERAGE: ${{ matrix.coverage }}
       - name: 'Run package tests with all packages loaded'
-        uses: sTertooy/GDA-test-package@v0.5
+        uses: sTertooy/GDA-test-pkg@v0.5
         with:
           ALL_PACKAGES: true
       - name: 'Process coverage'
@@ -70,7 +70,7 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v3
       - name: 'Add package to GAP'
-        uses: sTertooy/GAD-build-pkg@v0.4
+        uses: sTertooy/GDA-build-pkg@v0.4
       - name: 'Build documentation'
         uses: stertooy/GDA-manual@v0.2
       - name: 'Upload documentation'
