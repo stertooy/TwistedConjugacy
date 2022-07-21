@@ -37,6 +37,7 @@ jobs:
          export LC_CTYPE
          # rm -rf /opt/gap/pkg/Browse
          TERM="dumb"
+         export TERM
          /opt/gap/bin/gap.sh -A <<GAPInput
          GAPInfo.SystemEnvironment;
          GAPInfo.SystemEnvironment.TERM;
