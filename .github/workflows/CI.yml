@@ -36,22 +36,18 @@ jobs:
          LC_CTYPE=C.UTF-8
          export LC_CTYPE
          # rm -rf /opt/gap/pkg/Browse
-         
-         /opt/gap/bin/gap.sh -A <<GAPInput
-           GAPInfo.SystemEnvironment;
-           GAPInfo.SystemEnvironment.TERM;
-           LoadPackage("Browse":OnlyNeeded);
-         GAPInput
          TERM="dumb"
          export TERM
          /opt/gap/bin/gap.sh -A <<GAPInput
          GAPInfo.SystemEnvironment;
          GAPInfo.SystemEnvironment.TERM;
          LoadPackage("Browse":OnlyNeeded);
+         LoadPackage("AtlasRep");
          GAPInput
          /opt/gap/bin/gap.sh -A <<GAPInput
          GAPInfo.SystemEnvironment;
          GAPInfo.SystemEnvironment.TERM;
+         LoadPackage("AtlasRep");
          GAPInput
       - name: "Run package tests with necessary packages"
         uses: sTertooy/GDA-test-pkg@v0.5
