@@ -1,4 +1,4 @@
-name: "Test GAP installation"
+name: "Test GAP installation (complete)"
 
 on:
   - workflow_dispatch
@@ -27,12 +27,12 @@ jobs:
           PACKAGES: ${{ matrix.packages }}
       - name: "Build package"
         uses: sTertooy/GDA-build-pkg@v0.4
-      - name: "Run tests with necessary packages"
+      - name: "Run GAP tests with necessary packages"
         uses: sTertooy/GDA-test-gap@v0.3
         with:
           COMPLETE: true
           ONLY_NEEDED: true
-      - name: "Run tests with suggested packages"
+      - name: "Run GAP tests with suggested packages"
         uses: sTertooy/GDA-test-gap@v0.3
         with:
           COMPLETE: true
