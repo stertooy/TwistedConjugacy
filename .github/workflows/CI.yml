@@ -31,27 +31,27 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v3
       - name: 'Add package to GAP'
-        uses: sTertooy/GAD-extra-packages@v0.1
+        uses: sTertooy/GDA-extra-pkg@v0.3
         with:
           PACKAGES: 'alnuth autpgrp polycyclic'
       - name: 'Add package to GAP'
-        uses: sTertooy/GAD-build-package@v0.3
+        uses: sTertooy/GDA-build-pkg@v0.4
       - name: 'Run package tests with only necessary packages loaded'
-        uses: sTertooy/GAD-test-package@v0.4
+        uses: sTertooy/GDA-test-pkg@v0.5
         with:
           GAP_FLAGS: '-A'
           COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
       - name: 'Run package tests with default + suggested packages loaded'
-        uses: sTertooy/GAD-test-package@v0.4
+        uses: sTertooy/GDA-test-pkg@v0.5
         with:
           COVERAGE: ${{ matrix.coverage }}
       - name: 'Run package tests with all packages loaded'
-        uses: sTertooy/GAD-test-package@v0.4
+        uses: sTertooy/GDA-test-package@v0.5
         with:
           ALL_PACKAGES: true
       - name: 'Process coverage'
-        uses: stertooy/GAD-process-coverage@v0.2
+        uses: stertooy/GDA-coverage@v0.3
         if: ${{ matrix.coverage }}
       - name: 'Upload coverage'
         uses: codecov/codecov-action@v3
@@ -69,8 +69,10 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v3
+      - name: 'Add package to GAP'
+        uses: sTertooy/GAD-build-pkg@v0.4
       - name: 'Build documentation'
-        uses: stertooy/GAD-build-manual@v0.1
+        uses: stertooy/GDA-manual@v0.2
       - name: 'Upload documentation'
         uses: actions/upload-artifact@v3
         with:
