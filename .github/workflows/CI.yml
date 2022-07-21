@@ -35,11 +35,13 @@ jobs:
           PACKAGES: ${{ matrix.packages }}
       - name: "Build package"
         uses: sTertooy/GDA-build-pkg@v0.4
-      - name: "Remove Browse for testing purposes"
+      - name: "tests"
         shell: bash
         run : |
          set -ex
          rm -rf /opt/gap/pkg/Browse*
+         apt install locales
+         LC_CTYPE=en_US.UTF-8 /opt/gap/bin/gap.sh /opt/gap/tst/testinstall.g
       - name: "Run package tests with necessary packages"
         uses: sTertooy/GDA-test-pkg@v0.5
         with:
