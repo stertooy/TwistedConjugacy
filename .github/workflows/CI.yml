@@ -36,8 +36,19 @@ jobs:
          LC_CTYPE=C.UTF-8
          export LC_CTYPE
          # rm -rf /opt/gap/pkg/Browse
+         
+         /opt/gap/bin/gap.sh -A <<GAPInput
+         GAPInfo.SystemEnvironment;
+         GAPInfo.SystemEnvironment.TERM;
+         LoadPackge("Browse":OnlyNeeded);
+         GAPInput
          TERM="dumb"
          export TERM
+         /opt/gap/bin/gap.sh -A <<GAPInput
+         GAPInfo.SystemEnvironment;
+         GAPInfo.SystemEnvironment.TERM;
+         LoadPackge("Browse":OnlyNeeded);
+         GAPInput
          rm /opt/gap/pkg/Browse/init.g
          cat > /opt/gap/pkg/Browse/init.g <<EOF
             #############################################################################
