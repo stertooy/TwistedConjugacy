@@ -31,25 +31,25 @@ jobs:
           PACKAGES: ${{ matrix.packages }}
       - name: "Build package"
         uses: sTertooy/GDA-build-pkg@v0.4
-      - name: "Run tests with necessary packages"
+      - name: "Run package tests with necessary packages"
         uses: sTertooy/GDA-test-pkg@v0.5
         with:
           GAP_FLAGS: "-A"
           COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
-      - name: "Run tests with suggested packages"
+      - name: "Run package tests with suggested packages"
         uses: sTertooy/GDA-test-pkg@v0.5
         with:
           COVERAGE: ${{ matrix.coverage }}
-      - name: "Run tests with all packages"
+      - name: "Run package tests with all packages"
         uses: sTertooy/GDA-test-pkg@v0.5
         with:
           ALL_PACKAGES: true
-      - name: "Run tests with necessary packages"
+      - name: "Run GAP tests with necessary packages"
         uses: sTertooy/GDA-test-gap@v0.3
         with:
           ONLY_NEEDED: true
-      - name: "Run tests with suggested packages"
+      - name: "Run GAP tests with suggested packages"
         uses: sTertooy/GDA-test-gap@v0.3
       - name: "Process coverage"
         uses: stertooy/GDA-coverage@v0.3
