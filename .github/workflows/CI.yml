@@ -43,7 +43,7 @@ jobs:
          locale
          echo "hurr"
          locale -a
-         locale-update LC_CTYPE=C.UTF-8
+         update-locale LC_CTYPE=C.UTF-8
          locale
          echo "hi"
          locale -a
