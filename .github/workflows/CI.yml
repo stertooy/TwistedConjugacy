@@ -39,15 +39,14 @@ jobs:
          TERM="dumb"
          export TERM
          /opt/gap/bin/gap.sh -A <<GAPInput
-         GAPInfo.SystemEnvironment;
-         GAPInfo.SystemEnvironment.TERM;
          LoadPackage("Browse":OnlyNeeded);
          LoadPackage("AtlasRep");
          GAPInput
          /opt/gap/bin/gap.sh -A <<GAPInput
-         GAPInfo.SystemEnvironment;
-         GAPInfo.SystemEnvironment.TERM;
          LoadPackage("AtlasRep");
+         GAPInput
+         /opt/gap/bin/gap.sh -A <<GAPInput
+         LoadPackage("Browse");
          GAPInput
       - name: "Run package tests with necessary packages"
         uses: sTertooy/GDA-test-pkg@v0.5
