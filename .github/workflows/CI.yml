@@ -38,8 +38,8 @@ jobs:
          # rm -rf /opt/gap/pkg/Browse
          TERM="dumb"
          /opt/gap/bin/gap.sh -A <<GAPInput
-         GAPInfo.SystemInformation;
-         GAPInfo.SystemInformation.TERM;
+         GAPInfo.SystemEnvironment;
+         GAPInfo.SystemEnvironment.TERM;
          GAPInput
       - name: "Run package tests with necessary packages"
         uses: sTertooy/GDA-test-pkg@v0.5
