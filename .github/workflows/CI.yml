@@ -14,14 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - gap-branch: "master"
-            coverage: true
-            packages: "alnuth autpgrp polycyclic"
-          - gap-branch: "4.11"
           - gap-branch: "4.10"
-            packages: "alnuth"
           - gap-branch: "4.9"
-            packages: "alnuth"
             
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}
@@ -29,10 +23,6 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
-      - name: "Add extra packages to GAP"
-        uses: sTertooy/GDA-extra-pkg@v0.3
-        with:
-          PACKAGES: ${{ matrix.packages }}
       - name: "Build package"
         uses: sTertooy/GDA-build-pkg@v0.4
       - name: "tests"
@@ -41,8 +31,10 @@ jobs:
          set -ex
          LC_CTYPE=C.UTF-8
          export LC_CTYPE
-         # rm -rf /opt/gap/pkg/Browse
-         /opt/gap/bin/gap.sh /opt/gap/tst/testinstall.g
+         /opt/gap/bin/gap.sh -A <<GAPInput
+         SetInfoLevel(InfoPackageLoading,4);
+         LoadPackage("Browse");
+         GAPInput
       - name: "Run package tests with necessary packages"
         uses: sTertooy/GDA-test-pkg@v0.5
         with:
