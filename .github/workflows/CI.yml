@@ -42,6 +42,7 @@ jobs:
          LC_CTYPE=C.UTF-8
          export LC_CTYPE
          # rm -rf /opt/gap/pkg/Browse
+         TERM="dumb"
          /opt/gap/bin/gap.sh /opt/gap/tst/testinstall.g
       - name: "Run package tests with necessary packages"
         uses: sTertooy/GDA-test-pkg@v0.5
