@@ -38,19 +38,35 @@ jobs:
          # rm -rf /opt/gap/pkg/Browse
          TERM="dumb"
          export TERM
-         /opt/gap/bin/gap.sh -A <<GAPInput
-         LoadPackage("Browse":OnlyNeeded);
-         LoadPackage("AtlasRep");
-         GAPInput
-         /opt/gap/bin/gap.sh -A <<GAPInput
-         LoadPackage("AtlasRep");
-         GAPInput
-         /opt/gap/bin/gap.sh -A <<GAPInput
-         LoadPackage("Browse");
-         GAPInput
-         /opt/gap/bin/gap.sh -D <<GAPInput
+         /opt/gap/bin/gap.sh <<GAPInput
+         Print("HAI\n");
          QUIT;
          GAPInput
+         GAPROOT=/opt/gap
+         
+         # Set up a custom GAP root containing only this package, so that
+         # we can force GAP to load the correct version of this package
+         mkdir -p /tmp/gaproot/pkg/
+         ln -f -s $PWD /tmp/gaproot/pkg/
+         
+         /opt/gap/bin/gap.sh <<GAPInput
+         Print("HAI\n");
+         QUIT;
+         GAPInput
+         
+         # Start GAP with custom GAP root, to ensure correct package version is loaded
+         GAP="$GAPROOT/bin/gap.sh ${{ inputs.GAP_FLAGS }} -l /tmp/gaproot; --quitonbreak"
+         
+         /opt/gap/bin/gap.sh <<GAPInput
+         Print("HAI\n");
+         QUIT;
+         GAPInput
+         
+         $GAP <<GAPInput
+         Print("HAI\n");
+         QUIT;
+         GAPInput
+         
       - name: "Run package tests with necessary packages"
         uses: sTertooy/GDA-test-pkg@v0.5
         with:
