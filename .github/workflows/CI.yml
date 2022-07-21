@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run : |
          set -ex
-         cat etc/default/locale
+         cat /etc/default/locale
          rm -rf /opt/gap/pkg/Browse
          apt update
          apt install locales -y
