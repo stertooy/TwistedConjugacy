@@ -83,7 +83,7 @@ jobs:
          
          $GAP <<GAPInput
          
-         GAP_TESTFILE := "${{ inputs.GAP_TESTFILE }}";
+         GAP_TESTFILE := "tst/testall.g";
          
          Read( "PackageInfo.g" );
          info := GAPInfo.PackageInfoCurrent;
@@ -93,7 +93,23 @@ jobs:
          
          # Load the package with debug info
          SetInfoLevel( InfoPackageLoading, PACKAGE_DEBUG );
-         SetPackagePath( info.PackageName, "/tmp/gaproot/pkg/$(basename $PWD)" );
+         SetPackagePath( info.PackageName, "/tmp/gaproot/pkg/TwistedConjugacy" );
+         if ${{ inputs.ALL_PACKAGES }} then
+           LoadAllPackages();
+         elif ${{ inputs.ONLY_NEEDED }} then
+           LoadPackage( info.PackageName : OnlyNeeded );
+         else
+           LoadPackage( info.PackageName );
+         fi;
+         SetInfoLevel( InfoPackageLoading, PACKAGE_ERROR );
+         
+         if EndsWith( GAP_TESTFILE, ".tst" ) then
+             QUIT_GAP( Test( GAP_TESTFILE, rec( compareFunction := "uptowhitespace" ) ) );
+         else
+             Read( GAP_TESTFILE );
+             Error( "Package TestFile did not exit gap" );
+         fi;
+
          GAPInput
          
       - name: "Run package tests with necessary packages"
