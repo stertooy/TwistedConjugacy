@@ -83,8 +83,8 @@ gap> FixedPointGroup( homF );
 Pcp-group with orders [ 0 ]
 
 #
-gap> CoincidenceGroup( hom4, hom5 ) = FittingSubgroup( H2 );
-true
+#gap> CoincidenceGroup( hom4, hom5 ) = FittingSubgroup( H2 );
+#true
 gap> CoincidenceGroup( hom4, hom6 ) = Centre( H2 );
 true
 gap> CoincidenceGroup( hom4, hom5, hom6 ) = Centre( H2 );
