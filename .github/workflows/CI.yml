@@ -18,6 +18,8 @@ jobs:
             coverage: true
             packages: "alnuth autpgrp polycyclic"
           - gap-branch: "4.11"
+          - gap-branch: "4.10"
+          - gap-branch: "4.9"
             
     container:
       image: ghcr.io/stertooy/gap-docker-alpine:${{ matrix.gap-branch }}
