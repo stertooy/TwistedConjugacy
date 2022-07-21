@@ -4,6 +4,9 @@ This file describes changes in the GAP package TwistedConjugacy.
 2.1.0 (18/03/2022)
 ------------------
 
+- Now requires GAP version 4.11 and polycyclic version 2.15.1, because some
+  bugs in older versions would often lead to errors or incorrect results.
+
 - Various improvements to efficiency, both speed- and memory-related.
 
 - RepresentativesHomomorphismClasses and RepresentativesEndomorphismClasses

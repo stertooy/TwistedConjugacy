@@ -1,4 +1,4 @@
-name: "Test GAP installation (complete)"
+name: "Test GAP installation"
 
 on:
   - workflow_dispatch
@@ -30,9 +30,6 @@ jobs:
       - name: "Run GAP tests with necessary packages"
         uses: sTertooy/GDA-test-gap@v0.3
         with:
-          COMPLETE: true
           ONLY_NEEDED: true
       - name: "Run GAP tests with suggested packages"
         uses: sTertooy/GDA-test-gap@v0.3
-        with:
-          COMPLETE: true
