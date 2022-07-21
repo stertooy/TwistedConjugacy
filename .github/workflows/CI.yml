@@ -61,17 +61,17 @@ jobs:
          QUIT;
          GAPInput
       - name: "Run package tests with necessary packages"
-        uses: sTertooy/GDA-test-pkg@v0.8
+        uses: sTertooy/GDA-test-pkg@v0.9
         with:
           GAP_FLAGS: "-A"
           COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
       - name: "Run package tests with suggested packages"
-        uses: sTertooy/GDA-test-pkg@v0.8
+        uses: sTertooy/GDA-test-pkg@v0.9
         with:
           COVERAGE: ${{ matrix.coverage }}
       - name: "Run package tests with all packages"
-        uses: sTertooy/GDA-test-pkg@v0.8
+        uses: sTertooy/GDA-test-pkg@v0.9
         with:
           ALL_PACKAGES: true
       - name: "Run GAP tests with necessary packages"
