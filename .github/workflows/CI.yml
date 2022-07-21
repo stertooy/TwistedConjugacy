@@ -7,53 +7,50 @@ on:
 
 jobs:
   test:
-    name: GAP ${{ matrix.gap-branch }}
+    name: "GAP-${{ matrix.gap-branch }}"
     runs-on: ubuntu-latest
-    if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
+    if: ${{ !(github.event_name == "pull_request" && github.event.pull_request.head.repo.full_name == github.repository) }}
     strategy:
       fail-fast: false
       matrix:
         include:
-          - gap-branch: 'master'
+          - gap-branch: "master"
             coverage: true
-            packages: 'alnuth autpgrp polycyclic'
-          - gap-branch: '4.11'
-            coverage: false
-          - gap-branch: '4.10'
-            coverage: false
-          - gap-branch: '4.9'
-            coverage: false
+            packages: "alnuth autpgrp polycyclic"
+          - gap-branch: "4.11"
+          - gap-branch: "4.10"
+          - gap-branch: "4.9"
             
     container:
       image: ghcr.io/stertooy/gap-docker-alpine:${{ matrix.gap-branch }}
 
     steps:
-      - name: 'Checkout'
+      - name: "Checkout"
         uses: actions/checkout@v3
-      - name: 'Add package to GAP'
+      - name: "Add extra packages to GAP"
         uses: sTertooy/GDA-extra-pkg@v0.3
         with:
-          PACKAGES: 'alnuth autpgrp polycyclic'
-      - name: 'Add package to GAP'
+          PACKAGES: "alnuth autpgrp polycyclic"
+      - name: "Build package"
         uses: sTertooy/GDA-build-pkg@v0.4
-      - name: 'Run package tests with only necessary packages loaded'
+      - name: "Run tests with necessary packages"
         uses: sTertooy/GDA-test-pkg@v0.5
         with:
-          GAP_FLAGS: '-A'
+          GAP_FLAGS: "-A"
           COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
-      - name: 'Run package tests with default + suggested packages loaded'
+      - name: "Run tests with suggested packages"
         uses: sTertooy/GDA-test-pkg@v0.5
         with:
           COVERAGE: ${{ matrix.coverage }}
-      - name: 'Run package tests with all packages loaded'
+      - name: "Run tests with all packages"
         uses: sTertooy/GDA-test-pkg@v0.5
         with:
           ALL_PACKAGES: true
-      - name: 'Process coverage'
+      - name: "Process coverage"
         uses: stertooy/GDA-coverage@v0.3
         if: ${{ matrix.coverage }}
-      - name: 'Upload coverage'
+      - name: "Upload coverage"
         uses: codecov/codecov-action@v3
         if: ${{ matrix.coverage }}
         with:
@@ -63,19 +60,19 @@ jobs:
   manual:
     name: Manual
     runs-on: ubuntu-latest
-    if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
+    if: ${{ !(github.event_name == "pull_request" && github.event.pull_request.head.repo.full_name == github.repository) }}
     container:
       image: ghcr.io/stertooy/gap-docker-alpine:tex
     steps:
-      - name: 'Checkout'
+      - name: "Checkout"
         uses: actions/checkout@v3
-      - name: 'Add package to GAP'
+      - name: "Build package"
         uses: sTertooy/GDA-build-pkg@v0.4
-      - name: 'Build documentation'
-        uses: stertooy/GDA-manual@v0.2
-      - name: 'Upload documentation'
+      - name: "Build manual"
+        uses: stertooy/GDA-manual@v0.3
+      - name: "Upload manual"
         uses: actions/upload-artifact@v3
         with:
-          name: manual
+          name: "Manual"
           path: ./doc/manual.pdf
           if-no-files-found: error
