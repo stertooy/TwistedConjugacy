@@ -45,6 +45,12 @@ jobs:
         uses: sTertooy/GDA-test-pkg@v0.5
         with:
           ALL_PACKAGES: true
+      - name: "Run tests with necessary packages"
+        uses: sTertooy/GDA-test-gap@v0.3
+        with:
+          ONLY_NEEDED: true
+      - name: "Run tests with suggested packages"
+        uses: sTertooy/GDA-test-gap@v0.3
       - name: "Process coverage"
         uses: stertooy/GDA-coverage@v0.3
         if: ${{ matrix.coverage }}
