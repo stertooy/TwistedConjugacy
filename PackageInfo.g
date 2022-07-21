@@ -64,13 +64,13 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-	GAP := ">= 4.11",
+	GAP := ">= 4.9",
 	NeededOtherPackages := [
-		[ "GAPDoc", "1.6.3" ]
+		[ "GAPDoc", "1.6.1" ]
 	],
 	SuggestedOtherPackages := [
-		[ "AutoDoc", "2019.09.04" ],
-		[ "Polycyclic", "2.15.1" ]
+		[ "AutoDoc", "2018.02.14" ],
+		[ "Polycyclic", "2.13.1" ]
 	],
 	ExternalConditions := [ ],
 ),
