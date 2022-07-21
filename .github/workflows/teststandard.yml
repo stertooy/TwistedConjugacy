@@ -1,38 +1,38 @@
-name: teststandard
+name: "Test GAP installation"
 
 on:
   - workflow_dispatch
 
 jobs:
   test:
-    name: GAP ${{ matrix.gap-branch }}
+    name: "Test on GAP-${{ matrix.gap-branch }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         include:
-          - gap-branch: 'master'
-            packages: 'alnuth autpgrp polycyclic'
-          - gap-branch: '4.11'
+          - gap-branch: "master"
+            packages: "alnuth autpgrp polycyclic"
+          - gap-branch: "4.11"
           
     container:
       image: ghcr.io/stertooy/gap-docker-alpine:${{ matrix.gap-branch }}
       
     steps:
-      - name: 'Checkout'
+      - name: "Checkout"
         uses: actions/checkout@v3
       - name: 'Add package to GAP'
-        uses: sTertooy/GAD-extra-packages@v0.1
+        uses: sTertooy/GDA-extra-pkg@v0.3
         with:
-          PACKAGES: 'alnuth autpgrp polycyclic'
-      - name: 'Add package to GAP'
-        uses: sTertooy/GAD-build-package@v0.3
-      - name: 'Run teststandard.g with only necessary packages loaded'
-        uses: sTertooy/GAD-gap-tests@v0.2
+          PACKAGES: ${{ matrix.packages }}
+      - name: "Build package"
+        uses: sTertooy/GDA-build-pkg@v0.4
+      - name: "Run tests with necessary packages"
+        uses: sTertooy/GDA-test-gap@v0.3
         with:
           COMPLETE: true
           ONLY_NEEDED: true
-      - name: 'Run teststandard.g with suggested packages loaded'
-        uses: sTertooy/GAD-gap-tests@v0.2
+      - name: "Run tests with suggested packages"
+        uses: sTertooy/GDA-test-gap@v0.3
         with:
           COMPLETE: true
