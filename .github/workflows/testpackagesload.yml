@@ -20,11 +20,11 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v3
       - name: "Add package to GAP"
-        uses: sTertooy/GAD-extra-packages@v0.1
+        uses: sTertooy/GDA-extra-pkg@v0.3
         with:
           PACKAGES: ${{ matrix.packages }}
       - name: "Add package to GAP"
-        uses: sTertooy/GDA-build-package@v0.3
+        uses: sTertooy/GDA-build-pkg@v0.4
       - name: "Add package to GAP"
         uses: sTertooy/GDA-test-load@v0.1
       - name: "Upload output"
