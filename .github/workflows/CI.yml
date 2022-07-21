@@ -41,6 +41,11 @@ jobs:
          set -ex
          rm -rf /opt/gap/pkg/Browse
          locale
+         echo "hurr"
+         locale -a
+         locale-update LC_CTYPE=C.UTF-8
+         locale
+         echo "hi"
          locale -a
          apt update
          apt install locales -y
