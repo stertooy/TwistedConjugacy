@@ -48,6 +48,9 @@ jobs:
          /opt/gap/bin/gap.sh -A <<GAPInput
          LoadPackage("Browse");
          GAPInput
+         /opt/gap/bin/gap.sh -D <<GAPInput
+         QUIT;
+         GAPInput
       - name: "Run package tests with necessary packages"
         uses: sTertooy/GDA-test-pkg@v0.5
         with:
