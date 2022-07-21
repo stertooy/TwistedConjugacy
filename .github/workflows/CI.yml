@@ -39,11 +39,11 @@ jobs:
         shell: bash
         run : |
          set -ex
-         echo "LC_CTYPE= " > /etc/default/locale
          rm -rf /opt/gap/pkg/Browse
          apt update
          apt install locales -y
-         LC_CTYPE= /opt/gap/bin/gap.sh /opt/gap/tst/testinstall.g
+         echo "LC_CTYPE=en_US.UTF-8" > /etc/default/locale
+         /opt/gap/bin/gap.sh /opt/gap/tst/testinstall.g
       - name: "Run package tests with necessary packages"
         uses: sTertooy/GDA-test-pkg@v0.5
         with:
