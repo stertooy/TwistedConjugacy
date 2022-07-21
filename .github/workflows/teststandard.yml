@@ -28,11 +28,11 @@ jobs:
       - name: 'Add package to GAP'
         uses: sTertooy/GAD-build-package@v0.3
       - name: 'Run teststandard.g with only necessary packages loaded'
-        uses: sTertooy/CAD-gap-tests@v0.1
+        uses: sTertooy/GAD-gap-tests@v0.2
         with:
           COMPLETE: true
           ONLY_NEEDED: true
       - name: 'Run teststandard.g with suggested packages loaded'
-        uses: sTertooy/CAD-gap-tests@v0.1
+        uses: sTertooy/GAD-gap-tests@v0.2
         with:
           COMPLETE: true
