@@ -42,7 +42,8 @@ jobs:
          rm -rf /opt/gap/pkg/Browse
          apt update
          apt install locales -y
-         update-locale LC_CTYPE="en_US.UTF-8"
+         echo "LC_CTYPE=en_US.UTF-8" > /etc/default/locale
+         source /etc/default/locale
          /opt/gap/bin/gap.sh /opt/gap/tst/testinstall.g
       - name: "Run package tests with necessary packages"
         uses: sTertooy/GDA-test-pkg@v0.5
