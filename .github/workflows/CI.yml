@@ -60,12 +60,6 @@ jobs:
           ONLY_NEEDED: true
       - name: 'Run GAP tests with suggested packages loaded'
         uses: sTertooy/pkg-install-test@v1
-      - name: "Run tests with necessary packages"
-        uses: sTertooy/GDA-test-gap@v0.3
-        with:
-          ONLY_NEEDED: true
-      - name: "Run tests with suggested packages"
-        uses: sTertooy/GDA-test-gap@v0.3
       - name: 'Process coverage'
         uses: gap-actions/process-coverage@v2
         if: ${{ !matrix.no-coverage }}
