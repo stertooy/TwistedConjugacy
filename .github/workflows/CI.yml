@@ -39,7 +39,7 @@ jobs:
          TERM="dumb"
          export TERM
          /opt/gap/bin/gap.sh <<GAPInput
-         Print("HAI\n");
+         Print("HAI1\n");
          QUIT;
          GAPInput
          GAPROOT=/opt/gap
@@ -50,7 +50,7 @@ jobs:
          ln -f -s $PWD /tmp/gaproot/pkg/
          
          /opt/gap/bin/gap.sh <<GAPInput
-         Print("HAI\n");
+         Print("HAI2\n");
          QUIT;
          GAPInput
          
@@ -58,13 +58,42 @@ jobs:
          GAP="$GAPROOT/bin/gap.sh ${{ inputs.GAP_FLAGS }} -l /tmp/gaproot; --quitonbreak"
          
          /opt/gap/bin/gap.sh <<GAPInput
-         Print("HAI\n");
+         Print("HAI3\n");
          QUIT;
          GAPInput
          
          $GAP <<GAPInput
-         Print("HAI\n");
+         Print("HAI4\n");
          QUIT;
+         GAPInput
+         
+         $GAP <<GAPInput
+         
+         GAP_TESTFILE := "${{ inputs.GAP_TESTFILE }}";
+         
+         Read( "PackageInfo.g" );
+         info := GAPInfo.PackageInfoCurrent;
+         if IsEmpty( GAP_TESTFILE ) or not IsExistingFile( GAP_TESTFILE ) then
+             GAP_TESTFILE := info.TestFile;
+         fi;
+         
+         # Load the package with debug info
+         SetInfoLevel( InfoPackageLoading, PACKAGE_DEBUG );
+         GAPInput
+         
+         $GAP <<GAPInput
+         
+         GAP_TESTFILE := "${{ inputs.GAP_TESTFILE }}";
+         
+         Read( "PackageInfo.g" );
+         info := GAPInfo.PackageInfoCurrent;
+         if IsEmpty( GAP_TESTFILE ) or not IsExistingFile( GAP_TESTFILE ) then
+             GAP_TESTFILE := info.TestFile;
+         fi;
+         
+         # Load the package with debug info
+         SetInfoLevel( InfoPackageLoading, PACKAGE_DEBUG );
+         SetPackagePath( info.PackageName, "/tmp/gaproot/pkg/$(basename $PWD)" );
          GAPInput
          
       - name: "Run package tests with necessary packages"
