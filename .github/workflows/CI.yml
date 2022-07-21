@@ -43,7 +43,6 @@ jobs:
          QUIT;
          GAPInput
          GAPROOT=/opt/gap
-         
          # Set up a custom GAP root containing only this package, so that
          # we can force GAP to load the correct version of this package
          mkdir -p /tmp/gaproot/pkg/
@@ -61,69 +60,18 @@ jobs:
          Print("HAI3\n");
          QUIT;
          GAPInput
-         
-         $GAP <<GAPInput
-         Print("HAI4\n");
-         QUIT;
-         GAPInput
-         
-         $GAP <<GAPInput
-         
-         GAP_TESTFILE := "${{ inputs.GAP_TESTFILE }}";
-         
-         Read( "PackageInfo.g" );
-         info := GAPInfo.PackageInfoCurrent;
-         if IsEmpty( GAP_TESTFILE ) or not IsExistingFile( GAP_TESTFILE ) then
-             GAP_TESTFILE := info.TestFile;
-         fi;
-         
-         # Load the package with debug info
-         SetInfoLevel( InfoPackageLoading, PACKAGE_DEBUG );
-         GAPInput
-         
-         $GAP <<GAPInput
-         
-         GAP_TESTFILE := "tst/testall.g";
-         
-         Read( "PackageInfo.g" );
-         info := GAPInfo.PackageInfoCurrent;
-         if IsEmpty( GAP_TESTFILE ) or not IsExistingFile( GAP_TESTFILE ) then
-             GAP_TESTFILE := info.TestFile;
-         fi;
-         
-         # Load the package with debug info
-         SetInfoLevel( InfoPackageLoading, PACKAGE_DEBUG );
-         SetPackagePath( info.PackageName, "/tmp/gaproot/pkg/TwistedConjugacy" );
-         if ${{ inputs.ALL_PACKAGES }} then
-           LoadAllPackages();
-         elif ${{ inputs.ONLY_NEEDED }} then
-           LoadPackage( info.PackageName : OnlyNeeded );
-         else
-           LoadPackage( info.PackageName );
-         fi;
-         SetInfoLevel( InfoPackageLoading, PACKAGE_ERROR );
-         
-         if EndsWith( GAP_TESTFILE, ".tst" ) then
-             QUIT_GAP( Test( GAP_TESTFILE, rec( compareFunction := "uptowhitespace" ) ) );
-         else
-             Read( GAP_TESTFILE );
-             Error( "Package TestFile did not exit gap" );
-         fi;
-
-         GAPInput
-         
       - name: "Run package tests with necessary packages"
-        uses: sTertooy/GDA-test-pkg@v0.5
+        uses: sTertooy/GDA-test-pkg@v0.7
         with:
           GAP_FLAGS: "-A"
           COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
       - name: "Run package tests with suggested packages"
-        uses: sTertooy/GDA-test-pkg@v0.5
+        uses: sTertooy/GDA-test-pkg@v0.7
         with:
           COVERAGE: ${{ matrix.coverage }}
       - name: "Run package tests with all packages"
-        uses: sTertooy/GDA-test-pkg@v0.5
+        uses: sTertooy/GDA-test-pkg@v0.7
         with:
           ALL_PACKAGES: true
       - name: "Run GAP tests with necessary packages"
