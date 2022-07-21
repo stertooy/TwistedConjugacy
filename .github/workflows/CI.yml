@@ -46,7 +46,7 @@ jobs:
             ##
             #Y  Copyright (C) 2006-2007, Lehrstuhl D für Mathematik, RWTH Aachen, Germany
             ##
-
+            Print("PART 1\n");
             # 'BASE_SIZE_METHODS_OPER_ENTRY' is new in GAP 4.10;
             # for backwards compatibility, if it is missing set it to 4.
             if not IsBound( BASE_SIZE_METHODS_OPER_ENTRY ) then
@@ -56,7 +56,7 @@ jobs:
                 BindConstant( "BASE_SIZE_METHODS_OPER_ENTRY", 4 );
               fi;
             fi;
-
+            Print("PART 2\n");
             # make sure that TERM is set in environment, if not we set it to "dumb"
             # (here only in GAP's info about the environment setting, but in kernel
             # code we also change the actual environment)
@@ -64,18 +64,20 @@ jobs:
               Print("TERM NOT FOUND\n");
               GAPInfo.SystemEnvironment.TERM := "dumb";
             fi;
-
+            Print("PART 3\n");
             # load kernel module
             if (not IsBound(NCurses)) and
                ("ncurses" in SHOW_STAT()) then
               # try static module
               LoadStaticModule("ncurses");
             fi;
+            Print("PART 4\n");
             if (not IsBound(NCurses)) and
                (Filename(DirectoriesPackagePrograms("Browse"), "ncurses.so") <> fail) then
               LoadDynamicModule(Filename(DirectoriesPackagePrograms("Browse"),
                 "ncurses.so"));
             fi;
+            Print("PART 5\n");
 
             # check if the kernel module was loaded and has correct version
             if not IsBound(NCurses) then
@@ -96,6 +98,7 @@ jobs:
                 SetUserPreference( "browse", "EnableMouseEvents", false );
               fi;
             fi;
+            Print("PART 6\n");
             if GAPInfo.PackagesLoaded.browse[2] <> NCurses.KernelModuleVersion then
               GAPInfo.browseerror := Concatenation("Browse: Kernel module has version ",
                   NCurses.KernelModuleVersion, " but version ",
@@ -103,6 +106,7 @@ jobs:
               Unbind(GAPInfo.PackagesLoaded.browse);
               Error(GAPInfo.browseerror);
             fi;
+            Print("PART 7\n");
 
             ReadPackage("Browse", "lib/ncurses.gd");
             ReadPackage("Browse", "lib/browse.gd");
