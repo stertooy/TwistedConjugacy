@@ -18,7 +18,7 @@ jobs:
             packages: "Alnuth"
             
     container:
-      image: ghcr.io/stertooy/gda-image@sha256:dc5cbfee6d64045b77c4ba45d90272a3f85603e75a82790f0894d7c8649ed4f2
+      image: ghcr.io/stertooy/gda-image:{{ matrix.gap-branch }}
 
     steps:
       - name: "Checkout"
@@ -33,36 +33,7 @@ jobs:
         shell: bash
         run : |
          set -ex
-         LC_CTYPE=C.UTF-8
-         export LC_CTYPE
-         # rm -rf /opt/gap/pkg/Browse
-         TERM="dumb"
-         export TERM
-         /opt/gap/bin/gap.sh <<GAPInput
-         Print("HAI1\n");
-         Print("\377\n");
-         QUIT;
-         GAPInput
-         GAPROOT=/opt/gap
-         # Set up a custom GAP root containing only this package, so that
-         # we can force GAP to load the correct version of this package
-         mkdir -p /tmp/gaproot/pkg/
-         ln -f -s $PWD /tmp/gaproot/pkg/
-         
-         /opt/gap/bin/gap.sh <<GAPInput
-         Print(GAPInfo.SystemEnvironment);
-         Print("\377\n");
-         QUIT;
-         GAPInput
-         
-         # Start GAP with custom GAP root, to ensure correct package version is loaded
-         GAP="$GAPROOT/bin/gap.sh ${{ inputs.GAP_FLAGS }} -l /tmp/gaproot; --quitonbreak"
-         
-         /opt/gap/bin/gap.sh <<GAPInput
-         Print("HAI3\n");
-         Print("\377\n");
-         QUIT;
-         GAPInput
+         chmod +x /usr/local/bin/gap
       - name: "Run package tests with necessary packages"
         uses: sTertooy/GDA-test-pkg@v0.9
         with:
