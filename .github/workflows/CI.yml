@@ -35,25 +35,25 @@ jobs:
          set -ex
          chmod +x /usr/local/bin/gap
       - name: "Run package tests with necessary packages"
-        uses: sTertooy/GDA-test-pkg@v0.9
+        uses: sTertooy/GDA-test-pkg@v0.10
         with:
           GAP_FLAGS: "-A"
           COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
       - name: "Run package tests with suggested packages"
-        uses: sTertooy/GDA-test-pkg@v0.9
+        uses: sTertooy/GDA-test-pkg@v0.10
         with:
           COVERAGE: ${{ matrix.coverage }}
       - name: "Run package tests with all packages"
-        uses: sTertooy/GDA-test-pkg@v0.9
+        uses: sTertooy/GDA-test-pkg@v0.10
         with:
           ALL_PACKAGES: true
       - name: "Run GAP tests with necessary packages"
-        uses: sTertooy/GDA-test-gap@v0.3
+        uses: sTertooy/GDA-test-gap@v0.4
         with:
           ONLY_NEEDED: true
       - name: "Run GAP tests with suggested packages"
-        uses: sTertooy/GDA-test-gap@v0.3
+        uses: sTertooy/GDA-test-gap@v0.4
       - name: "Process coverage"
         uses: stertooy/GDA-coverage@v0.3
         if: ${{ matrix.coverage }}
