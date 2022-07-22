@@ -18,7 +18,7 @@ jobs:
             packages: "Alnuth"
             
     container:
-      image: ghcr.io/stertooy/gda-image:{{ matrix.gap-branch }}
+      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}
 
     steps:
       - name: "Checkout"
