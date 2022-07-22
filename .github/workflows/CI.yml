@@ -14,13 +14,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - gap-branch: "4.10"
-            packages: "Alnuth"
           - gap-branch: "4.9"
             packages: "Alnuth"
             
     container:
-      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}
+      image: ghcr.io/stertooy/gda-image@sha256:dc5cbfee6d64045b77c4ba45d90272a3f85603e75a82790f0894d7c8649ed4f2
 
     steps:
       - name: "Checkout"
