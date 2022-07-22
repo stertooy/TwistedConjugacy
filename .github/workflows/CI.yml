@@ -15,7 +15,9 @@ jobs:
       matrix:
         include:
           - gap-branch: "4.10"
+            packages: "Alnuth"
           - gap-branch: "4.9"
+            packages: "Alnuth"
             
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}
