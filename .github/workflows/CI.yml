@@ -14,6 +14,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - gap-branch: "master"
+            packages: "Alnuth autpgrp polycyclic"
+          - gap-branch: "4.11"
+            packages: "Alnuth"
+          - gap-branch: "4.10"
+            packages: "Alnuth"
           - gap-branch: "4.9"
             packages: "Alnuth"
             
