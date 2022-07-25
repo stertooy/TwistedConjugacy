@@ -1,4 +1,4 @@
-name: "Test GAP installation"
+name: "Test GAP installation (quick)"
 
 on:
   - workflow_dispatch
