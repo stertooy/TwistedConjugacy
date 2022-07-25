@@ -14,55 +14,66 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - gap-branch: "master"
-            packages: "Alnuth autpgrp polycyclic"
-          - gap-branch: "4.11"
-            packages: "Alnuth"
-          - gap-branch: "4.10"
-            packages: "Alnuth"
-          - gap-branch: "4.9"
-            packages: "Alnuth"
+          - gap-branch: "master-slim"
+            packages-to-clone: "Alnuth autpgrp polycyclic"
+          - gap-branch: "4.11-slim"
+            packages-to-clone: "Alnuth"
+          - gap-branch: "4.10-slim"
+            packages-to-clone: "Alnuth"
+          - gap-branch: "4.9-slim"
+            packages-to-clone: "Alnuth"
             
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}
 
     steps:
+    
       - name: "Checkout"
         uses: actions/checkout@v3
+        
       - name: "Add extra packages to GAP"
-        uses: sTertooy/GDA-extra-pkg@v0.3
+        uses: sTertooy/gda-extra-pkg@v0.9.0
         with:
-          PACKAGES: ${{ matrix.packages }}
+          PACKAGES_TO_CLONE: ${{ matrix.packages }}
+          
       - name: "Build package"
-        uses: sTertooy/GDA-build-pkg@v0.4
+        uses: sTertooy/gda-build-pkg@v0.9.0
+        
       - name: "tests"
         shell: bash
         run : |
          set -ex
          chmod +x /usr/local/bin/gap
+         
       - name: "Run package tests with necessary packages"
-        uses: sTertooy/GDA-test-pkg@v0.10
+        uses: sTertooy/gda-test-pkg@v0.9.0
         with:
           GAP_FLAGS: "-A"
           COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
+          
       - name: "Run package tests with suggested packages"
-        uses: sTertooy/GDA-test-pkg@v0.10
+        uses: sTertooy/gda-test-pkg@v0.9.0
         with:
           COVERAGE: ${{ matrix.coverage }}
+          
       - name: "Run package tests with all packages"
-        uses: sTertooy/GDA-test-pkg@v0.10
+        uses: sTertooy/gda-test-pkg@v0.9.0
         with:
           ALL_PACKAGES: true
+          
       - name: "Run GAP tests with necessary packages"
-        uses: sTertooy/GDA-test-gap@v0.4
+        uses: sTertooy/gda-test-gap@v0.9.0
         with:
           ONLY_NEEDED: true
+          
       - name: "Run GAP tests with suggested packages"
-        uses: sTertooy/GDA-test-gap@v0.4
+        uses: sTertooy/gda-test-gap@v0.9.0
+        
       - name: "Process coverage"
-        uses: stertooy/GDA-coverage@v0.3
+        uses: stertooy/gda-coverage@v0.9.0
         if: ${{ matrix.coverage }}
+        
       - name: "Upload coverage"
         uses: codecov/codecov-action@v3
         if: ${{ matrix.coverage }}
@@ -76,19 +87,28 @@ jobs:
     if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
     
     container:
-      image: ghcr.io/stertooy/gap-docker-alpine:tex
+      image: ghcr.io/stertooy/gda-image:master
     
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
+        
+      - name: "Install TEX"
+        run: |
+          apt-get update
+          apt-get install --no-install-recommends texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+          
       - name: "Add extra packages to GAP"
-        uses: sTertooy/GDA-extra-pkg@v0.3
+        uses: sTertooy/gda-extra-pkg@v0.9.0
         with:
-          PACKAGES: ${{ matrix.packages }}
+          PACKAGES_TO_CLONE: ${{ matrix.packages }}
+          
       - name: "Build package"
-        uses: sTertooy/GDA-build-pkg@v0.4
+        uses: sTertooy/gda-build-pkg@v0.9.0
+        
       - name: "Build manual"
-        uses: stertooy/GDA-manual@v0.3
+        uses: stertooy/gda-manual@v0.9.0
+        
       - name: "Upload manual"
         uses: actions/upload-artifact@v3
         with:
