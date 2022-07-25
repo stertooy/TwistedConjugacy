@@ -84,14 +84,6 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v3
 
-      - name: "Add extra packages to GAP"
-        uses: sTertooy/gda-extra-pkg@v0.9.5
-        with:
-          PACKAGES: ${{ matrix.packages }}
-          
-      - name: "Build package"
-        uses: sTertooy/gda-build-pkg@v0.9.1
-        
       - name: "Build manual"
         uses: stertooy/gda-manual@v0.9.3
         
