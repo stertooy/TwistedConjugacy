@@ -32,9 +32,7 @@ jobs:
         uses: sTertooy/gda-extra-pkg@v1
         with:
           PACKAGES: ${{ matrix.packages }}
-          
-      - name: "Build package"
-        uses: sTertooy/gda-build-pkg@v1
+        if: ${{ matrix.packages != "" }}
         
       - name: "Run package tests with necessary packages"
         uses: sTertooy/gda-test-pkg@v1
