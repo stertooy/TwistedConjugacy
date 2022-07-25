@@ -14,14 +14,14 @@ jobs:
       matrix:
         include:
           - gap-branch: "master-slim"
-            packages-to-clone: "Alnuth autpgrp polycyclic"
+            packages: "Alnuth autpgrp polycyclic"
             coverage: true
           - gap-branch: "4.11-slim"
-            packages-to-clone: "Alnuth"
+            packages: "Alnuth"
           - gap-branch: "4.10-slim"
-            packages-to-clone: "Alnuth"
+            packages: "Alnuth"
           - gap-branch: "4.9-slim"
-            packages-to-clone: "Alnuth"
+            packages: "Alnuth"
             
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}
@@ -32,9 +32,9 @@ jobs:
         uses: actions/checkout@v3
         
       - name: "Add extra packages to GAP"
-        uses: sTertooy/gda-extra-pkg@v0.9.1
+        uses: sTertooy/gda-extra-pkg@v0.9.2
         with:
-          PACKAGES_TO_CLONE: ${{ matrix.packages-to-clone }}
+          PACKAGES: ${{ matrix.packages }}
           
       - name: "Build package"
         uses: sTertooy/gda-build-pkg@v0.9.1
@@ -88,9 +88,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: "Add extra packages to GAP"
-        uses: sTertooy/gda-extra-pkg@v0.9.1
+        uses: sTertooy/gda-extra-pkg@v0.9.2
         with:
-          PACKAGES_TO_CLONE: ${{ matrix.packages-to-clone }}
+          PACKAGES: ${{ matrix.packages }}
           
       - name: "Build package"
         uses: sTertooy/gda-build-pkg@v0.9.1
