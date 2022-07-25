@@ -27,7 +27,7 @@ jobs:
     
       - name: "Checkout"
         uses: actions/checkout@v3
-        
+
       - name: "Add extra packages to GAP"
         uses: sTertooy/gda-extra-pkg@v0.9.5
         with:
@@ -35,7 +35,7 @@ jobs:
           
       - name: "Build package"
         uses: sTertooy/gda-build-pkg@v0.9.1
-         
+        
       - name: "Run package tests with necessary packages"
         uses: sTertooy/gda-test-pkg@v0.9.1
         with:
