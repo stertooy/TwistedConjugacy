@@ -38,12 +38,6 @@ jobs:
           
       - name: "Build package"
         uses: sTertooy/gda-build-pkg@v0.9.1
-        
-      - name: "tests"
-        shell: bash
-        run : |
-         set -ex
-         chmod +x /usr/local/bin/gap
          
       - name: "Run package tests with necessary packages"
         uses: sTertooy/gda-test-pkg@v0.9.1
@@ -93,10 +87,12 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v3
         
-      - name: "Install TEX"
+      - name: "Install TexLive"
+        shell: bash
         run: |
+          set -ex
           apt-get update
-          apt-get install --no-install-recommends texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+          apt-get install --no-install-recommends --yes texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
           
       - name: "Add extra packages to GAP"
         uses: sTertooy/gda-extra-pkg@v0.9.1
