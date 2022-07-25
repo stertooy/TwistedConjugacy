@@ -13,15 +13,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - gap-branch: "master-slim"
+          - gap-branch: "master"
             packages: "Alnuth autpgrp polycyclic"
             coverage: true
-          - gap-branch: "4.11-slim"
-          - gap-branch: "4.10-slim"
-          - gap-branch: "4.9-slim"
+          - gap-branch: "4.11"
+          - gap-branch: "4.10"
+          - gap-branch: "4.9"
             
     container:
-      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}
+      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}-slim
 
     steps:
     
