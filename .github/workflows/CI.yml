@@ -1,5 +1,4 @@
 name: CI
-
 on:
   - push
   - pull_request
@@ -14,50 +13,58 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - gap-branch: "4.10"
-          - gap-branch: "4.9"
+          - gap-branch: "master-slim"
+            packages: "Alnuth autpgrp polycyclic"
+            coverage: true
+          - gap-branch: "4.11-slim"
+          - gap-branch: "4.10-slim"
+          - gap-branch: "4.9-slim"
             
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}
 
     steps:
+    
       - name: "Checkout"
         uses: actions/checkout@v3
+
+      - name: "Add extra packages to GAP"
+        uses: sTertooy/gda-extra-pkg@v0.9.5
+        with:
+          PACKAGES: ${{ matrix.packages }}
+          
       - name: "Build package"
-        uses: sTertooy/GDA-build-pkg@v0.4
-      - name: "tests"
-        shell: bash
-        run : |
-         set -ex
-         LC_CTYPE=C.UTF-8
-         export LC_CTYPE
-         /opt/gap/bin/gap.sh -A <<GAPInput
-         SetInfoLevel(InfoPackageLoading,4);
-         LoadPackage("Browse");
-         GAPInput
+        uses: sTertooy/gda-build-pkg@v0.9.1
+        
       - name: "Run package tests with necessary packages"
-        uses: sTertooy/GDA-test-pkg@v0.5
+        uses: sTertooy/gda-test-pkg@v0.9.1
         with:
           GAP_FLAGS: "-A"
           COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
+          
       - name: "Run package tests with suggested packages"
-        uses: sTertooy/GDA-test-pkg@v0.5
+        uses: sTertooy/gda-test-pkg@v0.9.1
         with:
           COVERAGE: ${{ matrix.coverage }}
+          
       - name: "Run package tests with all packages"
-        uses: sTertooy/GDA-test-pkg@v0.5
+        uses: sTertooy/gda-test-pkg@v0.9.1
         with:
           ALL_PACKAGES: true
+          
       - name: "Run GAP tests with necessary packages"
-        uses: sTertooy/GDA-test-gap@v0.3
+        uses: sTertooy/gda-test-gap@v0.9.1
         with:
           ONLY_NEEDED: true
+          
       - name: "Run GAP tests with suggested packages"
-        uses: sTertooy/GDA-test-gap@v0.3
+        uses: sTertooy/gda-test-gap@v0.9.1
+        
       - name: "Process coverage"
-        uses: stertooy/GDA-coverage@v0.3
+        uses: stertooy/gda-coverage@v0.9.1
         if: ${{ matrix.coverage }}
+        
       - name: "Upload coverage"
         uses: codecov/codecov-action@v3
         if: ${{ matrix.coverage }}
@@ -71,19 +78,23 @@ jobs:
     if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
     
     container:
-      image: ghcr.io/stertooy/gap-docker-alpine:tex
+      image: ghcr.io/stertooy/gda-image:master-slim
     
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
+
       - name: "Add extra packages to GAP"
-        uses: sTertooy/GDA-extra-pkg@v0.3
+        uses: sTertooy/gda-extra-pkg@v0.9.5
         with:
           PACKAGES: ${{ matrix.packages }}
+          
       - name: "Build package"
-        uses: sTertooy/GDA-build-pkg@v0.4
+        uses: sTertooy/gda-build-pkg@v0.9.1
+        
       - name: "Build manual"
-        uses: stertooy/GDA-manual@v0.3
+        uses: stertooy/gda-manual@v0.9.3
+        
       - name: "Upload manual"
         uses: actions/upload-artifact@v3
         with:
