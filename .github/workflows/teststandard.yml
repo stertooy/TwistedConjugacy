@@ -16,23 +16,25 @@ jobs:
           - gap-branch: "4.11"
           
     container:
-      image: ghcr.io/stertooy/gap-docker-alpine:${{ matrix.gap-branch }}
+      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}-slim
       
     steps:
+    
       - name: "Checkout"
         uses: actions/checkout@v3
-      - name: 'Add package to GAP'
-        uses: sTertooy/GDA-extra-pkg@v0.3
+        
+      - name: "Add extra packages to GAP"
+        uses: sTertooy/gda-extra-pkg@v1
         with:
           PACKAGES: ${{ matrix.packages }}
-      - name: "Build package"
-        uses: sTertooy/GDA-build-pkg@v0.4
+        
       - name: "Run GAP tests with necessary packages"
-        uses: sTertooy/GDA-test-gap@v0.3
+        uses: sTertooy/gda-test-gap@v1
         with:
           COMPLETE: true
           ONLY_NEEDED: true
+          
       - name: "Run GAP tests with suggested packages"
-        uses: sTertooy/GDA-test-gap@v0.3
+        uses: sTertooy/gda-test-gap@v1
         with:
           COMPLETE: true
