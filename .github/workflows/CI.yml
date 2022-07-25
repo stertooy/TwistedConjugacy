@@ -16,6 +16,7 @@ jobs:
         include:
           - gap-branch: "master-slim"
             packages-to-clone: "Alnuth autpgrp polycyclic"
+            coverage: true
           - gap-branch: "4.11-slim"
             packages-to-clone: "Alnuth"
           - gap-branch: "4.10-slim"
