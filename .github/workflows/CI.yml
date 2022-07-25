@@ -17,11 +17,8 @@ jobs:
             packages: "Alnuth autpgrp polycyclic"
             coverage: true
           - gap-branch: "4.11-slim"
-            packages: "Alnuth"
           - gap-branch: "4.10-slim"
-            packages: "Alnuth"
           - gap-branch: "4.9-slim"
-            packages: "Alnuth"
             
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}
@@ -32,7 +29,7 @@ jobs:
         uses: actions/checkout@v3
         
       - name: "Add extra packages to GAP"
-        uses: sTertooy/gda-extra-pkg@v0.9.3
+        uses: sTertooy/gda-extra-pkg@v0.9.4
         with:
           PACKAGES: ${{ matrix.packages }}
           
@@ -88,7 +85,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: "Add extra packages to GAP"
-        uses: sTertooy/gda-extra-pkg@v0.9.3
+        uses: sTertooy/gda-extra-pkg@v0.9.4
         with:
           PACKAGES: ${{ matrix.packages }}
           
