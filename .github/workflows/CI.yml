@@ -35,7 +35,7 @@ jobs:
       - name: "Add extra packages to GAP"
         uses: sTertooy/gda-extra-pkg@v0.9.1
         with:
-          PACKAGES_TO_CLONE: ${{ matrix.packages }}
+          PACKAGES_TO_CLONE: ${{ matrix.packages-to-clone }}
           
       - name: "Build package"
         uses: sTertooy/gda-build-pkg@v0.9.1
@@ -82,29 +82,22 @@ jobs:
     if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
     
     container:
-      image: ghcr.io/stertooy/gda-image:master
+      image: ghcr.io/stertooy/gda-image:master-slim
     
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
-        
-      - name: "Install TexLive"
-        shell: bash
-        run: |
-          set -ex
-          apt-get update
-          apt-get install --no-install-recommends --yes texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
-          
+
       - name: "Add extra packages to GAP"
         uses: sTertooy/gda-extra-pkg@v0.9.1
         with:
-          PACKAGES_TO_CLONE: ${{ matrix.packages }}
+          PACKAGES_TO_CLONE: ${{ matrix.packages-to-clone }}
           
       - name: "Build package"
         uses: sTertooy/gda-build-pkg@v0.9.1
         
       - name: "Build manual"
-        uses: stertooy/gda-manual@v0.9.1
+        uses: stertooy/gda-manual@v0.9.2
         
       - name: "Upload manual"
         uses: actions/upload-artifact@v3
