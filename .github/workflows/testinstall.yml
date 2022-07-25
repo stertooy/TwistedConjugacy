@@ -29,6 +29,7 @@ jobs:
         uses: sTertooy/gda-extra-pkg@v1
         with:
           PACKAGES: ${{ matrix.packages }}
+        if: ${{ matrix.packages != '' }}
         
       - name: "Run GAP tests with necessary packages"
         uses: sTertooy/gda-test-gap@v1
