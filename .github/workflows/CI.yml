@@ -17,11 +17,8 @@ jobs:
           - gap-branch: "master"
             coverage: true
           - gap-branch: "4.11"
-            coverage: true
           - gap-branch: "4.10"
-            coverage: true
           - gap-branch: "4.9"
-            coverage: true
             
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}-slim
@@ -57,9 +54,9 @@ jobs:
         uses: codecov/codecov-action@v3
         if: ${{ matrix.coverage }}
         with:
-          file: ${GITHUB_WORKSPACE}/gap-coverage.json
+          file: ./gap-coverage.json
           fail_ci_if_error: true
-          #root_dir: ${GITHUB_WORKSPACE}
+          root_dir: ${GITHUB_WORKSPACE}
 
   manual:
     name: "Build manual"
