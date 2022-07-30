@@ -35,6 +35,126 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
+## KernelsOfHomomorphismClasses@( H, KerOrbits, ImgOrbits )
+##
+KernelsOfHomomorphismClasses@ := function( H, KerOrbits, ImgOrbits )
+        local AutH, asAuto, Pairs, Heads, Isos, i, N, p, Q, j, M, iso, kerOrbit, possibleImgs;
+        AutH := AutomorphismGroup( H );
+        asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
+        Pairs := [];
+        Heads := [];
+        Isos := [];
+        for i in [ 1 .. Size( KerOrbits ) ] do
+            if not IsBound( KerOrbits[i] ) then
+                continue;
+            fi;
+            kerOrbit := KerOrbits[i];
+            N := kerOrbit[1];
+            possibleImgs := Filtered(
+                [ 1 .. Size( ImgOrbits ) ], j ->
+                Size( ImgOrbits[j][1] ) = IndexNC( H, N )
+            );
+            if IsEmpty( possibleImgs ) then
+                continue;
+            fi;
+            Isos[i] := [];
+            p := NaturalHomomorphismByNormalSubgroupNC( H, N );
+            Q := ImagesSource( p );
+            p := RestrictedHomomorphism( p, H, Q );
+            for j in possibleImgs do
+                M := ImgOrbits[j][1];
+                iso := IsomorphismGroups( Q, M );
+                if iso <> fail then
+                    Isos[i][j] := p*iso;
+                    Add( Pairs, [ i, j ] );
+                fi;
+            od;
+            if not IsEmpty( SetX( Pairs, x -> x[1] = i, x -> x[1] ) ) then
+                Heads[i] := List(
+                    kerOrbit,
+                    x -> RepresentativeAction( AutH, N, x, asAuto )
+                );
+            fi;
+        od;
+    return [ Pairs, Heads, Isos ];
+end;
+
+
+###############################################################################
+##
+## ImagesOfHomomorphismClasses@( Pairs, ImgOrbits, Reps, G )
+##
+ImagesOfHomomorphismClasses@ := function( Pairs, ImgOrbits, Reps, G )
+    local Tails, AutG, asAuto, j, imgOrbit, M, AutM, InnGM, head, tail;
+    asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
+    AutG := AutomorphismGroup( G );
+    Tails := [];
+    for j in Set( Pairs, x -> x[2] ) do
+        imgOrbit := ImgOrbits[j];
+        M := imgOrbit[1];
+        AutM := AutomorphismGroup( M );
+        InnGM := SubgroupNC( AutM, List(
+            SmallGeneratingSet( NormalizerInParent( M ) ),
+            g ->  ConjugatorAutomorphismNC( M, g )
+        ));
+        head := RightTransversal( AutM, InnGM );
+        if not IsBound( Reps[j] ) then
+            tail := List(
+                imgOrbit,
+                x -> RepresentativeAction( AutG, M, x, asAuto )
+            );
+        else
+            tail := Reps[j];
+        fi;
+        head := List( head, x -> GroupHomomorphismByImagesNC( M, G,
+            MappingGeneratorsImages( x )[1],
+            MappingGeneratorsImages( x )[2]
+        ));
+        Tails[j] := ListX( head, tail, \* );
+    od;
+    return Tails;
+end;
+
+
+###############################################################################
+##
+## FuseHomomorphismClasses@( Pairs, Heads, Isos, Tails )
+##
+FuseHomomorphismClasses@ := function( Pairs, Heads, Isos, Tails )
+    local homs, pair, head, tail, iso;
+    homs := [];
+    for pair in Pairs do
+        head := Heads[ pair[1] ];
+        tail := Tails[ pair[2] ];
+        iso := Isos[ pair[1] ][ pair[2] ];
+        if Length( head ) < Length( tail ) then
+            head := head*iso;
+        else
+            tail := iso*tail;
+        fi;
+        Append( homs, ListX( head, tail, \* ) );
+    od;
+    return homs;
+end;
+
+
+###############################################################################
+##
+## RepresentativesConjClassesOutAuto@( G )
+##
+RepresentativesConjClassesOutAuto@ := function( G )
+    local Aut, Inn, p, Out, Out_reps;
+    Aut := AutomorphismGroup( G );
+    Inn := InnerAutomorphismsAutomorphismGroup( Aut );
+    p := NaturalHomomorphismByNormalSubgroupNC( Aut, Inn );
+    Out := ImagesSource( p );
+    Out_reps := List( ConjugacyClasses( Out ), Representative );
+    return List( Out_reps, r -> PreImagesRepresentative( p, r ) );
+end;
+
+
+###############################################################################
+##
 ## RepresentativesHomomorphismClasses2Generated@( G )
 ##
 ##  Note: this is essentially the code of AllHomomorphismClasses, but with some
@@ -87,7 +207,7 @@ end;
 
 ###############################################################################
 ##
-## RepresentativesHomomorphismClassesAbelian@( G )
+## RepresentativesHomomorphismClassesAbelian@( H, G )
 ##
 RepresentativesHomomorphismClassesAbelian@ := function( H, G )
     local gensH, gensG, imgs, h, oh, imgsG, g, og, pows, e;
@@ -211,10 +331,7 @@ InstallMethod(
     [ IsGroup and IsFinite, IsGroup and IsFinite ],
     1,
     function ( H, G )
-        if (
-            not IsPermGroup( H ) and not IsPermGroup( G ) or
-            Size( SmallGeneratingSet( H ) ) > 2
-        ) then TryNextMethod(); fi;
+        if Size( SmallGeneratingSet( H ) ) <> 2 then TryNextMethod(); fi;
         return RepresentativesHomomorphismClasses2Generated@( H, G );
     end
 );
@@ -226,9 +343,7 @@ InstallMethod(
     0,
     function( H, G )
         local asAuto, AutH, AutG, gensAutG, gensAutH, Conj, c, r, ImgReps,
-            ImgOrbits, KerOrbits, Pairs, Heads, i, kerOrbit, N, possibleImgs,
-            p, Q, idQ, head, Tails, j, imgOrbit, M, AutM, InnGM, tail, e, iso,
-            Isos;
+            ImgOrbits, KerOrbits, Pairs, Heads, Tails, Isos, KerInfo, Reps;
 
         # Step 1: Determine automorphism groups of H and G
         asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
@@ -236,6 +351,7 @@ InstallMethod(
         AutG := AutomorphismGroup( G );
         gensAutG := SmallGeneratingSet( AutG );
         gensAutH := SmallGeneratingSet( AutH );
+		
         # Step 2: Determine all possible kernels and images, i.e.
         # the normal subgroups of H and the subgroups of G
         Conj := ConjugacyClassesSubgroups( G );
@@ -255,74 +371,19 @@ InstallMethod(
             gensAutH, gensAutH,
             asAuto
         );
+		
         # Step 3: Calculate info on kernels
-        Pairs := [];
-        Heads := [];
-        Isos := [];
-        for i in [ 1 .. Size( KerOrbits ) ] do
-            kerOrbit := KerOrbits[i];
-            N := kerOrbit[1];
-            possibleImgs := Filtered(
-                [ 1 .. Size( ImgOrbits ) ], j ->
-                Size( ImgOrbits[j][1] ) = IndexNC( H, N )
-            );
-            if IsEmpty( possibleImgs ) then
-                continue;
-            fi;
-            Isos[i] := [];
-            p := NaturalHomomorphismByNormalSubgroupNC( H, N );
-            Q := ImagesSource( p );
-            p := RestrictedHomomorphism( p, H, Q );
-            for j in possibleImgs do
-                M := ImgOrbits[j][1];
-                iso := IsomorphismGroups( Q, M );
-                if iso <> fail then
-                    Isos[i][j] := p*iso;
-                    Add( Pairs, [ i, j ] );
-                fi;
-            od;
-            if not IsEmpty( SetX( Pairs, x -> x[1] = i, x -> x[1] ) ) then
-                Heads[i] := List(
-                    kerOrbit,
-                    x -> RepresentativeAction( AutH, N, x, asAuto )
-                );
-            fi;
-        od;
+		KerInfo := KernelsOfHomomorphismClasses@( H, KerOrbits, ImgOrbits );
+        Pairs := KerInfo[1];
+        Heads := KerInfo[2];
+        Isos := KerInfo[3];
+		
         # Step 4: Calculate info on images
-        Tails := [];
-        for j in Set( Pairs, x -> x[2] ) do
-            imgOrbit := ImgOrbits[j];
-            M := imgOrbit[1];
-            AutM := AutomorphismGroup( M );
-            InnGM := SubgroupNC( AutM, List(
-                    GeneratorsOfGroup( NormalizerInParent( M ) ),
-                    g ->  ConjugatorAutomorphismNC( M, g )
-            ));
-            head := RightTransversal( AutM, InnGM );
-            tail := List(
-                imgOrbit,
-                x -> RepresentativeAction( AutG, M, x, asAuto )
-            );
-            head := List( head, x -> GroupHomomorphismByImagesNC( M, G,
-                MappingGeneratorsImages( x )[1],
-                MappingGeneratorsImages( x )[2]
-            ));
-            Tails[j] := ListX( head, tail, \* );
-        od;
+        Reps := EmptyPlist( Length( ImgOrbits ) );
+        Tails := ImagesOfHomomorphismClasses@( Pairs, ImgOrbits, Reps, G );
+		
         # Step 5: Calculate the homomorphisms
-        e := [];
-        for p in Pairs do
-            head := Heads[ p[1] ];
-            tail := Tails[ p[2] ];
-            iso := Isos[ p[1] ][ p[2] ];
-            if Length( head ) < Length( tail ) then
-                head := head*iso;
-            else
-                tail := iso*tail;
-            fi;
-            Append( e, ListX( head, tail, \* ) );
-        od;
-        return e;
+        return FuseHomomorphismClasses@( Pairs, Heads, Isos, Tails );;
     end
 );
 
@@ -375,10 +436,7 @@ InstallMethod(
     [ IsGroup and IsFinite ],
     1,
     function ( G )
-        if (
-            not IsPermGroup( G ) or
-            Size( SmallGeneratingSet( G ) ) <> 2
-        ) then TryNextMethod(); fi;
+        if Size( SmallGeneratingSet( G ) ) <> 2 then TryNextMethod(); fi;
         return RepresentativesHomomorphismClasses2Generated@( G, G );
     end
 );
@@ -390,8 +448,7 @@ InstallMethod(
     0,
     function( G )
         local asAuto, AutG, gensAutG, Conj, c, r, norm, SubReps, SubOrbits,
-            Pairs, Proj, Reps, i, subOrbit, N, possibleImgs, p, Q, idQ, head,
-            Tails, j, M, AutM, InnGM, tail, e, iso, Isos;
+            Pairs, Reps, i, Tails, Isos, KerInfo, KerOrbits;
 
         # Step 1: Determine automorphism group of G
         asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
@@ -415,87 +472,29 @@ InstallMethod(
             asAuto
         );
         SubOrbits := List( SubOrbits, x -> Filtered( SubReps, y -> y in x ) );
-
+		
+        KerOrbits := EmptyPlist( Length( SubOrbits ) );
+        for i in [ 1..Length( SubOrbits ) ] do
+            r := SubOrbits[i][1];
+            if IsNormalInParent( r ) and not IsTrivial( r ) then
+                KerOrbits[i] := SubOrbits[i];
+			fi;
+		od;
+				
         # Step 3: Calculate info on kernels
-        Isos := [];
-        Pairs := [];
-        Proj := [];
-        Reps := [];
-        for i in [ 1 .. Size( SubOrbits ) ] do
-            subOrbit := SubOrbits[i];
-            N := subOrbit[1];
-            if IsTrivial( N ) or not IsNormalInParent( N ) then
-                continue;
-            fi;
-            possibleImgs := Filtered(
-                [ 1 .. Size( SubOrbits ) ], j ->
-                Size( SubOrbits[j][1] ) = IndexNC( G, N )
-            );
-            if IsEmpty( possibleImgs ) then
-                continue;
-            fi;
-            p := NaturalHomomorphismByNormalSubgroupNC( G, N );
-            Q := ImagesSource( p );
-            p := RestrictedHomomorphism( p, G, Q );
-            Isos[i] := [];
-            for j in possibleImgs do
-                M := SubOrbits[j][1];
-                iso := IsomorphismGroups( Q, M );
-                if iso <> fail then
-                    Isos[i][j] := p*iso;
-                    Add( Pairs, [ i, j ] );
-                fi;
-            od;
-            if not IsEmpty( SetX( Pairs, x -> x[1] = i, x -> x[1] ) ) then
-                Reps[i] := List(
-                    subOrbit,
-                    x -> RepresentativeAction( AutG, N, x, asAuto )
-                );
-                Proj[i] := p;
-            fi;
-        od;
-
+        KerInfo := KernelsOfHomomorphismClasses@( G, KerOrbits, SubOrbits );
+        Pairs := KerInfo[1];
+        Reps := KerInfo[2];
+        Isos := KerInfo[3];
+		
         # Step 4: Calculate info on images
-        Tails := [];
-        for j in Set( Pairs, x -> x[2] ) do
-            subOrbit := SubOrbits[j];
-            M := subOrbit[1];
-            AutM := AutomorphismGroup( M );
-            InnGM := SubgroupNC( AutM, List(
-                    GeneratorsOfGroup( NormalizerInParent( M ) ),
-                    g ->  ConjugatorAutomorphismNC( M, g )
-            ));
-            head := RightTransversal( AutM, InnGM );
-            if not IsBound( Reps[j] ) then
-                tail := List(
-                    subOrbit,
-                    x -> RepresentativeAction( AutG, M, x, asAuto )
-                );
-            else
-                tail := Reps[j];
-            fi;
-            head := List( head, x -> GroupHomomorphismByImagesNC( M, G,
-                MappingGeneratorsImages( x )[1],
-                MappingGeneratorsImages( x )[2]
-            ));
-            Tails[j] := ListX( head, tail, \* );
-        od;
-
-        e := RepresentativesAutomorphismClasses( G );
+        Tails := ImagesOfHomomorphismClasses@( Pairs, SubOrbits, Reps, G );
 
         # Step 5: Calculate the homomorphisms
-        for p in Pairs do
-            head := Reps[ p[1] ];
-            tail := Tails[ p[2] ];
-            iso := Isos[ p[1] ][ p[2] ];
-            if Length( head ) < Length( tail ) then
-                head := head*iso;
-            else
-                tail := iso*tail;
-            fi;
-            Append( e, ListX( head, tail, \* ) );
-        od;
-        return e;
+        return Concatenation(
+            RepresentativesAutomorphismClasses( G ),
+            FuseHomomorphismClasses@( Pairs, Reps, Isos, Tails )
+        );
     end
 );
 

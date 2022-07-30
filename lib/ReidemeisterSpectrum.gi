@@ -78,10 +78,10 @@ InstallMethod(
     [ IsGroup and IsFinite ],
     0,
     function ( G )
-        local Aut_reps;
-        Aut_reps := RepresentativesAutomorphismClasses( G );
-        if Aut_reps = fail then TryNextMethod(); fi;
-        return Set( Aut_reps, ReidemeisterNumberOp );
+        return Set( 
+            RepresentativesConjClassesOutAuto@( G ),
+            ReidemeisterNumberOp
+        );
     end
 );
 
@@ -118,9 +118,10 @@ InstallMethod(
     "for finite groups",
     [ IsGroup and IsFinite ],
     function ( G )
-        local End_reps;
-        End_reps := RepresentativesEndomorphismClasses( G );
-        return Set( End_reps, ReidemeisterNumberOp );
+        return Set( 
+            RepresentativesEndomorphismClasses( G ),
+            ReidemeisterNumberOp
+        );
     end
 );
 
