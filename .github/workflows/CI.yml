@@ -19,7 +19,7 @@ jobs:
         run: |
           set -ex
          
-          apt-get autoremove --purge git --yes
+          apt-get autoremove --purge git ca-certificates --yes
     
       - name: "Checkout"
         uses: actions/checkout@v3
