@@ -70,12 +70,6 @@ jobs:
       image: ghcr.io/stertooy/gda-image:tex-slim
     
     steps:
-      - name: "Remove git"
-        shell: bash
-        run: |
-          set -ex
-         
-          apt-get autoremove --purge git ca-certificates --yes
     
       - name: "Checkout"
         uses: actions/checkout@v3
