@@ -1,97 +1,82 @@
 name: CI
-
 on:
   - push
   - pull_request
   - workflow_dispatch
 
 jobs:
+
   test:
-    name: GAP ${{ matrix.gap-branch }}
+    name: "Test on GAP-${{ matrix.gap-branch }}"
     runs-on: ubuntu-latest
     if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
     strategy:
       fail-fast: false
       matrix:
         include:
-          - gap-branch: master
-            packages-to-clone: 'alnuth autpgrp caratinterface polycyclic'
-            packages-to-build: 'caratinterface io profiling'
-          - gap-branch: stable-4.11
-            packages-to-build: 'io profiling'
-            no-coverage: true
-          - gap-branch: stable-4.10
-            packages-to-build: 'io profiling'
-            no-coverage: true
-          - gap-branch: stable-4.9
-            packages-to-build: 'io profiling'
-            no-coverage: true
+          - gap-branch: "master"
+            coverage: true
+          - gap-branch: "4.11"
+          - gap-branch: "4.10"
+          - gap-branch: "4.9"
+            
+    container:
+      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}-slim
 
     steps:
-      - name: 'Checkout'
+    
+      - name: "Checkout"
         uses: actions/checkout@v3
-      - name: 'Install PARI/GP'
-        run: |
-          sudo apt-get update
-          sudo apt-get install pari-gp
-      - name: 'Setup GAP'
-        uses: gap-actions/setup-gap@v2
+
+      - name: "Add extra packages to GAP"
+        uses: sTertooy/gda-extra-pkg@v1
         with:
-          GAP_PKGS_TO_CLONE: ${{ matrix.packages-to-clone }}
-          GAP_PKGS_TO_BUILD: ${{ matrix.packages-to-build }}
-          GAPBRANCH: ${{ matrix.gap-branch }}
-      - name: 'Add package to GAP'
-        uses: gap-actions/build-pkg@v1
-      - name: 'Run package tests with only necessary packages loaded'
-        uses: sTertooy/run-pkg-tests@v2
+          PACKAGES: ${{ matrix.packages }}
+        if: ${{ matrix.packages != '' }}
+        
+      - name: "Run package tests with necessary packages"
+        uses: sTertooy/gda-test-pkg@v1
         with:
-          GAP_FLAGS: '-A'
-          NO_COVERAGE: true
+          GAP_FLAGS: "-A"
+          COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
-      - name: 'Run package tests with default + suggested packages loaded'
-        uses: sTertooy/run-pkg-tests@v2
+          
+      - name: "Run package tests with suggested packages"
+        uses: sTertooy/gda-test-pkg@v1
         with:
-          NO_COVERAGE: ${{ matrix.no-coverage }}
-      - name: 'Run package tests with all packages loaded'
-        uses: sTertooy/run-pkg-tests@v2
+          COVERAGE: ${{ matrix.coverage }}
+        
+      - name: "Process coverage"
+        uses: stertooy/gda-coverage@v1
+        if: ${{ matrix.coverage }}
+        
+      - name: "Upload coverage"
+        uses: codecov/codecov-action@v3
+        if: ${{ matrix.coverage }}
         with:
-          NO_COVERAGE: true
-          ALL_PACKAGES: true
-      - name: 'Run GAP tests with only necessary packages loaded'
-        uses: sTertooy/pkg-install-test@v1
-        with:
-          ONLY_NEEDED: true
-      - name: 'Run GAP tests with suggested packages loaded'
-        uses: sTertooy/pkg-install-test@v1
-      - name: 'Process coverage'
-        uses: gap-actions/process-coverage@v2
-        if: ${{ !matrix.no-coverage }}
-      - name: 'Upload coverage'
-        uses: codecov/codecov-action@v2
-        if: ${{ !matrix.no-coverage }}
-        with:
-          files: ./gap-coverage.json
+          file: ./gap-coverage.json
           fail_ci_if_error: true
+          root_dir: ${GITHUB_WORKSPACE}
 
   manual:
-    name: Manual
+    name: "Build manual"
     runs-on: ubuntu-latest
     if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
-
+    
+    container:
+      image: ghcr.io/stertooy/gda-image:tex-slim
+    
     steps:
-      - name: 'Checkout'
+    
+      - name: "Checkout"
         uses: actions/checkout@v3
-      - name: 'Setup GAP'
-        uses: gap-actions/setup-gap@v2
-        with:
-          GAP_PKGS_TO_BUILD: ''
-      - name: 'Build documentation'
-        uses: gap-actions/build-pkg-docs@v1
-        with:
-          use-latex: 'true'
-      - name: 'Upload documentation'
+
+      - name: "Build manual"
+        uses: stertooy/gda-manual@v1
+        
+      - name: "Upload manual"
         uses: actions/upload-artifact@v3
         with:
-          name: manual
+          name: "Manual"
           path: ./doc/manual.pdf
           if-no-files-found: error
