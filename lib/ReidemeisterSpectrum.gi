@@ -20,7 +20,7 @@ InstallMethod(
     ReidemeisterSpectrumOp,
     "for finite abelian groups of odd order",
     [ IsGroup and IsFinite and IsAbelian ],
-    2,
+    3,
     function ( G )
         local ord;
         ord := Size( G );
@@ -33,7 +33,7 @@ InstallMethod(
     ReidemeisterSpectrumOp,
     "for finite abelian 2-groups",
     [ IsGroup and IsFinite and IsAbelian ],
-    1,
+    2,
     function ( G )
         # Proven by P. Senden
         local ord, pow, inv, m, fac;
@@ -58,7 +58,7 @@ InstallMethod(
     ReidemeisterSpectrumOp,
     "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian ],
-    0,
+    1,
     function ( G )
         local inv, invE, invO, GE, GO, specE, specO;
         inv := AbelianInvariants( G );
@@ -76,23 +76,6 @@ InstallMethod(
     ReidemeisterSpectrumOp,
     "for finite groups",
     [ IsGroup and IsFinite ],
-    1,
-    function ( G )
-        local Aut, Inn, p, Out, Out_reps, Aut_reps;
-        Aut := AutomorphismGroup( G );
-        Inn := InnerAutomorphismsAutomorphismGroup( Aut );
-        p := NaturalHomomorphismByNormalSubgroupNC( Aut, Inn );
-        Out := ImagesSource( p );
-        Out_reps := List( ConjugacyClasses( Out ), Representative );
-        Aut_reps := List( Out_reps, r -> PreImagesRepresentative( p, r ) );
-        return Set( Aut_reps, ReidemeisterNumberOp );
-    end
-);
-
-InstallMethod(
-    ReidemeisterSpectrumOp,
-    "for arbitrary groups with finite Out",
-    [ IsGroup ],
     0,
     function ( G )
         local Aut_reps;
