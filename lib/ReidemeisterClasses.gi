@@ -4,7 +4,7 @@
 ##
 InstallGlobalFunction(
     ReidemeisterClass,
-    function ( hom1, x, arg... )
+    function( hom1, x, arg... )
         local G, H, hom2, g, tc, tcc;
         G := Range( hom1 );
         H := Source( hom1 );
@@ -44,7 +44,7 @@ InstallMethod(
     \in,
     "for Reidemeister classes",
     [ IsMultiplicativeElementWithInverse, IsReidemeisterClassGroupRep ],
-    function ( g, tcc )
+    function( g, tcc )
         local hom;
         hom := GroupHomomorphismsOfReidemeisterClass( tcc );
         return IsTwistedConjugate(
@@ -58,7 +58,7 @@ InstallMethod(
     PrintObj,
     "for Reidemeister classes",
     [ IsReidemeisterClassGroupRep ],
-    function ( tcc )
+    function( tcc )
         local homs, homStrings, g, hom, homGensImgs;
         homs := GroupHomomorphismsOfReidemeisterClass( tcc );
         homStrings := [];
@@ -88,7 +88,7 @@ InstallMethod(
     Random,
     "for Reidemeister classes",
     [ IsReidemeisterClassGroupRep ],
-    function ( tcc )
+    function( tcc )
         local H, g, h, tc;
         H := ActingDomain( tcc );
         g := Representative( tcc );
@@ -102,7 +102,7 @@ InstallMethod(
     Size,
     "for Reidemeister classes",
     [ IsReidemeisterClassGroupRep ],
-    function ( tcc )
+    function( tcc )
         local H, Coin;
         H := ActingDomain( tcc );
         Coin := StabilizerOfExternalSet( tcc );
@@ -114,7 +114,7 @@ InstallMethod(
     ListOp,
     "for Reidemeister classes",
     [ IsReidemeisterClassGroupRep ],
-    function ( tcc )
+    function( tcc )
         local H, Coin, g, tc;
         if Size( tcc ) = infinity then
             return fail;
@@ -134,7 +134,7 @@ InstallMethod(
     StabilizerOfExternalSet,
     "for Reidemeister classes",
     [ IsReidemeisterClassGroupRep ],
-    function ( tcc )
+    function( tcc )
         local g, hom, G, inn;
         g := Representative( tcc );
         hom := GroupHomomorphismsOfReidemeisterClass( tcc );
@@ -151,7 +151,7 @@ InstallMethod(
 ##
 InstallGlobalFunction(
     ReidemeisterClasses,
-    function ( hom1, arg... )
+    function( hom1, arg... )
         local G, hom2, Rcl;
         G := Range( hom1 );
         if Length( arg ) = 0 then
@@ -177,7 +177,7 @@ InstallMethod(
     "for trivial range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     6,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G;
         G := Range( hom1 );
         if not IsTrivial( G ) then TryNextMethod(); fi;
@@ -190,7 +190,7 @@ InstallMethod(
     "for abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     4,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H, diff, N, Rcl, p, pg, g;
         G := Range( hom1 );
         H := Source( hom1 );
@@ -217,7 +217,7 @@ InstallMethod(
     "for finite source",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     3,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H, Rcl, tc, G_List, gens, orbits, foundOne, orbit;
         G := Range( hom1 );
         H := Source( hom1 );

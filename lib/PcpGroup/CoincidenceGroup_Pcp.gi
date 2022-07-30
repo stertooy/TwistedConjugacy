@@ -2,7 +2,7 @@
 ##
 ## CoincidenceGroupByTrivialSubgroup@( hom1, hom2 )
 ##
-CoincidenceGroupByTrivialSubgroup@ := function ( hom1, hom2 )
+CoincidenceGroupByTrivialSubgroup@ := function( hom1, hom2 )
     local G, H, N, id, q, CoinHN;
     G := Range( hom1 );
     H := Source( hom1 );
@@ -21,7 +21,7 @@ end;
 ##
 ## CoincidenceGroupByFiniteQuotient@( hom1, hom2, N, M )
 ##
-CoincidenceGroupByFiniteQuotient@ := function ( hom1, hom2, N, M )
+CoincidenceGroupByFiniteQuotient@ := function( hom1, hom2, N, M )
     local G, H, p, q, CoinHN, hom1N, hom2N, tc, igs, pcgs, orbit, l, i, qh,
         pos, j, h, stab, n;
     G := Range( hom1 );
@@ -81,7 +81,7 @@ end;
 ##
 ## CoincidenceGroupByCentralSubgroup@( hom1, hom2, N, M )
 ##
-CoincidenceGroupByCentralSubgroup@ := function ( hom1, hom2, N, M )
+CoincidenceGroupByCentralSubgroup@ := function( hom1, hom2, N, M )
     local G, H, p, q, CoinHN, Coin, diff;
     G := Range( hom1 );
     H := Source( hom1 );
@@ -123,7 +123,7 @@ InstallMethod(
     "for infinite polycyclic source and finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     6,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H;
         G := Range( hom1 );
         H := Source( hom1 );
@@ -141,7 +141,7 @@ InstallMethod(
     "for infinite polycyclic source and infinite nilpotent range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     3,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H, M, N;
         G := Range( hom1 );
         H := Source( hom1 );
@@ -162,7 +162,7 @@ InstallMethod(
     "for infinite polycyclic source and infinite nilpotent-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     2,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H, M, N;
         G := Range( hom1 );
         H := Source( hom1 );
@@ -183,7 +183,7 @@ InstallMethod(
     "for infinite polycyclic source and range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     1,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H, M, N;
         G := Range( hom1 );
         H := Source( hom1 );
@@ -202,7 +202,7 @@ InstallMethod(
     "for isomorphisms with infinite polycyclic source and range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     0,
-    function ( aut1, aut2 )
+    function( aut1, aut2 )
         local G, H, aut;
         G := Range( aut1 );
         H := Source( aut1 );

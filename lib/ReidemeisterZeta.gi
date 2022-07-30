@@ -5,7 +5,7 @@
 ##  Returns the smallest sublist M of L such that L is the concatenation
 ##  of a number of times of M.
 ##
-RemovePeriodsList@ := function ( L )
+RemovePeriodsList@ := function( L )
     local n, i, M;
     n := Length( L );
     for i in DivisorsInt( n ) do
@@ -28,7 +28,7 @@ end;
 ##  not exist.
 ##  Essentially, this is the inverse Discrete Fourier Transform
 ##
-DecomposePeriodicList@ := function ( L )
+DecomposePeriodicList@ := function( L )
     local n, l, i, per, ei;
     n := Length( L );
     l := ListWithIdenticalEntries( n, 0 );
@@ -58,7 +58,7 @@ end;
 ##
 InstallGlobalFunction(
     ReidemeisterZetaCoefficients,
-    function ( endo1, arg... )
+    function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
         if Length( arg ) = 0 then
@@ -79,7 +79,7 @@ InstallMethod(
     ReidemeisterZetaCoefficientsOp,
     "for finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
-    function ( endo1, endo2 )
+    function( endo1, endo2 )
         local G, k, l, steps, G1, G2, endo, R, P, Q;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
@@ -116,7 +116,7 @@ InstallMethod(
 ##
 InstallGlobalFunction(
     IsRationalReidemeisterZeta,
-    function ( endo1, arg... )
+    function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
         if Length( arg ) = 0 then
@@ -137,7 +137,7 @@ InstallMethod(
     IsRationalReidemeisterZetaOp,
     "for finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
-    function ( endo1, endo2 )
+    function( endo1, endo2 )
         local G, coeffs;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
@@ -165,7 +165,7 @@ InstallMethod(
 ##
 InstallGlobalFunction(
     ReidemeisterZeta,
-    function ( endo1, arg... )
+    function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
         if Length( arg ) = 0 then
@@ -186,7 +186,7 @@ InstallMethod(
     ReidemeisterZetaOp,
     "for rational Reidemeister zeta functions of finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
-    function ( endo1, endo2 )
+    function( endo1, endo2 )
         local G, coeffs, p;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
@@ -198,7 +198,7 @@ InstallMethod(
         if p = fail then
             return fail;
         fi;
-        return function ( s )
+        return function( s )
             local zeta, i;
             zeta := 1;
             for i in [1..Length( p )] do
@@ -218,7 +218,7 @@ InstallMethod(
 ##
 InstallGlobalFunction(
     PrintReidemeisterZeta,
-    function ( endo1, arg... )
+    function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
         if Length( arg ) = 0 then
@@ -239,7 +239,7 @@ InstallMethod(
     PrintReidemeisterZetaOp,
     "for finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
-    function ( endo1, endo2 )
+    function( endo1, endo2 )
         local G, coeffs, P, Q, q, i, qi, zeta, factors, powers, p, k, pi;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;

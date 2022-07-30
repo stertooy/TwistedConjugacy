@@ -5,7 +5,7 @@
 ##  Returns hom1^-1(N) cap hom2^-1(N)
 ##  Note that N must be a normal subgroup
 ##
-IntersectionPreImage@ := function ( hom1, hom2, N )
+IntersectionPreImage@ := function( hom1, hom2, N )
     return NormalIntersection(
         PreImagesSet( hom1, NormalIntersection( N, ImagesSource( hom1 ) ) ),
         PreImagesSet( hom2, NormalIntersection( N, ImagesSource( hom2 ) ) )
@@ -17,7 +17,7 @@ end;
 ##
 ## IntersectionKernels@( hom1, hom2 )
 ##
-IntersectionKernels@ := function ( hom1, hom2 )
+IntersectionKernels@ := function( hom1, hom2 )
     return NormalIntersection( Kernel( hom1 ), Kernel( hom2 ) );
 end;
 
@@ -28,7 +28,7 @@ end;
 ##
 ##  Returns the semidirect product of G with Z, where Z acts on G by aut
 ##
-SemidirectProductWithAutomorphism@ := function ( G, aut )
+SemidirectProductWithAutomorphism@ := function( G, aut )
     local g, r, n, coll, i, j, e, elm, exp, S, s, H, info, embH, embG;
     g := Igs( G );
     n := Length( g );

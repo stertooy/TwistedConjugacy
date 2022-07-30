@@ -4,16 +4,16 @@
 ##
 InstallGlobalFunction(
     TwistedConjugation,
-    function ( hom1, arg... )
+    function( hom1, arg... )
         local hom2;
         if Length( arg ) = 0 then
-            return function ( g, h )
+            return function( g, h )
                 return OnLeftInverse( g, h ) *
                     ImagesRepresentative( hom1, h );
             end;
         else
             hom2 := arg[1];
-            return function ( g, h )
+            return function( g, h )
                 return OnLeftInverse( g, ImagesRepresentative( hom2, h ) ) *
                     ImagesRepresentative( hom1, h );
             end;
@@ -32,7 +32,7 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     7,
-    function ( hom1, hom2, g )
+    function( hom1, hom2, g )
         local H;
         H := Source( hom1 );
         if not IsOne( g ) then TryNextMethod(); fi;
@@ -46,7 +46,7 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     5,
-    function ( hom1, hom2, g )
+    function( hom1, hom2, g )
         local G, H, diff;
         G := Range( hom1 );
         H := Source( hom1 );
@@ -65,7 +65,7 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     4,
-    function ( hom1, hom2, g )
+    function( hom1, hom2, g )
         local G, H, tc, d, todo, conj, trail, h, i, k, gens, l;
         G := Range( hom1 );
         H := Source( hom1 );
@@ -110,7 +110,7 @@ InstallMethod(
 ##
 ## RepTwistConjToIdMultiple@( hom1L, hom2L, gL )
 ##
-RepTwistConjToIdMultiple@ := function ( hom1L, hom2L, gL  )
+RepTwistConjToIdMultiple@ := function( hom1L, hom2L, gL  )
     local hom1, hom2, h, n, i, Coin, tc, g, G, hi;
     hom1 := hom1L[1];
     hom2 := hom2L[1];
@@ -144,7 +144,7 @@ end;
 ##
 InstallGlobalFunction(
     RepresentativeTwistedConjugation,
-    function ( hom1, x, y, arg... )
+    function( hom1, x, y, arg... )
         local n, ighom1, g, G, hom2, g1, g2, i, g2inv, inn;
         if IsList( hom1 ) then
             n := Length( hom1 );
@@ -194,7 +194,7 @@ InstallGlobalFunction(
 ##
 InstallGlobalFunction(
     IsTwistedConjugate,
-    function ( arg... )
+    function( arg... )
         return CallFuncList( RepresentativeTwistedConjugation, arg ) <> fail;
     end
 );

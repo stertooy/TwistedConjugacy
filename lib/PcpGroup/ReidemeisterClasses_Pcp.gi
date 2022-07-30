@@ -2,7 +2,7 @@
 ##
 ## ReidemeisterClassesByTrivialSubgroup@( hom1, hom2 )
 ##
-ReidemeisterClassesByTrivialSubgroup@ := function ( hom1, hom2 )
+ReidemeisterClassesByTrivialSubgroup@ := function( hom1, hom2 )
     local G, H, N, id, q, hom1HN, hom2HN;
     G := Range( hom1 );
     H := Source( hom1 );
@@ -19,7 +19,7 @@ end;
 ##
 ## ReidemeisterClassesByFiniteQuotient@( hom1, hom2, N, M )
 ##
-ReidemeisterClassesByFiniteQuotient@ := function ( hom1, hom2, N, M )
+ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, N, M )
     local G, H, p, q, GM, hom1HN, hom2HN, RclGM, Rcl, hom1N, hom2N, pg,
         inn_pg, Coin, g, conj_g, inn_g_hom1N, RclM, igRclM,    inn_g, tc, m1,
         isNew, qh, h, m2;
@@ -81,7 +81,7 @@ end;
 ##
 ## ReidemeisterClassesByCentralSubgroup@( hom1, hom2, N, M )
 ##
-ReidemeisterClassesByCentralSubgroup@ := function ( hom1, hom2, N, M )
+ReidemeisterClassesByCentralSubgroup@ := function( hom1, hom2, N, M )
     local G, H, p, q, hom1HN, hom2HN, RclGM, GM, Rcl, foundOne, pg, inn_pg,
         CoinHN, Coin, g, inn_g, diff, r, coker, rm, m;
     G := Range( hom1 );
@@ -132,7 +132,7 @@ InstallMethod(
     "for polycyclic source and (polycyclic nilpotent-by-)finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     7,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H;
         G := Range( hom1 );
         H := Source( hom1 );
@@ -153,7 +153,7 @@ InstallMethod(
     "for infinite polycyclic source and finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     5,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H;
         G := Range( hom1 );
         H := Source( hom1 );
@@ -171,7 +171,7 @@ InstallMethod(
     "for infinite polycyclic source and infinite nilpotent range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     2,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H, M, N;
         G := Range( hom1 );
         H := Source( hom1 );
@@ -192,7 +192,7 @@ InstallMethod(
     "for infinite polycyclic source and infinite nilpotent-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     1,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H, M, N;
         G := Range( hom1 );
         H := Source( hom1 );
@@ -213,7 +213,7 @@ InstallMethod(
     "for infinite polycyclic source and range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     0,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H, M, N;
         G := Range( hom1 );
         H := Source( hom1 );

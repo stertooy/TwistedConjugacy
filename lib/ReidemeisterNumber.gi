@@ -4,7 +4,7 @@
 ##
 InstallGlobalFunction(
     ReidemeisterNumber,
-    function ( arg... )
+    function( arg... )
         return CallFuncList( ReidemeisterNumberOp, arg );
     end
 );
@@ -19,7 +19,7 @@ InstallMethod(
     "for abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     1,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H, diff, N;
         H := Source( hom1 );
         G := Range( hom1 );
@@ -35,7 +35,7 @@ InstallMethod(
     "by counting Reidemeister classes",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     0,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local Rcl;
         Rcl := RepresentativesReidemeisterClasses( hom1, hom2 );
         if Rcl <> fail then
@@ -51,7 +51,7 @@ InstallOtherMethod(
     "for finite non-abelian groups",
     [ IsGroupHomomorphism ],
     1,
-    function ( endo )
+    function( endo )
         local G;
         G := Source( endo );
         if not (
@@ -70,7 +70,7 @@ InstallOtherMethod(
     "default to two-agument version",
     [ IsGroupHomomorphism ],
     0,
-    function ( endo )
+    function( endo )
         local G, id;
         G := Source( endo );
         id := IdentityMapping( G );

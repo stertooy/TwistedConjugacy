@@ -4,7 +4,7 @@
 ##
 InstallGlobalFunction(
     FixedPointGroup,
-    function ( endo )
+    function( endo )
         local G;
         G := Range( endo );
         return CoincidenceGroup2( endo, IdentityMapping( G ) );
@@ -18,7 +18,7 @@ InstallGlobalFunction(
 ##
 InstallGlobalFunction(
     CoincidenceGroup,
-    function ( hom1, hom2, arg... )
+    function( hom1, hom2, arg... )
         local G, Coin, homi;
         G := Range( hom1 );
         Coin := CoincidenceGroup2( hom1, hom2 );
@@ -42,7 +42,7 @@ InstallMethod(
     "for trivial range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     7,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H;
         G := Range( hom1 );
         H := Source( hom1 );
@@ -56,7 +56,7 @@ InstallMethod(
     "for abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     5,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H, diff;
         G := Range( hom1 );
         H := Source( hom1 );
@@ -71,7 +71,7 @@ InstallMethod(
     "for finite source",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     4,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, H, gens, tc;
         G := Range( hom1 );
         H := Source( hom1 );

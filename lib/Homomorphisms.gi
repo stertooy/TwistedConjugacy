@@ -4,7 +4,7 @@
 ##
 InstallGlobalFunction(
     InducedHomomorphism,
-    function ( epi1, epi2, hom )
+    function( epi1, epi2, hom )
         local GM, HN, gens, imgs;
         GM := ImagesSource( epi2 );
         HN := ImagesSource( epi1 );
@@ -24,7 +24,7 @@ InstallGlobalFunction(
 ##
 InstallGlobalFunction(
     RestrictedHomomorphism,
-    function ( hom, N, M )
+    function( hom, N, M )
         local gens, imgs;
         gens := SmallGeneratingSet( N );
         imgs := List( gens, n -> ImagesRepresentative( hom, n ) );
@@ -238,7 +238,7 @@ end;
 ##
 InstallGlobalFunction(
     RepresentativesHomomorphismClasses,
-    function ( H, G )
+    function( H, G )
         IsFinite( H );
         IsAbelian( H );
         IsCyclic( H );
@@ -260,7 +260,7 @@ InstallMethod(
     "for trivial source",
     [ IsGroup and IsFinite and IsTrivial, IsGroup and IsFinite ],
     3*SUM_FLAGS+4,
-    function ( H, G )
+    function( H, G )
         if not IsTrivial( H ) then TryNextMethod(); fi;
         return [ GroupHomomorphismByImagesNC(
             H, G,
@@ -274,7 +274,7 @@ InstallMethod(
     "for trivial range",
     [ IsGroup and IsFinite, IsGroup and IsFinite and IsTrivial ],
     3*SUM_FLAGS+4,
-    function ( H, G )
+    function( H, G )
         local gens, imgs;
         gens := SmallGeneratingSet( H );
         imgs := List( gens, h -> One( G ) );
@@ -287,7 +287,7 @@ InstallMethod(
     "for non-abelian source and abelian range",
     [ IsGroup and IsFinite, IsGroup and IsFinite and IsAbelian ],
     2*SUM_FLAGS+3,
-    function ( H, G )
+    function( H, G )
         local p;
         if IsAbelian( H ) then TryNextMethod(); fi;
         p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
@@ -311,7 +311,7 @@ InstallMethod(
     "for finite cyclic source and finite range",
     [ IsGroup and IsFinite and IsCyclic, IsGroup and IsFinite ],
     SUM_FLAGS+2,
-    function ( H, G )
+    function( H, G )
         local h, o, L;
         if IsAbelian( G ) then TryNextMethod(); fi;
         h := MinimalGeneratingSet( H )[1];
@@ -330,7 +330,7 @@ InstallMethod(
     "for finite 2-generated source and finite range",
     [ IsGroup and IsFinite, IsGroup and IsFinite ],
     1,
-    function ( H, G )
+    function( H, G )
         if Size( SmallGeneratingSet( H ) ) <> 2 then TryNextMethod(); fi;
         return RepresentativesHomomorphismClasses2Generated@( H, G );
     end
@@ -351,7 +351,7 @@ InstallMethod(
         AutG := AutomorphismGroup( G );
         gensAutG := SmallGeneratingSet( AutG );
         gensAutH := SmallGeneratingSet( AutH );
-		
+
         # Step 2: Determine all possible kernels and images, i.e.
         # the normal subgroups of H and the subgroups of G
         Conj := ConjugacyClassesSubgroups( G );
@@ -371,17 +371,17 @@ InstallMethod(
             gensAutH, gensAutH,
             asAuto
         );
-		
+
         # Step 3: Calculate info on kernels
-		KerInfo := KernelsOfHomomorphismClasses@( H, KerOrbits, ImgOrbits );
+        KerInfo := KernelsOfHomomorphismClasses@( H, KerOrbits, ImgOrbits );
         Pairs := KerInfo[1];
         Heads := KerInfo[2];
         Isos := KerInfo[3];
-		
+
         # Step 4: Calculate info on images
         Reps := EmptyPlist( Length( ImgOrbits ) );
         Tails := ImagesOfHomomorphismClasses@( Pairs, ImgOrbits, Reps, G );
-		
+
         # Step 5: Calculate the homomorphisms
         return FuseHomomorphismClasses@( Pairs, Heads, Isos, Tails );;
     end
@@ -394,7 +394,7 @@ InstallMethod(
 ##
 InstallGlobalFunction(
     RepresentativesEndomorphismClasses,
-    function ( G )
+    function( G )
         IsFinite( G );
         IsAbelian( G );
         IsTrivial( G );
@@ -412,7 +412,7 @@ InstallMethod(
     "for trivial group",
     [ IsGroup and IsTrivial ],
     2*SUM_FLAGS+3,
-    function ( G )
+    function( G )
         return [ GroupHomomorphismByImagesNC(
             G, G,
             [ One( G ) ], [ One( G ) ]
@@ -425,7 +425,7 @@ InstallMethod(
     "for finite abelian group",
     [ IsGroup and IsFinite and IsAbelian ],
     SUM_FLAGS+2,
-    function ( G )
+    function( G )
         return RepresentativesHomomorphismClassesAbelian@( G, G );
     end
 );
@@ -435,7 +435,7 @@ InstallMethod(
     "for finite 2-generated group",
     [ IsGroup and IsFinite ],
     1,
-    function ( G )
+    function( G )
         if Size( SmallGeneratingSet( G ) ) <> 2 then TryNextMethod(); fi;
         return RepresentativesHomomorphismClasses2Generated@( G, G );
     end
@@ -472,21 +472,21 @@ InstallMethod(
             asAuto
         );
         SubOrbits := List( SubOrbits, x -> Filtered( SubReps, y -> y in x ) );
-		
+
         KerOrbits := EmptyPlist( Length( SubOrbits ) );
         for i in [ 1..Length( SubOrbits ) ] do
             r := SubOrbits[i][1];
             if IsNormalInParent( r ) and not IsTrivial( r ) then
                 KerOrbits[i] := SubOrbits[i];
-			fi;
-		od;
-				
+            fi;
+        od;
+
         # Step 3: Calculate info on kernels
         KerInfo := KernelsOfHomomorphismClasses@( G, KerOrbits, SubOrbits );
         Pairs := KerInfo[1];
         Reps := KerInfo[2];
         Isos := KerInfo[3];
-		
+
         # Step 4: Calculate info on images
         Tails := ImagesOfHomomorphismClasses@( Pairs, SubOrbits, Reps, G );
 
@@ -505,7 +505,7 @@ InstallMethod(
 ##
 InstallGlobalFunction(
     RepresentativesAutomorphismClasses,
-    function ( G )
+    function( G )
         return RepresentativesAutomorphismClassesOp( G );
     end
 );
@@ -518,7 +518,7 @@ InstallGlobalFunction(
 InstallMethod(
     RepresentativesAutomorphismClassesOp,
     [ IsGroup ],
-    function ( G )
+    function( G )
         local AutG, InnG;
         AutG := AutomorphismGroup( G );
         InnG := InnerAutomorphismsAutomorphismGroup( AutG );

@@ -5,7 +5,7 @@
 ##  Returns the homomorphism that maps h to h^hom2*( h^hom1 )^-1
 ##  No verification is done to make sure this is actually a homomorphism
 ##
-DifferenceGroupHomomorphisms@ := function ( hom1, hom2, N, M )
+DifferenceGroupHomomorphisms@ := function( hom1, hom2, N, M )
     local gens, imgs;
     gens := SmallGeneratingSet( N );
     imgs := List(

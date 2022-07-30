@@ -7,7 +7,7 @@ InstallMethod(
     "turn finite PcpGroup range into PcGroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     101,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, iso;
         G := Range( hom1 );
         if not (
@@ -24,7 +24,7 @@ InstallMethod(
     "turn finite PcpGroup source into PcGroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     100,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local H, inv;
         H := Source( hom1 );
         if not (
@@ -46,7 +46,7 @@ InstallMethod(
     "turn finite PcpGroup range into PcGroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     101,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, iso, Rcl;
         G := Range( hom1 );
         if not (
@@ -64,7 +64,7 @@ InstallMethod(
     "turn finite PcpGroup source into PcGroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     100,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local H, inv, Rcl;
         H := Source( hom1 );
         if not (
@@ -86,7 +86,7 @@ InstallMethod(
     "turn finite PcpGroup range into PcGroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     101,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local G, iso;
         G := Range( hom1 );
         if not (
@@ -103,7 +103,7 @@ InstallMethod(
     "turn finite PcpGroup source into PcGroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     100,
-    function ( hom1, hom2 )
+    function( hom1, hom2 )
         local H, inv;
         H := Source( hom1 );
         if not (
@@ -126,7 +126,7 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     101,
-    function ( hom1, hom2, g )
+    function( hom1, hom2, g )
         local G, iso;
         G := Range( hom1 );
         if not (
@@ -147,7 +147,7 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     100,
-    function ( hom1, hom2, g )
+    function( hom1, hom2, g )
         local H, inv, h;
         H := Source( hom1 );
         if not (
