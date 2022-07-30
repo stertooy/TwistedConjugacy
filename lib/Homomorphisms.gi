@@ -197,7 +197,7 @@ RepresentativesHomomorphismClasses2Generated@ := function( H, G )
         fi;
         cnt := cnt + 1;
     until bw / Size( G ) * 3 < cnt;
-        params := rec(
+    params := rec(
         gens := bg,
         from := H
     );
