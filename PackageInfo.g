@@ -71,7 +71,6 @@ Dependencies := rec(
 		[ "AutoDoc", "2018.02.14" ],
 		[ "AutPGrp", "1.9" ],
 		[ "Polycyclic", "2.13.1" ],
-		[ "CaratInterface", "2.3.1" ]
 	],
 	ExternalConditions := [ ],
 ),

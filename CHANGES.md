@@ -8,16 +8,11 @@ This file describes changes in the GAP package TwistedConjugacy.
   calculating Reidemeister spectra of finite groups should be much faster.
 
 - Added RepresentativeAutomorphismClasses, RepresentativesEndomorphismClasses
-  and RepresentativesHomomorphismClasses. The former can be applied to finite
-  groups and, if Polycyclic and CaratInterface are loaded, to crystallographic
-  PcpGroups with finite outer automorphism group. The latter two can be applied
-  only to finite groups, and should (in general) be more efficient than GAP's 
-  standard AllHomomorphismClasses function.
+  and RepresentativesHomomorphismClasses, which can be applied to finite
+  groups. They give output similar to GAP's builtin AllHomomorphismClasses
+  function, but should be more efficient.
 
 - Fixed a bug that made ReidemeisterSpectrum not work for the trivial group.
-
-- If Polycyclic and CaratInterface are loaded, ReidemeisterSpectrum can now be
-  applied to crystallographic PcpGroups with finite outer automorphism group.
 
 - FixedPointGroup now works for any automorphism of an infinite PcpGroup
 - CoincidenceGroup now works for any pair of isomorphisms between infinite

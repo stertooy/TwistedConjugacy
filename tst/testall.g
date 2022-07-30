@@ -11,16 +11,6 @@ if TestPackageAvailability( "polycyclic", "2.13.1" ) = true then
 		DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcpgroup" )
 	);
 fi;
-if (
-	TestPackageAvailability( "polycyclic", "2.13.1" ) = true and
-	TestPackageAvailability( "CaratInterface", "2.3.1" ) = true
-) then
-	Append(
-		Directories_To_Test,
-		DirectoriesPackageLibrary( "TwistedConjugacy", "tst/crystgroup" )
-	);
-fi;
-
 
 TestDirectory(
 	Directories_To_Test,

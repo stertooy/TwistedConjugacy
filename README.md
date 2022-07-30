@@ -25,7 +25,6 @@ The following packages (and their dependencies) are optional, though are
 recommended:
 - AutoDoc ( version >= 2018.02.14)
 - AutPGrp ( version >= 1.9 )
-- CaratInterface (version >= 2.3.1)
 - Polycyclic (version >= 2.13.1)
 
 Note that is recommended to install Polycyclic version >= 2.16, to avoid some
