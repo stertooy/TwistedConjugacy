@@ -50,7 +50,7 @@ the TwistedConjugacy package using the following command:
 
 The manual may be compiled by running the 'makedoc.g' script, located in the
 package's main directory.  It is also available on the webpages of this
-package, at <https://stertooy.github.io/TwistedConjugacy/doc/chap0.html>
+package, at <https://stertooy.github.io/TwistedConjugacy/doc/chap0_mj.html>
 
 
 
