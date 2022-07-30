@@ -6,107 +6,107 @@ DeclareGlobalFunction( "TwistedConjugation" );
 DeclareGlobalFunction( "IsTwistedConjugate" );
 DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 DeclareOperation(
-	"RepTwistConjToId",
-	[ IsGroupHomomorphism, IsGroupHomomorphism,
-	  IsMultiplicativeElementWithInverse ]
+    "RepTwistConjToId",
+    [ IsGroupHomomorphism, IsGroupHomomorphism,
+      IsMultiplicativeElementWithInverse ]
 );
 
 DeclareGlobalFunction( "ReidemeisterClass" );
 DeclareSynonym( "TwistedConjugacyClass", ReidemeisterClass );
 DeclareRepresentation(
-	"IsReidemeisterClassGroupRep",
-	IsExternalOrbit,
-	[]
+    "IsReidemeisterClassGroupRep",
+    IsExternalOrbit,
+    []
 );
 DeclareAttribute(
-	"GroupHomomorphismsOfReidemeisterClass",
-	IsReidemeisterClassGroupRep
+    "GroupHomomorphismsOfReidemeisterClass",
+    IsReidemeisterClassGroupRep
 );
 
 
 DeclareGlobalFunction( "ReidemeisterClasses" );
-DeclareSynonym(	"TwistedConjugacyClasses", ReidemeisterClasses );
+DeclareSynonym( "TwistedConjugacyClasses", ReidemeisterClasses );
 DeclareOperation(
-	"RepresentativesReidemeisterClasses",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ]
+    "RepresentativesReidemeisterClasses",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 DeclareSynonym(
-	"RepresentativesTwistedConjugacyClasses",
-	RepresentativesReidemeisterClasses
+    "RepresentativesTwistedConjugacyClasses",
+    RepresentativesReidemeisterClasses
 );
 
 
 DeclareGlobalFunction( "ReidemeisterNumber" );
 DeclareSynonym(
-	"NrTwistedConjugacyClasses",
-	ReidemeisterNumber
+    "NrTwistedConjugacyClasses",
+    ReidemeisterNumber
 );
 DeclareOperation(
-	"ReidemeisterNumberOp",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ]
+    "ReidemeisterNumberOp",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 
 
 DeclareGlobalFunction( "ReidemeisterSpectrum" );
 DeclareOperation(
-	"ReidemeisterSpectrumOp",
-	[ IsGroup ]
+    "ReidemeisterSpectrumOp",
+    [ IsGroup ]
 );
 DeclareGlobalFunction( "ExtendedReidemeisterSpectrum" );
 DeclareOperation(
-	"ExtendedReidemeisterSpectrumOp",
-	[ IsGroup ]
+    "ExtendedReidemeisterSpectrumOp",
+    [ IsGroup ]
 );
 DeclareGlobalFunction( "CoincidenceReidemeisterSpectrum" );
 DeclareOperation(
-	"CoincidenceReidemeisterSpectrumOp",
-	[ IsGroup, IsGroup ]
+    "CoincidenceReidemeisterSpectrumOp",
+    [ IsGroup, IsGroup ]
 );
 
 
 DeclareGlobalFunction( "ReidemeisterZetaCoefficients" );
 DeclareOperation(
-	"ReidemeisterZetaCoefficientsOp",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ]
+    "ReidemeisterZetaCoefficientsOp",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 DeclareGlobalFunction( "IsRationalReidemeisterZeta" );
 DeclareOperation(
-	"IsRationalReidemeisterZetaOp",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ]
+    "IsRationalReidemeisterZetaOp",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 DeclareGlobalFunction( "ReidemeisterZeta" );
 DeclareOperation(
-	"ReidemeisterZetaOp",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ]
+    "ReidemeisterZetaOp",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 DeclareGlobalFunction( "PrintReidemeisterZeta" );
 DeclareOperation(
-	"PrintReidemeisterZetaOp",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ]
+    "PrintReidemeisterZetaOp",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 
 DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 DeclareOperation(
-	"RepresentativesHomomorphismClassesOp",
-	[ IsGroup, IsGroup ]
+    "RepresentativesHomomorphismClassesOp",
+    [ IsGroup, IsGroup ]
 );
 DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
 DeclareOperation(
-	"RepresentativesEndomorphismClassesOp",
-	[ IsGroup ]
+    "RepresentativesEndomorphismClassesOp",
+    [ IsGroup ]
 );
 DeclareGlobalFunction( "RepresentativesAutomorphismClasses" );
 DeclareOperation(
-	"RepresentativesAutomorphismClassesOp",
-	[ IsGroup ]
+    "RepresentativesAutomorphismClassesOp",
+    [ IsGroup ]
 );
 
 
 DeclareGlobalFunction( "FixedPointGroup" );
 DeclareGlobalFunction( "CoincidenceGroup" );
 DeclareOperation(
-	"CoincidenceGroup2",
-	[ IsGroupHomomorphism, IsGroupHomomorphism ]
+    "CoincidenceGroup2",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 
 
