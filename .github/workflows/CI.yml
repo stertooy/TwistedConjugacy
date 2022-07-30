@@ -22,7 +22,7 @@ jobs:
         run: |
           set -ex
          
-          apt-get autoremove --purge git
+          apt-get autoremove --purge git --yes
 
       - name: "Build manual"
         uses: stertooy/gda-manual@v1
