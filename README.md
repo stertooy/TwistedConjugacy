@@ -17,14 +17,14 @@ of group homomorphisms. These methods are, for the most part, designed to be
 used with (group homomorphisms between) finite groups and, if the package
 polycyclic is also installed, polycyclically presented groups.
 
-This package requires GAP version 4.11 or later, with the following packages
+This package requires GAP version 4.9 or later, with the following packages
 (and their dependencies) installed:
-- GAPDoc (version >= 1.6.3)
+- GAPDoc ( version >= 1.6.1 )
 
 The following packages (and their dependencies) are optional, though are
 recommended:
-- Polycyclic (version >= 2.15.1)
-- AutoDoc (version >= 2019.09.04)
+- AutoDoc ( version >= 2018.02.14)
+- Polycyclic (version >= 2.13.1)
 
 Note that is recommended to install Polycyclic version >= 2.16, to avoid some
 known bugs which could lead to wrong results. It is also recommended to install
@@ -50,7 +50,7 @@ the TwistedConjugacy package using the following command:
 
 The manual may be compiled by running the 'makedoc.g' script, located in the
 package's main directory.  It is also available on the webpages of this
-package, at <https://stertooy.github.io/TwistedConjugacy/doc/chap0.html>
+package, at <https://stertooy.github.io/TwistedConjugacy/doc/chap0_mj.html>
 
 
 
