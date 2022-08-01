@@ -28,12 +28,6 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v3
 
-      - name: "Add extra packages to GAP"
-        uses: sTertooy/gda-extra-pkg@v1
-        with:
-          PACKAGES: ${{ matrix.packages }}
-        if: ${{ matrix.packages != '' }}
-        
       - name: "Run package tests with necessary packages"
         uses: sTertooy/gda-test-pkg@v1
         with:
