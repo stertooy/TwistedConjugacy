@@ -28,11 +28,11 @@ Persons := [
 
 SourceRepository := rec(
 	Type := "git",
-	URL := "https://github.com/sTertooy/TwistedConjugacy",
+	URL := "https://github.com/stertooy/TwistedConjugacy",
 ),
 
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := "https://sTertooy.github.io/TwistedConjugacy/",
+PackageWWWHome  := "https://stertooy.github.io/TwistedConjugacy/",
 PackageInfoURL  := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 README_URL      := Concatenation( ~.PackageWWWHome, "README.md" ),
 ArchiveURL      := Concatenation(
