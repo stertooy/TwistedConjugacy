@@ -18,7 +18,7 @@
 
 #! <P/> 
 
-#! The <B>TwistedConjugacy</B> packageprovides methods to calculate Reidemeister classes, Reidemeister numbers and coincidence groups of pairs of group homomorphisms. 
+#! The <B>TwistedConjugacy</B> package provides methods to calculate Reidemeister classes, Reidemeister numbers and coincidence groups of pairs of group homomorphisms. 
 #! These methods are implemented for finite groups and (infinite) polycyclically presented groups. If $H$ and $G$ are both infinite polycyclically presented groups, then 
 #! many of the methods in this package are only guaranteed to produce a result if either $G = H$ and $R(\varphi,\psi)$ is finite, or $G$ is nilpotent-by-finite.
 #! If this is not case, methods may either produce a (correct!) result, or throw an error: "<C>Error, no method found!</C>"
