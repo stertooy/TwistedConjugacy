@@ -2,14 +2,14 @@
 [![Code Coverage](https://codecov.io/gh/sTertooy/TwistedConjugacy/branch/main/graph/badge.svg)](https://codecov.io/gh/sTertooy/TwistedConjugacy)
 
 The GAP 4 package TwistedConjugacy
-====================================
+==================================
 
 by Sam Tertooy <sam.tertooy@kuleuven.be>
 
 
 
 About
-------------
+-----
 
 The TwistedConjugacy package provides methods to calculate Reidemeister
 classes, numbers, spectra and zeta functions, as well as coincidence groups
@@ -17,14 +17,14 @@ of group homomorphisms. These methods are, for the most part, designed to be
 used with (group homomorphisms between) finite groups and, if the package
 polycyclic is also installed, polycyclically presented groups.
 
-This package requires GAP version 4.9 or later, with the following packages
+This package requires GAP version 4.11 or later, with the following packages
 (and their dependencies) installed:
-- GAPDoc ( version >= 1.6.1 )
+- GAPDoc ( version >= 1.6.3 )
 
 The following packages (and their dependencies) are optional, though are
 recommended:
-- AutoDoc ( version >= 2018.02.14 )
-- Polycyclic ( version >= 2.13.1 )
+- AutoDoc ( version >= 2019.09.04 )
+- Polycyclic ( version >= 2.14.1 )
 
 Note that is recommended to install Polycyclic version >= 2.16, to avoid some
 known bugs which could lead to wrong results. It is also recommended to install
