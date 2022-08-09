@@ -5,7 +5,7 @@ Directories_To_Test := [
 	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/permgroup" )
 ];
 
-if TestPackageAvailability( "polycyclic", "2.13.1" ) = true then
+if TestPackageAvailability( "polycyclic", "2.15.1" ) = true then
 	Append(
 		Directories_To_Test,
 		DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcpgroup" )

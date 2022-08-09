@@ -1,24 +1,25 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
-2.1.0 (18/03/2022)
+2.1.0 (09/08/2022)
 ------------------
 
+- Again requires GAP 4.11 or newer, and needed/suggested package versions
+- have been increased accordingly
+
 - Many efficiency improvements, both speed- and memory-related. In particular
-  calculating Reidemeister spectra of finite groups should be much faster.
+  calculating Reidemeister spectra of finite groups should be much faster
 
 - Added RepresentativeAutomorphismClasses, RepresentativesEndomorphismClasses
   and RepresentativesHomomorphismClasses, which can be applied to finite
   groups. They give output similar to GAP's builtin AllHomomorphismClasses
-  function, but should be more efficient.
+  function, but should be more efficient
 
-- Fixed a bug that made ReidemeisterSpectrum not work for the trivial group.
+- Fixed a bug that made ReidemeisterSpectrum not work for the trivial group
 
-- FixedPointGroup now works for any automorphism of an infinite PcpGroup
-- CoincidenceGroup now works for any pair of isomorphisms between infinite
-  PcpGroups
-- RepresentativeTwistedConjugation and IsTwistedConjugate now work for
-  pairs of isomorphisms between infinite PcpGroups
+- CoincidenceGroup, RepresentativeTwistedConjugation and  IsTwistedConjugate
+  now work for any pair of endomorphisms between any two polycyclic groups
+- FixedPointGroup now works for any endomorphism of any polycyclic group
 
 - CoincidenceGroup can now take 3 or more endomorphisms as argument
 - RepresentativeTwistedConjugation and IsTwistedConjugate can now take lists
@@ -36,7 +37,7 @@ This file describes changes in the GAP package TwistedConjugacy.
 - The documentation has been largely rewritten.
 
 - Changed how the manual is generated. The manual can be recreated using
-  AutoDoc by running the "makedoc.g" script in the main package directory.
+  AutoDoc by running the "makedoc.g" script in the main package directory
 - Renamed "gap" subfolder to "lib"
 - Improved available tests
 
