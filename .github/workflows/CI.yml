@@ -17,8 +17,6 @@ jobs:
           - gap-branch: "master"
             coverage: true
           - gap-branch: "4.11"
-          - gap-branch: "4.10"
-          - gap-branch: "4.9"
             
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}-slim
