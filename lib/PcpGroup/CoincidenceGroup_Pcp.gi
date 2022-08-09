@@ -104,9 +104,6 @@ end;
 CoincidenceGroupStep5@ := function( hom1, hom2 )
     local H, G, h, n, tc, r, C, i;
     G := Range( hom1 );
-    if not IsTrivial( Center( G ) ) then
-        return CoincidenceGroupStep4@( hom1, hom2 );
-    fi;
     H := Source( hom1 );
     h := SmallGeneratingSet( H );
     n := Length( h );
@@ -129,9 +126,12 @@ CoincidenceGroupStep4@ := function( hom1, hom2 )
     G := Range( hom1 );
     H := Source( hom1 );
     C := Center( G );
+    if IsTrivial( C ) then
+        return CoincidenceGroupStep5@( hom1, hom2 );
+    fi;
     p := NaturalHomomorphismByNormalSubgroupNC( G, C );
     q := IdentityMapping( H );
-    Coin := CoincidenceGroupStep5@(
+    Coin := CoincidenceGroupStep4@(
         InducedHomomorphism( q, p, hom1 ),
         InducedHomomorphism( q, p, hom2 )
     );
@@ -154,7 +154,7 @@ CoincidenceGroupStep3@ := function( hom1, hom2 )
     dHH := ImagesSource( d );
     p := NaturalHomomorphismByNormalSubgroupNC( G, dHH );
     q := IdentityMapping( H );
-    CoinModC := CoincidenceGroupStep5@( 
+    CoinModC := CoincidenceGroupStep4@( 
         InducedHomomorphism( q, p, hom1 ),
         InducedHomomorphism( q, p, hom2 )
     );

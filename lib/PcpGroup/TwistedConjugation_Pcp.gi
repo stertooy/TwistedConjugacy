@@ -94,9 +94,6 @@ RepTwistConjToIdStep5@ := function( hom1, hom2, c, C )
     local H, G, h, n, tc, r, s, a, p, q, pa;
     H := Source( hom1 );
     G := Range( hom1 );
-    if not IsTrivial( Center( G ) ) then
-        return RepTwistConjToIdStep4@( hom1, hom2, c, C );
-    fi;
     h := SmallGeneratingSet( H );
     n := Length( h );
     tc := TwistedConjugation( hom1, hom2 );
@@ -122,13 +119,16 @@ RepTwistConjToIdStep4@ := function( hom1, hom2, g, A )
     G := Range( hom1 );
     H := Source( hom1 );
     C := Center( G );
+    if IsTrivial( C ) then
+        return RepTwistConjToIdStep5@( hom1, hom2, g, A );
+    fi;
     p := NaturalHomomorphismByNormalSubgroupNC( G, C );
     q := IdentityMapping( H );
     hom1p := InducedHomomorphism( q, p, hom1 );
     hom2p := InducedHomomorphism( q, p, hom2 );
     pg := ImagesRepresentative( p, g );
     A2 := ImagesSet( p, A ); #ClosureGroup( A, C ) );
-    h1 := RepTwistConjToIdStep5@( hom1p, hom2p, pg, A2 );
+    h1 := RepTwistConjToIdStep4@( hom1p, hom2p, pg, A2 );
     if h1 = fail then
         return fail;
     fi;
@@ -161,7 +161,7 @@ RepTwistConjToIdStep3@ := function( hom1, hom2, g, A )
     hom2p := InducedHomomorphism( q, p, hom2 );
     A2 := ImagesSet( p, A );
     pg := ImagesRepresentative( p, g );
-    h1 := RepTwistConjToIdStep5@( hom1p, hom2p, pg, A2 );
+    h1 := RepTwistConjToIdStep4@( hom1p, hom2p, pg, A2 );
     if h1 = fail then
         return fail;
     fi;
