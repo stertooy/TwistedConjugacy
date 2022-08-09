@@ -145,7 +145,7 @@ gap> x3 := G.1^-2*G.2^-3*G.3^-2;;
 gap> x4 := G.2^-4*G.3^-1*G.4^-2;;
 gap> hom3 := InnerAutomorphism( G, x3 );;
 gap> hom4 := InnerAutomorphism( G, x4 );;
-gap> h4 := RepresentativeTwistedConjugation( hom3, hom4, g3, g4 );
+gap> h4 := RepresentativeTwistedConjugation( hom3, hom4, g3, g4 );;
 gap> tc := TwistedConjugation( hom3, hom4 );;
 gap> g4 = tc( g3, h4 );
 true
