@@ -128,4 +128,18 @@ gap> IsTwistedConjugate( hom, p, Q.1, Q.1^2 );
 true
 
 #
+gap> G := ExamplesOfSomePcpGroups( 10 );;
+gap> g1 := G.2^2*G.3*G.4^-1;;
+gap> g2 := G.2^2*G.3^-155*G.4^-83;;
+gap> h := G.2^-2*G.3^-4*G.4^-5;;
+gap> x1 := G.1^-1*G.3^2*G.4;;
+gap> x2 := G.1^-3*G.3^-1;;
+gap> hom1 := InnerAutomorphism( G, x1 );;
+gap> hom2 := InnerAutomorphism( G, x2 );;
+gap> h := RepresentativeTwistedConjugation( hom1, hom2, g1, g2 );;
+gap> tc := TwistedConjugation( hom1, hom2 );;
+gap> g2 = tc( g1, h );
+true
+
+#
 gap> STOP_TEST( "twisted_conjugacy_extra.tst" );

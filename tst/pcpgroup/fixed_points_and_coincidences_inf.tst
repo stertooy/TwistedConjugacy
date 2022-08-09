@@ -145,4 +145,15 @@ gap> CoincidenceGroup( aut1G7, aut2G7, aut3G7 );
 Pcp-group with orders [ 2, 2, 2, 2 ]
 
 #
+gap> G8 := ExamplesOfSomePcpGroups( 10 );;
+gap> hom1G8 := InnerAutomorphism( G8, G8.1^-1*G8.3^2*G8.4 );;
+gap> hom2G8 := InnerAutomorphism( G8, G8.1^-3*G8.3^-1 );;
+gap> CoinG8 := CoincidenceGroup( hom1G8, hom2G8 );
+Pcp-group with orders [ 0, 0, 0 ]
+gap> IsNilpotentByFinite( CoinG8 ) and not IsNilpotent( CoinG8 );
+true
+gap> FittingSubgroup( CoinG8 ) = FittingSubgroup( G8 );
+true
+
+#
 gap> STOP_TEST( "fixed_points_and_coincidences_inf.tst" );

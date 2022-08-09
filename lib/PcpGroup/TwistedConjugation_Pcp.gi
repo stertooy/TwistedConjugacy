@@ -97,7 +97,7 @@ RepTwistConjToIdStep5@ := function( hom1, hom2, c, C )
     h := SmallGeneratingSet( H );
     n := Length( h );
     tc := TwistedConjugation( hom1, hom2 );
-    r := List( [1..n], i -> tc( One( G ), h[i]^-1 ) ); # ri = psi( hi )phi( hi )^-1
+    r := List( [1..n], i -> tc( One( G ), h[i]^-1 ) );
     s := List( [1..n], i -> Comm( ImagesRepresentative( hom2, h[i] )^-1, c^-1 )*r[i] );
     a := MultipleConjugacySolver@( G, s, r );
     if a = fail then
@@ -170,7 +170,6 @@ RepTwistConjToIdStep3@ := function( hom1, hom2, g, A )
     h2 := PreImagesRepresentative( delta, c );
     return h1*h2;
 end;
-
 
 
 ###############################################################################
@@ -293,7 +292,7 @@ InstallMethod(
 
 InstallMethod(
     RepTwistConjToId,
-    "for infinite polycyclic source and and infinite nilpotent-by-abelian range",
+    "for infinite polycyclic source and infinite nilpotent-by-abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     1,
