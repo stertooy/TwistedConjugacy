@@ -131,14 +131,33 @@ true
 gap> G := ExamplesOfSomePcpGroups( 10 );;
 gap> g1 := G.2^2*G.3*G.4^-1;;
 gap> g2 := G.2^2*G.3^-155*G.4^-83;;
-gap> h := G.2^-2*G.3^-4*G.4^-5;;
 gap> x1 := G.1^-1*G.3^2*G.4;;
 gap> x2 := G.1^-3*G.3^-1;;
 gap> hom1 := InnerAutomorphism( G, x1 );;
 gap> hom2 := InnerAutomorphism( G, x2 );;
-gap> h := RepresentativeTwistedConjugation( hom1, hom2, g1, g2 );;
+gap> h2 := RepresentativeTwistedConjugation( hom1, hom2, g1, g2 );;
 gap> tc := TwistedConjugation( hom1, hom2 );;
-gap> g2 = tc( g1, h );
+gap> g2 = tc( g1, h2 );
+true
+gap> g3 := G.2*G.3^5*G.4^-1;;
+gap> g4 := G.2*G.3^71*G.4^-33;;
+gap> x3 := G.1^-2*G.2^-3*G.3^-2;;
+gap> x4 := G.2^-4*G.3^-1*G.4^-2;;
+gap> hom3 := InnerAutomorphism( G, x3 );;
+gap> hom4 := InnerAutomorphism( G, x4 );;
+gap> h4 := RepresentativeTwistedConjugation( hom3, hom4, g3, g4 );
+gap> tc := TwistedConjugation( hom3, hom4 );;
+gap> g4 = tc( g3, h4 );
+true
+gap> g5 := G.2*G.4^-1;;
+gap> g6 := G.2*G.3^36*G.4^-13;;
+gap> x5 := G.1^-2*G.2^-3*G.3^-2;;
+gap> x6 := G.2^-4*G.3^-1*G.4^-2;;
+gap> hom5 := InnerAutomorphism( G, x5 );;
+gap> hom6 := InnerAutomorphism( G, x6 );;
+gap> h6 := RepresentativeTwistedConjugation( hom5, hom6, g5, g6 );;
+gap> tc := TwistedConjugation( hom5, hom6 );;
+gap> g6 = tc( g5, h6 );
 true
 
 #

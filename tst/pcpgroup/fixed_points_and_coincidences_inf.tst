@@ -150,9 +150,17 @@ gap> hom1G8 := InnerAutomorphism( G8, G8.1^-1*G8.3^2*G8.4 );;
 gap> hom2G8 := InnerAutomorphism( G8, G8.1^-3*G8.3^-1 );;
 gap> CoinG8 := CoincidenceGroup( hom1G8, hom2G8 );
 Pcp-group with orders [ 0, 0, 0 ]
+gap> ForAll( GeneratorsOfGroup( CoinG8 ), h -> h^hom1G8 = h^hom2G8 );
+true
 gap> IsNilpotentByFinite( CoinG8 ) and not IsNilpotent( CoinG8 );
 true
 gap> FittingSubgroup( CoinG8 ) = FittingSubgroup( G8 );
+true
+gap> hom3G8 := InnerAutomorphism( G8, G8.1^-2*G8.2^-3*G8.3^-2 );;
+gap> hom4G8 := InnerAutomorphism( G8, G8.2^-4*G8.3^-1*G8.4^-2 );;
+gap> Coin2G8 := CoincidenceGroup( hom3G8, hom4G8 );
+Pcp-group with orders [ 0, 0 ]
+gap> ForAll( GeneratorsOfGroup( Coin2G8 ), h -> h^hom3G8 = h^hom4G8 );
 true
 
 #

@@ -36,7 +36,7 @@ end;
 ## MultipleConjugacySolver@( G, r, s )
 ##
 MultipleConjugacySolver@ := function( G, r, s )
-    local a, i, Gi, ai;
+    local a, i, Gi, ai, pcp;
     a := One( G );
     for i in [1..Length( r )] do
         if i = 1 then
@@ -44,13 +44,8 @@ MultipleConjugacySolver@ := function( G, r, s )
         else
             Gi := Centraliser( Gi, s[i-1] );
         fi;
-        if IsTrivial( Gi ) then
-           if r[i]^a <> s[i] then
-               return fail;
-           fi;
-           continue;
-        fi;
-        ai := ConjugacyElementsBySeries( Gi, r[i]^a, s[i], PcpsOfEfaSeries( Gi ) );
+        pcp := PcpsOfEfaSeries( Gi );
+        ai := ConjugacyElementsBySeries( Gi, r[i]^a, s[i], pcp );
         if ai = false then
             return fail;
         fi;
