@@ -118,6 +118,9 @@ RepTwistConjToIdStep4@ := function( hom1, hom2, g, A )
     local G, H, C, p, q, hom1p, hom2p, pg, h1, tc, c, Coin, delta, h2, A2;
     G := Range( hom1 );
     H := Source( hom1 );
+    if IsNilpotentByFinite( G ) then
+        return RepTwistConjToId( hom1, hom2, g );
+    fi;
     C := Center( G );
     if IsTrivial( C ) then
         return RepTwistConjToIdStep5@( hom1, hom2, g, A );
@@ -152,6 +155,9 @@ RepTwistConjToIdStep3@ := function( hom1, hom2, g, A )
     local H, G, HH, delta, dHH, p, q, pg, h1, tc, c, h2, A2, hom1p, hom2p;
     H := Source( hom1 );
     G := Range( hom1 );
+    if IsNilpotentByFinite( G ) then
+        return RepTwistConjToId( hom1, hom2, g );
+    fi;
     HH := DerivedSubgroup( H );
     delta := DifferenceGroupHomomorphisms@( hom1, hom2, HH, G );
     dHH := ImagesSource( delta );

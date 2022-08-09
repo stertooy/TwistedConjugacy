@@ -125,6 +125,9 @@ CoincidenceGroupStep4@ := function( hom1, hom2 )
     local G, H, C, p, q, Coin, diff;
     G := Range( hom1 );
     H := Source( hom1 );
+    if IsNilpotentByFinite( G ) then
+        return CoincidenceGroup2( hom1, hom2 );
+    fi;
     C := Center( G );
     if IsTrivial( C ) then
         return CoincidenceGroupStep5@( hom1, hom2 );
@@ -148,6 +151,9 @@ CoincidenceGroupStep3@ := function( hom1, hom2 )
     local G, H, HH, GG, d, dHH, p, q, CoinModC, CoinHH, h, n, tc, c, x, gens1, gens2;
     G := Range( hom1 );
     H := Source( hom1 );
+    if IsNilpotentByFinite( G ) then
+        return CoincidenceGroup2( hom1, hom2 );
+    fi;
     HH := DerivedSubgroup( H );
     GG := DerivedSubgroup( G );
     d := DifferenceGroupHomomorphisms@( hom1, hom2, HH, G );
