@@ -112,3 +112,6 @@ DeclareOperation(
 
 DeclareGlobalFunction( "InducedHomomorphism" );
 DeclareGlobalFunction( "RestrictedHomomorphism" );
+
+DeclareProperty( "IsNilpotentByAbelian", IsGroup );
+InstallTrueMethod( IsNilpotentByAbelian, IsNilpotentGroup );

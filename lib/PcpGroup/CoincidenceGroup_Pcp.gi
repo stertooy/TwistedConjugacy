@@ -276,8 +276,6 @@ InstallMethod(
     end
 );
 
-
-
 InstallMethod(
     CoincidenceGroup2,
     "for infinite polycyclic source and infinite nilpotent-by-abelian range",

@@ -99,7 +99,10 @@ RepTwistConjToIdStep5@ := function( hom1, hom2, a, A )
     n := Length( hi );
     tc := TwistedConjugation( hom1, hom2 );
     ai := List( [1..n], i -> tc( One( G ), hi[i]^-1 ) );
-    bi := List( [1..n], i -> Comm( ImagesRepresentative( hom2, hi[i] )^-1, a^-1 )*ai[i] );
+    bi := List(
+        [1..n], 
+        i -> Comm( a, ImagesRepresentative( hom2, hi[i] )^-1 )*ai[i]
+    );
     g := MultipleConjugacySolver@( G, bi, ai );
     if g = fail then
         return fail;

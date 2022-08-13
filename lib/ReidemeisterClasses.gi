@@ -84,15 +84,15 @@ InstallMethod(
     end
 );
 
-InstallMethod(
+InstallMethodWithRandomSource(
     Random,
-    "for Reidemeister classes",
-    [ IsReidemeisterClassGroupRep ],
-    function( tcc )
+    "for a random source and a Reidemeister class",
+    [ IsRandomSource, IsReidemeisterClassGroupRep ],
+    function( rs, tcc )
         local H, g, h, tc;
         H := ActingDomain( tcc );
         g := Representative( tcc );
-        h := Random( H );
+        h := Random( rs, H );
         tc := FunctionAction( tcc );
         return tc( g, h );
     end

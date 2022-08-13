@@ -26,9 +26,13 @@ end;
 ##
 ## IsNilpotentByAbelian( G )
 ##
-IsNilpotentByAbelian := function( G )
-    return IsNilpotent( DerivedSubgroup( G ) );
-end;
+InstallMethod(
+    IsNilpotentByAbelian,
+    [ IsGroup ],
+    function( G )
+        return IsNilpotent( DerivedSubgroup( G ) );
+    end
+);
 
 
 ###############################################################################
