@@ -19,13 +19,14 @@ end;
 
 ###############################################################################
 ##
-## CoincidenceGroupByFiniteQuotient@( hom1, hom2, N, M )
+## CoincidenceGroupByFiniteQuotient@( hom1, hom2, M )
 ##
-CoincidenceGroupByFiniteQuotient@ := function( hom1, hom2, N, M )
-    local G, H, p, q, CoinHN, hom1N, hom2N, tc, igs, pcgs, orbit, l, i, qh,
+CoincidenceGroupByFiniteQuotient@ := function( hom1, hom2, M )
+    local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, igs, pcgs, orbit, l, i, qh,
         pos, j, h, stab, n;
     G := Range( hom1 );
     H := Source( hom1 );
+    N := IntersectionPreImage@( hom1, hom2, M );
     p := NaturalHomomorphismByNormalSubgroupNC( G, M );
     q := NaturalHomomorphismByNormalSubgroupNC( H, N );
     CoinHN := CoincidenceGroup2(
@@ -102,16 +103,16 @@ end;
 ## CoincidenceGroupStep5@( hom1, hom2 )
 ##
 CoincidenceGroupStep5@ := function( hom1, hom2 )
-    local H, G, h, n, tc, r, C, i;
+    local H, G, hi, n, tc, ai, C, i;
     G := Range( hom1 );
     H := Source( hom1 );
-    h := SmallGeneratingSet( H );
-    n := Length( h );
+    hi := SmallGeneratingSet( H );
+    n := Length( hi );
     tc := TwistedConjugation( hom1, hom2 );
-    r := List( [1..n], i -> tc( One( G ), h[i]^-1 ) );
+    ai := List( [1..n], i -> tc( One( G ), hi[i]^-1 ) );
     C := G;
     for i in [1..n] do
-        C := Centraliser( C, r[i] );
+        C := Centraliser( C, ai[i] );
     od;
     return PreImagesSet( hom2, C );
 end;
@@ -122,7 +123,7 @@ end;
 ## CoincidenceGroupStep4@( hom1, hom2 )
 ##
 CoincidenceGroupStep4@ := function( hom1, hom2 ) 
-    local G, H, C, p, q, Coin, diff;
+    local G, H, C, p, q, Coin, d;
     G := Range( hom1 );
     H := Source( hom1 );
     if IsNilpotentByFinite( G ) then
@@ -138,8 +139,8 @@ CoincidenceGroupStep4@ := function( hom1, hom2 )
         InducedHomomorphism( q, p, hom1 ),
         InducedHomomorphism( q, p, hom2 )
     );
-    diff := DifferenceGroupHomomorphisms@( hom1, hom2, Coin, G );
-    return Kernel( diff );
+    d := DifferenceGroupHomomorphisms@( hom1, hom2, Coin, G );
+    return Kernel( d );
 end;
 
 
@@ -148,33 +149,27 @@ end;
 ## CoincidenceGroupStep3@( hom1, hom2 )
 ##
 CoincidenceGroupStep3@ := function( hom1, hom2 )
-    local G, H, HH, GG, d, dHH, p, q, CoinModC, CoinHH, h, n, tc, c, x, gens1, gens2;
+    local G, H, HH, d, p, q, Coin, ci, n, tc, bi, di, gens1, gens2;
     G := Range( hom1 );
     H := Source( hom1 );
     if IsNilpotentByFinite( G ) then
         return CoincidenceGroup2( hom1, hom2 );
     fi;
     HH := DerivedSubgroup( H );
-    GG := DerivedSubgroup( G );
     d := DifferenceGroupHomomorphisms@( hom1, hom2, HH, G );
-    dHH := ImagesSource( d );
-    p := NaturalHomomorphismByNormalSubgroupNC( G, dHH );
+    p := NaturalHomomorphismByNormalSubgroupNC( G, ImagesSource( d ) );
     q := IdentityMapping( H );
-    CoinModC := CoincidenceGroupStep4@( 
+    Coin := CoincidenceGroupStep4@( 
         InducedHomomorphism( q, p, hom1 ),
         InducedHomomorphism( q, p, hom2 )
     );
-    CoinHH := CoincidenceGroup2( 
-        RestrictedHomomorphism( hom1, HH, GG ),
-        RestrictedHomomorphism( hom2, HH, GG )
-    );
-    h := SmallGeneratingSet( CoinModC );
-    n := Length( h );
+    ci := SmallGeneratingSet( Coin );
+    n := Length( ci );
     tc := TwistedConjugation( hom1, hom2 );
-    c := List( [1..n], i -> tc( One( G ), h[i]^-1 ) );
-    x := List( [1..n], i -> PreImagesRepresentative( d, c[i] ) );
-    gens1 := List( [1..n], i -> x[i]^-1*h[i] );
-    gens2 := SmallGeneratingSet( CoinHH );
+    bi := List( [1..n], i -> tc( One( G ), ci[i]^-1 ) );
+    di := List( [1..n], i -> PreImagesRepresentative( d, bi[i] ) );
+    gens1 := List( [1..n], i -> di[i]^-1*ci[i] );
+    gens2 := SmallGeneratingSet( Kernel( d ) );
     return Subgroup( H, Concatenation( gens1, gens2 ) );
 end;
 
@@ -184,15 +179,16 @@ end;
 ## CoincidenceGroupStep2@( hom1, hom2 )
 ##
 CoincidenceGroupStep2@ := function( hom1, hom2 )
-    local H, G, img1, img2, Gr, hom1r, hom2r;
+    local H, G;
     H := Source( hom1 );
-    G := Range( hom2 );
-    img1 := ImagesSource( hom1 );
-    img2 := ImagesSource( hom2 );
-    Gr := ClosureGroup( img1, img2 ); 
-    hom1r := RestrictedHomomorphism( hom1, H, Gr );
-    hom2r := RestrictedHomomorphism( hom2, H, Gr );
-    return CoincidenceGroupStep3@( hom1r, hom2r );
+    G := ClosureGroup(
+        ImagesSource( hom1 ),
+        ImagesSource( hom2 )
+    ); 
+    return CoincidenceGroupStep3@(
+        RestrictedHomomorphism( hom1, H, G ),
+        RestrictedHomomorphism( hom2, H, G )
+    );
 end;
 
 
@@ -201,12 +197,13 @@ end;
 ## CoincidenceGroupStep1@( hom1, hom2 )
 ##
 CoincidenceGroupStep1@ := function( hom1, hom2 )
-    local H, G, LCS, C, p, q, Coin, hom1r, hom2r;
+    local H, G, A, p, q, Coin, hom1r, hom2r;
     H := Source( hom1 );
     G := Range( hom2 );
-    LCS := LowerCentralSeries( DerivedSubgroup( G ) );
-    C := LCS[Length(LCS)-1];
-    p := NaturalHomomorphismByNormalSubgroupNC( G, C );
+    A := Center( DerivedSubgroup( G ) );
+    # LCS := LowerCentralSeries( DerivedSubgroup( G ) );
+    # C := LCS[Length(LCS)-1];
+    p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );
     Coin:= CoincidenceGroup2( 
         InducedHomomorphism( q, p, hom1 ),
@@ -265,7 +262,7 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     2,
     function( hom1, hom2 )
-        local G, H, M, N;
+        local G, H, M;
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
@@ -275,8 +272,7 @@ InstallMethod(
             not IsNilpotentGroup( G )
         ) then TryNextMethod(); fi;
         M := FittingSubgroup( G );
-        N := IntersectionPreImage@( hom1, hom2, M );
-        return CoincidenceGroupByFiniteQuotient@( hom1, hom2, N, M );
+        return CoincidenceGroupByFiniteQuotient@( hom1, hom2, M );
     end
 );
 
@@ -307,7 +303,7 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     0,
     function( hom1, hom2 )
-        local G, H, M, N;
+        local G, H, M;
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
@@ -316,7 +312,6 @@ InstallMethod(
             not IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
         M := NilpotentByAbelianNormalSubgroup( G );
-        N := IntersectionPreImage@( hom1, hom2, M );
-        return CoincidenceGroupByFiniteQuotient@( hom1, hom2, N, M );
+        return CoincidenceGroupByFiniteQuotient@( hom1, hom2, M );
     end
 );

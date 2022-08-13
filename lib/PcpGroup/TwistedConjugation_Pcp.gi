@@ -1,6 +1,6 @@
 ###############################################################################
 ##
-## RepTwistConjToIdByTrivialSubgroup@( hom1, hom2 )
+## RepTwistConjToIdByTrivialSubgroup@( hom1, hom2, g )
 ##
 RepTwistConjToIdByTrivialSubgroup@ := function( hom1, hom2, g )
     local G, H, N, id, q, hom1HN, hom2HN, qh;
@@ -21,13 +21,14 @@ end;
 
 ###############################################################################
 ##
-## RepTwistConjToIdByFiniteQuotient@( hom1, hom2, g, N, M )
+## RepTwistConjToIdByFiniteQuotient@( hom1, hom2, g, M )
 ##
-RepTwistConjToIdByFiniteQuotient@ := function( hom1, hom2, g, N, M )
-    local G, H, p, q, hom1HN, hom2HN, pg, qh1, Coin, h1, tc, m1, hom1N, hom2N,
-        qh2, h2, m2, n;
+RepTwistConjToIdByFiniteQuotient@ := function( hom1, hom2, g, M )
+    local G, H, N, p, q, hom1HN, hom2HN, pg, qh1, Coin, h1, tc, m1, hom1N,
+        hom2N, qh2, h2, m2, n;
     G := Range( hom1 );
     H := Source( hom1 );
+    N := IntersectionPreImage@( hom1, hom2, M );
     p := NaturalHomomorphismByNormalSubgroupNC( G, M );
     q := NaturalHomomorphismByNormalSubgroupNC( H, N );
     hom1HN := InducedHomomorphism( q, p, hom1 );
@@ -61,82 +62,82 @@ end;
 ## RepTwistConjToIdByCentre@( hom1, hom2, g )
 ##
 RepTwistConjToIdByCentre@ := function( hom1, hom2, g )
-    local G, H, C, p, q, hom1HN, hom2HN, pg, h1, tc, c, Coin, delta, h2;
+    local G, H, C, p, q, hom1p, hom2p, pg, h1, tc, c, Coin, d, h2;
     G := Range( hom1 );
     H := Source( hom1 );
     C := Centre( G );
     p := NaturalHomomorphismByNormalSubgroupNC( G, C );
     q := IdentityMapping( H );
-    hom1HN := InducedHomomorphism( q, p, hom1 );
-    hom2HN := InducedHomomorphism( q, p, hom2 );
+    hom1p := InducedHomomorphism( q, p, hom1 );
+    hom2p := InducedHomomorphism( q, p, hom2 );
     pg := ImagesRepresentative( p, g );
-    h1 := RepTwistConjToId( hom1HN, hom2HN, pg );
+    h1 := RepTwistConjToId( hom1p, hom2p, pg );
     if h1 = fail then
         return fail;
     fi;
     tc := TwistedConjugation( hom1, hom2 );
     c := tc( g, h1 );
-    Coin := CoincidenceGroup2( hom1HN, hom2HN );
-    delta := DifferenceGroupHomomorphisms@ ( hom1, hom2, Coin, G );
-    if not c in ImagesSource( delta ) then
+    Coin := CoincidenceGroup2( hom1p, hom2p );
+    d := DifferenceGroupHomomorphisms@ ( hom1, hom2, Coin, G );
+    if not c in ImagesSource( d ) then
         return fail;
     fi;
-    h2 := PreImagesRepresentative( delta, c );
+    h2 := PreImagesRepresentative( d, c );
     return h1*h2;
 end;
 
 
 ###############################################################################
 ##
-## RepTwistConjToIdStep5@( hom1, hom2, c, C )
+## RepTwistConjToIdStep5@( hom1, hom2, a, A )
 ##
-RepTwistConjToIdStep5@ := function( hom1, hom2, c, C ) 
-    local H, G, h, n, tc, r, s, a, p, q, pa;
+RepTwistConjToIdStep5@ := function( hom1, hom2, a, A ) 
+    local H, G, hi, n, tc, ai, bi, g, p, q, pg;
     H := Source( hom1 );
     G := Range( hom1 );
-    h := SmallGeneratingSet( H );
-    n := Length( h );
+    hi := SmallGeneratingSet( H );
+    n := Length( hi );
     tc := TwistedConjugation( hom1, hom2 );
-    r := List( [1..n], i -> tc( One( G ), h[i]^-1 ) );
-    s := List( [1..n], i -> Comm( ImagesRepresentative( hom2, h[i] )^-1, c^-1 )*r[i] );
-    a := MultipleConjugacySolver@( G, s, r );
-    if a = fail then
+    ai := List( [1..n], i -> tc( One( G ), hi[i]^-1 ) );
+    bi := List( [1..n], i -> Comm( ImagesRepresentative( hom2, hi[i] )^-1, a^-1 )*ai[i] );
+    g := MultipleConjugacySolver@( G, bi, ai );
+    if g = fail then
         return fail;
     fi;
-    p := NaturalHomomorphismByNormalSubgroupNC( G, C );
+    p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );
-    pa := ImagesRepresentative( p, a );
-    return PreImagesRepresentative( InducedHomomorphism( q, p, hom2 ), pa );
+    pg := ImagesRepresentative( p, g );
+    return PreImagesRepresentative( InducedHomomorphism( q, p, hom2 ), pg );
 end;
 
 
 ###############################################################################
 ##
-## RepTwistConjToIdStep4@( hom1, hom2, g, A )
+## RepTwistConjToIdStep4@( hom1, hom2, a, A )
 ##
-RepTwistConjToIdStep4@ := function( hom1, hom2, g, A ) 
-    local G, H, C, p, q, hom1p, hom2p, pg, h1, tc, c, Coin, delta, h2, A2;
+RepTwistConjToIdStep4@ := function( hom1, hom2, a, A ) 
+    local G, H, C, p, q, hom1p, hom2p, pa, A2, h1, tc, c, Coin, delta, h2;
     G := Range( hom1 );
     H := Source( hom1 );
     if IsNilpotentByFinite( G ) then
-        return RepTwistConjToId( hom1, hom2, g );
+        return RepTwistConjToId( hom1, hom2, a );
     fi;
     C := Center( G );
     if IsTrivial( C ) then
-        return RepTwistConjToIdStep5@( hom1, hom2, g, A );
+        return RepTwistConjToIdStep5@( hom1, hom2, a, A );
     fi;
     p := NaturalHomomorphismByNormalSubgroupNC( G, C );
     q := IdentityMapping( H );
     hom1p := InducedHomomorphism( q, p, hom1 );
     hom2p := InducedHomomorphism( q, p, hom2 );
-    pg := ImagesRepresentative( p, g );
-    A2 := ImagesSet( p, A ); #ClosureGroup( A, C ) );
-    h1 := RepTwistConjToIdStep4@( hom1p, hom2p, pg, A2 );
+    pa := ImagesRepresentative( p, a );
+    A2 := ImagesSet( p, A );
+    h1 := RepTwistConjToIdStep4@( hom1p, hom2p, pa, A2 );
     if h1 = fail then
         return fail;
     fi;
     tc := TwistedConjugation( hom1, hom2 );
-    c := tc( g, h1 );
+    c := tc( a, h1 );
     Coin := CoincidenceGroup2( hom1p, hom2p );
     delta := DifferenceGroupHomomorphisms@( hom1, hom2, Coin, G );
     if not c in ImagesSource( delta ) then
@@ -149,14 +150,14 @@ end;
 
 ###############################################################################
 ##
-## RepTwistConjToIdStep3@( hom1, hom2, g, A )
+## RepTwistConjToIdStep3@( hom1, hom2, a, A )
 ##
-RepTwistConjToIdStep3@ := function( hom1, hom2, g, A )
-    local H, G, HH, delta, dHH, p, q, pg, h1, tc, c, h2, A2, hom1p, hom2p;
+RepTwistConjToIdStep3@ := function( hom1, hom2, a, A )
+    local H, G, HH, delta, dHH, p, q, hom1p,hom2p, A2, pa, h1, tc, c, h2;
     H := Source( hom1 );
     G := Range( hom1 );
     if IsNilpotentByFinite( G ) then
-        return RepTwistConjToId( hom1, hom2, g );
+        return RepTwistConjToId( hom1, hom2, a );
     fi;
     HH := DerivedSubgroup( H );
     delta := DifferenceGroupHomomorphisms@( hom1, hom2, HH, G );
@@ -166,13 +167,13 @@ RepTwistConjToIdStep3@ := function( hom1, hom2, g, A )
     hom1p := InducedHomomorphism( q, p, hom1 );
     hom2p := InducedHomomorphism( q, p, hom2 );
     A2 := ImagesSet( p, A );
-    pg := ImagesRepresentative( p, g );
-    h1 := RepTwistConjToIdStep4@( hom1p, hom2p, pg, A2 );
+    pa := ImagesRepresentative( p, a );
+    h1 := RepTwistConjToIdStep4@( hom1p, hom2p, pa, A2 );
     if h1 = fail then
         return fail;
     fi;
     tc := TwistedConjugation( hom1, hom2 );
-    c := tc( g, h1 ); # in aH
+    c := tc( a, h1 );
     h2 := PreImagesRepresentative( delta, c );
     return h1*h2;
 end;
@@ -180,22 +181,22 @@ end;
 
 ###############################################################################
 ##
-## RepTwistConjToIdStep2@( hom1, hom2, g, A )
+## RepTwistConjToIdStep2@( hom1, hom2, a, A )
 ##
-RepTwistConjToIdStep2@ := function( hom1, hom2, g, A )
-    local H, G, img1, img2, Gr, hom1r, hom2r, A2;
+RepTwistConjToIdStep2@ := function( hom1, hom2, a, A )
+    local H, G, img1, img2, Gr, A2, hom1r, hom2r;
     H := Source( hom1 );
     G := Range( hom2 );
     img1 := ImagesSource( hom1 );
     img2 := ImagesSource( hom2 );
     Gr := ClosureGroup( img1, img2 ); 
-    if not g in Gr then
+    if not a in Gr then
         return fail;
     fi;
-    A2 := Intersection( Gr, A );
+    A2 := NormalIntersection( A, Gr );
     hom1r := RestrictedHomomorphism( hom1, H, Gr );
     hom2r := RestrictedHomomorphism( hom2, H, Gr );
-    return RepTwistConjToIdStep3@( hom1r, hom2r, g, A2 );
+    return RepTwistConjToIdStep3@( hom1r, hom2r, a, A2 );
 end;
 
 
@@ -204,12 +205,13 @@ end;
 ## RepTwistConjToIdStep1@( hom1, hom2, g )
 ##
 RepTwistConjToIdStep1@ := function( hom1, hom2, g )
-    local H, G, LCS, C, p, pg, q, hom1p, hom2p, h1, tc, c, Coin, hom1r, hom2r, h2;
+    local H, G, A, p, q, hom1p, hom2p, pg, h1, tc, a, Coin, hom1r, hom2r, h2;
     H := Source( hom1 );
     G := Range( hom2 );
-    LCS := LowerCentralSeries( DerivedSubgroup( G ) );
-    C := LCS[Length(LCS)-1];
-    p := NaturalHomomorphismByNormalSubgroupNC( G, C );
+    A := Center( DerivedSubgroup( G ) );
+    # LCS := LowerCentralSeries( DerivedSubgroup( G ) );
+    # C := LCS[Length(LCS)-1];
+    p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );
     hom1p := InducedHomomorphism( q, p, hom1 );
     hom2p := InducedHomomorphism( q, p, hom2 );
@@ -219,11 +221,11 @@ RepTwistConjToIdStep1@ := function( hom1, hom2, g )
         return fail;
     fi;
     tc := TwistedConjugation( hom1, hom2 );
-    c := tc( g, h1 );
+    a := tc( g, h1 );
     Coin := CoincidenceGroup( hom1p, hom2p );
     hom1r := RestrictedHomomorphism( hom1, Coin, G );
     hom2r := RestrictedHomomorphism( hom2, Coin, G );
-    h2 := RepTwistConjToIdStep2@( hom1r, hom2r, c, C );
+    h2 := RepTwistConjToIdStep2@( hom1r, hom2r, a, A );
     if h2 = fail then
         return fail;
     fi;
@@ -261,7 +263,7 @@ InstallMethod(
       IsMultiplicativeElementWithInverse ],
     3,
     function( hom1, hom2, g )
-        local G, H, M, N;
+        local G, H, M;
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
@@ -281,7 +283,7 @@ InstallMethod(
       IsMultiplicativeElementWithInverse ],
     2,
     function( hom1, hom2, g )
-        local G, H, M, N;
+        local G, H, M;
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
@@ -291,8 +293,7 @@ InstallMethod(
             not IsNilpotentGroup( G )
         ) then TryNextMethod(); fi;
         M := FittingSubgroup( G );
-        N := IntersectionPreImage@( hom1, hom2, M );
-        return RepTwistConjToIdByFiniteQuotient@( hom1, hom2, g, N, M );
+        return RepTwistConjToIdByFiniteQuotient@( hom1, hom2, g, M );
     end
 );
 
@@ -323,7 +324,7 @@ InstallMethod(
       IsMultiplicativeElementWithInverse ],
     0,
     function( hom1, hom2, g )
-        local G, H, M, N;
+        local G, H, M;
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
@@ -332,7 +333,6 @@ InstallMethod(
             not IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
         M := NilpotentByAbelianNormalSubgroup( G );
-        N := IntersectionPreImage@( hom1, hom2, M );
-        return RepTwistConjToIdByFiniteQuotient@( hom1, hom2, g, N, M );
+        return RepTwistConjToIdByFiniteQuotient@( hom1, hom2, g, M );
     end
 );
