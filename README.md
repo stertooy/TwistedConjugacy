@@ -24,7 +24,7 @@ This package requires GAP version 4.11 or later, with the following packages
 The following packages (and their dependencies) are optional, though are
 recommended:
 - AutoDoc ( version >= 2019.09.04 )
-- Polycyclic ( version >= 2.14.1 )
+- Polycyclic ( version >= 2.15.1 )
 
 Note that is recommended to install Polycyclic version >= 2.16, to avoid some
 known bugs which could lead to wrong results. It is also recommended to install
