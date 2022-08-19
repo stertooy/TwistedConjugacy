@@ -16,6 +16,7 @@ jobs:
         include:
           - gap-branch: "master"
             coverage: true
+          - gap-branch: "4.12"
           - gap-branch: "4.11"
             
     container:
@@ -45,6 +46,8 @@ jobs:
       - name: "Upload coverage"
         uses: codecov/codecov-action@v3
         if: ${{ matrix.coverage }}
+        with:
+          fail_ci_if_error: true
 
   manual:
     name: "Build manual"
