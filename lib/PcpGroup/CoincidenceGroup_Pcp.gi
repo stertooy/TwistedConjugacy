@@ -179,15 +179,14 @@ end;
 ## CoincidenceGroupStep2@( hom1, hom2 )
 ##
 CoincidenceGroupStep2@ := function( hom1, hom2 )
-    local H, G;
+    local H, G, A, Gr;
     H := Source( hom1 );
-    G := ClosureGroup(
-        ImagesSource( hom1 ),
-        ImagesSource( hom2 )
-    ); 
+    G := Range( hom1 );
+    A := Center( DerivedSubgroup( G ) );
+    Gr := ClosureGroup( ImagesSource( hom1 ), A );
     return CoincidenceGroupStep3@(
-        RestrictedHomomorphism( hom1, H, G ),
-        RestrictedHomomorphism( hom2, H, G )
+        RestrictedHomomorphism( hom1, H, Gr ),
+        RestrictedHomomorphism( hom2, H, Gr )
     );
 end;
 
@@ -199,7 +198,7 @@ end;
 CoincidenceGroupStep1@ := function( hom1, hom2 )
     local H, G, A, p, q, Coin, hom1r, hom2r;
     H := Source( hom1 );
-    G := Range( hom2 );
+    G := Range( hom1 );
     A := Center( DerivedSubgroup( G ) );
     p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );

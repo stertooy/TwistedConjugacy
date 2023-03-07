@@ -187,19 +187,12 @@ end;
 ## RepTwistConjToIdStep2@( hom1, hom2, a, A )
 ##
 RepTwistConjToIdStep2@ := function( hom1, hom2, a, A )
-    local H, G, img1, img2, Gr, A2, hom1r, hom2r;
+    local H, G, hom1r, hom2r;
     H := Source( hom1 );
-    G := Range( hom2 );
-    img1 := ImagesSource( hom1 );
-    img2 := ImagesSource( hom2 );
-    Gr := ClosureGroup( img1, img2 ); 
-    if not a in Gr then
-        return fail;
-    fi;
-    A2 := NormalIntersection( A, Gr );
-    hom1r := RestrictedHomomorphism( hom1, H, Gr );
-    hom2r := RestrictedHomomorphism( hom2, H, Gr );
-    return RepTwistConjToIdStep3@( hom1r, hom2r, a, A2 );
+    G := ClosureGroup( ImagesSource( hom1 ), A );
+    hom1r := RestrictedHomomorphism( hom1, H, G );
+    hom2r := RestrictedHomomorphism( hom2, H, G );
+    return RepTwistConjToIdStep3@( hom1r, hom2r, a, A );
 end;
 
 
