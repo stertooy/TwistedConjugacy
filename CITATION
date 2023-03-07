@@ -3,15 +3,15 @@ to cite TwistedConjugacy version from this installation
 
 Text:
 
-[Ter22] Tertooy, S., TwistedConjugacy, Computation with twisted conjugacy classes, Version 2.1.0 (2022), GAP package, https://stertooy.github.io/TwistedConjugacy/.
+[Ter23] Tertooy, S., TwistedConjugacy, Computation with twisted conjugacy classes, Version 2.1.0 (2023), GAP package, https://stertooy.github.io/TwistedConjugacy/.
 
 HTML:
 
 <p class='BibEntry'>
-[<span class='BibKey'>Ter22</span>]   <b class='BibAuthor'>Tertooy, S.</b>,
+[<span class='BibKey'>Ter23</span>]   <b class='BibAuthor'>Tertooy, S.</b>,
  <i class='BibTitle'>TwistedConjugacy, Computation with twisted conjugacy classes,
          Version 2.1.0</i>
- (<span class='BibYear'>2022</span>)<br />
+ (<span class='BibYear'>2023</span>)<br />
 (<span class='BibNote'>GAP package</span>),
 <span class='BibHowpublished'><a href="https://stertooy.github.io/TwistedConjugacy/">https://stertooy.github.io/TwistedConjugacy/</a></span>.
 </p>
@@ -26,7 +26,7 @@ BibXML:
          <C>V</C>ersion 2.1.0</title>
   <howpublished><URL>https://stertooy.github.io/TwistedConjugacy/</URL></howpublished>
   <month>Mar</month>
-  <year>2022</year>
+  <year>2023</year>
   <note>GAP package</note>
   <keywords>coincidence group; endomorphism; fixed point group; homomorphism; Reidemeister number; Reidemeister spectrum; Reidemeister zeta function; twisted conjugacy</keywords>
 </misc></entry>
@@ -37,9 +37,9 @@ BibTeX:
   author =           {Tertooy, S.},
   title =            {{TwistedConjugacy}, Computation with twisted conjugacy classes, {V}ersion 2.1.0},
   month =            {Mar},
-  year =             {2022},
+  year =             {2023},
   note =             {GAP package},
   howpublished =     {\href {https://stertooy.github.io/TwistedConjugacy/} {\texttt{https://stertooy.github.io/}\discretionary {}{}{}\texttt{TwistedConjugacy/}}},
   keywords =         {coincidence group; endomorphism; fixed point group; homomorphism; Reidemeister number; Reidemeister spectrum; Reidemeister zeta function; twisted conjugacy},
-  printedkey =       {Ter22}
+  printedkey =       {Ter23}
 }
