@@ -3,7 +3,7 @@ SetPackageInfo( rec(
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
 Version := "2.1.0dev",
-Date := "20/03/2022",
+Date := "07/03/2023",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -68,7 +68,6 @@ Dependencies := rec(
         [ "GAPDoc", "1.6.3" ]
     ],
     SuggestedOtherPackages := [
-        [ "AutoDoc", " 	2019.09.04" ],
         [ "Polycyclic", "2.15.1" ],
     ],
     ExternalConditions := [ ],
@@ -104,7 +103,7 @@ AutoDoc := rec(
             <B>AutoDoc</B> packages.
         """,
         Copyright := """
-            &copyright; 2020-2022 Sam Tertooy <P/>
+            &copyright; 2020-2023 Sam Tertooy <P/>
             The <B>TwistedConjugacy</B> package is free software, it may be
             redistributed and/or modified under the terms and conditions of the
             <URL Text="GNU Public License Version 2">

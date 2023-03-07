@@ -1,11 +1,14 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
-2.1.0 (09/08/2022)
+2.1.0 (07/03/2023)
 ------------------
 
 - Again requires GAP 4.11 or newer, and needed/suggested package versions
-- have been increased accordingly
+  have been increased accordingly
+- AutoDoc removed as suggested package, to prevent this package from being
+  automatically loaded when a user deliberatily wants to load as few packages
+  as necessary
 
 - Many efficiency improvements, both speed- and memory-related. In particular
   calculating Reidemeister spectra of finite groups should be much faster
@@ -13,11 +16,11 @@ This file describes changes in the GAP package TwistedConjugacy.
 - Added RepresentativeAutomorphismClasses, RepresentativesEndomorphismClasses
   and RepresentativesHomomorphismClasses, which can be applied to finite
   groups. They give output similar to GAP's builtin AllHomomorphismClasses
-  function, but should be more efficient
+  function, but should be faster
 
 - Fixed a bug that made ReidemeisterSpectrum not work for the trivial group
 
-- CoincidenceGroup, RepresentativeTwistedConjugation and  IsTwistedConjugate
+- CoincidenceGroup, RepresentativeTwistedConjugation and IsTwistedConjugate
   now work for any pair of endomorphisms between any two polycyclic groups
 - FixedPointGroup now works for any endomorphism of any polycyclic group
 
