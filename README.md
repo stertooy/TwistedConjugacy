@@ -1,5 +1,8 @@
 [![Build Status](https://github.com/sTertooy/TwistedConjugacy/workflows/CI/badge.svg?branch=main)](https://github.com/sTertooy/TwistedConjugacy/actions?query=workflow%3ACI+branch%3Amain)
 [![Code Coverage](https://codecov.io/gh/sTertooy/TwistedConjugacy/branch/main/graph/badge.svg)](https://codecov.io/gh/sTertooy/TwistedConjugacy)
+[![License](https://img.shields.io/badge/license-GPLv2%2B-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+[![Manual](https://img.shields.io/badge/docs-html-blue)](https://stertooy.github.io/TwistedConjugacy/doc/chap0_mj.html)
+[![Release](https://img.shields.io/github/release/stertooy/twistedconjugacy.svg)](https://github.com/stertooy/twistedconjugacy/releases)
 
 The GAP 4 package TwistedConjugacy
 ==================================
