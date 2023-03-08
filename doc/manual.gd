@@ -12,16 +12,16 @@
 #! $$G \times H \to G\colon (g,h) \mapsto g \cdot h = \psi(h)^{-1} g\varphi(h).$$
 #! This group action is called **$(\varphi,\psi)$-twisted conjugation**, and induces an equivalence relation $\sim_{\varphi,\psi}$ on $G$:
 #! $$g_1 \sim_{\varphi,\psi} g_2 \iff \exists h \in H: g_1 \cdot h = g2.$$
-#! The equivalence classes (i.e. the orbits of the action) are called **Reidemeister classes** and the number of Reidemeister classes is called the Reidemeister number $R(\varphi,\psi)$ of the pair $(\varphi,\psi)$.
-#! The stabiliser of the identity $1_G$ for this action is the coincidence group $\mathrm{Coin}(\varphi, \psi )$, i.e. the subgroup of $H$ given by
-#! $$ \mathrm{Coin}(\varphi,\psi) := \{ h \in H \mid \varphi(h) = \psi(h) \}.$$
+#! The equivalence classes (i.e. the orbits of the action) are called **Reidemeister classes** and the number of Reidemeister classes is called the **Reidemeister number** $R(\varphi,\psi)$ of the pair $(\varphi,\psi)$.
+#! The stabiliser of the identity $1_G$ for this action is the **coincidence group** $\mathrm{Coin}(\varphi, \psi )$, i.e. the subgroup of $H$ given by
+#! $$\mathrm{Coin}(\varphi,\psi) := \{ h \in H \mid \varphi(h) = \psi(h) \}.$$
 
 #! <P/> 
 
 #! The <B>TwistedConjugacy</B> package provides methods to calculate Reidemeister classes, Reidemeister numbers and coincidence groups of pairs of group homomorphisms. 
-#! These methods are implemented for finite groups and (infinite) polycyclically presented groups. If $H$ and $G$ are both infinite polycyclically presented groups, then 
+#! These methods are implemented for finite groups and polycyclically presented groups. If $H$ and $G$ are both infinite polycyclically presented groups, then 
 #! some methods in this package are only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
-#! If this is not case, methods may potentially throw an error: "<C>Error, no method found!</C>"
+#! Otherwise, these methods may potentially throw an error: "<C>Error, no method found!</C>"
 
 #! <P/>
 
@@ -59,6 +59,8 @@ DeclareGlobalFunction( "TwistedConjugation" );
 #! @BeginGroup IsTwistedConjugateGroup
 #! @Description
 #! Tests whether the elements <A>g1</A> and <A>g2</A> are twisted conjugate under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ).
+#! <P />
+#! This function relies on the output of <C>RepresentativeTwistedConjugation</C>.
 #! @Arguments hom1[, hom2], g1, g2
 DeclareGlobalFunction( "IsTwistedConjugate" );
 #! @EndGroup
@@ -66,6 +68,10 @@ DeclareGlobalFunction( "IsTwistedConjugate" );
 #! @BeginGroup RepresentativeTwistedConjugationGroup
 #! @Description
 #! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) or returns <K>fail</K> if no such element exists.
+#! <P />
+#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='dt21-a' Where='Algorithm 4'/>.
+#! If $H$ is finite, it relies on a stabiliser-orbit algorithm.
+#! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a'/>, <Cite Key='bkl20-a' Where='Section 5.4'/>, <Cite Key='roma21-a' Where='Section 7'/> and <Cite Key='dt21-a' Where='Algorithm 6'/>.
 #! @Arguments hom1[, hom2], g1, g2
 DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 #! @EndGroup
@@ -118,6 +124,10 @@ DeclareGlobalFunction( "TwistedConjugacyClass" );
 #! @BeginGroup ReidemeisterClassesGroup
 #! @Description
 #! Returns a list containing the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number R( <A>hom1</A>, <A>hom2</A> ) is finite, or returns <K>fail</K> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position.
+#! <P />
+#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='dt21-a' Where='Algorithm 5'/>.
+#! If $G$ and $H$ are finite and $G$ is not abelian, it relies on an orbit-stabiliser algorithm.
+#! Otherwise, it relies on (variants of) the algorithms described in <Cite Key='dt21-a' Where='Algorithm 7'/>.
 #! <P/>
 #! This function is only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
 #! @Arguments hom1[, hom2]
@@ -129,6 +139,10 @@ DeclareGlobalFunction( "TwistedConjugacyClasses" );
 #! @BeginGroup ReidemeisterNumberGroup
 #! @Description
 #! Returns the Reidemeister number of ( <A>hom1</A>, <A>hom2</A> ), i.e. the number of Reidemeister classes.
+#! <P />
+#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='jian83-a' Where='Theorem 2.5'/>.
+#! If $G = H$, $G$ is finite non-abelian and $\psi = \mathrm{id}_G$, it relies on <Cite Key='fh94-a' Where='Theorem 5'/>.
+#! Otherwise, it uses the output of <C>ReidemeisterClasses</C>.
 #! <P />
 #! This function is only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
 #! @Arguments hom1[, hom2]
