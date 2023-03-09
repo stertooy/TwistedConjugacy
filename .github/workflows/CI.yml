@@ -18,12 +18,12 @@ jobs:
             coverage: true
           - gap-branch: "4.12"
           - gap-branch: "4.11"
-            
+
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}-slim
 
     steps:
-    
+
       - name: "Checkout"
         uses: actions/checkout@v3
 
@@ -33,16 +33,16 @@ jobs:
           GAP_FLAGS: "-A"
           COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
-          
+
       - name: "Run package tests with suggested packages"
         uses: sTertooy/gda-test-pkg@v1
         with:
-          COVERAGE: ${{ matrix.coverage }}
-        
+          COVER
+
       - name: "Process coverage"
         uses: stertooy/gda-coverage@v1
         if: ${{ matrix.coverage }}
-        
+
       - name: "Upload coverage"
         uses: codecov/codecov-action@v3
         if: ${{ matrix.coverage }}
@@ -53,10 +53,10 @@ jobs:
     name: "Build manual"
     runs-on: ubuntu-latest
     if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
-    
+
     container:
       image: ghcr.io/stertooy/gda-image:tex-slim
-    
+
     steps:
 
       - name: "Checkout"
@@ -64,7 +64,7 @@ jobs:
 
       - name: "Build manual"
         uses: stertooy/gda-manual@v1
-        
+
       - name: "Upload manual"
         uses: actions/upload-artifact@v3
         with:

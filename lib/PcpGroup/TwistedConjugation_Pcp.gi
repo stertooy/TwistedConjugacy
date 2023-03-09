@@ -91,7 +91,7 @@ end;
 ##
 ## RepTwistConjToIdStep5@( hom1, hom2, a, A )
 ##
-RepTwistConjToIdStep5@ := function( hom1, hom2, a, A ) 
+RepTwistConjToIdStep5@ := function( hom1, hom2, a, A )
     local H, G, hi, n, tc, ai, bi, g, p, q, pg;
     H := Source( hom1 );
     G := Range( hom1 );
@@ -100,7 +100,7 @@ RepTwistConjToIdStep5@ := function( hom1, hom2, a, A )
     tc := TwistedConjugation( hom1, hom2 );
     ai := List( [1..n], i -> tc( One( G ), hi[i]^-1 ) );
     bi := List(
-        [1..n], 
+        [1..n],
         i -> Comm( a, ImagesRepresentative( hom2, hi[i] )^-1 )*ai[i]
     );
     g := MultipleConjugacySolver@( G, bi, ai );
@@ -118,7 +118,7 @@ end;
 ##
 ## RepTwistConjToIdStep4@( hom1, hom2, a, A )
 ##
-RepTwistConjToIdStep4@ := function( hom1, hom2, a, A ) 
+RepTwistConjToIdStep4@ := function( hom1, hom2, a, A )
     local G, H, C, p, q, hom1p, hom2p, pa, A2, h1, tc, c, Coin, delta, h2;
     G := Range( hom1 );
     H := Source( hom1 );

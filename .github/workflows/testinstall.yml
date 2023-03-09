@@ -13,19 +13,19 @@ jobs:
         include:
           - gap-branch: "master"
           - gap-branch: "4.11"
-          
+
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}-slim
-      
+
     steps:
-    
+
       - name: "Checkout"
         uses: actions/checkout@v3
-        
+
       - name: "Run GAP tests with necessary packages"
         uses: sTertooy/gda-test-gap@v1
         with:
           ONLY_NEEDED: true
-          
+
       - name: "Run GAP tests with suggested packages"
         uses: sTertooy/gda-test-gap@v1

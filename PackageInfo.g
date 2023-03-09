@@ -3,7 +3,7 @@ SetPackageInfo( rec(
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
 Version := "2.1.0dev",
-Date := "07/03/2023",
+Date := "14/03/2023",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -87,7 +87,7 @@ Keywords := [
     "Reidemeister zeta function",
     "twisted conjugacy",
 ],
-    
+
 AutoDoc := rec(
     TitlePage := rec(
         Abstract := """

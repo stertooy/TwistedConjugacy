@@ -122,7 +122,7 @@ end;
 ##
 ## CoincidenceGroupStep4@( hom1, hom2 )
 ##
-CoincidenceGroupStep4@ := function( hom1, hom2 ) 
+CoincidenceGroupStep4@ := function( hom1, hom2 )
     local G, H, C, p, q, Coin, d;
     G := Range( hom1 );
     H := Source( hom1 );
@@ -159,7 +159,7 @@ CoincidenceGroupStep3@ := function( hom1, hom2 )
     d := DifferenceGroupHomomorphisms@( hom1, hom2, HH, G );
     p := NaturalHomomorphismByNormalSubgroupNC( G, ImagesSource( d ) );
     q := IdentityMapping( H );
-    Coin := CoincidenceGroupStep4@( 
+    Coin := CoincidenceGroupStep4@(
         InducedHomomorphism( q, p, hom1 ),
         InducedHomomorphism( q, p, hom2 )
     );
@@ -202,7 +202,7 @@ CoincidenceGroupStep1@ := function( hom1, hom2 )
     A := Center( DerivedSubgroup( G ) );
     p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );
-    Coin:= CoincidenceGroup2( 
+    Coin:= CoincidenceGroup2(
         InducedHomomorphism( q, p, hom1 ),
         InducedHomomorphism( q, p, hom2 )
     );
