@@ -63,15 +63,22 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-    GAP := ">= 4.11",
+    GAP := ">= 4.13",
     NeededOtherPackages := [
-        [ "GAPDoc", "1.6.3" ]
+        [ "GAPDoc", "1.6.6" ]
     ],
     SuggestedOtherPackages := [
-        [ "Polycyclic", "2.15.1" ],
+        [ "Polycyclic", "2.16" ],
     ],
     ExternalConditions := [ ],
 ),
+
+Extensions := [
+    rec(
+        needed := [ [ "Polycyclic", "2.16" ] ],
+        filename := "read_pcpgroup.g"
+    )
+],
 
 AvailabilityTest := ReturnTrue,
 
