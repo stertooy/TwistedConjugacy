@@ -37,7 +37,7 @@ jobs:
       - name: "Run package tests with suggested packages"
         uses: sTertooy/gda-test-pkg@v1
         with:
-          COVER
+          COVERAGE: ${{ matrix.coverage }}
 
       - name: "Process coverage"
         uses: stertooy/gda-coverage@v1
