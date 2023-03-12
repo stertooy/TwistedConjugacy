@@ -60,7 +60,10 @@ InstallOtherMethod(
         ) then TryNextMethod(); fi;
         return Number(
             ConjugacyClasses( G ),
-            c -> ImagesRepresentative( endo, Representative( c ) ) in AsList( c )
+            c -> ImagesRepresentative(
+                endo,
+                Representative( c )
+            ) in AsList( c )
         );
     end
 );

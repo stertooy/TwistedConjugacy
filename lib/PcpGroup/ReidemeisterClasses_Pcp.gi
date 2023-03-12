@@ -21,8 +21,8 @@ end;
 ##
 ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, M )
     local G, H, N, p, q, GM, hom1p, hom2p, RclGM, Rcl, hom1N, hom2N, pg,
-        inn_pg, Coin, g, conj_g, inn_g_hom1N, RclM, igRclM, inn_g, tc, m1,
-        isNew, qh, h, m2;
+          inn_pg, Coin, g, conj_g, inn_g_hom1N, RclM, igRclM, inn_g, tc, m1,
+          isNew, qh, h, m2;
     G := Range( hom1 );
     H := Source( hom1 );
     N := IntersectionPreImage@( hom1, hom2, M );
@@ -84,7 +84,7 @@ end;
 ##
 ReidemeisterClassesByCentre@ := function( hom1, hom2 )
     local G, H, C, p, q, hom1p, hom2p, RclGM, GM, Rcl, foundOne, pg, inn_pg,
-        Coin, g, inn_g, d, r, coker, rm, m;
+          Coin, g, inn_g, d, r, coker, rm, m;
     G := Range( hom1 );
     H := Source( hom1 );
     C := Center( G );

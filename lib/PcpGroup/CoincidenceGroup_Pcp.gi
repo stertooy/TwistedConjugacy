@@ -23,7 +23,7 @@ end;
 ##
 CoincidenceGroupByFiniteQuotient@ := function( hom1, hom2, M )
     local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, igs, pcgs, orbit, l, i, qh,
-        pos, j, h, stab, n;
+          pos, j, h, stab, n;
     G := Range( hom1 );
     H := Source( hom1 );
     N := IntersectionPreImage@( hom1, hom2, M );

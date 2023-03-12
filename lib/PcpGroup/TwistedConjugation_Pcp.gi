@@ -25,7 +25,7 @@ end;
 ##
 RepTwistConjToIdByFiniteQuotient@ := function( hom1, hom2, g, M )
     local G, H, N, p, q, hom1HN, hom2HN, pg, qh1, Coin, h1, tc, m1, hom1N,
-        hom2N, qh2, h2, m2, n;
+          hom2N, qh2, h2, m2, n;
     G := Range( hom1 );
     H := Source( hom1 );
     N := IntersectionPreImage@( hom1, hom2, M );

@@ -38,44 +38,45 @@ InstallGlobalFunction(
 ## KernelsOfHomomorphismClasses@( H, KerOrbits, ImgOrbits )
 ##
 KernelsOfHomomorphismClasses@ := function( H, KerOrbits, ImgOrbits )
-        local AutH, asAuto, Pairs, Heads, Isos, i, N, p, Q, j, M, iso, kerOrbit, possibleImgs;
-        AutH := AutomorphismGroup( H );
-        asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
-        Pairs := [];
-        Heads := [];
-        Isos := [];
-        for i in [ 1 .. Size( KerOrbits ) ] do
-            if not IsBound( KerOrbits[i] ) then
-                continue;
-            fi;
-            kerOrbit := KerOrbits[i];
-            N := kerOrbit[1];
-            possibleImgs := Filtered(
-                [ 1 .. Size( ImgOrbits ) ], j ->
-                Size( ImgOrbits[j][1] ) = IndexNC( H, N )
-            );
-            if IsEmpty( possibleImgs ) then
-                continue;
-            fi;
-            Isos[i] := [];
-            p := NaturalHomomorphismByNormalSubgroupNC( H, N );
-            Q := ImagesSource( p );
-            p := RestrictedHomomorphism( p, H, Q );
-            for j in possibleImgs do
-                M := ImgOrbits[j][1];
-                iso := IsomorphismGroups( Q, M );
-                if iso <> fail then
-                    Isos[i][j] := p*iso;
-                    Add( Pairs, [ i, j ] );
-                fi;
-            od;
-            if not IsEmpty( SetX( Pairs, x -> x[1] = i, x -> x[1] ) ) then
-                Heads[i] := List(
-                    kerOrbit,
-                    x -> RepresentativeAction( AutH, N, x, asAuto )
-                );
+    local AutH, asAuto, Pairs, Heads, Isos, i, N, p, Q, j, M, iso, kerOrbit,
+          possibleImgs;
+    AutH := AutomorphismGroup( H );
+    asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
+    Pairs := [];
+    Heads := [];
+    Isos := [];
+    for i in [ 1 .. Size( KerOrbits ) ] do
+        if not IsBound( KerOrbits[i] ) then
+            continue;
+        fi;
+        kerOrbit := KerOrbits[i];
+        N := kerOrbit[1];
+        possibleImgs := Filtered(
+            [ 1 .. Size( ImgOrbits ) ], j ->
+            Size( ImgOrbits[j][1] ) = IndexNC( H, N )
+        );
+        if IsEmpty( possibleImgs ) then
+            continue;
+        fi;
+        Isos[i] := [];
+        p := NaturalHomomorphismByNormalSubgroupNC( H, N );
+        Q := ImagesSource( p );
+        p := RestrictedHomomorphism( p, H, Q );
+        for j in possibleImgs do
+            M := ImgOrbits[j][1];
+            iso := IsomorphismGroups( Q, M );
+            if iso <> fail then
+                Isos[i][j] := p*iso;
+                Add( Pairs, [ i, j ] );
             fi;
         od;
+        if not IsEmpty( SetX( Pairs, x -> x[1] = i, x -> x[1] ) ) then
+            Heads[i] := List(
+                kerOrbit,
+                x -> RepresentativeAction( AutH, N, x, asAuto )
+            );
+        fi;
+    od;
     return [ Pairs, Heads, Isos ];
 end;
 
@@ -343,7 +344,7 @@ InstallMethod(
     0,
     function( H, G )
         local asAuto, AutH, AutG, gensAutG, gensAutH, Conj, c, r, ImgReps,
-            ImgOrbits, KerOrbits, Pairs, Heads, Tails, Isos, KerInfo, Reps;
+              ImgOrbits, KerOrbits, Pairs, Heads, Tails, Isos, KerInfo, Reps;
 
         # Step 1: Determine automorphism groups of H and G
         asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
@@ -448,7 +449,7 @@ InstallMethod(
     0,
     function( G )
         local asAuto, AutG, gensAutG, Conj, c, r, norm, SubReps, SubOrbits,
-            Pairs, Reps, i, Tails, Isos, KerInfo, KerOrbits;
+              Pairs, Reps, i, Tails, Isos, KerInfo, KerOrbits;
 
         # Step 1: Determine automorphism group of G
         asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
