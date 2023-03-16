@@ -1,11 +1,11 @@
   
   [1X1 [33X[0;0YPreface[133X[101X
   
-  [33X[0;0YLet  [23XG,  H[123X be groups and [23X\varphi,\psi: H \to G[123X group homomorphisms. Then the
-  pair [23X(\varphi,\psi)[123X induces a (right) group action on [23XG[123X given by[133X
+  [33X[0;0YLet  [23XG, H[123X be groups and [23X\varphi,\psi\colon H \to G[123X group homomorphisms. Then
+  the pair [23X(\varphi,\psi)[123X induces a (right) group action on [23XG[123X given by[133X
   
   
-  [24X[33X[0;6YG \times H \to G: (g,h) \mapsto g \cdot h = \psi(h)^{-1} g\varphi(h).[133X
+  [24X[33X[0;6YG \times H \to G\colon (g,h) \mapsto g \cdot h = \psi(h)^{-1} g\varphi(h).[133X
   
   [124X
   
@@ -19,8 +19,8 @@
   
   [33X[0;0YThe  equivalence  classes  (i.e.  the  orbits  of  the  action)  are  called
   [13XReidemeister  classes[113X  and  the number of Reidemeister classes is called the
-  Reidemeister   number   [23XR(\varphi,\psi)[123X  of  the  pair  [23X(\varphi,\psi)[123X.  The
-  stabiliser  of  the  identity  [23X1_G[123X  for this action is the coincidence group
+  [13XReidemeister   number[113X   [23XR(\varphi,\psi)[123X  of  the  pair  [23X(\varphi,\psi)[123X.  The
+  stabiliser  of  the  identity  [23X1_G[123X  for this action is the [13Xcoincidence group[113X
   [23X\mathrm{Coin}(\varphi, \psi )[123X, i.e. the subgroup of [23XH[123X given by[133X
   
   
@@ -28,16 +28,11 @@
   
   [124X
   
-  [33X[0;0YThe  [12XTwistedConjugacy[112X  packageprovides  methods  to  calculate  Reidemeister
+  [33X[0;0YThe  [12XTwistedConjugacy[112X  package  provides  methods  to calculate Reidemeister
   classes,  Reidemeister  numbers  and  coincidence  groups  of pairs of group
   homomorphisms.   These   methods  are  implemented  for  finite  groups  and
-  (infinite)  polycyclically  presented  groups.  If [23XH[123X and [23XG[123X are both infinite
-  polycyclically  presented  groups,  then many of the methods in this package
-  are  only guaranteed to produce a result if either [23XG = H[123X and [23XR(\varphi,\psi)[123X
-  is  finite,  or  [23XG[123X  is nilpotent-by-finite. If this is not case, methods may
-  either  produce  a  (correct!)  result, or throw an error: "[10XError, no method
-  found![110X"[133X
-  
-  [33X[0;0YThe  methods  in  this  package  are  based  on algorithms and theorems from
-  [Fel00], [Rom16], [DT21], [Ter21a] and [Ter21b].[133X
+  polycyclically presented groups. If [23XH[123X and [23XG[123X are both infinite polycyclically
+  presented  groups,  then some methods in this package are only guaranteed to
+  produce  a  result  if  either [23XG = H[123X or [23XG[123X is nilpotent-by-finite. Otherwise,
+  these methods may potentially throw an error: "[10XError, no method found![110X"[133X
   

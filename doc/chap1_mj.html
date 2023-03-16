@@ -29,21 +29,19 @@
 
 <h3>1 <span class="Heading">Preface</span></h3>
 
-<p>Let <span class="SimpleMath">\(G, H\)</span> be groups and <span class="SimpleMath">\(\varphi,\psi: H \to G\)</span> group homomorphisms. Then the pair <span class="SimpleMath">\((\varphi,\psi)\)</span> induces a (right) group action on <span class="SimpleMath">\(G\)</span> given by</p>
+<p>Let <span class="SimpleMath">\(G, H\)</span> be groups and <span class="SimpleMath">\(\varphi,\psi\colon H \to G\)</span> group homomorphisms. Then the pair <span class="SimpleMath">\((\varphi,\psi)\)</span> induces a (right) group action on <span class="SimpleMath">\(G\)</span> given by</p>
 
-<p class="center">\[G \times H \to G: (g,h) \mapsto g \cdot h = \psi(h)^{-1} g\varphi(h).\]</p>
+<p class="center">\[G \times H \to G\colon (g,h) \mapsto g \cdot h = \psi(h)^{-1} g\varphi(h).\]</p>
 
 <p>This group action is called <em><span class="SimpleMath">\((\varphi,\psi)\)</span>-twisted conjugation</em>, and induces an equivalence relation <span class="SimpleMath">\(\sim_{\varphi,\psi}\)</span> on <span class="SimpleMath">\(G\)</span>:</p>
 
 <p class="center">\[g_1 \sim_{\varphi,\psi} g_2 \iff \exists h \in H: g_1 \cdot h = g2.\]</p>
 
-<p>The equivalence classes (i.e. the orbits of the action) are called <em>Reidemeister classes</em> and the number of Reidemeister classes is called the Reidemeister number <span class="SimpleMath">\(R(\varphi,\psi)\)</span> of the pair <span class="SimpleMath">\((\varphi,\psi)\)</span>. The stabiliser of the identity <span class="SimpleMath">\(1_G\)</span> for this action is the coincidence group <span class="SimpleMath">\(\mathrm{Coin}(\varphi, \psi )\)</span>, i.e. the subgroup of <span class="SimpleMath">\(H\)</span> given by</p>
+<p>The equivalence classes (i.e. the orbits of the action) are called <em>Reidemeister classes</em> and the number of Reidemeister classes is called the <em>Reidemeister number</em> <span class="SimpleMath">\(R(\varphi,\psi)\)</span> of the pair <span class="SimpleMath">\((\varphi,\psi)\)</span>. The stabiliser of the identity <span class="SimpleMath">\(1_G\)</span> for this action is the <em>coincidence group</em> <span class="SimpleMath">\(\mathrm{Coin}(\varphi, \psi )\)</span>, i.e. the subgroup of <span class="SimpleMath">\(H\)</span> given by</p>
 
-<p class="center">\[ \mathrm{Coin}(\varphi,\psi) := \{ h \in H \mid \varphi(h) = \psi(h) \}.\]</p>
+<p class="center">\[\mathrm{Coin}(\varphi,\psi) := \{ h \in H \mid \varphi(h) = \psi(h) \}.\]</p>
 
-<p>The <strong class="button">TwistedConjugacy</strong> packageprovides methods to calculate Reidemeister classes, Reidemeister numbers and coincidence groups of pairs of group homomorphisms. These methods are implemented for finite groups and (infinite) polycyclically presented groups. If <span class="SimpleMath">\(H\)</span> and <span class="SimpleMath">\(G\)</span> are both infinite polycyclically presented groups, then many of the methods in this package are only guaranteed to produce a result if either <span class="SimpleMath">\(G = H\)</span> and <span class="SimpleMath">\(R(\varphi,\psi)\)</span> is finite, or <span class="SimpleMath">\(G\)</span> is nilpotent-by-finite. If this is not case, methods may either produce a (correct!) result, or throw an error: "<code class="code">Error, no method found!</code>"</p>
-
-<p>The methods in this package are based on algorithms and theorems from <a href="chapBib_mj.html#biBfels00-1">[Fel00]</a>, <a href="chapBib_mj.html#biBroma16-1">[Rom16]</a>, <a href="chapBib_mj.html#biBdt20-1">[DT21]</a>, <a href="chapBib_mj.html#biBtert21-2">[Ter21a]</a> and <a href="chapBib_mj.html#biBtert21-1">[Ter21b]</a>.</p>
+<p>The <strong class="button">TwistedConjugacy</strong> package provides methods to calculate Reidemeister classes, Reidemeister numbers and coincidence groups of pairs of group homomorphisms. These methods are implemented for finite groups and polycyclically presented groups. If <span class="SimpleMath">\(H\)</span> and <span class="SimpleMath">\(G\)</span> are both infinite polycyclically presented groups, then some methods in this package are only guaranteed to produce a result if either <span class="SimpleMath">\(G = H\)</span> or <span class="SimpleMath">\(G\)</span> is nilpotent-by-finite. Otherwise, these methods may potentially throw an error: "<code class="code">Error, no method found!</code>"</p>
 
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Next Chapter]</a>&nbsp;  </div>

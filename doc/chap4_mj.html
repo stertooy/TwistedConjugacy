@@ -8,7 +8,7 @@
 <script type="text/javascript"
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
-<title>GAP (TwistedConjugacy) - Chapter 4: Miscellaneous</title>
+<title>GAP (TwistedConjugacy) - Chapter 4: Homomorphisms</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="GAPDoc2HTML" />
 <link rel="stylesheet" type="text/css" href="manual.css" />
@@ -23,32 +23,129 @@
 <div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
 
 <p id="mathjaxlink" class="pcenter"><a href="chap4.html">[MathJax off]</a></p>
-<p><a id="X7C5563A37D566DA5" name="X7C5563A37D566DA5"></a></p>
-<div class="ChapSects"><a href="chap4_mj.html#X7C5563A37D566DA5">4 <span class="Heading">Miscellaneous</span></a>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X8084A06782AE362E">4.1 <span class="Heading">Induced and restricted group homomorphisms</span></a>
+<p><a id="X84975388859F203D" name="X84975388859F203D"></a></p>
+<div class="ChapSects"><a href="chap4_mj.html#X84975388859F203D">4 <span class="Heading">Homomorphisms</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X80DDEC8C82E2A4F1">4.1 <span class="Heading">Representatives of homomorphisms between groups</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7F6D0625837B7B94">4.1-1 InducedHomomorphism</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7DBA352982923900">4.1-2 RestrictedHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X78ADEE0C83819159">4.1-1 RepresentativesAutomorphismClasses</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7A7935B286050886">4.1-2 RepresentativesEndomorphismClasses</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X81E5CF92816BF199">4.1-3 RepresentativesHomomorphismClasses</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X8164A34A86155DFB">4.2 <span class="Heading">Coincidence and Fixed Point Groups</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X799546928394FF8B">4.2-1 FixedPointGroup</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X780DF6247E3E9190">4.2-2 CoincidenceGroup</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X8084A06782AE362E">4.3 <span class="Heading">Induced and restricted group homomorphisms</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7F6D0625837B7B94">4.3-1 InducedHomomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7DBA352982923900">4.3-2 RestrictedHomomorphism</a></span>
 </div></div>
 </div>
 
-<h3>4 <span class="Heading">Miscellaneous</span></h3>
+<h3>4 <span class="Heading">Homomorphisms</span></h3>
+
+<p><a id="X80DDEC8C82E2A4F1" name="X80DDEC8C82E2A4F1"></a></p>
+
+<h4>4.1 <span class="Heading">Representatives of homomorphisms between groups</span></h4>
+
+<p>Please note that the functions below are only implemented for finite groups.</p>
+
+<p><a id="X78ADEE0C83819159" name="X78ADEE0C83819159"></a></p>
+
+<h5>4.1-1 RepresentativesAutomorphismClasses</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RepresentativesAutomorphismClasses</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Let <var class="Arg">G</var> be a group. This command returns a list of the automorphisms of <var class="Arg">G</var> up to composition with inner automorphisms.</p>
+
+<p><a id="X7A7935B286050886" name="X7A7935B286050886"></a></p>
+
+<h5>4.1-2 RepresentativesEndomorphismClasses</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RepresentativesEndomorphismClasses</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Let <var class="Arg">G</var> be a group. This command returns a list of the endomorphisms of <var class="Arg">G</var> up to composition with inner automorphisms. This does the same as calling <code class="code">AllHomomorphismClasses(<var class="Arg">G</var>,<var class="Arg">G</var>)</code>, but should be faster for abelian and non-2-generated groups. For 2-generated groups, this function takes its source code from <code class="code">AllHomomorphismClasses</code>.</p>
+
+<p><a id="X81E5CF92816BF199" name="X81E5CF92816BF199"></a></p>
+
+<h5>4.1-3 RepresentativesHomomorphismClasses</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RepresentativesHomomorphismClasses</code>( <var class="Arg">H</var>, <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Let <var class="Arg">G</var> and <var class="Arg">H</var> be groups. This command returns a list of the homomorphisms from <var class="Arg">H</var> to <var class="Arg">G</var>, up to composition with inner automorphisms of <var class="Arg">G</var>. This does the same as calling <code class="code">AllHomomorphismClasses(<var class="Arg">H</var>,<var class="Arg">G</var>)</code>, but should be faster for abelian and non-2-generated groups. For 2-generated groups, this function takes its source code from <code class="code">AllHomomorphismClasses</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := AlternatingGroup( 6 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Auts := RepresentativesAutomorphismClasses( G );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size( Auts );</span>
+4
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ForAll( Auts, IsGroupHomomorphism and IsEndoMapping and IsBijective );</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Ends := RepresentativesEndomorphismClasses( G );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size( Ends );</span>
+5
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ForAll( Ends, IsGroupHomomorphism and IsEndoMapping );</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H := SymmetricGroup( 5 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Homs := RepresentativesHomomorphismClasses( H, G );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size( Homs );</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ForAll( Homs, IsGroupHomomorphism );</span>
+true
+</pre></div>
+
+<p><a id="X8164A34A86155DFB" name="X8164A34A86155DFB"></a></p>
+
+<h4>4.2 <span class="Heading">Coincidence and Fixed Point Groups</span></h4>
+
+<p><a id="X799546928394FF8B" name="X799546928394FF8B"></a></p>
+
+<h5>4.2-1 FixedPointGroup</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FixedPointGroup</code>( <var class="Arg">endo</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Let <var class="Arg">endo</var> be an endomorphism of a group G. This command returns the subgroup of G consisting of the elements fixed under the endomorphism <var class="Arg">endo</var>.</p>
+
+<p>This function does the same as <code class="code">CoincidenceGroup</code>(<var class="Arg">endo</var>,<span class="SimpleMath">\(\mathrm{id}_G\)</span>).</p>
+
+<p><a id="X780DF6247E3E9190" name="X780DF6247E3E9190"></a></p>
+
+<h5>4.2-2 CoincidenceGroup</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CoincidenceGroup</code>( <var class="Arg">hom1</var>, <var class="Arg">hom2</var>[, <var class="Arg">...</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Let <var class="Arg">hom1</var>, <var class="Arg">hom2</var>, ... be group homomorphisms from a group H to a group G. This command returns the subgroup of H consisting of the elements h for which h^<var class="Arg">hom1</var> = h^<var class="Arg">hom2</var> = ...</p>
+
+<p>For infinite non-abelian groups, this function relies on a mixture of the algorithms described in <a href="chapBib_mj.html#biBroma16-a">[Rom16, Theorem 2]</a>, <a href="chapBib_mj.html#biBbkl20-a">[BKL+20, Section 5.4]</a> and <a href="chapBib_mj.html#biBroma21-a">[Rom21, Section 7]</a>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">phi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (1,2,6,3,5), (1,4,5) ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FixedPointGroup( phi );</span>
+Group([ (1,2,6,4,3) ])
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (1,4)(3,6), () ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (1,2)(3,4), () ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CoincidenceGroup( psi, khi );</span>
+Group([ (1,2,3,4,5), (1,3,4,5,2) ])
+</pre></div>
 
 <p><a id="X8084A06782AE362E" name="X8084A06782AE362E"></a></p>
 
-<h4>4.1 <span class="Heading">Induced and restricted group homomorphisms</span></h4>
+<h4>4.3 <span class="Heading">Induced and restricted group homomorphisms</span></h4>
 
 <p><a id="X7F6D0625837B7B94" name="X7F6D0625837B7B94"></a></p>
 
-<h5>4.1-1 InducedHomomorphism</h5>
+<h5>4.3-1 InducedHomomorphism</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InducedHomomorphism</code>( <var class="Arg">epi1</var>, <var class="Arg">epi2</var>, <var class="Arg">hom</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Let <var class="Arg">hom</var> be a group homomorphism from a group H to a group G, let <var class="Arg">epi1</var> be an epimorphism from H to a group Q and let <var class="Arg">epi2</var> be an epimorphism from G to a group P such that the kernel of <var class="Arg">epi1</var> is mapped into the kernel of <var class="Arg">epi2</var> by <var class="Arg">hom</var>. This command returns the homomorphism from Q to P induced by <var class="Arg">hom</var> via <var class="Arg">epi1</var> and <var class="Arg">epi2</var>, that is, the homomorphism from Q to P which maps h<code class="code">^<var class="Arg">epi1</var></code> to <code class="code">(</code>h<code class="code">^<var class="Arg">hom</var>)^<var class="Arg">epi2</var></code>, for any element h of H. This generalises <code class="code">InducedAutomorphism</code> to homomorphisms.</p>
 
 <p><a id="X7DBA352982923900" name="X7DBA352982923900"></a></p>
 
-<h5>4.1-2 RestrictedHomomorphism</h5>
+<h5>4.3-2 RestrictedHomomorphism</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RestrictedHomomorphism</code>( <var class="Arg">hom</var>, <var class="Arg">N</var>, <var class="Arg">M</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Let <var class="Arg">hom</var> be a group homomorphism from a group H to a group G, and let <var class="Arg">N</var> be subgroup of H such that its image under <var class="Arg">hom</var> is a subgroup of <var class="Arg">M</var>. This command returns the homomorphism from N to M induced by <var class="Arg">hom</var>. This is similar to <code class="code">RestrictedMapping</code>, but the range is explicitly set to <var class="Arg">M</var>.</p>
@@ -58,13 +155,17 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := ExamplesOfSomePcpGroups( 5 );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">phi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3, G.4 ],</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^2, G.4^-1  ] );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N := DerivedSubgroup(G);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N := DerivedSubgroup( G );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">p := NaturalHomomorphismByNormalSubgroup( G, N );</span>
 [ g1, g2, g3, g4, g2^2, g3^2, g4^2 ] -&gt; [ g1, g2, g3, g4, id, id, id ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">InducedHomomorphism( p, p, phi );</span>
-[ g1, g2, g3, g4 ] -&gt; [ g1*g4, g3, g2, g4 ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RestrictedEndomorphism( phi, N, N );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ind := InducedHomomorphism( p, p, phi );</span>
+[ g1, g2, g3 ] -&gt; [ g1*g4, g3, g2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Source( ind ) = Range( p ) and Range( ind ) = Range( p );</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">res := RestrictedHomomorphism( phi, N, N );</span>
 [ g2^2, g3^2, g4^2 ] -&gt; [ g3^2, g2^2*g3^4*g4^8, g4^-2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Source( res ) = N and Range( res ) = N;</span>
+true
 </pre></div>
 
 
