@@ -23,7 +23,7 @@ end;
 ##
 CoincidenceGroupByFiniteQuotient@ := function( hom1, hom2, M )
     local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, igs, pcgs, orbit, l, i, qh,
-        pos, j, h, stab, n;
+          pos, j, h, stab, n;
     G := Range( hom1 );
     H := Source( hom1 );
     N := IntersectionPreImage@( hom1, hom2, M );
@@ -122,7 +122,7 @@ end;
 ##
 ## CoincidenceGroupStep4@( hom1, hom2 )
 ##
-CoincidenceGroupStep4@ := function( hom1, hom2 ) 
+CoincidenceGroupStep4@ := function( hom1, hom2 )
     local G, H, C, p, q, Coin, d;
     G := Range( hom1 );
     H := Source( hom1 );
@@ -159,7 +159,7 @@ CoincidenceGroupStep3@ := function( hom1, hom2 )
     d := DifferenceGroupHomomorphisms@( hom1, hom2, HH, G );
     p := NaturalHomomorphismByNormalSubgroupNC( G, ImagesSource( d ) );
     q := IdentityMapping( H );
-    Coin := CoincidenceGroupStep4@( 
+    Coin := CoincidenceGroupStep4@(
         InducedHomomorphism( q, p, hom1 ),
         InducedHomomorphism( q, p, hom2 )
     );
@@ -179,15 +179,14 @@ end;
 ## CoincidenceGroupStep2@( hom1, hom2 )
 ##
 CoincidenceGroupStep2@ := function( hom1, hom2 )
-    local H, G;
+    local H, G, A, Gr;
     H := Source( hom1 );
-    G := ClosureGroup(
-        ImagesSource( hom1 ),
-        ImagesSource( hom2 )
-    ); 
+    G := Range( hom1 );
+    A := Center( DerivedSubgroup( G ) );
+    Gr := ClosureGroup( ImagesSource( hom1 ), A );
     return CoincidenceGroupStep3@(
-        RestrictedHomomorphism( hom1, H, G ),
-        RestrictedHomomorphism( hom2, H, G )
+        RestrictedHomomorphism( hom1, H, Gr ),
+        RestrictedHomomorphism( hom2, H, Gr )
     );
 end;
 
@@ -199,11 +198,11 @@ end;
 CoincidenceGroupStep1@ := function( hom1, hom2 )
     local H, G, A, p, q, Coin, hom1r, hom2r;
     H := Source( hom1 );
-    G := Range( hom2 );
+    G := Range( hom1 );
     A := Center( DerivedSubgroup( G ) );
     p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );
-    Coin:= CoincidenceGroup2( 
+    Coin:= CoincidenceGroup2(
         InducedHomomorphism( q, p, hom1 ),
         InducedHomomorphism( q, p, hom2 )
     );

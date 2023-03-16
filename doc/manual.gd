@@ -8,24 +8,21 @@
 #! @ChapterLabel preface
 #! @ChapterTitle Preface
 
-#! Let $G, H$ be groups and $\varphi,\psi: H \to G$ group homomorphisms. Then the pair $(\varphi,\psi)$ induces a (right) group action on $G$ given by
-#! $$G \times H \to G: (g,h) \mapsto g \cdot h = \psi(h)^{-1} g\varphi(h).$$
+#! Let $G, H$ be groups and $\varphi,\psi\colon H \to G$ group homomorphisms. Then the pair $(\varphi,\psi)$ induces a (right) group action on $G$ given by
+#! $$G \times H \to G\colon (g,h) \mapsto g \cdot h = \psi(h)^{-1} g\varphi(h).$$
 #! This group action is called **$(\varphi,\psi)$-twisted conjugation**, and induces an equivalence relation $\sim_{\varphi,\psi}$ on $G$:
 #! $$g_1 \sim_{\varphi,\psi} g_2 \iff \exists h \in H: g_1 \cdot h = g2.$$
-#! The equivalence classes (i.e. the orbits of the action) are called **Reidemeister classes** and the number of Reidemeister classes is called the Reidemeister number $R(\varphi,\psi)$ of the pair $(\varphi,\psi)$.
-#! The stabiliser of the identity $1_G$ for this action is the coincidence group $\mathrm{Coin}(\varphi, \psi )$, i.e. the subgroup of $H$ given by
-#! $$ \mathrm{Coin}(\varphi,\psi) := \{ h \in H \mid \varphi(h) = \psi(h) \}.$$
-
-#! <P/> 
-
-#! The <B>TwistedConjugacy</B> package provides methods to calculate Reidemeister classes, Reidemeister numbers and coincidence groups of pairs of group homomorphisms. 
-#! These methods are implemented for finite groups and (infinite) polycyclically presented groups. If $H$ and $G$ are both infinite polycyclically presented groups, then 
-#! many of the methods in this package are only guaranteed to produce a result if either $G = H$ and $R(\varphi,\psi)$ is finite, or $G$ is nilpotent-by-finite.
-#! If this is not case, methods may either produce a (correct!) result, or throw an error: "<C>Error, no method found!</C>"
+#! The equivalence classes (i.e. the orbits of the action) are called **Reidemeister classes** and the number of Reidemeister classes is called the **Reidemeister number** $R(\varphi,\psi)$ of the pair $(\varphi,\psi)$.
+#! The stabiliser of the identity $1_G$ for this action is the **coincidence group** $\mathrm{Coin}(\varphi, \psi )$, i.e. the subgroup of $H$ given by
+#! $$\mathrm{Coin}(\varphi,\psi) := \{ h \in H \mid \varphi(h) = \psi(h) \}.$$
 
 #! <P/>
 
-#! The methods in this package are based on algorithms and theorems from <Cite Key='fels00-1' />, <Cite Key='eick04-1' />, <Cite Key='roma16-1' />, <Cite Key='dt20-1' />, <Cite Key='tert21-2' /> and <Cite Key='tert21-1' />.
+#! The <B>TwistedConjugacy</B> package provides methods to calculate Reidemeister classes, Reidemeister numbers and coincidence groups of pairs of group homomorphisms.
+#! These methods are implemented for finite groups and polycyclically presented groups. If $H$ and $G$ are both infinite polycyclically presented groups, then
+#! some methods in this package are only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
+#! Otherwise, these methods may potentially throw an error: "<C>Error, no method found!</C>"
+
 
 
 #####
@@ -44,10 +41,10 @@
 ###
 
 #! @Section Twisted Conjugation Action
-#! Let $G, H$ be groups and $\varphi,\psi: H \to G$ group homomorphisms. Then the pair $(\varphi,\psi)$ induces a (right) group action on $G$ given by
-#! $$G \times H \to G: (g,h) \mapsto g \cdot h := \psi(h)^{-1} g\varphi(h).$$
+#! Let $G, H$ be groups and $\varphi,\psi\colon H \to G$ group homomorphisms. Then the pair $(\varphi,\psi)$ induces a (right) group action on $G$ given by
+#! $$G \times H \to G\colon (g,h) \mapsto g \cdot h := \psi(h)^{-1} g\varphi(h).$$
 #! This group action is called **$(\varphi,\psi)$-twisted conjugation**, and induces an equivalence relation on the group $G$. We say that $g_1, g_2 \in G$ are $(\varphi,\psi)$-twisted conjugate, denoted by $g_1 \sim_{\varphi,\psi} g_2$, if and only if there exists some element $h \in H$ such that $g_1 \cdot h = g_2$, or equivalently $g_1 = \psi(h) g_2 \varphi(h)^{-1}$.
-#! <P/>If $\varphi: G \to G$ is an endomorphism of a group $G$, then by **$\varphi$-twisted conjugacy** we mean $(\varphi,\mathrm{id}_G)$-twisted conjugacy. Most functions in this package will allow you to input a single endomorphism instead of a pair of homomorphisms. The "missing" endomorphism will automatically be assumed to be the identity mapping.
+#! <P/>If $\varphi\colon G \to G$ is an endomorphism of a group $G$, then by **$\varphi$-twisted conjugacy** we mean $(\varphi,\mathrm{id}_G)$-twisted conjugacy. Most functions in this package will allow you to input a single endomorphism instead of a pair of homomorphisms. The "missing" endomorphism will automatically be assumed to be the identity mapping.
 
 #! @BeginGroup TwistedConjugationGroup
 #! @Description
@@ -59,6 +56,8 @@ DeclareGlobalFunction( "TwistedConjugation" );
 #! @BeginGroup IsTwistedConjugateGroup
 #! @Description
 #! Tests whether the elements <A>g1</A> and <A>g2</A> are twisted conjugate under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ).
+#! <P />
+#! This function relies on the output of <C>RepresentativeTwistedConjugation</C>.
 #! @Arguments hom1[, hom2], g1, g2
 DeclareGlobalFunction( "IsTwistedConjugate" );
 #! @EndGroup
@@ -66,6 +65,10 @@ DeclareGlobalFunction( "IsTwistedConjugate" );
 #! @BeginGroup RepresentativeTwistedConjugationGroup
 #! @Description
 #! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) or returns <K>fail</K> if no such element exists.
+#! <P />
+#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='dt21-a' Where='Algorithm 4'/>.
+#! If $H$ is finite, it relies on a stabiliser-orbit algorithm.
+#! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Theorem 3'/>, <Cite Key='bkl20-a' Where='Section 5.4'/>, <Cite Key='roma21-a' Where='Section 7'/> and <Cite Key='dt21-a' Where='Algorithm 6'/>.
 #! @Arguments hom1[, hom2], g1, g2
 DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 #! @EndGroup
@@ -76,7 +79,7 @@ H := SymmetricGroup( 5 );;
 phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,2)(3,4), () ] );;
 psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,4)(3,6), () ] );; 
+ [ (1,4)(3,6), () ] );;
 tc := TwistedConjugation( phi, psi );;
 g1 := (4,6,5);;
 g2 := (1,6,4,2)(3,5);;
@@ -118,6 +121,12 @@ DeclareGlobalFunction( "TwistedConjugacyClass" );
 #! @BeginGroup ReidemeisterClassesGroup
 #! @Description
 #! Returns a list containing the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number R( <A>hom1</A>, <A>hom2</A> ) is finite, or returns <K>fail</K> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position.
+#! <P />
+#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='dt21-a' Where='Algorithm 5'/>.
+#! If $G$ and $H$ are finite and $G$ is not abelian, it relies on an orbit-stabiliser algorithm.
+#! Otherwise, it relies on (variants of) <Cite Key='dt21-a' Where='Algorithm 7'/>.
+#! <P/>
+#! This function is only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
 #! @Arguments hom1[, hom2]
 DeclareGlobalFunction( "ReidemeisterClasses" );
 #! @Arguments hom1[, hom2]
@@ -127,6 +136,12 @@ DeclareGlobalFunction( "TwistedConjugacyClasses" );
 #! @BeginGroup ReidemeisterNumberGroup
 #! @Description
 #! Returns the Reidemeister number of ( <A>hom1</A>, <A>hom2</A> ), i.e. the number of Reidemeister classes.
+#! <P />
+#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='jian83-a' Where='Theorem 2.5'/>.
+#! If $G = H$, $G$ is finite non-abelian and $\psi = \mathrm{id}_G$, it relies on <Cite Key='fh94-a' Where='Theorem 5'/>.
+#! Otherwise, it uses the output of <C>ReidemeisterClasses</C>.
+#! <P />
+#! This function is only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
 #! @Arguments hom1[, hom2]
 DeclareGlobalFunction( "ReidemeisterNumber" );
 #! @Arguments hom1[, hom2]
@@ -165,16 +180,20 @@ NrTwistedConjugacyClasses( phi, psi );
 ###
 
 #! @Section Reidemeister Spectra
-#! The set of all Reidemeister numbers of automorphisms is called the **Reidemeister spectrum** and is denoted by $\mathrm{Spec}_R(G)$, i.e. 
+#! The set of all Reidemeister numbers of automorphisms is called the **Reidemeister spectrum** and is denoted by $\mathrm{Spec}_R(G)$, i.e.
 #! $$\mathrm{Spec}_R(G) := \{ R(\varphi) \mid \varphi \in \mathrm{Aut}(G)\}.$$
-#! The set of all Reidemeister numbers of endomorphisms is called the **extended Reidemeister spectrum** and is denoted by $\mathrm{ESpec}_R(G)$, i.e. 
+#! The set of all Reidemeister numbers of endomorphisms is called the **extended Reidemeister spectrum** and is denoted by $\mathrm{ESpec}_R(G)$, i.e.
 #! $$\mathrm{ESpec}_R(G) := \{ R(\varphi) \mid \varphi \in \mathrm{End}(G)\}.$$
-#! The set of all Reidemeister numbers of pairs of homomorphisms from a group $H$ to a group $G$ is called the **coincidence Reidemeister spectrum** of $H$ and $G$ and is denoted by $\mathrm{CSpec}_R(H,G)$, i.e. 
+#! The set of all Reidemeister numbers of pairs of homomorphisms from a group $H$ to a group $G$ is called the **coincidence Reidemeister spectrum** of $H$ and $G$ and is denoted by $\mathrm{CSpec}_R(H,G)$, i.e.
 #! $$\mathrm{CSpec}_R(H,G) := \{ R(\varphi, \psi) \mid \varphi,\psi \in \mathrm{Hom}(H,G)\}.$$
 #! If <A>H</A> = <A>G</A> this is also denoted by $\mathrm{CSpec}_R(G)$.
+#! <P/>
+#! Please note that the functions below are only implemented for finite groups.
 
 #! @Description
 #! Returns the Reidemeister spectrum of <A>G</A>.
+#! <P />
+#! If $G$ is abelian, this function relies on the results from <Cite Key='send22-a'/>.
 #! @Arguments G
 DeclareGlobalFunction( "ReidemeisterSpectrum" );
 
@@ -209,8 +228,9 @@ CoincidenceReidemeisterSpectrum( G, H );
 ###
 
 #! @Section Reidemeister Zeta Functions
-#! Let $\varphi,\psi: G \to G$ be endomorphisms such that $R(\varphi^n,\psi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the **Reidemeister zeta function** $Z_{\varphi,\psi}(s)$ of the pair $(\varphi,\psi)$ is defined as
+#! Let $\varphi,\psi\colon G \to G$ be endomorphisms such that $R(\varphi^n,\psi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the **Reidemeister zeta function** $Z_{\varphi,\psi}(s)$ of the pair $(\varphi,\psi)$ is defined as
 #! $$Z_{\varphi,\psi}(s) := \exp \sum_{n=1}^\infty \frac{R(\varphi^n,\psi^n)}{n} s^n.$$
+#! <P/>
 #! Please note that the functions below are only implemented for endomorphisms of finite groups.
 
 #! @BeginGroup ReidemeisterZetaCoefficientsGroup
@@ -239,7 +259,7 @@ DeclareGlobalFunction( "ReidemeisterZeta" );
 #! @BeginGroup PrintReidemeisterZetaGroup
 #! @Description
 #! Returns a string describing the Reidemeister zeta function of <A>endo1</A> and <A>endo2</A>. This is often more readable than evaluating <C>ReidemeisterZeta</C> in an indeterminate, and does not require rationality.
-#! @Arguments endo1[, endo2] 
+#! @Arguments endo1[, endo2]
 DeclareGlobalFunction( "PrintReidemeisterZeta" );
 #! @EndGroup
 
@@ -277,8 +297,8 @@ PrintReidemeisterZeta( khi );
 ###
 
 #! @Section The Multiple Twisted Conjugacy Problem
-#! Let $H$ and $G_1, \ldots, G_n$ be groups. For each $i \in \{1,\ldots,n\}$, let $g_i,g_i' \in G_i$ and let $\varphi_i,\psi_i: H \to G_i$ be group homomorphisms. The multiple twisted conjugacy problem is the problem of finding some $h \in H$ such that $g_i = \psi_i(h)g_i'\varphi_i(h)^{-1}$ for all $i \in \{1,\ldots,n\}$.
-#! 
+#! Let $H$ and $G_1, \ldots, G_n$ be groups. For each $i \in \{1,\ldots,n\}$, let $g_i,g_i' \in G_i$ and let $\varphi_i,\psi_i\colon H \to G_i$ be group homomorphisms.
+#! The multiple twisted conjugacy problem is the problem of finding some $h \in H$ such that $g_i = \psi_i(h)g_i'\varphi_i(h)^{-1}$ for all $i \in \{1,\ldots,n\}$.
 
 #! @Description
 #! Verifies whether the multiple twisted conjugacy problem for the given homomorphisms and elements has a solution.
@@ -296,18 +316,18 @@ DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 H := SymmetricGroup( 5 );;
 G := AlternatingGroup( 6 );;
 tau := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,3)(4,6), () ] );; 
+ [ (1,3)(4,6), () ] );;
 phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,2)(3,6), () ] );; 
+ [ (1,2)(3,6), () ] );;
 psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,4)(3,6), () ] );; 
+ [ (1,4)(3,6), () ] );;
 khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,2)(3,4), () ] );;
-IsTwistedConjugate( [ tau, phi ], [ psi, khi ], [ (1,5)(4,6), (1,4)(3,5) ],
- [ (1,4,5,3,6), (2,4,5,6,3) ] );
+IsTwistedConjugate( [ tau, phi ], [ psi, khi ],
+ [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );
 #! true
-RepresentativeTwistedConjugation( [ tau, phi ], [ psi, khi ], [ (1,5)(4,6), (1,4)(3,5) ],
- [ (1,4,5,3,6), (2,4,5,6,3) ] );
+RepresentativeTwistedConjugation( [ tau, phi ], [ psi, khi ],
+ [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );
 #! (1,2)
 #! @EndExample
 
@@ -330,19 +350,24 @@ RepresentativeTwistedConjugation( [ tau, phi ], [ psi, khi ], [ (1,5)(4,6), (1,4
 
 #! @Section Representatives of homomorphisms between groups
 
+#! Please note that the functions below are only implemented for finite groups.
 
 #! @Description
-#! Let <A>G</A> be a group. This command returns a list of the automorphisms of <A>G</A> up to composition with inner automorphisms. 
+#! Let <A>G</A> be a group. This command returns a list of the automorphisms of <A>G</A> up to composition with inner automorphisms.
 #! @Arguments G
 DeclareGlobalFunction( "RepresentativesAutomorphismClasses" );
 
 #! @Description
-#! Let <A>G</A> be a group. This command returns a list of the endomorphisms of <A>G</A> up to composition with inner automorphisms. This is essentially the same as calling <C>AllHomomorphismClasses(<A>G</A>,<A>G</A>)</C>, but should be much faster for large groups.
+#! Let <A>G</A> be a group. This command returns a list of the endomorphisms of <A>G</A> up to composition with inner automorphisms.
+#! This does the same as calling <C>AllHomomorphismClasses(<A>G</A>,<A>G</A>)</C>, but should be faster for abelian and non-2-generated groups.
+#! For 2-generated groups, this function takes its source code from <C>AllHomomorphismClasses</C>.
 #! @Arguments G
 DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
 
 #! @Description
-#! Let <A>G</A> and <A>H</A> be groups. This command returns a list of the homomorphisms from <A>H</A> to <A>G</A>, up to composition with inner automorphisms of <A>G</A>. This is essentially the same as calling <C>AllHomomorphismClasses(<A>H</A>,<A>G</A>)</C>, but should be much faster for large groups.
+#! Let <A>G</A> and <A>H</A> be groups. This command returns a list of the homomorphisms from <A>H</A> to <A>G</A>, up to composition with inner automorphisms of <A>G</A>.
+#! This does the same as calling <C>AllHomomorphismClasses(<A>H</A>,<A>G</A>)</C>, but should be faster for abelian and non-2-generated groups.
+#! For 2-generated groups, this function takes its source code from <C>AllHomomorphismClasses</C>.
 #! @Arguments H, G
 DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 
@@ -375,11 +400,15 @@ ForAll( Homs, IsGroupHomomorphism );
 
 #! @Description
 #! Let <A>endo</A> be an endomorphism of a group G. This command returns the subgroup of G consisting of the elements fixed under the endomorphism <A>endo</A>.
+#! <P />
+#! This function does the same as <C>CoincidenceGroup</C>(<A>endo</A>,$\mathrm{id}_G$).
 #! @Arguments endo
 DeclareGlobalFunction( "FixedPointGroup" );
 
 #! @Description
 #! Let <A>hom1</A>, <A>hom2</A>, ... be group homomorphisms from a group H to a group G. This command returns the subgroup of H consisting of the elements h for which h^<A>hom1</A> = h^<A>hom2</A> = ...
+#! <P />
+#! For infinite non-abelian groups, this function relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Theorem 2'/>, <Cite Key='bkl20-a' Where='Section 5.4'/> and <Cite Key='roma21-a' Where='Section 7'/>.
 #! @Arguments hom1, hom2[, ...]
 DeclareGlobalFunction( "CoincidenceGroup" );
 
@@ -389,7 +418,7 @@ phi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],
 FixedPointGroup( phi );
 #! Group([ (1,2,6,4,3) ])
 psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,4)(3,6), () ] );; 
+ [ (1,4)(3,6), () ] );;
 khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,2)(3,4), () ] );;
 CoincidenceGroup( psi, khi );
@@ -411,7 +440,7 @@ DeclareGlobalFunction( "InducedHomomorphism" );
 #! @Description
 #! Let <A>hom</A> be a group homomorphism from a group H to a group G, and let <A>N</A> be subgroup of H such that its image under <A>hom</A> is a subgroup of <A>M</A>. This command returns the homomorphism from N to M induced by <A>hom</A>. This is similar to <C>RestrictedMapping</C>, but the range is explicitly set to <A>M</A>.
 #! @Arguments hom, N, M
-DeclareGlobalFunction( "RestrictedHomomorphism" ); 
+DeclareGlobalFunction( "RestrictedHomomorphism" );
 
 #! @BeginExample
 G := ExamplesOfSomePcpGroups( 5 );;

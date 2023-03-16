@@ -35,7 +35,6 @@ InstallMethod(
     [ IsGroup and IsFinite and IsAbelian ],
     2,
     function( G )
-        # Proven by P. Senden
         local ord, pow, inv, m, fac;
         ord := Size( G );
         pow := Log2Int( ord );
