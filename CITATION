@@ -10,7 +10,7 @@ BibLaTeX:
 
 @Software{ TwistedConjugacy2.1.0,
     author     = {Tertooy, Sam},
-    date       = {2023-03-14},
+    date       = {2023-03},
     title      = {TwistedConjugacy},
     subtitle   = {Computation with twisted conjugacy classes},
     version    = {2.1.0},
