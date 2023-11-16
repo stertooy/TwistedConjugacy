@@ -77,10 +77,38 @@ InstallMethod(
     [ IsGroup and IsFinite ],
     0,
     function( G )
-        return Set(
-            RepresentativesConjClassesOutAuto@( G ),
-            ReidemeisterNumberOp
-        );
+        local Aut, gens, conjG, kG, aut, img, i, g, j, S, conjS, c, s, SpecR;
+        Aut := AutomorphismGroup( G );
+        gens := [];
+        conjG := ConjugacyClasses( G );
+        kG := Length( conjG );
+        SpecR := [];
+        for aut in GeneratorsOfGroup( Aut ) do
+            if (
+                HasIsInnerAutomorphism( aut ) and 
+                IsInnerAutomorphism( aut ) 
+            ) then
+                continue;
+            fi;
+            img := [];
+            for i in [1..kG] do
+                g := Representative( conjG[i] );
+                for j in [1..kG] do
+                    if ImagesRepresentative( aut, g ) in conjG[j] then
+                        Add( img, j );
+                        break;
+                    fi;
+                od;
+            od;
+            AddSet( gens, PermList( img ) );
+        od;
+        S := Group( gens, () );
+        conjS := ConjugacyClasses( S );
+        for c in conjS do
+            s := Representative( c );
+            AddSet( SpecR, kG - NrMovedPoints( s ) );
+        od;
+        return SpecR;
     end
 );
 
