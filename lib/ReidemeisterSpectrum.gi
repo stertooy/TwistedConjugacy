@@ -85,8 +85,8 @@ InstallMethod(
         SpecR := [];
         for aut in GeneratorsOfGroup( Aut ) do
             if (
-                HasIsInnerAutomorphism( aut ) and 
-                IsInnerAutomorphism( aut ) 
+                HasIsInnerAutomorphism( aut ) and
+                IsInnerAutomorphism( aut )
             ) then
                 continue;
             fi;

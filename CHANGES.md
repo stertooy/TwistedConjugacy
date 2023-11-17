@@ -1,6 +1,12 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
+2.2.0 (20XX-YY-ZZ)
+------------------
+
+- ReidemeisterSpectrum much more efficient for (large) non-abelian groups
+
+
 2.1.0 (2023-03-16)
 ------------------
 
