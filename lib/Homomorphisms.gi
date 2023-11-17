@@ -141,21 +141,6 @@ end;
 
 ###############################################################################
 ##
-## RepresentativesConjClassesOutAuto@( G )
-##
-RepresentativesConjClassesOutAuto@ := function( G )
-    local Aut, Inn, p, Out, Out_reps;
-    Aut := AutomorphismGroup( G );
-    Inn := InnerAutomorphismsAutomorphismGroup( Aut );
-    p := NaturalHomomorphismByNormalSubgroupNC( Aut, Inn );
-    Out := ImagesSource( p );
-    Out_reps := List( ConjugacyClasses( Out ), Representative );
-    return List( Out_reps, r -> PreImagesRepresentative( p, r ) );
-end;
-
-
-###############################################################################
-##
 ## RepresentativesHomomorphismClasses2Generated@( G )
 ##
 ##  Note: this is essentially the code of AllHomomorphismClasses, but with some
