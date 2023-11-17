@@ -77,7 +77,7 @@ InstallMethod(
     [ IsGroup and IsFinite ],
     0,
     function( G )
-        local Aut, gens, conjG, kG, aut, img, i, g, j, S, conjS, c, s, SpecR;
+        local Aut, gens, conjG, kG, aut, img, L, i, g, j, S, conjS, s, SpecR;
         Aut := AutomorphismGroup( G );
         gens := [];
         conjG := ConjugacyClasses( G );
@@ -91,21 +91,26 @@ InstallMethod(
                 continue;
             fi;
             img := [];
-            for i in [1..kG] do
-                g := Representative( conjG[i] );
-                for j in [1..kG] do
-                    if ImagesRepresentative( aut, g ) in conjG[j] then
-                        Add( img, j );
+            L := [2..kG];
+            # Skip identity class and final class
+            for i in [2..kG-1] do
+                g := ImagesRepresentative( aut, Representative( conjG[i] ) );
+                for j in L do
+                    if g in conjG[j] then
+                        Add( img, j-1 );
+                        RemoveSet( L, j );
                         break;
                     fi;
                 od;
             od;
+            # Final class is now uniquely determined
+            Add( img, L[1]-1 );
             AddSet( gens, PermList( img ) );
         od;
+        # Group of permutations on non-identity conjugacy classes
         S := Group( gens, () );
-        conjS := ConjugacyClasses( S );
-        for c in conjS do
-            s := Representative( c );
+        conjS := List( ConjugacyClasses( S ), Representative );
+        for s in conjS do
             AddSet( SpecR, kG - NrMovedPoints( s ) );
         od;
         return SpecR;
