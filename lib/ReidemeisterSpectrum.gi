@@ -77,13 +77,25 @@ InstallMethod(
     [ IsGroup and IsFinite ],
     0,
     function( G )
-        local Aut, gens, conjG, kG, aut, img, L, i, g, j, S, conjS, s, SpecR;
+        local Aut, gens, conjG, kG, aut, img, todo, i, g, j, S, s, SpecR,
+              sizes, filt, cur;
         Aut := AutomorphismGroup( G );
         gens := [];
-        conjG := ConjugacyClasses( G );
-        kG := Length( conjG );
         SpecR := [];
+        # Split up conjugacy classes in sizes
+        conjG := List( ConjugacyClasses( G ) );
+        kG := Length( conjG );
+        # Remove conjugacy class of 1, always fixed
+        Remove( conjG, 1 );
+        sizes := [];
+        for s in Set( conjG, Size ) do
+            filt := Filtered( conjG, c -> Size(c) = s );
+            if Length( filt ) > 1 then
+                Add( sizes, filt );
+            fi;
+        od;
         for aut in GeneratorsOfGroup( Aut ) do
+            # Skip if automorphism is known to be inner
             if (
                 HasIsInnerAutomorphism( aut ) and
                 IsInnerAutomorphism( aut )
@@ -91,27 +103,33 @@ InstallMethod(
                 continue;
             fi;
             img := [];
-            L := [2..kG];
-            # Skip identity class and final class
-            for i in [2..kG-1] do
-                g := ImagesRepresentative( aut, Representative( conjG[i] ) );
-                for j in L do
-                    if g in conjG[j] then
-                        Add( img, j-1 );
-                        RemoveSet( L, j );
-                        break;
-                    fi;
+            cur := 0;
+            for s in sizes do
+                # If small enough, this is more efficient time-wise
+                if Size(s[1]) < 100000 then
+                    Perform( s, AsSSortedList );
+                fi;
+                todo := [1..Length(s)];
+                for i in [1..Length(s)-1] do
+                    g := ImagesRepresentative( aut, Representative( s[i] ) );
+                    for j in todo do
+                        if g in s[j] then
+                            Add( img, j + cur );
+                            RemoveSet( todo, j );
+                            break;
+                        fi;
+                    od;
                 od;
+                # Final class is now uniquely determined
+                Add( img, todo[1] + cur );
+                cur := cur + Length(s);
             od;
-            # Final class is now uniquely determined
-            Add( img, L[1]-1 );
             AddSet( gens, PermList( img ) );
         od;
         # Group of permutations on non-identity conjugacy classes
         S := Group( gens, () );
-        conjS := List( ConjugacyClasses( S ), Representative );
-        for s in conjS do
-            AddSet( SpecR, kG - NrMovedPoints( s ) );
+        for s in ConjugacyClasses( S ) do
+            AddSet( SpecR, kG - NrMovedPoints( Representative( s ) ) );
         od;
         return SpecR;
     end
