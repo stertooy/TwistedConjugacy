@@ -77,20 +77,16 @@ InstallMethod(
     [ IsGroup and IsFinite ],
     0,
     function( G )
-        local Aut, gens, conjG, kG, aut, img, todo, i, g, j, S, s, SpecR,
-              sizes, filt, cur, c, pool, id,look,p;
+        local Aut, gens, conjG, kG, pool, i, id, look, aut, img, cur, p, todo,
+              g, j, S, SpecR, s;
         Aut := AutomorphismGroup( G );
         gens := [];
-        SpecR := [];
-        # Split up conjugacy classes in sizes
         conjG := ConjugacyClasses( G );
         kG := Length( conjG );
-        sizes := [];
-        
+        # Split up conjugacy classes
         pool := NewDictionary( [1,2], true );
         for i in [2..kG] do
-            c := conjG[i];
-            id := [ Size( c ), Order( Representative( c ) ) ];
+            id := [ Size( conjG[i] ), Order( Representative( conjG[i] ) ) ];
             look := LookupDictionary( pool, id );
             if look = fail then
                 AddDictionary( pool, id, [i] );
@@ -98,12 +94,7 @@ InstallMethod(
                 Add( look, i );
             fi;
         od;
-        #Print(pool);
-        #for p in pool do
-        #    Print(p," ",LookupDictionary(pool,p),"\n");
-        #od;
-        #return pool;
-        
+        # Calculate induced permutation
         for aut in GeneratorsOfGroup( Aut ) do
             # Skip if automorphism is known to be inner
             if (
@@ -115,14 +106,16 @@ InstallMethod(
             img := [];
             cur := 0;
             for p in pool do
-                #Print(List(s,x->Order(Representative(x))),"\n");
                 # If small enough, this is more efficient time-wise
-                if Size(conjG[p[1]]) < 1000 then
-                    Perform( p, i-> AsSSortedList(conjG[i]) );
+                if Size( conjG[p[1]] ) < 1000 then
+                    Perform( p, i -> AsSSortedList( conjG[i] ) );
                 fi;
                 todo := [1..Length(p)];
                 for i in [1..Length(p)-1] do
-                    g := ImagesRepresentative( aut, Representative( conjG[p[i]] ) );
+                    g := ImagesRepresentative(
+                        aut,
+                        Representative( conjG[p[i]] )
+                    );
                     for j in todo do
                         if g in conjG[p[j]] then
                             Add( img, j + cur );
@@ -137,8 +130,9 @@ InstallMethod(
             od;
             AddSet( gens, PermList( img ) );
         od;
-        # Group of permutations on non-identity conjugacy classes
+        # Group of permutations on conjugacy classes
         S := Group( gens, () );
+        SpecR := [];
         for s in ConjugacyClasses( S ) do
             AddSet( SpecR, kG - NrMovedPoints( Representative( s ) ) );
         od;
