@@ -193,7 +193,7 @@ NrTwistedConjugacyClasses( phi, psi );
 #! @Description
 #! Returns the Reidemeister spectrum of <A>G</A>.
 #! <P />
-#! If $G$ is abelian, this function relies on the results from <Cite Key='send22-a'/>.
+#! If $G$ is abelian, this function relies on the results from <Cite Key='send23-a'/>.
 #! @Arguments G
 DeclareGlobalFunction( "ReidemeisterSpectrum" );
 
