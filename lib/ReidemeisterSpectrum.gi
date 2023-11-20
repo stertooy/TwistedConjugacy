@@ -78,22 +78,32 @@ InstallMethod(
     0,
     function( G )
         local Aut, gens, conjG, kG, aut, img, todo, i, g, j, S, s, SpecR,
-              sizes, filt, cur;
+              sizes, filt, cur, c, pool, id,look,p;
         Aut := AutomorphismGroup( G );
         gens := [];
         SpecR := [];
         # Split up conjugacy classes in sizes
-        conjG := List( ConjugacyClasses( G ) );
+        conjG := ConjugacyClasses( G );
         kG := Length( conjG );
-        # Remove conjugacy class of 1, always fixed
-        Remove( conjG, 1 );
         sizes := [];
-        for s in Set( conjG, Size ) do
-            filt := Filtered( conjG, c -> Size(c) = s );
-            if Length( filt ) > 1 then
-                Add( sizes, filt );
+        
+        pool := NewDictionary( [1,2], true );
+        for i in [2..kG] do
+            c := conjG[i];
+            id := [ Size( c ), Order( Representative( c ) ) ];
+            look := LookupDictionary( pool, id );
+            if look = fail then
+                AddDictionary( pool, id, [i] );
+            else
+                Add( look, i );
             fi;
         od;
+        #Print(pool);
+        #for p in pool do
+        #    Print(p," ",LookupDictionary(pool,p),"\n");
+        #od;
+        #return pool;
+        
         for aut in GeneratorsOfGroup( Aut ) do
             # Skip if automorphism is known to be inner
             if (
@@ -104,16 +114,17 @@ InstallMethod(
             fi;
             img := [];
             cur := 0;
-            for s in sizes do
+            for p in pool do
+                #Print(List(s,x->Order(Representative(x))),"\n");
                 # If small enough, this is more efficient time-wise
-                if Size(s[1]) < 100000 then
-                    Perform( s, AsSSortedList );
+                if Size(conjG[p[1]]) < 1000 then
+                    Perform( p, i-> AsSSortedList(conjG[i]) );
                 fi;
-                todo := [1..Length(s)];
-                for i in [1..Length(s)-1] do
-                    g := ImagesRepresentative( aut, Representative( s[i] ) );
+                todo := [1..Length(p)];
+                for i in [1..Length(p)-1] do
+                    g := ImagesRepresentative( aut, Representative( conjG[p[i]] ) );
                     for j in todo do
-                        if g in s[j] then
+                        if g in conjG[p[j]] then
                             Add( img, j + cur );
                             RemoveSet( todo, j );
                             break;
@@ -122,7 +133,7 @@ InstallMethod(
                 od;
                 # Final class is now uniquely determined
                 Add( img, todo[1] + cur );
-                cur := cur + Length(s);
+                cur := cur + Length(p);
             od;
             AddSet( gens, PermList( img ) );
         od;
