@@ -16,6 +16,25 @@ InstallGlobalFunction(
 ##
 InstallMethod(
     ReidemeisterNumberOp,
+    "for polycyclic-by-finite source and nilpotent-by-finite range",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ],
+    2,
+    function( hom1, hom2 )
+        local G, H;
+        G := Range( hom1 );
+        H := Source( hom1 );
+        if not (
+            IsPolycyclicByFinite( H ) and
+            IsPolycyclicByFinite( G ) and 
+            IsNilpotentByFinite( G ) and
+            HirschLength( H ) < HirschLength( G )
+        ) then TryNextMethod(); fi;
+        return infinity;
+    end
+);
+
+InstallMethod(
+    ReidemeisterNumberOp,
     "for abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     1,
@@ -40,9 +59,8 @@ InstallMethod(
         Rcl := RepresentativesReidemeisterClasses( hom1, hom2 );
         if Rcl <> fail then
             return Size( Rcl );
-        else
-            return infinity;
         fi;
+        return infinity;
     end
 );
 
@@ -58,6 +76,8 @@ InstallOtherMethod(
             IsFinite( G ) and
             not IsAbelian( G )
         ) then TryNextMethod(); fi;
+        # Todo: make help function "ConjugacyClassPool" using code from ReidemeisterSpectrum?
+        # Only check within pools
         return Number(
             ConjugacyClasses( G ),
             c -> ImagesRepresentative(
