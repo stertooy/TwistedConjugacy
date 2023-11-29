@@ -76,14 +76,12 @@ InstallOtherMethod(
             IsFinite( G ) and
             not IsAbelian( G )
         ) then TryNextMethod(); fi;
-        # Todo: make help function "ConjugacyClassPool" using code from ReidemeisterSpectrum?
-        # Only check within pools
         return Number(
             ConjugacyClasses( G ),
             c -> ImagesRepresentative(
                 endo,
                 Representative( c )
-            ) in AsList( c )
+            ) in AsSSortedList( c )
         );
     end
 );

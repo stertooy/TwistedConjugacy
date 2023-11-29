@@ -127,7 +127,7 @@ RepTwistConjToIdStep5@ := function( hom1, hom2, a, A )
         [1..n],
         i -> Comm( a, ImagesRepresentative( hom2, hi[i] )^-1 )*ai[i]
     );
-    g := MultipleConjugacySolver@( G, bi, ai );
+    g := RepresentativeAction( G, bi, ai, OnTuples );
     if g = fail then
         return fail;
     fi;

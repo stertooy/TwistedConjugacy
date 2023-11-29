@@ -2,6 +2,12 @@
 ##
 ## FixedPointGroup( endo )
 ##
+##  INPUT:
+##      endo:       group endomorphism G -> G
+##
+##  OUTPUT:
+##      fix:        subgroup of G consisting of g for which g^phi = g
+##
 InstallGlobalFunction(
     FixedPointGroup,
     function( endo )
@@ -15,6 +21,16 @@ InstallGlobalFunction(
 ###############################################################################
 ##
 ## CoincidenceGroup( hom1, hom2, arg... )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      ...
+##      homN:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      coin:       subgroup of H consisting of h for which
+##                  h^hom1 = h^hom2 = ... = h^homN
 ##
 InstallGlobalFunction(
     CoincidenceGroup,
@@ -37,6 +53,17 @@ InstallGlobalFunction(
 ##
 ## CoincidenceGroupByTrivialSubgroup@( hom1, hom2 )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      coin:       subgroup of H consisting of h for which h^hom1 = h^hom2
+##
+##  REMARKS:
+##      Used for factoring the calculation of Coin(hom1,hom2) through
+##      H -> H/N -> G, with N the intersection of Ker(hom1) and Ker(hom2).
+##
 CoincidenceGroupByTrivialSubgroup@ := function( hom1, hom2 )
     local G, H, N, p, q, Coin;
     G := Range( hom1 );
@@ -55,6 +82,20 @@ end;
 ###############################################################################
 ##
 ## CoincidenceGroupByFiniteQuotient@( hom1, hom2, M )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      M:          normal subgroup of G
+##
+##  OUTPUT:
+##      coin:       subgroup of H consisting of h for which h^hom1 = h^hom2
+##
+##  REMARKS:
+##      Calculates Coin(hom1,hom2) by first calculating Coin(hom1N,hom2N) and
+##      Coin(hom1HN,hom2HN), where hom1N, hom2N: N -> M (with N normal in H)
+##      and hom1HN, hom2HN: H/N -> G/M. Only works if Coin(hom1HN,hom2HN) is
+##      finite.
 ##
 CoincidenceGroupByFiniteQuotient@ := function( hom1, hom2, M )
     local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, qh, gens, func, C;
@@ -93,6 +134,17 @@ end;
 ##
 ## CoincidenceGroupByCentre@( hom1, hom2 )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      coin:       subgroup of H consisting of h for which h^hom1 = h^hom2
+##
+##  REMARKS:
+##      Used for factoring the calculation of Coin(hom1,hom2) through
+##      H -> G -> G/C, with C the centre of G.
+##
 CoincidenceGroupByCentre@ := function( hom1, hom2 )
     local G, H, C, p, q, Coin, diff;
     G := Range( hom1 );
@@ -113,6 +165,21 @@ end;
 ##
 ## CoincidenceGroupStep5@( hom1, hom2 )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      coin:       subgroup of H consisting of h for which h^hom1 = h^hom2
+##
+##  REMARKS:
+##      Assumes the existence of a normal abelian subgroup A of G such that:
+##        - [A,[G,G]] = 1;
+##        - h^hom1 = h^hom2 mod A, for all h in H;
+##        - G = A Im(hom1) = A Im(hom2);
+##        - [H,H] is a subgroup of Coin(hom1,hom2);
+##        - Z(G) = 1.
+##
 CoincidenceGroupStep5@ := function( hom1, hom2 )
     local H, G, hi, n, tc, ai, C, i;
     G := Range( hom1 );
@@ -132,6 +199,20 @@ end;
 ###############################################################################
 ##
 ## CoincidenceGroupStep4@( hom1, hom2 )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      coin:       subgroup of H consisting of h for which h^hom1 = h^hom2
+##
+##  REMARKS:
+##      Assumes the existence of a normal abelian subgroup A of G such that:
+##        - [A,[G,G]] = 1;
+##        - h^hom1 = h^hom2 mod A, for all h in H;
+##        - G = A Im(hom1) = A Im(hom2);
+##        - [H,H] is a subgroup of Coin(hom1,hom2).
 ##
 CoincidenceGroupStep4@ := function( hom1, hom2 )
     local G, H, C, p, q, Coin, d;
@@ -158,6 +239,19 @@ end;
 ###############################################################################
 ##
 ## CoincidenceGroupStep3@( hom1, hom2 )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      coin:       subgroup of H consisting of h for which h^hom1 = h^hom2
+##
+##  REMARKS:
+##      Assumes the existence of a normal abelian subgroup A of G such that:
+##        - [A,[G,G]] = 1;
+##        - h^hom1 = h^hom2 mod A, for all h in H;
+##        - G = A Im(hom1) = A Im(hom2).
 ##
 CoincidenceGroupStep3@ := function( hom1, hom2 )
     local G, H, HH, d, p, q, Coin, ci, n, tc, bi, di, gens1, gens2;
@@ -189,6 +283,18 @@ end;
 ##
 ## CoincidenceGroupStep2@( hom1, hom2 )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      coin:       subgroup of H consisting of h for which h^hom1 = h^hom2
+##
+##  REMARKS:
+##      Assumes the existence of a normal abelian subgroup A of G such that:
+##        - [A,[G,G]] = 1;
+##        - h^hom1 = h^hom2 mod A, for all h in H.
+##
 CoincidenceGroupStep2@ := function( hom1, hom2 )
     local H, G, A, Gr;
     H := Source( hom1 );
@@ -205,6 +311,17 @@ end;
 ###############################################################################
 ##
 ## CoincidenceGroupStep1@( hom1, hom2 )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      coin:       subgroup of H consisting of h for which h^hom1 = h^hom2
+##
+##  REMARKS:
+##      Assumes G is nilpotent-by-abelian, and uses induction on the upper
+##      central series of [G,G].
 ##
 CoincidenceGroupStep1@ := function( hom1, hom2 )
     local H, G, A, p, q, Coin, hom1r, hom2r;
@@ -226,6 +343,13 @@ end;
 ###############################################################################
 ##
 ## CoincidenceGroup2( hom1, hom2 )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      coin:       subgroup of H consisting of h for which h^hom1 = h^hom2
 ##
 InstallMethod(
     CoincidenceGroup2,
