@@ -2,6 +2,14 @@
 ##
 ## InducedHomomorphism( epi1, epi2, hom )
 ##
+##  INPUT:
+##      epi1:       epimorphism H -> H/N
+##      epi2:       epimorphism G -> G/M
+##      hom:        group homomorphism H -> G
+##
+##  OUTPUT:
+##      hom2:       induced group homomorphism H/N -> G/M
+##
 InstallGlobalFunction(
     InducedHomomorphism,
     function( epi1, epi2, hom )
@@ -22,6 +30,14 @@ InstallGlobalFunction(
 ##
 ## RestrictedHomomorphism( hom, N, M )
 ##
+##  INPUT:
+##      hom:        group homomorphism H -> G
+##      N:          subgroup of H
+##      M:          subgroup of G
+##
+##  OUTPUT:
+##      hom2:       restricted group homomorphism N -> M
+##
 InstallGlobalFunction(
     RestrictedHomomorphism,
     function( hom, N, M )
@@ -29,6 +45,52 @@ InstallGlobalFunction(
         gens := SmallGeneratingSet( N );
         imgs := List( gens, n -> ImagesRepresentative( hom, n ) );
         return GroupHomomorphismByImagesNC( N, M, gens, imgs );
+    end
+);
+
+
+###############################################################################
+##
+## RepresentativesHomomorphismClasses( H, G )
+##
+InstallGlobalFunction(
+    RepresentativesHomomorphismClasses,
+    function( H, G )
+        IsFinite( H );
+        IsAbelian( H );
+        IsCyclic( H );
+        IsTrivial( H );
+        IsFinite( G );
+        IsAbelian( G );
+        IsTrivial( G );
+        return RepresentativesHomomorphismClassesOp( H, G );
+    end
+);
+
+
+###############################################################################
+##
+## RepresentativesEndomorphismClasses( H, G )
+##
+InstallGlobalFunction(
+    RepresentativesEndomorphismClasses,
+    function( G )
+        IsFinite( G );
+        IsAbelian( G );
+        IsTrivial( G );
+        return RepresentativesEndomorphismClassesOp( G );
+    end
+);
+
+
+###############################################################################
+##
+## RepresentativesAutomorphismClasses( G )
+##
+InstallGlobalFunction(
+    RepresentativesAutomorphismClasses,
+    function( G )
+        return RepresentativesAutomorphismClassesOp( G );
     end
 );
 
@@ -218,23 +280,7 @@ RepresentativesHomomorphismClassesAbelian@ := function( H, G )
 end;
 
 
-###############################################################################
-##
-## RepresentativesHomomorphismClasses( H, G )
-##
-InstallGlobalFunction(
-    RepresentativesHomomorphismClasses,
-    function( H, G )
-        IsFinite( H );
-        IsAbelian( H );
-        IsCyclic( H );
-        IsTrivial( H );
-        IsFinite( G );
-        IsAbelian( G );
-        IsTrivial( G );
-        return RepresentativesHomomorphismClassesOp( H, G );
-    end
-);
+
 
 
 ###############################################################################
@@ -245,7 +291,7 @@ InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for trivial source",
     [ IsGroup and IsFinite and IsTrivial, IsGroup and IsFinite ],
-    3*SUM_FLAGS+4,
+    4*SUM_FLAGS+5,
     function( H, G )
         if not IsTrivial( H ) then TryNextMethod(); fi;
         return [ GroupHomomorphismByImagesNC(
@@ -376,26 +422,11 @@ InstallMethod(
 
 ###############################################################################
 ##
-## RepresentativesEndomorphismClasses( H, G )
-##
-InstallGlobalFunction(
-    RepresentativesEndomorphismClasses,
-    function( G )
-        IsFinite( G );
-        IsAbelian( G );
-        IsTrivial( G );
-        return RepresentativesEndomorphismClassesOp( G );
-    end
-);
-
-
-###############################################################################
-##
 ## RepresentativesEndomorphismClassesOp( G )
 ##
 InstallMethod(
     RepresentativesEndomorphismClassesOp,
-    "for trivial group",
+    "for trivial groups",
     [ IsGroup and IsTrivial ],
     2*SUM_FLAGS+3,
     function( G )
@@ -408,7 +439,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesEndomorphismClassesOp,
-    "for finite abelian group",
+    "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian ],
     SUM_FLAGS+2,
     function( G )
@@ -418,7 +449,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesEndomorphismClassesOp,
-    "for finite 2-generated group",
+    "for finite 2-generated groups",
     [ IsGroup and IsFinite ],
     1,
     function( G )
@@ -429,7 +460,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesEndomorphismClassesOp,
-    "for abitrary finite group",
+    "for abitrary finite groups",
     [ IsGroup and IsFinite ],
     0,
     function( G )
@@ -487,23 +518,21 @@ InstallMethod(
 
 ###############################################################################
 ##
-## RepresentativesAutomorphismClasses( G )
-##
-InstallGlobalFunction(
-    RepresentativesAutomorphismClasses,
-    function( G )
-        return RepresentativesAutomorphismClassesOp( G );
-    end
-);
-
-
-###############################################################################
-##
 ## RepresentativesAutomorphismClassesOp( G )
 ##
 InstallMethod(
     RepresentativesAutomorphismClassesOp,
-    [ IsGroup ],
+    "for finite abelian groups",
+    [ IsGroup and IsFinite and IsAbelian ],
+    function( G )
+        return List( AutomorphismGroup( G ) );
+    end
+);
+
+InstallMethod(
+    RepresentativesAutomorphismClassesOp,
+    "for arbitrary finite groups",
+    [ IsGroup and IsFinite ],
     function( G )
         local AutG, InnG;
         AutG := AutomorphismGroup( G );
