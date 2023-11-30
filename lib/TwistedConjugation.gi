@@ -497,8 +497,8 @@ InstallOtherMethod(
         H := Source( hom1 );
         if not (
             not IsFinite( H ) and
-            IsFinite( G ) and
-            not IsTrivial( G )
+            IsPolycyclicByFinite( H ) and
+            IsFinite( G )
         ) then TryNextMethod(); fi;
         return RepTwistConjToIdByTrivialSubgroup@( hom1, hom2, g );
     end
@@ -514,7 +514,11 @@ InstallOtherMethod(
         local G, H, diff;
         G := Range( hom1 );
         H := Source( hom1 );
-        if not IsAbelian( G ) then TryNextMethod(); fi;
+        if not (
+            IsPolycyclicByFinite( H ) and
+            IsPolycyclicByFinite( G ) and
+            IsAbelian( G )
+        ) then TryNextMethod(); fi;
         diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
         if not g in ImagesSource( diff ) then
             return fail;
@@ -571,7 +575,7 @@ InstallOtherMethod(
 
 InstallOtherMethod(
     RepresentativeTwistedConjugationOp,
-    "for finitely generated nilpotent range",
+    "for nilpotent range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     3,
@@ -580,7 +584,8 @@ InstallOtherMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
-            IsFinitelyGeneratedGroup( G ) and
+            IsPolycyclicByFinite( H ) and
+            IsPolycyclicByFinite( G ) and
             IsNilpotentGroup( G ) and
             not IsAbelian( G )
         ) then TryNextMethod(); fi;
@@ -590,7 +595,7 @@ InstallOtherMethod(
 
 InstallOtherMethod(
     RepresentativeTwistedConjugationOp,
-    "for finitely generated nilpotent-by-finite range",
+    "for nilpotent-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     2,
@@ -599,7 +604,8 @@ InstallOtherMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
-            IsFinitelyGeneratedGroup( G ) and
+            IsPolycyclicByFinite( H ) and
+            IsPolycyclicByFinite( G ) and
             IsNilpotentByFinite( G ) and
             not IsNilpotentGroup( G )
         ) then TryNextMethod(); fi;
@@ -610,7 +616,7 @@ InstallOtherMethod(
 
 InstallOtherMethod(
     RepresentativeTwistedConjugationOp,
-    "for finitely generated source and polycyclic nilpotent-by-abelian range",
+    "for nilpotent-by-abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     1,
@@ -619,8 +625,8 @@ InstallOtherMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
-            IsFinitelyGeneratedGroup( H ) and
-            IsPolycyclicGroup( G ) and
+            IsPolycyclicByFinite( H ) and
+            IsPolycyclicByFinite( G ) and
             IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
         return RepTwistConjToIdStep1@( hom1, hom2, g );
@@ -629,7 +635,7 @@ InstallOtherMethod(
 
 InstallOtherMethod(
     RepresentativeTwistedConjugationOp,
-    "for finitely generated source and polycyclic-by-finite range",
+    "for polycyclic-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     0,
@@ -638,7 +644,7 @@ InstallOtherMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
-            IsFinitelyGeneratedGroup( H ) and
+            IsPolycyclicByFinite( H ) and
             IsPolycyclicByFinite( G ) and
             not IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
