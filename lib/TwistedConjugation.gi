@@ -2,6 +2,13 @@
 ##
 ## TwistedConjugation( hom1, arg... )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G (optional)
+##
+##  OUTPUT:
+##      tc:         function (g,h) -> (h^hom2)^-1 * g * (h^hom1)
+##
 InstallGlobalFunction(
     TwistedConjugation,
     function( hom1, arg... )
@@ -24,7 +31,81 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
+## IsTwistedConjugate( hom1, hom2, g1, g2 )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G (optional)
+##      g1:         element of G
+##      g2:         element of G (optional)
+##
+##  OUTPUT:
+##      bool:       true if there exists an element h of H such that
+##                  (h^hom2)^-1 * g_1 * h^hom1 = g_2, or false otherwise.
+##
+##  REMARKS:
+##      If no hom2 is given, it is assumed that hom1 is an endomorphism G -> G
+##      and hom2 is assumed to be the identity mapping of G. If no g2 is given,
+##      it is assumed to be 1.
+##
+InstallGlobalFunction(
+    IsTwistedConjugate,
+    function( arg... )
+        return CallFuncList( RepresentativeTwistedConjugation, arg ) <> fail;
+    end
+);
+
+
+###############################################################################
+##
+## RepresentativeTwistedConjugation( hom1, hom2, g1, g2 )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G (optional)
+##      g1:         element of G
+##      g2:         element of G (optional)
+##
+##  OUTPUT:
+##      h:          element of H such that (h^hom2)^-1 * g_1 * h^hom1 = g_2, or
+##                  fail if no such element exists
+##
+##  REMARKS:
+##      If no hom2 is given, it is assumed that hom1 is an endomorphism G -> G
+##      and hom2 is assumed to be the identity mapping of G. If no g2 is given,
+##      it is assumed to be 1.
+##
+InstallGlobalFunction(
+    RepresentativeTwistedConjugation,
+    function( arg... )
+        local G;
+        if Length( arg ) < 4 then
+            G := Range( arg[1] );
+            if arg[2] in G then
+                Add( arg, IdentityMapping( G ), 2 );
+            fi;
+        fi;
+        return CallFuncList( RepresentativeTwistedConjugationOp, arg );
+    end
+);
+
+
+###############################################################################
+##
 ## RepTwistConjToIdByTrivialSubgroup@( hom1, hom2, g )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      g:          element of G
+##
+##  OUTPUT:
+##      h:          element of H such that (h^hom2)^-1 * g * h^hom1 = 1, or
+##                  fail if no such element exists
+##
+##  REMARKS:
+##      Used for factoring the calculation of h through
+##      H -> H/N -> G, with N the intersection of Ker(hom1) and Ker(hom2).
 ##
 RepTwistConjToIdByTrivialSubgroup@ := function( hom1, hom2, g )
     local G, H, N, id, q, hom1HN, hom2HN, qh;
@@ -35,7 +116,7 @@ RepTwistConjToIdByTrivialSubgroup@ := function( hom1, hom2, g )
     q := NaturalHomomorphismByNormalSubgroupNC( H, N );
     hom1HN := InducedHomomorphism( q, id, hom1 );
     hom2HN := InducedHomomorphism( q, id, hom2 );
-    qh := RepTwistConjToId( hom1HN, hom2HN, g );
+    qh := RepresentativeTwistedConjugationOp( hom1HN, hom2HN, g );
     if qh = fail then
         return fail;
     fi;
@@ -46,6 +127,21 @@ end;
 ###############################################################################
 ##
 ## RepTwistConjToIdByFiniteQuotient@( hom1, hom2, g, M )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      g:          element of G
+##      M:          normal subgroup of G
+##
+##  OUTPUT:
+##      h:          element of H such that (h^hom2)^-1 * g * h^hom1 = 1, or
+##                  fail if no such element exists
+##
+##  REMARKS:
+##      Calculates h by first calculating translating the problem to hom1N,
+##      hom2N: N -> M (with N normal in H) and hom1HN, hom2HN: H/N -> G/M. Only
+##      works if Coin(hom1HN,hom2HN) is finite.
 ##
 RepTwistConjToIdByFiniteQuotient@ := function( hom1, hom2, g, M )
     local G, H, N, p, q, hom1HN, hom2HN, pg, qh1, Coin, h1, tc, m1, hom1N,
@@ -58,7 +154,7 @@ RepTwistConjToIdByFiniteQuotient@ := function( hom1, hom2, g, M )
     hom1HN := InducedHomomorphism( q, p, hom1 );
     hom2HN := InducedHomomorphism( q, p, hom2 );
     pg := ImagesRepresentative( p, g );
-    qh1 := RepTwistConjToId( hom1HN, hom2HN, pg );
+    qh1 := RepresentativeTwistedConjugationOp( hom1HN, hom2HN, pg );
     if qh1 = fail then
         return fail;
     fi;
@@ -72,7 +168,7 @@ RepTwistConjToIdByFiniteQuotient@ := function( hom1, hom2, g, M )
     for qh2 in Coin do
         h2 := PreImagesRepresentative( q, qh2 );
         m2 := tc( m1, h2 );
-        n := RepTwistConjToId( hom1N, hom2N, m2 );
+        n := RepresentativeTwistedConjugationOp( hom1N, hom2N, m2 );
         if n <> fail then
             return h1*h2*n;
         fi;
@@ -85,6 +181,19 @@ end;
 ##
 ## RepTwistConjToIdByCentre@( hom1, hom2, g )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      g:          element of G
+##
+##  OUTPUT:
+##      h:          element of H such that (h^hom2)^-1 * g * h^hom1 = 1, or
+##                  fail if no such element exists
+##
+##  REMARKS:
+##      Used for factoring the calculation of h through H -> G -> G/C, with C
+##      the centre of G.
+##
 RepTwistConjToIdByCentre@ := function( hom1, hom2, g )
     local G, H, C, p, q, hom1p, hom2p, pg, h1, tc, c, Coin, d, h2;
     G := Range( hom1 );
@@ -95,7 +204,7 @@ RepTwistConjToIdByCentre@ := function( hom1, hom2, g )
     hom1p := InducedHomomorphism( q, p, hom1 );
     hom2p := InducedHomomorphism( q, p, hom2 );
     pg := ImagesRepresentative( p, g );
-    h1 := RepTwistConjToId( hom1p, hom2p, pg );
+    h1 := RepresentativeTwistedConjugationOp( hom1p, hom2p, pg );
     if h1 = fail then
         return fail;
     fi;
@@ -114,6 +223,24 @@ end;
 ###############################################################################
 ##
 ## RepTwistConjToIdStep5@( hom1, hom2, a, A )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      a:          element of A
+##      A:          abelian normal subgroup of G
+##
+##  OUTPUT:
+##      h:          element of H such that (h^hom2)^-1 * a * h^hom1 = 1, or
+##                  fail if no such element exists
+##
+##  REMARKS:
+##      Assumes that:
+##        - [A,[G,G]] = 1;
+##        - h^hom1 = h^hom2 mod A, for all h in H;
+##        - G = A Im(hom1) = A Im(hom2);
+##        - [H,H] is a subgroup of Coin(hom1,hom2);
+##        - Z(G) = 1.
 ##
 RepTwistConjToIdStep5@ := function( hom1, hom2, a, A )
     local H, G, hi, n, tc, ai, bi, g, p, q, pg;
@@ -142,12 +269,29 @@ end;
 ##
 ## RepTwistConjToIdStep4@( hom1, hom2, a, A )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      a:          element of A
+##      A:          abelian normal subgroup of G
+##
+##  OUTPUT:
+##      h:          element of H such that (h^hom2)^-1 * a * h^hom1 = 1, or
+##                  fail if no such element exists
+##
+##  REMARKS:
+##      Assumes that:
+##        - [A,[G,G]] = 1;
+##        - h^hom1 = h^hom2 mod A, for all h in H;
+##        - G = A Im(hom1) = A Im(hom2);
+##        - [H,H] is a subgroup of Coin(hom1,hom2).
+##
 RepTwistConjToIdStep4@ := function( hom1, hom2, a, A )
     local G, H, C, p, q, hom1p, hom2p, pa, A2, h1, tc, c, Coin, delta, h2;
     G := Range( hom1 );
     H := Source( hom1 );
     if IsNilpotentByFinite( G ) then
-        return RepTwistConjToId( hom1, hom2, a );
+        return RepresentativeTwistedConjugationOp( hom1, hom2, a );
     fi;
     C := Center( G );
     if IsTrivial( C ) then
@@ -179,12 +323,28 @@ end;
 ##
 ## RepTwistConjToIdStep3@( hom1, hom2, a, A )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      a:          element of A
+##      A:          abelian normal subgroup of G
+##
+##  OUTPUT:
+##      h:          element of H such that (h^hom2)^-1 * a * h^hom1 = 1, or
+##                  fail if no such element exists
+##
+##  REMARKS:
+##      Assumes that:
+##        - [A,[G,G]] = 1;
+##        - h^hom1 = h^hom2 mod A, for all h in H;
+##        - G = A Im(hom1) = A Im(hom2).
+##
 RepTwistConjToIdStep3@ := function( hom1, hom2, a, A )
     local H, G, HH, delta, dHH, p, q, hom1p,hom2p, A2, pa, h1, tc, c, h2;
     H := Source( hom1 );
     G := Range( hom1 );
     if IsNilpotentByFinite( G ) then
-        return RepTwistConjToId( hom1, hom2, a );
+        return RepresentativeTwistedConjugationOp( hom1, hom2, a );
     fi;
     HH := DerivedSubgroup( H );
     delta := DifferenceGroupHomomorphisms@( hom1, hom2, HH, G );
@@ -210,6 +370,21 @@ end;
 ##
 ## RepTwistConjToIdStep2@( hom1, hom2, a, A )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      a:          element of A
+##      A:          abelian normal subgroup of G
+##
+##  OUTPUT:
+##      h:          element of H such that (h^hom2)^-1 * a * h^hom1 = 1, or
+##                  fail if no such element exists
+##
+##  REMARKS:
+##      Assumes that:
+##        - [A,[G,G]] = 1;
+##        - h^hom1 = h^hom2 mod A, for all h in H.
+##
 RepTwistConjToIdStep2@ := function( hom1, hom2, a, A )
     local H, G, hom1r, hom2r;
     H := Source( hom1 );
@@ -224,6 +399,19 @@ end;
 ##
 ## RepTwistConjToIdStep1@( hom1, hom2, g )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      g:          element of G
+##
+##  OUTPUT:
+##      h:          element of H such that (h^hom2)^-1 * g * h^hom1 = 1, or
+##                  fail if no such element exists
+##
+##  REMARKS:
+##      Assumes G is nilpotent-by-abelian, and uses induction on the upper
+##      central series of [G,G].
+##
 RepTwistConjToIdStep1@ := function( hom1, hom2, g )
     local H, G, A, p, q, hom1p, hom2p, pg, h1, tc, a, Coin, hom1r, hom2r, h2;
     H := Source( hom1 );
@@ -234,7 +422,7 @@ RepTwistConjToIdStep1@ := function( hom1, hom2, g )
     hom1p := InducedHomomorphism( q, p, hom1 );
     hom2p := InducedHomomorphism( q, p, hom2 );
     pg := ImagesRepresentative( p, g );
-    h1 := RepTwistConjToId( hom1p, hom2p, pg );
+    h1 := RepresentativeTwistedConjugationOp( hom1p, hom2p, pg );
     if h1 = fail then
         return fail;
     fi;
@@ -253,10 +441,38 @@ end;
 
 ###############################################################################
 ##
-## RepTwistConjToId( hom1, hom2, g )
+## RepresentativeTwistedConjugationOp( hom1, hom2, g1, g2 )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      g1:         element of G
+##      g2:         element of G (optional)
+##
+##  OUTPUT:
+##      h:          element of H such that (h^hom2)^-1 * g_1 * h^hom1 = g_2, or
+##                  fail if no such element exists
+##
+##  REMARKS:
+##      If no g2 is given, it is assumed to be 1.
 ##
 InstallMethod(
-    RepTwistConjToId,
+    RepresentativeTwistedConjugationOp,
+    "for two homomorphisms and two elements",
+    [ IsGroupHomomorphism, IsGroupHomomorphism,
+      IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
+    function( hom1, hom2, g1, g2 )
+        local G, g2inv, i_hom1, g;
+        G := Range( hom1 );
+        g2inv := g2^-1;
+        i_hom1 := hom1*InnerAutomorphismNC( G, g2inv );
+        g := g1*g2inv;
+        return RepresentativeTwistedConjugationOp( i_hom1, hom2, g );
+    end
+);
+
+InstallOtherMethod(
+    RepresentativeTwistedConjugationOp,
     "for trivial element",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
@@ -269,8 +485,8 @@ InstallMethod(
     end
 );
 
-InstallMethod(
-    RepTwistConjToId,
+InstallOtherMethod(
+    RepresentativeTwistedConjugationOp,
     "for infinite source and finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
@@ -288,8 +504,8 @@ InstallMethod(
     end
 );
 
-InstallMethod(
-    RepTwistConjToId,
+InstallOtherMethod(
+    RepresentativeTwistedConjugationOp,
     "for abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
@@ -307,8 +523,8 @@ InstallMethod(
     end
 );
 
-InstallMethod(
-    RepTwistConjToId,
+InstallOtherMethod(
+    RepresentativeTwistedConjugationOp,
     "for finite source",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
@@ -353,8 +569,8 @@ InstallMethod(
     end
 );
 
-InstallMethod(
-    RepTwistConjToId,
+InstallOtherMethod(
+    RepresentativeTwistedConjugationOp,
     "for finitely generated nilpotent range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
@@ -372,8 +588,8 @@ InstallMethod(
     end
 );
 
-InstallMethod(
-    RepTwistConjToId,
+InstallOtherMethod(
+    RepresentativeTwistedConjugationOp,
     "for finitely generated nilpotent-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
@@ -392,8 +608,8 @@ InstallMethod(
     end
 );
 
-InstallMethod(
-    RepTwistConjToId,
+InstallOtherMethod(
+    RepresentativeTwistedConjugationOp,
     "for finitely generated source and polycyclic nilpotent-by-abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
@@ -411,8 +627,8 @@ InstallMethod(
     end
 );
 
-InstallMethod(
-    RepTwistConjToId,
+InstallOtherMethod(
+    RepresentativeTwistedConjugationOp,
     "for finitely generated source and polycyclic-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
@@ -428,99 +644,5 @@ InstallMethod(
         ) then TryNextMethod(); fi;
         M := NilpotentByAbelianNormalSubgroup@( G );
         return RepTwistConjToIdByFiniteQuotient@( hom1, hom2, g, M );
-    end
-);
-
-
-###############################################################################
-##
-## RepTwistConjToIdMultiple@( hom1L, hom2L, gL )
-##
-RepTwistConjToIdMultiple@ := function( hom1L, hom2L, gL  )
-    local hom1, hom2, h, n, i, Coin, tc, g, G, hi;
-    hom1 := hom1L[1];
-    hom2 := hom2L[1];
-    h := RepTwistConjToId( hom1, hom2, gL[1] );
-    if h = fail then
-        return fail;
-    fi;
-    n := Length( hom1L );
-    for i in [2..n] do
-        Coin := CoincidenceGroup2( hom1, hom2 );
-        hom1 := hom1L[i];
-        hom2 := hom2L[i];
-        tc := TwistedConjugation( hom1, hom2 );
-        g := tc( gL[i], h );
-        G := Range( hom1 );
-        hom1 := RestrictedHomomorphism( hom1, Coin, G );
-        hom2 := RestrictedHomomorphism( hom2, Coin, G );
-        hi := RepTwistConjToId( hom1, hom2, g );
-        if hi = fail then
-            return fail;
-        fi;
-        h := h*hi;
-    od;
-    return h;
-end;
-
-
-###############################################################################
-##
-## RepresentativeTwistedConjugation( hom1, x, y, arg... )
-##
-InstallGlobalFunction(
-    RepresentativeTwistedConjugation,
-    function( hom1, x, y, arg... )
-        local n, ighom1, g, G, hom2, g1, g2, i, g2inv, inn;
-        if IsList( hom1 ) then
-            n := Length( hom1 );
-            ighom1 := ShallowCopy( hom1 );
-            g := ShallowCopy( y );
-            if Length( arg ) = 0 then
-                G := Range( hom1[1] );
-                hom2 := ListWithIdenticalEntries( n, IdentityMapping( G ) );
-                g1 := x;
-                g2 := y;
-            else
-                hom2 := x;
-                g1 := y;
-                g2 := arg[1];
-            fi;
-            for i in [1..n] do
-                G := Range( hom1[i] );
-                g2inv := g2[i]^-1;
-                inn := InnerAutomorphismNC( G, g2inv );
-                ighom1[i] := hom1[i]*inn;
-                g[i] := g1[i]*g2inv;
-            od;
-            return RepTwistConjToIdMultiple@( ighom1, hom2, g );
-        fi;
-        G := Range( hom1 );
-        if Length( arg ) = 0 then
-            hom2 := IdentityMapping( G );
-            g1 := x;
-            g2 := y;
-        else
-            hom2 := x;
-            g1 := y;
-            g2 := arg[1];
-        fi;
-        g2inv := g2^-1;
-        inn := InnerAutomorphismNC( G, g2inv );
-        ighom1 := hom1*inn;
-        g := g1*g2inv;
-        return RepTwistConjToId( ighom1, hom2, g );
-    end
-);
-
-
-###############################################################################
-##
-## IsTwistedConjugate( arg... )
-##
-InstallGlobalFunction(
-    IsTwistedConjugate,
-    function( arg... )
-        return CallFuncList( RepresentativeTwistedConjugation, arg ) <> fail;
     end
 );

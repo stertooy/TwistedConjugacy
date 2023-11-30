@@ -120,8 +120,8 @@ InstallMethod(
 ##
 ## RepTwistConjToId( hom1, hom2, g )
 ##
-InstallMethod(
-    RepTwistConjToId,
+InstallOtherMethod(
+    RepresentativeTwistedConjugationOp,
     "turn finite PcpGroup range into PcGroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
@@ -134,15 +134,15 @@ InstallMethod(
             IsFinite( G )
         ) then TryNextMethod(); fi;
         iso := IsomorphismPcGroup( G );
-        return RepTwistConjToId(
+        return RepresentativeTwistedConjugationOp(
             hom1*iso, hom2*iso,
             ImagesRepresentative( iso, g )
         );
     end
 );
 
-InstallMethod(
-    RepTwistConjToId,
+InstallOtherMethod(
+    RepresentativeTwistedConjugationOp,
     "turn finite PcpGroup source into PcGroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
@@ -155,7 +155,7 @@ InstallMethod(
             IsFinite( H )
         ) then TryNextMethod(); fi;
         inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
-        h := RepTwistConjToId( inv*hom1, inv*hom2, g );
+        h := RepresentativeTwistedConjugationOp( inv*hom1, inv*hom2, g );
         if h = fail then
             return fail;
         fi;

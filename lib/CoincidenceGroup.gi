@@ -116,7 +116,10 @@ CoincidenceGroupByFiniteQuotient@ := function( hom1, hom2, M )
     func := function( qh )
         local h, n;
         h := PreImagesRepresentative( q, qh );
-        n := RepTwistConjToId( hom1N, hom2N, tc( One( G ), h ) );
+        n := RepresentativeTwistedConjugationOp(
+            hom1N, hom2N,
+            tc( One( G ), h )
+        );
         if n = fail then
             return fail;
         fi;
