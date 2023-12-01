@@ -357,6 +357,21 @@ end;
 ##
 ## ReidemeisterClassesByCentre@( hom1, hom2 )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      M:          normal subgroup of G
+##
+##  OUTPUT:
+##      L:          list containing a representative of each (hom1,hom2)-
+##                  twisted conjugacy class, or fail if there are infinitely
+##                  many
+##
+##  REMARKS:
+##      Calculates the representatives of (hom1,hom2) by first calculating the
+##      representatives of (hom1p,hom2p), with hom1p, hom2HN: H -> G/C, with
+##      C the centre of G.
+##
 ReidemeisterClassesByCentre@ := function( hom1, hom2 )
     local G, H, C, p, q, hom1p, hom2p, RclGM, GM, Rcl, foundOne, pg, inn_pg,
           Coin, g, inn_g, d, r, coker, rm, m;
@@ -403,6 +418,15 @@ end;
 ##
 ## RepresentativesReidemeisterClasses( hom1, hom2 )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      L:          list containing a representative of each (hom1,hom2)-
+##                  twisted conjugacy class, or fail if there are infinitely
+##                  many
+##
 InstallMethod(
     RepresentativesReidemeisterClasses,
     "for trivial range",
@@ -427,6 +451,7 @@ InstallMethod(
         H := Source( hom1 );
         if not (
             not IsFinite( H ) and
+            IsPolycyclicByFinite( H ) and
             IsFinite( G ) and
             not IsTrivial( G )
         ) then TryNextMethod(); fi;
@@ -443,7 +468,11 @@ InstallMethod(
         local G, H, diff, N, Rcl, p, pg, g;
         G := Range( hom1 );
         H := Source( hom1 );
-        if not IsAbelian( G ) then TryNextMethod(); fi;
+        if not (
+            IsPolycyclicByFinite( H ) and
+            IsPolycyclicByFinite( G ) and
+            IsAbelian( G )
+        ) then TryNextMethod(); fi;
         diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
         N := ImagesSource( diff );
         if IndexNC( G, N ) = infinity then return fail; fi;
@@ -496,7 +525,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesReidemeisterClasses,
-    "for finitely generated nilpotent range",
+    "for nilpotent range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     2,
     function( hom1, hom2 )
@@ -504,7 +533,8 @@ InstallMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
-            IsFinitelyGeneratedGroup( G ) and
+            IsPolycyclicByFinite( H ) and
+            IsPolycyclicByFinite( G ) and
             IsNilpotentGroup( G ) and
             not IsAbelian( G )
         ) then TryNextMethod(); fi;
@@ -514,7 +544,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesReidemeisterClasses,
-    "for finitely generated nilpotent-by-finite range",
+    "for nilpotent-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     1,
     function( hom1, hom2 )
@@ -522,7 +552,8 @@ InstallMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
-            IsFinitelyGeneratedGroup( G ) and
+            IsPolycyclicByFinite( H ) and
+            IsPolycyclicByFinite( G ) and
             IsNilpotentByFinite( G ) and
             not IsNilpotentGroup( G )
         ) then TryNextMethod(); fi;
@@ -533,7 +564,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesReidemeisterClasses,
-    "for polycyclic source and range",
+    "for polycyclic range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     0,
     function( hom1, hom2 )
@@ -541,7 +572,7 @@ InstallMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
-            IsPolycyclicGroup( H ) and
+            IsPolycyclicByFinite( H ) and
             IsPolycyclicGroup( G )
         ) then TryNextMethod(); fi;
         M := DerivedSubgroup( G );

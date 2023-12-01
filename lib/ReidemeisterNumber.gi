@@ -1,6 +1,13 @@
 ###############################################################################
 ##
-## ReidemeisterNumber( hom1, arg... )
+## ReidemeisterNumber( hom1, hom2 )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G (optional)
+##
+##  OUTPUT:
+##      R:          Reidemeister number R(hom1,hom2)
 ##
 InstallGlobalFunction(
     ReidemeisterNumber,
@@ -13,6 +20,13 @@ InstallGlobalFunction(
 ###############################################################################
 ##
 ## ReidemeisterNumberOp( hom1, hom2 )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G (optional)
+##
+##  OUTPUT:
+##      R:          Reidemeister number R(hom1,hom2)
 ##
 InstallMethod(
     ReidemeisterNumberOp,
@@ -42,7 +56,11 @@ InstallMethod(
         local G, H, diff, N;
         H := Source( hom1 );
         G := Range( hom1 );
-        if not IsAbelian( G ) then TryNextMethod(); fi;
+        if not (
+            IsPolycyclicByFinite( H ) and
+            IsPolycyclicByFinite( G ) and
+            IsAbelian( G )
+        ) then TryNextMethod(); fi;
         diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
         N := Image( diff );
         return IndexNC( G, N );
