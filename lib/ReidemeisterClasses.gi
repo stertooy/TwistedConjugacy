@@ -1,6 +1,14 @@
 ###############################################################################
 ##
-## ReidemeisterClass( hom1, x, arg... )
+## ReidemeisterClass( hom1, hom2, g )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G (optional)
+##      g:          element of G
+##
+##  OUTPUT:
+##      tcc:        (hom1,hom2)-twisted conjugacy class of g
 ##
 InstallGlobalFunction(
     ReidemeisterClass,
@@ -38,7 +46,14 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## Methods for operations/attributes on a ReidemeisterClass
+## \in( g, tcc )
+##
+##  INPUT:
+##      g:          element of a group
+##      tcc:        twisted conjugacy class
+##
+##  OUTPUT:
+##      bool:       true if g belongs to tcc, false otherwise
 ##
 InstallMethod(
     \in,
@@ -54,6 +69,14 @@ InstallMethod(
     end
 );
 
+
+###############################################################################
+##
+## PrintObj( tcc )
+##
+##  INPUT:
+##      tcc:        twisted conjugacy class
+##
 InstallMethod(
     PrintObj,
     "for Reidemeister classes",
@@ -84,6 +107,18 @@ InstallMethod(
     end
 );
 
+
+###############################################################################
+##
+## Random( rs, tcc )
+##
+##  INPUT:
+##      rs:         random generator
+##      tcc:        twisted conjugacy class
+##
+##  OUTPUT:
+##      g:          random element of tcc
+##
 InstallMethodWithRandomSource(
     Random,
     "for a random source and a Reidemeister class",
@@ -98,6 +133,17 @@ InstallMethodWithRandomSource(
     end
 );
 
+
+###############################################################################
+##
+## Size( tcc )
+##
+##  INPUT:
+##      tcc:        twisted conjugacy class
+##
+##  OUTPUT:
+##      n:          number of elements in tcc (or infinity)
+##
 InstallMethod(
     Size,
     "for Reidemeister classes",
@@ -110,6 +156,18 @@ InstallMethod(
     end
 );
 
+
+###############################################################################
+##
+## ListOp( tcc )
+##
+##  INPUT:
+##      tcc:        twisted conjugacy class
+##
+##  OUTPUT:
+##      L:          list containing the elements of tcc, or fail if tcc has
+##                  infinitely many elements
+##
 InstallMethod(
     ListOp,
     "for Reidemeister classes",
@@ -130,6 +188,18 @@ InstallMethod(
     end
 );
 
+
+###############################################################################
+##
+## StabilizerOfExternalSet( tcc )
+##
+##  INPUT:
+##      tcc:        twisted conjugacy class
+##
+##  OUTPUT:
+##      Coin:       stabiliser of the representative of tcc, under the twisted
+##                  conjugacy action
+##
 InstallMethod(
     StabilizerOfExternalSet,
     "for Reidemeister classes",
@@ -147,7 +217,15 @@ InstallMethod(
 
 ###############################################################################
 ##
-## ReidemeisterClasses( hom1, arg... )
+## ReidemeisterClasses( hom1, hom2 )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      L:          list containing the (hom1,hom2)-twisted conjugacy classes,
+##                  or fail if there are infinitely many
 ##
 InstallGlobalFunction(
     ReidemeisterClasses,
@@ -172,6 +250,20 @@ InstallGlobalFunction(
 ##
 ## ReidemeisterClassesByTrivialSubgroup@( hom1, hom2 )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      L:          list containing a representative of each (hom1,hom2)-
+##                  twisted conjugacy class, or fail if there are infinitely
+##                  many
+##
+##  REMARKS:
+##      Calculates the representatives by calculating the representatives of
+##      hom1HN, hom2HN: H/N -> G, with N the intersection of Ker(hom1) and
+##      Ker(hom2).
+##
 ReidemeisterClassesByTrivialSubgroup@ := function( hom1, hom2 )
     local G, H, N, id, q, hom1HN, hom2HN;
     G := Range( hom1 );
@@ -188,6 +280,22 @@ end;
 ###############################################################################
 ##
 ## ReidemeisterClassesByFiniteQuotient@( hom1, hom2, M )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      M:          normal subgroup of G
+##
+##  OUTPUT:
+##      L:          list containing a representative of each (hom1,hom2)-
+##                  twisted conjugacy class, or fail if there are infinitely
+##                  many
+##
+##  REMARKS:
+##      Calculates the representatives of (hom1,hom2) by first calculating the
+##      representatives of (hom1HN,hom2HN), with hom1HN, hom2HN: H/N -> G/M,
+##      where N is normal in H. Only works if Coin(inn*hom1HN,hom2HN) is finite
+##      for any inner automorphism inn of GM.
 ##
 ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, M )
     local G, H, N, p, q, GM, hom1p, hom2p, RclGM, Rcl, hom1N, hom2N, pg,
@@ -229,10 +337,7 @@ ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, M )
                 m2 := tc( m1, h );
                 if ForAny(
                     igRclM,
-                    k -> IsTwistedConjugate(
-                        inn_g_hom1N, hom2N,
-                        k, m2
-                    )
+                    k -> IsTwistedConjugate( inn_g_hom1N, hom2N, k, m2 )
                 ) then
                     isNew := false;
                     break;

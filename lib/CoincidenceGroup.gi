@@ -486,7 +486,7 @@ InstallMethod(
 
 InstallMethod(
     CoincidenceGroup2,
-    "for finitely generated source and polycyclic-by-finite range",
+    "for polycyclic-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     0,
     function( hom1, hom2 )
