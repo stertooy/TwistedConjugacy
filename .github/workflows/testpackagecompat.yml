@@ -1,0 +1,36 @@
+name: "Test compatibility with other GAP packages (complete)"
+
+on:
+  - workflow_dispatch
+
+jobs:
+  test:
+    name: "Test on GAP-${{ matrix.gap-branch }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - gap-branch: "master"
+          - gap-branch: "4.12"
+          - gap-branch: "4.11"
+
+    container:
+      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}-full
+
+    steps:
+
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Run GAP tests with all packages"
+        uses: sTertooy/gda-test-gap@v1
+        with:
+          COMPLETE: true
+          ALL_PACKAGES: true
+
+      - name: "Run package tests with all packages"
+        uses: sTertooy/gda-test-pkg@v1
+        with:
+          ALL_PACKAGES: true
+          
