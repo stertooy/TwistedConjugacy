@@ -45,7 +45,7 @@ jobs:
         if: ${{ matrix.coverage }}
 
       - name: "Upload coverage"
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         if: ${{ matrix.coverage }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -68,7 +68,7 @@ jobs:
         uses: stertooy/gda-manual@v1
 
       - name: "Upload manual"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: "Manual"
           path: ./doc/manual.pdf
