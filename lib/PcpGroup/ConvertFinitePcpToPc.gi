@@ -2,6 +2,13 @@
 ##
 ## CoincidenceGroup2( hom1, hom2 )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      coin:       subgroup of H consisting of h for which h^hom1 = h^hom2
+##
 InstallMethod(
     CoincidenceGroup2,
     "turn finite PcpGroup range into PcGroup",
@@ -40,6 +47,15 @@ InstallMethod(
 ###############################################################################
 ##
 ## RepresentativesReidemeisterClasses( hom1, hom2 )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      L:          list containing a representative of each (hom1,hom2)-
+##                  twisted conjugacy class, or fail if there are infinitely
+##                  many
 ##
 InstallMethod(
     RepresentativesReidemeisterClasses,
@@ -81,6 +97,13 @@ InstallMethod(
 ##
 ## ReidemeisterNumberOp( hom1, hom2 )
 ##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G (optional)
+##
+##  OUTPUT:
+##      R:          Reidemeister number R(hom1,hom2)
+##
 InstallMethod(
     ReidemeisterNumberOp,
     "turn finite PcpGroup range into PcGroup",
@@ -118,7 +141,20 @@ InstallMethod(
 
 ###############################################################################
 ##
-## RepTwistConjToId( hom1, hom2, g )
+## RepresentativeTwistedConjugationOp( hom1, hom2, g1, g2 )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      g1:         element of G
+##      g2:         element of G (optional)
+##
+##  OUTPUT:
+##      h:          element of H such that (h^hom2)^-1 * g_1 * h^hom1 = g_2, or
+##                  fail if no such element exists
+##
+##  REMARKS:
+##      If no g2 is given, it is assumed to be 1.
 ##
 InstallOtherMethod(
     RepresentativeTwistedConjugationOp,
