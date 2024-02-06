@@ -287,6 +287,58 @@ PrintReidemeisterZeta( khi );
 #
 #####
 
+#! @Chapter Multiple Twisted Conjugacy Problem
+#! @ChapterLabel mult
+#! @ChapterTitle Multiple Twisted Conjugacy Problem
+
+
+###
+# SECTION 1
+###
+
+#! @Section The Multiple Twisted Conjugacy Problem
+#! Let $H$ and $G_1, \ldots, G_n$ be groups. For each $i \in \{1,\ldots,n\}$, let $g_i,g_i' \in G_i$ and let $\varphi_i,\psi_i\colon H \to G_i$ be group homomorphisms.
+#! The multiple twisted conjugacy problem is the problem of finding some $h \in H$ such that $g_i = \psi_i(h)g_i'\varphi_i(h)^{-1}$ for all $i \in \{1,\ldots,n\}$.
+
+#! @Description
+#! Verifies whether the multiple twisted conjugacy problem for the given homomorphisms and elements has a solution.
+#! @Arguments hom1List[, hom2List], g1List[, g2List]
+#! @Label IsTwistedConjugate for the multiple twisted conjugacy problem
+DeclareGlobalFunction( "IsTwistedConjugateMultiple" );
+
+#! @Description
+#! Computes a solution to the multiple twisted conjugacy problem for the given homomorphisms and elements, or returns <K>fail</K> if no solution exists.
+#! @Arguments hom1List[, hom2List], g1List[, g2List]
+#! @Label RepresentativeTwistedConjugation for the multiple twisted conjugacy problem
+DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
+
+#! @BeginExample
+H := SymmetricGroup( 5 );;
+G := AlternatingGroup( 6 );;
+tau := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,3)(4,6), () ] );;
+phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,2)(3,6), () ] );;
+psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,4)(3,6), () ] );;
+khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,2)(3,4), () ] );;
+IsTwistedConjugateMultiple( [ tau, phi ], [ psi, khi ],
+ [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );
+#! true
+RepresentativeTwistedConjugationMultiple( [ tau, phi ], [ psi, khi ],
+ [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );
+#! (1,2)
+#! @EndExample
+
+
+
+#####
+#
+# CHAPTER 4
+#
+#####
+
 #! @Chapter Homomorphisms
 #! @ChapterLabel homs
 #! @ChapterTitle Homomorphisms
