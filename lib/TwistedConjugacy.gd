@@ -14,8 +14,7 @@ DeclareGlobalFunction( "IsTwistedConjugateMultiple" );
 DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
 DeclareOperation(
     "RepresentativeTwistedConjugationMultOp",
-    [ IsGroupHomomorphism, IsGroupHomomorphism,
-      IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ]
+    [ IsList, IsList, IsList, IsList ]
 );
 
 DeclareGlobalFunction( "ReidemeisterClass" );

@@ -21,7 +21,10 @@
 InstallGlobalFunction(
     IsTwistedConjugateMultiple,
     function( arg... )
-        return CallFuncList( RepresentativeTwistedConjugation, arg ) <> fail;
+        return CallFuncList(
+            RepresentativeTwistedConjugationMultiple,
+            arg
+        ) <> fail;
     end
 );
 
@@ -85,8 +88,7 @@ InstallGlobalFunction(
 InstallMethod(
     RepresentativeTwistedConjugationMultOp,
     "for two lists of homomorphisms and two lists of elements",
-    [ IsGroupHomomorphism, IsGroupHomomorphism,
-      IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
+    [ IsList, IsList, IsList, IsList ],
     function( hom1L, hom2L, g1L, g2L )
         local n, ighom1L, gL, i, G, g2inv, inn;
         n := Length( hom1L );
@@ -106,8 +108,7 @@ InstallMethod(
 InstallOtherMethod(
     RepresentativeTwistedConjugationMultOp,
     "for two lists of homomorphisms and one list of elements",
-    [ IsGroupHomomorphism, IsGroupHomomorphism,
-      IsMultiplicativeElementWithInverse ],
+    [ IsList, IsList, IsList ],
     function( hom1L, hom2L, gL )
         local hom1, hom2, h, n, i, Coin, tc, g, G, hi;
         hom1 := hom1L[1];
