@@ -10,7 +10,13 @@ DeclareOperation(
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ]
 );
-
+DeclareGlobalFunction( "IsTwistedConjugateMultiple" );
+DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
+DeclareOperation(
+    "RepresentativeTwistedConjugationMultOp",
+    [ IsGroupHomomorphism, IsGroupHomomorphism,
+      IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ]
+);
 
 DeclareGlobalFunction( "ReidemeisterClass" );
 DeclareSynonym( "TwistedConjugacyClass", ReidemeisterClass );
