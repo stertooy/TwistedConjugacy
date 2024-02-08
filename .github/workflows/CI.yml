@@ -45,10 +45,12 @@ jobs:
         if: ${{ matrix.coverage }}
 
       - name: "Upload coverage"
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         if: ${{ matrix.coverage }}
         with:
-          fail_ci_if_error: true
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
 
   manual:
     name: "Build manual"
