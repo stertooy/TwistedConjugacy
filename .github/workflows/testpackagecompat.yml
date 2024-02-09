@@ -1,4 +1,4 @@
-name: "Test GAP installation (quick)"
+name: "Test compatibility with other GAP packages (complete)"
 
 on:
   - workflow_dispatch
@@ -17,17 +17,20 @@ jobs:
           - gap-branch: "4.11"
 
     container:
-      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}-slim
+      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}-full
 
     steps:
 
       - name: "Checkout"
         uses: actions/checkout@v4
 
-      - name: "Run GAP tests with necessary packages"
+      - name: "Run GAP tests with all packages"
         uses: sTertooy/gda-test-gap@v1
         with:
-          ONLY_NEEDED: true
+          COMPLETE: true
+          ALL_PACKAGES: true
 
-      - name: "Run GAP tests with suggested packages"
-        uses: sTertooy/gda-test-gap@v1
+      - name: "Run package tests with all packages"
+        uses: sTertooy/gda-test-pkg@v1
+        with:
+          ALL_PACKAGES: true

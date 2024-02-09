@@ -2,6 +2,12 @@
 ##
 ## ReidemeisterSpectrum( G )
 ##
+##  INPUT:
+##      G:          group G
+##
+##  OUTPUT:
+##      Spec:       Reidemeister spectrum of G
+##
 InstallGlobalFunction(
     ReidemeisterSpectrum,
     function( G )
@@ -14,7 +20,65 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
+## ExtendedReidemeisterSpectrum( G )
+##
+##  INPUT:
+##      G:          group G
+##
+##  OUTPUT:
+##      Spec:       extended Reidemeister spectrum of G
+##
+InstallGlobalFunction(
+    ExtendedReidemeisterSpectrum,
+    function( G )
+        IsFinite( G );
+        IsAbelian( G );
+        return ExtendedReidemeisterSpectrumOp( G );
+    end
+);
+
+
+###############################################################################
+##
+## CoincidenceReidemeisterSpectrum( H, G )
+##
+##  INPUT:
+##      H:          group H
+##      G:          group G (optional)
+##
+##  OUTPUT:
+##      Spec:       coincidence Reidemeister spectrum of the pair (H,G)
+##
+##  REMARKS:
+##      If G is omitted, it is assumed to be equal to H.
+##
+InstallGlobalFunction(
+    CoincidenceReidemeisterSpectrum,
+    function( H, arg... )
+        local G;
+        IsFinite( H );
+        IsAbelian( H );
+        if Length( arg ) = 0 then
+            return CoincidenceReidemeisterSpectrumOp( H );
+        else
+            G := arg[1];
+            IsFinite( G );
+            IsAbelian( G );
+            return CoincidenceReidemeisterSpectrumOp( H, G );
+        fi;
+    end
+);
+
+
+###############################################################################
+##
 ## ReidemeisterSpectrumOp( G )
+##
+##  INPUT:
+##      G:          group G
+##
+##  OUTPUT:
+##      Spec:       Reidemeister spectrum of G
 ##
 InstallMethod(
     ReidemeisterSpectrumOp,
@@ -143,21 +207,13 @@ InstallMethod(
 
 ###############################################################################
 ##
-## ExtendedReidemeisterSpectrum( G )
-##
-InstallGlobalFunction(
-    ExtendedReidemeisterSpectrum,
-    function( G )
-        IsFinite( G );
-        IsAbelian( G );
-        return ExtendedReidemeisterSpectrumOp( G );
-    end
-);
-
-
-###############################################################################
-##
 ## ExtendedReidemeisterSpectrumOp( G )
+##
+##  INPUT:
+##      G:          group G
+##
+##  OUTPUT:
+##      Spec:       extended Reidemeister spectrum of G
 ##
 InstallMethod(
     ExtendedReidemeisterSpectrumOp,
@@ -183,33 +239,17 @@ InstallMethod(
 
 ###############################################################################
 ##
-## CoincidenceReidemeisterSpectrum( H, ... )
-##
-InstallGlobalFunction(
-    CoincidenceReidemeisterSpectrum,
-    function( H, arg... )
-        local G;
-        IsFinite( H );
-        IsAbelian( H );
-        if Length( arg ) = 0 then
-            if IsAbelian( H ) then
-                return ExtendedReidemeisterSpectrumOp( H );
-            else
-                return CoincidenceReidemeisterSpectrumOp( H );
-            fi;
-        else
-            G := arg[1];
-            IsFinite( G );
-            IsAbelian( G );
-            return CoincidenceReidemeisterSpectrumOp( H, G );
-        fi;
-    end
-);
-
-
-###############################################################################
-##
 ## CoincidenceReidemeisterSpectrum( H, G )
+##
+##  INPUT:
+##      H:          group H
+##      G:          group G (optional)
+##
+##  OUTPUT:
+##      Spec:       coincidence Reidemeister spectrum of the pair (H,G)
+##
+##  REMARKS:
+##      If G is omitted, it is assumed to be equal to H.
 ##
 InstallMethod(
     CoincidenceReidemeisterSpectrumOp,
@@ -232,6 +272,13 @@ InstallMethod(
         Hom_reps := RepresentativesHomomorphismClasses( H, G );
         return SetX( Hom_reps, Hom_reps, ReidemeisterNumberOp );
     end
+);
+
+InstallOtherMethod(
+    CoincidenceReidemeisterSpectrumOp,
+    "for finite abelian group to itself",
+    [ IsGroup and IsFinite and IsAbelian ],
+    ExtendedReidemeisterSpectrumOp
 );
 
 InstallOtherMethod(

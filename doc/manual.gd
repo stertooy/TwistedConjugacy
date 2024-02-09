@@ -283,7 +283,7 @@ PrintReidemeisterZeta( khi );
 
 #####
 #
-# CHAPTER 4
+# CHAPTER 3
 #
 #####
 
@@ -302,15 +302,15 @@ PrintReidemeisterZeta( khi );
 
 #! @Description
 #! Verifies whether the multiple twisted conjugacy problem for the given homomorphisms and elements has a solution.
-#! @Arguments hom1List[, hom2List], g1List, g2List
+#! @Arguments hom1List[, hom2List], g1List[, g2List]
 #! @Label IsTwistedConjugate for the multiple twisted conjugacy problem
-DeclareGlobalFunction( "IsTwistedConjugate" );
+DeclareGlobalFunction( "IsTwistedConjugateMultiple" );
 
 #! @Description
 #! Computes a solution to the multiple twisted conjugacy problem for the given homomorphisms and elements, or returns <K>fail</K> if no solution exists.
-#! @Arguments hom1List[, hom2List], g1List, g2List
+#! @Arguments hom1List[, hom2List], g1List[, g2List]
 #! @Label RepresentativeTwistedConjugation for the multiple twisted conjugacy problem
-DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
+DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
 
 #! @BeginExample
 H := SymmetricGroup( 5 );;
@@ -323,10 +323,10 @@ psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,4)(3,6), () ] );;
 khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,2)(3,4), () ] );;
-IsTwistedConjugate( [ tau, phi ], [ psi, khi ],
+IsTwistedConjugateMultiple( [ tau, phi ], [ psi, khi ],
  [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );
 #! true
-RepresentativeTwistedConjugation( [ tau, phi ], [ psi, khi ],
+RepresentativeTwistedConjugationMultiple( [ tau, phi ], [ psi, khi ],
  [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );
 #! (1,2)
 #! @EndExample

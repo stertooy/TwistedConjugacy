@@ -1,9 +1,12 @@
 ###############################################################################
 ##
-## RemovePeriodsList( L )
+## RemovePeriodsList@( L )
 ##
-##  Returns the smallest sublist M of L such that L is the concatenation
-##  of a number of times of M.
+##  INPUT:
+##      L:          periodic list
+##
+##  OUTPUT:
+##      M:          sublist consisting of single period
 ##
 RemovePeriodsList@ := function( L )
     local n, i, M;
@@ -21,12 +24,16 @@ end;
 ##
 ## DecomposePeriodicList@( L )
 ##
-##  Decomposes the list L, interpreted as an infinite periodic sequence,
-##  into a linear combination of the sequences  ei = (0,0,0,i,0,0,0,i,...).
-##  The output is [l_1, ..., l_n] such that L = sum_i l_i ei.
-##  Returns fail if some l_i is not an integer, or if the decomposition does
-##  not exist.
-##  Essentially, this is the inverse Discrete Fourier Transform
+##  INPUT:
+##      L:          periodic list that is a finite linear combination
+##                  of the sequences ei = (0,0,0,i,0,0,0,i,...)
+##
+##  OUTPUT:
+##      l:          list of integers such that L = sum_i l_i ei, or fail if
+##                  no such list of integers exists
+##
+##  REMARKS:
+##      This is essentially the inverse Discrete Fourier Transform.
 ##
 DecomposePeriodicList@ := function( L )
     local n, l, i, per, ei;
@@ -54,7 +61,18 @@ end;
 
 ###############################################################################
 ##
-## ReidemeisterZetaCoefficients( hom1, arg... )
+## ReidemeisterZetaCoefficients( endo1, endo2 )
+##
+##  INPUT:
+##      endo1:      endomorphism of G
+##      endo2:      endomorphism of G (optional)
+##
+##  OUTPUT:
+##      P:          single period of the periodic sequence P_n
+##      Q:          non-zero part of the eventually zero sequence Q_n
+##
+##  REMARKS:
+##      For every n, R(endo1^n,endo2^n) = P_n + Q_n
 ##
 InstallGlobalFunction(
     ReidemeisterZetaCoefficients,
@@ -74,6 +92,17 @@ InstallGlobalFunction(
 ###############################################################################
 ##
 ## ReidemeisterZetaCoefficientsOp( endo1, endo2 )
+##
+##  INPUT:
+##      endo1:      endomorphism of G
+##      endo2:      endomorphism of G (optional)
+##
+##  OUTPUT:
+##      P:          single period of the periodic sequence P_n
+##      Q:          non-zero part of the eventually zero sequence Q_n
+##
+##  REMARKS:
+##      For every n, R(endo1^n,endo2^n) = P_n + Q_n
 ##
 InstallMethod(
     ReidemeisterZetaCoefficientsOp,
@@ -112,7 +141,15 @@ InstallMethod(
 
 ###############################################################################
 ##
-## IsRationalReidemeisterZeta( hom1, arg... )
+## IsRationalReidemeisterZeta( endo1, endo2 )
+##
+##  INPUT:
+##      endo1:      endomorphism of G
+##      endo2:      endomorphism of G (optional)
+##
+##  OUTPUT:
+##      bool:       true if the Reidemeister zeta function of endo1 and endo2
+##                  is rational
 ##
 InstallGlobalFunction(
     IsRationalReidemeisterZeta,
@@ -132,6 +169,14 @@ InstallGlobalFunction(
 ###############################################################################
 ##
 ## IsRationalReidemeisterZetaOp( endo1, endo2 )
+##
+##  INPUT:
+##      endo1:      endomorphism of G
+##      endo2:      endomorphism of G
+##
+##  OUTPUT:
+##      bool:       true if the Reidemeister zeta function of endo1 and endo2
+##                  is rational
 ##
 InstallMethod(
     IsRationalReidemeisterZetaOp,
@@ -161,7 +206,14 @@ InstallMethod(
 
 ###############################################################################
 ##
-## ReidemeisterZeta( hom1, arg... )
+## ReidemeisterZeta( endo1, endo2 )
+##
+##  INPUT:
+##      endo1:      endomorphism of G
+##      endo2:      endomorphism of G (optional)
+##
+##  OUTPUT:
+##      func:       the Reidemeister zeta function of endo1 and endo2
 ##
 InstallGlobalFunction(
     ReidemeisterZeta,
@@ -181,6 +233,13 @@ InstallGlobalFunction(
 ###############################################################################
 ##
 ## ReidemeisterZetaOp( endo1, endo2 )
+##
+##  INPUT:
+##      endo1:      endomorphism of G
+##      endo2:      endomorphism of G
+##
+##  OUTPUT:
+##      func:       the Reidemeister zeta function of endo1 and endo2
 ##
 InstallMethod(
     ReidemeisterZetaOp,
@@ -214,7 +273,15 @@ InstallMethod(
 
 ###############################################################################
 ##
-## PrintReidemeisterZeta( hom1, arg... )
+## PrintReidemeisterZeta( endo1, endo2 )
+##
+##  INPUT:
+##      endo1:      endomorphism of G
+##      endo2:      endomorphism of G (optional)
+##
+##  OUTPUT:
+##      str:        a string containing the Reidemeister zeta function of endo1
+##                  and endo2 in text form
 ##
 InstallGlobalFunction(
     PrintReidemeisterZeta,
@@ -234,6 +301,14 @@ InstallGlobalFunction(
 ###############################################################################
 ##
 ## PrintReidemeisterZetaOp( endo1, endo2 )
+##
+##  INPUT:
+##      endo1:      endomorphism of G
+##      endo2:      endomorphism of G
+##
+##  OUTPUT:
+##      str:        a string containing the Reidemeister zeta function of endo1
+##                  and endo2 in text form
 ##
 InstallMethod(
     PrintReidemeisterZetaOp,

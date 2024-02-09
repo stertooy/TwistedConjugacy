@@ -16,6 +16,7 @@ jobs:
         include:
           - gap-branch: "master"
             coverage: true
+          - gap-branch: "4.13"
           - gap-branch: "4.12"
           - gap-branch: "4.11"
 
@@ -25,7 +26,7 @@ jobs:
     steps:
 
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: "Run package tests with necessary packages"
         uses: sTertooy/gda-test-pkg@v1
@@ -61,13 +62,13 @@ jobs:
     steps:
 
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: "Build manual"
         uses: stertooy/gda-manual@v1
 
       - name: "Upload manual"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: "Manual"
           path: ./doc/manual.pdf

@@ -1,59 +1,63 @@
 ###############################################################################
 ##
-## IntersectionPreImage@( hom1, hom2, N )
+## RepresentativeActionOp( G, d, e, act )
 ##
-##  Returns hom1^-1(N) cap hom2^-1(N)
-##  Note that N must be a normal subgroup
+##  INPUT:
+##      G:          acting group
+##      d:          source element
+##      e:          target element
+##      act:        group action
 ##
-IntersectionPreImage@ := function( hom1, hom2, N )
-    return NormalIntersection(
-        PreImagesSet( hom1, NormalIntersection( N, ImagesSource( hom1 ) ) ),
-        PreImagesSet( hom2, NormalIntersection( N, ImagesSource( hom2 ) ) )
-    );
-end;
-
-
-###############################################################################
+##  OUTPUT:
+##      g:          element of G mapping d to e under the action act, or "fail"
+##                  if no such element exists
 ##
-## IntersectionKernels@( hom1, hom2 )
+##  REMARKS:
+##      We only implement this for a PcpGroup G acting on itself via OnPoints
 ##
-IntersectionKernels@ := function( hom1, hom2 )
-    return NormalIntersection( Kernel( hom1 ), Kernel( hom2 ) );
-end;
-
-
-###############################################################################
-##
-## IsNilpotentByAbelian( G )
-##
-InstallMethod(
-    IsNilpotentByAbelian,
-    [ IsGroup ],
-    function( G )
-        return IsNilpotent( DerivedSubgroup( G ) );
+InstallOtherMethod( RepresentativeActionOp,
+    "For PcpGroups and OnPoints",
+    true,
+    [ IsPcpGroup, IsPcpElement, IsPcpElement, IsFunction ],
+    function( G, d, e, act )
+        local pcp, c;
+        if act <> OnPoints then TryNextMethod(); fi;
+        if not ( d in G and e in G ) then TryNextMethod(); fi;
+        pcp := PcpsOfEfaSeries( G );
+        c := ConjugacyElementsBySeries( G, d, e, pcp );
+        if c = false then
+            return fail;
+        fi;
+        return c;
     end
 );
 
 
 ###############################################################################
 ##
-## MultipleConjugacySolver@( G, r, s )
+## StabilizerFuncOp( G, g, gens, acts, act )
 ##
-MultipleConjugacySolver@ := function( G, r, s )
-    local a, i, Gi, ai, pcp;
-    a := One( G );
-    for i in [1..Length( r )] do
-        if i = 1 then
-            Gi := G;
-        else
-            Gi := Centraliser( Gi, s[i-1] );
-        fi;
-        pcp := PcpsOfEfaSeries( Gi );
-        ai := ConjugacyElementsBySeries( Gi, r[i]^a, s[i], pcp );
-        if ai = false then
-            return fail;
-        fi;
-        a := a*ai;
-    od;
-    return a;
-end;
+##  INPUT:
+##      G:          acting group
+##      g:          element
+##      gens:       generators of G
+##      acts:       images of gens that act on the set g belongs to
+##      act:        group action
+##
+##  OUTPUT:
+##      stab:       stabiliser of g under the action act
+##
+##  REMARKS:
+##      We only implement this for a PcpGroup G acting on itself via OnPoints
+##
+InstallOtherMethod( StabilizerFuncOp,
+    "For PcpGroups and OnPoints",
+    true,
+    [ IsPcpGroup, IsPcpElement,
+      IsPcpElementCollection, IsPcpElementCollection, IsFunction ],
+    function( G, g, gens, acts, act )
+        if gens <> acts then TryNextMethod(); fi;
+        if act <> OnPoints then TryNextMethod(); fi;
+        return Centraliser( G, g );
+    end
+);
