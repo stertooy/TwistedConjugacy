@@ -303,13 +303,11 @@ PrintReidemeisterZeta( khi );
 #! @Description
 #! Verifies whether the multiple twisted conjugacy problem for the given homomorphisms and elements has a solution.
 #! @Arguments hom1List[, hom2List], g1List[, g2List]
-#! @Label IsTwistedConjugate for the multiple twisted conjugacy problem
 DeclareGlobalFunction( "IsTwistedConjugateMultiple" );
 
 #! @Description
 #! Computes a solution to the multiple twisted conjugacy problem for the given homomorphisms and elements, or returns <K>fail</K> if no solution exists.
 #! @Arguments hom1List[, hom2List], g1List[, g2List]
-#! @Label RepresentativeTwistedConjugation for the multiple twisted conjugacy problem
 DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
 
 #! @BeginExample
