@@ -27,7 +27,7 @@ end;
 
 ###############################################################################
 ##
-##  IntersectionKernels@( hom1, hom2 )
+## IntersectionKernels@( hom1, hom2 )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
