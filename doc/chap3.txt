@@ -10,16 +10,16 @@
   finding  some [23Xh \in H[123X such that [23Xg_i = \psi_i(h)g_i'\varphi_i(h)^{-1}[123X for all
   [23Xi \in \{1,\ldots,n\}[123X.[133X
   
-  [1X3.1-1 IsTwistedConjugate[101X
+  [1X3.1-1 IsTwistedConjugateMultiple[101X
   
-  [33X[1;0Y[29X[2XIsTwistedConjugate[102X( [3Xhom1List[103X[, [3Xhom2List[103X], [3Xg1List[103X, [3Xg2List[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XIsTwistedConjugateMultiple[102X( [3Xhom1List[103X[, [3Xhom2List[103X], [3Xg1List[103X[, [3Xg2List[103X] ) [32X function[133X
   
   [33X[0;0YVerifies  whether  the  multiple  twisted  conjugacy  problem  for the given
   homomorphisms and elements has a solution.[133X
   
-  [1X3.1-2 RepresentativeTwistedConjugation[101X
+  [1X3.1-2 RepresentativeTwistedConjugationMultiple[101X
   
-  [33X[1;0Y[29X[2XRepresentativeTwistedConjugation[102X( [3Xhom1List[103X[, [3Xhom2List[103X], [3Xg1List[103X, [3Xg2List[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XRepresentativeTwistedConjugationMultiple[102X( [3Xhom1List[103X[, [3Xhom2List[103X], [3Xg1List[103X[, [3Xg2List[103X] ) [32X function[133X
   
   [33X[0;0YComputes  a solution to the multiple twisted conjugacy problem for the given
   homomorphisms and elements, or returns [9Xfail[109X if no solution exists.[133X
@@ -35,10 +35,10 @@
     [4X[25X>[125X [27X [ (1,4)(3,6), () ] );;[127X[104X
     [4X[25Xgap>[125X [27Xkhi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],[127X[104X
     [4X[25X>[125X [27X [ (1,2)(3,4), () ] );;[127X[104X
-    [4X[25Xgap>[125X [27XIsTwistedConjugate( [ tau, phi ], [ psi, khi ],[127X[104X
+    [4X[25Xgap>[125X [27XIsTwistedConjugateMultiple( [ tau, phi ], [ psi, khi ],[127X[104X
     [4X[25X>[125X [27X [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );[127X[104X
     [4X[28Xtrue[128X[104X
-    [4X[25Xgap>[125X [27XRepresentativeTwistedConjugation( [ tau, phi ], [ psi, khi ],[127X[104X
+    [4X[25Xgap>[125X [27XRepresentativeTwistedConjugationMultiple( [ tau, phi ], [ psi, khi ],[127X[104X
     [4X[25X>[125X [27X [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );[127X[104X
     [4X[28X(1,2)[128X[104X
   [4X[32X[104X

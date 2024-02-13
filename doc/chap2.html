@@ -65,7 +65,7 @@
 
 <p>This group action is called <em><span class="Math">(\varphi,\psi)</span>-twisted conjugation</em>, and induces an equivalence relation on the group <span class="Math">G</span>. We say that <span class="Math">g_1, g_2 \in G</span> are <span class="Math">(\varphi,\psi)</span>-twisted conjugate, denoted by <span class="Math">g_1 \sim_{\varphi,\psi} g_2</span>, if and only if there exists some element <span class="Math">h \in H</span> such that <span class="Math">g_1 \cdot h = g_2</span>, or equivalently <span class="Math">g_1 = \psi(h) g_2 \varphi(h)^{-1}</span>.</p>
 
-<p>If <span class="Math">\varphi\colon G \to G</span> is an endomorphism of a group <span class="Math">G</span>, then by <em><span class="Math">\varphi</span>-twisted conjugacy</em> we mean <span class="Math">(\varphi,\mathrm{id}_G)</span>-twisted conjugacy. Most functions in this package will allow you to input a single endomorphism instead of a pair of homomorphisms. The "missing" endomorphism will automatically be assumed to be the identity mapping.</p>
+<p>If <span class="Math">\varphi\colon G \to G</span> is an endomorphism of a group <span class="Math">G</span>, then by <em><span class="Math">\varphi</span>-twisted conjugacy</em> we mean <span class="Math">(\varphi,\mathrm{id}_G)</span>-twisted conjugacy. Most functions in this package will allow you to input a single endomorphism instead of a pair of homomorphisms. The "missing" endomorphism will automatically be assumed to be the identity mapping. Similarly, if a single group element is given instead of two, the second will be assumed to be the identity.</p>
 
 <p><a id="X79CF6BDA7851496D" name="X79CF6BDA7851496D"></a></p>
 
@@ -78,7 +78,7 @@
 
 <h5>2.1-2 IsTwistedConjugate</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsTwistedConjugate</code>( <var class="Arg">hom1</var>[, <var class="Arg">hom2</var>], <var class="Arg">g1</var>, <var class="Arg">g2</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsTwistedConjugate</code>( <var class="Arg">hom1</var>[, <var class="Arg">hom2</var>], <var class="Arg">g1</var>[, <var class="Arg">g2</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Tests whether the elements <var class="Arg">g1</var> and <var class="Arg">g2</var> are twisted conjugate under the twisted conjugacy action of the pair of homomorphisms ( <var class="Arg">hom1</var>, <var class="Arg">hom2</var> ).</p>
 
 <p>This function relies on the output of <code class="code">RepresentativeTwistedConjugation</code>.</p>
@@ -87,7 +87,7 @@
 
 <h5>2.1-3 RepresentativeTwistedConjugation</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RepresentativeTwistedConjugation</code>( <var class="Arg">hom1</var>[, <var class="Arg">hom2</var>], <var class="Arg">g1</var>, <var class="Arg">g2</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RepresentativeTwistedConjugation</code>( <var class="Arg">hom1</var>[, <var class="Arg">hom2</var>], <var class="Arg">g1</var>[, <var class="Arg">g2</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Computes an element that maps <var class="Arg">g1</var> to <var class="Arg">g2</var> under the twisted conjugacy action of the pair of homomorphisms ( <var class="Arg">hom1</var>, <var class="Arg">hom2</var> ) or returns <code class="keyw">fail</code> if no such element exists.</p>
 
 <p>If <span class="Math">G</span> is abelian, this function relies on (a generalisation of) <a href="chapBib.html#biBdt21-a">[DT21, Algorithm 4]</a>. If <span class="Math">H</span> is finite, it relies on a stabiliser-orbit algorithm. Otherwise, it relies on a mixture of the algorithms described in <a href="chapBib.html#biBroma16-a">[Rom16, Theorem 3]</a>, <a href="chapBib.html#biBbkl20-a">[BKL+20, Section 5.4]</a>, <a href="chapBib.html#biBroma21-a">[Rom21, Section 7]</a> and <a href="chapBib.html#biBdt21-a">[DT21, Algorithm 6]</a>.</p>
@@ -233,7 +233,7 @@ Group([ (1,2,3,4,5), (1,3,4,5,2) ])
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ReidemeisterSpectrum</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Returns the Reidemeister spectrum of <var class="Arg">G</var>.</p>
 
-<p>If <span class="Math">G</span> is abelian, this function relies on the results from <a href="chapBib.html#biBsend22-a">[Sen22]</a>.</p>
+<p>If <span class="Math">G</span> is abelian, this function relies on the results from <a href="chapBib.html#biBsend23-a">[Sen23]</a>.</p>
 
 <p><a id="X8122B246860C1617" name="X8122B246860C1617"></a></p>
 

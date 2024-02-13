@@ -6,10 +6,10 @@
                   [1X Computation with twisted conjugacy classes [101X
   
   
-                                     2.1.0
+                                     2.2.0
   
   
-                                 16 March 2023
+                                13 February 2024
   
   
                                   Sam Tertooy
@@ -20,7 +20,7 @@
       Email:    [7Xmailto:sam.tertooy@kuleuven.be[107X
       Homepage: [7Xhttps://stertooy.github.io/[107X
       Address:  [33X[0;14YWiskunde[133X
-                [33X[0;14YKU Leuven Campus Kulak Kortrijk[133X
+                [33X[0;14YKU Leuven Kulak Kortrijk Campus[133X
                 [33X[0;14YEtienne Sabbelaan 53[133X
                 [33X[0;14Y8500 Kortrijk[133X
                 [33X[0;14YBelgium[133X
@@ -38,7 +38,7 @@
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y© 2020-2023 Sam Tertooy[133X
+  [33X[0;0Y© 2020-2024 Sam Tertooy[133X
   
   [33X[0;0YThe  [12XTwistedConjugacy[112X  package  is  free  software,  it may be redistributed
   and/or  modified  under  the  terms and conditions of the GNU Public License
@@ -77,8 +77,8 @@
       2.4-4 PrintReidemeisterZeta
   3 [33X[0;0YMultiple Twisted Conjugacy Problem[133X
     3.1 [33X[0;0YThe Multiple Twisted Conjugacy Problem[133X
-      3.1-1 IsTwistedConjugate
-      3.1-2 RepresentativeTwistedConjugation
+      3.1-1 IsTwistedConjugateMultiple
+      3.1-2 RepresentativeTwistedConjugationMultiple
   4 [33X[0;0YHomomorphisms[133X
     4.1 [33X[0;0YRepresentatives of homomorphisms between groups[133X
       4.1-1 RepresentativesAutomorphismClasses

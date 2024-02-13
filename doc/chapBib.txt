@@ -20,10 +20,10 @@
   nilpotent groups[117X, [18XSib. Elektron. Mat. Izv.[118X, [19X13[119X (2016), 716-725.
   
   [[20XRom21[120X]  [16XRoman'kov,  V.[116X,  [17XAlgorithmic  theory  of  solvable  groups[117X,  [18XPrikl.
-  Diskretn. Mat.[118X, [19X52[119X (2021), 16--64.
+  Diskretn. Mat.[118X, [19X52[119X (2021), 16-64.
   
-  [[20XSen22[120X]  [16XSenden,  P.[116X,  [17XThe  Reidemeister  spectrum  of finite abelian groups[117X
-  (2022), (arXiv: 2205.15740 [math.GR]).
+  [[20XSen23[120X]  [16XSenden,  P.[116X,  [17XThe  Reidemeister  Spectrum of Finite Abelian Groups[117X,
+  [18XProc. Edinburgh Math. Soc.[118X, [19X66[119X, 4 (2023), 940-959.
   
   
   

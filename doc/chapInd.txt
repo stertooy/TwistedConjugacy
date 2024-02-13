@@ -9,7 +9,7 @@
   [2XInducedHomomorphism[102X 4.3-1 
   [2XIsRationalReidemeisterZeta[102X 2.4-2 
   [2XIsTwistedConjugate[102X 2.1-2 
-      IsTwistedConjugate for the multiple twisted conjugacy problem 3.1-1 
+  [2XIsTwistedConjugateMultiple[102X 3.1-1 
   [2XNrTwistedConjugacyClasses[102X 2.2-3 
   [2XPrintReidemeisterZeta[102X 2.4-4 
   [2XReidemeisterClass[102X 2.2-1 
@@ -22,7 +22,7 @@
   [2XRepresentativesEndomorphismClasses[102X 4.1-2 
   [2XRepresentativesHomomorphismClasses[102X 4.1-3 
   [2XRepresentativeTwistedConjugation[102X 2.1-3 
-      RepresentativeTwistedConjugation for the multiple twisted conjugacy problem 3.1-2 
+  [2XRepresentativeTwistedConjugationMultiple[102X 3.1-2 
   [2XRestrictedHomomorphism[102X 4.3-2 
   [2XTwistedConjugacyClass[102X 2.2-1 
   [2XTwistedConjugacyClasses[102X 2.2-2 

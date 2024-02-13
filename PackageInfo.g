@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
-Version := "2.1.0",
-Date := "16/03/2023",
+Version := "2.2.0",
+Date := "13/02/2024",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -16,13 +16,13 @@ Persons := [
         Email := "sam.tertooy@kuleuven.be",
         PostalAddress := """
             Wiskunde
-            KU Leuven Campus Kulak Kortrijk
+            KU Leuven Kulak Kortrijk Campus
             Etienne Sabbelaan 53
             8500 Kortrijk
             Belgium
         """,
         Place := "Kortrijk",
-        Institution := "KU Leuven Campus Kulak Kortrijk",
+        Institution := "KU Leuven Kulak Kortrijk Campus",
     ),
 ],
 
@@ -63,10 +63,10 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-    GAP := ">= 4.11",
+    GAP := ">= 4.12",
     NeededOtherPackages := [ ],
     SuggestedOtherPackages := [
-        [ "Polycyclic", "2.15.1" ],
+        [ "Polycyclic", "2.16" ],
     ],
     ExternalConditions := [ ],
 ),
@@ -101,7 +101,7 @@ AutoDoc := rec(
             <B>AutoDoc</B> packages.
         """,
         Copyright := """
-            &copyright; 2020-2023 Sam Tertooy <P/>
+            &copyright; 2020-2024 Sam Tertooy <P/>
             The <B>TwistedConjugacy</B> package is free software, it may be
             redistributed and/or modified under the terms and conditions of the
             <URL Text="GNU Public License Version 2">

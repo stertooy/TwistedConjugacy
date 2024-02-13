@@ -22,7 +22,9 @@
   [13X[23X\varphi[123X-twisted conjugacy[113X we mean [23X(\varphi,\mathrm{id}_G)[123X-twisted conjugacy.
   Most functions in this package will allow you to input a single endomorphism
   instead  of  a  pair  of  homomorphisms.  The  "missing"  endomorphism  will
-  automatically be assumed to be the identity mapping.[133X
+  automatically  be assumed to be the identity mapping. Similarly, if a single
+  group  element is given instead of two, the second will be assumed to be the
+  identity.[133X
   
   [1X2.1-1 TwistedConjugation[101X
   
@@ -33,7 +35,7 @@
   
   [1X2.1-2 IsTwistedConjugate[101X
   
-  [33X[1;0Y[29X[2XIsTwistedConjugate[102X( [3Xhom1[103X[, [3Xhom2[103X], [3Xg1[103X, [3Xg2[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XIsTwistedConjugate[102X( [3Xhom1[103X[, [3Xhom2[103X], [3Xg1[103X[, [3Xg2[103X] ) [32X function[133X
   
   [33X[0;0YTests whether the elements [3Xg1[103X and [3Xg2[103X are twisted conjugate under the twisted
   conjugacy action of the pair of homomorphisms ( [3Xhom1[103X, [3Xhom2[103X ).[133X
@@ -42,7 +44,7 @@
   
   [1X2.1-3 RepresentativeTwistedConjugation[101X
   
-  [33X[1;0Y[29X[2XRepresentativeTwistedConjugation[102X( [3Xhom1[103X[, [3Xhom2[103X], [3Xg1[103X, [3Xg2[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XRepresentativeTwistedConjugation[102X( [3Xhom1[103X[, [3Xhom2[103X], [3Xg1[103X[, [3Xg2[103X] ) [32X function[133X
   
   [33X[0;0YComputes an element that maps [3Xg1[103X to [3Xg2[103X under the twisted conjugacy action of
   the  pair of homomorphisms ( [3Xhom1[103X, [3Xhom2[103X ) or returns [9Xfail[109X if no such element
@@ -213,7 +215,7 @@
   
   [33X[0;0YReturns the Reidemeister spectrum of [3XG[103X.[133X
   
-  [33X[0;0YIf [23XG[123X is abelian, this function relies on the results from [Sen22].[133X
+  [33X[0;0YIf [23XG[123X is abelian, this function relies on the results from [Sen23].[133X
   
   [1X2.3-2 ExtendedReidemeisterSpectrum[101X
   

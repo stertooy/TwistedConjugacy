@@ -28,8 +28,8 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X7B5C499E870B22B1">3.1 <span class="Heading">The Multiple Twisted Conjugacy Problem</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X81347FF180470B8C">3.1-1 IsTwistedConjugate</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X79B2C0E0805D7304">3.1-2 RepresentativeTwistedConjugation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X81B53D0583708C51">3.1-1 IsTwistedConjugateMultiple</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X83FD43F287FD5990">3.1-2 RepresentativeTwistedConjugationMultiple</a></span>
 </div></div>
 </div>
 
@@ -41,18 +41,18 @@
 
 <p>Let <span class="SimpleMath">\(H\)</span> and <span class="SimpleMath">\(G_1, \ldots, G_n\)</span> be groups. For each <span class="SimpleMath">\(i \in \{1,\ldots,n\}\)</span>, let <span class="SimpleMath">\(g_i,g_i' \in G_i\)</span> and let <span class="SimpleMath">\(\varphi_i,\psi_i\colon H \to G_i\)</span> be group homomorphisms. The multiple twisted conjugacy problem is the problem of finding some <span class="SimpleMath">\(h \in H\)</span> such that <span class="SimpleMath">\(g_i = \psi_i(h)g_i'\varphi_i(h)^{-1}\)</span> for all <span class="SimpleMath">\(i \in \{1,\ldots,n\}\)</span>.</p>
 
-<p><a id="X81347FF180470B8C" name="X81347FF180470B8C"></a></p>
+<p><a id="X81B53D0583708C51" name="X81B53D0583708C51"></a></p>
 
-<h5>3.1-1 IsTwistedConjugate</h5>
+<h5>3.1-1 IsTwistedConjugateMultiple</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsTwistedConjugate</code>( <var class="Arg">hom1List</var>[, <var class="Arg">hom2List</var>], <var class="Arg">g1List</var>, <var class="Arg">g2List</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsTwistedConjugateMultiple</code>( <var class="Arg">hom1List</var>[, <var class="Arg">hom2List</var>], <var class="Arg">g1List</var>[, <var class="Arg">g2List</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Verifies whether the multiple twisted conjugacy problem for the given homomorphisms and elements has a solution.</p>
 
-<p><a id="X79B2C0E0805D7304" name="X79B2C0E0805D7304"></a></p>
+<p><a id="X83FD43F287FD5990" name="X83FD43F287FD5990"></a></p>
 
-<h5>3.1-2 RepresentativeTwistedConjugation</h5>
+<h5>3.1-2 RepresentativeTwistedConjugationMultiple</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RepresentativeTwistedConjugation</code>( <var class="Arg">hom1List</var>[, <var class="Arg">hom2List</var>], <var class="Arg">g1List</var>, <var class="Arg">g2List</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RepresentativeTwistedConjugationMultiple</code>( <var class="Arg">hom1List</var>[, <var class="Arg">hom2List</var>], <var class="Arg">g1List</var>[, <var class="Arg">g2List</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Computes a solution to the multiple twisted conjugacy problem for the given homomorphisms and elements, or returns <code class="keyw">fail</code> if no solution exists.</p>
 
 
@@ -67,10 +67,10 @@
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (1,4)(3,6), () ] );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (1,2)(3,4), () ] );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsTwistedConjugate( [ tau, phi ], [ psi, khi ],</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsTwistedConjugateMultiple( [ tau, phi ], [ psi, khi ],</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );</span>
 true
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RepresentativeTwistedConjugation( [ tau, phi ], [ psi, khi ],</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RepresentativeTwistedConjugationMultiple( [ tau, phi ], [ psi, khi ],</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput"> [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );</span>
 (1,2)
 </pre></div>
