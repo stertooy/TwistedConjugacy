@@ -20,10 +20,10 @@ group homomorphisms. These methods are, for the most part, designed to be used
 with (group homomorphisms between) finite groups and, if the package Polycyclic
 is also installed, polycyclically presented groups.
 
-This package requires GAP version 4.11 or later.
+This package requires GAP version 4.12 or later.
 
 Additionally, this package provides extra functionality if Polycyclic version
-2.15.1 or later is installed.
+2.16 or later is installed.
 
 It is recommendeded to install the latest version Polycyclic, as some known
 bugs in older versions of Polycyclic could lead to TwistedConjugacy providing

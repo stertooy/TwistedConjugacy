@@ -14,7 +14,6 @@ jobs:
           - gap-branch: "master"
           - gap-branch: "4.13"
           - gap-branch: "4.12"
-          - gap-branch: "4.11"
 
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}-slim
