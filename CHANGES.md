@@ -1,7 +1,7 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
-2.2.0 (2024-02-14)
+2.2.0 (2024-02-13)
 ------------------
 
 - Now requires GAP version >= 4.12 and optionally Polycyclic version >= 2.16
