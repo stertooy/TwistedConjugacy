@@ -8,7 +8,7 @@ ReadPackage( "TwistedConjugacy", "lib/ReidemeisterNumber.gi" );
 ReadPackage( "TwistedConjugacy", "lib/ReidemeisterSpectrum.gi" );
 ReadPackage( "TwistedConjugacy", "lib/ReidemeisterZeta.gi" );
 
-if TestPackageAvailability( "polycyclic", "2.15.1" ) = true then
+if TestPackageAvailability( "polycyclic", "2.16" ) = true then
     ReadPackage( "TwistedConjugacy", "lib/PcpGroup/HelpFunctions_Pcp.gi" );
     ReadPackage( "TwistedConjugacy", "lib/PcpGroup/ConvertFinitePcpToPc.gi" );
 fi;
