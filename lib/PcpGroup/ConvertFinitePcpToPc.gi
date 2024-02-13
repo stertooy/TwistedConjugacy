@@ -71,7 +71,7 @@ InstallMethod(
         ) then TryNextMethod(); fi;
         iso := IsomorphismPcGroup( G );
         Rcl := RepresentativesReidemeisterClasses( hom1*iso, hom2*iso );
-        return List( Rcl, g -> PreImagesRepresentative( iso, g ) );
+        return List( Rcl, g -> PreImagesRepresentativeNC( iso, g ) );
     end
 );
 

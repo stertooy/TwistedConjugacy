@@ -1,7 +1,4 @@
 # Introduce NC versions of preimage functions as a temporary measure
-if not IsBound( PreImagesNC ) then
-    BindGlobal( "PreImagesNC", PreImages );
-fi;
 if not IsBound( PreImagesSetNC ) then
     BindGlobal( "PreImagesSetNC", PreImagesSet );
 fi;
