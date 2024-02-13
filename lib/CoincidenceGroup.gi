@@ -75,7 +75,7 @@ CoincidenceGroupByTrivialSubgroup@ := function( hom1, hom2 )
         InducedHomomorphism( q, p, hom1 ),
         InducedHomomorphism( q, p, hom2 )
     );
-    return PreImagesSet( q, Coin );
+    return PreImagesSetNC( q, Coin );
 end;
 
 
@@ -115,7 +115,7 @@ CoincidenceGroupByFiniteQuotient@ := function( hom1, hom2, M )
     gens := List( GeneratorsOfGroup( CoincidenceGroup2( hom1N, hom2N ) ) );
     func := function( qh )
         local h, n;
-        h := PreImagesRepresentative( q, qh );
+        h := PreImagesRepresentativeNC( q, qh );
         n := RepresentativeTwistedConjugationOp(
             hom1N, hom2N,
             tc( One( G ), h )
@@ -275,7 +275,7 @@ CoincidenceGroupStep3@ := function( hom1, hom2 )
     n := Length( ci );
     tc := TwistedConjugation( hom1, hom2 );
     bi := List( [1..n], i -> tc( One( G ), ci[i]^-1 ) );
-    di := List( [1..n], i -> PreImagesRepresentative( d, bi[i] ) );
+    di := List( [1..n], i -> PreImagesRepresentativeNC( d, bi[i] ) );
     gens1 := List( [1..n], i -> di[i]^-1*ci[i] );
     gens2 := SmallGeneratingSet( Kernel( d ) );
     return Subgroup( H, Concatenation( gens1, gens2 ) );

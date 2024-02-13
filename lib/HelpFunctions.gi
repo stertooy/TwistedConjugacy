@@ -55,8 +55,9 @@ end;
 ##
 IntersectionPreImage@ := function( hom1, hom2, M )
     return NormalIntersection(
-        PreImagesSet( hom1, NormalIntersection( M, ImagesSource( hom1 ) ) ),
-        PreImagesSet( hom2, NormalIntersection( M, ImagesSource( hom2 ) ) )
+        # TODO: replace by PreImagesSet eventually
+        PreImagesSetNC( hom1, NormalIntersection( M, ImagesSource( hom1 ) ) ),
+        PreImagesSetNC( hom2, NormalIntersection( M, ImagesSource( hom2 ) ) )
     );
 end;
 
@@ -116,7 +117,7 @@ NilpotentByAbelianNormalSubgroup@ := function( G )
     local p, A, NA;
     p := NaturalHomomorphismByNormalSubgroupNC( G, FittingSubgroup( G ) );
     A := Centre( FittingSubgroup( ImagesSource( p ) ) );
-    NA := PreImagesSet( p, A );
+    NA := PreImagesSetNC( p, A );
     SetIsNilpotentByAbelian( NA, true );
     SetIsNilpotentByFinite( NA, IsFinite( A ) );
     return NA;

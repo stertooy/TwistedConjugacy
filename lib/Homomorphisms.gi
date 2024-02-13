@@ -19,7 +19,7 @@ InstallGlobalFunction(
         gens := SmallGeneratingSet( HN );
         imgs := List( gens, h -> ImagesRepresentative(
             epi2,
-            ImagesRepresentative( hom, PreImagesRepresentative( epi1, h ) )
+            ImagesRepresentative( hom, PreImagesRepresentativeNC( epi1, h ) )
         ));
         return GroupHomomorphismByImagesNC( HN, GM, gens, imgs );
     end

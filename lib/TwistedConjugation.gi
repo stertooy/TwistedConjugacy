@@ -120,7 +120,7 @@ RepTwistConjToIdByTrivialSubgroup@ := function( hom1, hom2, g )
     if qh = fail then
         return fail;
     fi;
-    return PreImagesRepresentative( q, qh );
+    return PreImagesRepresentativeNC( q, qh );
 end;
 
 
@@ -160,13 +160,13 @@ RepTwistConjToIdByFiniteQuotient@ := function( hom1, hom2, g, M )
     fi;
     Coin := CoincidenceGroup2( hom1HN, hom2HN );
     if not IsFinite( Coin ) then TryNextMethod(); fi;
-    h1 := PreImagesRepresentative( q, qh1 );
+    h1 := PreImagesRepresentativeNC( q, qh1 );
     tc := TwistedConjugation( hom1, hom2 );
     m1 := tc( g, h1 );
     hom1N := RestrictedHomomorphism( hom1, N, M );
     hom2N := RestrictedHomomorphism( hom2, N, M );
     for qh2 in Coin do
-        h2 := PreImagesRepresentative( q, qh2 );
+        h2 := PreImagesRepresentativeNC( q, qh2 );
         m2 := tc( m1, h2 );
         n := RepresentativeTwistedConjugationOp( hom1N, hom2N, m2 );
         if n <> fail then
@@ -215,7 +215,8 @@ RepTwistConjToIdByCentre@ := function( hom1, hom2, g )
     if not c in ImagesSource( d ) then
         return fail;
     fi;
-    h2 := PreImagesRepresentative( d, c );
+    # TODO: Replace by PreImagesRepresentative eventually
+    h2 := PreImagesRepresentativeNC( d, c );
     return h1*h2;
 end;
 
@@ -261,7 +262,7 @@ RepTwistConjToIdStep5@ := function( hom1, hom2, a, A )
     p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );
     pg := ImagesRepresentative( p, g );
-    return PreImagesRepresentative( InducedHomomorphism( q, p, hom2 ), pg );
+    return PreImagesRepresentativeNC( InducedHomomorphism( q, p, hom2 ), pg );
 end;
 
 
@@ -314,7 +315,8 @@ RepTwistConjToIdStep4@ := function( hom1, hom2, a, A )
     if not c in ImagesSource( delta ) then
         return fail;
     fi;
-    h2 := PreImagesRepresentative( delta, c );
+    # TODO: Replace by PreImagesRepresentative eventually
+    h2 := PreImagesRepresentativeNC( delta, c );
     return h1*h2;
 end;
 
@@ -361,7 +363,7 @@ RepTwistConjToIdStep3@ := function( hom1, hom2, a, A )
     fi;
     tc := TwistedConjugation( hom1, hom2 );
     c := tc( a, h1 );
-    h2 := PreImagesRepresentative( delta, c );
+    h2 := PreImagesRepresentativeNC( delta, c );
     return h1*h2;
 end;
 
@@ -523,7 +525,8 @@ InstallOtherMethod(
         if not g in ImagesSource( diff ) then
             return fail;
         fi;
-        return PreImagesRepresentative( diff, g );
+        # TODO: Replace by PreImagesRepresentative eventually
+        return PreImagesRepresentativeNC( diff, g );
     end
 );
 

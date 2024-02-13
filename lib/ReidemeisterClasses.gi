@@ -320,7 +320,7 @@ ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, M )
         inn_pg := InnerAutomorphismNC( GM, pg^-1 );
         Coin := CoincidenceGroup2( hom1p*inn_pg, hom2p );
         if not IsFinite( Coin ) then TryNextMethod(); fi;
-        g := PreImagesRepresentative( p, pg );
+        g := PreImagesRepresentativeNC( p, pg );
         conj_g := ConjugatorAutomorphismNC( M, g^-1 );
         inn_g_hom1N := hom1N*conj_g;
         RclM := RepresentativesReidemeisterClasses( inn_g_hom1N, hom2N );
@@ -333,7 +333,7 @@ ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, M )
         for m1 in RclM do
             isNew := true;
             for qh in Coin do
-                h := PreImagesRepresentative( q, qh );
+                h := PreImagesRepresentativeNC( q, qh );
                 m2 := tc( m1, h );
                 if ForAny(
                     igRclM,
@@ -405,7 +405,8 @@ ReidemeisterClassesByCentre@ := function( hom1, hom2 )
                 Add( Rcl, One( G ), 1 );
                 foundOne := true;
             else
-                m := PreImagesRepresentative( r, rm );
+                # TODO: replace by PreImagesRepresentative eventually
+                m := PreImagesRepresentativeNC( r, rm );
                 Add( Rcl, m*g );
             fi;
         od;
