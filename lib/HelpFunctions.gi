@@ -83,25 +83,6 @@ InstallMethod(
 
 ###############################################################################
 ##
-## IsNilpotentByFinite( G )
-##
-##  INPUT:
-##      G:          polycyclic-by-finite group
-##
-##  OUTPUT:
-##      bool:       true iff G is nilpotent-by-finite
-##
-InstallMethod(
-    IsNilpotentByFinite,
-    [ IsPolycyclicByFinite ],
-    function( G )
-        return IsInt( IndexNC( G, FittingSubgroup( G ) ) );
-    end
-);
-
-
-###############################################################################
-##
 ## NilpotentByAbelianNormalSubgroup@( G )
 ##
 ##  INPUT:
