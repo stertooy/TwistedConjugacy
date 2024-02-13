@@ -6,9 +6,15 @@ DeclareGlobalFunction( "TwistedConjugation" );
 DeclareGlobalFunction( "IsTwistedConjugate" );
 DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 DeclareOperation(
-    "RepTwistConjToId",
+    "RepresentativeTwistedConjugationOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
-      IsMultiplicativeElementWithInverse ]
+      IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ]
+);
+DeclareGlobalFunction( "IsTwistedConjugateMultiple" );
+DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
+DeclareOperation(
+    "RepresentativeTwistedConjugationMultOp",
+    [ IsList, IsList, IsList, IsList ]
 );
 
 DeclareGlobalFunction( "ReidemeisterClass" );
@@ -85,6 +91,7 @@ DeclareOperation(
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 
+
 DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 DeclareOperation(
     "RepresentativesHomomorphismClassesOp",
@@ -113,5 +120,12 @@ DeclareOperation(
 DeclareGlobalFunction( "InducedHomomorphism" );
 DeclareGlobalFunction( "RestrictedHomomorphism" );
 
+
+DeclareProperty( "IsNilpotentByFinite", IsGroup );
+InstallTrueMethod( IsNilpotentByFinite, IsNilpotentGroup );
+InstallTrueMethod( IsNilpotentByFinite, IsGroup and IsFinite );
+DeclareProperty( "IsPolycyclicByFinite", IsGroup );
+InstallTrueMethod( IsPolycyclicByFinite, IsPolycyclicGroup );
+InstallTrueMethod( IsPolycyclicByFinite, IsGroup and IsFinite );
 DeclareProperty( "IsNilpotentByAbelian", IsGroup );
 InstallTrueMethod( IsNilpotentByAbelian, IsNilpotentGroup );

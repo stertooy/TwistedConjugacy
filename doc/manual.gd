@@ -44,7 +44,7 @@
 #! Let $G, H$ be groups and $\varphi,\psi\colon H \to G$ group homomorphisms. Then the pair $(\varphi,\psi)$ induces a (right) group action on $G$ given by
 #! $$G \times H \to G\colon (g,h) \mapsto g \cdot h := \psi(h)^{-1} g\varphi(h).$$
 #! This group action is called **$(\varphi,\psi)$-twisted conjugation**, and induces an equivalence relation on the group $G$. We say that $g_1, g_2 \in G$ are $(\varphi,\psi)$-twisted conjugate, denoted by $g_1 \sim_{\varphi,\psi} g_2$, if and only if there exists some element $h \in H$ such that $g_1 \cdot h = g_2$, or equivalently $g_1 = \psi(h) g_2 \varphi(h)^{-1}$.
-#! <P/>If $\varphi\colon G \to G$ is an endomorphism of a group $G$, then by **$\varphi$-twisted conjugacy** we mean $(\varphi,\mathrm{id}_G)$-twisted conjugacy. Most functions in this package will allow you to input a single endomorphism instead of a pair of homomorphisms. The "missing" endomorphism will automatically be assumed to be the identity mapping.
+#! <P/>If $\varphi\colon G \to G$ is an endomorphism of a group $G$, then by **$\varphi$-twisted conjugacy** we mean $(\varphi,\mathrm{id}_G)$-twisted conjugacy. Most functions in this package will allow you to input a single endomorphism instead of a pair of homomorphisms. The "missing" endomorphism will automatically be assumed to be the identity mapping. Similarly, if a single group element is given instead of two, the second will be assumed to be the identity.
 
 #! @BeginGroup TwistedConjugationGroup
 #! @Description
@@ -58,7 +58,7 @@ DeclareGlobalFunction( "TwistedConjugation" );
 #! Tests whether the elements <A>g1</A> and <A>g2</A> are twisted conjugate under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ).
 #! <P />
 #! This function relies on the output of <C>RepresentativeTwistedConjugation</C>.
-#! @Arguments hom1[, hom2], g1, g2
+#! @Arguments hom1[, hom2], g1[, g2]
 DeclareGlobalFunction( "IsTwistedConjugate" );
 #! @EndGroup
 
@@ -69,7 +69,7 @@ DeclareGlobalFunction( "IsTwistedConjugate" );
 #! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='dt21-a' Where='Algorithm 4'/>.
 #! If $H$ is finite, it relies on a stabiliser-orbit algorithm.
 #! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Theorem 3'/>, <Cite Key='bkl20-a' Where='Section 5.4'/>, <Cite Key='roma21-a' Where='Section 7'/> and <Cite Key='dt21-a' Where='Algorithm 6'/>.
-#! @Arguments hom1[, hom2], g1, g2
+#! @Arguments hom1[, hom2], g1[, g2]
 DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 #! @EndGroup
 
@@ -193,7 +193,7 @@ NrTwistedConjugacyClasses( phi, psi );
 #! @Description
 #! Returns the Reidemeister spectrum of <A>G</A>.
 #! <P />
-#! If $G$ is abelian, this function relies on the results from <Cite Key='send22-a'/>.
+#! If $G$ is abelian, this function relies on the results from <Cite Key='send23-a'/>.
 #! @Arguments G
 DeclareGlobalFunction( "ReidemeisterSpectrum" );
 
@@ -283,7 +283,7 @@ PrintReidemeisterZeta( khi );
 
 #####
 #
-# CHAPTER 4
+# CHAPTER 3
 #
 #####
 
@@ -302,15 +302,13 @@ PrintReidemeisterZeta( khi );
 
 #! @Description
 #! Verifies whether the multiple twisted conjugacy problem for the given homomorphisms and elements has a solution.
-#! @Arguments hom1List[, hom2List], g1List, g2List
-#! @Label IsTwistedConjugate for the multiple twisted conjugacy problem
-DeclareGlobalFunction( "IsTwistedConjugate" );
+#! @Arguments hom1List[, hom2List], g1List[, g2List]
+DeclareGlobalFunction( "IsTwistedConjugateMultiple" );
 
 #! @Description
 #! Computes a solution to the multiple twisted conjugacy problem for the given homomorphisms and elements, or returns <K>fail</K> if no solution exists.
-#! @Arguments hom1List[, hom2List], g1List, g2List
-#! @Label RepresentativeTwistedConjugation for the multiple twisted conjugacy problem
-DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
+#! @Arguments hom1List[, hom2List], g1List[, g2List]
+DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
 
 #! @BeginExample
 H := SymmetricGroup( 5 );;
@@ -323,10 +321,10 @@ psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,4)(3,6), () ] );;
 khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,2)(3,4), () ] );;
-IsTwistedConjugate( [ tau, phi ], [ psi, khi ],
+IsTwistedConjugateMultiple( [ tau, phi ], [ psi, khi ],
  [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );
 #! true
-RepresentativeTwistedConjugation( [ tau, phi ], [ psi, khi ],
+RepresentativeTwistedConjugationMultiple( [ tau, phi ], [ psi, khi ],
  [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );
 #! (1,2)
 #! @EndExample

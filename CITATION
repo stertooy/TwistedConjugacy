@@ -3,17 +3,17 @@ Please use one of the following samples to cite TwistedConjugacy version from th
 
 Text:
 
-S. Tertooy, TwistedConjugacy, Computation with twisted conjugacy classes, GAP package, Version 2.1.0, 2023, https://stertooy.github.io/TwistedConjugacy/.
+S. Tertooy, TwistedConjugacy, Computation with twisted conjugacy classes, GAP package, Version 2.2.0, 2024, https://stertooy.github.io/TwistedConjugacy/.
 
 
 BibLaTeX:
 
-@Software{ TwistedConjugacy2.1.0,
+@Software{ TwistedConjugacy2.2.0,
     author     = {Tertooy, Sam},
-    date       = {2023-03},
+    date       = {2024-02},
     title      = {TwistedConjugacy},
     subtitle   = {Computation with twisted conjugacy classes},
-    version    = {2.1.0},
+    version    = {2.2.0},
     titleaddon = {GAP Package},
     url        = {https://stertooy.github.io/TwistedConjugacy/},
 }
@@ -21,11 +21,11 @@ BibLaTeX:
 
 BibTeX:
 
-@misc{ TwistedConjugacy2.1.0,
+@misc{ TwistedConjugacy2.2.0,
   author =       {Tertooy, Sam},
-  year =         {2023},
-  month =        {Mar},
-  title =        {{TwistedConjugacy}, {C}omputation with twisted conjugacy classes, {V}ersion 2.1.0},
+  year =         {2024},
+  month =        {Feb},
+  title =        {{TwistedConjugacy}, {C}omputation with twisted conjugacy classes, {V}ersion 2.2.0},
   note =         {GAP package},
   howpublished = {\url{https://stertooy.github.io/TwistedConjugacy/}},
 }

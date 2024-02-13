@@ -7,11 +7,20 @@ gap> T := TrivialGroup( filt );;
 gap> C := CyclicGroup( filt, 2 );;
 
 #
+gap> AutsG := RepresentativesAutomorphismClasses( G );;
+gap> Size( AutsG );
+72
 gap> HomsG := RepresentativesEndomorphismClasses( G );;
 gap> Size( HomsG );
 308
+gap> AutsT := RepresentativesAutomorphismClasses( T );;
+gap> Size( AutsT );
+1
 gap> HomsT := RepresentativesEndomorphismClasses( T );;
 gap> Size( HomsT );
+1
+gap> AutsC := RepresentativesAutomorphismClasses( C );;
+gap> Size( AutsC );
 1
 gap> HomsC := RepresentativesEndomorphismClasses( C );;
 gap> Size( HomsC );

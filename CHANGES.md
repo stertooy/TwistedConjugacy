@@ -1,6 +1,23 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
+2.2.0 (2024-02-13)
+------------------
+
+- Now requires GAP version >= 4.12 and optionally Polycyclic version >= 2.16
+
+- ReidemeisterSpectrum is now much more efficient for (large) non-abelian
+  groups
+
+- RepresentativeTwistedConjugation and IsTwistedConjugate no longer take lists
+  as input, this functionality has been moved to new functions called
+  RepresentativeTwistedConjugationMultiple and IsTwistedConjugateMultiple
+
+- Added IsNilpotentByFinite and IsPolycyclicByFinite properties
+- Code for infinite groups is now less dependent on the Polycyclic package
+  being loaded
+
+
 2.1.0 (2023-03-16)
 ------------------
 
