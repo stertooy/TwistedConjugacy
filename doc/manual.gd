@@ -23,7 +23,6 @@
 #! some methods in this package are only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
 #! Otherwise, these methods may potentially throw an error: "<C>Error, no method found!</C>"
 
->>>>>>> main
 
 
 #####
@@ -216,18 +215,20 @@ DeclareGlobalFunction( "ExtendedReidemeisterSpectrum" );
 DeclareGlobalFunction( "CoincidenceReidemeisterSpectrum" );
 
 #! @BeginExample
-ReidemeisterSpectrum( G );
-#! [ 3, 5, 7 ]
-ExtendedReidemeisterSpectrum( G );
-#! [ 1, 3, 5, 7 ]
-CoincidenceReidemeisterSpectrum( G );
-#! [ 1, 3, 5, 7, 360 ]
-CoincidenceReidemeisterSpectrum( H );
-#! [ 1, 2, 7, 60, 64, 66, 120 ]
-CoincidenceReidemeisterSpectrum( H, G );
-#! [ 180, 184, 360 ]
-CoincidenceReidemeisterSpectrum( G, H );
-#! [ 120 ]
+Q := QuaternionGroup( 8 );;
+D := DihedralGroup( 8 );;
+ReidemeisterSpectrum( Q );
+#! [ 2, 3, 5 ]
+ExtendedReidemeisterSpectrum( Q );
+#! [ 1, 2, 3, 5 ]
+CoincidenceReidemeisterSpectrum( Q );
+#! [ 1, 2, 3, 4, 5, 8 ]
+CoincidenceReidemeisterSpectrum( D, Q );
+#! [ 4, 8 ]
+CoincidenceReidemeisterSpectrum( Q, D );
+#! [ 2, 3, 4, 6, 8 ]
+FullReidemeisterSpectrum( Q );
+#! [ 1, 2, 3, 4, 5, 6, 8 ]
 #! @EndExample
 
 
