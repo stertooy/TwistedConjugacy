@@ -2,6 +2,12 @@
 ##
 ## ReidemeisterSpectrum( G )
 ##
+##  INPUT:
+##      G:          group G
+##
+##  OUTPUT:
+##      Spec:       Reidemeister spectrum of G
+##
 InstallGlobalFunction(
     ReidemeisterSpectrum,
     function( G )
@@ -14,7 +20,65 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
+## ExtendedReidemeisterSpectrum( G )
+##
+##  INPUT:
+##      G:          group G
+##
+##  OUTPUT:
+##      Spec:       extended Reidemeister spectrum of G
+##
+InstallGlobalFunction(
+    ExtendedReidemeisterSpectrum,
+    function( G )
+        IsFinite( G );
+        IsAbelian( G );
+        return ExtendedReidemeisterSpectrumOp( G );
+    end
+);
+
+
+###############################################################################
+##
+## CoincidenceReidemeisterSpectrum( H, G )
+##
+##  INPUT:
+##      H:          group H
+##      G:          group G (optional)
+##
+##  OUTPUT:
+##      Spec:       coincidence Reidemeister spectrum of the pair (H,G)
+##
+##  REMARKS:
+##      If G is omitted, it is assumed to be equal to H.
+##
+InstallGlobalFunction(
+    CoincidenceReidemeisterSpectrum,
+    function( H, arg... )
+        local G;
+        IsFinite( H );
+        IsAbelian( H );
+        if Length( arg ) = 0 then
+            return CoincidenceReidemeisterSpectrumOp( H );
+        else
+            G := arg[1];
+            IsFinite( G );
+            IsAbelian( G );
+            return CoincidenceReidemeisterSpectrumOp( H, G );
+        fi;
+    end
+);
+
+
+###############################################################################
+##
 ## ReidemeisterSpectrumOp( G )
+##
+##  INPUT:
+##      G:          group G
+##
+##  OUTPUT:
+##      Spec:       Reidemeister spectrum of G
 ##
 InstallMethod(
     ReidemeisterSpectrumOp,
@@ -77,24 +141,66 @@ InstallMethod(
     [ IsGroup and IsFinite ],
     0,
     function( G )
-        return Set(
-            RepresentativesConjClassesOutAuto@( G ),
-            ReidemeisterNumberOp
-        );
-    end
-);
-
-
-###############################################################################
-##
-## ExtendedReidemeisterSpectrum( G )
-##
-InstallGlobalFunction(
-    ExtendedReidemeisterSpectrum,
-    function( G )
-        IsFinite( G );
-        IsAbelian( G );
-        return ExtendedReidemeisterSpectrumOp( G );
+        local Aut, gens, conjG, kG, pool, i, id, look, aut, img, cur, p, todo,
+              g, j, S, SpecR, s;
+        Aut := AutomorphismGroup( G );
+        gens := [];
+        conjG := ConjugacyClasses( G );
+        kG := Length( conjG );
+        # Split up conjugacy classes
+        pool := NewDictionary( [1,2], true );
+        for i in [2..kG] do
+            id := [ Size( conjG[i] ), Order( Representative( conjG[i] ) ) ];
+            look := LookupDictionary( pool, id );
+            if look = fail then
+                AddDictionary( pool, id, [i] );
+            else
+                Add( look, i );
+            fi;
+        od;
+        # Calculate induced permutation
+        for aut in GeneratorsOfGroup( Aut ) do
+            # Skip if automorphism is known to be inner
+            if (
+                HasIsInnerAutomorphism( aut ) and
+                IsInnerAutomorphism( aut )
+            ) then
+                continue;
+            fi;
+            img := [];
+            cur := 0;
+            for p in pool do
+                # If small enough, this is more efficient time-wise
+                if Size( conjG[p[1]] ) < 1000 then
+                    Perform( p, i -> AsSSortedList( conjG[i] ) );
+                fi;
+                todo := [1..Length(p)];
+                for i in [1..Length(p)-1] do
+                    g := ImagesRepresentative(
+                        aut,
+                        Representative( conjG[p[i]] )
+                    );
+                    for j in todo do
+                        if g in conjG[p[j]] then
+                            Add( img, j + cur );
+                            RemoveSet( todo, j );
+                            break;
+                        fi;
+                    od;
+                od;
+                # Final class is now uniquely determined
+                Add( img, todo[1] + cur );
+                cur := cur + Length(p);
+            od;
+            AddSet( gens, PermList( img ) );
+        od;
+        # Group of permutations on conjugacy classes
+        S := Group( gens, () );
+        SpecR := [];
+        for s in ConjugacyClasses( S ) do
+            AddSet( SpecR, kG - NrMovedPoints( Representative( s ) ) );
+        od;
+        return SpecR;
     end
 );
 
@@ -102,6 +208,12 @@ InstallGlobalFunction(
 ###############################################################################
 ##
 ## ExtendedReidemeisterSpectrumOp( G )
+##
+##  INPUT:
+##      G:          group G
+##
+##  OUTPUT:
+##      Spec:       extended Reidemeister spectrum of G
 ##
 InstallMethod(
     ExtendedReidemeisterSpectrumOp,
@@ -127,33 +239,17 @@ InstallMethod(
 
 ###############################################################################
 ##
-## CoincidenceReidemeisterSpectrum( H, ... )
-##
-InstallGlobalFunction(
-    CoincidenceReidemeisterSpectrum,
-    function( H, arg... )
-        local G;
-        IsFinite( H );
-        IsAbelian( H );
-        if Length( arg ) = 0 then
-            if IsAbelian( H ) then
-                return ExtendedReidemeisterSpectrumOp( H );
-            else
-                return CoincidenceReidemeisterSpectrumOp( H );
-            fi;
-        else
-            G := arg[1];
-            IsFinite( G );
-            IsAbelian( G );
-            return CoincidenceReidemeisterSpectrumOp( H, G );
-        fi;
-    end
-);
-
-
-###############################################################################
-##
 ## CoincidenceReidemeisterSpectrum( H, G )
+##
+##  INPUT:
+##      H:          group H
+##      G:          group G (optional)
+##
+##  OUTPUT:
+##      Spec:       coincidence Reidemeister spectrum of the pair (H,G)
+##
+##  REMARKS:
+##      If G is omitted, it is assumed to be equal to H.
 ##
 InstallMethod(
     CoincidenceReidemeisterSpectrumOp,
@@ -176,6 +272,13 @@ InstallMethod(
         Hom_reps := RepresentativesHomomorphismClasses( H, G );
         return SetX( Hom_reps, Hom_reps, ReidemeisterNumberOp );
     end
+);
+
+InstallOtherMethod(
+    CoincidenceReidemeisterSpectrumOp,
+    "for finite abelian group to itself",
+    [ IsGroup and IsFinite and IsAbelian ],
+    ExtendedReidemeisterSpectrumOp
 );
 
 InstallOtherMethod(

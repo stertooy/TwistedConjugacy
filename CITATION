@@ -1,45 +1,32 @@
-Please use one of the following samples
-to cite TwistedConjugacy version from this installation
+Please use one of the following samples to cite TwistedConjugacy version from this installation
+
 
 Text:
 
-[Ter23] Tertooy, S., TwistedConjugacy, Computation with twisted conjugacy classes, Version 2.1.0 (2023), GAP package, https://stertooy.github.io/TwistedConjugacy/.
+S. Tertooy, TwistedConjugacy, Computation with twisted conjugacy classes, GAP package, Version 2.3.0, 2024, https://stertooy.github.io/TwistedConjugacy/.
 
-HTML:
 
-<p class='BibEntry'>
-[<span class='BibKey'>Ter23</span>]   <b class='BibAuthor'>Tertooy, S.</b>,
- <i class='BibTitle'>TwistedConjugacy, Computation with twisted conjugacy classes,
-         Version 2.1.0</i>
- (<span class='BibYear'>2023</span>)<br />
-(<span class='BibNote'>GAP package</span>),
-<span class='BibHowpublished'><a href="https://stertooy.github.io/TwistedConjugacy/">https://stertooy.github.io/TwistedConjugacy/</a></span>.
-</p>
+BibLaTeX:
 
-BibXML:
+@Software{ TwistedConjugacy2.2.0,
+    author     = {Tertooy, Sam},
+    date       = {2024-09},
+    title      = {TwistedConjugacy},
+    subtitle   = {Computation with twisted conjugacy classes},
+    version    = {2.3.0},
+    titleaddon = {GAP Package},
+    url        = {https://stertooy.github.io/TwistedConjugacy/},
+}
 
-<entry id="TwistedConjugacy2.1.0"><misc>
-  <author>
-    <name><first>Sam</first><last>Tertooy</last></name>
-  </author>
-  <title><C>TwistedConjugacy</C>, Computation with twisted conjugacy classes,
-         <C>V</C>ersion 2.1.0</title>
-  <howpublished><URL>https://stertooy.github.io/TwistedConjugacy/</URL></howpublished>
-  <month>Mar</month>
-  <year>2023</year>
-  <note>GAP package</note>
-  <keywords>coincidence group; endomorphism; fixed point group; homomorphism; Reidemeister number; Reidemeister spectrum; Reidemeister zeta function; twisted conjugacy</keywords>
-</misc></entry>
 
 BibTeX:
 
-@misc{ TwistedConjugacy2.1.0,
-  author =           {Tertooy, S.},
-  title =            {{TwistedConjugacy}, Computation with twisted conjugacy classes, {V}ersion 2.1.0},
-  month =            {Mar},
-  year =             {2023},
-  note =             {GAP package},
-  howpublished =     {\href {https://stertooy.github.io/TwistedConjugacy/} {\texttt{https://stertooy.github.io/}\discretionary {}{}{}\texttt{TwistedConjugacy/}}},
-  keywords =         {coincidence group; endomorphism; fixed point group; homomorphism; Reidemeister number; Reidemeister spectrum; Reidemeister zeta function; twisted conjugacy},
-  printedkey =       {Ter23}
+@misc{ TwistedConjugacy2.2.0,
+  author =       {Tertooy, Sam},
+  year =         {2024},
+  month =        {Sep},
+  title =        {{TwistedConjugacy}, {C}omputation with twisted conjugacy classes, {V}ersion 2.3.0},
+  note =         {GAP package},
+  howpublished = {\url{https://stertooy.github.io/TwistedConjugacy/}},
 }
+

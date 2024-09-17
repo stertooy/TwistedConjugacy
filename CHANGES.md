@@ -1,22 +1,45 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
-2.1.0 (07/03/2023)
+2.3.0 (2024-09-17)
 ------------------
 
-- Again requires GAP 4.11 or newer, and needed/suggested package versions
-  have been increased accordingly
-- AutoDoc removed as suggested package, to prevent this package from being
-  automatically loaded when a user deliberatily wants to load as few packages
-  as necessary
+- Now requires GAP version >= 4.13 and optionally Polycyclic version >= 2.16
+
+- Polycyclic version >= 2.16 is now an extension instead of an optional
+  dependency
+
+
+2.2.0 (2024-02-13)
+------------------
+
+- Now requires GAP version >= 4.12 and optionally Polycyclic version >= 2.16
+
+- ReidemeisterSpectrum is now much more efficient for (large) non-abelian
+  groups
+
+- RepresentativeTwistedConjugation and IsTwistedConjugate no longer take lists
+  as input, this functionality has been moved to new functions called
+  RepresentativeTwistedConjugationMultiple and IsTwistedConjugateMultiple
+
+- Added IsNilpotentByFinite and IsPolycyclicByFinite properties
+- Code for infinite groups is now less dependent on the Polycyclic package
+  being loaded
+
+
+2.1.0 (2023-03-16)
+------------------
+
+- Now requires GAP version >= 4.11 and optionally polycyclic version >= 2.15.1
+>>>>>>> main
 
 - Many efficiency improvements, both speed- and memory-related. In particular
   calculating Reidemeister spectra of finite groups should be much faster
 
 - Added RepresentativeAutomorphismClasses, RepresentativesEndomorphismClasses
   and RepresentativesHomomorphismClasses, which can be applied to finite
-  groups. They give output similar to GAP's builtin AllHomomorphismClasses
-  function, but should be faster
+  groups. They give output similar to GAP's built-in AllHomomorphismClasses
+  function, but should be faster for abelian and non-2-generated groups
 
 - Fixed a bug that made ReidemeisterSpectrum not work for the trivial group
 
@@ -29,7 +52,7 @@ This file describes changes in the GAP package TwistedConjugacy.
   as input, and will try to solve the multiple twisted conjugacy problem
 
 
-2.0.0 (01/05/2021)
+2.0.0 (2021-05-01)
 ------------------
 
 - Lowered requirements to GAP version >= 4.9 and GAPDoc version >= 1.6.1
@@ -66,7 +89,7 @@ This file describes changes in the GAP package TwistedConjugacy.
 
 - Reidemeister Zeta functions expanded to pairs of endomorphisms of finite
   groups, instead of a single endomorphism
-- Changed the output of ReidemeisterZetaCoefficients to accomodate for the
+- Changed the output of ReidemeisterZetaCoefficients to accommodate for the
   above change
 - Added IsRationalReidemeisterZeta
 - ReidemeisterZeta now returns either a rational function or "fail"
@@ -84,7 +107,7 @@ This file describes changes in the GAP package TwistedConjugacy.
 - Finite PcpGroups will now automatically be converted to PcGroups
 
 
-1.0.1 (07/06/2020)
+1.0.1 (2020-06-07)
 ------------------
 
 - Improvements to PrintObj for ReidemeisterClasses
@@ -93,7 +116,7 @@ This file describes changes in the GAP package TwistedConjugacy.
 - Updated documentation to include examples
 
 
-1.0.0 (19/02/2020)
+1.0.0 (2020-02-19)
 ------------------
 
 - Initial release
