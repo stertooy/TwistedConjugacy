@@ -16,6 +16,6 @@ comment:
   behavior: default
 
 ignore:
-  - "/*.g"
+  - "*.g"
   - "tst/**"
   - "doc/**"

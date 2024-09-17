@@ -26,14 +26,14 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v4
 
-      - name: "Run package tests with necessary packages"
+      - name: "Run package tests with minimal packages"
         uses: sTertooy/gda-test-pkg@v1
         with:
           GAP_FLAGS: "-A"
           COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
 
-      - name: "Run package tests with suggested packages"
+      - name: "Run package tests with default packages"
         uses: sTertooy/gda-test-pkg@v1
         with:
           COVERAGE: ${{ matrix.coverage }}
