@@ -17,5 +17,6 @@ comment:
 
 ignore:
   - "*.g"
+  - "lib/SafeMode.gi"
   - "tst/**"
   - "doc/**"

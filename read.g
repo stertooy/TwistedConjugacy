@@ -4,6 +4,7 @@ if not IsBound( SAFEMODE@ ) then SAFEMODE@ := false; fi;
 ReadPackage( "TwistedConjugacy", "lib/HelpFunctions.gi" );
 ReadPackage( "TwistedConjugacy", "lib/CoincidenceGroup.gi" );
 ReadPackage( "TwistedConjugacy", "lib/Homomorphisms.gi" );
+ReadPackage( "TwistedConjugacy", "lib/SafeMode.gi" );
 ReadPackage( "TwistedConjugacy", "lib/TwistedConjugation.gi" );
 ReadPackage( "TwistedConjugacy", "lib/TwistedConjugationMultiple.gi" );
 ReadPackage( "TwistedConjugacy", "lib/ReidemeisterClasses.gi" );
