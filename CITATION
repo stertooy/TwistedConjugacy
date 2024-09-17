@@ -8,7 +8,7 @@ S. Tertooy, TwistedConjugacy, Computation with twisted conjugacy classes, GAP pa
 
 BibLaTeX:
 
-@Software{ TwistedConjugacy2.2.0,
+@Software{ TwistedConjugacy2.3.0,
     author     = {Tertooy, Sam},
     date       = {2024-09},
     title      = {TwistedConjugacy},
@@ -21,7 +21,7 @@ BibLaTeX:
 
 BibTeX:
 
-@misc{ TwistedConjugacy2.2.0,
+@misc{ TwistedConjugacy2.3.0,
   author =       {Tertooy, Sam},
   year =         {2024},
   month =        {Sep},
