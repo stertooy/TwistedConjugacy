@@ -78,14 +78,22 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     RepresentativeTwistedConjugation,
     function( arg... )
-        local G;
+        local G, c, tc;
         if Length( arg ) < 4 then
             G := Range( arg[1] );
             if arg[2] in G then
                 Add( arg, IdentityMapping( G ), 2 );
             fi;
         fi;
-        return CallFuncList( RepresentativeTwistedConjugationOp, arg );
+        c := CallFuncList( RepresentativeTwistedConjugationOp, arg );
+        if ASSERT@ and c <> fail then
+            tc := TwistedConjugation( arg[1], arg[2] );
+            if Length( arg ) < 4 then
+                Add( arg, One( G ) );
+            fi;
+            if tc( arg[3], c ) <> arg[4] then Error("Assertion failure"); fi;
+        fi;
+        return c;
     end
 );
 
@@ -430,7 +438,7 @@ RepTwistConjToIdStep1@ := function( hom1, hom2, g )
     fi;
     tc := TwistedConjugation( hom1, hom2 );
     a := tc( g, h1 );
-    Coin := CoincidenceGroup( hom1p, hom2p );
+    Coin := CoincidenceGroup2( hom1p, hom2p );
     hom1r := RestrictedHomomorphism( hom1, Coin, G );
     hom2r := RestrictedHomomorphism( hom2, Coin, G );
     h2 := RepTwistConjToIdStep2@( hom1r, hom2r, a, A );

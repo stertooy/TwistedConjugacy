@@ -35,7 +35,7 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     CoincidenceGroup,
     function( hom1, hom2, arg... )
-        local G, Coin, homi;
+        local G, Coin, homi, h, imgs;
         G := Range( hom1 );
         Coin := CoincidenceGroup2( hom1, hom2 );
         for homi in arg do
@@ -44,6 +44,16 @@ InstallGlobalFunction(
                 RestrictedHomomorphism( homi, Coin, G )
             );
         od;
+        if ASSERT@ then
+            arg := Concatenation( [ hom1, hom2 ], arg );
+            for h in GeneratorsOfGroup( Coin ) do
+                imgs := [];
+                for homi in arg do
+                    AddSet( imgs, ImagesRepresentative( homi, h ) );
+                od;
+                if Length( imgs ) > 1 then Error("Assertion failure"); fi;
+            od;
+        fi;
         return Coin;
     end
 );
