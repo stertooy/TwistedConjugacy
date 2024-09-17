@@ -9,6 +9,8 @@ This file describes changes in the GAP package TwistedConjugacy.
 - Polycyclic version >= 2.16 is now an extension instead of an optional
   dependency
 
+- Added FullReidemeisterSpectrum
+
 
 2.2.0 (2024-02-13)
 ------------------

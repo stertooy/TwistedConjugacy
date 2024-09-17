@@ -68,6 +68,11 @@ DeclareOperation(
     "CoincidenceReidemeisterSpectrumOp",
     [ IsGroup, IsGroup ]
 );
+DeclareGlobalFunction( "FullReidemeisterSpectrum" );
+DeclareOperation(
+    "FullReidemeisterSpectrumOp",
+    [ IsGroup ]
+);
 
 
 DeclareGlobalFunction( "ReidemeisterZetaCoefficients" );

@@ -2,7 +2,7 @@ gap> START_TEST( "Testing TwistedConjugacy for PcGroups: zeta functions" );
 
 #
 gap> filt := IsPcGroup;;
-gap> G := SmallGroup( 252, 34 );;
+gap> G := PcGroupCode( 57308604420143, 252 );;
 gap> s := Indeterminate( Rationals, "s" );;
 gap> gens := GeneratorsOfGroup( G );;
 gap> imgs1 := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, One( G ) ];;

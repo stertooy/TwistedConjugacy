@@ -2,9 +2,9 @@ gap> START_TEST( "Testing TwistedConjugacy for PcGroups: fixed point groups and 
 
 # Preparation
 gap> filt := IsPcGroup;;
-gap> G := SmallGroup( 252, 34 );;
-gap> H := SmallGroup( 84, 5 );;
-gap> T := TrivialGroup( IsPcGroup );;
+gap> G := PcGroupCode( 57308604420143, 252 );;
+gap> H := PcGroupCode( 23814281243, 84 );;
+gap> T := TrivialGroup( filt );;
 gap> gensG := GeneratorsOfGroup( G );;
 gap> gensH := [ H.1, H.3*H.4 ];;
 gap> imgs1 := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, One( G ) ];;

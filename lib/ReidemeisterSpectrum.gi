@@ -72,6 +72,26 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
+## FullReidemeisterSpectrum( G )
+##
+##  INPUT:
+##      G:          group G
+##
+##  OUTPUT:
+##      Spec:       full Reidemeister spectrum of G
+##
+InstallGlobalFunction(
+    FullReidemeisterSpectrum,
+    function( G )
+        IsFinite( G );
+        IsAbelian( G );
+        return FullReidemeisterSpectrumOp( G );
+    end
+);
+
+
+###############################################################################
+##
 ## ReidemeisterSpectrumOp( G )
 ##
 ##  INPUT:
@@ -291,3 +311,43 @@ InstallOtherMethod(
         return SetX( Hom_reps, Hom_reps, ReidemeisterNumberOp );
     end
 );
+
+
+###############################################################################
+##
+## FullReidemeisterSpectrumOp( G )
+##
+##  INPUT:
+##      G:          group G
+##
+##  OUTPUT:
+##      Spec:       full Reidemeister spectrum of G
+##
+InstallMethod(
+    FullReidemeisterSpectrumOp,
+    "for finite abelian groups",
+    [ IsGroup and IsFinite and IsAbelian ],
+    function( G )
+        return DivisorsInt( Size( G ) );
+    end
+);
+
+InstallMethod(
+    FullReidemeisterSpectrumOp,
+    "for finite groups",
+    [ IsGroup and IsFinite ],
+    function( G )
+        local GxG, l, r, Spec, H, hom1, hom2; 
+        GxG := DirectProduct( G, G );  
+        l := Projection( GxG, 1 );
+        r := Projection( GxG, 2 );      
+        Spec := [];  
+        for H in List( ConjugacyClassesSubgroups( GxG ), Representative ) do
+            hom1 := RestrictedHomomorphism( l, H, G ); 
+            hom2 := RestrictedHomomorphism( r, H, G );
+            AddSet( Spec, ReidemeisterNumber( hom1, hom2 ) );
+        od;
+        return Spec;
+    end
+);
+

@@ -4,7 +4,8 @@ gap> START_TEST( "Testing TwistedConjugacy for PcGroups: Reidemeister spectra" )
 gap> filt := IsPcGroup;;
 
 # For given group, calculate spectra of group, subgroups and quotients
-gap> G := SmallGroup( 252, 34 );;
+# Reidemeister spectrum only, endomorphisms take too long
+gap> G := PcGroupCode( 57308604420143, 252 );;
 gap> ReidemeisterSpectrum( G );
 [ 4, 6, 8, 10, 12, 15, 20, 30 ]
 gap> ExtendedReidemeisterSpectrum( G );
@@ -18,6 +19,8 @@ gap> ExtendedReidemeisterSpectrum( H );
 [ 1, 2, 3, 4, 6 ]
 gap> CoincidenceReidemeisterSpectrum( H );
 [ 1, 2, 3, 4, 6, 8, 12 ]
+gap> FullReidemeisterSpectrum( H );
+[ 1, 2, 3, 4, 6, 8, 12 ]
 
 # All spectra
 gap> Q := FactorGroup( G, Subgroup( G, [ G.3, G.4 ] ) );;
@@ -27,6 +30,8 @@ gap> ExtendedReidemeisterSpectrum( Q );
 [ 1, 2, 4, 5, 8, 10 ]
 gap> CoincidenceReidemeisterSpectrum( Q );
 [ 1, 2, 4, 5, 7, 8, 10, 14, 16, 28 ]
+gap> FullReidemeisterSpectrum( Q );
+[ 1, 2, 4, 5, 7, 8, 10, 14, 16, 28 ]
 
 # All spectra
 gap> D := DerivedSubgroup( G );;
@@ -35,6 +40,8 @@ gap> ReidemeisterSpectrum( D );
 gap> ExtendedReidemeisterSpectrum( D );
 [ 1, 3, 7, 9, 21, 63 ]
 gap> CoincidenceReidemeisterSpectrum( D );
+[ 1, 3, 7, 9, 21, 63 ]
+gap> FullReidemeisterSpectrum( D );
 [ 1, 3, 7, 9, 21, 63 ]
 
 # Coincidence spectra between different groups
@@ -60,6 +67,8 @@ gap> ExtendedReidemeisterSpectrum( T );
 [ 1 ]
 gap> CoincidenceReidemeisterSpectrum( T );
 [ 1 ]
+gap> FullReidemeisterSpectrum( T );
+[ 1 ]
 
 # All spectra
 gap> C3 := CyclicGroup( filt, 3 );;
@@ -68,6 +77,8 @@ gap> ReidemeisterSpectrum( C3 );
 gap> ExtendedReidemeisterSpectrum( C3 );
 [ 1, 3 ]
 gap> CoincidenceReidemeisterSpectrum( C3 );
+[ 1, 3 ]
+gap> FullReidemeisterSpectrum( C3 );
 [ 1, 3 ]
 
 # All spectra
@@ -78,6 +89,8 @@ gap> ExtendedReidemeisterSpectrum( C4 );
 [ 1, 2, 4 ]
 gap> CoincidenceReidemeisterSpectrum( C4 );
 [ 1, 2, 4 ]
+gap> FullReidemeisterSpectrum( C4 );
+[ 1, 2, 4 ]
 
 # All spectra
 gap> D6 := DihedralGroup( filt, 6 );;
@@ -86,6 +99,8 @@ gap> ReidemeisterSpectrum( D6 );
 gap> ExtendedReidemeisterSpectrum( D6 );
 [ 1, 2, 3 ]
 gap> CoincidenceReidemeisterSpectrum( D6 );
+[ 1, 2, 3, 4, 6 ]
+gap> FullReidemeisterSpectrum( D6 );
 [ 1, 2, 3, 4, 6 ]
 
 # All spectra
@@ -96,6 +111,8 @@ gap> ExtendedReidemeisterSpectrum( Q8 );
 [ 1, 2, 3, 5 ]
 gap> CoincidenceReidemeisterSpectrum( Q8 );
 [ 1, 2, 3, 4, 5, 8 ]
+gap> FullReidemeisterSpectrum( Q8 );
+[ 1, 2, 3, 4, 5, 6, 8 ]
 
 # All spectra
 gap> C2xC2xC2 := AbelianGroup( filt, [ 2, 2, 2 ] );;
@@ -104,6 +121,8 @@ gap> ReidemeisterSpectrum( C2xC2xC2 );
 gap> ExtendedReidemeisterSpectrum( C2xC2xC2 );
 [ 1, 2, 4, 8 ]
 gap> CoincidenceReidemeisterSpectrum( C2xC2xC2 );
+[ 1, 2, 4, 8 ]
+gap> FullReidemeisterSpectrum( C2xC2xC2 );
 [ 1, 2, 4, 8 ]
 
 # All spectra
@@ -114,7 +133,8 @@ gap> ExtendedReidemeisterSpectrum( C2xC2xC4 );
 [ 1, 2, 4, 8, 16 ]
 gap> CoincidenceReidemeisterSpectrum( C2xC2xC4 );
 [ 1, 2, 4, 8, 16 ]
-
+gap> FullReidemeisterSpectrum( C2xC2xC4 );
+[ 1, 2, 4, 8, 16 ]
 
 # Coincidence spectra between different groups
 gap> CoincidenceReidemeisterSpectrum( C4, Q8 );
@@ -132,21 +152,21 @@ gap> CoincidenceReidemeisterSpectrum( Q8, C2xC2xC4 );
 
 # Some more groups
 #
-gap> G1 := SmallGroup( 32, 40 );;
+gap> G1 := PcGroupCode( 17750835801, 32 );;
 gap> ReidemeisterSpectrum( G1 );
 [ 6, 8, 10, 14 ]
 gap> ExtendedReidemeisterSpectrum( G1 );
 [ 1, 2, 4, 5, 6, 7, 8, 10, 14 ]
 
 #
-gap> G2 := SmallGroup( 32, 50 );;
+gap> G2 := PcGroupCode( 17734058326, 32 );;
 gap> ReidemeisterSpectrum( G2 );
 [ 2, 3, 5, 9, 17 ]
 gap> ExtendedReidemeisterSpectrum( G2 );
 [ 1, 2, 3, 5, 9, 17 ]
 
 #
-gap> G3 := SmallGroup( 96, 204 );;
+gap> G3 := PcGroupCode( 553128533058418720, 96 );;
 gap> ReidemeisterSpectrum( G3 );
 [ 2, 5, 7, 8, 11 ]
 gap> ExtendedReidemeisterSpectrum( G3 );
@@ -160,6 +180,8 @@ gap> ExtendedReidemeisterSpectrum( G4 ) = DivisorsInt( 129600 );
 true
 gap> CoincidenceReidemeisterSpectrum( G4 ) = DivisorsInt( 129600 );
 true
+gap> FullReidemeisterSpectrum( G4 ) = DivisorsInt( 129600 );
+true
 
 #
 gap> G5 := AbelianGroup( filt, [ 2, 3, 5, 17, 24 ] );;
@@ -168,6 +190,8 @@ true
 gap> ExtendedReidemeisterSpectrum( G5 ) = DivisorsInt( 12240 );
 true
 gap> CoincidenceReidemeisterSpectrum( G5 ) = DivisorsInt( 12240 );
+true
+gap> FullReidemeisterSpectrum( G5 ) = DivisorsInt( 12240 );
 true
 
 #
@@ -178,6 +202,8 @@ gap> ExtendedReidemeisterSpectrum( G6 ) = DivisorsInt( 262144 );
 true
 gap> CoincidenceReidemeisterSpectrum( G6 ) = DivisorsInt( 262144 );
 true
+gap> FullReidemeisterSpectrum( G6 ) = DivisorsInt( 262144 );
+true
 
 #
 gap> G7 := AbelianGroup( filt, [ 2, 4, 4, 8, 16, 32, 64, 128, 128, 256, 512 ] );;
@@ -186,6 +212,8 @@ true
 gap> ExtendedReidemeisterSpectrum( G7 ) = DivisorsInt( 18014398509481984 );
 true
 gap> CoincidenceReidemeisterSpectrum( G7 ) = DivisorsInt( 18014398509481984 );
+true
+gap> FullReidemeisterSpectrum( G7 ) = DivisorsInt( 18014398509481984 );
 true
 
 #

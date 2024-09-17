@@ -13,6 +13,9 @@ gap> ExtendedReidemeisterSpectrum( G );
 [ 1, 4, 6 ]
 gap> CoincidenceReidemeisterSpectrum( G );
 [ 1, 4, 6, 168 ]
+gap> FSpec := FullReidemeisterSpectrum( G );;
+gap> Length( FSpec ) = 38 and FSpec{[1..16]} = [1..16];
+true
 
 #
 gap> ReidemeisterSpectrum( A );
