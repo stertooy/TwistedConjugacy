@@ -7,10 +7,6 @@ if SAFEMODE@ then
     CHECK_SCHUR_PCP@Polycyclic := true;
 fi;
 
-ReadPackage( "TwistedConjugacy", "lib/PcpGroup/HelpFunctions_Pcp.gi" );
-ReadPackage( "TwistedConjugacy", "lib/PcpGroup/CoincidenceGroup_Pcp.gi" );
 ReadPackage( "TwistedConjugacy", "lib/PcpGroup/ConvertFinitePcpToPc.gi" );
-ReadPackage( "TwistedConjugacy", "lib/PcpGroup/TwistedConjugation_Pcp.gi" );
-ReadPackage( "TwistedConjugacy", "lib/PcpGroup/ReidemeisterClasses_Pcp.gi" );
-ReadPackage( "TwistedConjugacy", "lib/PcpGroup/ReidemeisterNumber_Pcp.gi" );
-
+ReadPackage( "TwistedConjugacy", "lib/PcpGroup/HelpFunctions_Pcp.gi" );
+ReadPackage( "TwistedConjugacy", "lib/PcpGroup/SafeMode_Pcp.gi" );
