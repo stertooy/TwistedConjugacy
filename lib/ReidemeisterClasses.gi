@@ -262,7 +262,7 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     RepresentativesReidemeisterClasses,
     function( hom1, arg... )
-        local G, hom2, Rcl, copy, g, h;
+        local G, hom2, Rcl, copy, g, h, pos, i;
         G := Range( hom1 );
         if Length( arg ) = 0 then
             hom2 := IdentityMapping( G );
@@ -280,6 +280,17 @@ InstallGlobalFunction(
                 then Error("Assertion failure"); fi;
                 g := Remove( copy );
             od;
+        fi;
+        pos := Position( Rcl, One( G ) );
+        if pos = fail then
+            pos := First(
+                [1..Length( Rcl )],
+                i -> IsTwistedConjugate( hom1, hom2, Rcl[i] )
+            );
+        fi;
+        if pos > 1 then
+            Remove( Rcl, pos );
+            Add( Rcl, One( G ), 1 );
         fi;
         return Rcl;
     end
@@ -413,8 +424,8 @@ end;
 ##      C the centre of G.
 ##
 ReidemeisterClassesByCentre@ := function( hom1, hom2 )
-    local G, H, C, p, q, hom1p, hom2p, RclGM, GM, Rcl, foundOne, pg, inn_pg,
-          Coin, g, inn_g, d, r, coker, rm, m;
+    local G, H, C, p, q, hom1p, hom2p, RclGM, GM, Rcl, pg, inn_pg, Coin, g,
+          inn_g, d, r, coker, rm, m;
     G := Range( hom1 );
     H := Source( hom1 );
     C := Center( G );
@@ -428,7 +439,6 @@ ReidemeisterClassesByCentre@ := function( hom1, hom2 )
     fi;
     GM := ImagesSource( p );
     Rcl := [];
-    foundOne := false;
     for pg in RclGM do
         inn_pg := InnerAutomorphismNC( GM, pg^-1 );
         Coin := CoincidenceGroup2( hom1p*inn_pg, hom2p );
@@ -441,14 +451,9 @@ ReidemeisterClassesByCentre@ := function( hom1, hom2 )
             return fail;
         fi;
         for rm in coker do
-            if ( not foundOne ) and IsOne( rm ) and IsOne( pg ) then
-                Add( Rcl, One( G ), 1 );
-                foundOne := true;
-            else
-                # TODO: replace by PreImagesRepresentative eventually
-                m := PreImagesRepresentativeNC( r, rm );
-                Add( Rcl, m*g );
-            fi;
+            # TODO: replace by PreImagesRepresentative eventually
+            m := PreImagesRepresentativeNC( r, rm );
+            Add( Rcl, m*g );
         od;
     od;
     return Rcl;
@@ -506,7 +511,7 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     4,
     function( hom1, hom2 )
-        local G, H, diff, N, Rcl, p, pg, g;
+        local G, H, diff, N, p, pg;
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
@@ -517,17 +522,11 @@ InstallMethod(
         diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
         N := ImagesSource( diff );
         if IndexNC( G, N ) = infinity then return fail; fi;
-        Rcl := [];
         p := NaturalHomomorphismByNormalSubgroupNC( G, N );
-        for pg in ImagesSource( p ) do
-            if IsOne( pg ) then
-                Add( Rcl, One( G ), 1 );
-            else
-                g := PreImagesRepresentative( p, pg );
-                Add( Rcl, g );
-            fi;
-        od;
-        return Rcl;
+        return List(
+            ImagesSource( p ),
+            pg -> PreImagesRepresentative( p, pg )
+        );
     end
 );
 
@@ -537,7 +536,7 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     3,
     function( hom1, hom2 )
-        local G, H, Rcl, tc, G_List, gens, orbits, foundOne, orbit;
+        local G, H, Rcl, tc, G_List, gens, orbits;
         G := Range( hom1 );
         H := Source( hom1 );
         if not IsFinite( H ) then TryNextMethod(); fi;
@@ -551,16 +550,7 @@ InstallMethod(
             gens := SmallGeneratingSet( H );
         fi;
         orbits := OrbitsDomain( H, G_List, gens, gens, tc );
-        foundOne := false;
-        for orbit in orbits do
-            if ( not foundOne ) and One( G ) in orbit then
-                Add( Rcl, One( G ), 1 );
-                foundOne := true;
-            else
-                Add( Rcl, orbit[1] );
-            fi;
-        od;
-        return Rcl;
+        return ListX( orbits, First );
     end
 );
 

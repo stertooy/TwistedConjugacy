@@ -14,7 +14,7 @@
 #! $$g_1 \sim_{\varphi,\psi} g_2 \iff \exists h \in H: g_1 \cdot h = g2.$$
 #! The equivalence classes (i.e. the orbits of the action) are called **Reidemeister classes** and the number of Reidemeister classes is called the **Reidemeister number** $R(\varphi,\psi)$ of the pair $(\varphi,\psi)$.
 #! The stabiliser of the identity $1_G$ for this action is the **coincidence group** $\operatorname{Coin}(\varphi, \psi )$, i.e. the subgroup of $H$ given by
-#! $$\operatorname{Coin}(\varphi,\psi) := \{ h \in H \mid \varphi(h) = \psi(h) \}.$$
+#! $$\operatorname{Coin}(\varphi,\psi) := \{\, h \in H \mid \varphi(h) = \psi(h) \,\}.$$
 
 #! <P/>
 
@@ -67,9 +67,9 @@ DeclareGlobalFunction( "IsTwistedConjugate" );
 #! @Description
 #! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) or returns <K>fail</K> if no such element exists.
 #! <P />
-#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='dt21-a' Where='Algorithm 4'/>.
+#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='dt21-a' Where='Alg. 4'/>.
 #! If $H$ is finite, it relies on a stabiliser-orbit algorithm.
-#! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Theorem 3'/>, <Cite Key='bkl20-a' Where='Section 5.4'/>, <Cite Key='roma21-a' Where='Section 7'/> and <Cite Key='dt21-a' Where='Algorithm 6'/>.
+#! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Thm. 3'/>, <Cite Key='bkl20-a' Where='Sec. 5.4'/>, <Cite Key='roma21-a' Where='Sec. 7'/> and <Cite Key='dt21-a' Where='Alg. 6'/>.
 #! @Arguments hom1[, hom2], g1[, g2]
 DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 #! @EndGroup
@@ -98,7 +98,7 @@ tc( g1, h ) = g2;
 ###
 
 #! @Section Reidemeister Classes
-#! The equivalence classes of the equivalence relation $\sim_{\varphi,\psi}$ are called the **Reidemeister classes of $(\varphi,\psi)$** or the **$(\varphi,\psi)$-twisted conjugacy classes**. We denote the Reidemeister class of $g \in G$ by $[g]_{\varphi,\psi}$. The number of Reidemeister classes is called the Reidemeisternumber $R(\varphi,\psi)$ and is always a positive integer or infinity.
+#! The equivalence classes of the equivalence relation $\sim_{\varphi,\psi}$ are called the **Reidemeister classes of $(\varphi,\psi)$** or the **$(\varphi,\psi)$-twisted conjugacy classes**. We denote the Reidemeister class of $g \in G$ by $[g]_{\varphi,\psi}$. The number of Reidemeister classes is called the Reidemeister number $R(\varphi,\psi)$ and is always a positive integer or infinity.
 
 #! @BeginGroup ReidemeisterClassGroup
 #! @Description
@@ -121,11 +121,11 @@ DeclareGlobalFunction( "TwistedConjugacyClass" );
 
 #! @BeginGroup ReidemeisterClassesGroup
 #! @Description
-#! Returns a list containing the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number R( <A>hom1</A>, <A>hom2</A> ) is finite, or returns <K>fail</K> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position.
+#! Returns a list containing the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number $R( <A>hom1</A>, <A>hom2</A> )$ is finite, or returns <K>fail</K> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position.
 #! <P />
-#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='dt21-a' Where='Algorithm 5'/>.
+#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='dt21-a' Where='Alg. 5'/>.
 #! If $G$ and $H$ are finite and $G$ is not abelian, it relies on an orbit-stabiliser algorithm.
-#! Otherwise, it relies on (variants of) <Cite Key='dt21-a' Where='Algorithm 7'/>.
+#! Otherwise, it relies on (variants of) <Cite Key='dt21-a' Where='Alg. 7'/>.
 #! <P/>
 #! This function is only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
 #! @Arguments hom1[, hom2]
@@ -138,8 +138,8 @@ DeclareGlobalFunction( "TwistedConjugacyClasses" );
 #! @Description
 #! Returns the Reidemeister number of ( <A>hom1</A>, <A>hom2</A> ), i.e. the number of Reidemeister classes.
 #! <P />
-#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='jian83-a' Where='Theorem 2.5'/>.
-#! If $G = H$, $G$ is finite non-abelian and $\psi = \operatorname{id}_G$, it relies on <Cite Key='fh94-a' Where='Theorem 5'/>.
+#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='jian83-a' Where='Thm. 2.5'/>.
+#! If $G = H$, $G$ is finite non-abelian and $\psi = \operatorname{id}_G$, it relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
 #! Otherwise, it uses the output of <C>ReidemeisterClasses</C>.
 #! <P />
 #! This function is only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
@@ -188,8 +188,8 @@ NrTwistedConjugacyClasses( phi, psi );
 #! The set of all Reidemeister numbers of pairs of homomorphisms from a group $H$ to a group $G$ is called the **coincidence Reidemeister spectrum** of $H$ and $G$ and is denoted by $\operatorname{CSpec}_R(H,G)$, i.e.
 #! $$\operatorname{CSpec}_R(H,G) := \{\, R(\varphi, \psi) \mid \varphi,\psi \in \operatorname{Hom}(H,G) \,\}.$$
 #! If <A>H</A> = <A>G</A> this is also denoted by $\operatorname{CSpec}_R(G)$.
-#! The set of all Reidemeister numbers of pairs of homomorphisms from any group $H$ to a group $G$ is called the **full Reidemeister spectrum** and is denoted by $\operatorname{FSpec}_R(G)$, i.e.
-#! $$\operatorname{FSpec}_R(G) := \{\, R(\varphi, \psi) \mid \varphi,\psi \in \operatorname{Hom}(H,G), \textnormal{ for all groups } H \,\}.$$
+#! The set of all Reidemeister numbers of pairs of homomorphisms from every group $H$ to a group $G$ is called the **full Reidemeister spectrum** and is denoted by $\operatorname{FSpec}_R(G)$, i.e.
+#! $$\operatorname{FSpec}_R(G) := \bigcup_{H} \operatorname{CSpec}_R(H,G).$$
 
 #! <P/>
 
@@ -213,6 +213,11 @@ DeclareGlobalFunction( "ExtendedReidemeisterSpectrum" );
 #! Returns the coincidence Reidemeister spectrum of <A>H</A> and <A>G</A>.
 #! @Arguments [H, ]G
 DeclareGlobalFunction( "CoincidenceReidemeisterSpectrum" );
+
+#! @Description
+#! Returns the full Reidemeister spectrum of <A>G</A>.
+#! @Arguments G
+DeclareGlobalFunction( "FullReidemeisterSpectrum" );
 
 #! @BeginExample
 Q := QuaternionGroup( 8 );;
@@ -244,7 +249,7 @@ FullReidemeisterSpectrum( Q );
 
 #! @BeginGroup ReidemeisterZetaCoefficientsGroup
 #! @Description
-#! For a finite group, the sequence of Reidemeister numbers of the iterates of <A>endo1</A> and <A>endo2</A>, i.e. the sequence R(<A>endo1</A>,<A>endo2</A>), R(<A>endo1</A>^2,<A>endo2</A>^2), ..., is eventually periodic, i.e. there exist a periodic sequence $(P_n)_{n \in \mathbb{N}}$ and an eventually zero sequence $(Q_n)_{n \in \mathbb{N}}$ such that
+#! For a finite group, the sequence of Reidemeister numbers of the iterates of <A>endo1</A> and <A>endo2</A>, i.e. the sequence $R(<A>endo1</A>,<A>endo2</A>)$, $R(<A>endo1</A>^2,<A>endo2</A>^2)$, ..., is eventually periodic, i.e. there exist a periodic sequence $(P_n)_{n \in \mathbb{N}}$ and an eventually zero sequence $(Q_n)_{n \in \mathbb{N}}$ such that
 #! $$\forall n \in \mathbb{N}: R(\varphi^n,\psi^n) = P_n + Q_n.$$
 #! This function returns a list containing two sublists: the first sublist contains one period of the sequence $(P_n)_{n \in \mathbb{N}}$, the second sublist contains $(Q_n)_{n \in \mathbb{N}}$ up to the part where it becomes the constant zero sequence.
 #! @Arguments endo1[, endo2]
@@ -415,7 +420,7 @@ DeclareGlobalFunction( "FixedPointGroup" );
 #! @Description
 #! Let <A>hom1</A>, <A>hom2</A>, ... be group homomorphisms from a group H to a group G. This command returns the subgroup of H consisting of the elements h for which h^<A>hom1</A> = h^<A>hom2</A> = ...
 #! <P />
-#! For infinite non-abelian groups, this function relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Theorem 2'/>, <Cite Key='bkl20-a' Where='Section 5.4'/> and <Cite Key='roma21-a' Where='Section 7'/>.
+#! For infinite non-abelian groups, this function relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Thm. 2'/>, <Cite Key='bkl20-a' Where='Sec. 5.4'/> and <Cite Key='roma21-a' Where='Sec. 7'/>.
 #! @Arguments hom1, hom2[, ...]
 DeclareGlobalFunction( "CoincidenceGroup" );
 
