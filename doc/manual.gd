@@ -72,7 +72,6 @@ DeclareGlobalFunction( "IsTwistedConjugate" );
 #! If $H$ is finite, it relies on a stabiliser-orbit algorithm.
 #! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Theorem 3'/>, <Cite Key='bkl20-a' Where='Section 5.4'/>, <Cite Key='roma21-a' Where='Section 7'/> and <Cite Key='dt21-a' Where='Algorithm 6'/>.
 #! @Arguments hom1[, hom2], g1[, g2]
-
 DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 #! @EndGroup
 
