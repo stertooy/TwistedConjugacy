@@ -445,18 +445,18 @@ DeclareGlobalFunction( "InducedHomomorphism" );
 DeclareGlobalFunction( "RestrictedHomomorphism" );
 
 #! @BeginExample
-G := ExamplesOfSomePcpGroups( 5 );;
-phi := GroupHomomorphismByImages( G, G, [ G.1, G.2, G.3, G.4 ],
- [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^2, G.4^-1  ] );;
+G := PcGroupCode( 1018013, 28 );;
+phi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ],
+ [ G.1*G.2*G.3^2, G.3^4 ] );;
 N := DerivedSubgroup( G );;
 p := NaturalHomomorphismByNormalSubgroup( G, N );
-#! [ g1, g2, g3, g4, g2^2, g3^2, g4^2 ] -> [ g1, g2, g3, g4, id, id, id ]
+#! [ f1, f2, f3 ] -> [ f1, f2, <identity> of ... ]
 ind := InducedHomomorphism( p, p, phi );
-#! [ g1, g2, g3 ] -> [ g1*g4, g3, g2 ]
+#! [ f1 ] -> [ f1*f2 ]
 Source( ind ) = Range( p ) and Range( ind ) = Range( p );
 #! true
 res := RestrictedHomomorphism( phi, N, N );
-#! [ g2^2, g3^2, g4^2 ] -> [ g3^2, g2^2*g3^4*g4^8, g4^-2 ]
+#! [ f3 ] -> [ f3^4 ]
 Source( res ) = N and Range( res ) = N;
 #! true
 #! @EndExample
