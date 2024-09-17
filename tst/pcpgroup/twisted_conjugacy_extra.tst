@@ -149,16 +149,6 @@ gap> h4 := RepresentativeTwistedConjugation( hom3, hom4, g3, g4 );;
 gap> tc := TwistedConjugation( hom3, hom4 );;
 gap> g4 = tc( g3, h4 );
 true
-#gap> g5 := G.2*G.4^-1;;
-#gap> g6 := G.2*G.3^36*G.4^-13;;
-#gap> x5 := G.1^-2*G.2^-3*G.3^-2;;
-#gap> x6 := G.2^-4*G.3^-1*G.4^-2;;
-#gap> hom5 := InnerAutomorphism( G, x5 );;
-#gap> hom6 := InnerAutomorphism( G, x6 );;
-#gap> h6 := RepresentativeTwistedConjugation( hom5, hom6, g5, g6 );;
-#gap> tc := TwistedConjugation( hom5, hom6 );;
-#gap> g6 = tc( g5, h6 );
-#true
 
 #
 gap> STOP_TEST( "twisted_conjugacy_extra.tst" );

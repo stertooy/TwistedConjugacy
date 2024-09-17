@@ -121,30 +121,6 @@ gap> CoincidenceGroup( aut1G6, aut2G6 );
 Pcp-group with orders [ 2, 0, 0, 0, 0, 0, 0 ]
 
 #
-#gap> G7 := DirectProduct( PcGroupToPcpGroup( SmallGroup( 1600, 10260 ) ), AbelianPcpGroup( 1 ) );;
-#gap> gensG7 := [ G7.1*G7.5, G7.3*G7.4, G7.9 ];;
-#gap> imgs1G7 := [ G7.1*G7.4^4*G7.5*G7.6, G7.3*G7.4^2*G7.5*G7.8, G7.9 ];;
-#gap> imgs2G7 := [ G7.1*G7.5, G7.3*G7.4, G7.9^-1 ];;
-#gap> imgs3G7 := [ G7.1*G7.5*G7.7, G7.3*G7.4*G7.6*G7.7, G7.9 ];;
-#gap> aut1G7 := GroupHomomorphismByImages( G7, G7, gensG7, imgs1G7 );;
-#gap> aut2G7 := GroupHomomorphismByImages( G7, G7, gensG7, imgs2G7 );;
-#gap> aut3G7 := GroupHomomorphismByImages( G7, G7, gensG7, imgs3G7 );;
-#gap> FixedPointGroup( aut1G7 );
-#Pcp-group with orders [ 2, 2, 2, 2, 2, 0 ]
-#gap> FixedPointGroup( aut2G7 );
-#Pcp-group with orders [ 2, 2, 5, 5, 2, 2, 2, 2 ]
-#gap> FixedPointGroup( aut3G7 );
-#Pcp-group with orders [ 2, 2, 5, 2, 2, 2, 2, 0 ]
-#gap> CoincidenceGroup( aut1G7, aut2G7 );
-#Pcp-group with orders [ 2, 2, 2, 2, 2 ]
-#gap> CoincidenceGroup( aut1G7, aut3G7 );
-#Pcp-group with orders [ 2, 2, 2, 2, 2, 2, 0 ]
-#gap> CoincidenceGroup( aut2G7, aut3G7 );
-#Pcp-group with orders [ 2, 2, 5, 2, 2, 2, 2 ]
-#gap> CoincidenceGroup( aut1G7, aut2G7, aut3G7 );
-#Pcp-group with orders [ 2, 2, 2, 2 ]
-
-#
 gap> G8 := ExamplesOfSomePcpGroups( 10 );;
 gap> hom1G8 := InnerAutomorphism( G8, G8.1^-1*G8.3^2*G8.4 );;
 gap> hom2G8 := InnerAutomorphism( G8, G8.1^-3*G8.3^-1 );;
