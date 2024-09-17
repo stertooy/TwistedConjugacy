@@ -167,6 +167,8 @@ gap> T := TrivialSubgroup( G );;
 gap> endoT := GroupHomomorphismByImages( T, T, [ One( T ) ], [ One( T ) ] );;
 gap> Size( ReidemeisterClasses( endoT ) );
 1
+gap> RepresentativesReidemeisterClasses( endoT ) = [ One( T ) ];
+true
 
 #
 gap> STOP_TEST( "twisted_conjugacy_single.tst" );

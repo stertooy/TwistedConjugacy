@@ -134,6 +134,17 @@ DeclareGlobalFunction( "ReidemeisterClasses" );
 DeclareGlobalFunction( "TwistedConjugacyClasses" );
 #! @EndGroup
 
+#! @BeginGroup RepresentativesReidemeisterClassesGroup
+#! @Description
+#! Returns a list containing representatives of the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number $R( <A>hom1</A>, <A>hom2</A> )$ is finite, or returns <K>fail</K> otherwise. It is guaranteed that the identity is in the first position.
+#! <P />
+#! The same remarks as for <C>ReidemeisterClasses</C> are valid here.
+#! @Arguments hom1[, hom2]
+DeclareGlobalFunction( "RepresentativesReidemeisterClasses" );
+#! @Arguments hom1[, hom2]
+DeclareGlobalFunction( "RepresentativesTwistedConjugacyClasses" );
+#! @EndGroup
+
 #! @BeginGroup ReidemeisterNumberGroup
 #! @Description
 #! Returns the Reidemeister number of ( <A>hom1</A>, <A>hom2</A> ), i.e. the number of Reidemeister classes.
@@ -169,8 +180,10 @@ Size( tcc );
 #! 2
 StabiliserOfExternalSet( tcc );
 #! Group([ (1,2,3,4,5), (1,3,4,5,2) ])
-ReidemeisterClasses( phi, psi ){[1..3]};
-#! [ ()^G, (4,5,6)^G, (4,6,5)^G ]
+ReidemeisterClasses( phi, psi ){[1..7]};
+#! [ ()^G, (4,5,6)^G, (4,6,5)^G, (3,4)(5,6)^G, (3,4,5)^G, (3,4,6)^G, (3,5,4)^G ]
+RepresentativesReidemeisterClasses( phi, psi ){[1..7]};
+#! [ (), (4,5,6), (4,6,5), (3,4)(5,6), (3,4,5), (3,4,6), (3,5,4) ]
 NrTwistedConjugacyClasses( phi, psi );
 #! 184
 #! @EndExample
