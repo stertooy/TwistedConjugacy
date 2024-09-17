@@ -21,10 +21,11 @@
   [13XReidemeister  classes[113X  and  the number of Reidemeister classes is called the
   [13XReidemeister   number[113X   [23XR(\varphi,\psi)[123X  of  the  pair  [23X(\varphi,\psi)[123X.  The
   stabiliser  of  the  identity  [23X1_G[123X  for this action is the [13Xcoincidence group[113X
-  [23X\mathrm{Coin}(\varphi, \psi )[123X, i.e. the subgroup of [23XH[123X given by[133X
+  [23X\operatorname{Coin}(\varphi, \psi )[123X, i.e. the subgroup of [23XH[123X given by[133X
   
   
-  [24X[33X[0;6Y\mathrm{Coin}(\varphi,\psi) := \{ h \in H \mid \varphi(h) = \psi(h) \}.[133X
+  [24X[33X[0;6Y\operatorname{Coin}(\varphi,\psi)  := \{\, h \in H \mid \varphi(h) = \psi(h)
+  \,\}.[133X
   
   [124X
   
@@ -35,4 +36,17 @@
   presented  groups,  then some methods in this package are only guaranteed to
   produce  a  result  if  either [23XG = H[123X or [23XG[123X is nilpotent-by-finite. Otherwise,
   these methods may potentially throw an error: "[10XError, no method found![110X"[133X
+  
+  [33X[0;0YIn  the  past,  bugs  in GAP or the Polycyclic package have caused functions
+  from  this  package to produce errors and even wrong results. One can toggle
+  TwistedConjugacy's  Safe  Mode, which will cause certain functions to verify
+  the  correctness  of  their  output.  This should make results more (but not
+  completely!) reliable, at the cost of some performance.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XToggleSafeMode@TwistedConjugacy();[127X[104X
+    [4X[28XTwistedConjugacy's Safe Mode is now on.[128X[104X
+    [4X[25Xgap>[125X [27XToggleSafeMode@TwistedConjugacy();[127X[104X
+    [4X[28XTwistedConjugacy's Safe Mode is now off.[128X[104X
+  [4X[32X[104X
   

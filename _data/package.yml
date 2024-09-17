@@ -1,7 +1,7 @@
 name: TwistedConjugacy
-version: "2.2.0"
+version: "2.3.0"
 license: "GPL-2.0-or-later"
-date: 2024-02-13
+date: 2024-09-17
 description: |
     Computation with twisted conjugacy classes
 
@@ -13,12 +13,7 @@ maintainers:
     - name: Sam Tertooy
       url: https://stertooy.github.io/
 
-GAP: ">= 4.12"
-
-suggested-pkgs:
-    - name: "Polycyclic"
-      version: "2.16"
-      url: "https://gap-packages.github.io/polycyclic/"
+GAP: ">= 4.13"
 
 www: https://stertooy.github.io/TwistedConjugacy
 readme: README.md
@@ -26,7 +21,7 @@ packageinfo: https://stertooy.github.io/TwistedConjugacy/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/stertooy/TwistedConjugacy/releases/download/v2.2.0/TwistedConjugacy-2.2.0.tar.gz
+      url: https://github.com/stertooy/TwistedConjugacy/releases/download/v2.3.0/TwistedConjugacy-2.3.0.tar.gz
 
 abstract: |
     
@@ -45,7 +40,7 @@ citeas: |
     <p class='BibEntry'>
     [<span class='BibKey'>Ter24</span>]   <b class='BibAuthor'>Tertooy, S.</b>,
      <i class='BibTitle'>TwistedConjugacy, Computation with twisted conjugacy classes,
-             Version 2.2.0</i>
+             Version 2.3.0</i>
      (<span class='BibYear'>2024</span>)<br />
     (<span class='BibNote'>GAP package</span>),
     <span class='BibHowpublished'><a href="https://stertooy.github.io/TwistedConjugacy">https://stertooy.github.io/TwistedConjugacy</a></span>.
@@ -53,11 +48,11 @@ citeas: |
     
 
 bibtex: |
-    @misc{ TwistedConjugacy2.2.0,
+    @misc{ TwistedConjugacy,
       author =           {Tertooy, S.},
       title =            {{TwistedConjugacy}, Computation with twisted conjugacy
-                          classes, {V}ersion 2.2.0},
-      month =            {Feb},
+                          classes, {V}ersion 2.3.0},
+      month =            {Sep},
       year =             {2024},
       note =             {GAP package},
       howpublished =     {\href    {https://stertooy.github.io/TwistedConjugacy}
