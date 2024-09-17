@@ -1,6 +1,19 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
+2.3.0 (2024-09-17)
+------------------
+
+- Now requires GAP version >= 4.13
+- Polycyclic version >= 2.16 is now an extension instead of a suggested package
+
+- Added FullReidemeisterSpectrum
+- Documented RepresentativesReidemeisterClasses
+
+- Added ToggleSafeMode@TwistedConjugacy, to use built-in assertions (including
+  those in Polycyclic) to check for any errors.
+
+
 2.2.0 (2024-02-13)
 ------------------
 

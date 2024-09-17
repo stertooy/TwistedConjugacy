@@ -19,7 +19,10 @@ AutoDoc( rec(
         bib := "manual.bib"
     ),
     gapdoc := rec(
-        main := "manual.xml"
+        main := "manual.xml",
+        LaTeXOptions := rec(
+            LateExtraPreamble := "\\usepackage{amsmath}"
+        )
     ),
     extract_examples := rec(
         units := "Chapter"

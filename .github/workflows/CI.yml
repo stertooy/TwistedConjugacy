@@ -17,7 +17,6 @@ jobs:
           - gap-branch: "master"
             coverage: true
           - gap-branch: "4.13"
-          - gap-branch: "4.12"
 
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}-slim
@@ -27,14 +26,14 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v4
 
-      - name: "Run package tests with necessary packages"
+      - name: "Run package tests with minimal packages"
         uses: sTertooy/gda-test-pkg@v1
         with:
           GAP_FLAGS: "-A"
           COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
 
-      - name: "Run package tests with suggested packages"
+      - name: "Run package tests with default packages"
         uses: sTertooy/gda-test-pkg@v1
         with:
           COVERAGE: ${{ matrix.coverage }}
@@ -44,7 +43,7 @@ jobs:
         if: ${{ matrix.coverage }}
 
       - name: "Upload coverage"
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         if: ${{ matrix.coverage }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

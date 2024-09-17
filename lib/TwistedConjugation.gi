@@ -78,14 +78,22 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     RepresentativeTwistedConjugation,
     function( arg... )
-        local G;
+        local G, c, tc;
         if Length( arg ) < 4 then
             G := Range( arg[1] );
             if arg[2] in G then
                 Add( arg, IdentityMapping( G ), 2 );
             fi;
         fi;
-        return CallFuncList( RepresentativeTwistedConjugationOp, arg );
+        c := CallFuncList( RepresentativeTwistedConjugationOp, arg );
+        if ASSERT@ and c <> fail then
+            tc := TwistedConjugation( arg[1], arg[2] );
+            if Length( arg ) < 4 then
+                Add( arg, One( G ) );
+            fi;
+            if tc( arg[3], c ) <> arg[4] then Error("Assertion failure"); fi;
+        fi;
+        return c;
     end
 );
 
@@ -205,16 +213,12 @@ RepTwistConjToIdByCentre@ := function( hom1, hom2, g )
     hom2p := InducedHomomorphism( q, p, hom2 );
     pg := ImagesRepresentative( p, g );
     h1 := RepresentativeTwistedConjugationOp( hom1p, hom2p, pg );
-    if h1 = fail then
-        return fail;
-    fi;
+    if h1 = fail then return fail; fi;
     tc := TwistedConjugation( hom1, hom2 );
     c := tc( g, h1 );
     Coin := CoincidenceGroup2( hom1p, hom2p );
     d := DifferenceGroupHomomorphisms@ ( hom1, hom2, Coin, G );
-    if not c in ImagesSource( d ) then
-        return fail;
-    fi;
+    if not c in ImagesSource( d ) then return fail; fi;
     # TODO: Replace by PreImagesRepresentative eventually
     h2 := PreImagesRepresentativeNC( d, c );
     return h1*h2;
@@ -256,9 +260,7 @@ RepTwistConjToIdStep5@ := function( hom1, hom2, a, A )
         i -> Comm( a, ImagesRepresentative( hom2, hi[i] )^-1 )*ai[i]
     );
     g := RepresentativeAction( G, bi, ai, OnTuples );
-    if g = fail then
-        return fail;
-    fi;
+    if g = fail then return fail; fi;
     p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );
     pg := ImagesRepresentative( p, g );
@@ -305,16 +307,12 @@ RepTwistConjToIdStep4@ := function( hom1, hom2, a, A )
     pa := ImagesRepresentative( p, a );
     A2 := ImagesSet( p, A );
     h1 := RepTwistConjToIdStep4@( hom1p, hom2p, pa, A2 );
-    if h1 = fail then
-        return fail;
-    fi;
+    if h1 = fail then return fail; fi;
     tc := TwistedConjugation( hom1, hom2 );
     c := tc( a, h1 );
     Coin := CoincidenceGroup2( hom1p, hom2p );
     delta := DifferenceGroupHomomorphisms@( hom1, hom2, Coin, G );
-    if not c in ImagesSource( delta ) then
-        return fail;
-    fi;
+    if not c in ImagesSource( delta ) then return fail; fi;
     # TODO: Replace by PreImagesRepresentative eventually
     h2 := PreImagesRepresentativeNC( delta, c );
     return h1*h2;
@@ -358,9 +356,7 @@ RepTwistConjToIdStep3@ := function( hom1, hom2, a, A )
     A2 := ImagesSet( p, A );
     pa := ImagesRepresentative( p, a );
     h1 := RepTwistConjToIdStep4@( hom1p, hom2p, pa, A2 );
-    if h1 = fail then
-        return fail;
-    fi;
+    if h1 = fail then return fail; fi;
     tc := TwistedConjugation( hom1, hom2 );
     c := tc( a, h1 );
     h2 := PreImagesRepresentativeNC( delta, c );
@@ -425,18 +421,14 @@ RepTwistConjToIdStep1@ := function( hom1, hom2, g )
     hom2p := InducedHomomorphism( q, p, hom2 );
     pg := ImagesRepresentative( p, g );
     h1 := RepresentativeTwistedConjugationOp( hom1p, hom2p, pg );
-    if h1 = fail then
-        return fail;
-    fi;
+    if h1 = fail then return fail; fi;
     tc := TwistedConjugation( hom1, hom2 );
     a := tc( g, h1 );
-    Coin := CoincidenceGroup( hom1p, hom2p );
+    Coin := CoincidenceGroup2( hom1p, hom2p );
     hom1r := RestrictedHomomorphism( hom1, Coin, G );
     hom2r := RestrictedHomomorphism( hom2, Coin, G );
     h2 := RepTwistConjToIdStep2@( hom1r, hom2r, a, A );
-    if h2 = fail then
-        return fail;
-    fi;
+    if h2 = fail then return fail; fi;
     return h1*h2;
 end;
 
@@ -522,9 +514,7 @@ InstallOtherMethod(
             IsAbelian( G )
         ) then TryNextMethod(); fi;
         diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
-        if not g in ImagesSource( diff ) then
-            return fail;
-        fi;
+        if not g in ImagesSource( diff ) then return fail; fi;
         # TODO: Replace by PreImagesRepresentative eventually
         return PreImagesRepresentativeNC( diff, g );
     end

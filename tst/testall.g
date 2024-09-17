@@ -1,4 +1,5 @@
 LoadPackage( "TwistedConjugacy" );
+ASSERT@TwistedConjugacy := true;
 
 Directories_To_Test := [
 	DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcgroup" ),

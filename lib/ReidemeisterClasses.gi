@@ -230,7 +230,7 @@ InstallMethod(
 InstallGlobalFunction(
     ReidemeisterClasses,
     function( hom1, arg... )
-        local G, hom2, Rcl;
+        local G, hom2, Rcl, copy, g, h;
         G := Range( hom1 );
         if Length( arg ) = 0 then
             hom2 := IdentityMapping( G );
@@ -242,6 +242,57 @@ InstallGlobalFunction(
             return fail;
         fi;
         return List( Rcl, g -> ReidemeisterClass( hom1, hom2, g ) );
+    end
+);
+
+
+###############################################################################
+##
+## RepresentativesReidemeisterClasses( hom1, hom2 )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##
+##  OUTPUT:
+##      L:          list containing a representative of each (hom1,hom2)-
+##                  twisted conjugacy class, or fail if there are infinitely
+##                  many
+##
+InstallGlobalFunction(
+    RepresentativesReidemeisterClasses,
+    function( hom1, arg... )
+        local G, hom2, Rcl, copy, g, h, pos, i;
+        G := Range( hom1 );
+        if Length( arg ) = 0 then
+            hom2 := IdentityMapping( G );
+        else
+            hom2 := arg[1];
+        fi;
+        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2 );
+        if Rcl = fail then
+            return fail;
+        elif ASSERT@ then
+            copy := ShallowCopy( Rcl );
+            g := Remove( copy );
+            while not IsEmpty( copy ) do
+                if ForAny( copy, h -> IsTwistedConjugate( hom1, hom2, g, h) )
+                then Error("Assertion failure"); fi;
+                g := Remove( copy );
+            od;
+        fi;
+        pos := Position( Rcl, One( G ) );
+        if pos = fail then
+            pos := First(
+                [1..Length( Rcl )],
+                i -> IsTwistedConjugate( hom1, hom2, Rcl[i] )
+            );
+        fi;
+        if pos > 1 then
+            Remove( Rcl, pos );
+            Add( Rcl, One( G ), 1 );
+        fi;
+        return Rcl;
     end
 );
 
@@ -273,7 +324,7 @@ ReidemeisterClassesByTrivialSubgroup@ := function( hom1, hom2 )
     q := NaturalHomomorphismByNormalSubgroupNC( H, N );
     hom1HN := InducedHomomorphism( q, id, hom1 );
     hom2HN := InducedHomomorphism( q, id, hom2 );
-    return RepresentativesReidemeisterClasses( hom1HN, hom2HN );
+    return RepresentativesReidemeisterClassesOp( hom1HN, hom2HN );
 end;
 
 
@@ -309,7 +360,7 @@ ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, M )
     GM := ImagesSource( p );
     hom1p := InducedHomomorphism( q, p, hom1 );
     hom2p := InducedHomomorphism( q, p, hom2 );
-    RclGM := RepresentativesReidemeisterClasses( hom1p, hom2p );
+    RclGM := RepresentativesReidemeisterClassesOp( hom1p, hom2p );
     if RclGM = fail then
         return fail;
     fi;
@@ -323,7 +374,7 @@ ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, M )
         g := PreImagesRepresentativeNC( p, pg );
         conj_g := ConjugatorAutomorphismNC( M, g^-1 );
         inn_g_hom1N := hom1N*conj_g;
-        RclM := RepresentativesReidemeisterClasses( inn_g_hom1N, hom2N );
+        RclM := RepresentativesReidemeisterClassesOp( inn_g_hom1N, hom2N );
         if RclM = fail then
             return fail;
         fi;
@@ -373,8 +424,8 @@ end;
 ##      C the centre of G.
 ##
 ReidemeisterClassesByCentre@ := function( hom1, hom2 )
-    local G, H, C, p, q, hom1p, hom2p, RclGM, GM, Rcl, foundOne, pg, inn_pg,
-          Coin, g, inn_g, d, r, coker, rm, m;
+    local G, H, C, p, q, hom1p, hom2p, RclGM, GM, Rcl, pg, inn_pg, Coin, g,
+          inn_g, d, r, coker, rm, m;
     G := Range( hom1 );
     H := Source( hom1 );
     C := Center( G );
@@ -382,13 +433,12 @@ ReidemeisterClassesByCentre@ := function( hom1, hom2 )
     q := IdentityMapping( H );
     hom1p := InducedHomomorphism( q, p, hom1 );
     hom2p := InducedHomomorphism( q, p, hom2 );
-    RclGM := RepresentativesReidemeisterClasses( hom1p, hom2p );
+    RclGM := RepresentativesReidemeisterClassesOp( hom1p, hom2p );
     if RclGM = fail then
         return fail;
     fi;
     GM := ImagesSource( p );
     Rcl := [];
-    foundOne := false;
     for pg in RclGM do
         inn_pg := InnerAutomorphismNC( GM, pg^-1 );
         Coin := CoincidenceGroup2( hom1p*inn_pg, hom2p );
@@ -401,14 +451,9 @@ ReidemeisterClassesByCentre@ := function( hom1, hom2 )
             return fail;
         fi;
         for rm in coker do
-            if ( not foundOne ) and IsOne( rm ) and IsOne( pg ) then
-                Add( Rcl, One( G ), 1 );
-                foundOne := true;
-            else
-                # TODO: replace by PreImagesRepresentative eventually
-                m := PreImagesRepresentativeNC( r, rm );
-                Add( Rcl, m*g );
-            fi;
+            # TODO: replace by PreImagesRepresentative eventually
+            m := PreImagesRepresentativeNC( r, rm );
+            Add( Rcl, m*g );
         od;
     od;
     return Rcl;
@@ -417,7 +462,7 @@ end;
 
 ###############################################################################
 ##
-## RepresentativesReidemeisterClasses( hom1, hom2 )
+## RepresentativesReidemeisterClassesOp( hom1, hom2 )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -429,7 +474,7 @@ end;
 ##                  many
 ##
 InstallMethod(
-    RepresentativesReidemeisterClasses,
+    RepresentativesReidemeisterClassesOp,
     "for trivial range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     6,
@@ -442,7 +487,7 @@ InstallMethod(
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClasses,
+    RepresentativesReidemeisterClassesOp,
     "for infinite source and finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     5,
@@ -461,12 +506,12 @@ InstallMethod(
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClasses,
+    RepresentativesReidemeisterClassesOp,
     "for abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     4,
     function( hom1, hom2 )
-        local G, H, diff, N, Rcl, p, pg, g;
+        local G, H, diff, N, p, pg;
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
@@ -477,27 +522,21 @@ InstallMethod(
         diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
         N := ImagesSource( diff );
         if IndexNC( G, N ) = infinity then return fail; fi;
-        Rcl := [];
         p := NaturalHomomorphismByNormalSubgroupNC( G, N );
-        for pg in ImagesSource( p ) do
-            if IsOne( pg ) then
-                Add( Rcl, One( G ), 1 );
-            else
-                g := PreImagesRepresentative( p, pg );
-                Add( Rcl, g );
-            fi;
-        od;
-        return Rcl;
+        return List(
+            ImagesSource( p ),
+            pg -> PreImagesRepresentative( p, pg )
+        );
     end
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClasses,
+    RepresentativesReidemeisterClassesOp,
     "for finite source",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     3,
     function( hom1, hom2 )
-        local G, H, Rcl, tc, G_List, gens, orbits, foundOne, orbit;
+        local G, H, Rcl, tc, G_List, gens, orbits;
         G := Range( hom1 );
         H := Source( hom1 );
         if not IsFinite( H ) then TryNextMethod(); fi;
@@ -511,21 +550,12 @@ InstallMethod(
             gens := SmallGeneratingSet( H );
         fi;
         orbits := OrbitsDomain( H, G_List, gens, gens, tc );
-        foundOne := false;
-        for orbit in orbits do
-            if ( not foundOne ) and One( G ) in orbit then
-                Add( Rcl, One( G ), 1 );
-                foundOne := true;
-            else
-                Add( Rcl, orbit[1] );
-            fi;
-        od;
-        return Rcl;
+        return ListX( orbits, First );
     end
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClasses,
+    RepresentativesReidemeisterClassesOp,
     "for nilpotent range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     2,
@@ -544,7 +574,7 @@ InstallMethod(
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClasses,
+    RepresentativesReidemeisterClassesOp,
     "for nilpotent-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     1,
@@ -564,7 +594,7 @@ InstallMethod(
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClasses,
+    RepresentativesReidemeisterClassesOp,
     "for polycyclic range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     0,

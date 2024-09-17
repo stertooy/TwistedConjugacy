@@ -32,13 +32,14 @@ DeclareAttribute(
 
 DeclareGlobalFunction( "ReidemeisterClasses" );
 DeclareSynonym( "TwistedConjugacyClasses", ReidemeisterClasses );
-DeclareOperation(
-    "RepresentativesReidemeisterClasses",
-    [ IsGroupHomomorphism, IsGroupHomomorphism ]
-);
+DeclareGlobalFunction( "RepresentativesReidemeisterClasses" );
 DeclareSynonym(
     "RepresentativesTwistedConjugacyClasses",
     RepresentativesReidemeisterClasses
+);
+DeclareOperation(
+    "RepresentativesReidemeisterClassesOp",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 
 
@@ -67,6 +68,11 @@ DeclareGlobalFunction( "CoincidenceReidemeisterSpectrum" );
 DeclareOperation(
     "CoincidenceReidemeisterSpectrumOp",
     [ IsGroup, IsGroup ]
+);
+DeclareGlobalFunction( "FullReidemeisterSpectrum" );
+DeclareOperation(
+    "FullReidemeisterSpectrumOp",
+    [ IsGroup ]
 );
 
 

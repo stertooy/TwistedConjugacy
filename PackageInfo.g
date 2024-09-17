@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
-Version := "2.2.0",
-Date := "13/02/2024",
+Version := "2.3.0",
+Date := "17/09/2024",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -21,7 +21,7 @@ Persons := [
             8500 Kortrijk
             Belgium
         """,
-        Place := "Kortrijk",
+        Place := "Kortrijk, Belgium",
         Institution := "KU Leuven Kulak Kortrijk Campus",
     ),
 ],
@@ -30,6 +30,7 @@ SourceRepository := rec(
     Type := "git",
     URL := Concatenation( "https://github.com/stertooy/", ~.PackageName ),
 ),
+SupportEmail := "sam.tertooy@kuleuven.be",
 
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
 PackageWWWHome  := Concatenation( "https://stertooy.github.io/", ~.PackageName ),
@@ -42,8 +43,6 @@ ArchiveURL      := Concatenation(
 ),
 
 ArchiveFormats := ".tar.gz",
-
-Status := "dev",
 
 AbstractHTML := """
     The TwistedConjugacy package provides methods to calculate Reidemeister
@@ -63,13 +62,15 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-    GAP := ">= 4.12",
-    NeededOtherPackages := [ ],
-    SuggestedOtherPackages := [
-        [ "Polycyclic", "2.16" ],
-    ],
-    ExternalConditions := [ ],
+    GAP := ">= 4.13",
 ),
+
+Extensions := [
+    rec(
+        needed := [ [ "Polycyclic", "2.16" ] ],
+        filename := "read_pcpgroup.g"
+    )
+],
 
 AvailabilityTest := ReturnTrue,
 

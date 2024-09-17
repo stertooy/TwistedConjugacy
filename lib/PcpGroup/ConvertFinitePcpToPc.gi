@@ -46,7 +46,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## RepresentativesReidemeisterClasses( hom1, hom2 )
+## RepresentativesReidemeisterClassesOp( hom1, hom2 )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -58,7 +58,7 @@ InstallMethod(
 ##                  many
 ##
 InstallMethod(
-    RepresentativesReidemeisterClasses,
+    RepresentativesReidemeisterClassesOp,
     "turn finite PcpGroup range into PcGroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     101,
@@ -70,13 +70,13 @@ InstallMethod(
             IsFinite( G )
         ) then TryNextMethod(); fi;
         iso := IsomorphismPcGroup( G );
-        Rcl := RepresentativesReidemeisterClasses( hom1*iso, hom2*iso );
+        Rcl := RepresentativesReidemeisterClassesOp( hom1*iso, hom2*iso );
         return List( Rcl, g -> PreImagesRepresentativeNC( iso, g ) );
     end
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClasses,
+    RepresentativesReidemeisterClassesOp,
     "turn finite PcpGroup source into PcGroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     100,
@@ -88,7 +88,7 @@ InstallMethod(
             IsFinite( H )
         ) then TryNextMethod(); fi;
         inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
-        return RepresentativesReidemeisterClasses( inv*hom1, inv*hom2 );
+        return RepresentativesReidemeisterClassesOp( inv*hom1, inv*hom2 );
     end
 );
 

@@ -1,8 +1,8 @@
 gap> START_TEST( "Testing TwistedConjugacy for PcGroups: twisted conjugation by homomorphisms" );
 
 #
-gap> G := SmallGroup( 252, 34 );;
-gap> H := SmallGroup( 84, 5 );;
+gap> G := PcGroupCode( 57308604420143, 252 );;
+gap> H := PcGroupCode( 23814281243, 84 );;
 gap> gens := [ H.1, H.3*H.4 ];;
 gap> imgs1 := [ G.2*G.4^2, One( G ) ];;
 gap> imgs2 := [ G.1*G.2*G.3*G.5, G.3*G.4^2*G.5^3 ];;

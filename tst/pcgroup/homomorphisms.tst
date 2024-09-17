@@ -2,7 +2,7 @@ gap> START_TEST( "Testing TwistedConjugacy for PcGroups: homomorphisms" );
 
 #
 gap> filt := IsPcGroup;;
-gap> G := SmallGroup( 252, 34 );;
+gap> G := PcGroupCode( 57308604420143, 252 );;
 gap> T := TrivialGroup( filt );;
 gap> C := CyclicGroup( filt, 2 );;
 

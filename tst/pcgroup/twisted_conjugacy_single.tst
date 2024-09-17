@@ -1,7 +1,7 @@
 gap> START_TEST( "Testing TwistedConjugacy for PcGroups: twisted conjugation by endomorphisms" );
 
 #
-gap> G := SmallGroup( 252, 34 );;
+gap> G := PcGroupCode( 57308604420143, 252 );;
 gap> gens := GeneratorsOfGroup( G );;
 gap> imgs1 := [ G.1*G.5^6, G.1*G.2*G.3^2*G.4^2*G.5^6, G.3^2, G.3*G.4^2, One( G ) ];;
 gap> imgs2 := [ One( G ), G.2*G.3*G.4, G.3, G.3^2*G.4, One( G ) ];;
@@ -167,6 +167,8 @@ gap> T := TrivialSubgroup( G );;
 gap> endoT := GroupHomomorphismByImages( T, T, [ One( T ) ], [ One( T ) ] );;
 gap> Size( ReidemeisterClasses( endoT ) );
 1
+gap> RepresentativesReidemeisterClasses( endoT ) = [ One( T ) ];
+true
 
 #
 gap> STOP_TEST( "twisted_conjugacy_single.tst" );
