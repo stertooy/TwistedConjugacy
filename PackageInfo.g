@@ -21,7 +21,7 @@ Persons := [
             8500 Kortrijk
             Belgium
         """,
-        Place := "Kortrijk",
+        Place := "Kortrijk, Belgium",
         Institution := "KU Leuven Kulak Kortrijk Campus",
     ),
 ],
