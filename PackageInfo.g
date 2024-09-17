@@ -44,6 +44,8 @@ ArchiveURL      := Concatenation(
 
 ArchiveFormats := ".tar.gz",
 
+Status := "dev",
+
 AbstractHTML := """
     The TwistedConjugacy package provides methods to calculate Reidemeister
     classes, numbers, spectra and zeta functions, as well as other methods
