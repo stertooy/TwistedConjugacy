@@ -18,13 +18,10 @@ The TwistedConjugacy package provides methods to calculate Reidemeister
 classes, numbers, spectra and zeta functions, as well as coincidence groups of
 group homomorphisms. These methods are, for the most part, designed to be used
 with (group homomorphisms between) finite groups and, if the package Polycyclic
-is also installed, polycyclically presented groups.
+is also installed and loaded, polycyclically presented groups.
 
 
 This package requires GAP version 4.13 or later.
-
-When using this package on PcpGroups provided by the Polycyclic package,
-<TODO: add "safe mode" instructions>
 
 
 

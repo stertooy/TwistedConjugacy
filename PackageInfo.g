@@ -2,7 +2,7 @@ SetPackageInfo( rec(
 
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
-Version := "2.3.0dev",
+Version := "2.3.0",
 Date := "17/09/2024",
 License := "GPL-2.0-or-later",
 
@@ -30,6 +30,7 @@ SourceRepository := rec(
     Type := "git",
     URL := Concatenation( "https://github.com/stertooy/", ~.PackageName ),
 ),
+SupportEmail := "sam.tertooy@kuleuven.be",
 
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
 PackageWWWHome  := Concatenation( "https://stertooy.github.io/", ~.PackageName ),
@@ -42,8 +43,6 @@ ArchiveURL      := Concatenation(
 ),
 
 ArchiveFormats := ".tar.gz",
-
-Status := "dev",
 
 AbstractHTML := """
     The TwistedConjugacy package provides methods to calculate Reidemeister
@@ -64,8 +63,6 @@ PackageDoc := rec(
 
 Dependencies := rec(
     GAP := ">= 4.13",
-    NeededOtherPackages := [ ],
-    ExternalConditions := [ ],
 ),
 
 Extensions := [

@@ -23,7 +23,19 @@
 #! some methods in this package are only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
 #! Otherwise, these methods may potentially throw an error: "<C>Error, no method found!</C>"
 
+#! <P/>
 
+#! In the past, bugs in GAP or the Polycyclic package have caused functions from this package to produce errors and even wrong results. 
+#! One can toggle TwistedConjugacy's Safe Mode, which will cause certain functions to verify the correctness of their output.
+#! This should make results more (but not completely!) reliable, at the cost of some performance.
+#!
+
+#! @BeginExample
+ToggleSafeMode@TwistedConjugacy();
+#! TwistedConjugacy's Safe Mode is now on.
+ToggleSafeMode@TwistedConjugacy();
+#! TwistedConjugacy's Safe Mode is now off.
+#! @EndExample
 
 #####
 #
