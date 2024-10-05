@@ -1,6 +1,21 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
+2.4.0 (2024-10-06)
+------------------
+
+- Added methods for intersections of arbitrary subgroups and cosets in
+  PcpGroups
+- Added method to test membership in a double coset of a PcpGroup
+
+- Algorithms for infinite polycyclic groups again require the Polycyclic
+  package, since many methods would otherwise run forever due to the lack of
+  finiteness checks in existing methods
+
+- Renamed FullReidemeisterSpectrum to TotalReidemeisterSpectrum, to avoid
+  confusion with a spectrum being 'full'
+
+
 2.3.0 (2024-09-17)
 ------------------
 
