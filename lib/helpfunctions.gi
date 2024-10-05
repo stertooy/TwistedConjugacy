@@ -23,16 +23,3 @@ DifferenceGroupHomomorphisms@ := function( hom1, hom2, N, M )
     );
     return GroupHomomorphismByImagesNC( N, M, gens, imgs );
 end;
-
-
-###############################################################################
-##
-## IsFiniteOrPcpGroup( G )
-##
-##  INPUT:
-##      G:          group
-##
-##  OUTPUT:
-##      bool:       true iff G is either finite or a PcpGroup
-##
-InstallTrueMethod( IsFiniteOrPcpGroup, IsGroup and IsFinite );

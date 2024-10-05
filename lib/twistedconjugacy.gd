@@ -69,9 +69,9 @@ DeclareOperation(
     "CoincidenceReidemeisterSpectrumOp",
     [ IsGroup, IsGroup ]
 );
-DeclareGlobalFunction( "FullReidemeisterSpectrum" );
+DeclareGlobalFunction( "TotalReidemeisterSpectrum" );
 DeclareOperation(
-    "FullReidemeisterSpectrumOp",
+    "TotalReidemeisterSpectrumOp",
     [ IsGroup ]
 );
 
@@ -128,6 +128,4 @@ DeclareGlobalFunction( "RestrictedHomomorphism" );
 DeclareGlobalFunction( "InclusionHomomorphism" );
 
 
-DeclareProperty( "IsNilpotentByFinite", IsGroup );
 DeclareProperty( "IsNilpotentByAbelian", IsGroup );
-DeclareProperty( "IsFiniteOrPcpGroup", IsGroup );

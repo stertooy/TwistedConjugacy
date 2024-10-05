@@ -332,11 +332,7 @@ InstallMethod(
         local G, H, diff, N, p, pg;
         G := Range( hom1 );
         H := Source( hom1 );
-        if not (
-            IsFiniteOrPcpGroup( H ) and
-            IsFiniteOrPcpGroup( G ) and
-            IsAbelian( G )
-        ) then TryNextMethod(); fi;
+        if not IsAbelian( G ) then TryNextMethod(); fi;
         diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
         N := ImagesSource( diff );
         if IndexNC( G, N ) = infinity then return fail; fi;

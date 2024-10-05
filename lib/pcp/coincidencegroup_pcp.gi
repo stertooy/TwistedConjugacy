@@ -401,7 +401,7 @@ InstallMethod(
             not IsNilpotentByAbelian( G ) and
             not IsNilpotentByFinite( G )
         ) then TryNextMethod(); fi;
-        M := NilpotentByAbelianNormalSubgroup@( G );
+        M := NilpotentByAbelianByFiniteSeries( G )[2];
         return CoincidenceGroupByFiniteQuotient@( hom1, hom2, M );
     end
 );

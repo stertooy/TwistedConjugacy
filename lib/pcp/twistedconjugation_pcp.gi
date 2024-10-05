@@ -452,7 +452,7 @@ InstallOtherMethod(
             not IsNilpotentByAbelian( G ) and
             not IsNilpotentByFinite( G )
         ) then TryNextMethod(); fi;
-        M := NilpotentByAbelianNormalSubgroup@( G );
+        M := NilpotentByAbelianByFiniteSeries( G )[2];
         return RepTwistConjToIdByFiniteQuotient@( hom1, hom2, g, M );
     end
 );

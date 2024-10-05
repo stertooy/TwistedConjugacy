@@ -19,8 +19,8 @@ InstallMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
-            IsFiniteOrPcpGroup( H ) and
-            IsFiniteOrPcpGroup( G ) and 
+            IsPcpGroup( H ) and
+            IsPcpGroup( G ) and 
             IsNilpotentByFinite( G ) and
             HirschLength( H ) < HirschLength( G )
         ) then TryNextMethod(); fi;

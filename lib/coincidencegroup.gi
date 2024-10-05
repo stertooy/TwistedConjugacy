@@ -93,11 +93,7 @@ InstallMethod(
         local G, H, diff;
         G := Range( hom1 );
         H := Source( hom1 );
-        if not (
-            IsFiniteOrPcpGroup( H ) and
-            IsFiniteOrPcpGroup( G ) and
-            IsAbelian( G )
-        ) then TryNextMethod(); fi;
+        if not IsAbelian( G ) then TryNextMethod(); fi;
         diff := DifferenceGroupHomomorphisms@ ( hom1, hom2, H, G );
         return Kernel( diff );
     end
@@ -112,10 +108,7 @@ InstallMethod(
         local G, H, gens, tc;
         G := Range( hom1 );
         H := Source( hom1 );
-        if not (
-            IsFinite( H ) and
-            IsFiniteOrPcpGroup( G )
-        ) then TryNextMethod(); fi;
+        if not IsFinite( H ) then TryNextMethod(); fi;
         if CanEasilyComputePcgs( H ) then
             gens := Pcgs( H );
         else

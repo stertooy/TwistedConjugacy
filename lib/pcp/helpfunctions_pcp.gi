@@ -37,21 +37,6 @@ end;
 
 ###############################################################################
 ##
-## IsNilpotentByFinite( G )
-##
-##  INPUT:
-##      G:          group
-##
-##  OUTPUT:
-##      bool:       true iff G is nilpotent-by-finite
-##
-InstallTrueMethod( IsNilpotentByFinite, IsNilpotentGroup );
-
-InstallTrueMethod( IsNilpotentByFinite, IsGroup and IsFinite );
-
-
-###############################################################################
-##
 ## IsNilpotentByAbelian( G )
 ##
 ##  INPUT:
@@ -69,43 +54,6 @@ InstallMethod(
         return IsNilpotentGroup( DerivedSubgroup( G ) );
     end
 );
-
-
-###############################################################################
-##
-## NilpotentByAbelianNormalSubgroup@( G )
-##
-##  INPUT:
-##      G:          polycyclic-by-finite group
-##
-##  OUTPUT:
-##      NA:         nilpotent-by-abelian normal subgroup of G
-##
-##  REMARKS:
-##      NA is not necessarily maximal.
-##
-NilpotentByAbelianNormalSubgroup@ := function( G )
-    local p, A, NA;
-    p := NaturalHomomorphismByNormalSubgroupNC( G, FittingSubgroup( G ) );
-    A := Centre( FittingSubgroup( ImagesSource( p ) ) );
-    NA := PreImagesSetNC( p, A );
-    SetIsNilpotentByAbelian( NA, true );
-    SetIsNilpotentByFinite( NA, IsFinite( A ) );
-    return NA;
-end;
-
-
-###############################################################################
-##
-## IsFiniteOrPcpGroup( G )
-##
-##  INPUT:
-##      G:          group
-##
-##  OUTPUT:
-##      bool:       true iff G is either finite or a PcpGroup
-##
-InstallTrueMethod( IsFiniteOrPcpGroup, IsPcpGroup );
 
 
 ###############################################################################

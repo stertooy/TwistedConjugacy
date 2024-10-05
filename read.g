@@ -11,4 +11,3 @@ ReadPackage( "TwistedConjugacy", "lib/reidemeisterclasses.gi" );
 ReadPackage( "TwistedConjugacy", "lib/reidemeisternumber.gi" );
 ReadPackage( "TwistedConjugacy", "lib/reidemeisterspectrum.gi" );
 ReadPackage( "TwistedConjugacy", "lib/reidemeisterzeta.gi" );
-
