@@ -9,7 +9,7 @@ gap> y := G.1*G.2^-1*G.3^-2*G.4^-1;;
 gap> I := Intersection( H, K );;
 gap> IsSubgroup( H, I ) and IsSubgroup( K, I );
 true
-gap> Intersection( G, H ) = H and Intersection( K, G ) = K;
+gap> Intersection( H, I ) = I and Intersection( K, I ) = K;
 true
 
 #
