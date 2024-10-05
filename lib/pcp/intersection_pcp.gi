@@ -24,12 +24,8 @@ InstallMethod(
             return V;
         fi;
         
-        # Refer to NormalIntersection
-        if IsNormal( V, U ) then
-            return NormalIntersection( U, V );
-        elif IsNormal( U, V ) then
-            return NormalIntersection( V, U );
-        fi;
+        # Defer to polycyclic's implementation
+        if IsNormal( V, U ) or IsNormal( U, V ) then TryNextMethod(); fi;
         
         # Use CoincidenceGroup
         UV := DirectProduct( U, V );

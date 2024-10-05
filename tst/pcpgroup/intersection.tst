@@ -9,7 +9,10 @@ gap> y := G.1*G.2^-1*G.3^-2*G.4^-1;;
 gap> I := Intersection( H, K );;
 gap> IsSubgroup( H, I ) and IsSubgroup( K, I );
 true
+gap> Intersection( G, H ) = H and Intersection( K, G ) = K;
+true
 
+#
 gap> Hx := RightCoset( H, x );;
 gap> Ky := RightCoset( K, y );;
 gap> Iz := Intersection( Hx, Ky );;
@@ -19,6 +22,13 @@ true
 gap> z := Representative( Iz );;
 gap> z in Hx and z in Ky;
 true
+
+#
+gap> HxK := DoubleCoset( H, x, K );;
+gap> y in HxK;
+true
+gap> One( G ) in HxK;
+false
 
 #
 gap> STOP_TEST( "twisted_conjugacy_single.tst" );
