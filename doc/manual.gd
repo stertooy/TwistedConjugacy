@@ -213,8 +213,8 @@ NrTwistedConjugacyClasses( phi, psi );
 #! The set of all Reidemeister numbers of pairs of homomorphisms from a group $H$ to a group $G$ is called the **coincidence Reidemeister spectrum** of $H$ and $G$ and is denoted by $\operatorname{CSpec}_R(H,G)$, i.e.
 #! $$\operatorname{CSpec}_R(H,G) := \{\, R(\varphi, \psi) \mid \varphi,\psi \in \operatorname{Hom}(H,G) \,\}.$$
 #! If <A>H</A> = <A>G</A> this is also denoted by $\operatorname{CSpec}_R(G)$.
-#! The set of all Reidemeister numbers of pairs of homomorphisms from every group $H$ to a group $G$ is called the **full Reidemeister spectrum** and is denoted by $\operatorname{FSpec}_R(G)$, i.e.
-#! $$\operatorname{FSpec}_R(G) := \bigcup_{H} \operatorname{CSpec}_R(H,G).$$
+#! The set of all Reidemeister numbers of pairs of homomorphisms from every group $H$ to a group $G$ is called the **total Reidemeister spectrum** and is denoted by $\operatorname{TSpec}_R(G)$, i.e.
+#! $$\operatorname{TSpec}_R(G) := \bigcup_{H} \operatorname{CSpec}_R(H,G).$$
 
 #! <P/>
 
@@ -240,9 +240,9 @@ DeclareGlobalFunction( "ExtendedReidemeisterSpectrum" );
 DeclareGlobalFunction( "CoincidenceReidemeisterSpectrum" );
 
 #! @Description
-#! Returns the full Reidemeister spectrum of <A>G</A>.
+#! Returns the total Reidemeister spectrum of <A>G</A>.
 #! @Arguments G
-DeclareGlobalFunction( "FullReidemeisterSpectrum" );
+DeclareGlobalFunction( "TotalReidemeisterSpectrum" );
 
 #! @BeginExample
 Q := QuaternionGroup( 8 );;
@@ -257,7 +257,7 @@ CoincidenceReidemeisterSpectrum( D, Q );
 #! [ 4, 8 ]
 CoincidenceReidemeisterSpectrum( Q, D );
 #! [ 2, 3, 4, 6, 8 ]
-FullReidemeisterSpectrum( Q );
+TotalReidemeisterSpectrum( Q );
 #! [ 1, 2, 3, 4, 5, 6, 8 ]
 #! @EndExample
 
