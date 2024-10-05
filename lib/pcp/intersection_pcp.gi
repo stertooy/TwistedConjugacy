@@ -117,7 +117,7 @@ InstallMethod(
 
         s := AsElementOfProductGroups@( z, T, V );
         if ASSERT@ then
-            if not(
+            if not IsBool( s ) and not(
                 z = s[1]*s[2] and
                 s[1] in T and
                 s[2] in V
