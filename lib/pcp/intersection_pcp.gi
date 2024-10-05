@@ -15,7 +15,7 @@ InstallMethod(
     [ IsPcpGroup, IsPcpGroup ],
     1,
     function( U, V )
-        local UV, G, l, r;
+        local UV, G, l, r, I;
         
         # Catch trivial cases
         if IsSubset( V, U ) then
@@ -33,8 +33,15 @@ InstallMethod(
         
         l := Projection( UV, 1 ) * InclusionHomomorphism( U, G );
         r := Projection( UV, 2 ) * InclusionHomomorphism( V, G );
-        
-        return ImagesSet( l, CoincidenceGroup2( l, r ) );
+
+        I := ImagesSet( l, CoincidenceGroup2( l, r ) );
+        if ASSERT@ then
+            if not (
+                IsSubset( U, I ) and
+                IsSubset( V, I )
+            ) then Error("Assertion failure"); fi;
+        fi;
+        return I;
     end
 );
 
@@ -56,7 +63,7 @@ InstallMethod(
     [ IsRightCoset and IsPcpElementCollection,
       IsRightCoset and IsPcpElementCollection ],
     function( Ux, Vy )
-        local U, V, x, y, z, s;
+        local U, V, x, y, s, I, z;
         
         U := ActingDomain( Ux );
         V := ActingDomain( Vy );
@@ -64,12 +71,21 @@ InstallMethod(
         x := Representative( Ux );
         y := Representative( Vy );
         
-        z := x*y^-1;
-        s := AsElementOfProductGroups@( z, U, V );
+        s := AsElementOfProductGroups@( x*y^-1, U, V );
         if s = fail then return []; fi;
-        
-        return RightCoset( Intersection2( U, V ), s[2]*y );
-        
+
+        I := Intersection2( U, V );
+        z := s[2]*y;
+
+        if ASSERT@ then
+            if not (
+                IsSubgroup( U, I ) and
+                IsSubgroup( V, I ) and
+                z in Ux and
+                z in Vy
+            ) then Error("Assertion failure"); fi;
+        fi;
+        return RightCoset( I, z );
     end
 );
 
@@ -100,7 +116,13 @@ InstallMethod(
         z := OnLeftInverse( y, x ); 
 
         s := AsElementOfProductGroups@( z, T, V );
-        # TODO add assertion here
+        if ASSERT@ then
+            if not(
+                z = s[1]*s[2] and
+                s[1] in T and
+                s[2] in V
+            ) then Error("Assertion failure"); fi;
+        fi;
         return not IsBool( s );
     end
 );
