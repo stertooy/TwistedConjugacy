@@ -125,13 +125,9 @@ DeclareOperation(
 
 DeclareGlobalFunction( "InducedHomomorphism" );
 DeclareGlobalFunction( "RestrictedHomomorphism" );
+DeclareGlobalFunction( "InclusionHomomorphism" );
 
 
 DeclareProperty( "IsNilpotentByFinite", IsGroup );
-InstallTrueMethod( IsNilpotentByFinite, IsNilpotentGroup );
-InstallTrueMethod( IsNilpotentByFinite, IsGroup and IsFinite );
-DeclareProperty( "IsPolycyclicByFinite", IsGroup );
-InstallTrueMethod( IsPolycyclicByFinite, IsPolycyclicGroup );
-InstallTrueMethod( IsPolycyclicByFinite, IsGroup and IsFinite );
 DeclareProperty( "IsNilpotentByAbelian", IsGroup );
-InstallTrueMethod( IsNilpotentByAbelian, IsNilpotentGroup );
+DeclareProperty( "IsFiniteOrPcpGroup", IsGroup );

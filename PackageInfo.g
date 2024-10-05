@@ -70,7 +70,7 @@ Dependencies := rec(
 Extensions := [
     rec(
         needed := [ [ "Polycyclic", "2.16" ] ],
-        filename := "read_pcpgroup.g"
+        filename := "read_pcp.g"
     )
 ],
 
