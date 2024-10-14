@@ -11,7 +11,9 @@
 InstallGlobalFunction(
     FixedPointGroup,
     function( endo )
-        return CoincidenceGroup( endo );
+        local G;
+        G := Range( endo );
+        return CoincidenceGroup( endo, IdentityMapping( G ) );
     end
 );
 
@@ -32,19 +34,16 @@ InstallGlobalFunction(
 ##
 InstallGlobalFunction(
     CoincidenceGroup,
-    function( hom1, arg... )
-        local G, H, Coin, homi, h, imgs;
+    function( hom1, hom2, arg... )
+        local G, H, Coin, new, homi, h, imgs;
         G := Range( hom1 );
-        H := Source ( hom1 );
-        if Length( arg ) = 0 then
-            Add( arg, IdentityMapping( G ) );
-        fi;
-        Coin := H;
+        Coin := CoincidenceGroup2( hom1, hom2 );
         for homi in arg do
-            Coin := CoincidenceGroup2(
+            new := CoincidenceGroup2(
                 RestrictedHomomorphism( hom1, Coin, G ),
                 RestrictedHomomorphism( homi, Coin, G )
             );
+            Coin := new;
         od;
         if ASSERT@ then
             arg := Concatenation( [ hom1 ], arg );

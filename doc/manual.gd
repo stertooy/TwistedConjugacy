@@ -409,21 +409,21 @@ DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
 DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 
 #! @BeginExample
-G := AlternatingGroup( 6 );;
+G := SymmetricGroup( 6 );;
 Auts := RepresentativesAutomorphismClasses( G );;
 Size( Auts );
-#! 4
+#! 2
 ForAll( Auts, IsGroupHomomorphism and IsEndoMapping and IsBijective );
 #! true
 Ends := RepresentativesEndomorphismClasses( G );;
 Size( Ends );
-#! 5
+#! 6
 ForAll( Ends, IsGroupHomomorphism and IsEndoMapping );
 #! true
 H := SymmetricGroup( 5 );;
 Homs := RepresentativesHomomorphismClasses( H, G );;
 Size( Homs );
-#! 2
+#! 6
 ForAll( Homs, IsGroupHomomorphism );
 #! true
 #! @EndExample
@@ -450,16 +450,16 @@ DeclareGlobalFunction( "FixedPointGroup" );
 DeclareGlobalFunction( "CoincidenceGroup" );
 
 #! @BeginExample
-phi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],
- [ (1,2,6,3,5), (1,4,5) ] );;
-FixedPointGroup( phi );
-#! Group([ (1,2,6,4,3) ])
-psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,4)(3,6), () ] );;
-khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,2)(3,4), () ] );;
-CoincidenceGroup( psi, khi );
-#! Group([ (1,2,3,4,5), (1,3,4,5,2) ])
+phi := GroupHomomorphismByImages( G, G, [ (1,2,5,6,4), (1,2)(3,6)(4,5) ],
+ [ (2,3,4,5,6), (1,2) ] );;
+Set( FixedPointGroup( phi ) );
+#! [ (), (1,2,3,6,5), (1,3,5,2,6), (1,5,6,3,2), (1,6,2,5,3) ]
+psi := GroupHomomorphismByImages( H, G, [ (1,2,3,4,5), (1,2) ],
+ [ (), (1,2) ] );;
+khi := GroupHomomorphismByImages( H, G, [ (1,2,3,4,5), (1,2) ],
+ [ (), (1,2)(3,4) ] );;
+CoincidenceGroup( psi, khi ) = AlternatingGroup( 5 );
+#! true
 #! @EndExample
 
 
