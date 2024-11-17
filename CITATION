@@ -6,8 +6,7 @@ authors:
   given-names: "Sam"
 preferred-citation:
   type: software
-  abbreviation: "TwistedConjugacy2.3.0"
-  title: "TwistedConjugacy, Computation with twisted conjugacy classes"
+  title: "TwistedConjugacy"
   authors:
     - family-names: "Tertooy"
       given-names: "Sam"
