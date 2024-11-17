@@ -1,32 +1,15 @@
-Please use one of the following samples to cite TwistedConjugacy version from this installation
-
-
-Text:
-
-S. Tertooy, TwistedConjugacy, Computation with twisted conjugacy classes, GAP package, Version 2.3.0, 2024, https://stertooy.github.io/TwistedConjugacy/.
-
-
-BibLaTeX:
-
-@Software{ TwistedConjugacy2.3.0,
-    author     = {Tertooy, Sam},
-    date       = {2024-09},
-    title      = {TwistedConjugacy},
-    subtitle   = {Computation with twisted conjugacy classes},
-    version    = {2.3.0},
-    titleaddon = {GAP Package},
-    url        = {https://stertooy.github.io/TwistedConjugacy/},
-}
-
-
-BibTeX:
-
-@misc{ TwistedConjugacy2.3.0,
-  author =       {Tertooy, Sam},
-  year =         {2024},
-  month =        {Sep},
-  title =        {{TwistedConjugacy}, {C}omputation with twisted conjugacy classes, {V}ersion 2.3.0},
-  note =         {GAP package},
-  howpublished = {\url{https://stertooy.github.io/TwistedConjugacy/}},
-}
-
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "TwistedConjugacy"
+authors:
+- family-names: "Tertooy"
+  given-names: "Sam"
+preferred-citation:
+  type: software
+  title: "TwistedConjugacy, Computation with twisted conjugacy classes"
+  authors:
+    - family-names: "Tertooy"
+      given-names: "Sam"
+  version: 2.3.0
+  date-released: "2024-09-17"
+  url: "https://stertooy.github.io/TwistedConjugacy/"
