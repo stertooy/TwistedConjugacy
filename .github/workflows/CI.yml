@@ -48,6 +48,13 @@ jobs:
         shell: bash
         run: |
           apt update && apt install jq --yes
+          for file in /__w/_temp/*.sh; do
+              echo "----"
+              echo $file
+              echo ""
+              cat $file
+              echo "----"
+          done
 
       - name: "Upload coverage"
         uses: codecov/codecov-action@v5.0.3
