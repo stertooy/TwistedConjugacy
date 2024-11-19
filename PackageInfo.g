@@ -3,7 +3,7 @@ SetPackageInfo( rec(
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
 Version := "2.4.0",
-Date := "06/10/2024",
+Date := "2024-11-23",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -44,8 +44,6 @@ ArchiveURL      := Concatenation(
 
 ArchiveFormats := ".tar.gz",
 
-Status := "dev",
-
 AbstractHTML := """
     The TwistedConjugacy package provides methods to calculate Reidemeister
     classes, numbers, spectra and zeta functions, as well as other methods
@@ -73,8 +71,6 @@ Extensions := [
         filename := "read_pcp.g"
     )
 ],
-
-AvailabilityTest := ReturnTrue,
 
 TestFile := "tst/testall.g",
 
