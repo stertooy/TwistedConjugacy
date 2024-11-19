@@ -7,19 +7,21 @@ on:
 jobs:
 
   test:
-    name: "Test on GAP-${{ matrix.gap-branch }}"
+    name: "Test on GAP-${{ matrix.gap-version }}"
     runs-on: ubuntu-latest
     if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
     strategy:
       fail-fast: false
       matrix:
         include:
-          - gap-branch: "master"
+          - gap-version: "master"
             coverage: true
-          - gap-branch: "4.13"
+          - gap-version: "4.14.0-beta-1"
+          - gap-version: "4.13.1"
+          - gap-version: "4.13.0"
 
     container:
-      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}-slim
+      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-slim
 
     steps:
 
