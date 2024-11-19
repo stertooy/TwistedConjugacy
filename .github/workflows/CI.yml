@@ -44,6 +44,11 @@ jobs:
         uses: stertooy/gda-coverage@v1
         if: ${{ matrix.coverage }}
 
+      - name: "Test codecov dependencies"
+        shell: bash
+        run: |
+          apt update && apt install jq --yes
+
       - name: "Upload coverage"
         uses: codecov/codecov-action@v5.0.3
         if: ${{ matrix.coverage }}
