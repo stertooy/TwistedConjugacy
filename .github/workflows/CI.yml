@@ -41,8 +41,8 @@ jobs:
       - name: "Install curl"
         shell: bash
         run: |
-            sudo apt-get update
-            sudo apt-get install --no-install-recommends --yes curl
+            apt-get update
+            apt-get install --no-install-recommends --yes curl
             
       - name: "Process coverage"
         uses: stertooy/gda-coverage@v1
