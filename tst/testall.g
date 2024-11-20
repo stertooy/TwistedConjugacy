@@ -13,10 +13,11 @@ pass := TestDirectory(
     )
 );
 
-ToggleSafeMode@TwistedConjugacy();
+
 if TestPackageAvailability( "polycyclic", "2.16" ) <> fail then
-    ASSERT@TwistedConjugacy := true;
     LoadPackage( "Polycyclic" );
+    ToggleSafeMode@TwistedConjugacy();
+    ASSERT@TwistedConjugacy := true;
     pass := pass and TestDirectory(
         DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcpgroup" ),
         rec(
