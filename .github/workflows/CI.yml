@@ -57,7 +57,7 @@ jobs:
           done
 
       - name: "Upload coverage"
-        uses: codecov/codecov-action@v5.0.3
+        uses: codecov/codecov-action@v5
         if: ${{ matrix.coverage }}
         with:
           verbose: true
