@@ -1,5 +1,4 @@
 if not IsBound( ASSERT@ ) then ASSERT@ := false; fi;
-if not IsBound( SAFEMODE@ ) then SAFEMODE@ := false; fi;
 
 ReadPackage( "TwistedConjugacy", "lib/helpfunctions.gi" );
 ReadPackage( "TwistedConjugacy", "lib/coincidencegroup.gi" );
