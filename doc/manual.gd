@@ -25,17 +25,14 @@
 
 #! <P/>
 
-#! In the past, bugs in GAP or the Polycyclic package have caused functions from this package to produce errors and even wrong results. 
-#! One can toggle TwistedConjugacy's Safe Mode, which will cause certain functions to verify the correctness of their output.
+#! Bugs in this package (or in GAP or the Polycyclic package) may cause functions from this package to produce errors and even wrong results.
+#! You can set the variable <C>ASSERT@TwistedConjugacy</C> to <K>true</K>, which will cause certain functions to verify the correctness of their output.
 #! This should make results more (but not completely!) reliable, at the cost of some performance.
 #!
+#! When using this package with PcpGroups, you can do the same with Polycyclic's variables <C>CHECK_CENT@Polycyclic</C>, <C>CHECK_IGS@Polycyclic</C> and <C>CHECK_INTSTAB</C>.
+#!
 
-#! @BeginExample
-ToggleSafeMode@TwistedConjugacy();
-#! TwistedConjugacy's Safe Mode is now on.
-ToggleSafeMode@TwistedConjugacy();
-#! TwistedConjugacy's Safe Mode is now off.
-#! @EndExample
+
 
 #####
 #
