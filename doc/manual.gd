@@ -25,12 +25,12 @@
 
 #! <P/>
 
-#! Bugs in this package (or in GAP or the Polycyclic package) may cause functions from this package to produce errors and even wrong results.
-#! You can set the variable <C>ASSERT@TwistedConjugacy</C> to <K>true</K>, which will cause certain functions to verify the correctness of their output.
+
+#! Bugs in this package, in <B>GAP</B> or any other package used directly or indirectly, may cause functions from this package to produce errors or even wrong results.
+#! You can set the variable <C>ASSERT&#64;TwistedConjugacy</C> to <K>true</K>, which will cause certain functions to verify the correctness of their output.
 #! This should make results more (but not completely!) reliable, at the cost of some performance.
 #!
-#! When using this package with PcpGroups, you can do the same with Polycyclic's variables <C>CHECK_CENT@Polycyclic</C>, <C>CHECK_IGS@Polycyclic</C> and <C>CHECK_INTSTAB</C>.
-#!
+#! When using this package with PcpGroups, you can do the same for <B>Polycyclic</B>'s variables <C>CHECK_CENT&#64;Polycyclic</C>, <C>CHECK_IGS&#64;Polycyclic</C> and <C>CHECK_INTSTAB&#64;Polycyclic</C>.
 
 
 
@@ -492,3 +492,43 @@ res := RestrictedHomomorphism( phi, N, N );
 Source( res ) = N and Range( res ) = N;
 #! true
 #! @EndExample
+
+
+
+#####
+#
+# CHAPTER 5
+#
+#####
+
+#! @Chapter Cosets
+#! @ChapterLabel csts
+#! @ChapterTitle Cosets
+
+
+###
+# SECTION 1
+###
+
+#! @Section Intersection of cosets in polycyclic groups
+
+#! Please note that the functions below are only implemented for finite groups.
+
+#! @BeginGroup IntersectionCosets
+#! @Description
+#! Here, <A>C1</A>, <A>C2</A>, ... must be (right) cosets, or <A>list</A> must be a list of (right) cosets.
+#! @Arguments C1, C2, ...
+DeclareGlobalFunction( "Intersection" );
+#! @Arguments list
+DeclareGlobalFunction( "Intersection" );
+#! @Arguments C1, C2
+DeclareOperation( "Intersection2", [ IsRightCoset, IsRightCoset ] );
+#! @EndGroup
+
+#! @Section Membership in double cosets in polycyclic groups
+
+#! @Description
+#! Here <A>g</A> is an element of a polycyclic group and <A>D</A> is a double coset in the same group.
+#! @Arguments g, D
+DeclareOperation( "\in", [ IsPcpElement, IsDoubleCoset ] );
+
