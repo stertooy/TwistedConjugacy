@@ -1,7 +1,7 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
-2.4.0 (2024-10-06)
+2.4.0 (2024-11-23)
 ------------------
 
 - Added methods for intersections of arbitrary subgroups and cosets in
@@ -14,6 +14,8 @@ This file describes changes in the GAP package TwistedConjugacy.
 
 - Renamed FullReidemeisterSpectrum to TotalReidemeisterSpectrum, to avoid
   confusion with a spectrum being 'full'
+  
+- Replaced ToggleSafeMode@TwistedConjugacy by variable ASSERT@TwistedConjugacy
 
 
 2.3.0 (2024-09-17)
