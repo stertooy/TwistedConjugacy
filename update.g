@@ -1,7 +1,11 @@
+#!/usr/bin/env bash
 #
-# GitHubPagesForGAP - a template for using GitHub Pages within GAP packages
+# Run this script from within the root directory of the git clone of
+# your package in order to create a gh-pages subdirectory, containing a
+# checkout of your gh-pages branch. If no gh-pages branch exists, it
+# also creates one.
 #
-# Copyright (c) 2013-2018 Max Horn
+# Copyright (c) 2018-2019 Max Horn
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -13,184 +17,124 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+# You should have received a copy of the GNU General Public
+# License along with this program; if not, write to the Free
+# Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+# Boston, MA 02110-1301, USA.
 #
 
-# Parse PackageInfo.g and regenerate _data/package.yml from it.
+set -e
 
-PrintPeopleList := function(stream, people)
-    local p;
-    for p in people do
-        AppendTo(stream, "    - name: ", p.FirstNames, " ", p.LastName, "\n");
-        if IsBound(p.WWWHome) then
-            AppendTo(stream, "      url: ", p.WWWHome, "\n");
-        elif IsBound(p.Email) then
-            AppendTo(stream, "      url: mailto:", p.Email, "\n");
-        fi;
-    od;
-    AppendTo(stream, "\n");
-end;
+######################################################################
+#
+# Various little helper functions
 
-PrintPackageList := function(stream, pkgs)
-    local p, pkginfo;
-    for p in pkgs do
-        AppendTo(stream, "    - name: \"", p[1], "\"\n");
-        AppendTo(stream, "      version: \"", p[2], "\"\n");
-        pkginfo := PackageInfo(p[1]);
-        if Length(pkginfo) > 0 and IsBound(pkginfo[1].PackageWWWHome) then
-            AppendTo(stream, "      url: \"", pkginfo[1].PackageWWWHome, "\"\n");
-        fi;
-    od;
-    AppendTo(stream, "\n");
-end;
 
-# verify date is of the form YYYY-MM-DD
-IsValidISO8601Date := function(date)
-    local day, month, year;
-    if Length(date) <> 10 then return false; fi;
-    if date[5] <> '-' or date[8] <> '-' then return false; fi;
-    if not ForAll(date{[1,2,3,4,6,7,9,10]}, IsDigitChar) then
-        return false;
-    fi;
-    date := List(SplitString(date, "-"), Int);
-    day := date[3];
-    month := date[2];
-    year := date[1];
-    return month in [1..12] and day in [1..DaysInMonth(month, year)];
-end;
+# print notices in green
+notice() {
+    printf '\033[32m%s\033[0m\n' "$*"
+}
 
-GeneratePackageYML:=function(pkg)
-    local stream, date, authors, maintainers, contributors, formats, f, tmp;
+# print warnings in yellow
+warning() {
+    printf '\033[33mWARNING: %s\033[0m\n' "$*"
+}
 
-    stream := OutputTextFile("_data/package.yml", false);
-    SetPrintFormattingStatus(stream, false);
-    
-    AppendTo(stream, "name: ", pkg.PackageName, "\n");
-    AppendTo(stream, "version: \"", pkg.Version, "\"\n");
-    if IsBound(pkg.License) then
-        AppendTo(stream, "license: \"", pkg.License, "\"\n");
-    fi;
+# print error in red and exit
+error() {
+    printf '\033[31mERROR: %s\033[0m\n' "$*"
+    exit 1
+}
 
-    # convert date from DD/MM/YYYY to ISO 8601, i.e. YYYY-MM-DD
-    #
-    # in the future, GAP might support ISO 8601 dates in PackageInfo.g,
-    # so be prepared to accept that
-    date := pkg.Date;
-    tmp := SplitString(pkg.Date, "/");
-    if Length(tmp) = 3 then
-        # pad month and date if necessary
-        if Length(tmp[1]) = 1 then
-          tmp[1] := Concatenation("0", tmp[1]);
-        fi;
-        if Length(tmp[2]) = 1 then
-          tmp[2] := Concatenation("0", tmp[2]);
-        fi;
-        date := Concatenation(tmp[3], "-", tmp[2], "-", tmp[1]);
-    fi;
-    if not IsValidISO8601Date(date) then
-        Error("malformed release date ", pkg.Date);
-    fi;
+######################################################################
 
-    AppendTo(stream, "date: ", date, "\n");
-    AppendTo(stream, "description: |\n");
-    AppendTo(stream, "    ", pkg.Subtitle, "\n");
-    AppendTo(stream, "\n");
+# error early on if there already is a gh-pages dir
+[[ -d gh-pages ]] && error "You already have a gh-pages directory"
 
-    authors := Filtered(pkg.Persons, p -> p.IsAuthor);
-    if Length(authors) > 0 then
-        AppendTo(stream, "authors:\n");
-        PrintPeopleList(stream, authors);
-    fi;
+# TODO: make it configurable which remote is used (default: origin)
+remote=${remote:-origin}
 
-    maintainers := Filtered(pkg.Persons, p -> p.IsMaintainer);
-    if Length(maintainers) > 0 then
-        AppendTo(stream, "maintainers:\n");
-        PrintPeopleList(stream, maintainers);
-    fi;
+# TODO: make it configurable how/which gap is used
+GAP=${GAP:-gap}
 
-    contributors := Filtered(pkg.Persons, p -> not p.IsMaintainer and not p.IsAuthor);
-    if Length(contributors) > 0 then
-        AppendTo(stream, "contributors:\n");
-        PrintPeopleList(stream, contributors);
-    fi;
+# Based on the git documentation and some experiments, `git worktree add`
+# in git 2.7 and newer works as desired. It is possible that 2.6 also
+# did, but since I can't easily test that right now, I'll err on the
+# safe
+git_major=$(git  --version | sed -E 's/[^0-9]+([0-9]+).*/\1/')
+git_minor=$(git  --version | sed -E 's/[^0-9]+[0-9]+\.([0-9]+).*/\1/')
+if [[ $git_major -gt 2 || ($git_major -eq 2 && $git_minor -ge 7) ]]
+then
+    UseWorktree=Yes
+else
+    UseWorktree=No
+fi
+notice "Detected git ${git_major}.${git_minor}, using git worktree: ${UseWorktree}"
 
-    if IsBound(pkg.Dependencies.GAP) then
-        AppendTo(stream, "GAP: \"", pkg.Dependencies.GAP, "\"\n\n");
-    fi;
+# TODO: add /gh-pages/ to .gitignore if it is not already in there
 
-    if IsBound(pkg.Dependencies.NeededOtherPackages) and
-        Length(pkg.Dependencies.NeededOtherPackages) > 0 then
-        AppendTo(stream, "needed-pkgs:\n");
-        PrintPackageList(stream, pkg.Dependencies.NeededOtherPackages);
-    fi;
+if [[ ${UseWorktree} = No ]]
+then
+    # Create a fresh clone of your repository, and change into it
+    url=$(git config --get remote.${remote}.url)
+    git clone ${url} gh-pages
+    cd gh-pages
+fi
 
-    if IsBound(pkg.Dependencies.SuggestedOtherPackages) and
-        Length(pkg.Dependencies.SuggestedOtherPackages) > 0 then
-        AppendTo(stream, "suggested-pkgs:\n");
-        PrintPackageList(stream, pkg.Dependencies.SuggestedOtherPackages);
-    fi;
+# Add a new remote pointing to the GitHubPagesForGAP repository
+git remote add -f gh-gap https://github.com/gap-system/GitHubPagesForGAP 2>/dev/null || :
 
-    AppendTo(stream, "www: ", pkg.PackageWWWHome, "\n");
-    tmp := SplitString(pkg.README_URL,"/");
-    tmp := tmp[Length(tmp)];  # extract README filename (typically "README" or "README.md")
-    AppendTo(stream, "readme: ", tmp, "\n");
-    AppendTo(stream, "packageinfo: ", pkg.PackageInfoURL, "\n");
-    if IsBound(pkg.GithubWWW) then
-        AppendTo(stream, "github: ", pkg.GithubWWW, "\n");
-    fi;
-    AppendTo(stream, "\n");
-    
-    formats := SplitString(pkg.ArchiveFormats, " ");
-    if Length(formats) > 0 then
-        AppendTo(stream, "downloads:\n");
-        for f in formats do
-            AppendTo(stream, "    - name: ", f, "\n");
-            AppendTo(stream, "      url: ", pkg.ArchiveURL, f, "\n");
-        od;
-        AppendTo(stream, "\n");
-    fi;
 
-    AppendTo(stream, "abstract: |\n");
-    for tmp in SplitString(pkg.AbstractHTML,"\n") do
-        AppendTo(stream, "    ", tmp, "\n");
-    od;
-    AppendTo(stream, "\n");
+# if there is already a gh-pages branch, do nothing; otherwise, if
+# there is a ${remote}/gh-pages branch, create `gh-pages` tracking
+# the remote; otherwise, create a fresh `gh-pages` branch
+IsNewBranch=No
+if git rev-parse -q --verify gh-pages
+then
+    notice "Using existing gh-pages branch"
+else
+    # fetch remote changes, so that we can see if there
+    # is a remote gh-pages branch
+    git fetch ${remote}
 
-    AppendTo(stream, "status: ", pkg.Status, "\n");
-    if IsRecord(pkg.PackageDoc) then
-        AppendTo(stream, "doc-html: ", pkg.PackageDoc.HTMLStart, "\n");
-        AppendTo(stream, "doc-pdf: ", pkg.PackageDoc.PDFFile, "\n");
+    if git rev-parse -q --verify ${remote}/gh-pages
+    then
+        notice "Track existing remote gh-pages branch"
+        git branch --track gh-pages ${remote}/gh-pages
     else
-        Assert(0, IsList(pkg.PackageDoc));
-        AppendTo(stream, "doc-html: ", pkg.PackageDoc[1].HTMLStart, "\n");
-        AppendTo(stream, "doc-pdf: ", pkg.PackageDoc[1].PDFFile, "\n");
-        if Length(pkg.PackageDoc) > 1 then
-            Print("Warning, this package has more than one help book!\n");
-        fi;
-    fi;
+        notice "Create a fresh gh-pages branch"
+        git branch --no-track gh-pages gh-gap/gh-pages
 
-    if IsBound(pkg.Keywords) and
-        Length(pkg.Keywords) > 0 then
-        AppendTo(stream, "keywords: |\n");
-        AppendTo(stream, "    ", JoinStringsWithSeparator(pkg.Keywords,", "),".\n");
-    fi;
+        # ... then push it and set up tracking
+        git push --set-upstream ${remote} gh-pages
 
-    AppendTo(stream, "citeas: |\n");
-    for tmp in SplitString(StringBibXMLEntry(ParseBibXMLextString(BibEntry(pkg)).entries[1],"HTML"),"\n") do
-        AppendTo(stream, "    ", tmp, "\n");
-    od;
-    AppendTo(stream, "\n");
+        # remember that this is a new branch
+        IsNewBranch=Yes
+    fi
+fi
 
-    AppendTo(stream, "bibtex: |\n");
-    for tmp in SplitString(StringBibXMLEntry(ParseBibXMLextString(BibEntry(pkg)).entries[1],"BibTeX"),"\n") do
-        AppendTo(stream, "    ", tmp, "\n");
-    od;
-    AppendTo(stream, "\n");
+if [[ ${UseWorktree} = Yes ]]
+then
+    # create a new worktree and change into it
+    git worktree add gh-pages gh-pages
+    cd gh-pages
+fi
 
-    CloseStream(stream);
-end;
-Read("PackageInfo.g");
-GeneratePackageYML(GAPInfo.PackageInfoCurrent);
-QUIT;
+if [[ ${IsNewBranch} = Yes ]]
+then
+    notice "Updating new gh-pages branch"
+
+    cp -f ../PackageInfo.g ../README* .
+
+    [[ -d doc ]] && git rm -rf doc
+    mkdir -p doc/
+    cp -f ../doc/*.{css,html,js,txt} doc/ || :
+
+    [[ -d ../htm ]] && cp -r ../htm .
+
+    ${GAP} update.g
+
+    git add .
+    git commit -m "Setup gh-pages based on GitHubPagesForGAP"
+    git push --set-upstream ${remote} gh-pages
+fi
