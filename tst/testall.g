@@ -13,8 +13,7 @@ pass := TestDirectory(
     )
 );
 
-if TestPackageAvailability( "polycyclic", "2.16" ) <> fail then
-    LoadPackage( "Polycyclic" );
+if LoadPackage( "Polycyclic" ) then
     pass := pass and TestDirectory(
         DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcpgroup" ),
         rec(
