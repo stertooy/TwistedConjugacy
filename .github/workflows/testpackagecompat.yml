@@ -5,18 +5,19 @@ on:
 
 jobs:
   test:
-    name: "Test on GAP-${{ matrix.gap-branch }}"
+    name: "Test on GAP-${{ matrix.gap-version }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         include:
-          - gap-branch: "master"
-          - gap-branch: "4.13"
-          - gap-branch: "4.12"
+          - gap-version: "master"
+          - gap-version: "4.14.0-beta1"
+          - gap-version: "4.13.1"
+          - gap-version: "4.13.0"
 
     container:
-      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-branch }}-full
+      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-full
 
     steps:
 
