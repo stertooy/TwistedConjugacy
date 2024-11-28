@@ -2,6 +2,8 @@ ASSERT@TwistedConjugacy := true;
 pkgName := "TwistedConjugacy";
 
 tst := DirectoriesPackageLibrary( pkgName, "tst" )[1];
+info := PackageInfo( pkgName )[1];
+
 if (
     LoadPackage( pkgName, false ) = fail or
     LoadPackage( "AutoDoc", false ) = fail
@@ -9,8 +11,6 @@ if (
     Info( InfoGAPDoc, 1, "#I Could not load required package(s).\n" );
     ForceQuitGap( 1 );
 fi;
-
-info := PackageInfo( pkgName )[1];
 
 if IsBound( info.Extensions ) then
     for ext in info.Extensions do
@@ -58,6 +58,7 @@ for file in AsSortedList( DirectoryContents( tst ) ) do
         Length( file ) - Length( lpkgName ) >= 6 and
         ForAll( file{[1 + Length( lpkgName ) .. Length( file ) - 4]}, IsDigitChar )
     ) then
+        Info( InfoGAPDoc, 1, Concatenation( "#I  Now testing file ", file, "\n" ) );
         correct := correct and Test(
             Filename( tst, file ),
             rec( compareFunction := "uptowhitespace" )
