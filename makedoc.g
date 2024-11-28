@@ -1,9 +1,16 @@
-LoadPackage( "AutoDoc", false );
 pkgName := "TwistedConjugacy";
+
+LoadPackage( "AutoDoc", false );
+
+tst := DirectoriesPackageLibrary( pkgName, "tst" );
+pkgName := LowercaseString( pkgName );
+pkgName := ReplacedString( pkgName, " ", "_" );
+
 if LoadPackage( pkgName, false ) = fail then
-    Info( InfoGAPDoc, 1, "#I Could not load the package.\n" );
+    Info( InfoGAPDoc, 1, "#I Could not load required package(s).\n" );
     ForceQuitGap( 1 );
 fi;
+
 ASSERT@TwistedConjugacy := true;
 
 AutoDoc( rec(
@@ -34,22 +41,22 @@ fi;
 correct := true;
 Info( InfoGAPDoc, 1, "#I Testing examples found in manual.\n" );
 
-pkgName := LowercaseString( pkgName );
-pkgName := ReplacedString( pkgName, " ", "_" );
+lpkgName := LowercaseString( pkgName );
+lpkgName := ReplacedString( pkgName, " ", "_" );
 
-for file in DirectoryContents( "tst" ) do
+for file in tst do
     if (
-        StartsWith( file, pkgName ) and
+        StartsWith( file, lpkgName ) and
         EndsWith( file, ".tst" ) and
-        Length( file ) - Length( pkgName ) >= 6 and
-        ForAll( file{[1 + Length( pkgName ) .. Length( file ) - 4]}, IsDigitChar )
+        Length( file ) - Length( lpkgName ) >= 6 and
+        ForAll( file{[1 + Length( lpkgName ) .. Length( file ) - 4]}, IsDigitChar )
     ) then
         Info( InfoGAPDoc, 1, Concatenation( "#I   Now testing file ", file, "\n" ) );
         correct := correct and Test(
-            Filename( "tst", file ),
+            Filename( tst, file ),
             rec( compareFunction := "uptowhitespace" )
         );
-        RemoveFile( Filename( "tst", file ) );
+        RemoveFile( Filename( tst, file ) );
     fi;
 od;
 
@@ -57,7 +64,7 @@ if not correct then
     Info( InfoGAPDoc, 1, "#I One or more examples are incorrect.\n" );
     ForceQuitGap( 1 );
 else
-    Info( InfoGAPDoc, 1, "#I All tests passed.\n" );
+    Info( InfoGAPDoc, 1, "#I All tests passed - manual should be correct.\n" );
 fi;
 
 Info( InfoGAPDoc, 1, "#I Documentation successfully created.\n" );
