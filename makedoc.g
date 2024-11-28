@@ -1,17 +1,24 @@
+ASSERT@TwistedConjugacy := true;
 pkgName := "TwistedConjugacy";
 
-LoadPackage( "AutoDoc", false );
-
 tst := DirectoriesPackageLibrary( pkgName, "tst" )[1];
-pkgName := LowercaseString( pkgName );
-pkgName := ReplacedString( pkgName, " ", "_" );
-
-if LoadPackage( pkgName, false ) = fail then
+if (
+    LoadPackage( pkgName, false ) = fail or
+    LoadPackage( "AutoDoc", false ) = fail
+) then
     Info( InfoGAPDoc, 1, "#I Could not load required package(s).\n" );
     ForceQuitGap( 1 );
 fi;
 
-ASSERT@TwistedConjugacy := true;
+info := PackageInfo( pkgName )[1];
+
+if IsBound( info.Extensions ) then
+    for ext in info.Extensions do
+        for pkgver in ext.needed go
+            LoadPackage( pkgver[1], pkgver[2], false );
+        od;
+    od;
+fi;
 
 AutoDoc( rec(
     autodoc := rec(
@@ -44,14 +51,13 @@ Info( InfoGAPDoc, 1, "#I Testing examples found in manual.\n" );
 lpkgName := LowercaseString( pkgName );
 lpkgName := ReplacedString( pkgName, " ", "_" );
 
-for file in DirectoryContents( tst ) do
+for file in AsSortedList( DirectoryContents( tst ) ) do
     if (
         StartsWith( file, lpkgName ) and
         EndsWith( file, ".tst" ) and
         Length( file ) - Length( lpkgName ) >= 6 and
         ForAll( file{[1 + Length( lpkgName ) .. Length( file ) - 4]}, IsDigitChar )
     ) then
-        Info( InfoGAPDoc, 1, Concatenation( "#I   Now testing file ", file, "\n" ) );
         correct := correct and Test(
             Filename( tst, file ),
             rec( compareFunction := "uptowhitespace" )
