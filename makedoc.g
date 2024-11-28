@@ -1,5 +1,6 @@
+LoadPackage( "AutoDoc", false );
 pkgName := "TwistedConjugacy";
-if LoadPackage( pkgName ) = fail then
+if LoadPackage( pkgName, false ) = fail then
     Info( InfoGAPDoc, 1, "#I Could not load the package.\n" );
     ForceQuitGap( 1 );
 fi;
