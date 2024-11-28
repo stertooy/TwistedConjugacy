@@ -2,7 +2,7 @@ pkgName := "TwistedConjugacy";
 
 LoadPackage( "AutoDoc", false );
 
-tst := DirectoriesPackageLibrary( pkgName, "tst" );
+tst := DirectoriesPackageLibrary( pkgName, "tst" )[1];
 pkgName := LowercaseString( pkgName );
 pkgName := ReplacedString( pkgName, " ", "_" );
 
@@ -44,7 +44,7 @@ Info( InfoGAPDoc, 1, "#I Testing examples found in manual.\n" );
 lpkgName := LowercaseString( pkgName );
 lpkgName := ReplacedString( pkgName, " ", "_" );
 
-for file in tst do
+for file in DirectoryContents( tst ) do
     if (
         StartsWith( file, lpkgName ) and
         EndsWith( file, ".tst" ) and
