@@ -75,10 +75,8 @@ InstallMethod(
 AsElementOfProductGroups@ := function( g, U, V )
     local G, UV, l, r, s, u, v;
     
-    G := ClosureGroup( U, V );
+    G := PcpGroupByCollectorNC( Collector( U ) );
     UV := DirectProduct( U, V );
-    
-    if not g in G then return fail; fi;
     
     l := Projection( UV, 1 ) * InclusionHomomorphism( U, G );
     r := Projection( UV, 2 ) * InclusionHomomorphism( V, G );
