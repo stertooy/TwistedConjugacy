@@ -42,8 +42,9 @@ for file in DirectoryContents( "tst" ) do
         StartsWith( file, pkgName ) and
         EndsWith( file, ".tst" ) and
         Length( file ) - Length( pkgName ) >= 6 and
-        ForAll( file{[1 + Length( pkgName ) .. Length( s ) - 4]}, IsDigitChar )
+        ForAll( file{[1 + Length( pkgName ) .. Length( file ) - 4]}, IsDigitChar )
     ) then
+        Info( InfoGAPDoc, 1, Concatenation( "#I   Now testing file ", file, "\n" ) );
         correct := correct and Test(
             Filename( "tst", file ),
             rec( compareFunction := "uptowhitespace" )
