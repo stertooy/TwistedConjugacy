@@ -14,7 +14,7 @@ info := PackageInfo( pkgName )[1];
 
 if IsBound( info.Extensions ) then
     for ext in info.Extensions do
-        for pkgver in ext.needed go
+        for pkgver in ext.needed do
             LoadPackage( pkgver[1], pkgver[2], false );
         od;
     od;
