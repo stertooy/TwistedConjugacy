@@ -29,7 +29,7 @@ InstallMethod(
         
         # Use CoincidenceGroup
         UV := DirectProduct( U, V );
-        G := ClosureGroup( U, V );
+        G := PcpGroupByCollectorNC( Collector( U ) );
         
         l := Projection( UV, 1 ) * InclusionHomomorphism( U, G );
         r := Projection( UV, 2 ) * InclusionHomomorphism( V, G );
