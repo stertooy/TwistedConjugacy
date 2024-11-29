@@ -510,9 +510,9 @@ Source( res ) = N and Range( res ) = N;
 # SECTION 1
 ###
 
-#! @Section Intersection of cosets in polycyclic groups
+#! Please note that the functions below are implemented only for PcpGroups. 
 
-#! Please note that the functions below are only implemented for finite groups.
+#! @Section Intersection of cosets in PcpGroups
 
 #! @BeginGroup IntersectionCosets
 #! @Description
@@ -520,15 +520,36 @@ Source( res ) = N and Range( res ) = N;
 #! @Arguments C1, C2, ...
 DeclareGlobalFunction( "Intersection" );
 #! @Arguments list
+#! @Label for IsList
 DeclareGlobalFunction( "Intersection" );
 #! @Arguments C1, C2
 DeclareOperation( "Intersection2", [ IsRightCoset, IsRightCoset ] );
 #! @EndGroup
 
-#! @Section Membership in double cosets in polycyclic groups
+#! @BeginExample
+G := ExamplesOfSomePcpGroups( 5 );;
+H := Subgroup( G, [ G.1*G.2^-1*G.3^-1*G.4^-1, G.2^-1*G.3*G.4^-2 ] );;
+K := Subgroup( G, [ G.1*G.3^-2*G.4^2, G.1*G.4^4 ] );;
+x := G.1*G.3^-1;;
+y := G.1*G.2^-1*G.3^-2*G.4^-1;;
+Hx := RightCoset( H, x );;
+Ky := RightCoset( K, y );;
+Intersection( Hx, Ky );
+#! RightCoset(<group with 2 generators>,<object>)
+#! @EndExample
+
+#! @Section Membership in double cosets in PcpGroups
 
 #! @Description
 #! Here <A>g</A> is an element of a polycyclic group and <A>D</A> is a double coset in the same group.
 #! @Arguments g, D
 DeclareOperation( "\in", [ IsPcpElement, IsDoubleCoset ] );
+
+#! @BeginExample
+HxK := DoubleCoset( H, x, K );;
+G.1 in HxK;
+#! false
+G.2 in HxK;
+#! true
+#! @EndExample
 
