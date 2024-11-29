@@ -49,7 +49,7 @@ correct := true;
 Info( InfoGAPDoc, 1, "#I Testing examples found in manual.\n" );
 
 lpkgName := LowercaseString( pkgName );
-lpkgName := ReplacedString( pkgName, " ", "_" );
+lpkgName := ReplacedString( lpkgName, " ", "_" );
 
 for file in AsSortedList( DirectoryContents( tst ) ) do
     if (
@@ -76,3 +76,4 @@ fi;
 
 Info( InfoGAPDoc, 1, "#I Documentation successfully created.\n" );
 QuitGap( 0 );
+
