@@ -348,7 +348,7 @@ InstallMethod(
         fi;
         factors := [];
         powers := [];
-        p := DecomposePeriodicList@TwistedConjugacy( P );
+        p := DecomposePeriodicList@( P );
         if p = fail then
             k := Length( P );
             for i in [0..k-1] do
