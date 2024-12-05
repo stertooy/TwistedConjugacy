@@ -17,7 +17,7 @@ jobs:
         include:
           - gap-version: "master"
             coverage: true
-          - gap-version: "4.14.0-beta1"
+          - gap-version: "4.14.0"
           - gap-version: "4.13.1"
           - gap-version: "4.13.0"
 
@@ -44,18 +44,6 @@ jobs:
       - name: "Process coverage"
         uses: stertooy/gda-coverage@v1
         if: ${{ matrix.coverage }}
-
-      - name: "Test codecov dependencies"
-        shell: bash
-        run: |
-          apt update && apt install jq --yes
-          for file in /__w/_temp/*.sh; do
-              echo "----"
-              echo $file
-              echo ""
-              cat $file
-              echo "----"
-          done
 
       - name: "Upload coverage"
         uses: codecov/codecov-action@v5
