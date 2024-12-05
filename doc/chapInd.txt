@@ -2,12 +2,15 @@
   
   [1XIndex[101X
   
+  [2X\in[102X, for IsPcpElement, IsDoubleCoset 5.2-1 
   [2XCoincidenceGroup[102X 4.2-2 
   [2XCoincidenceReidemeisterSpectrum[102X 2.3-3 
   [2XExtendedReidemeisterSpectrum[102X 2.3-2 
   [2XFixedPointGroup[102X 4.2-1 
-  [2XFullReidemeisterSpectrum[102X 2.3-4 
   [2XInducedHomomorphism[102X 4.3-1 
+  [2XIntersection[102X 5.1-1 
+      for IsList 5.1-1 
+  [2XIntersection2[102X, for IsRightCoset, IsRightCoset 5.1-1 
   [2XIsRationalReidemeisterZeta[102X 2.4-2 
   [2XIsTwistedConjugateMultiple[102X 3.1-1 
   [2XNrTwistedConjugacyClasses[102X 2.2-4 
@@ -26,6 +29,7 @@
   [2XRepresentativeTwistedConjugation[102X 2.1-2 
   [2XRepresentativeTwistedConjugationMultiple[102X 3.1-2 
   [2XRestrictedHomomorphism[102X 4.3-2 
+  [2XTotalReidemeisterSpectrum[102X 2.3-4 
   [2XTwistedConjugacyClass[102X 2.2-1 
   [2XTwistedConjugacyClasses[102X 2.2-2 
   [2XTwistedConjugation[102X 2.1-1 

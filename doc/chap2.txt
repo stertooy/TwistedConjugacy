@@ -217,11 +217,11 @@
   
   [33X[0;0YIf  [3XH[103X  = [3XG[103X this is also denoted by [23X\operatorname{CSpec}_R(G)[123X. The set of all
   Reidemeister numbers of pairs of homomorphisms from every group [23XH[123X to a group
-  [23XG[123X   is   called   the   [13Xfull   Reidemeister   spectrum[113X  and  is  denoted  by
-  [23X\operatorname{FSpec}_R(G)[123X, i.e.[133X
+  [23XG[123X   is   called   the   [13Xtotal   Reidemeister  spectrum[113X  and  is  denoted  by
+  [23X\operatorname{TSpec}_R(G)[123X, i.e.[133X
   
   
-  [24X[33X[0;6Y\operatorname{FSpec}_R(G) := \bigcup_{H} \operatorname{CSpec}_R(H,G).[133X
+  [24X[33X[0;6Y\operatorname{TSpec}_R(G) := \bigcup_{H} \operatorname{CSpec}_R(H,G).[133X
   
   [124X
   
@@ -247,11 +247,11 @@
   
   [33X[0;0YReturns the coincidence Reidemeister spectrum of [3XH[103X and [3XG[103X.[133X
   
-  [1X2.3-4 FullReidemeisterSpectrum[101X
+  [1X2.3-4 TotalReidemeisterSpectrum[101X
   
-  [33X[1;0Y[29X[2XFullReidemeisterSpectrum[102X( [3XG[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XTotalReidemeisterSpectrum[102X( [3XG[103X ) [32X function[133X
   
-  [33X[0;0YReturns the full Reidemeister spectrum of [3XG[103X.[133X
+  [33X[0;0YReturns the total Reidemeister spectrum of [3XG[103X.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XQ := QuaternionGroup( 8 );;[127X[104X
@@ -266,7 +266,7 @@
     [4X[28X[ 4, 8 ][128X[104X
     [4X[25Xgap>[125X [27XCoincidenceReidemeisterSpectrum( Q, D );[127X[104X
     [4X[28X[ 2, 3, 4, 6, 8 ][128X[104X
-    [4X[25Xgap>[125X [27XFullReidemeisterSpectrum( Q );[127X[104X
+    [4X[25Xgap>[125X [27XTotalReidemeisterSpectrum( Q );[127X[104X
     [4X[28X[ 1, 2, 3, 4, 5, 6, 8 ][128X[104X
   [4X[32X[104X
   

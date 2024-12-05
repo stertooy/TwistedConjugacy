@@ -6,10 +6,10 @@
                   [1X Computation with twisted conjugacy classes [101X
   
   
-                                     2.3.0
+                                     2.4.0
   
   
-                               17 September 2024
+                                5 December 2024
   
   
                                   Sam Tertooy
@@ -70,7 +70,7 @@
       2.3-1 ReidemeisterSpectrum
       2.3-2 ExtendedReidemeisterSpectrum
       2.3-3 CoincidenceReidemeisterSpectrum
-      2.3-4 FullReidemeisterSpectrum
+      2.3-4 TotalReidemeisterSpectrum
     2.4 [33X[0;0YReidemeister Zeta Functions[133X
       2.4-1 ReidemeisterZetaCoefficients
       2.4-2 IsRationalReidemeisterZeta
@@ -91,6 +91,11 @@
     4.3 [33X[0;0YInduced and restricted group homomorphisms[133X
       4.3-1 InducedHomomorphism
       4.3-2 RestrictedHomomorphism
+  5 [33X[0;0YCosets[133X
+    5.1 [33X[0;0YIntersection of cosets in PcpGroups[133X
+      5.1-1 Intersection
+    5.2 [33X[0;0YMembership in double cosets in PcpGroups[133X
+      5.2-1 \in
   
   
   [32X

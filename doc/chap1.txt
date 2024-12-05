@@ -37,16 +37,14 @@
   produce  a  result  if  either [23XG = H[123X or [23XG[123X is nilpotent-by-finite. Otherwise,
   these methods may potentially throw an error: "[10XError, no method found![110X"[133X
   
-  [33X[0;0YIn  the  past,  bugs  in GAP or the Polycyclic package have caused functions
-  from  this  package to produce errors and even wrong results. One can toggle
-  TwistedConjugacy's  Safe  Mode, which will cause certain functions to verify
-  the  correctness  of  their  output.  This should make results more (but not
-  completely!) reliable, at the cost of some performance.[133X
+  [33X[0;0YBugs  in  this  package,  in  [12XGAP[112X  or  any  other  package  used directly or
+  indirectly,  may cause functions from this package to produce errors or even
+  wrong  results.  You  can  set the variable [10XASSERT@TwistedConjugacy[110X to [9Xtrue[109X,
+  which  will  cause  certain  functions  to  verify  the correctness of their
+  output. This should make results more (but not completely!) reliable, at the
+  cost of some performance.[133X
   
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XToggleSafeMode@TwistedConjugacy();[127X[104X
-    [4X[28XTwistedConjugacy's Safe Mode is now on.[128X[104X
-    [4X[25Xgap>[125X [27XToggleSafeMode@TwistedConjugacy();[127X[104X
-    [4X[28XTwistedConjugacy's Safe Mode is now off.[128X[104X
-  [4X[32X[104X
+  [33X[0;0YWhen using this package with PcpGroups, you can do the same for [12XPolycyclic[112X's
+  variables        [10XCHECK_CENT@Polycyclic[110X,       [10XCHECK_IGS@Polycyclic[110X       and
+  [10XCHECK_INTSTAB@Polycyclic[110X.[133X
   
