@@ -541,7 +541,7 @@ Intersection( Hx, Ky );
 #! @Section Membership in double cosets in PcpGroups
 
 #! @Description
-#! Given an element <A>g</A> of PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
+#! Given an element <A>g</A> of a PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
 #! @Arguments g, D
 DeclareOperation( "\in", [ IsPcpElement, IsDoubleCoset ] );
 
