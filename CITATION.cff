@@ -16,7 +16,7 @@ repository-code: https://github.com/stertooy/TwistedConjugacy/
 abstract: Computation with twisted conjugacy classes.
 identifiers:
   - type: doi
-    value: 10/nv2g
+    value: 10.5281/zenodo.14283553
 type: software
 url: "https://stertooy.github.io/TwistedConjugacy/"
 preferred-citation:
