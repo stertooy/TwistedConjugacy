@@ -1,14 +1,11 @@
 if not IsBound( ASSERT@ ) then ASSERT@ := false; fi;
-if not IsBound( SAFEMODE@ ) then SAFEMODE@ := false; fi;
 
-ReadPackage( "TwistedConjugacy", "lib/HelpFunctions.gi" );
-ReadPackage( "TwistedConjugacy", "lib/CoincidenceGroup.gi" );
-ReadPackage( "TwistedConjugacy", "lib/Homomorphisms.gi" );
-ReadPackage( "TwistedConjugacy", "lib/SafeMode.gi" );
-ReadPackage( "TwistedConjugacy", "lib/TwistedConjugation.gi" );
-ReadPackage( "TwistedConjugacy", "lib/TwistedConjugationMultiple.gi" );
-ReadPackage( "TwistedConjugacy", "lib/ReidemeisterClasses.gi" );
-ReadPackage( "TwistedConjugacy", "lib/ReidemeisterNumber.gi" );
-ReadPackage( "TwistedConjugacy", "lib/ReidemeisterSpectrum.gi" );
-ReadPackage( "TwistedConjugacy", "lib/ReidemeisterZeta.gi" );
-
+ReadPackage( "TwistedConjugacy", "lib/helpfunctions.gi" );
+ReadPackage( "TwistedConjugacy", "lib/coincidencegroup.gi" );
+ReadPackage( "TwistedConjugacy", "lib/homomorphisms.gi" );
+ReadPackage( "TwistedConjugacy", "lib/twistedconjugation.gi" );
+ReadPackage( "TwistedConjugacy", "lib/twistedconjugationmultiple.gi" );
+ReadPackage( "TwistedConjugacy", "lib/reidemeisterclasses.gi" );
+ReadPackage( "TwistedConjugacy", "lib/reidemeisternumber.gi" );
+ReadPackage( "TwistedConjugacy", "lib/reidemeisterspectrum.gi" );
+ReadPackage( "TwistedConjugacy", "lib/reidemeisterzeta.gi" );

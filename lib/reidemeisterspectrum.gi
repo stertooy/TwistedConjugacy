@@ -81,11 +81,11 @@ InstallGlobalFunction(
 ##      Spec:       full Reidemeister spectrum of G
 ##
 InstallGlobalFunction(
-    FullReidemeisterSpectrum,
+    TotalReidemeisterSpectrum,
     function( G )
         IsFinite( G );
         IsAbelian( G );
-        return FullReidemeisterSpectrumOp( G );
+        return TotalReidemeisterSpectrumOp( G );
     end
 );
 
@@ -315,7 +315,7 @@ InstallOtherMethod(
 
 ###############################################################################
 ##
-## FullReidemeisterSpectrumOp( G )
+## TotalReidemeisterSpectrumOp( G )
 ##
 ##  INPUT:
 ##      G:          group G
@@ -324,7 +324,7 @@ InstallOtherMethod(
 ##      Spec:       full Reidemeister spectrum of G
 ##
 InstallMethod(
-    FullReidemeisterSpectrumOp,
+    TotalReidemeisterSpectrumOp,
     "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian ],
     function( G )
@@ -333,7 +333,7 @@ InstallMethod(
 );
 
 InstallMethod(
-    FullReidemeisterSpectrumOp,
+    TotalReidemeisterSpectrumOp,
     "for finite groups",
     [ IsGroup and IsFinite ],
     function( G )
@@ -350,4 +350,3 @@ InstallMethod(
         return Spec;
     end
 );
-

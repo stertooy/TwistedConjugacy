@@ -17,7 +17,5 @@ comment:
 
 ignore:
   - "*.g"
-  - "lib/SafeMode.gi"
-  - "lib/PcpGroup/SafeMode_Pcp.gi"
   - "tst/**"
   - "doc/**"

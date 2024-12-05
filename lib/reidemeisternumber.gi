@@ -30,25 +30,6 @@ InstallGlobalFunction(
 ##
 InstallMethod(
     ReidemeisterNumberOp,
-    "for polycyclic-by-finite source and nilpotent-by-finite range",
-    [ IsGroupHomomorphism, IsGroupHomomorphism ],
-    2,
-    function( hom1, hom2 )
-        local G, H;
-        G := Range( hom1 );
-        H := Source( hom1 );
-        if not (
-            IsPolycyclicByFinite( H ) and
-            IsPolycyclicByFinite( G ) and 
-            IsNilpotentByFinite( G ) and
-            HirschLength( H ) < HirschLength( G )
-        ) then TryNextMethod(); fi;
-        return infinity;
-    end
-);
-
-InstallMethod(
-    ReidemeisterNumberOp,
     "for abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     1,
@@ -56,11 +37,7 @@ InstallMethod(
         local G, H, diff, N;
         H := Source( hom1 );
         G := Range( hom1 );
-        if not (
-            IsPolycyclicByFinite( H ) and
-            IsPolycyclicByFinite( G ) and
-            IsAbelian( G )
-        ) then TryNextMethod(); fi;
+        if not IsAbelian( G ) then TryNextMethod(); fi;
         diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
         N := Image( diff );
         return IndexNC( G, N );

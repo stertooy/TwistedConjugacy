@@ -25,17 +25,14 @@
 
 #! <P/>
 
-#! In the past, bugs in GAP or the Polycyclic package have caused functions from this package to produce errors and even wrong results. 
-#! One can toggle TwistedConjugacy's Safe Mode, which will cause certain functions to verify the correctness of their output.
+
+#! Bugs in this package, in <B>GAP</B> or any other package used directly or indirectly, may cause functions from this package to produce errors or even wrong results.
+#! You can set the variable <C>ASSERT&#64;TwistedConjugacy</C> to <K>true</K>, which will cause certain functions to verify the correctness of their output.
 #! This should make results more (but not completely!) reliable, at the cost of some performance.
 #!
+#! When using this package with PcpGroups, you can do the same for <B>Polycyclic</B>'s variables <C>CHECK_CENT&#64;Polycyclic</C>, <C>CHECK_IGS&#64;Polycyclic</C> and <C>CHECK_INTSTAB&#64;Polycyclic</C>.
 
-#! @BeginExample
-ToggleSafeMode@TwistedConjugacy();
-#! TwistedConjugacy's Safe Mode is now on.
-ToggleSafeMode@TwistedConjugacy();
-#! TwistedConjugacy's Safe Mode is now off.
-#! @EndExample
+
 
 #####
 #
@@ -213,8 +210,8 @@ NrTwistedConjugacyClasses( phi, psi );
 #! The set of all Reidemeister numbers of pairs of homomorphisms from a group $H$ to a group $G$ is called the **coincidence Reidemeister spectrum** of $H$ and $G$ and is denoted by $\operatorname{CSpec}_R(H,G)$, i.e.
 #! $$\operatorname{CSpec}_R(H,G) := \{\, R(\varphi, \psi) \mid \varphi,\psi \in \operatorname{Hom}(H,G) \,\}.$$
 #! If <A>H</A> = <A>G</A> this is also denoted by $\operatorname{CSpec}_R(G)$.
-#! The set of all Reidemeister numbers of pairs of homomorphisms from every group $H$ to a group $G$ is called the **full Reidemeister spectrum** and is denoted by $\operatorname{FSpec}_R(G)$, i.e.
-#! $$\operatorname{FSpec}_R(G) := \bigcup_{H} \operatorname{CSpec}_R(H,G).$$
+#! The set of all Reidemeister numbers of pairs of homomorphisms from every group $H$ to a group $G$ is called the **total Reidemeister spectrum** and is denoted by $\operatorname{TSpec}_R(G)$, i.e.
+#! $$\operatorname{TSpec}_R(G) := \bigcup_{H} \operatorname{CSpec}_R(H,G).$$
 
 #! <P/>
 
@@ -240,9 +237,9 @@ DeclareGlobalFunction( "ExtendedReidemeisterSpectrum" );
 DeclareGlobalFunction( "CoincidenceReidemeisterSpectrum" );
 
 #! @Description
-#! Returns the full Reidemeister spectrum of <A>G</A>.
+#! Returns the total Reidemeister spectrum of <A>G</A>.
 #! @Arguments G
-DeclareGlobalFunction( "FullReidemeisterSpectrum" );
+DeclareGlobalFunction( "TotalReidemeisterSpectrum" );
 
 #! @BeginExample
 Q := QuaternionGroup( 8 );;
@@ -257,7 +254,7 @@ CoincidenceReidemeisterSpectrum( D, Q );
 #! [ 4, 8 ]
 CoincidenceReidemeisterSpectrum( Q, D );
 #! [ 2, 3, 4, 6, 8 ]
-FullReidemeisterSpectrum( Q );
+TotalReidemeisterSpectrum( Q );
 #! [ 1, 2, 3, 4, 5, 6, 8 ]
 #! @EndExample
 
@@ -409,21 +406,21 @@ DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
 DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 
 #! @BeginExample
-G := AlternatingGroup( 6 );;
+G := SymmetricGroup( 6 );;
 Auts := RepresentativesAutomorphismClasses( G );;
 Size( Auts );
-#! 4
+#! 2
 ForAll( Auts, IsGroupHomomorphism and IsEndoMapping and IsBijective );
 #! true
 Ends := RepresentativesEndomorphismClasses( G );;
 Size( Ends );
-#! 5
+#! 6
 ForAll( Ends, IsGroupHomomorphism and IsEndoMapping );
 #! true
 H := SymmetricGroup( 5 );;
 Homs := RepresentativesHomomorphismClasses( H, G );;
 Size( Homs );
-#! 2
+#! 6
 ForAll( Homs, IsGroupHomomorphism );
 #! true
 #! @EndExample
@@ -450,16 +447,16 @@ DeclareGlobalFunction( "FixedPointGroup" );
 DeclareGlobalFunction( "CoincidenceGroup" );
 
 #! @BeginExample
-phi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],
- [ (1,2,6,3,5), (1,4,5) ] );;
-FixedPointGroup( phi );
-#! Group([ (1,2,6,4,3) ])
-psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,4)(3,6), () ] );;
-khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,2)(3,4), () ] );;
-CoincidenceGroup( psi, khi );
-#! Group([ (1,2,3,4,5), (1,3,4,5,2) ])
+phi := GroupHomomorphismByImages( G, G, [ (1,2,5,6,4), (1,2)(3,6)(4,5) ],
+ [ (2,3,4,5,6), (1,2) ] );;
+Set( FixedPointGroup( phi ) );
+#! [ (), (1,2,3,6,5), (1,3,5,2,6), (1,5,6,3,2), (1,6,2,5,3) ]
+psi := GroupHomomorphismByImages( H, G, [ (1,2,3,4,5), (1,2) ],
+ [ (), (1,2) ] );;
+khi := GroupHomomorphismByImages( H, G, [ (1,2,3,4,5), (1,2) ],
+ [ (), (1,2)(3,4) ] );;
+CoincidenceGroup( psi, khi ) = AlternatingGroup( 5 );
+#! true
 #! @EndExample
 
 
@@ -495,3 +492,64 @@ res := RestrictedHomomorphism( phi, N, N );
 Source( res ) = N and Range( res ) = N;
 #! true
 #! @EndExample
+
+
+
+#####
+#
+# CHAPTER 5
+#
+#####
+
+#! @Chapter Cosets
+#! @ChapterLabel csts
+#! @ChapterTitle Cosets
+
+
+###
+# SECTION 1
+###
+
+#! Please note that the functions below are implemented only for PcpGroups. They are (currently) very inefficient, so use with caution.
+
+#! @Section Intersection of cosets in PcpGroups
+
+#! @BeginGroup IntersectionCosets
+#! @Description
+#! Calculates the intersection of the (right) cosets <A>C1</A>, <A>C2</A>, ... Alternatively, <A>list</A> may be a list of (right) cosets. This intersection is either a new coset, or an empty list.
+#! @Arguments C1, C2, ...
+DeclareGlobalFunction( "Intersection" );
+#! @Arguments list
+#! @Label for IsList
+DeclareGlobalFunction( "Intersection" );
+#! @Arguments C1, C2
+DeclareOperation( "Intersection2", [ IsRightCoset, IsRightCoset ] );
+#! @EndGroup
+
+#! @BeginExample
+G := ExamplesOfSomePcpGroups( 5 );;
+H := Subgroup( G, [ G.1*G.2^-1*G.3^-1*G.4^-1, G.2^-1*G.3*G.4^-2 ] );;
+K := Subgroup( G, [ G.1*G.3^-2*G.4^2, G.1*G.4^4 ] );;
+x := G.1*G.3^-1;;
+y := G.1*G.2^-1*G.3^-2*G.4^-1;;
+Hx := RightCoset( H, x );;
+Ky := RightCoset( K, y );;
+Intersection( Hx, Ky );
+#! RightCoset(<group with 2 generators>,<object>)
+#! @EndExample
+
+#! @Section Membership in double cosets in PcpGroups
+
+#! @Description
+#! Given an element <A>g</A> of a PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
+#! @Arguments g, D
+DeclareOperation( "\in", [ IsPcpElement, IsDoubleCoset ] );
+
+#! @BeginExample
+HxK := DoubleCoset( H, x, K );;
+G.1 in HxK;
+#! false
+G.2 in HxK;
+#! true
+#! @EndExample
+

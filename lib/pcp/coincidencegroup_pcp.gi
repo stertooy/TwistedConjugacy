@@ -1,66 +1,5 @@
 ###############################################################################
 ##
-## FixedPointGroup( endo )
-##
-##  INPUT:
-##      endo:       group endomorphism G -> G
-##
-##  OUTPUT:
-##      fix:        subgroup of G consisting of g for which g^phi = g
-##
-InstallGlobalFunction(
-    FixedPointGroup,
-    function( endo )
-        local G;
-        G := Range( endo );
-        return CoincidenceGroup2( endo, IdentityMapping( G ) );
-    end
-);
-
-
-###############################################################################
-##
-## CoincidenceGroup( hom1, hom2, arg... )
-##
-##  INPUT:
-##      hom1:       group homomorphism H -> G
-##      hom2:       group homomorphism H -> G
-##      ...
-##      homN:       group homomorphism H -> G
-##
-##  OUTPUT:
-##      coin:       subgroup of H consisting of h for which
-##                  h^hom1 = h^hom2 = ... = h^homN
-##
-InstallGlobalFunction(
-    CoincidenceGroup,
-    function( hom1, hom2, arg... )
-        local G, Coin, homi, h, imgs;
-        G := Range( hom1 );
-        Coin := CoincidenceGroup2( hom1, hom2 );
-        for homi in arg do
-            Coin := CoincidenceGroup2(
-                RestrictedHomomorphism( hom1, Coin, G ),
-                RestrictedHomomorphism( homi, Coin, G )
-            );
-        od;
-        if ASSERT@ then
-            arg := Concatenation( [ hom1, hom2 ], arg );
-            for h in GeneratorsOfGroup( Coin ) do
-                imgs := [];
-                for homi in arg do
-                    AddSet( imgs, ImagesRepresentative( homi, h ) );
-                od;
-                if Length( imgs ) > 1 then Error("Assertion failure"); fi;
-            od;
-        fi;
-        return Coin;
-    end
-);
-
-
-###############################################################################
-##
 ## CoincidenceGroupByTrivialSubgroup@( hom1, hom2 )
 ##
 ##  INPUT:
@@ -366,21 +305,7 @@ end;
 ##
 InstallMethod(
     CoincidenceGroup2,
-    "for trivial range",
-    [ IsGroupHomomorphism, IsGroupHomomorphism ],
-    7,
-    function( hom1, hom2 )
-        local G, H;
-        G := Range( hom1 );
-        H := Source( hom1 );
-        if not IsTrivial( G ) then TryNextMethod(); fi;
-        return H;
-    end
-);
-
-InstallMethod(
-    CoincidenceGroup2,
-    "for infinite source and finite range",
+    "for infinite pcp source and finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     6,
     function( hom1, hom2 )
@@ -388,8 +313,8 @@ InstallMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
+            IsPcpGroup( H ) and
             not IsFinite( H ) and
-            IsPolycyclicByFinite( H ) and
             IsFinite( G ) and
             not IsTrivial( G )
         ) then TryNextMethod(); fi;
@@ -399,46 +324,7 @@ InstallMethod(
 
 InstallMethod(
     CoincidenceGroup2,
-    "for abelian range",
-    [ IsGroupHomomorphism, IsGroupHomomorphism ],
-    5,
-    function( hom1, hom2 )
-        local G, H, diff;
-        G := Range( hom1 );
-        H := Source( hom1 );
-        if not (
-            IsPolycyclicByFinite( H ) and
-            IsPolycyclicByFinite( G ) and
-            IsAbelian( G )
-        ) then TryNextMethod(); fi;
-        diff := DifferenceGroupHomomorphisms@ ( hom1, hom2, H, G );
-        return Kernel( diff );
-    end
-);
-
-InstallMethod(
-    CoincidenceGroup2,
-    "for finite source",
-    [ IsGroupHomomorphism, IsGroupHomomorphism ],
-    4,
-    function( hom1, hom2 )
-        local G, H, gens, tc;
-        G := Range( hom1 );
-        H := Source( hom1 );
-        if not IsFinite( H ) then TryNextMethod(); fi;
-        if CanEasilyComputePcgs( H ) then
-            gens := Pcgs( H );
-        else
-            gens := SmallGeneratingSet( H );
-        fi;
-        tc := TwistedConjugation( hom1, hom2 );
-        return StabilizerOp( H, One( G ), gens, gens, tc );
-    end
-);
-
-InstallMethod(
-    CoincidenceGroup2,
-    "for nilpotent range",
+    "for infinite pcp source and infinite nilpotent pcp range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     3,
     function( hom1, hom2 )
@@ -446,9 +332,11 @@ InstallMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
-            IsPolycyclicByFinite( H ) and
-            IsPolycyclicByFinite( G ) and
+            IsPcpGroup( H ) and
+            not IsFinite( H ) and
+            IsPcpGroup( G ) and
             IsNilpotentGroup( G ) and
+            not IsFinite( G ) and
             not IsAbelian( G )
         ) then TryNextMethod(); fi;
         return CoincidenceGroupByCentre@( hom1, hom2 );
@@ -457,7 +345,7 @@ InstallMethod(
 
 InstallMethod(
     CoincidenceGroup2,
-    "for nilpotent-by-finite range",
+    "for infinite pcp source and infinite nilpotent-by-finite pcp range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     2,
     function( hom1, hom2 )
@@ -465,9 +353,11 @@ InstallMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
-            IsPolycyclicByFinite( H ) and
-            IsPolycyclicByFinite( G ) and
+            IsPcpGroup( H ) and
+            not IsFinite( H ) and
+            IsPcpGroup( G ) and
             IsNilpotentByFinite( G ) and
+            not IsFinite( G ) and
             not IsNilpotentGroup( G )
         ) then TryNextMethod(); fi;
         M := FittingSubgroup( G );
@@ -477,7 +367,7 @@ InstallMethod(
 
 InstallMethod(
     CoincidenceGroup2,
-    "for nilpotent-by-abelian range",
+    "for infinite pcp source and infinite nilpotent-by-abelian pcp range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     1,
     function( hom1, hom2 )
@@ -485,10 +375,11 @@ InstallMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
-            IsPolycyclicByFinite( H ) and
-            IsPolycyclicByFinite( G ) and
-            IsPolycyclicGroup( G ) and
-            IsNilpotentByAbelian( G )
+            IsPcpGroup( H ) and
+            not IsFinite( H ) and
+            IsPcpGroup( G ) and
+            IsNilpotentByAbelian( G ) and
+            not IsNilpotentByFinite( G )
         ) then TryNextMethod(); fi;
         return CoincidenceGroupStep1@( hom1, hom2 );
     end
@@ -496,7 +387,7 @@ InstallMethod(
 
 InstallMethod(
     CoincidenceGroup2,
-    "for polycyclic-by-finite range",
+    "for infinite pcp source and range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     0,
     function( hom1, hom2 )
@@ -504,11 +395,13 @@ InstallMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
-            IsPolycyclicByFinite( H ) and
-            IsPolycyclicByFinite( G ) and
-            not IsNilpotentByAbelian( G )
+            IsPcpGroup( H ) and
+            not IsFinite( H ) and
+            IsPcpGroup( G ) and
+            not IsNilpotentByAbelian( G ) and
+            not IsNilpotentByFinite( G )
         ) then TryNextMethod(); fi;
-        M := NilpotentByAbelianNormalSubgroup@( G );
+        M := NilpotentByAbelianByFiniteSeries( G )[2];
         return CoincidenceGroupByFiniteQuotient@( hom1, hom2, M );
     end
 );

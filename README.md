@@ -14,14 +14,21 @@ by Sam Tertooy <sam.tertooy@kuleuven.be>
 About
 -----
 
-The TwistedConjugacy package provides methods to calculate Reidemeister
-classes, numbers, spectra and zeta functions, as well as coincidence groups of
-group homomorphisms. These methods are, for the most part, designed to be used
-with (group homomorphisms between) finite groups and, if the package Polycyclic
-is also installed and loaded, polycyclically presented groups.
+The TwistedConjugacy package provides methods to solve the twisted conjugacy
+(search) problem, calculate Reidemeister classes, numbers, spectra and zeta
+functions, as well as construct coincidence groups of group homomorphisms.
+
+These methods are, for the most part, designed to be used on (group
+homomorphisms between) finite and polycyclic groups, the latter requiring
+the use of the Polycyclic package.
+
+Moreover, if Polycyclic is loaded, this package also allows calculating
+intersections of arbitrary subgroups and cosets, as well as solving the
+membership problem for double cosets in polycyclic groups.
 
 
-This package requires GAP version 4.13 or later.
+This package requires GAP version 4.13 or later. The extension for 
+polycyclically presented groups requires Polycyclic version 2.16 or later.
 
 
 
@@ -34,7 +41,7 @@ the TwistedConjugacy package using the following command:
 
     gap> LoadPackage("TwistedConjugacy");
 	─────────────────────────────────────────────────────────────────────────────
-	Loading  TwistedConjugacy 2.3.0 (Computation with twisted conjugacy classes)
+	Loading  TwistedConjugacy 2.4.0 (Computation with twisted conjugacy classes)
 	by Sam Tertooy (https://stertooy.github.io/).
 	Homepage: https://stertooy.github.io/TwistedConjugacy/
 	Report issues at https://github.com/stertooy/TwistedConjugacy/issues

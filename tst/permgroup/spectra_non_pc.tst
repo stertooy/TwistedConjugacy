@@ -13,8 +13,8 @@ gap> ExtendedReidemeisterSpectrum( G );
 [ 1, 4, 6 ]
 gap> CoincidenceReidemeisterSpectrum( G );
 [ 1, 4, 6, 168 ]
-gap> FSpec := FullReidemeisterSpectrum( G );;
-gap> Length( FSpec ) = 38 and FSpec{[1..16]} = [1..16];
+gap> TSpec := TotalReidemeisterSpectrum( G );;
+gap> Length( TSpec ) = 38 and TSpec{[1..16]} = [1..16];
 true
 
 #
