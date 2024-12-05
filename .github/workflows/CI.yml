@@ -88,3 +88,5 @@ jobs:
 
       - name: "Validate citation"
         uses: dieghernan/cff-validator@v3
+        with:
+          install-r: true
