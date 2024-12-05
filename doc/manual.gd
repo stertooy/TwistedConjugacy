@@ -510,13 +510,13 @@ Source( res ) = N and Range( res ) = N;
 # SECTION 1
 ###
 
-#! Please note that the functions below are implemented only for PcpGroups. 
+#! Please note that the functions below are implemented only for PcpGroups. They are (currently) very inefficient, so use with caution.
 
 #! @Section Intersection of cosets in PcpGroups
 
 #! @BeginGroup IntersectionCosets
 #! @Description
-#! Here, <A>C1</A>, <A>C2</A>, ... must be (right) cosets, or <A>list</A> must be a list of (right) cosets.
+#! Calculates the intersection of the (right) cosets <A>C1</A>, <A>C2</A>, ... Alternatively, <A>list</A> may be a list of (right) cosets. This intersection is either a new coset, or an empty list.
 #! @Arguments C1, C2, ...
 DeclareGlobalFunction( "Intersection" );
 #! @Arguments list
@@ -541,7 +541,7 @@ Intersection( Hx, Ky );
 #! @Section Membership in double cosets in PcpGroups
 
 #! @Description
-#! Here <A>g</A> is an element of a polycyclic group and <A>D</A> is a double coset in the same group.
+#! Given an element <A>g</A> of PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
 #! @Arguments g, D
 DeclareOperation( "\in", [ IsPcpElement, IsDoubleCoset ] );
 
