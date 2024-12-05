@@ -3,7 +3,7 @@ SetPackageInfo( rec(
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
 Version := "2.4.0",
-Date := "2024-11-23",
+Date := "05/12/2024",
 License := "GPL-2.0-or-later",
 
 Persons := [
