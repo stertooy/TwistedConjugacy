@@ -14,9 +14,7 @@ date-released: "2024-12-05"
 license: GPL-2.0-or-later
 repository-code: https://github.com/stertooy/TwistedConjugacy/
 abstract: Computation with twisted conjugacy classes.
-identifiers:
-  - type: doi
-    value: 10.5281/zenodo.14283553
+doi: 10.5281/zenodo.14283553
 type: software
 url: "https://stertooy.github.io/TwistedConjugacy/"
 preferred-citation:
