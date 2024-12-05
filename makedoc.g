@@ -76,4 +76,3 @@ fi;
 
 Info( InfoGAPDoc, 1, "#I Documentation successfully created.\n" );
 QuitGap( 0 );
-
