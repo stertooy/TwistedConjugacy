@@ -10,8 +10,8 @@ preferred-citation:
   authors:
     - family-names: "Tertooy"
       given-names: "Sam"
-  version: 2.3.0
+  version: 2.4.0
   notes: "GAP Package"
-  month: 9
+  month: 12
   year: 2024
   url: "https://stertooy.github.io/TwistedConjugacy/"
