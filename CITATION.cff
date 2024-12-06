@@ -22,12 +22,12 @@ url: https://stertooy.github.io/TwistedConjugacy/
 doi: 10.5281/zenodo.14283553
 preferred-citation:
   type: software
-  title: TwistedConjugacy
+  title: TwistedConjugacy, Computation with twisted conjugacy classes
   authors:
     - family-names: Tertooy
       given-names: Sam
   version: 2.4.0
-  notes: GAP Package
+  notes: GAP package
   month: 12
   year: 2024
   url: https://stertooy.github.io/TwistedConjugacy/
