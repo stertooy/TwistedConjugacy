@@ -19,11 +19,7 @@ date-released: 2024-12-05
 license: GPL-2.0-or-later
 repository-code: https://github.com/stertooy/TwistedConjugacy/
 url: https://stertooy.github.io/TwistedConjugacy/
-identifiers:
-  - type: doi
-    value: 10.5281/zenodo.14283553
-  - type: swh
-    value: swh:1:dir:48f7c5a86493559ee8a0e1e0c423288fd469b57d
+doi: 10.5281/zenodo.14283553
 preferred-citation:
   type: software
   title: TwistedConjugacy
