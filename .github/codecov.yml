@@ -15,8 +15,8 @@ comment:
   layout: "condensed_header, diff, condensed_files, condensed_footer"
   behavior: default
 
-wait_for_ci: false
-require_ci_to_pass: false
+codecov:
+  require_ci_to_pass: false
 
 ignore:
   - "*.g"
