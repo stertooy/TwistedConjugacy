@@ -12,7 +12,7 @@ coverage:
     changes: off
 
 comment:
-  layout: "condensed_header, condensed_diff, condensed_files, condensed_footer"
+  layout: "condensed_header, diff, condensed_files, condensed_footer"
   behavior: default
 
 wait_for_ci: false
