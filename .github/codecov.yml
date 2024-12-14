@@ -18,6 +18,9 @@ comment:
 codecov:
   require_ci_to_pass: false
 
+fixes:
+  - "tmp/gaproot/pkg/*/::"
+
 ignore:
   - "*.g"
   - "tst/**"
