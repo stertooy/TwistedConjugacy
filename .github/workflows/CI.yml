@@ -76,3 +76,10 @@ jobs:
       - name: "Validate PackageInfo.g"
         shell: bash
         run: gap -c "QuitGap(ValidatePackageInfo(\"PackageInfo.g\"));"
+
+      - name: "Upload manual"
+        uses: actions/upload-artifact@v4
+        with:
+          name: "Manual"
+          path: ./doc/manual.pdf
+          if-no-files-found: error
