@@ -38,7 +38,7 @@ fi;
 
 tstFile := Filename(
     DirectoriesPackageLibrary( pkgName, "tst" )[1],
-    Concatenation( ReplacedString( LowercaseString( pkgName ), " ", "_" ), ".tst" )
+    Concatenation( ReplacedString( LowercaseString( pkgName ), " ", "_" ), ".01tst" )
 );
 
 if IsReadableFile( tstFile ) then
