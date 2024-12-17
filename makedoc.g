@@ -34,7 +34,7 @@ AutoDoc( rec(
         )
     ),
     extract_examples := rec(
-        units := "Single"
+        units := "Document"
     )
 ));
 
