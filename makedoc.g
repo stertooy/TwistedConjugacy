@@ -47,7 +47,7 @@ if IsReadableFile( tstFile ) then
     correct := Test( tstFile, rec( compareFunction := "uptowhitespace" ) );
     RemoveFile( tstFile );
     if correct then
-        Info( InfoGAPDoc, 1, "#I All examples correct.\n" );
+        Info( InfoGAPDoc, 1, "#I All examples are correct.\n" );
     else
         Info( InfoGAPDoc, 1, "#I One or more examples are incorrect.\n" );
         ForceQuitGap( 1 );
