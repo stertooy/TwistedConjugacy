@@ -16,19 +16,19 @@ Persons := [
         Email := "sam.tertooy@kuleuven.be",
         PostalAddress := """
             Wiskunde
-            KU Leuven Kulak Kortrijk Campus
+            KU Leuven, Kulak Kortrijk Campus
             Etienne Sabbelaan 53
             8500 Kortrijk
             Belgium
         """,
         Place := "Kortrijk, Belgium",
-        Institution := "KU Leuven Kulak Kortrijk Campus",
+        Institution := "KU Leuven, Kulak Kortrijk Campus"
     ),
 ],
 
 SourceRepository := rec(
     Type := "git",
-    URL := Concatenation( "https://github.com/stertooy/", ~.PackageName ),
+    URL := Concatenation( "https://github.com/stertooy/", ~.PackageName )
 ),
 SupportEmail := "sam.tertooy@kuleuven.be",
 
@@ -58,11 +58,11 @@ PackageDoc := rec(
     HTMLStart := "doc/chap0_mj.html",
     PDFFile   := "doc/manual.pdf",
     SixFile   := "doc/manual.six",
-    LongTitle := ~.Subtitle,
+    LongTitle := ~.Subtitle
 ),
 
 Dependencies := rec(
-    GAP := ">= 4.13",
+    GAP := ">= 4.13"
 ),
 
 Extensions := [
@@ -84,7 +84,7 @@ Keywords := [
     "Reidemeister number",
     "Reidemeister spectrum",
     "Reidemeister zeta function",
-    "twisted conjugacy",
+    "twisted conjugacy"
 ],
 
 AutoDoc := rec(
@@ -110,6 +110,6 @@ AutoDoc := rec(
             (at your option) any later version.
         """
     )
-),
+)
 
 ));

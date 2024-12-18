@@ -1,7 +1,6 @@
-ASSERT@TwistedConjugacy := true;
-pkgName := "TwistedConjugacy";
-
-info := PackageInfo( pkgName )[1];
+Read( "PackageInfo.g" );
+info := GAPInfo.PackageInfoCurrent;
+pkgName := info.PackageName;
 
 if (
     LoadPackage( pkgName, false ) = fail or
@@ -20,34 +19,33 @@ if IsBound( info.Extensions ) then
 fi;
 
 AutoDoc( rec(
-    autodoc := rec( files := [ "doc/manual.gd" ] ),
-    scaffold := rec( bib := "manual.bib" ),
+    autodoc := rec( scan_dirs := [ "doc" ] ),
     gapdoc := rec(
-        main := "manual.xml",
         LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}" )
     ),
     extract_examples := rec( units := "File" )
 ));
 
-if not ValidatePackageInfo( "PackageInfo.g" ) then
+if not ForAll(
+    [ "doc/manual.six", "doc/manual.pdf", "doc/chap0.html" ],
+    IsReadableFile
+) then
     Info( InfoGAPDoc, 1, "#I One or more files could not be created.\n" );
     ForceQuitGap( 1 );
 else
     Info( InfoGAPDoc, 1, "#I Manual files sucessfully created.\n" );
 fi;
 
-tstFile := Filename(
-    DirectoriesPackageLibrary( pkgName, "tst" )[1],
-    Concatenation( ReplacedString( LowercaseString( pkgName ), " ", "_" ), "01.tst" )
+tstFile := Concatenation(
+    "tst/",
+    ReplacedString( LowercaseString( pkgName ), " ", "_" ),
+    "01.tst"
 );
 
 if IsReadableFile( tstFile ) then
     Info( InfoGAPDoc, 1, "#I Testing examples found in manual.\n" );
-    if Test(
-        tstFile,
-        rec( compareFunction := "uptowhitespace" )
-    ) then
-        Info( InfoGAPDoc, 1, "#I All tests passed - manual should be correct.\n" );
+    if Test( tstFile, rec( compareFunction := "uptowhitespace" ) ) then
+        Info( InfoGAPDoc, 1, "#I All examples correct.\n" );
     else
         Info( InfoGAPDoc, 1, "#I One or more examples are incorrect.\n" );
         ForceQuitGap( 1 );
