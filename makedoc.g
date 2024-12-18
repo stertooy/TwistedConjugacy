@@ -44,7 +44,9 @@ tstFile := Concatenation(
 
 if IsReadableFile( tstFile ) then
     Info( InfoGAPDoc, 1, "#I Testing examples found in manual.\n" );
-    if Test( tstFile, rec( compareFunction := "uptowhitespace" ) ) then
+    correct := Test( tstFile, rec( compareFunction := "uptowhitespace" ) );
+    RemoveFile( tstFile );
+    if correct then
         Info( InfoGAPDoc, 1, "#I All examples correct.\n" );
     else
         Info( InfoGAPDoc, 1, "#I One or more examples are incorrect.\n" );
