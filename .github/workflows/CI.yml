@@ -73,6 +73,10 @@ jobs:
       - name: "Build manual"
         uses: stertooy/gda-manual@v1
 
+      - name: "Validate PackageInfo.g"
+        shell: bash
+        run: gap -c "QuitGap(ValidatePackageInfo(\"PackageInfo.g\"));"
+
       - name: "Upload manual"
         uses: actions/upload-artifact@v4
         with:
