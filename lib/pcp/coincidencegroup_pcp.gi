@@ -62,6 +62,7 @@ CoincidenceGroupByFiniteQuotient@ := function( hom1, hom2, M )
     hom2N := RestrictedHomomorphism( hom2, N, M );
     tc := TwistedConjugation( hom1, hom2 );
     gens := List( GeneratorsOfGroup( CoincidenceGroup2( hom1N, hom2N ) ) );
+    # TODO: save func's values in dictionary to avoid recalculation
     func := function( qh )
         local h, n;
         h := PreImagesRepresentativeNC( q, qh );
@@ -76,9 +77,10 @@ CoincidenceGroupByFiniteQuotient@ := function( hom1, hom2, M )
     end;
     C := SubgroupByProperty( CoinHN, qh -> func( qh ) <> fail );
     for qh in SmallGeneratingSet( C ) do
+        # TODO: pull values from dictionary (if present)
         Add( gens, Product( func( qh ) ) );
     od;
-    return Subgroup( H, gens );
+    return SubgroupNC( H, gens );
 end;
 
 
