@@ -81,7 +81,7 @@ CoincidenceGroupByFiniteQuotient@ := function( hom1, hom2, M )
     end;
     C := SubgroupByProperty( CoinHN, qh -> func( qh, dict ) <> fail );
     for qh in SmallGeneratingSet( C ) do
-        Add( gens, func( qh ) );
+        Add( gens, func( qh, dict ) );
     od;
     return SubgroupNC( H, gens );
 end;
