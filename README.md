@@ -42,7 +42,7 @@ the TwistedConjugacy package using the following command:
 
     gap> LoadPackage("TwistedConjugacy");
 	─────────────────────────────────────────────────────────────────────────────
-	Loading  TwistedConjugacy 2.4.0 (Computation with twisted conjugacy classes)
+	Loading  TwistedConjugacy 2.4.1 (Computation with twisted conjugacy classes)
 	by Sam Tertooy (https://stertooy.github.io/).
 	Homepage: https://stertooy.github.io/TwistedConjugacy/
 	Report issues at https://github.com/stertooy/TwistedConjugacy/issues
