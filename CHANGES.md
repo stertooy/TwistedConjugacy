@@ -1,6 +1,13 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
+2.4.1 (2025-02-31)
+------------------
+
+- Improved the efficiency of CoincidenceGroup in certain cases
+
+
+
 2.4.0 (2024-12-05)
 ------------------
 
