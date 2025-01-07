@@ -47,7 +47,7 @@ end;
 ##      finite.
 ##
 CoincidenceGroupByFiniteQuotient@ := function( hom1, hom2, M )
-    local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, qh, gens, func, C;
+    local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, qh, gens, dict, func, C;
     G := Range( hom1 );
     H := Source( hom1 );
     N := IntersectionPreImage@( hom1, hom2, M );
@@ -62,23 +62,26 @@ CoincidenceGroupByFiniteQuotient@ := function( hom1, hom2, M )
     hom2N := RestrictedHomomorphism( hom2, N, M );
     tc := TwistedConjugation( hom1, hom2 );
     gens := List( GeneratorsOfGroup( CoincidenceGroup2( hom1N, hom2N ) ) );
-    # TODO: save func's values in dictionary to avoid recalculation
-    func := function( qh )
-        local h, n;
-        h := PreImagesRepresentativeNC( q, qh );
-        n := RepresentativeTwistedConjugationOp(
-            hom1N, hom2N,
-            tc( One( G ), h )
-        );
-        if n = fail then
-            return fail;
+    dict := NewDictionary( false, true, CoinHN );
+    func := function( qh, dict )
+        local h, n, hn;
+        hn := LookupDictionary( dict, qh );
+        if hn = fail then
+            h := PreImagesRepresentativeNC( q, qh );
+            n := RepresentativeTwistedConjugationOp(
+                hom1N, hom2N,
+                tc( One( G ), h )
+            );
+            if n <> fail then
+                hn := h*n;
+                AddDictionary( dict, qh, hn );
+            fi;
         fi;
-        return [h,n];
+        return hn;
     end;
-    C := SubgroupByProperty( CoinHN, qh -> func( qh ) <> fail );
+    C := SubgroupByProperty( CoinHN, qh -> func( qh, dict ) <> fail );
     for qh in SmallGeneratingSet( C ) do
-        # TODO: pull values from dictionary (if present)
-        Add( gens, Product( func( qh ) ) );
+        Add( gens, func( qh ) );
     od;
     return SubgroupNC( H, gens );
 end;
