@@ -316,6 +316,7 @@ InstallOtherMethod(
     "for finite group to itself",
     [ IsGroup and IsFinite ],
     function( G )
+        local Hom_reps, SpecR, n, i, j;
         Hom_reps := RepresentativesEndomorphismClasses( G );
         SpecR := [];
         n := Length( Hom_reps );
