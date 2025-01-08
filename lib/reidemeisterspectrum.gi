@@ -72,13 +72,13 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## FullReidemeisterSpectrum( G )
+## TotalReidemeisterSpectrum( G )
 ##
 ##  INPUT:
 ##      G:          group G
 ##
 ##  OUTPUT:
-##      Spec:       full Reidemeister spectrum of G
+##      Spec:       total Reidemeister spectrum of G
 ##
 InstallGlobalFunction(
     TotalReidemeisterSpectrum,
@@ -288,9 +288,19 @@ InstallMethod(
     "for distinct finite groups",
     [ IsGroup and IsFinite, IsGroup and IsFinite ],
     function( H, G )
-        local Hom_reps;
+        local Hom_reps, SpecR, n, i, j;
         Hom_reps := RepresentativesHomomorphismClasses( H, G );
-        return SetX( Hom_reps, Hom_reps, ReidemeisterNumberOp );
+        SpecR := [];
+        n := Length( Hom_reps );
+        for i in [1..n] do
+            for j in [i..n] do
+                AddSet(
+                    SpecR,
+                    ReidemeisterNumberOp( Hom_reps[i], Hom_reps[j] )
+                );
+            od;
+        od;
+        return SpecR;
     end
 );
 
@@ -306,9 +316,18 @@ InstallOtherMethod(
     "for finite group to itself",
     [ IsGroup and IsFinite ],
     function( G )
-        local Hom_reps, SpecR, hom1, hom2, R;
         Hom_reps := RepresentativesEndomorphismClasses( G );
-        return SetX( Hom_reps, Hom_reps, ReidemeisterNumberOp );
+        SpecR := [];
+        n := Length( Hom_reps );
+        for i in [1..n] do
+            for j in [i..n] do
+                AddSet(
+                    SpecR,
+                    ReidemeisterNumberOp( Hom_reps[i], Hom_reps[j] )
+                );
+            od;
+        od;
+        return SpecR;
     end
 );
 
@@ -321,7 +340,7 @@ InstallOtherMethod(
 ##      G:          group G
 ##
 ##  OUTPUT:
-##      Spec:       full Reidemeister spectrum of G
+##      Spec:       total Reidemeister spectrum of G
 ##
 InstallMethod(
     TotalReidemeisterSpectrumOp,
