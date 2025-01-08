@@ -168,7 +168,7 @@ InstallMethod(
         conjG := ConjugacyClasses( G );
         kG := Length( conjG );
         # Split up conjugacy classes
-        pool := NewDictionary( [1,2], true );
+        pool := DictionaryBySort( true );
         for i in [2..kG] do
             id := [ Size( conjG[i] ), Order( Representative( conjG[i] ) ) ];
             look := LookupDictionary( pool, id );
