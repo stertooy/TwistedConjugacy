@@ -5,6 +5,8 @@ This file describes changes in the GAP package TwistedConjugacy.
 ------------------
 
 - Improved the efficiency of CoincidenceGroup in certain cases
+- Improved the efficiency of CoincidenceReidemeisterSpectrum for non-abelian
+  groups
 
 
 
