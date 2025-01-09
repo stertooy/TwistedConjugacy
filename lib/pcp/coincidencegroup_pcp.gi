@@ -149,6 +149,7 @@ CoincidenceGroupStep5@ := function( hom1, hom2 )
     for i in [1..n] do
         C := Centraliser( C, ai[i] );
     od;
+    C := NormalIntersection( C, ImagesSource( hom2 ) ); 
     return PreImagesSet( hom2, C );
 end;
 
