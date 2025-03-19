@@ -28,7 +28,7 @@ intersections of arbitrary subgroups and cosets, as well as solving the
 membership problem for double cosets in polycyclic groups.
 
 
-This package requires GAP version 4.13 or later. The extension for 
+This package requires GAP version 4.14 or later. The extension for 
 polycyclically presented groups requires Polycyclic version 2.16 or later.
 
 
@@ -41,13 +41,13 @@ other folder where you have write permission. You can verify if GAP recognizes
 the TwistedConjugacy package using the following command:
 
     gap> LoadPackage("TwistedConjugacy");
-	─────────────────────────────────────────────────────────────────────────────
-	Loading  TwistedConjugacy 3.0.0 (Computation with twisted conjugacy classes)
-	by Sam Tertooy (https://stertooy.github.io/).
-	Homepage: https://stertooy.github.io/TwistedConjugacy/
-	Report issues at https://github.com/stertooy/TwistedConjugacy/issues
-	─────────────────────────────────────────────────────────────────────────────
-	true
+    ─────────────────────────────────────────────────────────────────────────────
+    Loading  TwistedConjugacy 3.0.0 (Computation with twisted conjugacy classes)
+    by Sam Tertooy (https://stertooy.github.io/).
+    Homepage: https://stertooy.github.io/TwistedConjugacy/
+    Report issues at https://github.com/stertooy/TwistedConjugacy/issues
+    ─────────────────────────────────────────────────────────────────────────────
+    true
 
 The manual may be compiled by running the 'makedoc.g' script, located in the
 package's main directory. This requires the AutoDoc package. The manual is
