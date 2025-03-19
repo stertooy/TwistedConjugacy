@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
-Version := "2.4.1",
-Date := "31/02/2025",
+Version := "3.0.0",
+Date := "30/04/2025",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -62,7 +62,7 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-    GAP := ">= 4.13"
+    GAP := ">= 4.14"
 ),
 
 Extensions := [
@@ -71,8 +71,6 @@ Extensions := [
         filename := "lib/pcp/read_pcp.g"
     )
 ],
-
-AvailabilityTest := ReturnTrue,
 
 TestFile := "tst/testall.g",
 
