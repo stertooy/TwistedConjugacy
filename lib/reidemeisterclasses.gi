@@ -264,31 +264,21 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     RepresentativesReidemeisterClasses,
     function( hom1, arg... )
-        local G, hom2, N, Rcl, copy, g, h, pos, i;
+        local G, hom2, Rcl, copy, g, h, pos, i;
         G := Range( hom1 );
         if Length( arg ) = 0 then
             hom2 := IdentityMapping( G );
-            N := G;
-        elif Length( arg ) = 1 then
-            if IsGroup( arg[1] ) then
-                hom2 := IdentityMapping( G );
-                N := arg[1];
-            else
-                hom2 := arg[1];
-                N := G;
-            fi;
         else
             hom2 := arg[1];
-            N := arg[2];
         fi;
-        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, N );
+        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, G );
         if Rcl = fail then
             return fail;
         elif ASSERT@ then
             copy := ShallowCopy( Rcl );
             g := Remove( copy );
             while not IsEmpty( copy ) do
-                if ForAny( copy, h -> IsTwistedConjugate( hom1, hom2, g, h) )
+                if ForAny( copy, h -> IsTwistedConjugate( hom1, hom2, g, h ) )
                 then Error("Assertion failure"); fi;
                 g := Remove( copy );
             od;
