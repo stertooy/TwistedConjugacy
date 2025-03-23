@@ -50,8 +50,9 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     0,
     function( hom1, hom2 )
-        local Rcl;
-        Rcl := RepresentativesReidemeisterClasses( hom1, hom2 );
+        local G, Rcl;
+        G := Range( hom1 );
+        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, G );
         if Rcl <> fail then
             return Size( Rcl );
         fi;
