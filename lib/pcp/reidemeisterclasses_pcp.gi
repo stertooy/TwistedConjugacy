@@ -33,14 +33,14 @@ end;
 
 ###############################################################################
 ## 
-## ReidemeisterClassesByFiniteQuotient@( hom1, hom2, N, M )
+## ReidemeisterClassesByFiniteQuotient@( hom1, hom2, N, K )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##      N:          normal subgroup of G with hom1(h)^-1*hom2(h) in N
 ##                  for all h in H
-##      M:          normal subgroup of G
+##      K:          normal subgroup of G
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -49,14 +49,14 @@ end;
 ##
 ##  REMARKS:
 ##      Calculates the representatives of (hom1,hom2) by first calculating the
-##      representatives of (hom1HK,hom2HK), with hom1HK, hom2HK: H/K -> G/M,
-##      where K is normal in H. Only works if Coin(inn*hom1HK,hom2HK) is finite
-##      for any inner automorphism inn of GM.
+##      representatives of (hom1p,hom2p), with hom1p, hom2p: H/L -> G/K,
+##      where L is normal in H. Only works if Coin(inn*hom1p,hom2p) is finite
+##      for any inner automorphism inn of G/K.
 ##
 ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, N, K )
     local G, H, L, p, q, GK, pN, hom1p, hom2p, RclGK, Rcl, hom1K, hom2K, M, pn,
           inn_pn, Coin, n, conj_n, inn_n_hom1K, RclM, inRclM, inn_n, tc, m1,
-          isNew, qh, h, m2;
+          isNew, h, m2, inn_nm2_hom1K;
     G := Range( hom1 );
     H := Source( hom1 );
     L := IntersectionPreImage@( hom1, hom2, K );
@@ -88,14 +88,19 @@ ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, N, K )
         inRclM := [];
         inn_n := InnerAutomorphismNC( G, n^-1 );
         tc := TwistedConjugation( hom1*inn_n, hom2 );
+        Coin := List( Coin, qh -> PreImagesRepresentativeNC( q, qh ) );
         for m1 in RclM do
             isNew := true;
-            for qh in Coin do
-                h := PreImagesRepresentativeNC( q, qh );
-                m2 := tc( m1, h );
+            for h in Coin do
+                m2 := tc( m1, h )^-1;
+                inn_nm2_hom1K := inn_n_hom1K*InnerAutomorphismNC( K, m2 );
                 if ForAny(
                     inRclM,
-                    k -> IsTwistedConjugate( inn_n_hom1K, hom2K, k, m2 )
+                    k -> RepresentativeTwistedConjugationOp(
+                        inn_nm2_hom1K,
+                        hom2K,
+                        k*m2
+                    ) <> fail
                 ) then
                     isNew := false;
                     break;
@@ -113,14 +118,14 @@ end;
 
 ###############################################################################
 ##
-## ReidemeisterClassesByNormalSubgroup@( hom1, hom2, N, M )
+## ReidemeisterClassesByNormalSubgroup@( hom1, hom2, N, K )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##      N:          normal subgroup of G with hom1(h)^-1*hom2(h) in N
 ##                  for all h in H
-##      M:          normal subgroup of G
+##      K:          normal subgroup of G
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -129,9 +134,7 @@ end;
 ##
 ##  REMARKS:
 ##      Calculates the representatives of (hom1,hom2) by first calculating the
-##      representatives of (hom1HK,hom2HK), with hom1HK, hom2HK: H/K -> G/M,
-##      where K is normal in H. Only works if Coin(inn*hom1HK,hom2HK) is finite
-##      for any inner automorphism inn of GM.
+##      representatives of (hom1HK,hom2HK), with hom1p, hom2p: H -> G/K.
 ##
 ReidemeisterClassesByNormalSubgroup@ := function( hom1, hom2, N, K )
     local G, H, p, idH, pN, hom1p, hom2p, RclGK, Rcl, M, pn, n, inn_n, C_n,
@@ -174,6 +177,8 @@ end;
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
+##      N:          normal subgroup of G with hom1(h)^-1*hom2(h) in N
+##                  for all h in H
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -213,7 +218,7 @@ InstallMethod(
             not IsFinite( H ) and
             IsPcpGroup( G ) and
             IsNilpotentGroup( G ) and
-            not IsTrivial( G )
+            not IsFinite( G )
         ) then TryNextMethod(); fi;
         return ReidemeisterClassesByNormalSubgroup@(
             hom1, hom2,
@@ -224,7 +229,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
-    "for nilpotent-by-finite range",
+    "for infinite pcp source and infinite nilpotent-by-finite pcp range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     1,
     function( hom1, hom2, N )
@@ -246,7 +251,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
-    "for polycyclic range",
+    "for infinite pcp source and infinite pcp range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     0,
     function( hom1, hom2, N )

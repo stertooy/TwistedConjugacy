@@ -331,10 +331,10 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     4,
     function( hom1, hom2, N )
-        local G, H, diff, D, p, pn;
+        local G, H, diff, D, p;
         G := Range( hom1 );
-        H := Source( hom1 );
         if not IsCentral( G, N ) then TryNextMethod(); fi;
+        H := Source( hom1 );
         diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, N );
         D := ImagesSource( diff );
         if IndexNC( N, D ) = infinity then return fail; fi;
@@ -352,12 +352,10 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     3,
     function( hom1, hom2, N )
-        local G, H, Rcl, tc, N_List, gens, orbits;
-        G := Range( hom1 );
+        local H, tc, N_List, gens, orbits;
         H := Source( hom1 );
         if not IsFinite( H ) then TryNextMethod(); fi;
         if not IsFinite( N ) then return fail; fi;
-        Rcl := [];
         tc := TwistedConjugation( hom1, hom2 );
         N_List := AsSSortedListNonstored( N );
         if CanEasilyComputePcgs( H ) then
@@ -366,6 +364,6 @@ InstallMethod(
             gens := SmallGeneratingSet( H );
         fi;
         orbits := OrbitsDomain( H, N_List, gens, gens, tc );
-        return ListX( orbits, First );
+        return List( orbits, First );
     end
 );
