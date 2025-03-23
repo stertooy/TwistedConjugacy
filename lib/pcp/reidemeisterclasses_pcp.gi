@@ -135,7 +135,7 @@ end;
 ##
 ReidemeisterClassesByNormalSubgroup@ := function( hom1, hom2, N, K )
     local G, H, p, idH, pN, hom1p, hom2p, RclGK, Rcl, M, pn, n, inn_n, C_n,
-          hom1_n, hom2_n, RclM;
+          hom1_n, hom2_n, RclM, inn_pn, GK;
     G := Range( hom1 );
     H := Source( hom1 );
     p := NaturalHomomorphismByNormalSubgroupNC( G, K );
@@ -149,10 +149,12 @@ ReidemeisterClassesByNormalSubgroup@ := function( hom1, hom2, N, K )
     fi;
     Rcl := [];
     M := NormalIntersection( N, K );
+    GK := ImagesSource( p );
     for pn in RclGK do
         n := PreImagesRepresentativeNC( p, pn );
         inn_n := InnerAutomorphismNC( G, n^-1 );
-        C_n := CoincidenceGroup2( hom1*inn_n, hom2 );
+        inn_pn := InnerAutomorphismNC( GK, pn^-1 );
+        C_n := CoincidenceGroup2( hom1p*inn_pn, hom2p );
         hom1_n := RestrictedHomomorphism( hom1*inn_n, C_n, G );
         hom2_n := RestrictedHomomorphism( hom2, C_n, G );
         RclM := RepresentativesReidemeisterClassesOp( hom1_n, hom2_n, M );
@@ -211,7 +213,7 @@ InstallMethod(
             not IsFinite( H ) and
             IsPcpGroup( G ) and
             IsNilpotentGroup( G ) and
-            not IsFinite( G )
+            not IsTrivial( G )
         ) then TryNextMethod(); fi;
         return ReidemeisterClassesByNormalSubgroup@(
             hom1, hom2,
