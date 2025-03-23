@@ -248,11 +248,13 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## RepresentativesReidemeisterClasses( hom1, hom2 )
+## RepresentativesReidemeisterClasses( hom1, hom2, N )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
+##      N:          normal subgroup of G with hom1(h)^-1*hom2(h) in N
+##                  for all h in H
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -262,14 +264,24 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     RepresentativesReidemeisterClasses,
     function( hom1, arg... )
-        local G, hom2, Rcl, copy, g, h, pos, i;
+        local G, hom2, N, Rcl, copy, g, h, pos, i;
         G := Range( hom1 );
         if Length( arg ) = 0 then
             hom2 := IdentityMapping( G );
+            N := G;
+        elif Length( arg ) = 1 then
+            if IsGroup( arg[1] ) then
+                hom2 := IdentityMapping( G );
+                N := arg[1];
+            else
+                hom2 := arg[1];
+                N := G;
+            fi;
         else
             hom2 := arg[1];
+            N := arg[2];
         fi;
-        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2 );
+        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, N );
         if Rcl = fail then
             return fail;
         elif ASSERT@ then
@@ -299,11 +311,13 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## RepresentativesReidemeisterClassesOp( hom1, hom2 )
+## RepresentativesReidemeisterClassesOp( hom1, hom2, N )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
+##      N:          normal subgroup of G with hom1(h)^-1*hom2(h) in N
+##                  for all h in H
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -312,34 +326,32 @@ InstallGlobalFunction(
 ##
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
-    "for trivial range",
-    [ IsGroupHomomorphism, IsGroupHomomorphism ],
+    "for trivial subgroup",
+    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     6,
-    function( hom1, hom2 )
-        local G;
-        G := Range( hom1 );
-        if not IsTrivial( G ) then TryNextMethod(); fi;
-        return [ One( G ) ];
+    function( hom1, hom2, N )
+        if not IsTrivial( N ) then TryNextMethod(); fi;
+        return [ One( N ) ];
     end
 );
 
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
-    "for abelian range",
-    [ IsGroupHomomorphism, IsGroupHomomorphism ],
+    "for central subgroup",
+    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     4,
-    function( hom1, hom2 )
-        local G, H, diff, N, p, pg;
+    function( hom1, hom2, N )
+        local G, H, diff, D, p, pn;
         G := Range( hom1 );
         H := Source( hom1 );
-        if not IsAbelian( G ) then TryNextMethod(); fi;
-        diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
-        N := ImagesSource( diff );
-        if IndexNC( G, N ) = infinity then return fail; fi;
-        p := NaturalHomomorphismByNormalSubgroupNC( G, N );
+        if not IsCentral( G, N ) then TryNextMethod(); fi;
+        diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, N );
+        D := ImagesSource( diff );
+        if IndexNC( N, D ) = infinity then return fail; fi;
+        p := NaturalHomomorphismByNormalSubgroupNC( N, D );
         return List(
             ImagesSource( p ),
-            pg -> PreImagesRepresentative( p, pg )
+            pn -> PreImagesRepresentativeNC( p, pn )
         );
     end
 );
@@ -347,23 +359,23 @@ InstallMethod(
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
     "for finite source",
-    [ IsGroupHomomorphism, IsGroupHomomorphism ],
+    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     3,
-    function( hom1, hom2 )
-        local G, H, Rcl, tc, G_List, gens, orbits;
+    function( hom1, hom2, N )
+        local G, H, Rcl, tc, N_List, gens, orbits;
         G := Range( hom1 );
         H := Source( hom1 );
         if not IsFinite( H ) then TryNextMethod(); fi;
-        if not IsFinite( G ) then return fail; fi;
+        if not IsFinite( N ) then return fail; fi;
         Rcl := [];
         tc := TwistedConjugation( hom1, hom2 );
-        G_List := AsSSortedListNonstored( G );
+        N_List := AsSSortedListNonstored( N );
         if CanEasilyComputePcgs( H ) then
             gens := Pcgs( H );
         else
             gens := SmallGeneratingSet( H );
         fi;
-        orbits := OrbitsDomain( H, G_List, gens, gens, tc );
+        orbits := OrbitsDomain( H, N_List, gens, gens, tc );
         return ListX( orbits, First );
     end
 );
