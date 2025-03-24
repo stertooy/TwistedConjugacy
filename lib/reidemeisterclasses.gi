@@ -248,17 +248,16 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## RepresentativesReidemeisterClasses( hom1, hom2, N )
+## RepresentativesReidemeisterClasses( hom1, hom2 )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
-##      N:          normal subgroup of G with hom1 = hom2 mod N
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
-##                  twisted conjugacy class in N, or fail if there are
-##                  infinitely many
+##                  twisted conjugacy class, or fail if there are infinitely
+##                  many
 ##
 InstallGlobalFunction(
     RepresentativesReidemeisterClasses,
