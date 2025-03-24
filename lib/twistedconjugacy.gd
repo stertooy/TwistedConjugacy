@@ -39,7 +39,7 @@ DeclareSynonym(
 );
 DeclareOperation(
     "RepresentativesReidemeisterClassesOp",
-    [ IsGroupHomomorphism, IsGroupHomomorphism ]
+    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ]
 );
 
 

@@ -269,14 +269,14 @@ InstallGlobalFunction(
         else
             hom2 := arg[1];
         fi;
-        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2 );
+        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, G );
         if Rcl = fail then
             return fail;
         elif ASSERT@ then
             copy := ShallowCopy( Rcl );
             g := Remove( copy );
             while not IsEmpty( copy ) do
-                if ForAny( copy, h -> IsTwistedConjugate( hom1, hom2, g, h) )
+                if ForAny( copy, h -> IsTwistedConjugate( hom1, hom2, g, h ) )
                 then Error("Assertion failure"); fi;
                 g := Remove( copy );
             od;
@@ -299,47 +299,46 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## RepresentativesReidemeisterClassesOp( hom1, hom2 )
+## RepresentativesReidemeisterClassesOp( hom1, hom2, N )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
+##      N:          normal subgroup of G with hom1 = hom2 mod N
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
-##                  twisted conjugacy class, or fail if there are infinitely
-##                  many
+##                  twisted conjugacy class in N, or fail if there are
+##                  infinitely many
 ##
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
-    "for trivial range",
-    [ IsGroupHomomorphism, IsGroupHomomorphism ],
+    "for trivial subgroup",
+    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     6,
-    function( hom1, hom2 )
-        local G;
-        G := Range( hom1 );
-        if not IsTrivial( G ) then TryNextMethod(); fi;
-        return [ One( G ) ];
+    function( hom1, hom2, N )
+        if not IsTrivial( N ) then TryNextMethod(); fi;
+        return [ One( N ) ];
     end
 );
 
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
-    "for abelian range",
-    [ IsGroupHomomorphism, IsGroupHomomorphism ],
+    "for central subgroup",
+    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     4,
-    function( hom1, hom2 )
-        local G, H, diff, N, p, pg;
+    function( hom1, hom2, N )
+        local G, H, diff, D, p;
         G := Range( hom1 );
+        if not IsCentral( G, N ) then TryNextMethod(); fi;
         H := Source( hom1 );
-        if not IsAbelian( G ) then TryNextMethod(); fi;
-        diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
-        N := ImagesSource( diff );
-        if IndexNC( G, N ) = infinity then return fail; fi;
-        p := NaturalHomomorphismByNormalSubgroupNC( G, N );
+        diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, N );
+        D := ImagesSource( diff );
+        if IndexNC( N, D ) = infinity then return fail; fi;
+        p := NaturalHomomorphismByNormalSubgroupNC( N, D );
         return List(
             ImagesSource( p ),
-            pg -> PreImagesRepresentative( p, pg )
+            pn -> PreImagesRepresentativeNC( p, pn )
         );
     end
 );
@@ -347,23 +346,21 @@ InstallMethod(
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
     "for finite source",
-    [ IsGroupHomomorphism, IsGroupHomomorphism ],
+    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     3,
-    function( hom1, hom2 )
-        local G, H, Rcl, tc, G_List, gens, orbits;
-        G := Range( hom1 );
+    function( hom1, hom2, N )
+        local H, tc, N_List, gens, orbits;
         H := Source( hom1 );
         if not IsFinite( H ) then TryNextMethod(); fi;
-        if not IsFinite( G ) then return fail; fi;
-        Rcl := [];
+        if not IsFinite( N ) then return fail; fi;
         tc := TwistedConjugation( hom1, hom2 );
-        G_List := AsSSortedListNonstored( G );
+        N_List := AsSSortedListNonstored( N );
         if CanEasilyComputePcgs( H ) then
             gens := Pcgs( H );
         else
             gens := SmallGeneratingSet( H );
         fi;
-        orbits := OrbitsDomain( H, G_List, gens, gens, tc );
-        return ListX( orbits, First );
+        orbits := OrbitsDomain( H, N_List, gens, gens, tc );
+        return List( orbits, First );
     end
 );
