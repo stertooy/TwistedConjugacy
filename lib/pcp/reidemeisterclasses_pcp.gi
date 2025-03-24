@@ -5,17 +5,16 @@
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
-##      N:          normal subgroup of G with hom1(h)^-1*hom2(h) in N
-##                  for all h in H
+##      N:          normal subgroup of G with hom1 = hom2 mod N
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
-##                  twisted conjugacy class, or fail if there are infinitely
-##                  many
+##                  twisted conjugacy class in N, or fail if there are
+##                  infinitely many
 ##
 ##  REMARKS:
 ##      Calculates the representatives by calculating the representatives of
-##      hom1HK, hom2HK: H/K -> G, with K the intersection of Ker(hom1) and
+##      hom1HL, hom2HL: H/L -> G, with L the intersection of Ker(hom1) and
 ##      Ker(hom2).
 ##
 ReidemeisterClassesByTrivialSubgroup@ := function( hom1, hom2, N )
@@ -38,14 +37,13 @@ end;
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
-##      N:          normal subgroup of G with hom1(h)^-1*hom2(h) in N
-##                  for all h in H
-##      K:          normal subgroup of G
+##      N:          normal subgroup of G with hom1 = hom2 mod N
+##      M:          normal subgroup of G
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
-##                  twisted conjugacy class, or fail if there are infinitely
-##                  many
+##                  twisted conjugacy class in N, or fail if there are
+##                  infinitely many
 ##
 ##  REMARKS:
 ##      Calculates the representatives of (hom1,hom2) by first calculating the
@@ -123,18 +121,17 @@ end;
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
-##      N:          normal subgroup of G with hom1(h)^-1*hom2(h) in N
-##                  for all h in H
-##      K:          normal subgroup of G
+##      N:          normal subgroup of G with hom1 = hom2 mod N
+##      M:          normal subgroup of G
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
-##                  twisted conjugacy class, or fail if there are infinitely
-##                  many
+##                  twisted conjugacy class in N, or fail if there are
+##                  infinitely many
 ##
 ##  REMARKS:
 ##      Calculates the representatives of (hom1,hom2) by first calculating the
-##      representatives of (hom1HK,hom2HK), with hom1p, hom2p: H -> G/K.
+##      representatives of (hom1p,hom2p), with hom1p, hom2p: H -> G/K.
 ##
 ReidemeisterClassesByNormalSubgroup@ := function( hom1, hom2, N, K )
     local G, H, p, idH, pN, hom1p, hom2p, RclGK, Rcl, M, pn, n, inn_n, C_n,
@@ -172,18 +169,17 @@ end;
 
 ###############################################################################
 ##
-## RepresentativesReidemeisterClassesOp( hom1, hom2 )
+## RepresentativesReidemeisterClassesOp( hom1, hom2, N )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
-##      N:          normal subgroup of G with hom1(h)^-1*hom2(h) in N
-##                  for all h in H
+##      N:          normal subgroup of G with hom1 = hom2 mod N
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
-##                  twisted conjugacy class, or fail if there are infinitely
-##                  many
+##                  twisted conjugacy class in N, or fail if there are
+##                  infinitely many
 ##
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
