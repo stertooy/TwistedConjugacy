@@ -15,7 +15,7 @@ InstallMethod(
     [ IsPcpGroup, IsPcpGroup ],
     1,
     function( U, V )
-        local UV, G, l, r, I;
+        local UxV, G, l, r, I;
         
         # Catch trivial cases
         if IsSubset( V, U ) then
@@ -28,11 +28,11 @@ InstallMethod(
         if IsNormal( V, U ) or IsNormal( U, V ) then TryNextMethod(); fi;
         
         # Use CoincidenceGroup
-        UV := DirectProduct( U, V );
+        UxV := DirectProduct( U, V );
         G := PcpGroupByCollectorNC( Collector( U ) );
         
-        l := Projection( UV, 1 ) * InclusionHomomorphism( U, G );
-        r := Projection( UV, 2 ) * InclusionHomomorphism( V, G );
+        l := Projection( UxV, 1 ) * InclusionHomomorphism( U, G );
+        r := Projection( UxV, 2 ) * InclusionHomomorphism( V, G );
 
         I := ImagesSet( l, CoincidenceGroup2( l, r ) );
         if ASSERT@ then

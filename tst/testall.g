@@ -14,14 +14,14 @@ pass := TestDirectory(
 );
 
 if LoadPackage( "Polycyclic" ) then
-    pass := pass and TestDirectory(
+    pass := TestDirectory(
         DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcpgroup" ),
         rec(
             exitGAP := false,
             showProgress := true,
             testOptions := rec( compareFunction := "uptowhitespace" )
         )
-    );
+    ) and pass;
 fi;
 
 ForceQuitGap( pass );
