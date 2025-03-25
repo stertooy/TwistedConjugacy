@@ -87,9 +87,9 @@ DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 G := AlternatingGroup( 6 );;
 H := SymmetricGroup( 5 );;
 phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,2)(3,4), () ] );;
-psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,4)(3,6), () ] );;
+psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,2)(3,4), () ] );;
 tc := TwistedConjugation( phi, psi );;
 g1 := (4,6,5);;
 g2 := (1,6,4,2)(3,5);;
@@ -350,13 +350,13 @@ DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
 H := SymmetricGroup( 5 );;
 G := AlternatingGroup( 6 );;
 tau := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,3)(4,6), () ] );;
+ [ (1,4)(3,6), () ] );;
 phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,2)(3,4), () ] );;
+khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,2)(3,6), () ] );;
 psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,4)(3,6), () ] );;
-khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,2)(3,4), () ] );;
+ [ (1,3)(4,6), () ] );;
 IsTwistedConjugateMultiple( [ tau, phi ], [ psi, khi ],
  [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );
 #! true
