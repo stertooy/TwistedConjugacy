@@ -117,7 +117,7 @@ RepTwistConjToIdByCentre@ := function( hom1, hom2, g )
     tc := TwistedConjugation( hom1, hom2 );
     c := tc( g, h1 );
     Coin := CoincidenceGroup2( hom1p, hom2p );
-    d := DifferenceGroupHomomorphisms@ ( hom1, hom2, Coin, G );
+    d := DifferenceGroupHomomorphisms@( hom1, hom2, Coin, G );
     if not c in ImagesSource( d ) then return fail; fi;
     # TODO: Replace by PreImagesRepresentative eventually
     h2 := PreImagesRepresentativeNC( d, c );
@@ -136,7 +136,7 @@ end;
 ##      A:          abelian normal subgroup of G
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * a * h^hom1 = 1, or
+##      h:          element of H such that (h^hom1)^-1 * a * h^hom2 = 1, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:
@@ -154,17 +154,17 @@ RepTwistConjToIdStep5@ := function( hom1, hom2, a, A )
     hi := SmallGeneratingSet( H );
     n := Length( hi );
     tc := TwistedConjugation( hom1, hom2 );
-    ai := List( [1..n], i -> tc( One( G ), hi[i]^-1 ) );
+    ai := List( [1..n], i -> tc( One( G ), hi[i] ) );
     bi := List(
         [1..n],
-        i -> Comm( a, ImagesRepresentative( hom2, hi[i] )^-1 )*ai[i]
+        i -> Comm( a, ImagesRepresentative( hom1, hi[i] ) )*ai[i]
     );
     g := MultipleConjugacySolver@( G, bi, ai );
     if g = fail then return fail; fi;
     p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );
     pg := ImagesRepresentative( p, g );
-    return PreImagesRepresentativeNC( InducedHomomorphism( q, p, hom2 ), pg );
+    return PreImagesRepresentativeNC( InducedHomomorphism( q, p, hom1 ), pg );
 end;
 
 
@@ -179,7 +179,7 @@ end;
 ##      A:          abelian normal subgroup of G
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * a * h^hom1 = 1, or
+##      h:          element of H such that (h^hom1)^-1 * a * h^hom2 = 1, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:
@@ -230,7 +230,7 @@ end;
 ##      A:          abelian normal subgroup of G
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * a * h^hom1 = 1, or
+##      h:          element of H such that (h^hom1)^-1 * a * h^hom2 = 1, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:
@@ -275,7 +275,7 @@ end;
 ##      A:          abelian normal subgroup of G
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * a * h^hom1 = 1, or
+##      h:          element of H such that (h^hom1)^-1 * a * h^hom2 = 1, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:
@@ -303,7 +303,7 @@ end;
 ##      g:          element of G
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * g * h^hom1 = 1, or
+##      h:          element of H such that (h^hom1)^-1 * g * h^hom2 = 1, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:
@@ -344,7 +344,7 @@ end;
 ##      g2:         element of G (optional)
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * g_1 * h^hom1 = g_2, or
+##      h:          element of H such that (h^hom1)^-1 * g_1 * h^hom2 = g_2, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:

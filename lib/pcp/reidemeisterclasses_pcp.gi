@@ -73,31 +73,31 @@ ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, N, K )
     hom2K := RestrictedHomomorphism( hom2, L, K );
     M := NormalIntersection( N, K );
     for pn in RclGK do
-        inn_pn := InnerAutomorphismNC( GK, pn^-1 );
+        inn_pn := InnerAutomorphismNC( GK, pn );
         Coin := CoincidenceGroup2( hom1p*inn_pn, hom2p );
         if not IsFinite( Coin ) then TryNextMethod(); fi;
         n := PreImagesRepresentativeNC( p, pn );
-        conj_n := ConjugatorAutomorphismNC( K, n^-1 );
+        conj_n := ConjugatorAutomorphismNC( K, n );
         inn_n_hom1K := hom1K*conj_n;
         RclM := RepresentativesReidemeisterClassesOp( inn_n_hom1K, hom2K, M );
         if RclM = fail then
             return fail;
         fi;
         inRclM := [];
-        inn_n := InnerAutomorphismNC( G, n^-1 );
+        inn_n := InnerAutomorphismNC( G, n );
         tc := TwistedConjugation( hom1*inn_n, hom2 );
         Coin := List( Coin, qh -> PreImagesRepresentativeNC( q, qh ) );
         for m1 in RclM do
             isNew := true;
             for h in Coin do
-                m2 := tc( m1, h )^-1;
+                m2 := tc( m1, h );
                 inn_nm2_hom1K := inn_n_hom1K*InnerAutomorphismNC( K, m2 );
                 if ForAny(
                     inRclM,
                     k -> RepresentativeTwistedConjugationOp(
                         inn_nm2_hom1K,
                         hom2K,
-                        k*m2
+                        m2^-1*k
                     ) <> fail
                 ) then
                     isNew := false;
@@ -108,7 +108,7 @@ ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, N, K )
                 Add( inRclM, m1 );
             fi;
         od;
-        Append( Rcl, List( inRclM, m -> m*n ) );
+        Append( Rcl, List( inRclM, m -> n*m ) );
     od;
     return Rcl;
 end;
@@ -152,8 +152,8 @@ ReidemeisterClassesByNormalSubgroup@ := function( hom1, hom2, N, K )
     GK := ImagesSource( p );
     for pn in RclGK do
         n := PreImagesRepresentativeNC( p, pn );
-        inn_n := InnerAutomorphismNC( G, n^-1 );
-        inn_pn := InnerAutomorphismNC( GK, pn^-1 );
+        inn_n := InnerAutomorphismNC( G, n );
+        inn_pn := InnerAutomorphismNC( GK, pn );
         C_n := CoincidenceGroup2( hom1p*inn_pn, hom2p );
         hom1_n := RestrictedHomomorphism( hom1*inn_n, C_n, G );
         hom2_n := RestrictedHomomorphism( hom2, C_n, G );
@@ -161,7 +161,7 @@ ReidemeisterClassesByNormalSubgroup@ := function( hom1, hom2, N, K )
         if RclM = fail then
             return fail;
         fi;
-        Append( Rcl, List( RclM, m -> m*n ) );
+        Append( Rcl, List( RclM, m -> n*m ) );
     od;
     return Rcl;
 end;

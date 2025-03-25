@@ -7,7 +7,7 @@
 ##      hom2:       group homomorphism H -> G (optional)
 ##
 ##  OUTPUT:
-##      tc:         function (g,h) -> (h^hom2)^-1 * g * (h^hom1)
+##      tc:         function (g,h) -> (h^hom1)^-1 * g * (h^hom2)
 ##
 InstallGlobalFunction(
     TwistedConjugation,
@@ -15,14 +15,13 @@ InstallGlobalFunction(
         local hom2;
         if Length( arg ) = 0 then
             return function( g, h )
-                return OnLeftInverse( g, h ) *
-                    ImagesRepresentative( hom1, h );
+                return OnLeftInverse( g, ImagesRepresentative( hom1, h ) ) * h;
             end;
         else
             hom2 := arg[1];
             return function( g, h )
-                return OnLeftInverse( g, ImagesRepresentative( hom2, h ) ) *
-                    ImagesRepresentative( hom1, h );
+                return OnLeftInverse( g, ImagesRepresentative( hom1, h ) ) *
+                    ImagesRepresentative( hom2, h );
             end;
         fi;
     end
@@ -41,7 +40,7 @@ InstallGlobalFunction(
 ##
 ##  OUTPUT:
 ##      bool:       true if there exists an element h of H such that
-##                  (h^hom2)^-1 * g_1 * h^hom1 = g_2, or false otherwise.
+##                  (h^hom1)^-1 * g_1 * h^hom2 = g_2, or false otherwise.
 ##
 ##  REMARKS:
 ##      If no hom2 is given, it is assumed that hom1 is an endomorphism G -> G
@@ -67,7 +66,7 @@ InstallGlobalFunction(
 ##      g2:         element of G (optional)
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * g_1 * h^hom1 = g_2, or
+##      h:          element of H such that (h^hom1)^-1 * g_1 * h^hom2 = g_2, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:
@@ -109,7 +108,7 @@ InstallGlobalFunction(
 ##      g2:         element of G (optional)
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * g_1 * h^hom1 = g_2, or
+##      h:          element of H such that (h^hom1)^-1 * g_1 * h^hom2 = g_2, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:
@@ -121,12 +120,10 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
     function( hom1, hom2, g1, g2 )
-        local G, g2inv, i_hom1, g;
+        local G, inn;
         G := Range( hom1 );
-        g2inv := g2^-1;
-        i_hom1 := hom1*InnerAutomorphismNC( G, g2inv );
-        g := g1*g2inv;
-        return RepresentativeTwistedConjugationOp( i_hom1, hom2, g );
+        inn := InnerAutomorphismNC( G, g2 );
+        return RepresentativeTwistedConjugationOp( hom1*inn, hom2, g2^-1*g1 );
     end
 );
 

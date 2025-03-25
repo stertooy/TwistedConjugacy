@@ -209,7 +209,7 @@ InstallMethod(
         g := Representative( tcc );
         hom := GroupHomomorphismsOfReidemeisterClass( tcc );
         G := Range( hom[1] );
-        inn := InnerAutomorphismNC( G, g^-1 );
+        inn := InnerAutomorphismNC( G, g );
         return CoincidenceGroup2( hom[1]*inn, hom[2] );
     end
 );

@@ -73,15 +73,15 @@ InstallMethod(
 ##      returns "fail" if no such u and v exist
 ##
 AsElementOfProductGroups@ := function( g, U, V )
-    local G, UV, l, r, s, u, v;
+    local G, UxV, l, r, s, u, v;
     
     G := PcpGroupByCollectorNC( Collector( U ) );
-    UV := DirectProduct( U, V );
+    UxV := DirectProduct( U, V );
     
-    l := Projection( UV, 1 ) * InclusionHomomorphism( U, G );
-    r := Projection( UV, 2 ) * InclusionHomomorphism( V, G );
+    l := Projection( UxV, 1 ) * InclusionHomomorphism( U, G );
+    r := Projection( UxV, 2 ) * InclusionHomomorphism( V, G );
     
-    s := RepresentativeTwistedConjugationOp( r, l, g );
+    s := RepresentativeTwistedConjugationOp( l, r, g );
     if s = fail then return fail; fi;
     
     u := ImagesRepresentative( l, s );
