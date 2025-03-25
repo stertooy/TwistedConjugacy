@@ -4,6 +4,9 @@ This file describes changes in the GAP package TwistedConjugacy.
 3.0.0 (2025-04-30)
 ------------------
 
+- Switched the order of the homomorphisms in the definition of the twisted
+  conjugation action
+
 - Improved the efficiency of CoincidenceGroup in certain cases
 - Improved the efficiency of CoincidenceReidemeisterSpectrum for non-abelian
   groups
