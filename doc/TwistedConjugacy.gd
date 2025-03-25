@@ -51,8 +51,8 @@
 
 #! @Section Twisted Conjugation Action
 #! Let $G, H$ be groups and $\varphi,\psi\colon H \to G$ group homomorphisms. Then the pair $(\varphi,\psi)$ induces a (right) group action on $G$ given by
-#! $$G \times H \to G\colon (g,h) \mapsto g \cdot h := \psi(h)^{-1} g\varphi(h).$$
-#! This group action is called **$(\varphi,\psi)$-twisted conjugation**, and induces an equivalence relation on the group $G$. We say that $g_1, g_2 \in G$ are $(\varphi,\psi)$-twisted conjugate, denoted by $g_1 \sim_{\varphi,\psi} g_2$, if and only if there exists some element $h \in H$ such that $g_1 \cdot h = g_2$, or equivalently $g_1 = \psi(h) g_2 \varphi(h)^{-1}$.
+#! $$G \times H \to G\colon (g,h) \mapsto \varphi(h)^{-1} g\psi(h).$$
+#! This group action is called **$(\varphi,\psi)$-twisted conjugation**, and induces an equivalence relation on the group $G$. We say that $g_1, g_2 \in G$ are $(\varphi,\psi)$-twisted conjugate, denoted by $g_1 \sim_{\varphi,\psi} g_2$, if and only if there exists some element $h \in H$ such that $\varphi(h)^{-1}g_1\psi(h) = g_2$.
 #! <P/>If $\varphi\colon G \to G$ is an endomorphism of a group $G$, then by **$\varphi$-twisted conjugacy** we mean $(\varphi,\operatorname{id}_G)$-twisted conjugacy. Most functions in this package will allow you to input a single endomorphism instead of a pair of homomorphisms. The "missing" endomorphism will automatically be assumed to be the identity mapping. Similarly, if a single group element is given instead of two, the second will be assumed to be the identity.
 
 #! @BeginGroup TwistedConjugationGroup
@@ -175,8 +175,8 @@ tcc := ReidemeisterClass( phi, psi, g1 );
 Representative( tcc );
 #! (4,6,5)
 GroupHomomorphismsOfReidemeisterClass( tcc );
-#! [ [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,2)(3,4), () ],
-#! [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,4)(3,6), () ] ]
+#! [ [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,4)(3,6), () ],
+#!   [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,2)(3,4), () ] ]
 ActingDomain( tcc ) = H;
 #! true
 FunctionAction( tcc )( g1, h );
@@ -334,7 +334,7 @@ PrintReidemeisterZeta( khi );
 
 #! @Section The Multiple Twisted Conjugacy Problem
 #! Let $H$ and $G_1, \ldots, G_n$ be groups. For each $i \in \{1,\ldots,n\}$, let $g_i,g_i' \in G_i$ and let $\varphi_i,\psi_i\colon H \to G_i$ be group homomorphisms.
-#! The multiple twisted conjugacy problem is the problem of finding some $h \in H$ such that $g_i = \psi_i(h)g_i'\varphi_i(h)^{-1}$ for all $i \in \{1,\ldots,n\}$.
+#! The multiple twisted conjugacy problem is the problem of finding some $h \in H$ such that $\varphi_i(h)^{-1}g_i\psi_i(h) = g_i'$ for all $i \in \{1,\ldots,n\}$.
 
 #! @Description
 #! Verifies whether the multiple twisted conjugacy problem for the given homomorphisms and elements has a solution.
