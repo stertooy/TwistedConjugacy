@@ -166,6 +166,71 @@ ReidemeisterClassesByNormalSubgroup@ := function( hom1, hom2, N, K )
     return Rcl;
 end;
 
+RepsReidClassesABCDStep3@ := function( G, H, hom1, hom2, A )
+    local q, Hab, igs, prei, imgs1, imgs2, n, auts, diff, S, iHab, iA,
+          embsHab, embsA, l, r, N, Rcl;
+    q := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
+    Hab := ImagesSource( q );
+    igs := Igs( Hab );
+    prei := List( igs, qh -> PreImagesRepresentativeNC( q, qh ) );
+    imgs1 := List( prei, h -> ImagesRepresentative( hom1, h ) );
+    auts := List(
+        imgs1,
+        h -> ConjugatorAutomorphismNC( A, h )
+    );
+
+    S := SemidirectProductPcpGroups@( A, Hab, auts );
+    if not IsNilpotentByFinite( S ) then return fail; fi;
+    
+    imgs2 := List( prei, h -> ImagesRepresentative( hom2, h ) );
+    n := Length( igs );
+    diff := List( [1..n],
+        i -> imgs1[i]^-1*imgs2[i]
+    );
+    
+    
+    iHab := Embedding( S, 1 );
+    iA := Embedding( S, 2 );
+    embsHab := List( igs, qh -> ImagesRepresentative( iHab, qh ) );
+    embsA := List( diff, a -> ImagesRepresentative( iA, a ) );
+    l := GroupHomomorphismByImages( Hab, S, igs, embsHab );
+    r := GroupHomomorphismByImages( Hab, S, igs,
+        List( [1..n],
+            i -> embsHab[i]*embsA[i]
+        )
+    ); #TODO check order of multiplication?
+    N := ImagesSource( iA );
+    Rcl := RepresentativesReidemeisterClassesOp( l, r, N );
+    if Rcl = fail then return fail; fi;
+    return List( Rcl, a -> PreImagesRepresentativeNC( iA, a ) );
+end;
+
+RepsReidClassesABCDStep2@ := function( G, H, hom1, hom2, A )
+    local HH, delta, dHH, p, q, hom1p, hom2p, pG, pA, Rcl;
+    HH := DerivedSubgroup( H );
+    delta := DifferenceGroupHomomorphisms@( hom1, hom2, HH, A );
+    dHH := ImagesSource( delta );
+    p := NaturalHomomorphismByNormalSubgroupNC( G, dHH );
+    q := IdentityMapping( H );
+    hom1p := InducedHomomorphism( q, p, hom1 );
+    hom2p := InducedHomomorphism( q, p, hom2 );
+    pG := ImagesSource( p );
+    pA := ImagesSet( p, A );
+    Rcl := RepsReidClassesABCDStep3@( pG, H, hom1p, hom2p, pA );
+    if Rcl = fail then return fail; fi;
+    return List( Rcl, pa -> PreImagesRepresentativeNC( p, pa ) );
+end;
+
+RepsReidClassesABCDStep1@ := function( G, H, hom1, hom2, A )
+    local K, l, r;
+    K := ClosureGroup( ImagesSource( hom1 ), A );
+    l := RestrictedHomomorphism( hom1, H, K );
+    r := RestrictedHomomorphism( hom2, H, K );
+    return RepsReidClassesABCDStep2@( K, H, l, r, A );
+end;
+
+
+
 
 ###############################################################################
 ##
@@ -185,7 +250,7 @@ InstallMethod(
     RepresentativesReidemeisterClassesOp,
     "for infinite pcp source and finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
-    5,
+    8,
     function( hom1, hom2, N )
         local G, H;
         G := Range( hom1 );
@@ -204,7 +269,7 @@ InstallMethod(
     RepresentativesReidemeisterClassesOp,
     "for infinite pcp source and infinite nilpotent pcp range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
-    2,
+    5,
     function( hom1, hom2, N )
         local G, H;
         G := Range( hom1 );
@@ -227,7 +292,7 @@ InstallMethod(
     RepresentativesReidemeisterClassesOp,
     "for infinite pcp source and infinite nilpotent-by-finite pcp range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
-    1,
+    4,
     function( hom1, hom2, N )
         local G, H, F;
         G := Range( hom1 );
@@ -247,11 +312,12 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
-    "for infinite pcp source and infinite pcp range",
+    "for infinite pcp source and infinite pcp range (fast, but not guaranteed)",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
-    0,
+    3,
     function( hom1, hom2, N )
         local G, H, M;
+        TryNextMethod(); #### TEMP 
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
@@ -262,5 +328,69 @@ InstallMethod(
         ) then TryNextMethod(); fi;
         M := DerivedSubgroup( G );
         return ReidemeisterClassesByFiniteQuotient@( hom1, hom2, N, M );
+    end
+);
+
+InstallMethod(
+    RepresentativesReidemeisterClassesOp,
+    "for abelian subgroup commuting with the derived subgroup",
+    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
+    2,
+    function( hom1, hom2, N )
+        local G, H, C;
+        G := Range( hom1 );
+        H := Source( hom1 );
+        if not (
+            IsPcpGroup( H ) and
+            not IsFinite( H ) and
+            IsPcpGroup( G ) and
+            not IsNilpotentByFinite( G ) and
+            IsAbelian( N )
+        ) then TryNextMethod(); fi;
+        C := CommutatorSubgroup( N, DerivedSubgroup( G ) );
+        if not IsTrivial( C ) then TryNextMethod(); fi;
+        return RepsReidClassesABCDStep1@( G, H, hom1, hom2, N );
+    end
+);
+
+InstallMethod(
+    RepresentativesReidemeisterClassesOp,
+    "for nilpotent-by-abelian range",
+    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
+    1,
+    function( hom1, hom2, N )
+        local G, H, K;
+        G := Range( hom1 );
+        H := Source( hom1 );
+        if not (
+            IsPcpGroup( H ) and
+            not IsFinite( H ) and
+            IsPcpGroup( G ) and
+            IsNilpotentByAbelian( G ) and
+            not IsNilpotentByFinite( G )
+        ) then TryNextMethod(); fi;
+        K := Center( DerivedSubgroup( G ) );
+        return ReidemeisterClassesByNormalSubgroup@( hom1, hom2, N, K );
+    end
+);
+
+InstallMethod(
+    RepresentativesReidemeisterClassesOp,
+    "for infinite pcp source and infinite pcp range (not fast, but guaranteed)",
+    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
+    0,
+    function( hom1, hom2, N )
+        local G, H, K;
+        G := Range( hom1 );
+        H := Source( hom1 );
+        if not (
+            IsPcpGroup( H ) and
+            not IsFinite( H ) and
+            IsPcpGroup( G ) and
+            not IsNilpotentByAbelian( G ) and
+            not IsNilpotentByFinite( G )
+        ) then TryNextMethod(); fi;
+        K := NilpotentByAbelianByFiniteSeries( G )[2];
+        return ReidemeisterClassesByFiniteQuotient@( hom1, hom2, N, K );
     end
 );
