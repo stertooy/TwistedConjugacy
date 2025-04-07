@@ -126,3 +126,40 @@ MultipleConjugacySolver@ := function( G, r, s )
     od;
     return a;
 end;
+
+
+###############################################################################
+##
+## SemidirectProductPcpGroups@( N, G, auts )
+##
+##  INPUT:
+##      N:          normal subgroup
+##      G:          acting group
+##      auts:       list of automorphisms of N, corresponding to generators of G
+##
+##  OUTPUT:
+##      S:          the semidirect product N : G
+##
+##  REMARKS:
+##      Only for PcpGroups
+##
+SemidirectProductPcpGroups@ := function( N, G, auts )
+    local S, k, l, inclN, inclG, projG, info;
+    S := SplitExtensionByAutomorphisms( N, G, auts );
+
+    k := Length( Igs( N ) );
+    l := Length( Igs( G ) );
+
+    inclN := GroupHomomorphismByImages( N, S, Igs( N ), Igs( S ){[ l+1..k+l ]} );;
+    inclG := GroupHomomorphismByImages( G, S, Igs( G ), Igs( S ){[ 1..l ]} );;
+    projG := GroupHomomorphismByImages( S, G, Igs( S ), 
+        Concatenation( Igs( G ), ListWithIdenticalEntries( k, One( G ) ) )
+    );;
+    info := rec(
+        groups := [ G, N ],
+        embeddings := [ inclG, inclN ],
+        projections := projG
+    );;
+    SetSemidirectProductInfo( S, info );;
+    return S;
+end;
