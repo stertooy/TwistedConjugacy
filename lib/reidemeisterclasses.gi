@@ -315,7 +315,7 @@ InstallMethod(
     RepresentativesReidemeisterClassesOp,
     "for trivial subgroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
-    9,
+    8,
     function( hom1, hom2, N )
         if not IsTrivial( N ) then TryNextMethod(); fi;
         return [ One( N ) ];
@@ -326,7 +326,7 @@ InstallMethod(
     RepresentativesReidemeisterClassesOp,
     "for central subgroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
-    7,
+    6,
     function( hom1, hom2, N )
         local G, H, diff, D, p;
         G := Range( hom1 );
@@ -347,7 +347,7 @@ InstallMethod(
     RepresentativesReidemeisterClassesOp,
     "for finite source",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
-    6,
+    5,
     function( hom1, hom2, N )
         local H, tc, N_List, gens, orbits;
         H := Source( hom1 );

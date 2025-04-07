@@ -60,14 +60,14 @@ ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, N, K )
     L := IntersectionPreImage@( hom1, hom2, K );
     p := NaturalHomomorphismByNormalSubgroupNC( G, K );
     q := NaturalHomomorphismByNormalSubgroupNC( H, L );
-    GK := ImagesSource( p );
-    pN := ImagesSet( p, N );
     hom1p := InducedHomomorphism( q, p, hom1 );
     hom2p := InducedHomomorphism( q, p, hom2 );
+    pN := ImagesSet( p, N );
     RclGK := RepresentativesReidemeisterClassesOp( hom1p, hom2p, pN );
     if RclGK = fail then
         return fail;
     fi;
+    GK := ImagesSource( p );
     Rcl := [];
     hom1K := RestrictedHomomorphism( hom1, L, K );
     hom2K := RestrictedHomomorphism( hom2, L, K );
@@ -75,7 +75,6 @@ ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, N, K )
     for pn in RclGK do
         inn_pn := InnerAutomorphismNC( GK, pn );
         Coin := CoincidenceGroup2( hom1p*inn_pn, hom2p );
-        if not IsFinite( Coin ) then TryNextMethod(); fi;
         n := PreImagesRepresentativeNC( p, pn );
         conj_n := ConjugatorAutomorphismNC( K, n );
         inn_n_hom1K := hom1K*conj_n;
@@ -250,7 +249,7 @@ InstallMethod(
     RepresentativesReidemeisterClassesOp,
     "for infinite source and finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
-    8,
+    7,
     function( hom1, hom2, N )
         local G, H;
         G := Range( hom1 );
@@ -269,7 +268,7 @@ InstallMethod(
     RepresentativesReidemeisterClassesOp,
     "for infinite source and nilpotent range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
-    5,
+    4,
     function( hom1, hom2, N )
         local G, H;
         G := Range( hom1 );
@@ -292,7 +291,7 @@ InstallMethod(
     RepresentativesReidemeisterClassesOp,
     "for infinite source and nilpotent-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
-    4,
+    3,
     function( hom1, hom2, N )
         local G, H, F;
         G := Range( hom1 );
