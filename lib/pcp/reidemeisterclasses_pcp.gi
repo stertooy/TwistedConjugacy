@@ -38,7 +38,7 @@ end;
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##      N:          normal subgroup of G with hom1 = hom2 mod N
-##      M:          normal subgroup of G
+##      K:          finite index normal subgroup of G
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -48,8 +48,7 @@ end;
 ##  REMARKS:
 ##      Calculates the representatives of (hom1,hom2) by first calculating the
 ##      representatives of (hom1p,hom2p), with hom1p, hom2p: H/L -> G/K,
-##      where L is normal in H. Only works if Coin(inn*hom1p,hom2p) is finite
-##      for any inner automorphism inn of G/K.
+##      where L is normal in H.
 ##
 ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, N, K )
     local G, H, L, p, q, GK, pN, hom1p, hom2p, RclGK, Rcl, hom1K, hom2K, M, pn,
@@ -64,9 +63,6 @@ ReidemeisterClassesByFiniteQuotient@ := function( hom1, hom2, N, K )
     hom2p := InducedHomomorphism( q, p, hom2 );
     pN := ImagesSet( p, N );
     RclGK := RepresentativesReidemeisterClassesOp( hom1p, hom2p, pN );
-    if RclGK = fail then
-        return fail;
-    fi;
     GK := ImagesSource( p );
     Rcl := [];
     hom1K := RestrictedHomomorphism( hom1, L, K );
