@@ -126,3 +126,33 @@ InstallMethod(
         return not IsBool( s );
     end
 );
+
+
+###############################################################################
+##
+## DoubleCosetsNC( G, U, V )
+##
+##  INPUT:
+##      G:          PcpGroup
+##      U:          subgroup of G
+##      V:          subgroup of G
+##
+##  OUTPUT:
+##      L:          List of DoubleCosets
+##
+InstallMethod(
+    DoubleCosetsNC,
+    "for pcp groups",
+    [ IsPcpGroup, IsPcpGroup, IsPcpGroup ],
+    function( G, U, V )
+        local UV, iU, iV, l, r, Rcl;
+        UV := DirectProduct( U, V );;
+        iU := GroupHomomorphismByImages( U, G, Igs( U ), Igs( U ) );;
+        iV := GroupHomomorphismByImages( V, G, Igs( V ), Igs( V ) );;
+        l := Projection( UV, 1 )*iU;;
+        r := Projection( UV, 2 )*iV;;
+        Rcl := RepresentativesReidemeisterClasses( l, r );
+        if Rcl = fail then return fail; fi;
+        return List( Rcl, g -> DoubleCoset( U, g, V ) );
+    end
+);

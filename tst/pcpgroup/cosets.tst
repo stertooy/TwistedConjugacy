@@ -31,4 +31,11 @@ gap> One( G ) in HxK;
 false
 
 #
+gap> G := ExamplesOfSomePcpGroups(10);;
+gap> H := Subgroup( G, [G.1^3, G.4]);;
+gap> K := Subgroup( G, [G.2^2, G.3^3]);;
+gap> Length( DoubleCosets( G, H, K ) );
+27
+
+#
 gap> STOP_TEST( "twisted_conjugacy_single.tst" );
