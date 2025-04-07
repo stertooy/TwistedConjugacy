@@ -152,7 +152,7 @@ SemidirectProductPcpGroups@ := function( N, G, auts )
 
     inclN := GroupHomomorphismByImages( N, S, Igs( N ), Igs( S ){[ l+1..k+l ]} );;
     inclG := GroupHomomorphismByImages( G, S, Igs( G ), Igs( S ){[ 1..l ]} );;
-    projG := GroupHomomorphismByImages( S, G, Igs( S ), 
+    projG := GroupHomomorphismByImages( S, G, Igs( S ),
         Concatenation( Igs( G ), ListWithIdenticalEntries( k, One( G ) ) )
     );;
     info := rec(
