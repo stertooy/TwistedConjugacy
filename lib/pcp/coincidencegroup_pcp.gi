@@ -311,7 +311,7 @@ end;
 ##
 InstallMethod(
     CoincidenceGroup2,
-    "for infinite pcp source and finite range",
+    "for infinite source and finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     6,
     function( hom1, hom2 )
@@ -330,7 +330,7 @@ InstallMethod(
 
 InstallMethod(
     CoincidenceGroup2,
-    "for infinite pcp source and infinite nilpotent pcp range",
+    "for infinite source and nilpotent range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     3,
     function( hom1, hom2 )
@@ -351,7 +351,7 @@ InstallMethod(
 
 InstallMethod(
     CoincidenceGroup2,
-    "for infinite pcp source and infinite nilpotent-by-finite pcp range",
+    "for infinite source and nilpotent-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     2,
     function( hom1, hom2 )
@@ -373,7 +373,7 @@ InstallMethod(
 
 InstallMethod(
     CoincidenceGroup2,
-    "for infinite pcp source and infinite nilpotent-by-abelian pcp range",
+    "for infinite source and nilpotent-by-abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     1,
     function( hom1, hom2 )
@@ -393,7 +393,7 @@ InstallMethod(
 
 InstallMethod(
     CoincidenceGroup2,
-    "for infinite pcp source and range",
+    "for infinite source and range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     0,
     function( hom1, hom2 )

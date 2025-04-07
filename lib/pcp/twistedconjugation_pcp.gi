@@ -352,7 +352,7 @@ end;
 ##
 InstallOtherMethod(
     RepresentativeTwistedConjugationOp,
-    "for infinite pcp source and finite range",
+    "for infinite source and finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     6,
@@ -371,7 +371,7 @@ InstallOtherMethod(
 
 InstallOtherMethod(
     RepresentativeTwistedConjugationOp,
-    "for infinite pcp source and infinite nilpotent pcp range",
+    "for infinite source and nilpotent range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     3,
@@ -393,7 +393,7 @@ InstallOtherMethod(
 
 InstallOtherMethod(
     RepresentativeTwistedConjugationOp,
-    "for nilpotent-by-finite range",
+    "for infinite source and nilpotent-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     2,
@@ -416,7 +416,7 @@ InstallOtherMethod(
 
 InstallOtherMethod(
     RepresentativeTwistedConjugationOp,
-    "for nilpotent-by-abelian range",
+    "for infinite source and nilpotent-by-abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     1,
@@ -437,7 +437,7 @@ InstallOtherMethod(
 
 InstallOtherMethod(
     RepresentativeTwistedConjugationOp,
-    "for polycyclic-by-finite range",
+    "for infinite source and range",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     0,

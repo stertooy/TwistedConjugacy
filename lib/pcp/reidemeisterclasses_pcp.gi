@@ -248,7 +248,7 @@ end;
 ##
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
-    "for infinite pcp source and finite range",
+    "for infinite source and finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     8,
     function( hom1, hom2, N )
@@ -267,7 +267,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
-    "for infinite pcp source and infinite nilpotent pcp range",
+    "for infinite source and nilpotent range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     5,
     function( hom1, hom2, N )
@@ -290,7 +290,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
-    "for infinite pcp source and infinite nilpotent-by-finite pcp range",
+    "for infinite source and nilpotent-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     4,
     function( hom1, hom2, N )
@@ -312,27 +312,6 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
-    "for infinite pcp source and infinite pcp range (fast, but not guaranteed)",
-    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
-    3,
-    function( hom1, hom2, N )
-        local G, H, M;
-        TryNextMethod(); #### TEMP 
-        G := Range( hom1 );
-        H := Source( hom1 );
-        if not (
-            IsPcpGroup( H ) and
-            not IsFinite( H ) and
-            IsPcpGroup( G ) and
-            not IsNilpotentByFinite( G )
-        ) then TryNextMethod(); fi;
-        M := DerivedSubgroup( G );
-        return ReidemeisterClassesByFiniteQuotient@( hom1, hom2, N, M );
-    end
-);
-
-InstallMethod(
-    RepresentativesReidemeisterClassesOp,
     "for abelian subgroup commuting with the derived subgroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     2,
@@ -345,7 +324,8 @@ InstallMethod(
             not IsFinite( H ) and
             IsPcpGroup( G ) and
             not IsNilpotentByFinite( G ) and
-            IsAbelian( N )
+            IsAbelian( N ) and
+            not IsCentral( G, N )
         ) then TryNextMethod(); fi;
         C := CommutatorSubgroup( N, DerivedSubgroup( G ) );
         if not IsTrivial( C ) then TryNextMethod(); fi;
@@ -355,7 +335,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
-    "for nilpotent-by-abelian range",
+    "for infinite source and nilpotent-by-abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     1,
     function( hom1, hom2, N )
@@ -376,7 +356,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
-    "for infinite pcp source and infinite pcp range (not fast, but guaranteed)",
+    "for infinite source and range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
     0,
     function( hom1, hom2, N )
