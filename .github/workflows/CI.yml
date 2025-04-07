@@ -33,11 +33,13 @@ jobs:
           GAP_FLAGS: "-A"
           COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
+          ERROR_ON_WARNING: true
 
       - name: "Run package tests with default packages"
         uses: sTertooy/gda-test-pkg@v1
         with:
           COVERAGE: ${{ matrix.coverage }}
+          ERROR_ON_WARNING: true
             
       - name: "Process coverage"
         uses: stertooy/gda-coverage@v1
