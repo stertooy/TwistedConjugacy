@@ -553,27 +553,10 @@ Intersection( Hx, Kz );
 #! @Arguments g, D
 DeclareOperation( "\in", [ IsPcpElement, IsDoubleCoset ] );
 
-#! @BeginExample
-HxK := DoubleCoset( H, x, K );;
-y in HxK;
-#! true
-z in HxK;
-#! false
-#! @EndExample
-
 #! @Description
 #! Given double cosets <A>C</A> and <A>D</A> of a PcpGroup, this function tests whether <A>C</A> and <A>D</A> are equal.
 #! @Arguments C, D
 DeclareOperation( "=", [ IsDoubleCoset, IsDoubleCoset ] );
-
-#! @BeginExample
-HyK := DoubleCoset( H, y, K );;
-HxK = HyK;
-#! true
-HzK := DoubleCoset( H, z, K );;
-HxK = HzK;
-#! false
-#! @EndExample
 
 #! @Description
 #! Given a PcpGroup <A>G</A> and two subgroups <A>H</A>, <A>K</A>, this function computes a duplicate-free list of all double cosets <A>H</A>$g$<A>K</A> for $g \in G$ if there are finitely many, or it returns <K>fail</K> otherwise.
@@ -581,6 +564,17 @@ HxK = HzK;
 DeclareGlobalFunction( "DoubleCosets" );
 
 #! @BeginExample
+HxK := DoubleCoset( H, x, K );;
+HyK := DoubleCoset( H, y, K );;
+HzK := DoubleCoset( H, z, K );;
+y in HxK;
+#! true
+z in HxK;
+#! false
+HxK = HyK;
+#! true
+HxK = HzK;
+#! false
 DCS := DoubleCosets( G, H, K );
 #! [ DoubleCoset(<group with 2 generators>,<object>,<group with 2 generators>),
 #!   DoubleCoset(<group with 2 generators>,<object>,<group with 2 generators>) ]
