@@ -521,8 +521,6 @@ DeclareGlobalFunction( "Intersection" );
 #! @Arguments list
 #! @Label for IsList
 DeclareGlobalFunction( "Intersection" );
-#! @Arguments C1, C2
-DeclareOperation( "Intersection2", [ IsRightCoset, IsRightCoset ] );
 #! @EndGroup
 
 #! @BeginExample
