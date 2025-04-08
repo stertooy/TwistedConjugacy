@@ -67,10 +67,6 @@ RepTwistConjToIdByFiniteQuotient@ := function( G, H, hom1, hom2, g, M )
         return fail;
     fi;
     Coin := CoincidenceGroup2( hom1HN, hom2HN );
-    if not IsFinite( Coin ) then
-        Print("GOTTEEEEEM (TODO)\n");
-        TryNextMethod();
-    fi;
     h1 := PreImagesRepresentativeNC( q, qh1 );
     tc := TwistedConjugation( hom1, hom2 );
     m1 := tc( g, h1 );
