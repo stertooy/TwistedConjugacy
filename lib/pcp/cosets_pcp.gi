@@ -174,11 +174,11 @@ InstallMethod(
     [ IsPcpGroup, IsPcpGroup, IsPcpGroup ],
     function( G, U, V )
         local UV, iU, iV, l, r, Rcl;
-        UV := DirectProduct( U, V );;
-        iU := GroupHomomorphismByImages( U, G, Igs( U ), Igs( U ) );;
-        iV := GroupHomomorphismByImages( V, G, Igs( V ), Igs( V ) );;
-        l := Projection( UV, 1 )*iU;;
-        r := Projection( UV, 2 )*iV;;
+        UV := DirectProduct( U, V );
+        iU := GroupHomomorphismByImages( U, G, Igs( U ), Igs( U ) );
+        iV := GroupHomomorphismByImages( V, G, Igs( V ), Igs( V ) );
+        l := Projection( UV, 1 )*iU;
+        r := Projection( UV, 2 )*iV;
         Rcl := RepresentativesReidemeisterClasses( l, r );
         if Rcl = fail then return fail; fi;
         return List( Rcl, g -> DoubleCoset( U, g, V ) );

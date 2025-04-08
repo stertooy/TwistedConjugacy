@@ -1,8 +1,10 @@
 ###############################################################################
 ##
-## CoincidenceGroupByTrivialSubgroup@( hom1, hom2 )
+## CoincidenceGroupByTrivialSubgroup@( G, H, hom1, hom2 )
 ##
 ##  INPUT:
+##      G:          finite group
+##      H:          infinite PcpGroup
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##
@@ -13,10 +15,8 @@
 ##      Used for factoring the calculation of Coin(hom1,hom2) through
 ##      H -> H/N -> G, with N the intersection of Ker(hom1) and Ker(hom2).
 ##
-CoincidenceGroupByTrivialSubgroup@ := function( hom1, hom2 )
-    local G, H, N, p, q, Coin;
-    G := Range( hom1 );
-    H := Source( hom1 );
+CoincidenceGroupByTrivialSubgroup@ := function( G, H, hom1, hom2 )
+    local N, p, q, Coin;
     N := IntersectionKernels@( hom1, hom2 );
     p := IdentityMapping( G );
     q := NaturalHomomorphismByNormalSubgroupNC( H, N );
@@ -30,36 +30,34 @@ end;
 
 ###############################################################################
 ##
-## CoincidenceGroupByFiniteQuotient@( hom1, hom2, M )
+## CoincidenceGroupByFiniteQuotient@( G, H, hom1, hom2, K )
 ##
 ##  INPUT:
+##      G:          infinite PcpGroup
+##      H:          infinite PcpGroup
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
-##      M:          normal subgroup of G
+##      K:          finite index normal subgroup of G
 ##
 ##  OUTPUT:
 ##      coin:       subgroup of H consisting of h for which h^hom1 = h^hom2
 ##
 ##  REMARKS:
 ##      Calculates Coin(hom1,hom2) by first calculating Coin(hom1N,hom2N) and
-##      Coin(hom1HN,hom2HN), where hom1N, hom2N: N -> M (with N normal in H)
-##      and hom1HN, hom2HN: H/N -> G/M. Only works if Coin(hom1HN,hom2HN) is
-##      finite.
+##      Coin(hom1HN,hom2HN), where hom1N, hom2N: N -> K (with N normal in H)
+##      and hom1HN, hom2HN: H/N -> G/K.
 ##
-CoincidenceGroupByFiniteQuotient@ := function( hom1, hom2, M )
-    local G, H, N, p, q, CoinHN, hom1N, hom2N, tc, qh, gens, dict, func, C;
-    G := Range( hom1 );
-    H := Source( hom1 );
-    N := IntersectionPreImage@( hom1, hom2, M );
-    p := NaturalHomomorphismByNormalSubgroupNC( G, M );
+CoincidenceGroupByFiniteQuotient@ := function( G, H, hom1, hom2, K )
+    local N, p, q, CoinHN, hom1N, hom2N, tc, qh, gens, dict, func, C;
+    N := IntersectionPreImage@( hom1, hom2, K );
+    p := NaturalHomomorphismByNormalSubgroupNC( G, K );
     q := NaturalHomomorphismByNormalSubgroupNC( H, N );
     CoinHN := CoincidenceGroup2(
         InducedHomomorphism( q, p, hom1 ),
         InducedHomomorphism( q, p, hom2 )
     );
-    if not IsFinite( CoinHN ) then TryNextMethod(); fi;
-    hom1N := RestrictedHomomorphism( hom1, N, M );
-    hom2N := RestrictedHomomorphism( hom2, N, M );
+    hom1N := RestrictedHomomorphism( hom1, N, K );
+    hom2N := RestrictedHomomorphism( hom2, N, K );
     tc := TwistedConjugation( hom1, hom2 );
     gens := List( GeneratorsOfGroup( CoincidenceGroup2( hom1N, hom2N ) ) );
     dict := NewDictionary( false, true, CoinHN );
@@ -89,9 +87,11 @@ end;
 
 ###############################################################################
 ##
-## CoincidenceGroupByCentre@( hom1, hom2 )
+## CoincidenceGroupByCentre@( G, H, hom1, hom2 )
 ##
 ##  INPUT:
+##      G:          infinite PcpGroup
+##      H:          infinite PcpGroup
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##
@@ -102,10 +102,8 @@ end;
 ##      Used for factoring the calculation of Coin(hom1,hom2) through
 ##      H -> G -> G/C, with C the centre of G.
 ##
-CoincidenceGroupByCentre@ := function( hom1, hom2 )
-    local G, H, C, p, q, Coin, diff;
-    G := Range( hom1 );
-    H := Source( hom1 );
+CoincidenceGroupByCentre@ := function( G, H, hom1, hom2 )
+    local C, p, q, Coin, diff;
     C := Center( G );
     p := NaturalHomomorphismByNormalSubgroupNC( G, C );
     q := IdentityMapping( H );
@@ -120,9 +118,11 @@ end;
 
 ###############################################################################
 ##
-## CoincidenceGroupStep5@( hom1, hom2 )
+## CoincidenceGroupStep5@( G, H, hom1, hom2 )
 ##
 ##  INPUT:
+##      G:          infinite PcpGroup
+##      H:          infinite PcpGroup
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##
@@ -137,10 +137,8 @@ end;
 ##        - [H,H] is a subgroup of Coin(hom1,hom2);
 ##        - Z(G) = 1.
 ##
-CoincidenceGroupStep5@ := function( hom1, hom2 )
-    local H, G, hi, n, tc, ai, C, i;
-    G := Range( hom1 );
-    H := Source( hom1 );
+CoincidenceGroupStep5@ := function( G, H, hom1, hom2 )
+    local hi, n, tc, ai, C, i;
     hi := SmallGeneratingSet( H );
     n := Length( hi );
     tc := TwistedConjugation( hom1, hom2 );
@@ -149,16 +147,19 @@ CoincidenceGroupStep5@ := function( hom1, hom2 )
     for i in [1..n] do
         C := Centraliser( C, ai[i] );
     od;
+    # TODO: Replace this by PreImagesSet (without NC) eventually
     C := NormalIntersection( C, ImagesSource( hom2 ) ); 
-    return PreImagesSet( hom2, C );
+    return PreImagesSetNC( hom2, C );
 end;
 
 
 ###############################################################################
 ##
-## CoincidenceGroupStep4@( hom1, hom2 )
+## CoincidenceGroupStep4@( G, H, hom1, hom2 )
 ##
 ##  INPUT:
+##      G:          infinite PcpGroup
+##      H:          infinite PcpGroup
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##
@@ -172,20 +173,19 @@ end;
 ##        - G = A Im(hom1) = A Im(hom2);
 ##        - [H,H] is a subgroup of Coin(hom1,hom2).
 ##
-CoincidenceGroupStep4@ := function( hom1, hom2 )
-    local G, H, C, p, q, Coin, d;
-    G := Range( hom1 );
-    H := Source( hom1 );
+CoincidenceGroupStep4@ := function( G, H, hom1, hom2 )
+    local C, p, q, Coin, d;
     if IsNilpotentByFinite( G ) then
         return CoincidenceGroup2( hom1, hom2 );
     fi;
     C := Center( G );
     if IsTrivial( C ) then
-        return CoincidenceGroupStep5@( hom1, hom2 );
+        return CoincidenceGroupStep5@( G, H, hom1, hom2 );
     fi;
     p := NaturalHomomorphismByNormalSubgroupNC( G, C );
     q := IdentityMapping( H );
     Coin := CoincidenceGroupStep4@(
+        ImagesSource( p ), H,
         InducedHomomorphism( q, p, hom1 ),
         InducedHomomorphism( q, p, hom2 )
     );
@@ -196,9 +196,11 @@ end;
 
 ###############################################################################
 ##
-## CoincidenceGroupStep3@( hom1, hom2 )
+## CoincidenceGroupStep3@( G, H, hom1, hom2 )
 ##
 ##  INPUT:
+##      G:          infinite PcpGroup
+##      H:          infinite PcpGroup
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##
@@ -211,10 +213,8 @@ end;
 ##        - h^hom1 = h^hom2 mod A, for all h in H;
 ##        - G = A Im(hom1) = A Im(hom2).
 ##
-CoincidenceGroupStep3@ := function( hom1, hom2 )
-    local G, H, HH, d, p, q, Coin, ci, n, tc, bi, di, gens1, gens2;
-    G := Range( hom1 );
-    H := Source( hom1 );
+CoincidenceGroupStep3@ := function( G, H, hom1, hom2 )
+    local HH, d, p, q, Coin, ci, n, tc, bi, di, gens1, gens2;
     if IsNilpotentByFinite( G ) then
         return CoincidenceGroup2( hom1, hom2 );
     fi;
@@ -223,6 +223,7 @@ CoincidenceGroupStep3@ := function( hom1, hom2 )
     p := NaturalHomomorphismByNormalSubgroupNC( G, ImagesSource( d ) );
     q := IdentityMapping( H );
     Coin := CoincidenceGroupStep4@(
+        ImagesSource( p ), H,
         InducedHomomorphism( q, p, hom1 ),
         InducedHomomorphism( q, p, hom2 )
     );
@@ -239,9 +240,11 @@ end;
 
 ###############################################################################
 ##
-## CoincidenceGroupStep2@( hom1, hom2 )
+## CoincidenceGroupStep2@( G, H, hom1, hom2 )
 ##
 ##  INPUT:
+##      G:          infinite PcpGroup
+##      H:          infinite PcpGroup
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##
@@ -253,13 +256,12 @@ end;
 ##        - [A,[G,G]] = 1;
 ##        - h^hom1 = h^hom2 mod A, for all h in H.
 ##
-CoincidenceGroupStep2@ := function( hom1, hom2 )
-    local H, G, A, Gr;
-    H := Source( hom1 );
-    G := Range( hom1 );
+CoincidenceGroupStep2@ := function( G, H, hom1, hom2 )
+    local A, Gr;
     A := Center( DerivedSubgroup( G ) );
     Gr := ClosureGroup( ImagesSource( hom1 ), A );
     return CoincidenceGroupStep3@(
+        Gr, H,
         RestrictedHomomorphism( hom1, H, Gr ),
         RestrictedHomomorphism( hom2, H, Gr )
     );
@@ -268,9 +270,11 @@ end;
 
 ###############################################################################
 ##
-## CoincidenceGroupStep1@( hom1, hom2 )
+## CoincidenceGroupStep1@( G, H, hom1, hom2 )
 ##
 ##  INPUT:
+##      G:          infinite PcpGroup
+##      H:          infinite PcpGroup
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##
@@ -281,10 +285,8 @@ end;
 ##      Assumes G is nilpotent-by-abelian, and uses induction on the upper
 ##      central series of [G,G].
 ##
-CoincidenceGroupStep1@ := function( hom1, hom2 )
-    local H, G, A, p, q, Coin, hom1r, hom2r;
-    H := Source( hom1 );
-    G := Range( hom1 );
+CoincidenceGroupStep1@ := function( G, H, hom1, hom2 )
+    local A, p, q, Coin, hom1r, hom2r;
     A := Center( DerivedSubgroup( G ) );
     p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );
@@ -294,7 +296,7 @@ CoincidenceGroupStep1@ := function( hom1, hom2 )
     );
     hom1r := RestrictedHomomorphism( hom1, Coin, G );
     hom2r := RestrictedHomomorphism( hom2, Coin, G );
-    return CoincidenceGroupStep2@( hom1r, hom2r );
+    return CoincidenceGroupStep2@( G, Coin, hom1r, hom2r );
 end;
 
 
@@ -311,7 +313,7 @@ end;
 ##
 InstallMethod(
     CoincidenceGroup2,
-    "for infinite source and finite range",
+    "for finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     6,
     function( hom1, hom2 )
@@ -320,17 +322,17 @@ InstallMethod(
         H := Source( hom1 );
         if not (
             IsPcpGroup( H ) and
+            not IsTrivial( G ) and
             not IsFinite( H ) and
-            IsFinite( G ) and
-            not IsTrivial( G )
+            IsFinite( G )
         ) then TryNextMethod(); fi;
-        return CoincidenceGroupByTrivialSubgroup@( hom1, hom2 );
+        return CoincidenceGroupByTrivialSubgroup@( G, H, hom1, hom2 );
     end
 );
 
 InstallMethod(
     CoincidenceGroup2,
-    "for infinite source and nilpotent range",
+    "for nilpotent range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     3,
     function( hom1, hom2 )
@@ -339,35 +341,35 @@ InstallMethod(
         H := Source( hom1 );
         if not (
             IsPcpGroup( H ) and
-            not IsFinite( H ) and
             IsPcpGroup( G ) and
-            IsNilpotentGroup( G ) and
+            not IsFinite( H ) and
             not IsFinite( G ) and
-            not IsAbelian( G )
+            not IsAbelian( G ) and
+            IsNilpotentGroup( G )
         ) then TryNextMethod(); fi;
-        return CoincidenceGroupByCentre@( hom1, hom2 );
+        return CoincidenceGroupByCentre@( G, H, hom1, hom2 );
     end
 );
 
 InstallMethod(
     CoincidenceGroup2,
-    "for infinite source and nilpotent-by-finite range",
+    "for nilpotent-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     2,
     function( hom1, hom2 )
-        local G, H, M;
+        local G, H, F;
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
             IsPcpGroup( H ) and
-            not IsFinite( H ) and
             IsPcpGroup( G ) and
-            IsNilpotentByFinite( G ) and
+            not IsFinite( H ) and
             not IsFinite( G ) and
-            not IsNilpotentGroup( G )
+            not IsNilpotentGroup( G ) and
+            IsNilpotentByFinite( G )
         ) then TryNextMethod(); fi;
-        M := FittingSubgroup( G );
-        return CoincidenceGroupByFiniteQuotient@( hom1, hom2, M );
+        F := FittingSubgroup( G );
+        return CoincidenceGroupByFiniteQuotient@( G, H, hom1, hom2, F );
     end
 );
 
@@ -382,12 +384,12 @@ InstallMethod(
         H := Source( hom1 );
         if not (
             IsPcpGroup( H ) and
-            not IsFinite( H ) and
             IsPcpGroup( G ) and
-            IsNilpotentByAbelian( G ) and
-            not IsNilpotentByFinite( G )
+            not IsFinite( H ) and
+            not IsNilpotentByFinite( G ) and
+            IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
-        return CoincidenceGroupStep1@( hom1, hom2 );
+        return CoincidenceGroupStep1@( G, H, hom1, hom2 );
     end
 );
 
@@ -397,17 +399,17 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     0,
     function( hom1, hom2 )
-        local G, H, M;
+        local G, H, K;
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
             IsPcpGroup( H ) and
-            not IsFinite( H ) and
             IsPcpGroup( G ) and
-            not IsNilpotentByAbelian( G ) and
-            not IsNilpotentByFinite( G )
+            not IsFinite( H ) and
+            not IsNilpotentByFinite( G ) and
+            not IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
-        M := NilpotentByAbelianByFiniteSeries( G )[2];
-        return CoincidenceGroupByFiniteQuotient@( hom1, hom2, M );
+        K := NilpotentByAbelianByFiniteSeries( G )[2];
+        return CoincidenceGroupByFiniteQuotient@( G, H, hom1, hom2, K );
     end
 );

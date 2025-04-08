@@ -151,11 +151,11 @@ InstallOtherMethod(
     function( hom1, hom2, g )
         local G, H, diff;
         G := Range( hom1 );
-        H := Source( hom1 );
         if not IsAbelian( G ) then TryNextMethod(); fi;
+        H := Source( hom1 );
         diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
+        # TODO: Replace this by PreImagesRepresentative (without NC) eventually
         if not g in ImagesSource( diff ) then return fail; fi;
-        # TODO: Replace by PreImagesRepresentative eventually
         return PreImagesRepresentativeNC( diff, g );
     end
 );
@@ -168,9 +168,9 @@ InstallOtherMethod(
     4,
     function( hom1, hom2, g )
         local G, H, tc, d, todo, conj, trail, h, i, k, gens, l;
-        G := Range( hom1 );
         H := Source( hom1 );
         if not IsFinite( H ) then TryNextMethod(); fi;
+        G := Range( hom1 );
         tc := TwistedConjugation( hom1, hom2 );
         g := Immutable( g );
         d := NewDictionary( g, true );

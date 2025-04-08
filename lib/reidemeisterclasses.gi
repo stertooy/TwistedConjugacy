@@ -174,17 +174,12 @@ InstallMethod(
     [ IsReidemeisterClassGroupRep ],
     function( tcc )
         local H, Coin, g, tc;
-        if Size( tcc ) = infinity then
-            return fail;
-        fi;
+        if Size( tcc ) = infinity then return fail; fi;
         H := ActingDomain( tcc );
         Coin := StabilizerOfExternalSet( tcc );
         g := Representative( tcc );
         tc := FunctionAction( tcc );
-        return List(
-            RightTransversal( H, Coin ),
-            h -> tc( g, h )
-        );
+        return List( RightTransversal( H, Coin ), h -> tc( g, h ) );
     end
 );
 
@@ -221,7 +216,7 @@ InstallMethod(
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
-##      hom2:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G (optional)
 ##
 ##  OUTPUT:
 ##      L:          list containing the (hom1,hom2)-twisted conjugacy classes,
@@ -252,7 +247,7 @@ InstallGlobalFunction(
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
-##      hom2:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G (optional)
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
