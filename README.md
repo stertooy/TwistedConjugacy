@@ -23,13 +23,13 @@ These methods are, for the most part, designed to be used on (group
 homomorphisms between) finite and polycyclic groups, the latter requiring
 the use of the Polycyclic package.
 
-Moreover, if Polycyclic is loaded, this package also allows calculating
-intersections of arbitrary subgroups and cosets, as well as solving the
-membership problem for double cosets in polycyclic groups.
+Moreover, if Polycyclic is loaded, this package provides some additional
+functionality for cosets of polycyclic groups, such as intersections of right
+cosets and membership in double cosets.
 
 
-This package requires GAP version 4.14 or later. The extension for 
-polycyclically presented groups requires Polycyclic version 2.16 or later.
+This package requires GAP version 4.14 or later. The extension for infinite
+polycyclic groups requires Polycyclic version 2.16 or later.
 
 
 
