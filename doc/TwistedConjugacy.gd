@@ -505,14 +505,14 @@ Source( res ) = N and Range( res ) = N;
 #! @ChapterLabel csts
 #! @ChapterTitle Cosets
 
+#! Please note that the functions below are implemented only for PcpGroups.
+
 
 ###
 # SECTION 1
 ###
 
-#! Please note that the functions below are implemented only for PcpGroups. They are (currently) very inefficient, so use with caution.
-
-#! @Section Intersection of cosets in PcpGroups
+#! @Section Right cosets in PcpGroups
 
 #! @BeginGroup IntersectionCosets
 #! @Description
@@ -532,13 +532,22 @@ H := Subgroup( G, [ G.1*G.2^-1*G.3^-1*G.4^-1, G.2^-1*G.3*G.4^-2 ] );;
 K := Subgroup( G, [ G.1*G.3^-2*G.4^2, G.1*G.4^4 ] );;
 x := G.1*G.3^-1;;
 y := G.1*G.2^-1*G.3^-2*G.4^-1;;
+z := G.1*G.2*G.3*G.4^2;;
 Hx := RightCoset( H, x );;
 Ky := RightCoset( K, y );;
 Intersection( Hx, Ky );
 #! RightCoset(<group with 2 generators>,<object>)
+Kz := RightCoset( K, z );;
+Intersection( Hx, Kz );
+#! [  ]
 #! @EndExample
 
-#! @Section Membership in double cosets in PcpGroups
+
+###
+# SECTION 2
+###
+
+#! @Section Double cosets in PcpGroups
 
 #! @Description
 #! Given an element <A>g</A> of a PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
@@ -547,9 +556,33 @@ DeclareOperation( "\in", [ IsPcpElement, IsDoubleCoset ] );
 
 #! @BeginExample
 HxK := DoubleCoset( H, x, K );;
-G.1 in HxK;
-#! false
-G.2 in HxK;
+y in HxK;
 #! true
+z in HxK;
+#! false
 #! @EndExample
 
+#! @Description
+#! Given double cosets <A>C</A> and <A>D</A> of a PcpGroup, this function tests whether <A>C</A> and <A>D</A> are equal.
+#! @Arguments C, D
+DeclareOperation( "=", [ IsDoubleCoset, IsDoubleCoset ] );
+
+#! @BeginExample
+HyK := DoubleCoset( H, y, K );;
+HxK = HyK;
+#! true
+HzK := DoubleCoset( H, z, K );;
+HxK = HzK;
+#! false
+#! @EndExample
+
+#! @Description
+#! Given a PcpGroup <A>G</A> and two subgroups <A>H</A>, <A>K</A>, this function computes a duplicate-free list of all double cosets <A>H</A>$g$<A>K</A> for $g \in G$ if there are finitely many, or it returns <K>fail</K> otherwise.
+#! @Arguments G, H, K
+DeclareGlobalFunction( "DoubleCosets" );
+
+#! @BeginExample
+DCS := DoubleCosets( G, H, K );
+#! [ DoubleCoset(<group with 2 generators>,<object>,<group with 2 generators>),
+#!   DoubleCoset(<group with 2 generators>,<object>,<group with 2 generators>) ]
+#! @EndExample

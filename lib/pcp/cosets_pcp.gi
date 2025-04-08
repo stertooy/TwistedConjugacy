@@ -130,6 +130,34 @@ InstallMethod(
 
 ###############################################################################
 ##
+## \=( UxV, UyV )
+##
+##  INPUT:
+##      UxV:        double coset of a PcpGroup G
+##      UyV:        double coset of a PcpGroup G
+##
+##  OUTPUT:
+##      bool:       true if UxV = UyV, otherwise false
+##
+InstallMethod(
+    \=,
+    "for double cosets of pcp groups",
+    [ IsDoubleCoset and IsPcpElementCollection,
+      IsDoubleCoset and IsPcpElementCollection ],
+    function( UxV, UyV )
+        local x;
+        if (
+            LeftActingGroup( UxV ) <> LeftActingGroup( UyV ) or
+            RightActingGroup( UxV ) <> RightActingGroup( UyV )
+        ) then TryNextMethod(); fi;
+        x := Representative( UxV );
+        return x in UyV;
+    end
+);
+
+
+###############################################################################
+##
 ## DoubleCosetsNC( G, U, V )
 ##
 ##  INPUT:
