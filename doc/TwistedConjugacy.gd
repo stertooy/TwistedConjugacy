@@ -77,7 +77,7 @@ DeclareGlobalFunction( "IsTwistedConjugate" );
 #! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) or returns <K>fail</K> if no such element exists.
 #! <P />
 #! If $H$ is finite, it relies on a stabiliser-orbit algorithm.
-#! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Thm. 3'/>, <Cite Key='bkl20-a' Where='Sec. 5.4'/>, <Cite Key='roma21-a' Where='Sec. 7'/>, <Cite Key='dt21-a'/> and <Cite Key='tert25-a'/>.
+#! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Thm. 3'/>, <Cite Key='bkl20-a' Where='Sec. 5.4'/>, <Cite Key='roma21-a' Where='Sec. 7'/> and <Cite Key='dt21-a'/>.
 #! @Arguments hom1[, hom2], g1[, g2]
 DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 #! @EndGroup
@@ -131,11 +131,8 @@ DeclareGlobalFunction( "TwistedConjugacyClass" );
 #! @Description
 #! Returns a list containing the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number $R( <A>hom1</A>, <A>hom2</A> )$ is finite, or returns <K>fail</K> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position.
 #! <P />
-#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='dt21-a' Where='Alg. 5'/>.
-#! If $G$ and $H$ are finite and $G$ is not abelian, it relies on an orbit-stabiliser algorithm.
-#! Otherwise, it relies on (variants of) <Cite Key='dt21-a' Where='Alg. 7'/>.
-#! <P/>
-#! This function is only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
+#! If $G$ and $H$ are finite, it relies on an orbit-stabiliser algorithm.
+#! Otherwise, it relies on the algorithms in <Cite Key='dt21-a'/> and <Cite Key='tert25-a'/>.
 #! @Arguments hom1[, hom2]
 DeclareGlobalFunction( "ReidemeisterClasses" );
 #! @Arguments hom1[, hom2]
@@ -145,8 +142,6 @@ DeclareGlobalFunction( "TwistedConjugacyClasses" );
 #! @BeginGroup RepresentativesReidemeisterClassesGroup
 #! @Description
 #! Returns a list containing representatives of the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number $R( <A>hom1</A>, <A>hom2</A> )$ is finite, or returns <K>fail</K> otherwise. It is guaranteed that the identity is in the first position.
-#! <P />
-#! The same remarks as for <C>ReidemeisterClasses</C> are valid here.
 #! @Arguments hom1[, hom2]
 DeclareGlobalFunction( "RepresentativesReidemeisterClasses" );
 #! @Arguments hom1[, hom2]
@@ -159,9 +154,7 @@ DeclareGlobalFunction( "RepresentativesTwistedConjugacyClasses" );
 #! <P />
 #! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='jian83-a' Where='Thm. 2.5'/>.
 #! If $G = H$, $G$ is finite non-abelian and $\psi = \operatorname{id}_G$, it relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
-#! Otherwise, it uses the output of <C>ReidemeisterClasses</C>.
-#! <P />
-#! This function is only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
+#! Otherwise, it uses the output of <C>RepresentativesReidemeisterClasses</C>.
 #! @Arguments hom1[, hom2]
 DeclareGlobalFunction( "ReidemeisterNumber" );
 #! @Arguments hom1[, hom2]
