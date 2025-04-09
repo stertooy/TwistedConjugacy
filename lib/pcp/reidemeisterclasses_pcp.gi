@@ -171,11 +171,11 @@ end;
 ##      H:          infinite PcpGroup
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
-##      A:          abelian normal subgroup of G
+##      A:          abelian normal subgroup of G with hom1 = hom2 mod A
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
-##                  twisted conjugacy class in N, or fail if there are
+##                  twisted conjugacy class in A, or fail if there are
 ##                  infinitely many
 ##
 ##  REMARKS:
@@ -208,7 +208,7 @@ RepsReidClassesStep3@ := function( G, H, hom1, hom2, A )
     r := GroupHomomorphismByImagesNC(
         Hab, S,
         igs, List( [1..n], i -> embsHab[i]*embsA[i] )
-    ); #TODO: Check order of multiplication here
+    );
     N := ImagesSource( iA );
     Rcl := RepresentativesReidemeisterClassesOp( l, r, N );
     if Rcl = fail then return fail; fi;
@@ -225,11 +225,11 @@ end;
 ##      H:          infinite PcpGroup
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
-##      A:          abelian normal subgroup of G
+##      A:          abelian normal subgroup of G with hom1 = hom2 mod A
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
-##                  twisted conjugacy class in N, or fail if there are
+##                  twisted conjugacy class in A, or fail if there are
 ##                  infinitely many
 ##
 ##  REMARKS:
@@ -263,11 +263,11 @@ end;
 ##      H:          infinite PcpGroup
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
-##      A:          abelian normal subgroup of G
+##      A:          abelian normal subgroup of G with hom1 = hom2 mod A
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
-##                  twisted conjugacy class in N, or fail if there are
+##                  twisted conjugacy class in A, or fail if there are
 ##                  infinitely many
 ##
 ##  REMARKS:
