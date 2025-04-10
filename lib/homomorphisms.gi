@@ -461,7 +461,7 @@ InstallMethod(
         p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
         return List(
         RepresentativesHomomorphismClasses( ImagesSource( p ), G ),
-            hom -> p*hom
+            hom -> p * hom
         );
     end
 );
@@ -570,7 +570,7 @@ InstallMethod(
     RepresentativesEndomorphismClassesOp,
     "for trivial groups",
     [ IsGroup and IsTrivial ],
-    2*SUM_FLAGS+3,
+    2 * SUM_FLAGS + 3,
     function( G )
         return [ GroupHomomorphismByImagesNC(
             G, G,
@@ -583,7 +583,7 @@ InstallMethod(
     RepresentativesEndomorphismClassesOp,
     "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian ],
-    SUM_FLAGS+2,
+    SUM_FLAGS + 2,
     G -> RepresentativesHomomorphismClassesAbelian@( G, G )
 );
 
@@ -631,7 +631,7 @@ InstallMethod(
         SubOrbits := List( SubOrbits, x -> Filtered( SubReps, y -> y in x ) );
 
         KerOrbits := EmptyPlist( Length( SubOrbits ) );
-        for i in [ 1..Length( SubOrbits ) ] do
+        for i in [ 1 .. Length( SubOrbits ) ] do
             r := SubOrbits[i][1];
             if IsNormalInParent( r ) and not IsTrivial( r ) then
                 KerOrbits[i] := SubOrbits[i];
