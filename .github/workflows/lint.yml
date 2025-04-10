@@ -6,11 +6,6 @@ jobs:
   lint:
     name: ${{ matrix.linter }}
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        linter:
-          - gaplint
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,5 +14,4 @@ jobs:
       - name: Install linter
         run: pip install gaplint
       - name: Run linter
-        run: bash etc/gaplint.sh
-  
+        run: gaplint *.g gap/* tst/testall.g
