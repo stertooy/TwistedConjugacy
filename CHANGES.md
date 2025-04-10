@@ -1,6 +1,22 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
+3.0.0 (2025-04-11)
+------------------
+
+- Added method for (Representatives)ReidemeisterClasses and ReidmeisterNumber
+  with no restrictions on the homomorphisms or the source and target groups
+- Added methods for equality and enumeration of double cosets of PcpGroups 
+
+- Switched the order of the homomorphisms in the definition of the twisted
+  conjugation action
+
+- Improved the efficiency of CoincidenceGroup in certain cases
+- Improved the efficiency of CoincidenceReidemeisterSpectrum for non-abelian
+  groups
+
+
+
 2.4.0 (2024-12-05)
 ------------------
 

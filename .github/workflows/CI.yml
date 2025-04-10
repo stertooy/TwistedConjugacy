@@ -18,8 +18,6 @@ jobs:
           - gap-version: "master"
             coverage: true
           - gap-version: "4.14.0"
-          - gap-version: "4.13.1"
-          - gap-version: "4.13.0"
 
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-slim
@@ -35,11 +33,13 @@ jobs:
           GAP_FLAGS: "-A"
           COVERAGE: ${{ matrix.coverage }}
           ONLY_NEEDED: true
+          ERROR_ON_WARNING: true
 
       - name: "Run package tests with default packages"
         uses: sTertooy/gda-test-pkg@v1
         with:
           COVERAGE: ${{ matrix.coverage }}
+          ERROR_ON_WARNING: true
             
       - name: "Process coverage"
         uses: stertooy/gda-coverage@v1
@@ -52,8 +52,8 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
 
-  manual:
-    name: "Build manual"
+  validation:
+    name: "Validate manual & metadata"
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name 
 
@@ -65,8 +65,17 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v4
 
+      - name: "Validate CITATION.cff"
+        uses: citation-file-format/cffconvert-github-action@2.0.0
+        with:
+          args: "--validate"
+
       - name: "Build manual"
         uses: stertooy/gda-manual@v1
+
+      - name: "Validate PackageInfo.g"
+        shell: bash
+        run: gap -c "QuitGap(ValidatePackageInfo(\"PackageInfo.g\"));"
 
       - name: "Upload manual"
         uses: actions/upload-artifact@v4
@@ -74,18 +83,3 @@ jobs:
           name: "Manual"
           path: ./doc/manual.pdf
           if-no-files-found: error
-
-  citation:
-    name: "Validate citation"
-    runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name 
-
-    steps:
-
-      - name: "Checkout"
-        uses: actions/checkout@v4
-
-      - name: "Validate citation"
-        uses: citation-file-format/cffconvert-github-action@2.0.0
-        with:
-          args: "--validate"

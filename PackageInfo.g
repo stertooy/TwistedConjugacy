@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
-Version := "2.4.0",
-Date := "05/12/2024",
+Version := "3.0.0dev",
+Date := "11/04/2025",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -16,19 +16,19 @@ Persons := [
         Email := "sam.tertooy@kuleuven.be",
         PostalAddress := """
             Wiskunde
-            KU Leuven Kulak Kortrijk Campus
+            KU Leuven, Kulak Kortrijk Campus
             Etienne Sabbelaan 53
             8500 Kortrijk
             Belgium
         """,
         Place := "Kortrijk, Belgium",
-        Institution := "KU Leuven Kulak Kortrijk Campus",
+        Institution := "KU Leuven, Kulak Kortrijk Campus"
     ),
 ],
 
 SourceRepository := rec(
     Type := "git",
-    URL := Concatenation( "https://github.com/stertooy/", ~.PackageName ),
+    URL := Concatenation( "https://github.com/stertooy/", ~.PackageName )
 ),
 SupportEmail := "sam.tertooy@kuleuven.be",
 
@@ -58,11 +58,11 @@ PackageDoc := rec(
     HTMLStart := "doc/chap0_mj.html",
     PDFFile   := "doc/manual.pdf",
     SixFile   := "doc/manual.six",
-    LongTitle := ~.Subtitle,
+    LongTitle := ~.Subtitle
 ),
 
 Dependencies := rec(
-    GAP := ">= 4.13",
+    GAP := ">= 4.14"
 ),
 
 Extensions := [
@@ -71,8 +71,6 @@ Extensions := [
         filename := "lib/pcp/read_pcp.g"
     )
 ],
-
-AvailabilityTest := ReturnTrue,
 
 TestFile := "tst/testall.g",
 
@@ -84,7 +82,7 @@ Keywords := [
     "Reidemeister number",
     "Reidemeister spectrum",
     "Reidemeister zeta function",
-    "twisted conjugacy",
+    "twisted conjugacy"
 ],
 
 AutoDoc := rec(
@@ -102,7 +100,7 @@ AutoDoc := rec(
             <B>AutoDoc</B> packages.
         """,
         Copyright := """
-            &copyright; 2020-2024 Sam Tertooy <P/>
+            &copyright; 2020-2025 Sam Tertooy <P/>
             The <B>TwistedConjugacy</B> package is free software, it may be
             redistributed and/or modified under the terms and conditions of the
             <URL Text="GNU Public License Version 2">
@@ -110,6 +108,6 @@ AutoDoc := rec(
             (at your option) any later version.
         """
     )
-),
+)
 
 ));

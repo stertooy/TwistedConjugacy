@@ -10,7 +10,7 @@
 ##
 ##  OUTPUT:
 ##      boolL:      true if there exists an element h of H such that
-##                  (h^hom2_i)^-1 * g_1_i * h^hom1_i = g_2_i, or false
+##                  (h^hom1_i)^-1 * g_1_i * h^hom2_i = g_2_i, or false
 ##                  otherwise
 ##
 ##  REMARKS:
@@ -40,7 +40,7 @@ InstallGlobalFunction(
 ##      g2L:        element of G (optional)
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2_i)^-1 * g_1_i * h^hom1_i =
+##      h:          element of H such that (h^hom1_i)^-1 * g_1_i * h^hom2_i =
 ##                  g_2_i, or fail if no such element exists
 ##
 ##  REMARKS:
@@ -90,16 +90,15 @@ InstallMethod(
     "for two lists of homomorphisms and two lists of elements",
     [ IsList, IsList, IsList, IsList ],
     function( hom1L, hom2L, g1L, g2L )
-        local n, ighom1L, gL, i, G, g2inv, inn;
+        local n, ighom1L, gL, i, G, inn;
         n := Length( hom1L );
         ighom1L := ShallowCopy( hom1L );
         gL := ShallowCopy( g1L );
         for i in [1..n] do
             G := Range( hom1L[i] );
-            g2inv := g2L[i]^-1;
-            inn := InnerAutomorphismNC( G, g2inv );
+            inn := InnerAutomorphismNC( G, g2L[i] );
             ighom1L[i] := hom1L[i]*inn;
-            gL[i] := g1L[i]*g2inv;
+            gL[i] := g2L[i]^-1*g1L[i];
         od;
         return RepresentativeTwistedConjugationMultOp( ighom1L, hom2L, gL );
     end

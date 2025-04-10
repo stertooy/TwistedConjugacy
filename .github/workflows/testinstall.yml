@@ -12,9 +12,7 @@ jobs:
       matrix:
         include:
           - gap-version: "master"
-          - gap-version: "4.14.0-beta1"
-          - gap-version: "4.13.1"
-          - gap-version: "4.13.0"
+          - gap-version: "4.14.0"
 
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-slim

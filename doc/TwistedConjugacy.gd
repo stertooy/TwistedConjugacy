@@ -9,7 +9,7 @@
 #! @ChapterTitle Preface
 
 #! Let $G, H$ be groups and $\varphi,\psi\colon H \to G$ group homomorphisms. Then the pair $(\varphi,\psi)$ induces a (right) group action on $G$ given by
-#! $$G \times H \to G\colon (g,h) \mapsto g \cdot h = \psi(h)^{-1} g\varphi(h).$$
+#! $$G \times H \to G\colon (g,h) \mapsto g \cdot h = \varphi(h)^{-1} g\psi(h).$$
 #! This group action is called **$(\varphi,\psi)$-twisted conjugation**, and induces an equivalence relation $\sim_{\varphi,\psi}$ on $G$:
 #! $$g_1 \sim_{\varphi,\psi} g_2 \iff \exists h \in H: g_1 \cdot h = g2.$$
 #! The equivalence classes (i.e. the orbits of the action) are called **Reidemeister classes** and the number of Reidemeister classes is called the **Reidemeister number** $R(\varphi,\psi)$ of the pair $(\varphi,\psi)$.
@@ -18,13 +18,16 @@
 
 #! <P/>
 
-#! The <B>TwistedConjugacy</B> package provides methods to calculate Reidemeister classes, Reidemeister numbers and coincidence groups of pairs of group homomorphisms.
-#! These methods are implemented for finite groups and polycyclically presented groups. If $H$ and $G$ are both infinite polycyclically presented groups, then
-#! some methods in this package are only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
-#! Otherwise, these methods may potentially throw an error: "<C>Error, no method found!</C>"
+#! The <B>TwistedConjugacy</B> package provides methods to solve the twisted conjugacy (search) problem, calculate Reidemeister classes, numbers, spectra and zeta functions,
+#! as well as construct coincidence groups of group homomorphisms. These methods are, for the most part, designed to be used on (group homomorphisms between) finite and
+#! polycyclic groups, the latter requiring the use of the <B>Polycyclic</B> package.
 
 #! <P/>
 
+#! Moreover, if <B>Polycyclic</B> is loaded, this package also allows calculating intersections of arbitrary subgroups and cosets,
+#! as well as solving the membership problem for double cosets in polycyclic groups.
+
+#! <P/>
 
 #! Bugs in this package, in <B>GAP</B> or any other package used directly or indirectly, may cause functions from this package to produce errors or even wrong results.
 #! You can set the variable <C>ASSERT&#64;TwistedConjugacy</C> to <K>true</K>, which will cause certain functions to verify the correctness of their output.
@@ -51,8 +54,8 @@
 
 #! @Section Twisted Conjugation Action
 #! Let $G, H$ be groups and $\varphi,\psi\colon H \to G$ group homomorphisms. Then the pair $(\varphi,\psi)$ induces a (right) group action on $G$ given by
-#! $$G \times H \to G\colon (g,h) \mapsto g \cdot h := \psi(h)^{-1} g\varphi(h).$$
-#! This group action is called **$(\varphi,\psi)$-twisted conjugation**, and induces an equivalence relation on the group $G$. We say that $g_1, g_2 \in G$ are $(\varphi,\psi)$-twisted conjugate, denoted by $g_1 \sim_{\varphi,\psi} g_2$, if and only if there exists some element $h \in H$ such that $g_1 \cdot h = g_2$, or equivalently $g_1 = \psi(h) g_2 \varphi(h)^{-1}$.
+#! $$G \times H \to G\colon (g,h) \mapsto \varphi(h)^{-1} g\psi(h).$$
+#! This group action is called **$(\varphi,\psi)$-twisted conjugation**, and induces an equivalence relation on the group $G$. We say that $g_1, g_2 \in G$ are $(\varphi,\psi)$-twisted conjugate, denoted by $g_1 \sim_{\varphi,\psi} g_2$, if and only if there exists some element $h \in H$ such that $\varphi(h)^{-1}g_1\psi(h) = g_2$.
 #! <P/>If $\varphi\colon G \to G$ is an endomorphism of a group $G$, then by **$\varphi$-twisted conjugacy** we mean $(\varphi,\operatorname{id}_G)$-twisted conjugacy. Most functions in this package will allow you to input a single endomorphism instead of a pair of homomorphisms. The "missing" endomorphism will automatically be assumed to be the identity mapping. Similarly, if a single group element is given instead of two, the second will be assumed to be the identity.
 
 #! @BeginGroup TwistedConjugationGroup
@@ -76,9 +79,8 @@ DeclareGlobalFunction( "IsTwistedConjugate" );
 #! @Description
 #! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) or returns <K>fail</K> if no such element exists.
 #! <P />
-#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='dt21-a' Where='Alg. 4'/>.
 #! If $H$ is finite, it relies on a stabiliser-orbit algorithm.
-#! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Thm. 3'/>, <Cite Key='bkl20-a' Where='Sec. 5.4'/>, <Cite Key='roma21-a' Where='Sec. 7'/> and <Cite Key='dt21-a' Where='Alg. 6'/>.
+#! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Thm. 3'/>, <Cite Key='bkl20-a' Where='Sec. 5.4'/>, <Cite Key='roma21-a' Where='Sec. 7'/> and <Cite Key='dt21-a'/>.
 #! @Arguments hom1[, hom2], g1[, g2]
 DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 #! @EndGroup
@@ -87,9 +89,9 @@ DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 G := AlternatingGroup( 6 );;
 H := SymmetricGroup( 5 );;
 phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,2)(3,4), () ] );;
-psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,4)(3,6), () ] );;
+psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,2)(3,4), () ] );;
 tc := TwistedConjugation( phi, psi );;
 g1 := (4,6,5);;
 g2 := (1,6,4,2)(3,5);;
@@ -132,11 +134,8 @@ DeclareGlobalFunction( "TwistedConjugacyClass" );
 #! @Description
 #! Returns a list containing the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number $R( <A>hom1</A>, <A>hom2</A> )$ is finite, or returns <K>fail</K> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position.
 #! <P />
-#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='dt21-a' Where='Alg. 5'/>.
-#! If $G$ and $H$ are finite and $G$ is not abelian, it relies on an orbit-stabiliser algorithm.
-#! Otherwise, it relies on (variants of) <Cite Key='dt21-a' Where='Alg. 7'/>.
-#! <P/>
-#! This function is only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
+#! If $G$ and $H$ are finite, it relies on an orbit-stabiliser algorithm.
+#! Otherwise, it relies on the algorithms in <Cite Key='dt21-a'/> and <Cite Key='tert25-a'/>.
 #! @Arguments hom1[, hom2]
 DeclareGlobalFunction( "ReidemeisterClasses" );
 #! @Arguments hom1[, hom2]
@@ -146,8 +145,6 @@ DeclareGlobalFunction( "TwistedConjugacyClasses" );
 #! @BeginGroup RepresentativesReidemeisterClassesGroup
 #! @Description
 #! Returns a list containing representatives of the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number $R( <A>hom1</A>, <A>hom2</A> )$ is finite, or returns <K>fail</K> otherwise. It is guaranteed that the identity is in the first position.
-#! <P />
-#! The same remarks as for <C>ReidemeisterClasses</C> are valid here.
 #! @Arguments hom1[, hom2]
 DeclareGlobalFunction( "RepresentativesReidemeisterClasses" );
 #! @Arguments hom1[, hom2]
@@ -160,9 +157,7 @@ DeclareGlobalFunction( "RepresentativesTwistedConjugacyClasses" );
 #! <P />
 #! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='jian83-a' Where='Thm. 2.5'/>.
 #! If $G = H$, $G$ is finite non-abelian and $\psi = \operatorname{id}_G$, it relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
-#! Otherwise, it uses the output of <C>ReidemeisterClasses</C>.
-#! <P />
-#! This function is only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
+#! Otherwise, it uses the output of <C>RepresentativesReidemeisterClasses</C>.
 #! @Arguments hom1[, hom2]
 DeclareGlobalFunction( "ReidemeisterNumber" );
 #! @Arguments hom1[, hom2]
@@ -175,8 +170,8 @@ tcc := ReidemeisterClass( phi, psi, g1 );
 Representative( tcc );
 #! (4,6,5)
 GroupHomomorphismsOfReidemeisterClass( tcc );
-#! [ [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,2)(3,4), () ],
-#! [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,4)(3,6), () ] ]
+#! [ [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,4)(3,6), () ],
+#!   [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,2)(3,4), () ] ]
 ActingDomain( tcc ) = H;
 #! true
 FunctionAction( tcc )( g1, h );
@@ -334,7 +329,7 @@ PrintReidemeisterZeta( khi );
 
 #! @Section The Multiple Twisted Conjugacy Problem
 #! Let $H$ and $G_1, \ldots, G_n$ be groups. For each $i \in \{1,\ldots,n\}$, let $g_i,g_i' \in G_i$ and let $\varphi_i,\psi_i\colon H \to G_i$ be group homomorphisms.
-#! The multiple twisted conjugacy problem is the problem of finding some $h \in H$ such that $g_i = \psi_i(h)g_i'\varphi_i(h)^{-1}$ for all $i \in \{1,\ldots,n\}$.
+#! The multiple twisted conjugacy problem is the problem of finding some $h \in H$ such that $\varphi_i(h)^{-1}g_i\psi_i(h) = g_i'$ for all $i \in \{1,\ldots,n\}$.
 
 #! @Description
 #! Verifies whether the multiple twisted conjugacy problem for the given homomorphisms and elements has a solution.
@@ -350,13 +345,13 @@ DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
 H := SymmetricGroup( 5 );;
 G := AlternatingGroup( 6 );;
 tau := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,3)(4,6), () ] );;
+ [ (1,4)(3,6), () ] );;
 phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,2)(3,4), () ] );;
+khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,2)(3,6), () ] );;
 psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,4)(3,6), () ] );;
-khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,2)(3,4), () ] );;
+ [ (1,3)(4,6), () ] );;
 IsTwistedConjugateMultiple( [ tau, phi ], [ psi, khi ],
  [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );
 #! true
@@ -505,14 +500,14 @@ Source( res ) = N and Range( res ) = N;
 #! @ChapterLabel csts
 #! @ChapterTitle Cosets
 
+#! Please note that the functions below are implemented only for PcpGroups.
+
 
 ###
 # SECTION 1
 ###
 
-#! Please note that the functions below are implemented only for PcpGroups. They are (currently) very inefficient, so use with caution.
-
-#! @Section Intersection of cosets in PcpGroups
+#! @Section Right cosets in PcpGroups
 
 #! @BeginGroup IntersectionCosets
 #! @Description
@@ -522,8 +517,6 @@ DeclareGlobalFunction( "Intersection" );
 #! @Arguments list
 #! @Label for IsList
 DeclareGlobalFunction( "Intersection" );
-#! @Arguments C1, C2
-DeclareOperation( "Intersection2", [ IsRightCoset, IsRightCoset ] );
 #! @EndGroup
 
 #! @BeginExample
@@ -532,24 +525,51 @@ H := Subgroup( G, [ G.1*G.2^-1*G.3^-1*G.4^-1, G.2^-1*G.3*G.4^-2 ] );;
 K := Subgroup( G, [ G.1*G.3^-2*G.4^2, G.1*G.4^4 ] );;
 x := G.1*G.3^-1;;
 y := G.1*G.2^-1*G.3^-2*G.4^-1;;
+z := G.1*G.2*G.3*G.4^2;;
 Hx := RightCoset( H, x );;
 Ky := RightCoset( K, y );;
 Intersection( Hx, Ky );
 #! RightCoset(<group with 2 generators>,<object>)
+Kz := RightCoset( K, z );;
+Intersection( Hx, Kz );
+#! [  ]
 #! @EndExample
 
-#! @Section Membership in double cosets in PcpGroups
+
+###
+# SECTION 2
+###
+
+#! @Section Double cosets in PcpGroups
 
 #! @Description
 #! Given an element <A>g</A> of a PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
 #! @Arguments g, D
 DeclareOperation( "\in", [ IsPcpElement, IsDoubleCoset ] );
 
+#! @Description
+#! Given double cosets <A>C</A> and <A>D</A> of a PcpGroup, this function tests whether <A>C</A> and <A>D</A> are equal.
+#! @Arguments C, D
+DeclareOperation( "=", [ IsDoubleCoset, IsDoubleCoset ] );
+
+#! @Description
+#! Given a PcpGroup <A>G</A> and two subgroups <A>H</A>, <A>K</A>, this function computes a duplicate-free list of all double cosets <A>H</A>$g$<A>K</A> for $g \in G$ if there are finitely many, or it returns <K>fail</K> otherwise.
+#! @Arguments G, H, K
+DeclareGlobalFunction( "DoubleCosets" );
+
 #! @BeginExample
 HxK := DoubleCoset( H, x, K );;
-G.1 in HxK;
-#! false
-G.2 in HxK;
+HyK := DoubleCoset( H, y, K );;
+HzK := DoubleCoset( H, z, K );;
+y in HxK;
 #! true
+z in HxK;
+#! false
+HxK = HyK;
+#! true
+HxK = HzK;
+#! false
+DCS := DoubleCosets( G, H, K );
+#! [ DoubleCoset(<group with 2 generators>,<object>,<group with 2 generators>),
+#!   DoubleCoset(<group with 2 generators>,<object>,<group with 2 generators>) ]
 #! @EndExample
-

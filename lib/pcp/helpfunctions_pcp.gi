@@ -73,15 +73,15 @@ InstallMethod(
 ##      returns "fail" if no such u and v exist
 ##
 AsElementOfProductGroups@ := function( g, U, V )
-    local G, UV, l, r, s, u, v;
+    local G, UxV, l, r, s, u, v;
     
     G := PcpGroupByCollectorNC( Collector( U ) );
-    UV := DirectProduct( U, V );
+    UxV := DirectProduct( U, V );
     
-    l := Projection( UV, 1 ) * InclusionHomomorphism( U, G );
-    r := Projection( UV, 2 ) * InclusionHomomorphism( V, G );
+    l := Projection( UxV, 1 ) * InclusionHomomorphism( U, G );
+    r := Projection( UxV, 2 ) * InclusionHomomorphism( V, G );
     
-    s := RepresentativeTwistedConjugationOp( r, l, g );
+    s := RepresentativeTwistedConjugationOp( l, r, g );
     if s = fail then return fail; fi;
     
     u := ImagesRepresentative( l, s );
@@ -125,4 +125,41 @@ MultipleConjugacySolver@ := function( G, r, s )
         a := a*ai;
     od;
     return a;
+end;
+
+
+###############################################################################
+##
+## SemidirectProductPcpGroups@( N, G, auts )
+##
+##  INPUT:
+##      N:          normal subgroup
+##      G:          acting group
+##      auts:       list of automorphisms of N, corresponding to generators of G
+##
+##  OUTPUT:
+##      S:          the semidirect product N : G
+##
+##  REMARKS:
+##      Only for PcpGroups
+##
+SemidirectProductPcpGroups@ := function( N, G, auts )
+    local S, k, l, inclN, inclG, projG, info;
+    S := SplitExtensionByAutomorphisms( N, G, auts );
+
+    k := Length( Igs( N ) );
+    l := Length( Igs( G ) );
+
+    inclN := GroupHomomorphismByImages( N, S, Igs( N ), Igs( S ){[ l+1..k+l ]} );;
+    inclG := GroupHomomorphismByImages( G, S, Igs( G ), Igs( S ){[ 1..l ]} );;
+    projG := GroupHomomorphismByImages( S, G, Igs( S ),
+        Concatenation( Igs( G ), ListWithIdenticalEntries( k, One( G ) ) )
+    );;
+    info := rec(
+        groups := [ G, N ],
+        embeddings := [ inclG, inclN ],
+        projections := projG
+    );;
+    SetSemidirectProductInfo( S, info );;
+    return S;
 end;
