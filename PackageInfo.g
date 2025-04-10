@@ -33,10 +33,10 @@ SourceRepository := rec(
 SupportEmail := "sam.tertooy@kuleuven.be",
 
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := Concatenation( "https://stertooy.github.io/", ~.PackageName ),
-PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
-README_URL      := Concatenation( ~.PackageWWWHome, "/README.md" ),
-ArchiveURL      := Concatenation(
+PackageWWWHome := Concatenation( "https://stertooy.github.io/", ~.PackageName ),
+PackageInfoURL := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
+README_URL := Concatenation( ~.PackageWWWHome, "/README.md" ),
+ArchiveURL := Concatenation(
     ~.SourceRepository.URL,
     "/releases/download/v", ~.Version,
     "/", ~.PackageName, "-", ~.Version
@@ -53,11 +53,11 @@ AbstractHTML := """
 """,
 
 PackageDoc := rec(
-    BookName  := ~.PackageName,
+    BookName := ~.PackageName,
     ArchiveURLSubset := ["doc"],
     HTMLStart := "doc/chap0_mj.html",
-    PDFFile   := "doc/manual.pdf",
-    SixFile   := "doc/manual.six",
+    PDFFile := "doc/manual.pdf",
+    SixFile := "doc/manual.six",
     LongTitle := ~.Subtitle
 ),
 
