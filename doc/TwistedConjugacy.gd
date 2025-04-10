@@ -18,13 +18,16 @@
 
 #! <P/>
 
-#! The <B>TwistedConjugacy</B> package provides methods to calculate Reidemeister classes, Reidemeister numbers and coincidence groups of pairs of group homomorphisms.
-#! These methods are implemented for finite groups and polycyclically presented groups. If $H$ and $G$ are both infinite polycyclically presented groups, then
-#! some methods in this package are only guaranteed to produce a result if either $G = H$ or $G$ is nilpotent-by-finite.
-#! Otherwise, these methods may potentially throw an error: "<C>Error, no method found!</C>"
+#! The <B>TwistedConjugacy</B> package provides methods to solve the twisted conjugacy (search) problem, calculate Reidemeister classes, numbers, spectra and zeta functions,
+#! as well as construct coincidence groups of group homomorphisms. These methods are, for the most part, designed to be used on (group homomorphisms between) finite and
+#! polycyclic groups, the latter requiring the use of the <B>Polycyclic</B> package.
 
 #! <P/>
 
+#! Moreover, if <B>Polycyclic</B> is loaded, this package also allows calculating intersections of arbitrary subgroups and cosets,
+#! as well as solving the membership problem for double cosets in polycyclic groups.
+
+#! <P/>
 
 #! Bugs in this package, in <B>GAP</B> or any other package used directly or indirectly, may cause functions from this package to produce errors or even wrong results.
 #! You can set the variable <C>ASSERT&#64;TwistedConjugacy</C> to <K>true</K>, which will cause certain functions to verify the correctness of their output.
