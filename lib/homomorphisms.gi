@@ -212,7 +212,7 @@ KernelsOfHomomorphismClasses@ := function( H, KerOrbits, ImgOrbits )
             M := ImgOrbits[j][1];
             iso := IsomorphismGroups( Q, M );
             if iso <> fail then
-                Isos[i][j] := p*iso;
+                Isos[i][j] := p * iso;
                 Add( Pairs, [ i, j ] );
             fi;
         od;
@@ -255,7 +255,7 @@ ImagesOfHomomorphismClasses@ := function( Pairs, ImgOrbits, Reps, G )
         AutM := AutomorphismGroup( M );
         InnGM := SubgroupNC( AutM, List(
             SmallGeneratingSet( NormalizerInParent( M ) ),
-            g ->  ConjugatorAutomorphismNC( M, g )
+            g -> ConjugatorAutomorphismNC( M, g )
         ));
         head := RightTransversal( AutM, InnGM );
         if not IsBound( Reps[j] ) then
@@ -302,9 +302,9 @@ FuseHomomorphismClasses@ := function( Pairs, Heads, Isos, Tails )
         tail := Tails[ pair[2] ];
         iso := Isos[ pair[1] ][ pair[2] ];
         if Length( head ) < Length( tail ) then
-            head := head*iso;
+            head := head * iso;
         else
-            tail := iso*tail;
+            tail := iso * tail;
         fi;
         Append( homs, ListX( head, tail, \* ) );
     od;
@@ -395,8 +395,11 @@ RepresentativesHomomorphismClassesAbelian@ := function( H, G )
         imgsG := [];
         for g in gensG do
             og := Order( g );
-            pows := Filtered( [0..og-1], x -> ((x*oh) mod og) = 0 );
-            Add( imgsG, List( pows, x -> g^x ) );
+            pows := Filtered(
+                [ 0 .. og - 1 ],
+                x -> ( (x * oh ) mod og ) = 0
+            );
+            Add( imgsG, List( pows, x -> g ^ x ) );
         od;
         Add( imgs, List( Cartesian( imgsG ), Product ) );
     od;
@@ -581,9 +584,7 @@ InstallMethod(
     "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian ],
     SUM_FLAGS+2,
-    function( G )
-        return RepresentativesHomomorphismClassesAbelian@( G, G );
-    end
+    G -> RepresentativesHomomorphismClassesAbelian@( G, G )
 );
 
 InstallMethod(
@@ -669,9 +670,7 @@ InstallMethod(
     RepresentativesAutomorphismClassesOp,
     "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian ],
-    function( G )
-        return List( AutomorphismGroup( G ) );
-    end
+    G -> List( AutomorphismGroup( G ) )
 );
 
 InstallMethod(
