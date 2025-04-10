@@ -71,7 +71,7 @@ CoincidenceGroupByFiniteQuotient@ := function( G, H, hom1, hom2, K )
                 tc( One( G ), h )
             );
             if n <> fail then
-                hn := h*n;
+                hn := h * n;
                 AddDictionary( dict, qh, hn );
             fi;
         fi;
@@ -142,10 +142,10 @@ CoincidenceGroupStep5@ := function( G, H, hom1, hom2 )
     hi := SmallGeneratingSet( H );
     n := Length( hi );
     tc := TwistedConjugation( hom1, hom2 );
-    ai := List( [1..n], i -> tc( One( G ), hi[i]^-1 ) );
+    ai := List( [ 1 .. n ], i -> tc( One( G ), hi[ i ] ^ -1 ) );
     C := G;
-    for i in [1..n] do
-        C := Centraliser( C, ai[i] );
+    for i in [ 1 .. n ] do
+        C := Centraliser( C, ai[ i ] );
     od;
     # TODO: Replace this by PreImagesSet (without NC) eventually
     C := NormalIntersection( C, ImagesSource( hom2 ) ); 
@@ -336,7 +336,7 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     3,
     function( hom1, hom2 )
-        local G, H, M, N;
+        local G, H;
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
