@@ -15,7 +15,7 @@ title: TwistedConjugacy
 type: software
 abstract: Computation with twisted conjugacy classes.
 version: 3.0.0
-date-released: 2025-04-30
+date-released: 2025-04-11
 license: GPL-2.0-or-later
 repository-code: https://github.com/stertooy/TwistedConjugacy/
 url: https://stertooy.github.io/TwistedConjugacy/
