@@ -427,7 +427,7 @@ InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for trivial source",
     [ IsGroup and IsTrivial, IsGroup and IsFinite ],
-    4*SUM_FLAGS+5,
+    4 * SUM_FLAGS + 5,
     function( H, G )
         if not IsTrivial( H ) then TryNextMethod(); fi;
         return [ GroupHomomorphismByImagesNC(
@@ -441,7 +441,7 @@ InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for trivial range",
     [ IsGroup and IsFinite, IsGroup and IsTrivial ],
-    3*SUM_FLAGS+4,
+    3 * SUM_FLAGS + 4,
     function( H, G )
         local gens, imgs;
         gens := SmallGeneratingSet( H );
@@ -454,7 +454,7 @@ InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for non-abelian source and abelian range",
     [ IsGroup and IsFinite, IsGroup and IsFinite and IsAbelian ],
-    2*SUM_FLAGS+3,
+    2 * SUM_FLAGS + 3,
     function( H, G )
         local p;
         if IsAbelian( H ) then TryNextMethod(); fi;
@@ -470,7 +470,7 @@ InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for abelian source and abelian range",
     [ IsGroup and IsFinite and IsAbelian, IsGroup and IsFinite and IsAbelian ],
-    SUM_FLAGS+2,
+    SUM_FLAGS + 2,
     RepresentativesHomomorphismClassesAbelian@
 );
 
@@ -478,11 +478,11 @@ InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for cyclic source and non-abelian range",
     [ IsGroup and IsFinite and IsCyclic, IsGroup and IsFinite ],
-    SUM_FLAGS+2,
+    SUM_FLAGS + 2,
     function( H, G )
         local h, o, L;
         if IsAbelian( G ) then TryNextMethod(); fi;
-        h := MinimalGeneratingSet( H )[1];
+        h := MinimalGeneratingSet( H )[ 1 ];
         o := Order( h );
         L := List( ConjugacyClasses( G ), Representative );
         L := Filtered( L, g -> IsInt( o / Order( g ) ) );
