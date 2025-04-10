@@ -14,4 +14,4 @@ jobs:
       - name: Install linter
         run: pip install gaplint
       - name: Run linter
-        run: gaplint *.g gap/* tst/testall.g
+        run: gaplint *.g lib/* tst/testall.g
