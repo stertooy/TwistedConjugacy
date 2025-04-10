@@ -1,0 +1,23 @@
+name: Lint
+on:
+  - workflow_dispatch
+
+jobs:
+  lint:
+    name: ${{ matrix.linter }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        linter:
+          - gaplint
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+      - name: Install linter
+        run: pip install gaplint
+      - name: Run linter
+        run: bash etc/gaplint.sh
+  
