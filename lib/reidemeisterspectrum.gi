@@ -360,7 +360,7 @@ InstallMethod(
         local GxG, l, r, Spec, H, hom1, hom2;
         GxG := DirectProduct( G, G );
         l := Projection( GxG, 1 );
-        r := Projection( GxG, 2 );   
+        r := Projection( GxG, 2 );
         Spec := [];
         for H in List( ConjugacyClassesSubgroups( GxG ), Representative ) do
             hom1 := RestrictedHomomorphism( l, H, G );
