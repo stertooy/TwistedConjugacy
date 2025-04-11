@@ -10,11 +10,7 @@
 ##
 InstallGlobalFunction(
     FixedPointGroup,
-    function( endo )
-        local G;
-        G := Range( endo );
-        return CoincidenceGroup( endo, IdentityMapping( G ) );
-    end
+    endo -> CoincidenceGroup( endo, IdentityMapping( Range( endo ) ) )
 );
 
 
@@ -52,7 +48,7 @@ InstallGlobalFunction(
                 for homi in arg do
                     AddSet( imgs, ImagesRepresentative( homi, h ) );
                 od;
-                if Length( imgs ) > 1 then Error("Assertion failure"); fi;
+                if Length( imgs ) > 1 then Error( "Assertion failure" ); fi;
             od;
         fi;
         return Coin;

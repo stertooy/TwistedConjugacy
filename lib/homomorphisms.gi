@@ -192,14 +192,14 @@ KernelsOfHomomorphismClasses@ := function( H, KerOrbits, ImgOrbits )
     Heads := [];
     Isos := [];
     for i in [ 1 .. Size( KerOrbits ) ] do
-        if not IsBound( KerOrbits[i] ) then
+        if not IsBound( KerOrbits[ i ] ) then
             continue;
         fi;
-        kerOrbit := KerOrbits[i];
-        N := kerOrbit[1];
+        kerOrbit := KerOrbits[ i ];
+        N := kerOrbit[ 1 ];
         possibleImgs := Filtered(
             [ 1 .. Size( ImgOrbits ) ], j ->
-            Size( ImgOrbits[j][1] ) = IndexNC( H, N )
+            Size( ImgOrbits[ j ][ 1 ] ) = IndexNC( H, N )
         );
         if IsEmpty( possibleImgs ) then
             continue;
@@ -209,15 +209,15 @@ KernelsOfHomomorphismClasses@ := function( H, KerOrbits, ImgOrbits )
         Q := ImagesSource( p );
         p := RestrictedHomomorphism( p, H, Q );
         for j in possibleImgs do
-            M := ImgOrbits[j][1];
+            M := ImgOrbits[ j ][ 1 ];
             iso := IsomorphismGroups( Q, M );
             if iso <> fail then
-                Isos[i][j] := p * iso;
+                Isos[ i ][ j ] := p * iso;
                 Add( Pairs, [ i, j ] );
             fi;
         od;
-        if not IsEmpty( SetX( Pairs, x -> x[1] = i, x -> x[1] ) ) then
-            Heads[i] := List(
+        if not IsEmpty( SetX( Pairs, x -> x[ 1 ] = i, x -> x[ 1 ] ) ) then
+            Heads[ i ] := List(
                 kerOrbit,
                 x -> RepresentativeAction( AutH, N, x, asAuto )
             );
@@ -249,16 +249,16 @@ ImagesOfHomomorphismClasses@ := function( Pairs, ImgOrbits, Reps, G )
     asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
     AutG := AutomorphismGroup( G );
     Tails := [];
-    for j in Set( Pairs, x -> x[2] ) do
-        imgOrbit := ImgOrbits[j];
-        M := imgOrbit[1];
+    for j in Set( Pairs, x -> x[ 2 ] ) do
+        imgOrbit := ImgOrbits[ j ];
+        M := imgOrbit[ 1 ];
         AutM := AutomorphismGroup( M );
         InnGM := SubgroupNC( AutM, List(
             SmallGeneratingSet( NormalizerInParent( M ) ),
             g -> ConjugatorAutomorphismNC( M, g )
         ));
         head := RightTransversal( AutM, InnGM );
-        if not IsBound( Reps[j] ) then
+        if not IsBound( Reps[ j ] ) then
             tail := List(
                 imgOrbit,
                 x -> RepresentativeAction( AutG, M, x, asAuto )
@@ -267,8 +267,8 @@ ImagesOfHomomorphismClasses@ := function( Pairs, ImgOrbits, Reps, G )
             tail := Reps[j];
         fi;
         head := List( head, x -> GroupHomomorphismByImagesNC( M, G,
-            MappingGeneratorsImages( x )[1],
-            MappingGeneratorsImages( x )[2]
+            MappingGeneratorsImages( x )[ 1 ],
+            MappingGeneratorsImages( x )[ 2 ]
         ));
         Tails[j] := ListX( head, tail, \* );
     od;
@@ -298,9 +298,9 @@ FuseHomomorphismClasses@ := function( Pairs, Heads, Isos, Tails )
     local homs, pair, head, tail, iso;
     homs := [];
     for pair in Pairs do
-        head := Heads[ pair[1] ];
-        tail := Tails[ pair[2] ];
-        iso := Isos[ pair[1] ][ pair[2] ];
+        head := Heads[ pair[ 1 ] ];
+        tail := Tails[ pair[ 2 ] ];
+        iso := Isos[ pair[ 1 ] ][ pair[ 2 ] ];
         if Length( head ) < Length( tail ) then
             head := head * iso;
         else
@@ -342,9 +342,10 @@ RepresentativesHomomorphismClasses2Generated@ := function( H, G )
             repeat
                 gens := [ Random( H ), Random( H ) ];
                 for k in [ 1, 2 ] do
-                    go := Order( gens[k] );
+                    go := Order( gens[ k ] );
                     if Random( 1, 6 ) = 1 then
-                        gens[k] := gens[k] ^ ( go / Random( Factors( go ) ) );
+                        gens[ k ] := gens[ k ] ^
+                            ( go / Random( Factors( go ) ) );
                     fi;
                 od;
             until IndexNC( H, SubgroupNC( H, gens ) ) = 1;
@@ -397,7 +398,7 @@ RepresentativesHomomorphismClassesAbelian@ := function( H, G )
             og := Order( g );
             pows := Filtered(
                 [ 0 .. og - 1 ],
-                x -> ( (x * oh ) mod og ) = 0
+                x -> ( ( x * oh ) mod og ) = 0
             );
             Add( imgsG, List( pows, x -> g ^ x ) );
         od;
@@ -542,16 +543,16 @@ InstallMethod(
 
         # Step 3: Calculate info on kernels
         KerInfo := KernelsOfHomomorphismClasses@( H, KerOrbits, ImgOrbits );
-        Pairs := KerInfo[1];
-        Heads := KerInfo[2];
-        Isos := KerInfo[3];
+        Pairs := KerInfo[ 1 ];
+        Heads := KerInfo[ 2 ];
+        Isos := KerInfo[ 3 ];
 
         # Step 4: Calculate info on images
         Reps := EmptyPlist( Length( ImgOrbits ) );
         Tails := ImagesOfHomomorphismClasses@( Pairs, ImgOrbits, Reps, G );
 
         # Step 5: Calculate the homomorphisms
-        return FuseHomomorphismClasses@( Pairs, Heads, Isos, Tails );;
+        return FuseHomomorphismClasses@( Pairs, Heads, Isos, Tails );
     end
 );
 
@@ -634,15 +635,15 @@ InstallMethod(
         for i in [ 1 .. Length( SubOrbits ) ] do
             r := SubOrbits[i][1];
             if IsNormalInParent( r ) and not IsTrivial( r ) then
-                KerOrbits[i] := SubOrbits[i];
+                KerOrbits[ i ] := SubOrbits[ i] ;
             fi;
         od;
 
         # Step 3: Calculate info on kernels
         KerInfo := KernelsOfHomomorphismClasses@( G, KerOrbits, SubOrbits );
-        Pairs := KerInfo[1];
-        Reps := KerInfo[2];
-        Isos := KerInfo[3];
+        Pairs := KerInfo[ 1 ];
+        Reps := KerInfo[ 2 ];
+        Isos := KerInfo[ 3 ];
 
         # Step 4: Calculate info on images
         Tails := ImagesOfHomomorphismClasses@( Pairs, SubOrbits, Reps, G );
