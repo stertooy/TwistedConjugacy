@@ -94,11 +94,11 @@ InstallMethod(
         n := Length( hom1L );
         ighom1L := ShallowCopy( hom1L );
         gL := ShallowCopy( g1L );
-        for i in [1..n] do
-            G := Range( hom1L[i] );
-            inn := InnerAutomorphismNC( G, g2L[i] );
-            ighom1L[i] := hom1L[i]*inn;
-            gL[i] := g2L[i]^-1*g1L[i];
+        for i in [ 1 .. n ] do
+            G := Range( hom1L[ i ] );
+            inn := InnerAutomorphismNC( G, g2L[ i ] );
+            ighom1L[ i ] := hom1L[ i ] * inn;
+            gL[ i ] := g2L[ i ] ^ -1 * g1L[ i ];
         od;
         return RepresentativeTwistedConjugationMultOp( ighom1L, hom2L, gL );
     end
@@ -110,19 +110,19 @@ InstallOtherMethod(
     [ IsList, IsList, IsList ],
     function( hom1L, hom2L, gL )
         local hom1, hom2, h, n, i, Coin, tc, g, G, hi;
-        hom1 := hom1L[1];
-        hom2 := hom2L[1];
-        h := RepresentativeTwistedConjugationOp( hom1, hom2, gL[1] );
+        hom1 := hom1L[ 1 ];
+        hom2 := hom2L[ 1 ];
+        h := RepresentativeTwistedConjugationOp( hom1, hom2, gL[ 1 ] );
         if h = fail then
             return fail;
         fi;
         n := Length( hom1L );
-        for i in [2..n] do
+        for i in [ 2 .. n ] do
             Coin := CoincidenceGroup2( hom1, hom2 );
-            hom1 := hom1L[i];
-            hom2 := hom2L[i];
+            hom1 := hom1L[ i ];
+            hom2 := hom2L[ i ];
             tc := TwistedConjugation( hom1, hom2 );
-            g := tc( gL[i], h );
+            g := tc( gL[ i ], h );
             G := Range( hom1 );
             hom1 := RestrictedHomomorphism( hom1, Coin, G );
             hom2 := RestrictedHomomorphism( hom2, Coin, G );
@@ -130,7 +130,7 @@ InstallOtherMethod(
             if hi = fail then
                 return fail;
             fi;
-            h := h*hi;
+            h := h * hi;
         od;
         return h;
     end
