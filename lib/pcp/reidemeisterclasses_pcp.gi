@@ -194,7 +194,7 @@ RepsReidClassesStep3@ := function( G, H, hom1, hom2, A )
 
     S := SemidirectProductPcpGroups@( A, Hab, auts );
     if not IsNilpotentByFinite( S ) then return fail; fi;
-    
+
     imgs2 := List( prei, h -> ImagesRepresentative( hom2, h ) );
     n := Length( igs );
     diff := List( [ 1 .. n ], i -> imgs1[ i ] ^ -1 * imgs2[ i ] );
