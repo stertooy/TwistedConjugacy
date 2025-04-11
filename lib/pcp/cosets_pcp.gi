@@ -113,7 +113,7 @@ InstallMethod(
 
         x := Representative( UxV );
         T := OnPoints( U, x );
-        z := OnLeftInverse( y, x ); 
+        z := OnLeftInverse( y, x );
 
         s := AsElementOfProductGroups@( z, T, V );
         if ASSERT@ then
