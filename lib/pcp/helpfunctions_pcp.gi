@@ -50,7 +50,9 @@ InstallTrueMethod( IsNilpotentByAbelian, IsNilpotentGroup );
 InstallMethod(
     IsNilpotentByAbelian,
     [ IsGroup ],
-    G -> IsNilpotentGroup( DerivedSubgroup( G ) )
+    function( G )
+        return IsNilpotentGroup( DerivedSubgroup( G ) );
+    end
 );
 
 
