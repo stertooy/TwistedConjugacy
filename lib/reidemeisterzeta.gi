@@ -126,12 +126,12 @@ InstallMethod(
             l := Maximum( l, steps );
         od;
         R := List(
-            [ 1.. k + l ],
+            [ 1 .. k + l ],
             n -> ReidemeisterNumberOp( endo1 ^ n, endo2 ^ n )
         );
         R := Concatenation(
-            R{ [1..l] },
-            RemovePeriodsList@( R{ [ 1+l..k+l ] } )
+            R{ [1 .. l] },
+            RemovePeriodsList@( R{ [ 1 + l .. k + l ] } )
         );
         k := Length( R ) - l;
         P := List( [ 1 .. k ], n -> R[ ( n - l - 1 ) mod k + 1 + l ] );
@@ -359,7 +359,7 @@ InstallMethod(
                 if pi = 0 then
                     continue;
                 fi;
-                if i = k/2 then
+                if i = k / 2 then
                     Add( factors, "1+s" );
                 elif i = 0 then
                     Add( factors, "1-s" );
@@ -369,13 +369,13 @@ InstallMethod(
                         PrintString( k ),
                         ")*s"
                     ));
-                elif i = k/2+1 then
+                elif i = k / 2 + 1 then
                     Add( factors, Concatenation(
                         "1+E(",
                         PrintString( k ),
                         ")*s"
                     ));
-                elif k mod 2 = 0 and i > k/2 then
+                elif k mod 2 = 0 and i > k / 2 then
                     Add( factors, Concatenation(
                         "1+E(",
                         PrintString( k ),
