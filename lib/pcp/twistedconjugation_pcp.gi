@@ -155,7 +155,7 @@ RepTwistConjToIdStep5@ := function( G, H, hom1, hom2, a, A )
     tc := TwistedConjugation( hom1, hom2 );
     ai := List( [ 1 .. n ], i -> tc( One( G ), hi[ i ] ) );
     bi := List(
-        [1..n],
+        [ 1 .. n ],
         i -> Comm( a, ImagesRepresentative( hom1, hi[ i ] ) ) * ai[ i ]
     );
     g := MultipleConjugacySolver@( G, bi, ai );
