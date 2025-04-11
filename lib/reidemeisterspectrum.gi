@@ -122,18 +122,18 @@ InstallMethod(
         local ord, pow, inv, m, fac;
         ord := Size( G );
         pow := Log2Int( ord );
-        if ord <> 2^pow then TryNextMethod(); fi;
+        if ord <> 2 ^ pow then TryNextMethod(); fi;
         inv := Collected( AbelianInvariants( G ) );
-        inv := ListX( inv, x -> x[2] = 1, y -> y[1] );
+        inv := ListX( inv, x -> x[ 2 ] = 1, y -> y[ 1 ] );
         m := 0;
         while not IsEmpty( inv ) do
             fac := Remove( inv, 1 );
-            if not IsEmpty( inv ) and fac*2 = inv[1] then
+            if not IsEmpty( inv ) and fac * 2 = inv[ 1 ] then
                 Remove( inv, 1 );
             fi;
-            m := m+1;
+            m := m + 1;
         od;
-        return List( [m..pow], x -> 2^x );
+        return List( [ m .. pow ], x -> 2 ^ x );
     end
 );
 
@@ -169,11 +169,11 @@ InstallMethod(
         kG := Length( conjG );
         # Split up conjugacy classes
         pool := DictionaryBySort( true );
-        for i in [2..kG] do
-            id := [ Size( conjG[i] ), Order( Representative( conjG[i] ) ) ];
+        for i in [ 2 .. kG ] do
+            id := [ Size( conjG[ i ] ), Order( Representative( conjG[ i ] ) ) ];
             look := LookupDictionary( pool, id );
             if look = fail then
-                AddDictionary( pool, id, [i] );
+                AddDictionary( pool, id, [ i ] );
             else
                 Add( look, i );
             fi;
@@ -191,17 +191,17 @@ InstallMethod(
             cur := 0;
             for p in pool do
                 # If small enough, this is more efficient time-wise
-                if Size( conjG[p[1]] ) < 1000 then
-                    Perform( p, i -> AsSSortedList( conjG[i] ) );
+                if Size( conjG[ p[ 1 ] ] ) < 1000 then
+                    Perform( p, i -> AsSSortedList( conjG[ i ] ) );
                 fi;
-                todo := [1..Length(p)];
-                for i in [1..Length(p)-1] do
+                todo := [ 1 .. Length( p ) ];
+                for i in [ 1 .. Length( p ) - 1 ] do
                     g := ImagesRepresentative(
                         aut,
-                        Representative( conjG[p[i]] )
+                        Representative( conjG[ p[ i ] ] )
                     );
                     for j in todo do
-                        if g in conjG[p[j]] then
+                        if g in conjG[ p[ j ] ] then
                             Add( img, j + cur );
                             RemoveSet( todo, j );
                             break;
@@ -209,8 +209,8 @@ InstallMethod(
                     od;
                 od;
                 # Final class is now uniquely determined
-                Add( img, todo[1] + cur );
-                cur := cur + Length(p);
+                Add( img, todo[ 1 ] + cur );
+                cur := cur + Length( p );
             od;
             AddSet( gens, PermList( img ) );
         od;
@@ -292,11 +292,11 @@ InstallMethod(
         Hom_reps := RepresentativesHomomorphismClasses( H, G );
         SpecR := [];
         n := Length( Hom_reps );
-        for i in [1..n] do
-            for j in [i..n] do
+        for i in [ 1 .. n ] do
+            for j in [ i .. n ] do
                 AddSet(
                     SpecR,
-                    ReidemeisterNumberOp( Hom_reps[i], Hom_reps[j] )
+                    ReidemeisterNumberOp( Hom_reps[ i ], Hom_reps[ j ] )
                 );
             od;
         od;
@@ -320,11 +320,11 @@ InstallOtherMethod(
         Hom_reps := RepresentativesEndomorphismClasses( G );
         SpecR := [];
         n := Length( Hom_reps );
-        for i in [1..n] do
-            for j in [i..n] do
+        for i in [ 1 .. n ] do
+            for j in [ i .. n ] do
                 AddSet(
                     SpecR,
-                    ReidemeisterNumberOp( Hom_reps[i], Hom_reps[j] )
+                    ReidemeisterNumberOp( Hom_reps[ i ], Hom_reps[ j ] )
                 );
             od;
         od;
