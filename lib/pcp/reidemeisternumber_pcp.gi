@@ -11,7 +11,7 @@
 ##
 InstallMethod(
     ReidemeisterNumberOp,
-    "for polycyclic-by-finite source and nilpotent-by-finite range",
+    "for nilpotent-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     2,
     function( hom1, hom2 )
@@ -20,7 +20,7 @@ InstallMethod(
         H := Source( hom1 );
         if not (
             IsPcpGroup( H ) and
-            IsPcpGroup( G ) and 
+            IsPcpGroup( G ) and
             IsNilpotentByFinite( G ) and
             HirschLength( H ) < HirschLength( G )
         ) then TryNextMethod(); fi;
