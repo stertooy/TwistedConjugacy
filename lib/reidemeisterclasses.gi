@@ -205,7 +205,7 @@ InstallMethod(
         hom := GroupHomomorphismsOfReidemeisterClass( tcc );
         G := Range( hom[1] );
         inn := InnerAutomorphismNC( G, g );
-        return CoincidenceGroup2( hom[1]*inn, hom[2] );
+        return CoincidenceGroup2( hom[1] * inn, hom[2] );
     end
 );
 
@@ -225,7 +225,7 @@ InstallMethod(
 InstallGlobalFunction(
     ReidemeisterClasses,
     function( hom1, arg... )
-        local G, hom2, Rcl, copy, g, h;
+        local G, hom2, Rcl;
         G := Range( hom1 );
         if Length( arg ) = 0 then
             hom2 := IdentityMapping( G );
@@ -272,14 +272,14 @@ InstallGlobalFunction(
             g := Remove( copy );
             while not IsEmpty( copy ) do
                 if ForAny( copy, h -> IsTwistedConjugate( hom1, hom2, g, h ) )
-                then Error("Assertion failure"); fi;
+                then Error( "Assertion failure" ); fi;
                 g := Remove( copy );
             od;
         fi;
         pos := Position( Rcl, One( G ) );
         if pos = fail then
             pos := First(
-                [1..Length( Rcl )],
+                [ 1 .. Length( Rcl ) ],
                 i -> IsTwistedConjugate( hom1, hom2, Rcl[i] )
             );
         fi;

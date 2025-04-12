@@ -71,7 +71,7 @@ CoincidenceGroupByFiniteQuotient@ := function( G, H, hom1, hom2, K )
                 tc( One( G ), h )
             );
             if n <> fail then
-                hn := h*n;
+                hn := h * n;
                 AddDictionary( dict, qh, hn );
             fi;
         fi;
@@ -142,13 +142,13 @@ CoincidenceGroupStep5@ := function( G, H, hom1, hom2 )
     hi := SmallGeneratingSet( H );
     n := Length( hi );
     tc := TwistedConjugation( hom1, hom2 );
-    ai := List( [1..n], i -> tc( One( G ), hi[i]^-1 ) );
+    ai := List( [ 1 .. n ], i -> tc( One( G ), hi[i] ^ -1 ) );
     C := G;
-    for i in [1..n] do
+    for i in [ 1 .. n ] do
         C := Centraliser( C, ai[i] );
     od;
     # TODO: Replace this by PreImagesSet (without NC) eventually
-    C := NormalIntersection( C, ImagesSource( hom2 ) ); 
+    C := NormalIntersection( C, ImagesSource( hom2 ) );
     return PreImagesSetNC( hom2, C );
 end;
 
@@ -230,9 +230,9 @@ CoincidenceGroupStep3@ := function( G, H, hom1, hom2 )
     ci := SmallGeneratingSet( Coin );
     n := Length( ci );
     tc := TwistedConjugation( hom1, hom2 );
-    bi := List( [1..n], i -> tc( One( G ), ci[i]^-1 ) );
-    di := List( [1..n], i -> PreImagesRepresentativeNC( d, bi[i] ) );
-    gens1 := List( [1..n], i -> di[i]^-1*ci[i] );
+    bi := List( [ 1 .. n ], i -> tc( One( G ), ci[i] ^ -1 ) );
+    di := List( [ 1 .. n ], i -> PreImagesRepresentativeNC( d, bi[i] ) );
+    gens1 := List( [ 1 .. n ], i -> di[i] ^ -1 * ci[i] );
     gens2 := SmallGeneratingSet( Kernel( d ) );
     return Subgroup( H, Concatenation( gens1, gens2 ) );
 end;
@@ -290,7 +290,7 @@ CoincidenceGroupStep1@ := function( G, H, hom1, hom2 )
     A := Center( DerivedSubgroup( G ) );
     p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );
-    Coin:= CoincidenceGroup2(
+    Coin := CoincidenceGroup2(
         InducedHomomorphism( q, p, hom1 ),
         InducedHomomorphism( q, p, hom2 )
     );
@@ -336,7 +336,7 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     3,
     function( hom1, hom2 )
-        local G, H, M, N;
+        local G, H;
         G := Range( hom1 );
         H := Source( hom1 );
         if not (

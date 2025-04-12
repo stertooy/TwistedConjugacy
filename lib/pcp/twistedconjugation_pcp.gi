@@ -77,7 +77,7 @@ RepTwistConjToIdByFiniteQuotient@ := function( G, H, hom1, hom2, g, M )
         m2 := tc( m1, h2 );
         n := RepresentativeTwistedConjugationOp( hom1N, hom2N, m2 );
         if n <> fail then
-            return h1*h2*n;
+            return h1 * h2 * n;
         fi;
     od;
     return fail;
@@ -120,7 +120,7 @@ RepTwistConjToIdByCentre@ := function( G, H, hom1, hom2, g )
     if not c in ImagesSource( d ) then return fail; fi;
     # TODO: Replace by PreImagesRepresentative eventually
     h2 := PreImagesRepresentativeNC( d, c );
-    return h1*h2;
+    return h1 * h2;
 end;
 
 
@@ -153,10 +153,10 @@ RepTwistConjToIdStep5@ := function( G, H, hom1, hom2, a, A )
     hi := SmallGeneratingSet( H );
     n := Length( hi );
     tc := TwistedConjugation( hom1, hom2 );
-    ai := List( [1..n], i -> tc( One( G ), hi[i] ) );
+    ai := List( [ 1 .. n ], i -> tc( One( G ), hi[i] ) );
     bi := List(
-        [1..n],
-        i -> Comm( a, ImagesRepresentative( hom1, hi[i] ) )*ai[i]
+        [ 1 .. n ],
+        i -> Comm( a, ImagesRepresentative( hom1, hi[i] ) ) * ai[i]
     );
     g := MultipleConjugacySolver@( G, bi, ai );
     if g = fail then return fail; fi;
@@ -215,7 +215,7 @@ RepTwistConjToIdStep4@ := function( G, H, hom1, hom2, a, A )
     if not c in ImagesSource( delta ) then return fail; fi;
     # TODO: Replace by PreImagesRepresentative eventually
     h2 := PreImagesRepresentativeNC( delta, c );
-    return h1*h2;
+    return h1 * h2;
 end;
 
 
@@ -242,7 +242,7 @@ end;
 ##        - G = A Im(hom1) = A Im(hom2).
 ##
 RepTwistConjToIdStep3@ := function( G, H, hom1, hom2, a, A )
-    local HH, delta, dHH, p, q, hom1p,hom2p, pa, pA, pG, h1, tc, c, h2;
+    local HH, delta, dHH, p, q, hom1p, hom2p, pa, pA, pG, h1, tc, c, h2;
     if IsNilpotentByFinite( G ) then
         return RepresentativeTwistedConjugationOp( hom1, hom2, a );
     fi;
@@ -261,7 +261,7 @@ RepTwistConjToIdStep3@ := function( G, H, hom1, hom2, a, A )
     tc := TwistedConjugation( hom1, hom2 );
     c := tc( a, h1 );
     h2 := PreImagesRepresentativeNC( delta, c );
-    return h1*h2;
+    return h1 * h2;
 end;
 
 
@@ -286,7 +286,7 @@ end;
 ##        - [A,[G,G]] = 1;
 ##        - h^hom1 = h^hom2 mod A, for all h in H.
 ##
-RepTwistConjToIdStep2@ := function( G, H, hom1, hom2, a, A )
+RepTwistConjToIdStep2@ := function( _, H, hom1, hom2, a, A )
     local K, hom1r, hom2r;
     K := ClosureGroup( ImagesSource( hom1 ), A );
     hom1r := RestrictedHomomorphism( hom1, H, K );
@@ -331,7 +331,7 @@ RepTwistConjToIdStep1@ := function( G, H, hom1, hom2, g )
     hom2r := RestrictedHomomorphism( hom2, Coin, G );
     h2 := RepTwistConjToIdStep2@( G, Coin, hom1r, hom2r, a, A );
     if h2 = fail then return fail; fi;
-    return h1*h2;
+    return h1 * h2;
 end;
 
 
@@ -378,7 +378,7 @@ InstallOtherMethod(
       IsMultiplicativeElementWithInverse ],
     3,
     function( hom1, hom2, g )
-        local G, H, M;
+        local G, H;
         G := Range( hom1 );
         H := Source( hom1 );
         if not (
