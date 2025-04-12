@@ -156,12 +156,12 @@ SemidirectProductPcpGroups@ := function( N, G, auts )
     inclG := GroupHomomorphismByImages( G, S, Igs( G ), Igs( S ){[ 1 .. l ]} );
     projG := GroupHomomorphismByImages( S, G, Igs( S ),
         Concatenation( Igs( G ), ListWithIdenticalEntries( k, One( G ) ) )
-    );;
+    );
     info := rec(
         groups := [ G, N ],
         embeddings := [ inclG, inclN ],
         projections := projG
-    );;
+    );
     SetSemidirectProductInfo( S, info );
     return S;
 end;

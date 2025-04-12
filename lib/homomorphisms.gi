@@ -545,7 +545,7 @@ InstallMethod(
         Tails := ImagesOfHomomorphismClasses@( Pairs, ImgOrbits, Reps, G );
 
         # Step 5: Calculate the homomorphisms
-        return FuseHomomorphismClasses@( Pairs, Heads, Isos, Tails );;
+        return FuseHomomorphismClasses@( Pairs, Heads, Isos, Tails );
     end
 );
 
