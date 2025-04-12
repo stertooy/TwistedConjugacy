@@ -35,7 +35,7 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     CoincidenceGroup,
     function( hom1, hom2, arg... )
-        local G, H, Coin, new, homi, h, imgs;
+        local G, Coin, new, homi, h, imgs;
         G := Range( hom1 );
         Coin := CoincidenceGroup2( hom1, hom2 );
         for homi in arg do
@@ -52,7 +52,7 @@ InstallGlobalFunction(
                 for homi in arg do
                     AddSet( imgs, ImagesRepresentative( homi, h ) );
                 od;
-                if Length( imgs ) > 1 then Error("Assertion failure"); fi;
+                if Length( imgs ) > 1 then Error( "Assertion failure" ); fi;
             od;
         fi;
         return Coin;
@@ -76,7 +76,7 @@ InstallMethod(
     "for trivial range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     7,
-    function( hom1, hom2 )
+    function( hom1, _ )
         local G, H;
         G := Range( hom1 );
         H := Source( hom1 );

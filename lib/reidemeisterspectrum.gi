@@ -122,18 +122,18 @@ InstallMethod(
         local ord, pow, inv, m, fac;
         ord := Size( G );
         pow := Log2Int( ord );
-        if ord <> 2^pow then TryNextMethod(); fi;
+        if ord <> 2 ^ pow then TryNextMethod(); fi;
         inv := Collected( AbelianInvariants( G ) );
         inv := ListX( inv, x -> x[2] = 1, y -> y[1] );
         m := 0;
         while not IsEmpty( inv ) do
             fac := Remove( inv, 1 );
-            if not IsEmpty( inv ) and fac*2 = inv[1] then
+            if not IsEmpty( inv ) and fac * 2 = inv[1] then
                 Remove( inv, 1 );
             fi;
-            m := m+1;
+            m := m + 1;
         od;
-        return List( [m..pow], x -> 2^x );
+        return List( [ m .. pow ], x -> 2 ^ x );
     end
 );
 
@@ -169,7 +169,7 @@ InstallMethod(
         kG := Length( conjG );
         # Split up conjugacy classes
         pool := DictionaryBySort( true );
-        for i in [2..kG] do
+        for i in [ 2 .. kG ] do
             id := [ Size( conjG[i] ), Order( Representative( conjG[i] ) ) ];
             look := LookupDictionary( pool, id );
             if look = fail then
@@ -194,8 +194,8 @@ InstallMethod(
                 if Size( conjG[p[1]] ) < 1000 then
                     Perform( p, i -> AsSSortedList( conjG[i] ) );
                 fi;
-                todo := [1..Length(p)];
-                for i in [1..Length(p)-1] do
+                todo := [ 1 .. Length( p ) ];
+                for i in [ 1 .. Length( p ) - 1 ] do
                     g := ImagesRepresentative(
                         aut,
                         Representative( conjG[p[i]] )
@@ -210,7 +210,7 @@ InstallMethod(
                 od;
                 # Final class is now uniquely determined
                 Add( img, todo[1] + cur );
-                cur := cur + Length(p);
+                cur := cur + Length( p );
             od;
             AddSet( gens, PermList( img ) );
         od;
@@ -292,8 +292,8 @@ InstallMethod(
         Hom_reps := RepresentativesHomomorphismClasses( H, G );
         SpecR := [];
         n := Length( Hom_reps );
-        for i in [1..n] do
-            for j in [i..n] do
+        for i in [ 1 .. n ] do
+            for j in [ i .. n ] do
                 AddSet(
                     SpecR,
                     ReidemeisterNumberOp( Hom_reps[i], Hom_reps[j] )
@@ -320,8 +320,8 @@ InstallOtherMethod(
         Hom_reps := RepresentativesEndomorphismClasses( G );
         SpecR := [];
         n := Length( Hom_reps );
-        for i in [1..n] do
-            for j in [i..n] do
+        for i in [ 1 .. n ] do
+            for j in [ i .. n ] do
                 AddSet(
                     SpecR,
                     ReidemeisterNumberOp( Hom_reps[i], Hom_reps[j] )
@@ -357,13 +357,13 @@ InstallMethod(
     "for finite groups",
     [ IsGroup and IsFinite ],
     function( G )
-        local GxG, l, r, Spec, H, hom1, hom2; 
-        GxG := DirectProduct( G, G );  
+        local GxG, l, r, Spec, H, hom1, hom2;
+        GxG := DirectProduct( G, G );
         l := Projection( GxG, 1 );
-        r := Projection( GxG, 2 );      
-        Spec := [];  
+        r := Projection( GxG, 2 );
+        Spec := [];
         for H in List( ConjugacyClassesSubgroups( GxG ), Representative ) do
-            hom1 := RestrictedHomomorphism( l, H, G ); 
+            hom1 := RestrictedHomomorphism( l, H, G );
             hom2 := RestrictedHomomorphism( r, H, G );
             AddSet( Spec, ReidemeisterNumber( hom1, hom2 ) );
         od;

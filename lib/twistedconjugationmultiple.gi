@@ -94,11 +94,11 @@ InstallMethod(
         n := Length( hom1L );
         ighom1L := ShallowCopy( hom1L );
         gL := ShallowCopy( g1L );
-        for i in [1..n] do
+        for i in [ 1 .. n ] do
             G := Range( hom1L[i] );
             inn := InnerAutomorphismNC( G, g2L[i] );
-            ighom1L[i] := hom1L[i]*inn;
-            gL[i] := g2L[i]^-1*g1L[i];
+            ighom1L[i] := hom1L[i] * inn;
+            gL[i] := g2L[i] ^ -1 * g1L[i];
         od;
         return RepresentativeTwistedConjugationMultOp( ighom1L, hom2L, gL );
     end
@@ -117,7 +117,7 @@ InstallOtherMethod(
             return fail;
         fi;
         n := Length( hom1L );
-        for i in [2..n] do
+        for i in [ 2 .. n ] do
             Coin := CoincidenceGroup2( hom1, hom2 );
             hom1 := hom1L[i];
             hom2 := hom2L[i];
@@ -130,7 +130,7 @@ InstallOtherMethod(
             if hi = fail then
                 return fail;
             fi;
-            h := h*hi;
+            h := h * hi;
         od;
         return h;
     end

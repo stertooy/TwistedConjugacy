@@ -33,7 +33,10 @@ SourceRepository := rec(
 SupportEmail := "sam.tertooy@kuleuven.be",
 
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := Concatenation( "https://stertooy.github.io/", ~.PackageName ),
+PackageWWWHome  := Concatenation(
+    "https://stertooy.github.io/",
+    ~.PackageName
+),
 PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
 README_URL      := Concatenation( ~.PackageWWWHome, "/README.md" ),
 ArchiveURL      := Concatenation(

@@ -16,8 +16,13 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Python
         uses: actions/setup-python@v5
-      - name: Install linter
+      - name: Install gaplint
         run: pip install gaplint
       - name: Run linter
-        run: bash etc/gaplint.sh
-  
+        run: |
+          shopt -s globstar
+          FOLDERS="lib/** **/*.g"
+          gaplint $FOLDERS
+          # Also check for double semicolon
+          blah=$(egrep -ir --include=*.{g,gi,gd} ";;" $FOLDERS)
+          if [[ ! $blah ]]; then exit 0; else exit 1; fi

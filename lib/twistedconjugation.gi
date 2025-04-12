@@ -123,7 +123,9 @@ InstallMethod(
         local G, inn;
         G := Range( hom1 );
         inn := InnerAutomorphismNC( G, g2 );
-        return RepresentativeTwistedConjugationOp( hom1*inn, hom2, g2^-1*g1 );
+        return RepresentativeTwistedConjugationOp(
+            hom1 * inn, hom2, g2 ^ -1 * g1
+        );
     end
 );
 
@@ -167,7 +169,7 @@ InstallOtherMethod(
       IsMultiplicativeElementWithInverse ],
     4,
     function( hom1, hom2, g )
-        local G, H, tc, d, todo, conj, trail, h, i, k, gens, l;
+        local H, tc, d, todo, conj, trail, h, i, k, gens, l;
         H := Source( hom1 );
         if not IsFinite( H ) then TryNextMethod(); fi;
         G := Range( hom1 );
@@ -191,7 +193,7 @@ InstallOtherMethod(
                     while k <> g do
                         i := LookupDictionary( d, k );
                         k := trail[i];
-                        h := conj[i]*h;
+                        h := conj[i] * h;
                     od;
                     return h;
                 elif not KnowsDictionary( d, l ) then

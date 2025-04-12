@@ -198,8 +198,8 @@ KernelsOfHomomorphismClasses@ := function( H, KerOrbits, ImgOrbits )
         kerOrbit := KerOrbits[i];
         N := kerOrbit[1];
         possibleImgs := Filtered(
-            [ 1 .. Size( ImgOrbits ) ], j ->
-            Size( ImgOrbits[j][1] ) = IndexNC( H, N )
+            [ 1 .. Size( ImgOrbits ) ],
+            j -> Size( ImgOrbits[j][1] ) = IndexNC( H, N )
         );
         if IsEmpty( possibleImgs ) then
             continue;
@@ -212,7 +212,7 @@ KernelsOfHomomorphismClasses@ := function( H, KerOrbits, ImgOrbits )
             M := ImgOrbits[j][1];
             iso := IsomorphismGroups( Q, M );
             if iso <> fail then
-                Isos[i][j] := p*iso;
+                Isos[i][j] := p * iso;
                 Add( Pairs, [ i, j ] );
             fi;
         od;
@@ -255,7 +255,7 @@ ImagesOfHomomorphismClasses@ := function( Pairs, ImgOrbits, Reps, G )
         AutM := AutomorphismGroup( M );
         InnGM := SubgroupNC( AutM, List(
             SmallGeneratingSet( NormalizerInParent( M ) ),
-            g ->  ConjugatorAutomorphismNC( M, g )
+            g -> ConjugatorAutomorphismNC( M, g )
         ));
         head := RightTransversal( AutM, InnGM );
         if not IsBound( Reps[j] ) then
@@ -302,9 +302,9 @@ FuseHomomorphismClasses@ := function( Pairs, Heads, Isos, Tails )
         tail := Tails[ pair[2] ];
         iso := Isos[ pair[1] ][ pair[2] ];
         if Length( head ) < Length( tail ) then
-            head := head*iso;
+            head := head * iso;
         else
-            tail := iso*tail;
+            tail := iso * tail;
         fi;
         Append( homs, ListX( head, tail, \* ) );
     od;
@@ -395,8 +395,8 @@ RepresentativesHomomorphismClassesAbelian@ := function( H, G )
         imgsG := [];
         for g in gensG do
             og := Order( g );
-            pows := Filtered( [0..og-1], x -> ((x*oh) mod og) = 0 );
-            Add( imgsG, List( pows, x -> g^x ) );
+            pows := Filtered( [ 0 .. og - 1 ], x -> ( ( x * oh) mod og ) = 0 );
+            Add( imgsG, List( pows, x -> g ^ x ) );
         od;
         Add( imgs, List( Cartesian( imgsG ), Product ) );
     od;
@@ -424,7 +424,7 @@ InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for trivial source",
     [ IsGroup and IsTrivial, IsGroup and IsFinite ],
-    4*SUM_FLAGS+5,
+    4 * SUM_FLAGS + 5,
     function( H, G )
         if not IsTrivial( H ) then TryNextMethod(); fi;
         return [ GroupHomomorphismByImagesNC(
@@ -438,7 +438,7 @@ InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for trivial range",
     [ IsGroup and IsFinite, IsGroup and IsTrivial ],
-    3*SUM_FLAGS+4,
+    3 * SUM_FLAGS + 4,
     function( H, G )
         local gens, imgs;
         gens := SmallGeneratingSet( H );
@@ -451,14 +451,14 @@ InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for non-abelian source and abelian range",
     [ IsGroup and IsFinite, IsGroup and IsFinite and IsAbelian ],
-    2*SUM_FLAGS+3,
+    2 * SUM_FLAGS + 3,
     function( H, G )
         local p;
         if IsAbelian( H ) then TryNextMethod(); fi;
         p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
         return List(
         RepresentativesHomomorphismClasses( ImagesSource( p ), G ),
-            hom -> p*hom
+            hom -> p * hom
         );
     end
 );
@@ -467,7 +467,7 @@ InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for abelian source and abelian range",
     [ IsGroup and IsFinite and IsAbelian, IsGroup and IsFinite and IsAbelian ],
-    SUM_FLAGS+2,
+    SUM_FLAGS + 2,
     RepresentativesHomomorphismClassesAbelian@
 );
 
@@ -475,7 +475,7 @@ InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for cyclic source and non-abelian range",
     [ IsGroup and IsFinite and IsCyclic, IsGroup and IsFinite ],
-    SUM_FLAGS+2,
+    SUM_FLAGS + 2,
     function( H, G )
         local h, o, L;
         if IsAbelian( G ) then TryNextMethod(); fi;
@@ -483,10 +483,7 @@ InstallMethod(
         o := Order( h );
         L := List( ConjugacyClasses( G ), Representative );
         L := Filtered( L, g -> IsInt( o / Order( g ) ) );
-        return List( L, g -> GroupHomomorphismByImagesNC(
-            H, G,
-            [ h ], [ g ]
-        ));
+        return List( L, g -> GroupHomomorphismByImagesNC( H, G, [h], [g] ) );
     end
 );
 
@@ -567,7 +564,7 @@ InstallMethod(
     RepresentativesEndomorphismClassesOp,
     "for trivial groups",
     [ IsGroup and IsTrivial ],
-    2*SUM_FLAGS+3,
+    2 * SUM_FLAGS + 3,
     function( G )
         return [ GroupHomomorphismByImagesNC(
             G, G,
@@ -580,7 +577,7 @@ InstallMethod(
     RepresentativesEndomorphismClassesOp,
     "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian ],
-    SUM_FLAGS+2,
+    SUM_FLAGS + 2,
     function( G )
         return RepresentativesHomomorphismClassesAbelian@( G, G );
     end
@@ -630,7 +627,7 @@ InstallMethod(
         SubOrbits := List( SubOrbits, x -> Filtered( SubReps, y -> y in x ) );
 
         KerOrbits := EmptyPlist( Length( SubOrbits ) );
-        for i in [ 1..Length( SubOrbits ) ] do
+        for i in [ 1 .. Length( SubOrbits ) ] do
             r := SubOrbits[i][1];
             if IsNormalInParent( r ) and not IsTrivial( r ) then
                 KerOrbits[i] := SubOrbits[i];

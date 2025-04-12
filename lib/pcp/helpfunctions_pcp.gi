@@ -74,18 +74,18 @@ InstallMethod(
 ##
 AsElementOfProductGroups@ := function( g, U, V )
     local G, UxV, l, r, s, u, v;
-    
+
     G := PcpGroupByCollectorNC( Collector( U ) );
     UxV := DirectProduct( U, V );
-    
+
     l := Projection( UxV, 1 ) * InclusionHomomorphism( U, G );
     r := Projection( UxV, 2 ) * InclusionHomomorphism( V, G );
-    
+
     s := RepresentativeTwistedConjugationOp( l, r, g );
     if s = fail then return fail; fi;
-    
+
     u := ImagesRepresentative( l, s );
-    v := ImagesRepresentative( r, s )^-1;
+    v := ImagesRepresentative( r, s ) ^ -1;
 
     return [ u, v ];
 end;
@@ -111,18 +111,18 @@ end;
 MultipleConjugacySolver@ := function( G, r, s )
     local a, i, Gi, ai, pcp;
     a := One( G );
-    for i in [1..Length( r )] do
+    for i in [ 1 .. Length( r ) ] do
         if i = 1 then
             Gi := G;
         else
-            Gi := Centraliser( Gi, s[i-1] );
+            Gi := Centraliser( Gi, s[ i - 1 ] );
         fi;
         pcp := PcpsOfEfaSeries( Gi );
-        ai := ConjugacyElementsBySeries( Gi, r[i]^a, s[i], pcp );
+        ai := ConjugacyElementsBySeries( Gi, r[i] ^ a, s[i], pcp );
         if ai = false then
             return fail;
         fi;
-        a := a*ai;
+        a := a * ai;
     od;
     return a;
 end;
@@ -135,7 +135,7 @@ end;
 ##  INPUT:
 ##      N:          normal subgroup
 ##      G:          acting group
-##      auts:       list of automorphisms of N, corresponding to generators of G
+##      auts:       list of automorphisms of N, corresponding to Igs of G
 ##
 ##  OUTPUT:
 ##      S:          the semidirect product N : G
@@ -150,8 +150,10 @@ SemidirectProductPcpGroups@ := function( N, G, auts )
     k := Length( Igs( N ) );
     l := Length( Igs( G ) );
 
-    inclN := GroupHomomorphismByImages( N, S, Igs( N ), Igs( S ){[ l+1..k+l ]} );;
-    inclG := GroupHomomorphismByImages( G, S, Igs( G ), Igs( S ){[ 1..l ]} );;
+    inclN := GroupHomomorphismByImages(
+        N, S, Igs( N ), Igs( S ){[ l + 1 .. k + l ]}
+    );
+    inclG := GroupHomomorphismByImages( G, S, Igs( G ), Igs( S ){[ 1 .. l ]} );
     projG := GroupHomomorphismByImages( S, G, Igs( S ),
         Concatenation( Igs( G ), ListWithIdenticalEntries( k, One( G ) ) )
     );;
@@ -160,6 +162,6 @@ SemidirectProductPcpGroups@ := function( N, G, auts )
         embeddings := [ inclG, inclN ],
         projections := projG
     );;
-    SetSemidirectProductInfo( S, info );;
+    SetSemidirectProductInfo( S, info );
     return S;
 end;
