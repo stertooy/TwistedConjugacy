@@ -90,7 +90,7 @@ InstallGlobalFunction(
             if Length( arg ) < 4 then
                 Add( arg, One( G ) );
             fi;
-            if tc( arg[3], c ) <> arg[4] then Error("Assertion failure"); fi;
+            if tc( arg[3], c ) <> arg[4] then Error( "Assertion failure" ); fi;
         fi;
         return c;
     end

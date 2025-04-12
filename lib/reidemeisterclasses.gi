@@ -272,7 +272,7 @@ InstallGlobalFunction(
             g := Remove( copy );
             while not IsEmpty( copy ) do
                 if ForAny( copy, h -> IsTwistedConjugate( hom1, hom2, g, h ) )
-                then Error("Assertion failure"); fi;
+                then Error( "Assertion failure" ); fi;
                 g := Remove( copy );
             od;
         fi;
