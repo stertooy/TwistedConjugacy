@@ -172,7 +172,6 @@ InstallOtherMethod(
         local H, tc, d, todo, conj, trail, h, i, k, gens, l;
         H := Source( hom1 );
         if not IsFinite( H ) then TryNextMethod(); fi;
-        G := Range( hom1 );
         tc := TwistedConjugation( hom1, hom2 );
         g := Immutable( g );
         d := NewDictionary( g, true );
