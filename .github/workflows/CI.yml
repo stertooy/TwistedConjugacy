@@ -27,6 +27,17 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v4
 
+      - name: "Temp fix"
+        run: |
+          echo "GAP_ROOT = $GAP_ROOT"
+          echo "GAPROOT = $GAPROOT"
+          GAPROOT=$GAP_ROOT
+          echo "GAP_ROOT = $GAP_ROOT"
+          echo "GAPROOT = $GAPROOT"
+          echo "GAPROOT=$GAPROOT" >> "$GITHUB.ENV"
+          echo "GAP_ROOT = $GAP_ROOT"
+          echo "GAPROOT = $GAPROOT"
+
       - name: "Run package tests with minimal packages"
         uses: gap-actions/run-pkg-tests@v3
         with:
