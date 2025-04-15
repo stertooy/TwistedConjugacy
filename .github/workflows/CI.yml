@@ -29,7 +29,8 @@ jobs:
         
       - name: "Setup GAP"
         run: |
-          GAPROOT=$GAP_HOME
+          echo "GAPROOT=$GAP_HOME" >> "$GITHUB_ENV"
+          
 
       - name: "Run package tests with minimal packages"
         uses: gap-actions/run-pkg-tests@v3
