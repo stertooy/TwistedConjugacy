@@ -72,6 +72,10 @@ jobs:
         with:
           args: "--validate"
 
+      - name: "Make executable"
+        run: |
+          sudo ln -s $GAPROOT $HOME/gap
+
       - name: "Build manual"
         uses: gap-actions/build-pkg-docs@v1
         with:
