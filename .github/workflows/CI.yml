@@ -26,6 +26,10 @@ jobs:
 
       - name: "Checkout"
         uses: actions/checkout@v4
+        
+      - name: "Setup GAP"
+        run: |
+          GAPROOT=$GAP_HOME
 
       - name: "Run package tests with minimal packages"
         uses: gap-actions/run-pkg-tests@v3
