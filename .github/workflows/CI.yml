@@ -30,13 +30,13 @@ jobs:
       - name: "Run package tests with minimal packages"
         uses: gap-actions/run-pkg-tests@v3
         with:
-          no-coverage: ${{ matrix.no-coverage }}
+          NO_COVERAGE: ${{ matrix.no-coverage }}
           only-needed: true
 
       - name: "Run package tests with default packages"
         uses: gap-actions/run-pkg-tests@v3
         with:
-          no-coverage: ${{ matrix.no-coverage }}
+          NO_COVERAGE: ${{ matrix.no-coverage }}
             
       - name: "Process coverage"
         uses: gap-actions/process-coverage@v2
