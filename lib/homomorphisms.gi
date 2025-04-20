@@ -508,7 +508,7 @@ InstallMethod(
               ImgOrbits, KerOrbits, Pairs, Heads, Tails, Isos, KerInfo, Reps;
 
         # Step 1: Determine automorphism groups of H and G
-        asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
+        asAuto := { A, aut } -> ImagesSet( aut, A );
         AutH := AutomorphismGroup( H );
         AutG := AutomorphismGroup( G );
         gensAutG := SmallGeneratingSet( AutG );
