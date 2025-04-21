@@ -42,8 +42,13 @@ InstallGlobalFunction(
     RestrictedHomomorphism,
     function( hom, N, M )
         local gens, imgs;
-        gens := SmallGeneratingSet( N );
-        imgs := List( gens, n -> ImagesRepresentative( hom, n ) );
+        if Source( hom ) = N and HasMappingGeneratorsImages( hom ) then
+            gens := MappingGeneratorsImages( hom )[1];
+            imgs := MappingGeneratorsImages( hom )[2];
+        else
+            gens := SmallGeneratingSet( N );
+            imgs := List( gens, n -> ImagesRepresentative( hom, n ) );
+        fi;
         return GroupHomomorphismByImagesNC( N, M, gens, imgs );
     end
 );
@@ -181,13 +186,13 @@ InstallGlobalFunction(
 ##      Heads:      List of lists of automorphisms of H that map
 ##                  KerOrbits[i][1] to KerOrbits[i][k], for all k > 1
 ##      Isos:       Matrix containing a homomorphism from G to ImgOrbits[j][1],
-##                  factoring through G/KerOrbits[i][1], for all [i,j] in Pairs
+##                  factoring through H/KerOrbits[i][1], for all [i,j] in Pairs
 ##
 KernelsOfHomomorphismClasses@ := function( H, KerOrbits, ImgOrbits )
     local AutH, asAuto, Pairs, Heads, Isos, i, N, p, Q, j, M, iso, kerOrbit,
           possibleImgs;
     AutH := AutomorphismGroup( H );
-    asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
+    asAuto := { A, aut } -> ImagesSet( aut, A );
     Pairs := [];
     Heads := [];
     Isos := [];
@@ -246,7 +251,7 @@ end;
 ##
 ImagesOfHomomorphismClasses@ := function( Pairs, ImgOrbits, Reps, G )
     local Tails, AutG, asAuto, j, imgOrbit, M, AutM, InnGM, head, tail;
-    asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
+    asAuto := { A, aut } -> ImagesSet( aut, A );
     AutG := AutomorphismGroup( G );
     Tails := [];
     for j in Set( Pairs, x -> x[2] ) do
@@ -423,10 +428,9 @@ end;
 InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for trivial source",
-    [ IsGroup and IsTrivial, IsGroup and IsFinite ],
+    [ IsGroup and IsTrivial, IsGroup ],
     4 * SUM_FLAGS + 5,
     function( H, G )
-        if not IsTrivial( H ) then TryNextMethod(); fi;
         return [ GroupHomomorphismByImagesNC(
             H, G,
             [ One( H ) ], [ One( G ) ]
@@ -437,7 +441,7 @@ InstallMethod(
 InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for trivial range",
-    [ IsGroup and IsFinite, IsGroup and IsTrivial ],
+    [ IsGroup, IsGroup and IsTrivial ],
     3 * SUM_FLAGS + 4,
     function( H, G )
         local gens, imgs;
@@ -450,14 +454,14 @@ InstallMethod(
 InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for non-abelian source and abelian range",
-    [ IsGroup and IsFinite, IsGroup and IsFinite and IsAbelian ],
+    [ IsGroup, IsGroup and IsAbelian ],
     2 * SUM_FLAGS + 3,
     function( H, G )
         local p;
         if IsAbelian( H ) then TryNextMethod(); fi;
         p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
         return List(
-        RepresentativesHomomorphismClasses( ImagesSource( p ), G ),
+            RepresentativesHomomorphismClasses( ImagesSource( p ), G ),
             hom -> p * hom
         );
     end
@@ -516,10 +520,28 @@ InstallMethod(
 
         # Step 2: Determine all possible kernels and images, i.e.
         # the normal subgroups of H and the subgroups of G
+        
         Conj := ConjugacyClassesSubgroups( G );
+        #Kers := NormalSubgroups( H );
+        #SizesSubs := List( Conj, c -> Size( Representative( c ) ) );
+        #IndicesKers := List( Kers, N -> IndexNC( H, N ) );
+        #Sizes := Intersection2( SizesSubs, IndicesKers );
+        
+        
+        #Conj := Conj{Filtered([1..Length(Conj)], i -> SizesSubs[i] in Sizes )};
+        #Kers := Kers{Filtered([1..Length(Kers)], i -> IndicesKers[i] in Sizes )};
+
+        
         for c in Conj do
             r := Representative( c );
-            SetNormalizerInParent( r, StabilizerOfExternalSet( c ) );
+            if (
+                ActingDomain( c ) = G and
+                HasParent( r ) and
+                Parent( r ) = G and
+                HasStabilizerOfExternalSet( c )
+            ) then
+                SetNormalizerInParent( r, StabilizerOfExternalSet( c ) );
+            fi;
         od;
         ImgReps := List( Conj, Representative );
         ImgOrbits := OrbitsDomain(
