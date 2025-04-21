@@ -250,7 +250,7 @@ end;
 ##                  inner automorphisms of G, for all i where [i,j] in Pairs
 ##
 ImagesOfHomomorphismClasses@ := function( Pairs, ImgOrbits, Reps, G )
-    local Tails, AutG, asAuto, j, imgOrbit, M, AutM, NormGM, InnGM, head, tail;
+    local Tails, AutG, asAuto, j, imgOrbit, M, AutM, InnGM, head, tail;
     asAuto := { A, aut } -> ImagesSet( aut, A );
     AutG := AutomorphismGroup( G );
     Tails := [];
@@ -258,13 +258,8 @@ ImagesOfHomomorphismClasses@ := function( Pairs, ImgOrbits, Reps, G )
         imgOrbit := ImgOrbits[j];
         M := imgOrbit[1];
         AutM := AutomorphismGroup( M );
-        if Parent( M ) = G and HasNormalizerInParent( M ) then
-            NormGM := NormalizerInParent( M );
-        else
-            NormGM := Normalizer( G, M );
-        fi;
         InnGM := SubgroupNC( AutM, List(
-            SmallGeneratingSet( NormGM ),
+            SmallGeneratingSet( Normalizer( G, M ) ),
             g -> ConjugatorAutomorphismNC( M, g )
         ));
         head := RightTransversal( AutM, InnGM );
@@ -527,18 +522,6 @@ InstallMethod(
         # Step 2: Determine all possible kernels and images, i.e.
         # the normal subgroups of H and the subgroups of G
         Conj := ConjugacyClassesSubgroups( G );
-        
-        for c in Conj do
-            r := Representative( c );
-            if (
-                ActingDomain( c ) = G and
-                HasParent( r ) and
-                Parent( r ) = G and
-                HasStabilizerOfExternalSet( c )
-            ) then
-                SetNormalizerInParent( r, StabilizerOfExternalSet( c ) );
-            fi;
-        od;
         ImgReps := List( Conj, Representative );
         ImgOrbits := OrbitsDomain(
             AutG, Flat( List( Conj, List ) ),
@@ -629,12 +612,6 @@ InstallMethod(
         # Step 2: Determine all possible kernels and images, i.e.
         # the (normal) subgroups of G
         Conj := ConjugacyClassesSubgroups( G );
-        for c in Conj do
-            r := Representative( c );
-            norm := StabilizerOfExternalSet( c );
-            SetIsNormalInParent( r, IndexNC( G, norm ) = 1 );
-            SetNormalizerInParent( r, norm );
-        od;
 
         SubReps := List( Conj, Representative );
         SubOrbits := OrbitsDomain(
@@ -647,7 +624,7 @@ InstallMethod(
         KerOrbits := EmptyPlist( Length( SubOrbits ) );
         for i in [ 1 .. Length( SubOrbits ) ] do
             r := SubOrbits[i][1];
-            if IsNormalInParent( r ) and not IsTrivial( r ) then
+            if IsNormal( G, r ) and not IsTrivial( r ) then
                 KerOrbits[i] := SubOrbits[i];
             fi;
         od;
