@@ -509,8 +509,8 @@ InstallMethod(
     [ IsGroup and IsFinite, IsGroup and IsFinite ],
     0,
     function( H, G )
-        local asAuto, AutH, AutG, gensAutG, gensAutH, Conj, c, r, ImgReps,
-              ImgOrbits, KerOrbits, Pairs, Heads, Tails, Isos, KerInfo, Reps;
+        local asAuto, AutH, AutG, gensAutG, gensAutH, Conj, ImgReps, ImgOrbits,
+              KerOrbits, Pairs, Heads, Tails, Isos, KerInfo, Reps;
 
         # Step 1: Determine automorphism groups of H and G
         asAuto := { A, aut } -> ImagesSet( aut, A );
@@ -601,8 +601,8 @@ InstallMethod(
     [ IsGroup and IsFinite ],
     0,
     function( G )
-        local asAuto, AutG, gensAutG, Conj, c, r, norm, SubReps, SubOrbits,
-              Pairs, Reps, i, Tails, Isos, KerInfo, KerOrbits;
+        local asAuto, AutG, gensAutG, Conj, r, SubReps, SubOrbits, Pairs, Reps,
+              i, Tails, Isos, KerInfo, KerOrbits;
 
         # Step 1: Determine automorphism group of G
         asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
