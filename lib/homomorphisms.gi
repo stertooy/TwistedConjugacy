@@ -185,7 +185,7 @@ InstallGlobalFunction(
 ##                  is isomorphic to ImgOrbits[j][1]
 ##      Heads:      List of lists of automorphisms of H that map
 ##                  KerOrbits[i][1] to KerOrbits[i][k], for all k > 1
-##      Isos:       Matrix containing a homomorphism from G to ImgOrbits[j][1],
+##      Isos:       Matrix containing a homomorphism from H to ImgOrbits[j][1],
 ##                  factoring through H/KerOrbits[i][1], for all [i,j] in Pairs
 ##
 KernelsOfHomomorphismClasses@ := function( H, KerOrbits, ImgOrbits )
@@ -250,7 +250,7 @@ end;
 ##                  inner automorphisms of G, for all i where [i,j] in Pairs
 ##
 ImagesOfHomomorphismClasses@ := function( Pairs, ImgOrbits, Reps, G )
-    local Tails, AutG, asAuto, j, imgOrbit, M, AutM, InnGM, head, tail;
+    local Tails, AutG, asAuto, j, imgOrbit, M, AutM, NormGM, InnGM, head, tail;
     asAuto := { A, aut } -> ImagesSet( aut, A );
     AutG := AutomorphismGroup( G );
     Tails := [];
@@ -258,8 +258,13 @@ ImagesOfHomomorphismClasses@ := function( Pairs, ImgOrbits, Reps, G )
         imgOrbit := ImgOrbits[j];
         M := imgOrbit[1];
         AutM := AutomorphismGroup( M );
+        if Parent( M ) = G and HasNormalizerInParent( M ) then
+            NormGM := NormalizerInParent( M );
+        else
+            NormGM := Normalizer( G, M );
+        fi;
         InnGM := SubgroupNC( AutM, List(
-            SmallGeneratingSet( NormalizerInParent( M ) ),
+            SmallGeneratingSet( NormGM ),
             g -> ConjugatorAutomorphismNC( M, g )
         ));
         head := RightTransversal( AutM, InnGM );
@@ -445,8 +450,8 @@ InstallMethod(
     3 * SUM_FLAGS + 4,
     function( H, G )
         local gens, imgs;
-        gens := SmallGeneratingSet( H );
-        imgs := List( gens, h -> One( G ) );
+        gens := GeneratorsOfGroup( H );
+        imgs := ListWithIdenticalEntries( Length( gens ), One( G ) );
         return [ GroupHomomorphismByImagesNC( H, G, gens, imgs ) ];
     end
 );
@@ -460,6 +465,7 @@ InstallMethod(
         local p;
         if IsAbelian( H ) then TryNextMethod(); fi;
         p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
+        p := RestrictedHomomorphism( p, H, ImagesSource( p ) );
         return List(
             RepresentativesHomomorphismClasses( ImagesSource( p ), G ),
             hom -> p * hom
@@ -520,17 +526,7 @@ InstallMethod(
 
         # Step 2: Determine all possible kernels and images, i.e.
         # the normal subgroups of H and the subgroups of G
-        
         Conj := ConjugacyClassesSubgroups( G );
-        #Kers := NormalSubgroups( H );
-        #SizesSubs := List( Conj, c -> Size( Representative( c ) ) );
-        #IndicesKers := List( Kers, N -> IndexNC( H, N ) );
-        #Sizes := Intersection2( SizesSubs, IndicesKers );
-        
-        
-        #Conj := Conj{Filtered([1..Length(Conj)], i -> SizesSubs[i] in Sizes )};
-        #Kers := Kers{Filtered([1..Length(Kers)], i -> IndicesKers[i] in Sizes )};
-
         
         for c in Conj do
             r := Representative( c );
