@@ -9,9 +9,9 @@
 ##  OUTPUT:
 ##      N:          intersection of Ker(hom1) and Ker(hom2)
 ##
-IntersectionKernels@ := function( hom1, hom2 )
-    return NormalIntersection( Kernel( hom1 ), Kernel( hom2 ) );
-end;
+IntersectionKernels@ := { hom1, hom2 } -> NormalIntersection(
+    Kernel( hom1 ), Kernel( hom2 )
+);
 
 
 ###############################################################################
@@ -26,13 +26,11 @@ end;
 ##  OUTPUT:
 ##      N:          intersection of hom1^-1(M) and hom2^-1(M)
 ##
-IntersectionPreImage@ := function( hom1, hom2, M )
-    return NormalIntersection(
-        # TODO: replace by PreImagesSet eventually
-        PreImagesSetNC( hom1, NormalIntersection( M, ImagesSource( hom1 ) ) ),
-        PreImagesSetNC( hom2, NormalIntersection( M, ImagesSource( hom2 ) ) )
-    );
-end;
+IntersectionPreImage@ := { hom1, hom2, M } -> NormalIntersection(
+    # TODO: replace by PreImagesSet eventually
+    PreImagesSetNC( hom1, NormalIntersection( M, ImagesSource( hom1 ) ) ),
+    PreImagesSetNC( hom2, NormalIntersection( M, ImagesSource( hom2 ) ) )
+);
 
 
 ###############################################################################
@@ -50,9 +48,7 @@ InstallTrueMethod( IsNilpotentByAbelian, IsNilpotentGroup );
 InstallMethod(
     IsNilpotentByAbelian,
     [ IsGroup ],
-    function( G )
-        return IsNilpotentGroup( DerivedSubgroup( G ) );
-    end
+    G -> IsNilpotentGroup( DerivedSubgroup( G ) )
 );
 
 
