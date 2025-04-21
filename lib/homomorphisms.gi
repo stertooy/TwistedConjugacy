@@ -42,8 +42,13 @@ InstallGlobalFunction(
     RestrictedHomomorphism,
     function( hom, N, M )
         local gens, imgs;
-        gens := SmallGeneratingSet( N );
-        imgs := List( gens, n -> ImagesRepresentative( hom, n ) );
+        if Source( hom ) = N and HasMappingGeneratorsImages( hom ) then
+            gens := MappingGeneratorsImages( hom )[1];
+            imgs := MappingGeneratorsImages( hom )[2];
+        else
+            gens := SmallGeneratingSet( N );
+            imgs := List( gens, n -> ImagesRepresentative( hom, n ) );
+        fi;
         return GroupHomomorphismByImagesNC( N, M, gens, imgs );
     end
 );
@@ -180,14 +185,14 @@ InstallGlobalFunction(
 ##                  is isomorphic to ImgOrbits[j][1]
 ##      Heads:      List of lists of automorphisms of H that map
 ##                  KerOrbits[i][1] to KerOrbits[i][k], for all k > 1
-##      Isos:       Matrix containing a homomorphism from G to ImgOrbits[j][1],
-##                  factoring through G/KerOrbits[i][1], for all [i,j] in Pairs
+##      Isos:       Matrix containing a homomorphism from H to ImgOrbits[j][1],
+##                  factoring through H/KerOrbits[i][1], for all [i,j] in Pairs
 ##
 KernelsOfHomomorphismClasses@ := function( H, KerOrbits, ImgOrbits )
     local AutH, asAuto, Pairs, Heads, Isos, i, N, p, Q, j, M, iso, kerOrbit,
           possibleImgs;
     AutH := AutomorphismGroup( H );
-    asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
+    asAuto := { A, aut } -> ImagesSet( aut, A );
     Pairs := [];
     Heads := [];
     Isos := [];
@@ -246,7 +251,7 @@ end;
 ##
 ImagesOfHomomorphismClasses@ := function( Pairs, ImgOrbits, Reps, G )
     local Tails, AutG, asAuto, j, imgOrbit, M, AutM, InnGM, head, tail;
-    asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
+    asAuto := { A, aut } -> ImagesSet( aut, A );
     AutG := AutomorphismGroup( G );
     Tails := [];
     for j in Set( Pairs, x -> x[2] ) do
@@ -254,7 +259,7 @@ ImagesOfHomomorphismClasses@ := function( Pairs, ImgOrbits, Reps, G )
         M := imgOrbit[1];
         AutM := AutomorphismGroup( M );
         InnGM := SubgroupNC( AutM, List(
-            SmallGeneratingSet( NormalizerInParent( M ) ),
+            SmallGeneratingSet( Normalizer( G, M ) ),
             g -> ConjugatorAutomorphismNC( M, g )
         ));
         head := RightTransversal( AutM, InnGM );
@@ -423,10 +428,9 @@ end;
 InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for trivial source",
-    [ IsGroup and IsTrivial, IsGroup and IsFinite ],
+    [ IsGroup and IsTrivial, IsGroup ],
     4 * SUM_FLAGS + 5,
     function( H, G )
-        if not IsTrivial( H ) then TryNextMethod(); fi;
         return [ GroupHomomorphismByImagesNC(
             H, G,
             [ One( H ) ], [ One( G ) ]
@@ -437,12 +441,12 @@ InstallMethod(
 InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for trivial range",
-    [ IsGroup and IsFinite, IsGroup and IsTrivial ],
+    [ IsGroup, IsGroup and IsTrivial ],
     3 * SUM_FLAGS + 4,
     function( H, G )
         local gens, imgs;
-        gens := SmallGeneratingSet( H );
-        imgs := List( gens, h -> One( G ) );
+        gens := GeneratorsOfGroup( H );
+        imgs := ListWithIdenticalEntries( Length( gens ), One( G ) );
         return [ GroupHomomorphismByImagesNC( H, G, gens, imgs ) ];
     end
 );
@@ -450,14 +454,15 @@ InstallMethod(
 InstallMethod(
     RepresentativesHomomorphismClassesOp,
     "for non-abelian source and abelian range",
-    [ IsGroup and IsFinite, IsGroup and IsFinite and IsAbelian ],
+    [ IsGroup, IsGroup and IsAbelian ],
     2 * SUM_FLAGS + 3,
     function( H, G )
         local p;
         if IsAbelian( H ) then TryNextMethod(); fi;
         p := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
+        p := RestrictedHomomorphism( p, H, ImagesSource( p ) );
         return List(
-        RepresentativesHomomorphismClasses( ImagesSource( p ), G ),
+            RepresentativesHomomorphismClasses( ImagesSource( p ), G ),
             hom -> p * hom
         );
     end
@@ -504,11 +509,11 @@ InstallMethod(
     [ IsGroup and IsFinite, IsGroup and IsFinite ],
     0,
     function( H, G )
-        local asAuto, AutH, AutG, gensAutG, gensAutH, Conj, c, r, ImgReps,
-              ImgOrbits, KerOrbits, Pairs, Heads, Tails, Isos, KerInfo, Reps;
+        local asAuto, AutH, AutG, gensAutG, gensAutH, Conj, ImgReps, ImgOrbits,
+              KerOrbits, Pairs, Heads, Tails, Isos, KerInfo, Reps;
 
         # Step 1: Determine automorphism groups of H and G
-        asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
+        asAuto := { A, aut } -> ImagesSet( aut, A );
         AutH := AutomorphismGroup( H );
         AutG := AutomorphismGroup( G );
         gensAutG := SmallGeneratingSet( AutG );
@@ -517,10 +522,6 @@ InstallMethod(
         # Step 2: Determine all possible kernels and images, i.e.
         # the normal subgroups of H and the subgroups of G
         Conj := ConjugacyClassesSubgroups( G );
-        for c in Conj do
-            r := Representative( c );
-            SetNormalizerInParent( r, StabilizerOfExternalSet( c ) );
-        od;
         ImgReps := List( Conj, Representative );
         ImgOrbits := OrbitsDomain(
             AutG, Flat( List( Conj, List ) ),
@@ -600,8 +601,8 @@ InstallMethod(
     [ IsGroup and IsFinite ],
     0,
     function( G )
-        local asAuto, AutG, gensAutG, Conj, c, r, norm, SubReps, SubOrbits,
-              Pairs, Reps, i, Tails, Isos, KerInfo, KerOrbits;
+        local asAuto, AutG, gensAutG, Conj, r, SubReps, SubOrbits, Pairs, Reps,
+              i, Tails, Isos, KerInfo, KerOrbits;
 
         # Step 1: Determine automorphism group of G
         asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
@@ -611,12 +612,6 @@ InstallMethod(
         # Step 2: Determine all possible kernels and images, i.e.
         # the (normal) subgroups of G
         Conj := ConjugacyClassesSubgroups( G );
-        for c in Conj do
-            r := Representative( c );
-            norm := StabilizerOfExternalSet( c );
-            SetIsNormalInParent( r, IndexNC( G, norm ) = 1 );
-            SetNormalizerInParent( r, norm );
-        od;
 
         SubReps := List( Conj, Representative );
         SubOrbits := OrbitsDomain(
@@ -629,7 +624,7 @@ InstallMethod(
         KerOrbits := EmptyPlist( Length( SubOrbits ) );
         for i in [ 1 .. Length( SubOrbits ) ] do
             r := SubOrbits[i][1];
-            if IsNormalInParent( r ) and not IsTrivial( r ) then
+            if IsNormal( G, r ) and not IsTrivial( r ) then
                 KerOrbits[i] := SubOrbits[i];
             fi;
         od;

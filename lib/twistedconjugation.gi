@@ -14,13 +14,11 @@ InstallGlobalFunction(
     function( hom1, arg... )
         local hom2;
         if Length( arg ) = 0 then
-            return function( g, h )
-                return OnLeftInverse( g, ImagesRepresentative( hom1, h ) ) * h;
-            end;
+            return { g, h } -> ImagesRepresentative( hom1, h ) ^ -1 * g * h;
         else
             hom2 := arg[1];
             return function( g, h )
-                return OnLeftInverse( g, ImagesRepresentative( hom1, h ) ) *
+                return ImagesRepresentative( hom1, h ) ^ -1 * g *
                     ImagesRepresentative( hom2, h );
             end;
         fi;
@@ -137,8 +135,8 @@ InstallOtherMethod(
     7,
     function( hom1, hom2, g )
         local H;
-        H := Source( hom1 );
         if not IsOne( g ) then TryNextMethod(); fi;
+        H := Source( hom1 );
         return One( H );
     end
 );
