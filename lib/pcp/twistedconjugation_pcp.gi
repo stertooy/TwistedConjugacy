@@ -286,7 +286,7 @@ end;
 ##        - [A,[G,G]] = 1;
 ##        - h^hom1 = h^hom2 mod A, for all h in H.
 ##
-RepTwistConjToIdStep2@ := function( _, H, hom1, hom2, a, A )
+RepTwistConjToIdStep2@ := function( G, H, hom1, hom2, a, A )
     local K, hom1r, hom2r;
     K := ClosureGroup( ImagesSource( hom1 ), A );
     hom1r := RestrictedHomomorphism( hom1, H, K );

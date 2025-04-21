@@ -579,9 +579,7 @@ InstallMethod(
     "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian ],
     SUM_FLAGS + 2,
-    function( G )
-        return RepresentativesHomomorphismClassesAbelian@( G, G );
-    end
+    G -> RepresentativesHomomorphismClassesAbelian@( G, G )
 );
 
 InstallMethod(
@@ -661,9 +659,7 @@ InstallMethod(
     RepresentativesAutomorphismClassesOp,
     "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian ],
-    function( G )
-        return List( AutomorphismGroup( G ) );
-    end
+    G -> List( AutomorphismGroup( G ) )
 );
 
 InstallMethod(

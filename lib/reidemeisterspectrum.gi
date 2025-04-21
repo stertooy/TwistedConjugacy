@@ -239,9 +239,7 @@ InstallMethod(
     ExtendedReidemeisterSpectrumOp,
     "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian ],
-    function( G )
-        return DivisorsInt( Size( G ) );
-    end
+    G -> DivisorsInt( Size( G ) )
 );
 
 InstallMethod(
@@ -347,9 +345,7 @@ InstallMethod(
     TotalReidemeisterSpectrumOp,
     "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian ],
-    function( G )
-        return DivisorsInt( Size( G ) );
-    end
+    G -> DivisorsInt( Size( G ) )
 );
 
 InstallMethod(
