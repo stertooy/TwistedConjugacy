@@ -57,7 +57,7 @@ InstallMethod(
     GroupDerivationInfo,
     [ IsGroupDerivationByImages ],
     function( derv )
-        local H, G, act, S, embH, embG, gens, imgs, embsH, embsG, rhs, info;
+        local H, G, act, S, embH, embG, gens, imgs, embsH, embsG, rhs;
 
         H := Source( derv );
         G := Range( derv );
@@ -85,7 +85,7 @@ InstallMethod(
     GroupDerivationInfo,
     [ IsGroupDerivationByFunction ],
     function( derv )
-        local H, G, act, S, embH, embG, fnc, rhs, info;
+        local H, G, act, S, embH, embG, fnc, rhs;
 
         H := Source( derv );
         G := Range( derv );
