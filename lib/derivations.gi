@@ -97,10 +97,11 @@ InstallMethod(
 
         fnc := derv!.fnc;
 
-        rhs := function( h )
-            return ImagesRepresentative( embH, h ) *
-                ImagesRepresentative( embG, ImagesRepresentative( fnc, h ) );
-        end;
+        rhs := GroupHomomorphismByFunction(
+            H, S,
+            h -> ImagesRepresentative( embH, h ) *
+                ImagesRepresentative( embG, ImagesRepresentative( fnc, h ) )
+        );
         return rec( lhs := embH, rhs := rhs, sdp := S );
     end
 );
