@@ -185,16 +185,18 @@ end;
 ##        - [H,H] is a subgroup of Coin(hom1,hom2);
 ##
 RepsReidClassesStep3@ := function( _, H, hom1, hom2, A )
-    local q, Hab, igs, prei, imgs1, imgs2, n, auts, diff, S, iHab, iA,
-          embsHab, embsA, l, r, N, Rcl;
+    local q, Hab, igs, prei, imgs1, auts, Aut, alpha, S, imgs2, n, diff, iHab,
+          iA, embsHab, embsA, l, r, N, Rcl;
     q := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
     Hab := ImagesSource( q );
     igs := Igs( Hab );
     prei := List( igs, qh -> PreImagesRepresentativeNC( q, qh ) );
     imgs1 := List( prei, h -> ImagesRepresentative( hom1, h ) );
     auts := List( imgs1, h -> ConjugatorAutomorphismNC( A, h ) );
-
-    S := SemidirectProductPcpGroups@( A, Hab, auts );
+    Aut := Group( auts );
+    
+    alpha := GroupHomomorphismByImagesNC( Hab, Aut, igs, auts );
+    S := SemidirectProduct( Hab, alpha, A );
     if not IsNilpotentByFinite( S ) then return fail; fi;
 
     imgs2 := List( prei, h -> ImagesRepresentative( hom2, h ) );
