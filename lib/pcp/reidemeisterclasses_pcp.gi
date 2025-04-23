@@ -194,7 +194,7 @@ RepsReidClassesStep3@ := function( _, H, hom1, hom2, A )
     imgs1 := List( prei, h -> ImagesRepresentative( hom1, h ) );
     auts := List( imgs1, h -> ConjugatorAutomorphismNC( A, h ) );
     Aut := Group( auts );
-    
+
     alpha := GroupHomomorphismByImagesNC( Hab, Aut, igs, auts );
     S := SemidirectProduct( Hab, alpha, A );
     if not IsNilpotentByFinite( S ) then return fail; fi;

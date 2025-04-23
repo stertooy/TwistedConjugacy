@@ -148,15 +148,17 @@ InstallMethod(
 
         S := SplitExtensionByAutomorphisms( N, G, auts );
 
-        f := [ 1, Length( Igs( G ) )+1, Length( Igs( S ) )+1 ];
-        info := rec(groups := groups,
-                    first  := f,
-                    embeddings := [ ],
-                    projections := false);
+        f := [ 1, Length( Igs( G ) ) + 1, Length( Igs( S ) ) + 1 ];
+        info := rec(
+            groups := groups,
+            first := f,
+            embeddings := [],
+            projections := false
+        );
         SetSemidirectProductInfo( S, info );
 
         if ForAny( groups, H -> HasIsFinite( H ) and not IsFinite( H ) ) then
-            SetSize( S ,infinity );
+            SetSize( S, infinity );
         elif ForAll( groups, HasSize ) then
             SetSize( S, Product( List( groups, Size ) ) );
         fi;
@@ -206,7 +208,7 @@ InstallMethod(
 ##      S:          semidirect product N : G
 ##
 ##  OUTPUT:
-##      hom:        projection from S to G 
+##      hom:        projection from S to G
 ##
 InstallOtherMethod(
     Projection,
