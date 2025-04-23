@@ -2,13 +2,7 @@ InstallTrueMethod( IsMapping, IsGroupDerivation );
 InstallTrueMethod( RespectsOne, IsGroupDerivation );
 
 InstallTrueMethod( IsGroupDerivation, IsGroupDerivationByImages );
-#InstallTrueMethod( HasSource, IsGroupDerivationByImages );
-#InstallTrueMethod( HasRange, IsGroupDerivationByImages );
-#InstallTrueMethod( HasMappingGeneratorsImages, IsGroupDerivationByImages );
-
 InstallTrueMethod( IsGroupDerivation, IsGroupDerivationByFunction );
-#InstallTrueMethod( HasSource, IsGroupDerivationByFunction );
-#InstallTrueMethod( HasRange, IsGroupDerivationByFunction );
 
 InstallGlobalFunction(
     GroupDerivationByImages,
@@ -22,7 +16,8 @@ InstallGlobalFunction(
                 ElementsFamily( FamilyObj( H ) ),
                 ElementsFamily( FamilyObj( G ) )
             ),
-            IsGroupDerivationByImages and HasSource and HasRange and HasMappingGeneratorsImages
+            IsGroupDerivationByImages and HasSource and HasRange and
+                HasMappingGeneratorsImages
         );
         ObjectifyWithAttributes(
             derv, type,
@@ -82,13 +77,7 @@ InstallMethod(
             H, S,
             gens, List( [ 1 .. Length( gens ) ], i -> embsH[i] * embsG[i] )
         );
-
-        info := rec(
-            lhs := embH,
-            rhs := rhs,
-            sdp := S
-        );
-        return info;
+        return rec( lhs := embH, rhs := rhs, sdp := S );
     end
 );
 
@@ -109,15 +98,9 @@ InstallMethod(
         fnc := derv!.fnc;
 
         rhs := function( h )
-            return ImagesRepresentative( embH, h ) * 
+            return ImagesRepresentative( embH, h ) *
                 ImagesRepresentative( embG, ImagesRepresentative( fnc, h ) );
         end;
-
-        info := rec(
-            lhs := embH,
-            rhs := rhs,
-            sdp := S
-        );
-        return info;
+        return rec( lhs := embH, rhs := rhs, sdp := S );
     end
 );
