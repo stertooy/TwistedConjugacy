@@ -21,8 +21,7 @@ DeclareGlobalFunction( "ReidemeisterClass" );
 DeclareSynonym( "TwistedConjugacyClass", ReidemeisterClass );
 DeclareRepresentation(
     "IsReidemeisterClassGroupRep",
-    IsExternalOrbit,
-    []
+    IsExternalOrbit
 );
 DeclareAttribute(
     "GroupHomomorphismsOfReidemeisterClass",
@@ -129,3 +128,15 @@ DeclareGlobalFunction( "InclusionHomomorphism" );
 
 
 DeclareProperty( "IsNilpotentByAbelian", IsGroup );
+DeclareCategory( "IsGroupDerivation", IsSPGeneralMapping );
+DeclareAttribute( "GroupDerivationInfo", IsGroupDerivation );
+DeclareRepresentation(
+    "IsGroupDerivationByImages",
+    IsAttributeStoringRep
+);
+DeclareRepresentation(
+    "IsGroupDerivationByFunction",
+    IsAttributeStoringRep
+);
+DeclareGlobalFunction( "GroupDerivationByImages" );
+DeclareGlobalFunction( "GroupDerivationByFunction" );
