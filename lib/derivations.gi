@@ -73,7 +73,7 @@ InstallMethod(
         embsH := List( gens, h -> ImagesRepresentative( embH, h ) );
         embsG := List( imgs, g -> ImagesRepresentative( embG, g ) );
 
-        rhs := GroupHomomorphismByImagesNC(
+        rhs := GroupHomomorphismByImages(
             H, S,
             gens, List( [ 1 .. Length( gens ) ], i -> embsH[i] * embsG[i] )
         );
@@ -85,7 +85,7 @@ InstallMethod(
     GroupDerivationInfo,
     [ IsGroupDerivationByFunction ],
     function( derv )
-        local H, G, act, S, embH, embG, fnc, rhs;
+        local H, G, act, S, embH, embG, rhs;
 
         H := Source( derv );
         G := Range( derv );
@@ -95,13 +95,43 @@ InstallMethod(
         embH := Embedding( S, 1 );
         embG := Embedding( S, 2 );
 
-        fnc := derv!.fnc;
-
         rhs := GroupHomomorphismByFunction(
             H, S,
             h -> ImagesRepresentative( embH, h ) *
-                ImagesRepresentative( embG, ImagesRepresentative( fnc, h ) )
+                ImagesRepresentative( embG, derv!.fnc( h ) )
         );
         return rec( lhs := embH, rhs := rhs, sdp := S );
+    end
+);
+
+InstallMethod(
+    ImagesRepresentative,
+    [ IsGroupDerivationByFunction, IsMultiplicativeElementWithInverse ],
+    { derv, h } -> derv!.fnc( h )
+);
+
+InstallMethod(
+    ImagesRepresentative,
+    [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
+    function( derv, h )
+        local info, img;
+        info := GroupDerivationInfo( derv );
+        img := ImagesRepresentative( info!.lhs, h ) ^ - 1 *
+            ImagesRepresentative( info!.rhs, h );
+        return PreImagesRepresentative( Embedding( info!.sdp, 2 ), img );
+    end
+);
+
+InstallMethod(
+    PreImagesRepresentative,
+    [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
+    function( derv, g )
+        local info, S, embG, s, tcr;
+        info := GroupDerivationInfo( derv );
+        S := info!.sdp;
+        embG := Embedding( S, 2 );
+        s := ImagesRepresentative( embG, g );
+        tcr := RepresentativeTwistedConjugation( info!.lhs, info!.rhs, s );
+        return tcr ^ -1;
     end
 );
