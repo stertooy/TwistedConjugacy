@@ -116,10 +116,16 @@ InstallMethod(
     function( derv, h )
         local info, img;
         info := GroupDerivationInfo( derv );
-        img := ImagesRepresentative( info!.lhs, h ) ^ - 1 *
+        img := ImagesRepresentative( info!.lhs, h ) ^ -1 *
             ImagesRepresentative( info!.rhs, h );
         return PreImagesRepresentative( Embedding( info!.sdp, 2 ), img );
     end
+);
+
+InstallMethod(
+    ImagesElm,
+    [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
+    { derv, h } -> [ ImagesRepresentative( derv, h ) ]
 );
 
 InstallMethod(
@@ -132,6 +138,193 @@ InstallMethod(
         embG := Embedding( S, 2 );
         s := ImagesRepresentative( embG, g );
         tcr := RepresentativeTwistedConjugation( info!.lhs, info!.rhs, s );
+        if tcr = fail then return fail; fi;
         return tcr ^ -1;
+    end
+);
+
+InstallMethod(
+    PreImagesElm,
+    [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
+    function( derv, g )
+        local prei;
+        prei := PreImagesRepresentative( derv, g );
+        if prei = fail then return []; fi;
+        return RightCoset( KernelOfGroupDerivation( derv ), prei );
+    end
+);
+
+InstallMethod(
+    ImagesSource,
+    [ IsGroupDerivation ],
+    derv -> GroupDerivationImage( derv )
+);
+
+InstallMethod(
+    ImagesSet,
+    [ IsGroupDerivation, IsGroup ],
+    { derv, K } -> GroupDerivationImage( derv, K )
+);
+
+InstallGlobalFunction(
+    GroupDerivationImage,
+    function( derv, arg... )
+        local G, info, S, lhs, rhs, emb, K, tcc, img;
+        G := Range( derv );
+        info := GroupDerivationInfo( derv );
+        S := info!.sdp;
+        lhs := info!.lhs;
+        rhs := info!.rhs;
+        emb := Embedding( S, 2 );
+        if Length( arg ) > 0 then
+            K := arg[1];
+            lhs := RestrictedHomomorphism( lhs, K, S );
+            rhs := RestrictedHomomorphism( rhs, K, S );
+        fi;
+        tcc := ReidemeisterClass( lhs, rhs, One( S ) );
+        img := rec(
+            tcc := tcc,
+            emb := emb
+        );
+        ObjectifyWithAttributes(
+            img, NewType(
+                FamilyObj( G ),
+                IsGroupDerivationImageRep
+            ),
+            Representative, One( G )
+        );
+        return img;
+    end
+);
+
+InstallMethod(
+    ViewObj,
+    [ IsGroupDerivationImageRep ],
+    function( img )
+        Print("Derivation image in ", Source( img!.emb ) );
+    end
+);
+
+InstallMethod(
+    PrintObj,
+    [ IsGroupDerivationImageRep ],
+    function( img )
+        Print("Derivation image in ", Source( img!.emb ) );
+    end
+);
+
+InstallMethod(
+    \in,
+    [ IsMultiplicativeElementWithInverse, IsGroupDerivationImageRep ],
+    function( g, img )
+        local s;
+        s := ImagesRepresentative( img!.emb, g );
+        return s in img!.tcc;
+    end
+);
+
+
+###############################################################################
+##
+## Random( rs, tcc )
+##
+##  INPUT:
+##      rs:         random generator
+##      img:        group derivation image
+##
+##  OUTPUT:
+##      g:          random element of tcc
+##
+InstallMethodWithRandomSource(
+    Random,
+    "for a random source and a group derivation image",
+    [ IsRandomSource, IsGroupDerivationImageRep ],
+    function( rs, img )
+        local s;
+        s := Random( rs, img!.tcc );
+        return PreImagesRepresentative( img!.emb, s );
+    end
+);
+
+
+###############################################################################
+##
+## Size( tcc )
+##
+##  INPUT:
+##      tcc:        twisted conjugacy class
+##
+##  OUTPUT:
+##      n:          number of elements in tcc (or infinity)
+##
+InstallMethod(
+    Size,
+    "for Reidemeister classes",
+    [ IsGroupDerivationImageRep ],
+    img -> Size( img!.tcc )
+);
+
+
+###############################################################################
+##
+## ListOp( tcc )
+##
+##  INPUT:
+##      tcc:        twisted conjugacy class
+##
+##  OUTPUT:
+##      L:          list containing the elements of tcc, or fail if tcc has
+##                  infinitely many elements
+##
+InstallMethod(
+    ListOp,
+    "for Reidemeister classes",
+    [ IsGroupDerivationImageRep ],
+    function( img )
+        local tcc;
+        tcc := img!.tcc;
+        if Size( tcc ) = infinity then return fail; fi;
+        return List( tcc, s -> PreImagesRepresentative( img!.emb, s ) );
+    end
+);
+
+
+InstallMethod(
+    KernelOfGroupDerivation,
+    [ IsGroupDerivation ],
+    function( derv )
+        local info;
+        info := GroupDerivationInfo( derv );
+        return CoincidenceGroup2( info!.lhs, info!.rhs );
+    end
+);
+
+InstallMethod(
+    Kernel,
+    [ IsGroupDerivation ],
+    KernelOfGroupDerivation
+);
+
+InstallMethod(
+    IsInjective,
+    "for Reidemeister classes",
+    [ IsGroupDerivation ],
+    derv -> IsTrivial( KernelOfGroupDerivation( derv ) )
+);
+
+InstallMethod(
+    IsSurjective,
+    "for Reidemeister classes",
+    [ IsGroupDerivation ],
+    function( derv )
+        local info, S, emb, sub, lhs, rhs, R;
+        info := GroupDerivationInfo( derv );
+        S := info!.sdp;
+        emb := Embedding( S, 2 );
+        sub := ImagesSource( emb );
+        lhs := info!.lhs;
+        rhs := info!.rhs;
+        R := RepresentativesReidemeisterClassesOp( lhs, rhs, sub );
+        return R <> fail and Length( R ) = 1;
     end
 );
