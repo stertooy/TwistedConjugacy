@@ -1,133 +1,328 @@
-InstallTrueMethod( IsMapping, IsGroupDerivation );
-InstallTrueMethod( RespectsOne, IsGroupDerivation );
-
-InstallTrueMethod( IsGroupDerivation, IsGroupDerivationByImages );
-InstallTrueMethod( IsGroupDerivation, IsGroupDerivationByFunction );
-
-InstallGlobalFunction(
-    GroupDerivationByImages,
-    function( H, G, gens, imgs, act )
-        local derv, type;
-        derv := rec(
-            act := act,
+###############################################################################
+##
+## CreateGroupDerivation@( H, G, gens, imgs, act )
+##
+##  INPUT:
+##      H:          group
+##      G:          group
+##      fun:        info on the underlying map H -> G
+##      act:        group homomorphism H -> Aut(G)
+##
+##  OUTPUT:
+##      derv:       group derivation
+##
+CreateGroupDerivation@ := function( H, G, fun, act )
+    local derv, obj_args, filt;
+    derv := rec(
+        act := act,
+    );
+    obj_args := [ derv, , Source, H, Range, G ];
+    filt := HasSource and HasRange;
+    if IsFunction( fun ) then
+        filt := IsGroupDerivationByFunction and filt;
+        derv!.fun := fun;
+    else
+        filt := IsGroupDerivationByImages and filt;
+        obj_args := Concatenation(
+            obj_args, [ MappingGeneratorsImages, fun ]
         );
-        type := NewType(
-            GeneralMappingsFamily(
-                ElementsFamily( FamilyObj( H ) ),
-                ElementsFamily( FamilyObj( G ) )
-            ),
-            IsGroupDerivationByImages and HasSource and HasRange and
-                HasMappingGeneratorsImages
-        );
-        ObjectifyWithAttributes(
-            derv, type,
-            Source, H,
-            Range, G,
-            MappingGeneratorsImages, [ gens, imgs ]
-        );
-        return derv;
-    end
-);
+    fi;
+    obj_args[2] := NewType( GeneralMappingsFamily(
+        ElementsFamily( FamilyObj( H ) ),
+        ElementsFamily( FamilyObj( G ) )
+    ), filt );
+    CallFuncList( ObjectifyWithAttributes, obj_args );
+    return derv;
+end;
 
-InstallGlobalFunction(
-    GroupDerivationByFunction,
-    function( H, G, fnc, act )
-        local derv, type;
-        derv := rec(
-            act := act,
-            fnc := fnc
-        );
-        type := NewType(
-            GeneralMappingsFamily(
-                ElementsFamily( FamilyObj( H ) ),
-                ElementsFamily( FamilyObj( G ) )
-            ),
-            IsGroupDerivationByFunction and HasSource and HasRange
-        );
-        ObjectifyWithAttributes(
-            derv, type,
-            Source, H,
-            Range, G
-        );
-        return derv;
-    end
-);
 
-InstallMethod(
-    GroupDerivationInfo,
-    [ IsGroupDerivationByImages ],
-    function( derv )
-        local H, G, act, S, embH, embG, gens, imgs, embsH, embsG, rhs;
+###############################################################################
+##
+## CreateGroupDerivationInfo@( derv, check )
+##
+##  INPUT:
+##      derv:       group derivation
+##      check:      boolean
+##
+##  OUTPUT:
+##      info:       record containing useful information
+##
+CreateGroupDerivationInfo@ := function( derv, check )
+    local H, G, act, S, embH, embG, gens, imgs, embsH, embsG, rhs;
 
-        H := Source( derv );
-        G := Range( derv );
-        act := derv!.act;
-        S := SemidirectProduct( H, act, G );
+    H := Source( derv );
+    G := Range( derv );
+    act := derv!.act;
+    S := SemidirectProduct( H, act, G );
 
-        embH := Embedding( S, 1 );
-        embG := Embedding( S, 2 );
-
-        gens := MappingGeneratorsImages( derv )[1];
-        imgs := MappingGeneratorsImages( derv )[2];
-
-        embsH := List( gens, h -> ImagesRepresentative( embH, h ) );
-        embsG := List( imgs, g -> ImagesRepresentative( embG, g ) );
-
-        rhs := GroupHomomorphismByImages(
-            H, S,
-            gens, List( [ 1 .. Length( gens ) ], i -> embsH[i] * embsG[i] )
-        );
-        return rec( lhs := embH, rhs := rhs, sdp := S );
-    end
-);
-
-InstallMethod(
-    GroupDerivationInfo,
-    [ IsGroupDerivationByFunction ],
-    function( derv )
-        local H, G, act, S, embH, embG, rhs;
-
-        H := Source( derv );
-        G := Range( derv );
-        act := derv!.act;
-        S := SemidirectProduct( H, act, G );
-
-        embH := Embedding( S, 1 );
-        embG := Embedding( S, 2 );
-
+    embH := Embedding( S, 1 );
+    embG := Embedding( S, 2 );
+    
+    if IsBound( derv!.fun ) then
         rhs := GroupHomomorphismByFunction(
             H, S,
             h -> ImagesRepresentative( embH, h ) *
-                ImagesRepresentative( embG, derv!.fnc( h ) )
+                ImagesRepresentative( embG, derv!.fun( h ) )
         );
-        return rec( lhs := embH, rhs := rhs, sdp := S );
+    else
+        gens := MappingGeneratorsImages( derv )[1];
+
+        embsH := List( gens, h -> ImagesRepresentative( embH, h ) );
+        embsG := List(
+            MappingGeneratorsImages( derv )[2],
+            g -> ImagesRepresentative( embG, g )
+        );
+
+        imgs := List( [ 1 .. Length( gens ) ], i -> embsH[i] * embsG[i] );
+
+        if check then
+            rhs := GroupHomomorphismByImages( H, S, gens, imgs );
+        else
+            rhs := GroupHomomorphismByImagesNC( H, S, gens, imgs );
+        fi;
+    fi;
+    return rec( lhs := embH, rhs := rhs, sdp := S );
+end;
+
+
+###############################################################################
+##
+## GroupDerivationByImagesNC( H, G, gens, imgs, act )
+##
+##  INPUT:
+##      H:          group
+##      G:          group
+##      gens:       generating set of G
+##      imgs:       images of the elements of gens
+##      act:        group homomorphism H -> Aut(G)
+##
+##  OUTPUT:
+##      derv:       group derivation
+##
+InstallGlobalFunction(
+    GroupDerivationByImagesNC,
+    function( H, G, gens, imgs, act )
+        local fun;
+        fun := [ gens, imgs ];
+        return CreateGroupDerivation@( H, G, fun, act );
+    end
+);
+
+
+###############################################################################
+##
+## GroupDerivationByImages( H, G, gens, imgs, act )
+##
+##  INPUT:
+##      H:          group
+##      G:          group
+##      gens:       generating set of G
+##      imgs:       images of the elements of gens
+##      act:        group homomorphism H -> Aut(G)
+##
+##  OUTPUT:
+##      derv:       group derivation
+##
+InstallGlobalFunction(
+    GroupDerivationByImages,
+    function( H, G, gens, imgs, act )
+        local derv, info;
+        derv := GroupDerivationByImagesNC( H, G, gens, imgs, act );
+        info := CreateGroupDerivationInfo@( derv, true );
+        if info!.rhs = fail then return fail; fi;
+        SetGroupDerivationInfo( derv, info );
+        return derv;
+    end
+);
+
+
+###############################################################################
+##
+## GroupDerivationByFunction( H, G, fun, act )
+##
+##  INPUT:
+##      H:          group
+##      G:          group
+##      fun:        function H -> G
+##      act:        group homomorphism H -> Aut(G)
+##
+##  OUTPUT:
+##      derv:       group derivation
+##
+InstallGlobalFunction(
+    GroupDerivationByFunction,
+    CreateGroupDerivation@
+);
+
+
+###############################################################################
+##
+## GroupDerivationInfo( derv )
+##
+##  INPUT:
+##      derv:       group derivation
+##
+##  OUTPUT:
+##      info:       record containing useful information
+##
+InstallMethod(
+    GroupDerivationInfo,
+    [ IsGroupDerivation ],
+    derv -> CreateGroupDerivationInfo@( derv, false )
+);
+
+
+###############################################################################
+##
+## ViewObj( derv )
+##
+##  INPUT:
+##      derv:       group derivation
+##
+InstallMethod(
+    ViewString,
+    [ IsGroupDerivationByImages ],
+    function( derv )
+        local gens, imgs;
+        gens := MappingGeneratorsImages( derv )[1];
+        imgs := MappingGeneratorsImages( derv )[2];
+        return Concatenation(
+            "Group derivation ",
+            ViewString( gens ),
+            " -> ",
+            ViewString( imgs )
+        );
     end
 );
 
 InstallMethod(
+    ViewString,
+    [ IsGroupDerivationByFunction ],
+    derv -> Concatenation( "Group derivation via ", ViewString( derv!.fun ) )
+);
+
+
+###############################################################################
+##
+## PrintObj( derv )
+##
+##  INPUT:
+##      derv:       group derivation
+##
+InstallMethod(
+    PrintObj,
+    [ IsGroupDerivation ],
+    function( derv )
+        Print(
+            "<group derivation: ",
+            Source( derv ), " -> ",
+            Range( derv ), " >"
+        );
+    end
+);
+
+
+###############################################################################
+##
+## KernelOfGroupDerivation( derv )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##
+##  OUTPUT:
+##      K:          kernel of derv
+##
+InstallMethod(
+    KernelOfGroupDerivation,
+    [ IsGroupDerivation ],
+    function( derv )
+        local info;
+        info := GroupDerivationInfo( derv );
+        return CoincidenceGroup2( info!.lhs, info!.rhs );
+    end
+);
+
+
+###############################################################################
+##
+## Kernel( derv )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##
+##  OUTPUT:
+##      K:          kernel of derv
+##
+InstallMethod(
+    Kernel,
+    "for group derivations",
+    [ IsGroupDerivation ],
+    KernelOfGroupDerivation
+);
+
+
+###############################################################################
+##
+## ImagesRepresentative( derv, h )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##      h:          element of H
+##
+##  OUTPUT:
+##      g:          image of h under derv
+##
+InstallMethod(
     ImagesRepresentative,
+    "for group derivations with an underlying function",
     [ IsGroupDerivationByFunction, IsMultiplicativeElementWithInverse ],
-    { derv, h } -> derv!.fnc( h )
+    { derv, h } -> derv!.fun( h )
 );
 
 InstallMethod(
     ImagesRepresentative,
+    "for group derivations",
     [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
     function( derv, h )
-        local info, img;
+        local info, emb, img;
         info := GroupDerivationInfo( derv );
+        emb := Embedding( info!.sdp, 2 );
         img := ImagesRepresentative( info!.lhs, h ) ^ -1 *
             ImagesRepresentative( info!.rhs, h );
-        return PreImagesRepresentative( Embedding( info!.sdp, 2 ), img );
+        return PreImagesRepresentative( emb, img );
     end
 );
 
+
+###############################################################################
+##
+## ImagesElm( derv, h )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##      h:          element of H
+##
+##  OUTPUT:
+##      L:          List of images of h under derv
+##
 InstallMethod(
     ImagesElm,
     [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
     { derv, h } -> [ ImagesRepresentative( derv, h ) ]
 );
 
+
+###############################################################################
+##
+## PreImagesRepresentative( derv, g )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##      g:          element of G
+##
+##  OUTPUT:
+##      h:          preimage of g under derv, or fail if no preimage exists
+##
 InstallMethod(
     PreImagesRepresentative,
     [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
@@ -143,6 +338,18 @@ InstallMethod(
     end
 );
 
+
+###############################################################################
+##
+## PreImagesElm( derv, g )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##      g:          element of G
+##
+##  OUTPUT:
+##      S:          set of preimages of g under derv
+##
 InstallMethod(
     PreImagesElm,
     [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
@@ -154,18 +361,53 @@ InstallMethod(
     end
 );
 
+
+###############################################################################
+##
+## ImagesSource( derv )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##
+##  OUTPUT:
+##      I:          image of H under derv
+##
 InstallMethod(
     ImagesSource,
     [ IsGroupDerivation ],
-    derv -> GroupDerivationImage( derv )
+    GroupDerivationImage
 );
 
+
+###############################################################################
+##
+## ImagesSet( derv, K )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##      K:          subgroup of H
+##
+##  OUTPUT:
+##      I:          image of K under derv
+##
 InstallMethod(
     ImagesSet,
     [ IsGroupDerivation, IsGroup ],
-    { derv, K } -> GroupDerivationImage( derv, K )
+    GroupDerivationImage
 );
 
+
+###############################################################################
+##
+## GroupDerivationImage( derv, K )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##      K:          subgroup of H (optional)
+##
+##  OUTPUT:
+##      I:          image of H (or K) under derv
+##
 InstallGlobalFunction(
     GroupDerivationImage,
     function( derv, arg... )
@@ -197,22 +439,18 @@ InstallGlobalFunction(
     end
 );
 
-InstallMethod(
-    ViewObj,
-    [ IsGroupDerivationImageRep ],
-    function( img )
-        Print("Derivation image in ", Source( img!.emb ) );
-    end
-);
 
-InstallMethod(
-    PrintObj,
-    [ IsGroupDerivationImageRep ],
-    function( img )
-        Print("Derivation image in ", Source( img!.emb ) );
-    end
-);
-
+###############################################################################
+##
+## \in( img, g )
+##
+##  INPUT:
+##      img:        image of a group derivation H -> G
+##      g:          element of G
+##
+##  OUTPUT:
+##      bool:       true if g lies in img, otherwise false
+##
 InstallMethod(
     \in,
     [ IsMultiplicativeElementWithInverse, IsGroupDerivationImageRep ],
@@ -226,14 +464,14 @@ InstallMethod(
 
 ###############################################################################
 ##
-## Random( rs, tcc )
+## Random( rs, img )
 ##
 ##  INPUT:
 ##      rs:         random generator
-##      img:        group derivation image
+##      img:        image of a group derivation H -> G
 ##
 ##  OUTPUT:
-##      g:          random element of tcc
+##      g:          random element of img
 ##
 InstallMethodWithRandomSource(
     Random,
@@ -249,13 +487,13 @@ InstallMethodWithRandomSource(
 
 ###############################################################################
 ##
-## Size( tcc )
+## Size( img )
 ##
 ##  INPUT:
-##      tcc:        twisted conjugacy class
+##      img:        image of a group derivation H -> G
 ##
 ##  OUTPUT:
-##      n:          number of elements in tcc (or infinity)
+##      n:          number of elements in img (or infinity)
 ##
 InstallMethod(
     Size,
@@ -267,18 +505,18 @@ InstallMethod(
 
 ###############################################################################
 ##
-## ListOp( tcc )
+## ListOp( img )
 ##
 ##  INPUT:
-##      tcc:        twisted conjugacy class
+##      img:        image of a group derivation H -> G
 ##
 ##  OUTPUT:
-##      L:          list containing the elements of tcc, or fail if tcc has
+##      L:          list containing the elements of img, or fail if img has
 ##                  infinitely many elements
 ##
 InstallMethod(
     ListOp,
-    "for Reidemeister classes",
+    "for group derivation images",
     [ IsGroupDerivationImageRep ],
     function( img )
         local tcc;
@@ -289,32 +527,37 @@ InstallMethod(
 );
 
 
-InstallMethod(
-    KernelOfGroupDerivation,
-    [ IsGroupDerivation ],
-    function( derv )
-        local info;
-        info := GroupDerivationInfo( derv );
-        return CoincidenceGroup2( info!.lhs, info!.rhs );
-    end
-);
-
-InstallMethod(
-    Kernel,
-    [ IsGroupDerivation ],
-    KernelOfGroupDerivation
-);
-
+###############################################################################
+##
+## IsInjective( derv )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##
+##  OUTPUT:
+##      bool:       true if derv is injective, otherwise false
+##
 InstallMethod(
     IsInjective,
-    "for Reidemeister classes",
+    "for group derivations",
     [ IsGroupDerivation ],
     derv -> IsTrivial( KernelOfGroupDerivation( derv ) )
 );
 
+
+###############################################################################
+##
+## IsSurjective( derv )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##
+##  OUTPUT:
+##      bool:       true if derv is surjective, otherwise false
+##
 InstallMethod(
     IsSurjective,
-    "for Reidemeister classes",
+    "for group derivations",
     [ IsGroupDerivation ],
     function( derv )
         local info, S, emb, sub, lhs, rhs, R;

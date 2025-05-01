@@ -43,8 +43,6 @@ IntersectionPreImage@ := { hom1, hom2, M } -> NormalIntersection(
 ##  OUTPUT:
 ##      bool:       true iff G is nilpotent-by-abelian
 ##
-InstallTrueMethod( IsNilpotentByAbelian, IsNilpotentGroup );
-
 InstallMethod(
     IsNilpotentByAbelian,
     [ IsGroup ],

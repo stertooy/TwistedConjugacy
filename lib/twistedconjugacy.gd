@@ -128,16 +128,23 @@ DeclareGlobalFunction( "InclusionHomomorphism" );
 
 
 DeclareProperty( "IsNilpotentByAbelian", IsGroup );
-
+InstallTrueMethod( IsNilpotentByAbelian, IsNilpotentGroup );
 
 DeclareCategory( "IsGroupDerivation", IsSPGeneralMapping );
+InstallTrueMethod( IsMapping, IsGroupDerivation );
+InstallTrueMethod( RespectsOne, IsGroupDerivation );
+
 DeclareAttribute( "GroupDerivationInfo", IsGroupDerivation );
 DeclareAttribute( "KernelOfGroupDerivation", IsGroupDerivation );
 
-DeclareRepresentation( "IsGroupDerivationByImages", IsAttributeStoringRep );
-DeclareRepresentation( "IsGroupDerivationByFunction", IsAttributeStoringRep );
-DeclareRepresentation( "IsGroupDerivationImageRep", IsExternalOrbit );
-
+DeclareGlobalFunction( "GroupDerivationByImagesNC" );
 DeclareGlobalFunction( "GroupDerivationByImages" );
+DeclareRepresentation( "IsGroupDerivationByImages", IsAttributeStoringRep );
+InstallTrueMethod( IsGroupDerivation, IsGroupDerivationByImages );
+
 DeclareGlobalFunction( "GroupDerivationByFunction" );
+DeclareRepresentation( "IsGroupDerivationByFunction", IsAttributeStoringRep );
+InstallTrueMethod( IsGroupDerivation, IsGroupDerivationByFunction );
+
 DeclareGlobalFunction( "GroupDerivationImage" );
+DeclareRepresentation( "IsGroupDerivationImageRep", IsExternalOrbit );
