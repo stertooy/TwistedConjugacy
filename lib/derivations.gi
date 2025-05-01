@@ -181,6 +181,7 @@ InstallMethod(
 ##
 InstallMethod(
     ViewString,
+    "for group derivations",
     [ IsGroupDerivationByImages ],
     function( derv )
         local gens, imgs;
@@ -211,6 +212,7 @@ InstallMethod(
 ##
 InstallMethod(
     PrintObj,
+    "for group derivations",
     [ IsGroupDerivation ],
     function( derv )
         Print(
@@ -307,6 +309,7 @@ InstallMethod(
 ##
 InstallMethod(
     ImagesElm,
+    "for group derivations",
     [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
     { derv, h } -> [ ImagesRepresentative( derv, h ) ]
 );
@@ -325,6 +328,7 @@ InstallMethod(
 ##
 InstallMethod(
     PreImagesRepresentative,
+    "for group derivations",
     [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
     function( derv, g )
         local info, S, embG, s, tcr;
@@ -352,6 +356,7 @@ InstallMethod(
 ##
 InstallMethod(
     PreImagesElm,
+    "for group derivations",
     [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
     function( derv, g )
         local prei;
@@ -374,6 +379,7 @@ InstallMethod(
 ##
 InstallMethod(
     ImagesSource,
+    "for group derivations",
     [ IsGroupDerivation ],
     GroupDerivationImage
 );
@@ -392,6 +398,7 @@ InstallMethod(
 ##
 InstallMethod(
     ImagesSet,
+    "for group derivations",
     [ IsGroupDerivation, IsGroup ],
     GroupDerivationImage
 );
@@ -453,6 +460,7 @@ InstallGlobalFunction(
 ##
 InstallMethod(
     \in,
+    "for group derivation images",
     [ IsMultiplicativeElementWithInverse, IsGroupDerivationImageRep ],
     function( g, img )
         local s;
@@ -497,7 +505,7 @@ InstallMethodWithRandomSource(
 ##
 InstallMethod(
     Size,
-    "for Reidemeister classes",
+    "for group derivation images",
     [ IsGroupDerivationImageRep ],
     img -> Size( img!.tcc )
 );
