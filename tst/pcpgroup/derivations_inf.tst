@@ -25,7 +25,7 @@ gap> g := ImagesRepresentative( derv, h );
 g2^-4*g3^-3*g4^24
 gap> ImagesElm( derv, h );
 [ g2^-4*g3^-3*g4^24 ]
-gap> x := PreImagesRepresentative( derv, g );
+gap> x := PreImagesRepresentative( derv, g );;
 gap> g = ImagesRepresentative( derv, x );
 true
 gap> PreImagesElm( derv, g ) = RightCoset( K, x );
@@ -41,7 +41,7 @@ gap> Size( imgH );
 infinity
 gap> List( imgH );
 fail
-gap> imgK := ImagesSet( derv K );;
+gap> imgK := ImagesSet( derv, K );;
 gap> Size( imgK );
 1
 gap> List( imgK );
