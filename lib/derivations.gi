@@ -16,7 +16,7 @@ CreateGroupDerivation@ := function( H, G, fun, act )
     derv := rec(
         act := act,
     );
-    obj_args := [ derv, , Source, H, Range, G ];
+    obj_args := [ derv,, Source, H, Range, G ];
     filt := HasSource and HasRange;
     if IsFunction( fun ) then
         filt := IsGroupDerivationByFunction and filt;
@@ -57,7 +57,7 @@ CreateGroupDerivationInfo@ := function( derv, check )
 
     embH := Embedding( S, 1 );
     embG := Embedding( S, 2 );
-    
+
     if IsBound( derv!.fun ) then
         rhs := GroupHomomorphismByFunction(
             H, S,
