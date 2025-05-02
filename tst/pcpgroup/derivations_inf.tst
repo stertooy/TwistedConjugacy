@@ -14,8 +14,14 @@ gap> imgs5 := [ G.1, G.2^2*G.4^-2, G.3^-1*G.4^-1, G.4^2, One( G ) ];;
 gap> act := GroupHomomorphismByImages( H, Group( imgs3 ), gens, imgs3 );;
 
 # Group derivation by images
-gap> derv := GroupDerivationByImages( H, G, gens, imgs4, act );
+gap> derv := GroupDerivationByImagesNC( H, G, gens, imgs4, act );
 Group derivation [ g1, g2, g3, g4, g5 ] -> [ g4, g2^2*g4^-2, g3^-1*g4^-1, g4^2, id ]
+gap> GroupDerivationInfo( derv );
+rec(
+    lhs := [ g1, g2, g3, g4, g5 ] -> [ g1, g2, g3, g4, g5 ],
+    rhs := [ g1, g2, g3, g4, g5 ] -> [ g1*g9, g2*g7^2*g9^-2, g3*g8^-1*g9^-1, g4*g9^2, g5 ],
+    sdp := Pcp-group with orders [ 2, 0, 0, 0, 0, 2, 0, 0, 0 ]
+)
 gap> Print( derv );
 <group derivation: Pcp-group with orders [ 2, 0, 0, 0, 0 ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
 gap> K := Kernel( derv );
@@ -46,7 +52,55 @@ gap> Size( imgK );
 1
 gap> List( imgK );
 [ id ]
-gap> L := Subgroup( H, [ H.1, H.2^3, H.4^2, H.5^5 ] );;
+
+# Group derivation by function
+gap> derv := GroupDerivationByFunction( H, G, h -> (h^hom1)^-1*h^hom2, act );
+Group derivation via function( h ) ... end
+gap> GroupDerivationInfo( derv );
+rec(
+    lhs := [ g1, g2, g3, g4, g5 ] -> [ g1, g2, g3, g4, g5 ],
+    rhs := MappingByFunction(
+        Pcp-group with orders [ 2, 0, 0, 0, 0 ],
+        Pcp-group with orders [ 2, 0, 0, 0, 0, 2, 0, 0, 0 ],
+        function( h ) ... end
+    ),
+    sdp := Pcp-group with orders [ 2, 0, 0, 0, 0, 2, 0, 0, 0 ]
+)
+gap> Print( derv );
+<group derivation: Pcp-group with orders [ 2, 0, 0, 0, 0 ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
+gap> K := Kernel( derv );
+Pcp-group with orders [ 0 ]
+gap> h :=  H.1*H.2^-2*H.3^3*H.4^-4*H.5^5;;
+gap> g := ImagesRepresentative( derv, h );
+g2^-4*g3^-3*g4^24
+gap> ImagesElm( derv, h );
+[ g2^-4*g3^-3*g4^24 ]
+gap> x := PreImagesRepresentative( derv, g );;
+gap> g = ImagesRepresentative( derv, x );
+true
+gap> PreImagesElm( derv, g ) = RightCoset( K, x );
+true
+gap> imgH := ImagesSource( derv );;
+gap> g in imgH;
+true
+gap> G.1 in imgH;
+false
+gap> Random( imgH ) in imgH;
+true
+gap> Size( imgH );
+infinity
+gap> List( imgH );
+fail
+gap> imgK := ImagesSet( derv, K );;
+gap> Size( imgK );
+1
+gap> List( imgK );
+[ id ]
+
+
+# Faulty group derivation
+gap> derv := GroupDerivationByImages( H, G, gens, imgs5, act );
+fail
 
 #
 gap> STOP_TEST( "derivations_inf.tst" );
