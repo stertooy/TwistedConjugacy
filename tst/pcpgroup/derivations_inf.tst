@@ -14,7 +14,7 @@ gap> imgs5 := [ G.1, G.2^2*G.4^-2, G.3^-1*G.4^-1, G.4^2 ];;
 gap> act := GroupHomomorphismByImages( H, Group( imgs3 ), gens, imgs3 );;
 
 # Group derivation by images
-gap> derv := GroupDerivationByImages( H, G, gens, imgs4, act );
+gap> derv := GroupDerivationByImagesNC( H, G, gens, imgs4, act );
 Group derivation [ g1, g2, g3, g4 ] -> [ g4, g2^2*g4^-2, g3^-1*g4^-1, g4^2 ]
 gap> GroupDerivationInfo( derv );
 rec(
