@@ -36,7 +36,10 @@ gap> g = ImagesRepresentative( derv, x );
 true
 gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
-gap> imgH := ImagesSource( derv );;
+gap> imgH := ImagesSource( derv );
+Group derivation image in Pcp-group with orders [ 2, 0, 0, 0 ]
+gap> Print( imgH );
+<group derivation image: Pcp-group with orders [ 2, 0, 0, 0 ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
 gap> g in imgH;
 true
 gap> G.1 in imgH;
@@ -47,7 +50,10 @@ gap> Size( imgH );
 infinity
 gap> List( imgH );
 fail
-gap> imgK := ImagesSet( derv, K );;
+gap> imgK := ImagesSet( derv, K );
+Group derivation image in Pcp-group with orders [ 2, 0, 0, 0 ]
+gap> Print( imgK );
+<group derivation image: Pcp-group with orders [  ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
 gap> Size( imgK );
 1
 gap> List( imgK );
@@ -84,7 +90,10 @@ gap> g = ImagesRepresentative( derv, x );
 true
 gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
-gap> imgH := ImagesSource( derv );;
+gap> imgH := ImagesSource( derv );
+Group derivation image in Pcp-group with orders [ 2, 0, 0, 0 ]
+gap> Print( imgH );
+<group derivation image: Pcp-group with orders [ 2, 0, 0, 0 ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
 gap> g in imgH;
 true
 gap> G.1 in imgH;
@@ -95,7 +104,10 @@ gap> Size( imgH );
 infinity
 gap> List( imgH );
 fail
-gap> imgK := ImagesSet( derv, K );;
+gap> imgK := ImagesSet( derv, K );
+Group derivation image in Pcp-group with orders [ 2, 0, 0, 0 ]
+gap> Print( imgK );
+<group derivation image: Pcp-group with orders [  ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
 gap> Size( imgK );
 1
 gap> List( imgK );
