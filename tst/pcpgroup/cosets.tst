@@ -47,11 +47,15 @@ gap> DCS = [ HzK, HxK ];
 true
 
 #
-gap> G := ExamplesOfSomePcpGroups(10);;
-gap> H := Subgroup( G, [G.1^3, G.4]);;
-gap> K := Subgroup( G, [G.2^2, G.3^3]);;
+gap> G := ExamplesOfSomePcpGroups( 10 );;
+gap> H := Subgroup( G, [ G.1^3, G.4 ] );;
+gap> K := Subgroup( G, [ G.2^2, G.3^3 ] );;
 gap> Length( DoubleCosets( G, H, K ) );
 27
+gap> G := ExamplesOfSomePcpGroups( 4 );;
+gap> H := Subgroup( G, [ G.1 ] );;
+gap> DoubleCosets( G, H, H );
+fail
 
 #
 gap> STOP_TEST( "twisted_conjugacy_single.tst" );
