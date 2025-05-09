@@ -205,27 +205,7 @@ RepTwistConjToIdStep4@ := function( G, H, hom1, hom2, a, A )
     if IsTrivial( C ) then
         return RepTwistConjToIdStep5@( G, H, hom1, hom2, a, A );
     fi;
-    p := NaturalHomomorphismByNormalSubgroupNC( G, C );
-    q := IdentityMapping( H );
-    hom1p := InducedHomomorphism( q, p, hom1 );
-    hom2p := InducedHomomorphism( q, p, hom2 );
-    pa := ImagesRepresentative( p, a );
-    pA := ImagesSet( p, A );
-    pG := ImagesSource( p );
-    h1 := RepTwistConjToIdStep4@( pG, H, hom1p, hom2p, pa, pA );
-    if h1 = fail then
-        return fail;
-    fi;
-    tc := TwistedConjugation( hom1, hom2 );
-    c := tc( a, h1 );
-    Coin := CoincidenceGroup2( hom1p, hom2p );
-    delta := DifferenceGroupHomomorphisms@( hom1, hom2, Coin, G );
-    if not c in ImagesSource( delta ) then
-        return fail;
-    fi;
-    # TODO: Replace by PreImagesRepresentative eventually
-    h2 := PreImagesRepresentativeNC( delta, c );
-    return h1 * h2;
+    return RepTwistConjToIdByCentre@( G, H, hom1, hom2, a );
 end;
 
 
