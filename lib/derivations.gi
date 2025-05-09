@@ -129,7 +129,9 @@ InstallGlobalFunction(
         local derv, info;
         derv := GroupDerivationByImagesNC( H, G, gens, imgs, act );
         info := CreateGroupDerivationInfo@( derv, true );
-        if info!.rhs = fail then return fail; fi;
+        if info!.rhs = fail then
+            return fail;
+        fi;
         SetGroupDerivationInfo( derv, info );
         return derv;
     end
@@ -337,7 +339,9 @@ InstallMethod(
         embG := Embedding( S, 2 );
         s := ImagesRepresentative( embG, g );
         tcr := RepresentativeTwistedConjugation( info!.lhs, info!.rhs, s );
-        if tcr = fail then return fail; fi;
+        if tcr = fail then
+            return fail;
+        fi;
         return tcr ^ -1;
     end
 );
@@ -361,7 +365,9 @@ InstallMethod(
     function( derv, g )
         local prei;
         prei := PreImagesRepresentative( derv, g );
-        if prei = fail then return []; fi;
+        if prei = fail then
+            return [];
+        fi;
         return RightCoset( KernelOfGroupDerivation( derv ), prei );
     end
 );
@@ -529,7 +535,9 @@ InstallMethod(
     function( img )
         local tcc;
         tcc := img!.tcc;
-        if Size( tcc ) = infinity then return fail; fi;
+        if Size( tcc ) = infinity then
+            return fail;
+        fi;
         return List( tcc, s -> PreImagesRepresentative( img!.emb, s ) );
     end
 );
