@@ -15,7 +15,10 @@ true
 
 #
 gap> Hx := RightCoset( H, x );;
+gap> Hy := RightCoset( H, y );;
 gap> Ky := RightCoset( K, y );;
+gap> Intersection( Hx, Hy );
+[  ]
 gap> Iw := Intersection( Hx, Ky );
 RightCoset(<group with 2 generators>,<object>)
 gap> I := ActingDomain( Iw );;
@@ -37,6 +40,8 @@ gap> HxK = HyK;
 true
 gap> HxK = HzK;
 false
+gap> DoubleCosets( G, H, H );
+fail
 gap> DCS := DoubleCosets( G, H, K );;
 gap> DCS = [ HzK, HxK ];
 true

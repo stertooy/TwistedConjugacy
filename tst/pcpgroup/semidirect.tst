@@ -14,6 +14,8 @@ Pcp-group with orders [ 0, 2, 0 ]
 gap> e1 := Embedding( S, 1 );;
 gap> e2 := Embedding( S, 2 );;
 gap> p := Projection( S );;
+gap> p = Projection( S );
+true
 gap> e1 * p = IdentityMapping( G );
 true
 gap> ClosureGroup( Image( e1, G ), Image( e2, N ) ) = S;
@@ -30,7 +32,11 @@ gap> alpha := GroupHomomorphismByImagesNC( G, Group( auts ), [ G.2, G.1*G.4 ], [
 gap> S := SemidirectProduct( G, alpha, N );
 Pcp-group with orders [ 2, 3, 3, 2, 2, 2, 3, 3, 2, 2 ]
 gap> e1 := Embedding( S, 1 );;
+gap> e1 = Embedding( S, 1 );
+true
 gap> e2 := Embedding( S, 2 );;
+gap> e2 = Embedding( S, 2 );
+true
 gap> p := Projection( S );;
 gap> e1 * p = IdentityMapping( G );
 true
