@@ -197,12 +197,9 @@ end;
 ##        - [H,H] is a subgroup of Coin(hom1,hom2).
 ##
 RepTwistConjToIdStep4@ := function( G, H, hom1, hom2, a, A )
-    local C, p, q, hom1p, hom2p, pa, pA, pG, h1, tc, c, Coin, delta, h2;
     if IsNilpotentByFinite( G ) then
         return RepresentativeTwistedConjugationOp( hom1, hom2, a );
-    fi;
-    C := Center( G );
-    if IsTrivial( C ) then
+    elif IsTrivial( Center( G ) ) then
         return RepTwistConjToIdStep5@( G, H, hom1, hom2, a, A );
     fi;
     return RepTwistConjToIdByCentre@( G, H, hom1, hom2, a );
