@@ -14,7 +14,7 @@ gap> imgs5 := [ G.1, G.2^2*G.4^-2, G.3^-1*G.4^-1, G.4^2 ];;
 gap> act := GroupHomomorphismByImages( H, Group( imgs3 ), gens, imgs3 );;
 
 # Group derivation by images
-gap> derv := GroupDerivationByImages( H, G, gens, imgs4, act );
+gap> derv := GroupDerivationByImagesNC( H, G, gens, imgs4, act );
 Group derivation [ g1, g2, g3, g4 ] -> [ g4, g2^2*g4^-2, g3^-1*g4^-1, g4^2 ]
 gap> GroupDerivationInfo( derv );
 rec(
@@ -36,7 +36,10 @@ gap> g = ImagesRepresentative( derv, x );
 true
 gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
-gap> imgH := ImagesSource( derv );;
+gap> imgH := ImagesSource( derv );
+Group derivation image in Pcp-group with orders [ 2, 0, 0, 0 ]
+gap> Print( imgH );
+<group derivation image: Pcp-group with orders [ 2, 0, 0, 0 ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
 gap> g in imgH;
 true
 gap> G.1 in imgH;
@@ -47,7 +50,10 @@ gap> Size( imgH );
 infinity
 gap> List( imgH );
 fail
-gap> imgK := ImagesSet( derv, K );;
+gap> imgK := ImagesSet( derv, K );
+Group derivation image in Pcp-group with orders [ 2, 0, 0, 0 ]
+gap> Print( imgK );
+<group derivation image: Pcp-group with orders [  ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
 gap> Size( imgK );
 1
 gap> List( imgK );
@@ -84,7 +90,10 @@ gap> g = ImagesRepresentative( derv, x );
 true
 gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
-gap> imgH := ImagesSource( derv );;
+gap> imgH := ImagesSource( derv );
+Group derivation image in Pcp-group with orders [ 2, 0, 0, 0 ]
+gap> Print( imgH );
+<group derivation image: Pcp-group with orders [ 2, 0, 0, 0 ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
 gap> g in imgH;
 true
 gap> G.1 in imgH;
@@ -95,7 +104,10 @@ gap> Size( imgH );
 infinity
 gap> List( imgH );
 fail
-gap> imgK := ImagesSet( derv, K );;
+gap> imgK := ImagesSet( derv, K );
+Group derivation image in Pcp-group with orders [ 2, 0, 0, 0 ]
+gap> Print( imgK );
+<group derivation image: Pcp-group with orders [  ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
 gap> Size( imgK );
 1
 gap> List( imgK );

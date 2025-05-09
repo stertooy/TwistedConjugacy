@@ -182,26 +182,26 @@ InstallMethod(
 ##      derv:       group derivation
 ##
 InstallMethod(
-    ViewString,
-    "for group derivations",
+    ViewObj,
+    "for group derivations by images",
     [ IsGroupDerivationByImages ],
     function( derv )
         local gens, imgs;
         gens := MappingGeneratorsImages( derv )[1];
         imgs := MappingGeneratorsImages( derv )[2];
-        return Concatenation(
-            "Group derivation ",
-            ViewString( gens ),
-            " -> ",
-            ViewString( imgs )
-        );
+        Print( "Group derivation ", gens, " -> ", imgs );
     end
 );
 
 InstallMethod(
-    ViewString,
+    ViewObj,
+    "for group derivations by a function",
     [ IsGroupDerivationByFunction ],
-    derv -> Concatenation( "Group derivation via ", ViewString( derv!.fun ) )
+    function( derv )
+        local fun;
+        fun := derv!.fun;
+        Print( "Group derivation via ", ViewString( derv!.fun ) );
+    end
 );
 
 
@@ -419,7 +419,7 @@ InstallMethod(
 ##      K:          subgroup of H (optional)
 ##
 ##  OUTPUT:
-##      I:          image of H (or K) under derv
+##      img:        image of H (or K) under derv
 ##
 InstallGlobalFunction(
     GroupDerivationImage,
@@ -449,6 +449,45 @@ InstallGlobalFunction(
             Representative, One( G )
         );
         return img;
+    end
+);
+
+
+###############################################################################
+##
+## ViewObj( img )
+##
+##  INPUT:
+##      img:        image of a group derivation H -> G
+##
+InstallMethod(
+    ViewObj,
+    "for group derivation images",
+    [ IsGroupDerivationImageRep ],
+    function( img )
+        local G;
+        G := Source( img!.emb );
+        Print( "Group derivation image in ", G );
+    end
+);
+
+
+###############################################################################
+##
+## PrintObj( img )
+##
+##  INPUT:
+##      img:        image of a group derivation H -> G
+##
+InstallMethod(
+    PrintObj,
+    "for group derivation images",
+    [ IsGroupDerivationImageRep ],
+    function( img )
+        local G, K;
+        G := Source( img!.emb );
+        K := ActingDomain( img!.tcc );
+        Print( "<group derivation image: ", K, " -> ", G, " >" );
     end
 );
 
@@ -587,3 +626,4 @@ InstallMethod(
         return R <> fail and Length( R ) = 1;
     end
 );
+
