@@ -44,6 +44,10 @@ gap> g in imgH;
 true
 gap> G.1 in imgH;
 false
+gap> PreImagesRepresentative( derv, G.1 );
+fail
+gap> PreImagesElm( derv, G.1 );
+[  ]
 gap> Random( imgH ) in imgH;
 true
 gap> Size( imgH );
