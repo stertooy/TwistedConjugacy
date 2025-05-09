@@ -72,7 +72,9 @@ InstallMethod(
         y := Representative( Vy );
 
         s := AsElementOfProductGroups@( x * y ^ -1, U, V );
-        if s = fail then return []; fi;
+        if s = fail then
+            return [];
+        fi;
 
         I := Intersection2( U, V );
         z := s[2] * y;
@@ -180,7 +182,9 @@ InstallMethod(
         l := Projection( UV, 1 ) * iU;
         r := Projection( UV, 2 ) * iV;
         Rcl := RepresentativesReidemeisterClasses( l, r );
-        if Rcl = fail then return fail; fi;
+        if Rcl = fail then
+            return fail;
+        fi;
         return List( Rcl, g -> DoubleCoset( U, g, V ) );
     end
 );

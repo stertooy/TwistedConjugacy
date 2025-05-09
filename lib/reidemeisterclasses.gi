@@ -174,7 +174,9 @@ InstallMethod(
     [ IsReidemeisterClassGroupRep ],
     function( tcc )
         local H, Coin, g, tc;
-        if Size( tcc ) = infinity then return fail; fi;
+        if Size( tcc ) = infinity then
+            return fail;
+        fi;
         H := ActingDomain( tcc );
         Coin := StabilizerOfExternalSet( tcc );
         g := Representative( tcc );
@@ -329,7 +331,9 @@ InstallMethod(
         H := Source( hom1 );
         diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, N );
         D := ImagesSource( diff );
-        if IndexNC( N, D ) = infinity then return fail; fi;
+        if IndexNC( N, D ) = infinity then
+            return fail;
+        fi;
         p := NaturalHomomorphismByNormalSubgroupNC( N, D );
         return List(
             ImagesSource( p ),
@@ -347,7 +351,9 @@ InstallMethod(
         local H, tc, N_List, gens, orbits;
         H := Source( hom1 );
         if not IsFinite( H ) then TryNextMethod(); fi;
-        if not IsFinite( N ) then return fail; fi;
+        if not IsFinite( N ) then
+            return fail;
+        fi;
         tc := TwistedConjugation( hom1, hom2 );
         N_List := AsSSortedListNonstored( N );
         if CanEasilyComputePcgs( H ) then

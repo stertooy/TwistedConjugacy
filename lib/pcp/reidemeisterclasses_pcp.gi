@@ -197,7 +197,9 @@ RepsReidClassesStep3@ := function( _, H, hom1, hom2, A )
 
     alpha := GroupHomomorphismByImagesNC( Hab, Aut, igs, auts );
     S := SemidirectProduct( Hab, alpha, A );
-    if not IsNilpotentByFinite( S ) then return fail; fi;
+    if not IsNilpotentByFinite( S ) then
+        return fail;
+    fi;
 
     imgs2 := List( prei, h -> ImagesRepresentative( hom2, h ) );
     n := Length( igs );
@@ -213,7 +215,9 @@ RepsReidClassesStep3@ := function( _, H, hom1, hom2, A )
     );
     N := ImagesSource( iA );
     Rcl := RepresentativesReidemeisterClassesOp( l, r, N );
-    if Rcl = fail then return fail; fi;
+    if Rcl = fail then
+        return fail;
+    fi;
     return List( Rcl, a -> PreImagesRepresentativeNC( iA, a ) );
 end;
 
@@ -251,7 +255,9 @@ RepsReidClassesStep2@ := function( G, H, hom1, hom2, A )
     pG := ImagesSource( p );
     pA := ImagesSet( p, A );
     Rcl := RepsReidClassesStep3@( pG, H, hom1p, hom2p, pA );
-    if Rcl = fail then return fail; fi;
+    if Rcl = fail then
+        return fail;
+    fi;
     return List( Rcl, pa -> PreImagesRepresentativeNC( p, pa ) );
 end;
 

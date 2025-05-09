@@ -76,7 +76,9 @@ AsElementOfProductGroups@ := function( g, U, V )
     r := Projection( UxV, 2 ) * InclusionHomomorphism( V, G );
 
     s := RepresentativeTwistedConjugationOp( l, r, g );
-    if s = fail then return fail; fi;
+    if s = fail then
+        return fail;
+    fi;
 
     u := ImagesRepresentative( l, s );
     v := ImagesRepresentative( r, s ) ^ -1;
@@ -184,7 +186,9 @@ InstallMethod(
         local info, G, imgs, hom, gens;
 
         info := SemidirectProductInfo( S );
-        if IsBound( info.embeddings[i] ) then return info.embeddings[i]; fi;
+        if IsBound( info.embeddings[i] ) then
+            return info.embeddings[i];
+        fi;
 
         G := info.groups[i];
         gens := Igs( G );
@@ -215,7 +219,9 @@ InstallOtherMethod(
         local info, G, imgs, hom, N, gens;
 
         info := SemidirectProductInfo( S );
-        if not IsBool( info.projections ) then return info.projections; fi;
+        if not IsBool( info.projections ) then
+            return info.projections;
+        fi;
 
         G := info.groups[1];
         gens := Igs( S );
