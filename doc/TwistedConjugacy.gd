@@ -602,7 +602,7 @@ Source( res ) = N and Range( res ) = N;
 #!
 #! If omitted, the arguments <A>gens</A> and <A>imgs</A> default to the <C>GeneratorsOfGroup</C> value of <A>H</A> and <A>G</A> respectively.
 #!
-#! If <A>gens</A< does not generate <A>H</A> or the mapping of the generators does not extend to a group derivation then <K>fail</K> is returned.
+#! If <A>gens</A> does not generate <A>H</A> or the mapping of the generators does not extend to a group derivation then <K>fail</K> is returned.
 #! This test can be expensive, so if one is certain that the given arguments produce a group derivation, the checks can be avoided by calling
 #! <C>GroupDerivationByImagesNC</C> instead.
 #! @Arguments H, G[[, gens], imgs], act
@@ -618,7 +618,7 @@ DeclareGlobalFunction( "GroupDerivationByImagesNC" );
 #! which must be a homomorphism from <A>H</A> into a group of automorphisms of <A>G</A>. This command then returns the group derivation defined by mapping the
 #! element <C>h</C> of <A>H</A> to the element <A>fun</A>( <C>h</C> ) of <A>G</A>, where <A>fun</A> is a <B>GAP</B> function.
 #!
-#! No test if performed on whether the arguments really produce a group derivation.
+#! No test are performed to check whether the arguments really produce a group derivation.
 #! @Arguments H, G, fun, act
 DeclareGlobalFunction( "GroupDerivationByFunction" );
 
