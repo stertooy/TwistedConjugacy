@@ -368,6 +368,92 @@ RepresentativeTwistedConjugationMultiple( [ tau, phi ], [ psi, khi ],
 #
 #####
 
+#! @Chapter Cosets
+#! @ChapterLabel csts
+#! @ChapterTitle Cosets
+
+#! Please note that the functions below are implemented only for PcpGroups.
+
+
+###
+# SECTION 1
+###
+
+#! @Section Right cosets in PcpGroups
+
+#! @BeginGroup IntersectionCosets
+#! @Description
+#! Calculates the intersection of the (right) cosets <A>C1</A>, <A>C2</A>, ... Alternatively, <A>list</A> may be a list of (right) cosets. This intersection is either a new coset, or an empty list.
+#! @Arguments C1, C2, ...
+DeclareGlobalFunction( "Intersection" );
+#! @Arguments list
+#! @Label for IsList
+DeclareGlobalFunction( "Intersection" );
+#! @EndGroup
+
+#! @BeginExample
+G := ExamplesOfSomePcpGroups( 5 );;
+H := Subgroup( G, [ G.1*G.2^-1*G.3^-1*G.4^-1, G.2^-1*G.3*G.4^-2 ] );;
+K := Subgroup( G, [ G.1*G.3^-2*G.4^2, G.1*G.4^4 ] );;
+x := G.1*G.3^-1;;
+y := G.1*G.2^-1*G.3^-2*G.4^-1;;
+z := G.1*G.2*G.3*G.4^2;;
+Hx := RightCoset( H, x );;
+Ky := RightCoset( K, y );;
+Intersection( Hx, Ky );
+#! RightCoset(<group with 2 generators>,<object>)
+Kz := RightCoset( K, z );;
+Intersection( Hx, Kz );
+#! [  ]
+#! @EndExample
+
+
+###
+# SECTION 2
+###
+
+#! @Section Double cosets in PcpGroups
+
+#! @Description
+#! Given an element <A>g</A> of a PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
+#! @Arguments g, D
+DeclareOperation( "\in", [ IsPcpElement, IsDoubleCoset ] );
+
+#! @Description
+#! Given double cosets <A>C</A> and <A>D</A> of a PcpGroup, this function tests whether <A>C</A> and <A>D</A> are equal.
+#! @Arguments C, D
+DeclareOperation( "=", [ IsDoubleCoset, IsDoubleCoset ] );
+
+#! @Description
+#! Given a PcpGroup <A>G</A> and two subgroups <A>H</A>, <A>K</A>, this function computes a duplicate-free list of all double cosets <A>H</A>$g$<A>K</A> for $g \in G$ if there are finitely many, or it returns <K>fail</K> otherwise.
+#! @Arguments G, H, K
+DeclareGlobalFunction( "DoubleCosets" );
+
+#! @BeginExample
+HxK := DoubleCoset( H, x, K );;
+HyK := DoubleCoset( H, y, K );;
+HzK := DoubleCoset( H, z, K );;
+y in HxK;
+#! true
+z in HxK;
+#! false
+HxK = HyK;
+#! true
+HxK = HzK;
+#! false
+DCS := DoubleCosets( G, H, K );
+#! [ DoubleCoset(<group with 2 generators>,<object>,<group with 2 generators>),
+#!   DoubleCoset(<group with 2 generators>,<object>,<group with 2 generators>) ]
+#! @EndExample
+
+
+
+#####
+#
+# CHAPTER 5
+#
+#####
+
 #! @Chapter Homomorphisms
 #! @ChapterLabel homs
 #! @ChapterTitle Homomorphisms
@@ -492,47 +578,53 @@ Source( res ) = N and Range( res ) = N;
 
 #####
 #
-# CHAPTER 5
+# CHAPTER 6
 #
 #####
 
-#! @Chapter Cosets
-#! @ChapterLabel csts
-#! @ChapterTitle Cosets
-
-#! Please note that the functions below are implemented only for PcpGroups.
+#! @Chapter Derivations
+#! @ChapterLabel ders
+#! @ChapterTitle Derivations
 
 
 ###
 # SECTION 1
 ###
 
-#! @Section Right cosets in PcpGroups
+#! @Section Creating group derivations
 
-#! @BeginGroup IntersectionCosets
+#! The functions below only work for derivations between finite groups or between PcpGroups. 
+
 #! @Description
-#! Calculates the intersection of the (right) cosets <A>C1</A>, <A>C2</A>, ... Alternatively, <A>list</A> may be a list of (right) cosets. This intersection is either a new coset, or an empty list.
-#! @Arguments C1, C2, ...
-DeclareGlobalFunction( "Intersection" );
-#! @Arguments list
-#! @Label for IsList
-DeclareGlobalFunction( "Intersection" );
-#! @EndGroup
+#! <C>GroupDerivationByImages</C> works in the same vein as <C>GroupHomomorphismByImages</C>. The group <A>H</A> acts on the group <A>G</A> via <A>act</A>,
+#! which must be a homomorphism from <A>H</A> into a group of automorphisms of <A>G</A>. This command then returns the group derivation defined by mapping the list
+#! <A>gens</A> of generators of <A>H</A> to the list <A>imgs</A> of images in <A>G</A>.
+#!
+#! If omitted, the arguments <A>gens</A> and <A>imgs</A> default to the <C>GeneratorsOfGroup</C> value of <A>H</A> and <A>G</A> respectively.
+#!
+#! If <A>gens</A< does not generate <A>H</A> or the mapping of the generators does not extend to a group derivation then <K>fail</K> is returned.
+#! This test can be expensive, so if one is certain that the given arguments produce a group derivation, the checks can be avoided by calling
+#! <C>GroupDerivationByImagesNC</C> instead.
+#! @Arguments H, G[[, gens], imgs], act
+DeclareGlobalFunction( "GroupDerivationByImages" );
+
+#! @Description
+#! <C>GroupDerivationByImagesNC</C> does the same as <C>GroupDerivationByImages</C>, but does not check if the given map is indeed a group derivation.
+#! @Arguments H, G[[, gens], imgs], act
+DeclareGlobalFunction( "GroupDerivationByImagesNC" );
+
+#! @Description
+#! <C>GroupDerivationByFunction</C> works in the same vein as <C>GroupHomomorphismByFunction</C>. The group <A>H</A> acts on the group <A>G</A> via <A>act</A>,
+#! which must be a homomorphism from <A>H</A> into a group of automorphisms of <A>G</A>. This command then returns the group derivation defined by mapping the
+#! element <C>h</C> of <A>H</A> to the element <A>fun</A>( <C>h</C> ) of <A>G</A>, where <A>fun</A> is a <B>GAP</B> function.
+#!
+#! No test if performed on whether the arguments really produce a group derivation.
+#! @Arguments H, G, fun, act
+DeclareGlobalFunction( "GroupDerivationByFunction" );
 
 #! @BeginExample
-G := ExamplesOfSomePcpGroups( 5 );;
-H := Subgroup( G, [ G.1*G.2^-1*G.3^-1*G.4^-1, G.2^-1*G.3*G.4^-2 ] );;
-K := Subgroup( G, [ G.1*G.3^-2*G.4^2, G.1*G.4^4 ] );;
-x := G.1*G.3^-1;;
-y := G.1*G.2^-1*G.3^-2*G.4^-1;;
-z := G.1*G.2*G.3*G.4^2;;
-Hx := RightCoset( H, x );;
-Ky := RightCoset( K, y );;
-Intersection( Hx, Ky );
-#! RightCoset(<group with 2 generators>,<object>)
-Kz := RightCoset( K, z );;
-Intersection( Hx, Kz );
-#! [  ]
+1=1
+#! true
 #! @EndExample
 
 
@@ -540,36 +632,23 @@ Intersection( Hx, Kz );
 # SECTION 2
 ###
 
-#! @Section Double cosets in PcpGroups
+#! @Section Operations for Group Derivations
 
 #! @Description
-#! Given an element <A>g</A> of a PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
-#! @Arguments g, D
-DeclareOperation( "\in", [ IsPcpElement, IsDoubleCoset ] );
+#! Let <A>endo</A> be an endomorphism of a group G. This command returns the subgroup of G consisting of the elements fixed under the endomorphism <A>endo</A>.
+#! <P />
+#! This function does the same as <C>CoincidenceGroup</C>(<A>endo</A>,$\operatorname{id}_G$).
+#! @Arguments endo
+DeclareGlobalFunction( "KernelOfGroupDerivation" );
+
+
+###
+# SECTION 3
+###
+
+#! @Section Images of Group Derivations
 
 #! @Description
-#! Given double cosets <A>C</A> and <A>D</A> of a PcpGroup, this function tests whether <A>C</A> and <A>D</A> are equal.
-#! @Arguments C, D
-DeclareOperation( "=", [ IsDoubleCoset, IsDoubleCoset ] );
-
-#! @Description
-#! Given a PcpGroup <A>G</A> and two subgroups <A>H</A>, <A>K</A>, this function computes a duplicate-free list of all double cosets <A>H</A>$g$<A>K</A> for $g \in G$ if there are finitely many, or it returns <K>fail</K> otherwise.
-#! @Arguments G, H, K
-DeclareGlobalFunction( "DoubleCosets" );
-
-#! @BeginExample
-HxK := DoubleCoset( H, x, K );;
-HyK := DoubleCoset( H, y, K );;
-HzK := DoubleCoset( H, z, K );;
-y in HxK;
-#! true
-z in HxK;
-#! false
-HxK = HyK;
-#! true
-HxK = HzK;
-#! false
-DCS := DoubleCosets( G, H, K );
-#! [ DoubleCoset(<group with 2 generators>,<object>,<group with 2 generators>),
-#!   DoubleCoset(<group with 2 generators>,<object>,<group with 2 generators>) ]
-#! @EndExample
+#! Let <A>hom</A> be a group homomorphism from a group H to a group G, let <A>epi1</A> be an epimorphism from H to a group Q and let <A>epi2</A> be an epimorphism from G to a group P such that the kernel of <A>epi1</A> is mapped into the kernel of <A>epi2</A> by <A>hom</A>. This command returns the homomorphism from Q to P induced by <A>hom</A> via <A>epi1</A> and <A>epi2</A>, that is, the homomorphism from Q to P which maps h<C>^<A>epi1</A></C> to <C>(</C>h<C>^<A>hom</A>)^<A>epi2</A></C>, for any element h of H. This generalises <C>InducedAutomorphism</C> to homomorphisms.
+#! @Arguments epi1, epi2, hom
+DeclareGlobalFunction( "GroupDerivationImage" );

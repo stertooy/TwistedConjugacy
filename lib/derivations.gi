@@ -1,30 +1,39 @@
 ###############################################################################
 ##
-## CreateGroupDerivation@( H, G, gens, imgs, act )
+## CreateGroupDerivation@( H, G, arg... )
 ##
 ##  INPUT:
 ##      H:          group
 ##      G:          group
-##      fun:        info on the underlying map H -> G
-##      act:        group homomorphism H -> Aut(G)
+##      arg:        info on the underlying map H -> G
 ##
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
-CreateGroupDerivation@ := function( H, G, fun, act )
-    local derv, obj_args, filt;
+CreateGroupDerivation@ := function( H, G, arg... )
+    local derv, obj_args, filt, gens, imgs;
     derv := rec(
-        act := act,
+        act := Last( arg ),
     );
     obj_args := [ derv,, Source, H, Range, G ];
     filt := HasSource and HasRange;
-    if IsFunction( fun ) then
+    if IsFunction( First( arg ) ) then
         filt := IsGroupDerivationByFunction and filt;
-        derv!.fun := fun;
+        derv!.fun := arg[1];
     else
+        if Length( arg ) > 1 then
+            gens := arg[1];
+        else
+            gens := GeneratorsOfGroup( H );
+        fi;
+        if Length( arg ) > 2 then
+            imgs := arg[2];
+        else
+            imgs := GeneratorsOfGroup( G );
+        fi;
         filt := IsGroupDerivationByImages and filt;
         obj_args := Concatenation(
-            obj_args, [ MappingGeneratorsImages, fun ]
+            obj_args, [ MappingGeneratorsImages, [ gens, imgs ] ]
         );
     fi;
     obj_args[2] := NewType( GeneralMappingsFamily(
@@ -87,47 +96,37 @@ end;
 
 ###############################################################################
 ##
-## GroupDerivationByImagesNC( H, G, gens, imgs, act )
+## GroupDerivationByImagesNC( H, G, arg... )
 ##
 ##  INPUT:
 ##      H:          group
 ##      G:          group
-##      gens:       generating set of G
-##      imgs:       images of the elements of gens
-##      act:        group homomorphism H -> Aut(G)
+##      arg:        info on the underlying map H -> G
 ##
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
 InstallGlobalFunction(
     GroupDerivationByImagesNC,
-    function( H, G, gens, imgs, act )
-        local fun;
-        fun := [ gens, imgs ];
-        return CreateGroupDerivation@( H, G, fun, act );
-    end
+    CreateGroupDerivation@
 );
 
 
 ###############################################################################
 ##
-## GroupDerivationByImages( H, G, gens, imgs, act )
+## GroupDerivationByImages( arg... )
 ##
 ##  INPUT:
-##      H:          group
-##      G:          group
-##      gens:       generating set of G
-##      imgs:       images of the elements of gens
-##      act:        group homomorphism H -> Aut(G)
+##      arg:        info on the group derivation
 ##
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
 InstallGlobalFunction(
     GroupDerivationByImages,
-    function( H, G, gens, imgs, act )
+    function( arg... )
         local derv, info;
-        derv := GroupDerivationByImagesNC( H, G, gens, imgs, act );
+        derv := CallFuncList( GroupDerivationByImagesNC, arg );
         info := CreateGroupDerivationInfo@( derv, true );
         if info!.rhs = fail then
             return fail;
