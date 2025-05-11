@@ -456,7 +456,7 @@ DCS := DoubleCosets( G, H, K );
 
 #! @Chapter Homomorphisms
 #! @ChapterLabel homs
-#! @ChapterTitle Homomorphisms
+#! @ChapterTitle Group Homomorphisms
 
 
 ###
@@ -584,7 +584,7 @@ Source( res ) = N and Range( res ) = N;
 
 #! @Chapter Derivations
 #! @ChapterLabel ders
-#! @ChapterTitle Derivations
+#! @ChapterTitle Group Derivations
 
 
 ###
@@ -623,7 +623,7 @@ DeclareGlobalFunction( "GroupDerivationByImagesNC" );
 DeclareGlobalFunction( "GroupDerivationByFunction" );
 
 #! @BeginExample
-1=1
+1=1;
 #! true
 #! @EndExample
 
@@ -635,33 +635,52 @@ DeclareGlobalFunction( "GroupDerivationByFunction" );
 #! @Section Operations for Group Derivations
 
 #! @Description
-#! Returns <K>true</K> if the group derivation <A>der</A< is injective, and <K>false</K> otherwise.
+#! Returns <K>true</K> if the group derivation <A>der</A> is injective, and <K>false</K> otherwise.
 #! @Arguments der
 DeclareProperty( "IsInjective", IsGeneralMapping );
 
 #! @Description
-#! Returns <K>true</K> if the group derivation <A>der</A< is surjective, and <K>false</K> otherwise.
+#! Returns <K>true</K> if the group derivation <A>der</A> is surjective, and <K>false</K> otherwise.
 #! @Arguments der
 DeclareProperty( "IsSurjective", IsGeneralMapping );
 
 #! @Description
-#! Returns <K>true</K> if the group derivation <A>der</A< is bijective, and <K>false</K> otherwise.
+#! Returns <K>true</K> if the group derivation <A>der</A> is bijective, and <K>false</K> otherwise.
 #! @Arguments der
 DeclareProperty( "IsBijective", IsGeneralMapping );
+
+#! @Arguments der
+DeclareOperation( "Kernel", [ IsGeneralMapping ] );
+#! @Arguments der
+DeclareAttribute( "KernelOfGroupDerivation", IsGroupDerivation );
 
 #! @Description
 #! Calculates the image of the group derivation <A>der</A>. First variant is image of source, second of element, third of subgroup.
 #! @Arguments der
 DeclareGlobalFunction( "Image" );
 #! @Arguments der, elm
+#! @Label for elements
 DeclareGlobalFunction( "Image" );
-#! @Arguments der, sub
+#! @Arguments der, coll
+#! @Label for collections
 DeclareGlobalFunction( "Image" );
 
 #! @Description
-#! Calculates the preimage of the group derivation <A>der</A>. First variant is image of source, second of element, third of subgroup.
+#! Calculates the preimages of the group derivation <A>der</A>. First variant is image of source, second of element, third of subgroup.
 #! @Arguments der, elm
-DeclareGlobalFunction( "PreImage" );
+DeclareOperation( "PreImagesRepresentative", [ IsGeneralMapping, IsObject ] );
+
+#! @Description
+#! Calculates the preimages of the group derivation <A>der</A>. First variant is image of source, second of element, third of subgroup.
+#! @Arguments der, elm
+DeclareGlobalFunction( "PreImages" );
+#! @Arguments der, elm
+#! @Label for elements
+DeclareGlobalFunction( "PreImages" );
+#! @Arguments der, coll
+#! @Label for collections
+DeclareGlobalFunction( "PreImages" );
+
 
 ###
 # SECTION 3
