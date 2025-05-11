@@ -374,24 +374,6 @@ InstallMethod(
 
 ###############################################################################
 ##
-## ImagesSource( derv )
-##
-##  INPUT:
-##      derv:       group derivation H -> G
-##
-##  OUTPUT:
-##      I:          image of H under derv
-##
-InstallMethod(
-    ImagesSource,
-    "for group derivations",
-    [ IsGroupDerivation ],
-    GroupDerivationImage
-);
-
-
-###############################################################################
-##
 ## ImagesSet( derv, K )
 ##
 ##  INPUT:
@@ -405,33 +387,15 @@ InstallMethod(
     ImagesSet,
     "for group derivations",
     [ IsGroupDerivation, IsGroup ],
-    GroupDerivationImage
-);
-
-
-###############################################################################
-##
-## GroupDerivationImage( derv, K )
-##
-##  INPUT:
-##      derv:       group derivation H -> G
-##      K:          subgroup of H (optional)
-##
-##  OUTPUT:
-##      img:        image of H (or K) under derv
-##
-InstallGlobalFunction(
-    GroupDerivationImage,
-    function( derv, arg... )
-        local G, info, S, lhs, rhs, emb, K, tcc, img;
+    function( derv, K )
+        local G, info, S, lhs, rhs, emb, tcc, img;
         G := Range( derv );
         info := GroupDerivationInfo( derv );
         S := info!.sdp;
         lhs := info!.lhs;
         rhs := info!.rhs;
         emb := Embedding( S, 2 );
-        if Length( arg ) > 0 then
-            K := arg[1];
+        if K <> Source( derv ) then
             lhs := RestrictedHomomorphism( lhs, K, S );
             rhs := RestrictedHomomorphism( rhs, K, S );
         fi;
@@ -625,4 +589,3 @@ InstallMethod(
         return R <> fail and Length( R ) = 1;
     end
 );
-

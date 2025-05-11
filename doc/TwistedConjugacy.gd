@@ -635,12 +635,33 @@ DeclareGlobalFunction( "GroupDerivationByFunction" );
 #! @Section Operations for Group Derivations
 
 #! @Description
-#! Let <A>endo</A> be an endomorphism of a group G. This command returns the subgroup of G consisting of the elements fixed under the endomorphism <A>endo</A>.
-#! <P />
-#! This function does the same as <C>CoincidenceGroup</C>(<A>endo</A>,$\operatorname{id}_G$).
-#! @Arguments endo
-DeclareGlobalFunction( "KernelOfGroupDerivation" );
+#! Returns <K>true</K> if the group derivation <A>der</A< is injective, and <K>false</K> otherwise.
+#! @Arguments der
+DeclareProperty( "IsInjective", IsGeneralMapping );
 
+#! @Description
+#! Returns <K>true</K> if the group derivation <A>der</A< is surjective, and <K>false</K> otherwise.
+#! @Arguments der
+DeclareProperty( "IsSurjective", IsGeneralMapping );
+
+#! @Description
+#! Returns <K>true</K> if the group derivation <A>der</A< is bijective, and <K>false</K> otherwise.
+#! @Arguments der
+DeclareProperty( "IsBijective", IsGeneralMapping );
+
+#! @Description
+#! Calculates the image of the group derivation <A>der</A>. First variant is image of source, second of element, third of subgroup.
+#! @Arguments der
+DeclareGlobalFunction( "Image" );
+#! @Arguments der, elm
+DeclareGlobalFunction( "Image" );
+#! @Arguments der, sub
+DeclareGlobalFunction( "Image" );
+
+#! @Description
+#! Calculates the preimage of the group derivation <A>der</A>. First variant is image of source, second of element, third of subgroup.
+#! @Arguments der, elm
+DeclareGlobalFunction( "PreImage" );
 
 ###
 # SECTION 3
