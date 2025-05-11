@@ -127,5 +127,12 @@ Group derivation [ g1, g2, g3, g4 ] -> [ g1, g2^2*g4^-2, g3^-1*g4^-1, g4^2 ]
 gap> derv := GroupDerivationByImages( H, G, gens, imgs5, act );
 fail
 
+# Trivial group derivations
+gap> act := GroupHomomorphismByFunction( G, InnerAutomorphismGroup( G ), g -> IdentityMapping( G ) );;
+gap> derv := GroupDerivationByImages( G, G, act );
+Group derivation [ g1, g2, g3, g4 ] -> [ g1, g2, g3, g4 ]
+gap> derv := GroupDerivationByImages( G, G, ListWithIdenticalEntries( 4, One( G ) ), act );
+Group derivation [ g1, g2, g3, g4 ] -> [ id, id, id, id ]
+
 #
 gap> STOP_TEST( "derivations_inf.tst" );

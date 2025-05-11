@@ -13,7 +13,7 @@
 CreateGroupDerivation@ := function( H, G, arg... )
     local derv, obj_args, filt, gens, imgs;
     derv := rec(
-        act := Last( arg ),
+        act := Remove( arg ),
     );
     obj_args := [ derv,, Source, H, Range, G ];
     filt := HasSource and HasRange;
@@ -21,16 +21,17 @@ CreateGroupDerivation@ := function( H, G, arg... )
         filt := IsGroupDerivationByFunction and filt;
         derv!.fun := arg[1];
     else
-        if Length( arg ) > 1 then
-            gens := arg[1];
-        else
-            gens := GeneratorsOfGroup( H );
-        fi;
-        if Length( arg ) > 2 then
-            imgs := arg[2];
+        if not IsEmpty( arg ) then
+            imgs := Remove( arg );
         else
             imgs := GeneratorsOfGroup( G );
         fi;
+        if not IsEmpty( arg ) then
+            gens := Remove( arg );
+        else
+            gens := GeneratorsOfGroup( H );
+        fi;
+
         filt := IsGroupDerivationByImages and filt;
         obj_args := Concatenation(
             obj_args, [ MappingGeneratorsImages, [ gens, imgs ] ]

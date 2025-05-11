@@ -151,7 +151,9 @@ InstallMethod(
         if (
             LeftActingGroup( UxV ) <> LeftActingGroup( UyV ) or
             RightActingGroup( UxV ) <> RightActingGroup( UyV )
-        ) then TryNextMethod(); fi;
+        ) then
+            return false;
+        fi;
         x := Representative( UxV );
         return x in UyV;
     end

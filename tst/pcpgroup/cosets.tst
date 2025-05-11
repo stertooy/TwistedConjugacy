@@ -32,6 +32,7 @@ true
 gap> HxK := DoubleCoset( H, x, K );;
 gap> HyK := DoubleCoset( H, y, K );;
 gap> HzK := DoubleCoset( H, z, K );;
+gap> HxH := DoubleCoset( H, x, H );;
 gap> y in HxK;
 true
 gap> z in HxK;
@@ -40,6 +41,8 @@ gap> HxK = HyK;
 true
 gap> HxK = HzK;
 false
+gap> HxK = HxK;
+false;
 gap> DoubleCosets( G, H, H );
 fail
 gap> DCS := DoubleCosets( G, H, K );;
