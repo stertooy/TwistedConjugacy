@@ -41,8 +41,8 @@ gap> HxK = HyK;
 true
 gap> HxK = HzK;
 false
-gap> HxK = HxK;
-false;
+gap> HxK = HxH;
+false
 gap> DoubleCosets( G, H, H );
 fail
 gap> DCS := DoubleCosets( G, H, K );;
