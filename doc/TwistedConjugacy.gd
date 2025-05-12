@@ -385,9 +385,10 @@ RepresentativeTwistedConjugationMultiple( [ tau, phi ], [ psi, khi ],
 #! @Description
 #! Calculates the intersection of the (right) cosets <A>C1</A>, <A>C2</A>, ... Alternatively, <A>list</A> may be a list of (right) cosets. This intersection is either a new coset, or an empty list.
 #! @Arguments C1, C2, ...
+#! @Label of right cosets
 DeclareGlobalFunction( "Intersection" );
 #! @Arguments list
-#! @Label for IsList
+#! @Label of a list of right cosets
 DeclareGlobalFunction( "Intersection" );
 #! @EndGroup
 
@@ -417,11 +418,13 @@ Intersection( Hx, Kz );
 #! @Description
 #! Given an element <A>g</A> of a PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
 #! @Arguments g, D
+#! @Label for an element and a double coset
 DeclareOperation( "\in", [ IsPcpElement, IsDoubleCoset ] );
 
 #! @Description
 #! Given double cosets <A>C</A> and <A>D</A> of a PcpGroup, this function tests whether <A>C</A> and <A>D</A> are equal.
 #! @Arguments C, D
+#! @Label for double cosets
 DeclareOperation( "=", [ IsDoubleCoset, IsDoubleCoset ] );
 
 #! @Description
@@ -623,8 +626,21 @@ DeclareGlobalFunction( "GroupDerivationByImagesNC" );
 DeclareGlobalFunction( "GroupDerivationByFunction" );
 
 #! @BeginExample
-1=1;
-#! true
+H := PcGroupCode( 149167619499417164, 72 );;
+G := PcGroupCode( 5551210572, 72 );;
+inn := InnerAutomorphism( G, G.2 );;
+hom := GroupHomomorphismByImages(
+     G, G,
+     [ G.1*G.2, G.5 ], [ G.1*G.2^2*G.3^2*G.4, G.5 ]
+   );;
+act := GroupHomomorphismByImages(
+     H, AutomorphismGroup( G ),
+     [ H.2, H.1*H.4 ], [ inn, hom ]
+   );;
+gens := [ H.2, H.1*H.4 ];;
+imgs := [ G.2^2, G.1*G.2 ];;
+der := GroupDerivationByImages( H, G, gens, imgs, act );
+#! Group derivation [ f2, f1*f4 ] -> [ f2^2, f1*f2 ]
 #! @EndExample
 
 
@@ -637,49 +653,56 @@ DeclareGlobalFunction( "GroupDerivationByFunction" );
 #! @Description
 #! Returns <K>true</K> if the group derivation <A>der</A> is injective, and <K>false</K> otherwise.
 #! @Arguments der
-DeclareProperty( "IsInjective", IsGeneralMapping );
+#! @Label for group derivations
+DeclareProperty( "IsInjective", IsGroupDerivation );
 
 #! @Description
 #! Returns <K>true</K> if the group derivation <A>der</A> is surjective, and <K>false</K> otherwise.
 #! @Arguments der
-DeclareProperty( "IsSurjective", IsGeneralMapping );
+#! @Label for group derivations
+DeclareProperty( "IsSurjective", IsGroupDerivation );
 
 #! @Description
 #! Returns <K>true</K> if the group derivation <A>der</A> is bijective, and <K>false</K> otherwise.
 #! @Arguments der
-DeclareProperty( "IsBijective", IsGeneralMapping );
-
-#! @Arguments der
-DeclareOperation( "Kernel", [ IsGeneralMapping ] );
-#! @Arguments der
-DeclareAttribute( "KernelOfGroupDerivation", IsGroupDerivation );
+#! @Label for group derivations
+DeclareProperty( "IsBijective", IsGroupDerivation );
 
 #! @Description
-#! Calculates the image of the group derivation <A>der</A>. First variant is image of source, second of element, third of subgroup.
+#! Calculates the set of elements that are mapped to the identity by <A>der</A>.
+#! This will always be a subgroup of <C>Source</C>( <A>der</A> ).
+#! @Arguments der
+#! @Label of a group derivation
+DeclareOperation( "Kernel", [ IsGroupDerivation ] );
+
+#! @BeginGroup ImageGroup
+#! @Description
+#! Calculates the image of the group derivation <A>der</A>.
+#! One can optionally give an element <A>elm</A> or a subgroup <A>sub</A> as a second argument,
+#! in which case <C>Image</C> will calculate the image of this argument under <A>der</A>.
 #! @Arguments der
 DeclareGlobalFunction( "Image" );
 #! @Arguments der, elm
-#! @Label for elements
+#! @Label of an element under a group derivation
 DeclareGlobalFunction( "Image" );
 #! @Arguments der, coll
-#! @Label for collections
+#! @Label of a subgroup under a group derivation
 DeclareGlobalFunction( "Image" );
+#! @EndGroup
 
 #! @Description
-#! Calculates the preimages of the group derivation <A>der</A>. First variant is image of source, second of element, third of subgroup.
+#! Calculates a preimage of the element <A>elm</A> under the group derivation <A>der</A>.
 #! @Arguments der, elm
+#! @Label of an element under a group derivation
 DeclareOperation( "PreImagesRepresentative", [ IsGeneralMapping, IsObject ] );
 
 #! @Description
-#! Calculates the preimages of the group derivation <A>der</A>. First variant is image of source, second of element, third of subgroup.
+#! Calculates the preimages of the element <A>elm</A> under the group derivation <A>der</A>.
+#! This will always be a (right) coset of <C>Kernel</C>( <A>der</A> ).
 #! @Arguments der, elm
+#! @Label of an element under a group derivation
 DeclareGlobalFunction( "PreImages" );
-#! @Arguments der, elm
-#! @Label for elements
-DeclareGlobalFunction( "PreImages" );
-#! @Arguments der, coll
-#! @Label for collections
-DeclareGlobalFunction( "PreImages" );
+
 
 
 ###
@@ -689,6 +712,6 @@ DeclareGlobalFunction( "PreImages" );
 #! @Section Images of Group Derivations
 
 #! @Description
-#! Let <A>hom</A> be a group homomorphism from a group H to a group G, let <A>epi1</A> be an epimorphism from H to a group Q and let <A>epi2</A> be an epimorphism from G to a group P such that the kernel of <A>epi1</A> is mapped into the kernel of <A>epi2</A> by <A>hom</A>. This command returns the homomorphism from Q to P induced by <A>hom</A> via <A>epi1</A> and <A>epi2</A>, that is, the homomorphism from Q to P which maps h<C>^<A>epi1</A></C> to <C>(</C>h<C>^<A>hom</A>)^<A>epi2</A></C>, for any element h of H. This generalises <C>InducedAutomorphism</C> to homomorphisms.
+#! Something something
 #! @Arguments epi1, epi2, hom
 DeclareGlobalFunction( "GroupDerivationImage" );

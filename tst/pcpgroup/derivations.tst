@@ -3,7 +3,6 @@ gap> START_TEST( "Testing TwistedConjugacy for PcpGroups: derivations" );
 # Preparation
 gap> H := PcGroupToPcpGroup( PcGroupCode( 149167619499417164, 72 ) );;
 gap> G := PcGroupToPcpGroup( PcGroupCode( 5551210572, 72 ) );;
-gap> AutG := AutomorphismGroup( G );;
 gap> gensG := [ G.4, G.1*G.2 ];;
 gap> imgsG := [ G.4*G.5, G.1*G.2^2*G.3^2*G.4 ];;
 gap> auts := [ InnerAutomorphismNC( G, G.2 ), GroupHomomorphismByImagesNC( G, G, gensG, imgsG ) ];;

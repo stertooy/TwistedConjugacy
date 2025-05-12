@@ -3,7 +3,6 @@ gap> START_TEST( "Testing TwistedConjugacy for PermGroups: derivations" );
 # Preparation
 gap> H := Group( [ (2,4,3)(5,11,9,7,13,12,10,8,6), (1,2,4,3)(6,11)(7,10)(8,9)(12,13) ] );;
 gap> G := Group( [ (10,12)(13,15), (1,6,2,7,3,8,4,9,5)(10,14,13,12,11,15) ] );;
-gap> AutG := AutomorphismGroup( G );;
 gap> gensG := [ (10,12)(11,14), (1,6,2,7,3,8,4,9,5)(10,14,13,12,11,15) ];;
 gap> imgsG := [ (10,12)(13,15), (1,5,9,4,8,3,7,2,6)(10,15,14,12,13,11) ];;
 gap> auts := [ InnerAutomorphismNC( G, (1,6,2,7,3,8,4,9,5)(10,11,13)(12,14,15) ), GroupHomomorphismByImagesNC( G, G, gensG, imgsG ) ];;
