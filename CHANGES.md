@@ -4,7 +4,7 @@ This file describes changes in the GAP package TwistedConjugacy.
 3.0.0 (2025-04-11)
 ------------------
 
-- Added method for (Representatives)ReidemeisterClasses and ReidmeisterNumber
+- Added method for (Representatives)ReidemeisterClasses and ReidemeisterNumber
   with no restrictions on the homomorphisms or the source and target groups
 - Added methods for equality and enumeration of double cosets of PcpGroups 
 
