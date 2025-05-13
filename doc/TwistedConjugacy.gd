@@ -370,7 +370,7 @@ RepresentativeTwistedConjugationMultiple( [ tau, phi ], [ psi, khi ],
 
 #! @Chapter Cosets
 #! @ChapterLabel csts
-#! @ChapterTitle Cosets
+#! @ChapterTitle Cosets in PcpGroups
 
 #! Please note that the functions below are implemented only for PcpGroups.
 
@@ -379,7 +379,7 @@ RepresentativeTwistedConjugationMultiple( [ tau, phi ], [ psi, khi ],
 # SECTION 1
 ###
 
-#! @Section Right cosets in PcpGroups
+#! @Section Right cosets
 
 #! @BeginGroup IntersectionCosets
 #! @Description
@@ -413,7 +413,7 @@ Intersection( Hx, Kz );
 # SECTION 2
 ###
 
-#! @Section Double cosets in PcpGroups
+#! @Section Double cosets
 
 #! @Description
 #! Given an element <A>g</A> of a PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
@@ -638,9 +638,9 @@ act := GroupHomomorphismByImages(
      [ H.2, H.1*H.4 ], [ inn, hom ]
    );;
 gens := [ H.2, H.1*H.4 ];;
-imgs := [ G.2^2, G.1*G.2 ];;
+imgs := [ G.5, G.2 ];;
 der := GroupDerivationByImages( H, G, gens, imgs, act );
-#! Group derivation [ f2, f1*f4 ] -> [ f2^2, f1*f2 ]
+#! Group derivation [ f2, f1*f4 ] -> [ f5, f2 ]
 #! @EndExample
 
 
@@ -703,7 +703,27 @@ DeclareOperation( "PreImagesRepresentative", [ IsGeneralMapping, IsObject ] );
 #! @Label of an element under a group derivation
 DeclareGlobalFunction( "PreImages" );
 
-
+#! @BeginExample
+IsInjective( der ) or IsSurjective( der );
+#! false
+K := Kernel( der );;
+Size( K );
+#! 9
+ImH := Image( der );
+#! Group derivation image in Group( [ f1, f2, f3, f4, f5 ] )
+h1 := H.1*H.3;;
+g1 := Image( der, h1 );
+#! f2*f4
+ImK := Image( der, K );
+#! Group derivation image in Group( [ f1, f2, f3, f4, f5 ] )
+h2 := PreImagesRepresentative( der, g1 );;
+Image( der, h2 ) = g1;
+#! true
+PreIm := PreImages( der, g1 );
+#! RightCoset(<group of size 9 with 2 generators>,<object>)
+PreIm = RightCoset( K, h2 );
+#! true
+#! @EndExample
 
 ###
 # SECTION 3
@@ -712,6 +732,44 @@ DeclareGlobalFunction( "PreImages" );
 #! @Section Images of Group Derivations
 
 #! @Description
-#! Something something
-#! @Arguments epi1, epi2, hom
-DeclareGlobalFunction( "GroupDerivationImage" );
+#! Given an element <A>g</A> of a PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
+#! @Arguments img
+#! @Label for a group derivation image
+DeclareAttribute( "Size", IsGroupDerivationImageRep );
+
+
+
+#! @Description
+#! Given an element <A>g</A> of a PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
+#! @Arguments img
+#! @Label for a group derivation image
+DeclareOperation( "Random", [ IsGroupDerivationImageRep ] );
+
+#! @Description
+#! Given double cosets <A>C</A> and <A>D</A> of a PcpGroup, this function tests whether <A>C</A> and <A>D</A> are equal.
+#! @Arguments g, img
+#! @Label for an element and a group derivation
+DeclareOperation( "\in", [ IsObject, IsGroupDerivationImageRep ] );
+
+#! @Description
+#! Given an element <A>g</A> of a PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
+#! @Arguments img
+#! @Label for a group derivation image
+DeclareGlobalFunction( "List" );
+
+#! @BeginExample
+Size( ImH );
+#! 8
+Size( ImK );
+#! 1
+g2 := G.1;;
+g3 := Random( ImH );;
+g1 in ImK;
+#! false
+g2 in ImH;
+#! false
+g3 in ImH;
+#! true
+List( ImK );
+#! [ <identity> of ... ]
+#! @EndExample
