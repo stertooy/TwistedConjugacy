@@ -54,36 +54,27 @@
 
 #! @Section Twisted Conjugation Action
 #! Let $G, H$ be groups and $\varphi,\psi\colon H \to G$ group homomorphisms. Then the pair $(\varphi,\psi)$ induces a (right) group action on $G$ given by
-#! $$G \times H \to G\colon (g,h) \mapsto \varphi(h)^{-1} g\psi(h).$$
+#! $$G \times H \to G\colon (g,h) \mapsto \varphi(h)^{-1} g\,\psi(h).$$
 #! This group action is called **$(\varphi,\psi)$-twisted conjugation**, and induces an equivalence relation on the group $G$. We say that $g_1, g_2 \in G$ are $(\varphi,\psi)$-twisted conjugate, denoted by $g_1 \sim_{\varphi,\psi} g_2$, if and only if there exists some element $h \in H$ such that $\varphi(h)^{-1}g_1\psi(h) = g_2$.
 #! <P/>If $\varphi\colon G \to G$ is an endomorphism of a group $G$, then by **$\varphi$-twisted conjugacy** we mean $(\varphi,\operatorname{id}_G)$-twisted conjugacy. Most functions in this package will allow you to input a single endomorphism instead of a pair of homomorphisms. The "missing" endomorphism will automatically be assumed to be the identity mapping. Similarly, if a single group element is given instead of two, the second will be assumed to be the identity.
 
-#! @BeginGroup TwistedConjugationGroup
-#! @Description
-#! Implements the twisted conjugation (right) group action induced by the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) as a function.
 #! @Arguments hom1[, hom2]
+#! @Returns a function that maps the pair <C>(g,h)</C> to <A>hom1</A><C>(h)⁻¹</C> <C>g</C> <A>hom2</A><C>(h)</C>.
 DeclareGlobalFunction( "TwistedConjugation" );
-#! @EndGroup
 
-#! @BeginGroup IsTwistedConjugateGroup
+
+#! @Arguments hom1[, hom2], g1[, g2]
+#! @Returns <K>true</K> if <A>g1</A> and <A>g2</A> are <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugate, otherwise <K>false</K>.
 #! @Description
-#! Tests whether the elements <A>g1</A> and <A>g2</A> are twisted conjugate under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ).
-#! <P />
 #! This function relies on the output of <C>RepresentativeTwistedConjugation</C>.
-#! @Arguments hom1[, hom2], g1[, g2]
-
 DeclareGlobalFunction( "IsTwistedConjugate" );
-#! @EndGroup
 
-#! @BeginGroup RepresentativeTwistedConjugationGroup
-#! @Description
-#! Computes an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair of homomorphisms ( <A>hom1</A>, <A>hom2</A> ) or returns <K>fail</K> if no such element exists.
-#! <P />
-#! If $H$ is finite, it relies on a stabiliser-orbit algorithm.
-#! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Thm. 3'/>, <Cite Key='bkl20-a' Where='Sec. 5.4'/>, <Cite Key='roma21-a' Where='Sec. 7'/> and <Cite Key='dt21-a'/>.
 #! @Arguments hom1[, hom2], g1[, g2]
+#! @Returns an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair <C>(<A>hom1</A>,<A>hom2</A>)</C>, or <K>fail</K> if no such element exists.
+#! @Description
+#! If <C>H</C> is finite, it relies on a stabiliser-orbit algorithm.
+#! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Thm. 3'/>, <Cite Key='bkl20-a' Where='Sec. 5.4'/>, <Cite Key='roma21-a' Where='Sec. 7'/> and <Cite Key='dt21-a'/>.
 DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
-#! @EndGroup
 
 #! @BeginExample
 G := AlternatingGroup( 6 );;
@@ -108,27 +99,51 @@ tc( g1, h ) = g2;
 # SECTION 2
 ###
 
+#! @Section Twisted Conjugacy Class
+#! The orbit of $g \in G$ under the $(\varphi,\psi)$-twisted conjugation action of $H$ on $G$ is called the **Reidemeister class** of $g$.
+
+#! @BeginGroup TwistedConjugacyClassGroup
+#! @Arguments hom1[, hom2], g
+#! @Returns the <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugacy class of <A>g</A>.
+DeclareGlobalFunction( "TwistedConjugacyClass" );
+#! @Arguments hom1[, hom2], g
+DeclareGlobalFunction( "ReidemeisterClass" );
+#! @EndGroup
+
+#!
+DeclareAttribute( "Representative", IsReidemeisterClassGroupRep );
+#!
+#! (TODO: change this to record stuff? - doesn't seem worth saving this as attribute)
+DeclareAttribute( "GroupHomomorphismsOfReidemeisterClass", IsReidemeisterClassGroupRep );
+#!
+DeclareAttribute( "ActingDomain", IsReidemeisterClassGroupRep );
+#!
+#! @Group FunctionActionTCC
+#! @GroupTitle FunctionAction
+#! @Label for twisted conjugacy classes
+DeclareAttribute( "FunctionAction", IsReidemeisterClassGroupRep );
+#!
+#! @Group RandomTCC
+#! @GroupTitle Random
+#! @Label for twisted conjugacy classes
+DeclareOperation( "Random", [ IsReidemeisterClassGroupRep ] );
+#!
+DeclareOperation( "\in", [ IsObject, IsReidemeisterClassGroupRep ] );
+#!
+DeclareAttribute( "Size", IsReidemeisterClassGroupRep );
+#!
+DeclareAttribute( "StabiliserOfExternalSet", IsReidemeisterClassGroupRep );
+#! TODO: mention that things like List, Size, Random should also work.
+
+
+
+###
+# SECTION 3
+###
+
 #! @Section Reidemeister Classes
 #! The equivalence classes of the equivalence relation $\sim_{\varphi,\psi}$ are called the **Reidemeister classes of $(\varphi,\psi)$** or the **$(\varphi,\psi)$-twisted conjugacy classes**. We denote the Reidemeister class of $g \in G$ by $[g]_{\varphi,\psi}$. The number of Reidemeister classes is called the Reidemeister number $R(\varphi,\psi)$ and is always a positive integer or infinity.
 
-#! @BeginGroup ReidemeisterClassGroup
-#! @Description
-#! If <A>hom1</A> and <A>hom2</A> are group homomorphisms from  a group H to a group G, this method creates the Reidemeister class of the pair (<A>hom1</A>, <A>hom2</A>) with representative <A>g</A>. The following attributes and operations are available:
-#! * <C>Representative</C>, which returns <A>g</A>,
-#! * <C>GroupHomomorphismsOfReidemeisterClass</C>, which returns the list [ <A>hom1</A>, <A>hom2</A> ],
-#! * <C>ActingDomain</C>, which returns the group H,
-#! * <C>FunctionAction</C>, which returns the twisted conjugacy action on G,
-#! * <C>Random</C>, which returns a random element belonging to the Reidemeister class,
-#! * <C>\in</C>, which can be used to test if an element belongs to the Reidemeister class,
-#! * <C>List</C>, which lists all elements in the Reidemeister class if there are finitely many, otherwise returns <K>fail</K>,
-#! * <C>Size</C>, which gives the number of elements in the Reidemeister class,
-#! * <C>StabiliserOfExternalSet</C>, which gives the stabiliser of the Reidemeister class under the twisted conjugacy action.
-#!
-#! @Arguments hom1[, hom2], g
-DeclareGlobalFunction( "ReidemeisterClass" );
-#! @Arguments hom1[, hom2], g
-DeclareGlobalFunction( "TwistedConjugacyClass" );
-#! @EndGroup
 
 #! @BeginGroup ReidemeisterClassesGroup
 #! @Description

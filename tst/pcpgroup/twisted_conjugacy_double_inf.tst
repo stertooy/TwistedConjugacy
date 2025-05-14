@@ -14,8 +14,6 @@ gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );
 infinity
-gap> List( tcc );
-fail
 gap> ActingDomain( tcc ) = H;
 true
 gap> R := TwistedConjugacyClasses( hom1, hom2 );;

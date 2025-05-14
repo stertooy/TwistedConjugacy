@@ -110,32 +110,6 @@ InstallMethod(
 
 ###############################################################################
 ##
-## Random( rs, tcc )
-##
-##  INPUT:
-##      rs:         random generator
-##      tcc:        twisted conjugacy class
-##
-##  OUTPUT:
-##      g:          random element of tcc
-##
-InstallMethodWithRandomSource(
-    Random,
-    "for a random source and a Reidemeister class",
-    [ IsRandomSource, IsReidemeisterClassGroupRep ],
-    function( rs, tcc )
-        local H, g, h, tc;
-        H := ActingDomain( tcc );
-        g := Representative( tcc );
-        h := Random( rs, H );
-        tc := FunctionAction( tcc );
-        return tc( g, h );
-    end
-);
-
-
-###############################################################################
-##
 ## Size( tcc )
 ##
 ##  INPUT:
@@ -153,35 +127,6 @@ InstallMethod(
         H := ActingDomain( tcc );
         Coin := StabilizerOfExternalSet( tcc );
         return IndexNC( H, Coin );
-    end
-);
-
-
-###############################################################################
-##
-## ListOp( tcc )
-##
-##  INPUT:
-##      tcc:        twisted conjugacy class
-##
-##  OUTPUT:
-##      L:          list containing the elements of tcc, or fail if tcc has
-##                  infinitely many elements
-##
-InstallMethod(
-    ListOp,
-    "for Reidemeister classes",
-    [ IsReidemeisterClassGroupRep ],
-    function( tcc )
-        local H, Coin, g, tc;
-        if Size( tcc ) = infinity then
-            return fail;
-        fi;
-        H := ActingDomain( tcc );
-        Coin := StabilizerOfExternalSet( tcc );
-        g := Representative( tcc );
-        tc := FunctionAction( tcc );
-        return List( RightTransversal( H, Coin ), h -> tc( g, h ) );
     end
 );
 

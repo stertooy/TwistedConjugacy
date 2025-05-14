@@ -13,8 +13,6 @@ gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );
 infinity
-gap> List( tcc );
-fail
 gap> Random( tcc ) in tcc;
 true
 gap> ActingDomain( tcc ) = G;
