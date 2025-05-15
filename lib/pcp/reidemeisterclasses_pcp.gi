@@ -94,7 +94,8 @@ ReidemeisterClassesByFiniteQuotient@ := function( G, H, hom1, hom2, N, K, one )
                 isNew := true;
                 for h in Coin do
                     m2 := tc( m1, h );
-                    inn_nm2_hom1K := inn_n_hom1K * InnerAutomorphismNC( K, m2 );
+                    inn_nm2_hom1K := inn_n_hom1K *
+                        InnerAutomorphismNC( K, m2 );
                     if ForAny(
                         inRclM,
                         k -> RepresentativeTwistedConjugationOp(
@@ -331,7 +332,9 @@ InstallMethod(
             not IsFinite( H ) and
             IsFinite( G )
         ) then TryNextMethod(); fi;
-        return ReidemeisterClassesByTrivialSubgroup@( G, H, hom1, hom2, N, one );
+        return ReidemeisterClassesByTrivialSubgroup@(
+            G, H, hom1, hom2, N, one
+        );
     end
 );
 
@@ -352,7 +355,9 @@ InstallMethod(
             IsNilpotentGroup( G )
         ) then TryNextMethod(); fi;
         C := Center( G );
-        return ReidemeisterClassesByNormalSubgroup@( G, H, hom1, hom2, N, C, one );
+        return ReidemeisterClassesByNormalSubgroup@(
+            G, H, hom1, hom2, N, C, one
+        );
     end
 );
 
@@ -374,7 +379,9 @@ InstallMethod(
             IsNilpotentByFinite( G )
         ) then TryNextMethod(); fi;
         F := FittingSubgroup( G );
-        return ReidemeisterClassesByFiniteQuotient@( G, H, hom1, hom2, N, F, one );
+        return ReidemeisterClassesByFiniteQuotient@(
+            G, H, hom1, hom2, N, F, one
+        );
     end
 );
 
@@ -419,7 +426,9 @@ InstallMethod(
             IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
         K := Center( DerivedSubgroup( G ) );
-        return ReidemeisterClassesByNormalSubgroup@( G, H, hom1, hom2, N, K, one );
+        return ReidemeisterClassesByNormalSubgroup@(
+            G, H, hom1, hom2, N, K, one
+        );
     end
 );
 
@@ -440,6 +449,8 @@ InstallMethod(
             not IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
         K := NilpotentByAbelianByFiniteSeries( G )[2];
-        return ReidemeisterClassesByFiniteQuotient@( G, H, hom1, hom2, N, K, one );
+        return ReidemeisterClassesByFiniteQuotient@(
+            G, H, hom1, hom2, N, K, one
+        );
     end
 );
