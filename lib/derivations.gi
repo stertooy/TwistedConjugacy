@@ -493,29 +493,6 @@ InstallMethod(
 
 ###############################################################################
 ##
-## Random( rs, img )
-##
-##  INPUT:
-##      rs:         random generator
-##      img:        image of a group derivation H -> G
-##
-##  OUTPUT:
-##      g:          random element of img
-##
-InstallMethodWithRandomSource(
-    Random,
-    "for a random source and a group derivation image",
-    [ IsRandomSource, IsGroupDerivationImageRep ],
-    function( rs, img )
-        local s;
-        s := Random( rs, img!.tcc );
-        return PreImagesRepresentative( img!.emb, s );
-    end
-);
-
-
-###############################################################################
-##
 ## Size( img )
 ##
 ##  INPUT:
@@ -529,32 +506,6 @@ InstallMethod(
     "for group derivation images",
     [ IsGroupDerivationImageRep ],
     img -> Size( img!.tcc )
-);
-
-
-###############################################################################
-##
-## ListOp( img )
-##
-##  INPUT:
-##      img:        image of a group derivation H -> G
-##
-##  OUTPUT:
-##      L:          list containing the elements of img, or fail if img has
-##                  infinitely many elements
-##
-InstallMethod(
-    ListOp,
-    "for group derivation images",
-    [ IsGroupDerivationImageRep ],
-    function( img )
-        local tcc;
-        tcc := img!.tcc;
-        if Size( tcc ) = infinity then
-            return fail;
-        fi;
-        return List( tcc, s -> PreImagesRepresentative( img!.emb, s ) );
-    end
 );
 
 
