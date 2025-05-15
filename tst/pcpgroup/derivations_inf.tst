@@ -38,6 +38,8 @@ gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
 gap> imgH := ImagesSource( derv );
 Group derivation image in Pcp-group with orders [ 2, 0, 0, 0 ]
+gap> K = StabilizerOfExternalSet( imgH );
+true
 gap> Print( imgH );
 <group derivation image: Pcp-group with orders [ 2, 0, 0, 0 ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
 gap> g in imgH;
@@ -129,6 +131,26 @@ gap> derv := GroupDerivationByImages( G, G, act );
 Group derivation [ g1, g2, g3, g4 ] -> [ g1, g2, g3, g4 ]
 gap> derv := GroupDerivationByImages( G, G, ListWithIdenticalEntries( 4, One( G ) ), act );
 Group derivation [ g1, g2, g3, g4 ] -> [ id, id, id, id ]
+
+# Coset-inspired example
+gap> G := ExamplesOfSomePcpGroups( 10 );;
+gap> H := DirectProduct( Subgroup( G, [ G.1 ] ), Subgroup( G, [ G.2^2, G.3 ] ) );;
+gap> gens := [ H.1, H.2, H.3 ];;
+gap> imgs1 := [ G.1, One( G ), One( G ) ];;
+gap> imgs2 := [ One( G ), G.2^2, G.3 ];;
+gap> hom1 := GroupHomomorphismByImages( H, G, gens, imgs1 );;
+gap> hom2 := GroupHomomorphismByImages( H, G, gens, imgs2 );;
+gap> inn := InnerAutomorphismNC( G, G.1 );;
+gap> idG := IdentityMapping( G );;
+gap> imgs3 := [ inn, idG, idG ];;
+gap> imgs4 := [ G.1^-1, G.2^2, G.3 ];;
+gap> act := GroupHomomorphismByImages( H, Group( [ inn ] ), gens, imgs3 );;
+gap> derv := GroupDerivationByImages( H, G, gens, imgs4, act );
+Group derivation [ g1, g2, g3 ] -> [ g1^-1, g2^2, g3 ]
+gap> IsInjective( derv );
+true
+gap> IsSurjective( derv );
+false
 
 #
 gap> STOP_TEST( "derivations_inf.tst" );

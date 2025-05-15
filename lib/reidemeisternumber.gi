@@ -52,7 +52,7 @@ InstallMethod(
     function( hom1, hom2 )
         local G, Rcl;
         G := Range( hom1 );
-        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, G );
+        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, G, false );
         if Rcl <> fail then
             return Size( Rcl );
         fi;

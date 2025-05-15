@@ -425,9 +425,6 @@ InstallMethod(
             ActingDomain, K,
             FunctionAction, fnc
         );
-        if HasKernelOfGroupDerivation( derv ) then
-            SetStabilizerOfExternalSet( img, KernelOfGroupDerivation( derv ) );
-        fi;
         return img;
     end
 );
@@ -571,7 +568,7 @@ InstallMethod(
         sub := ImagesSource( emb );
         lhs := info!.lhs;
         rhs := info!.rhs;
-        R := RepresentativesReidemeisterClassesOp( lhs, rhs, sub );
-        return R <> fail and Length( R ) = 1;
+        R := RepresentativesReidemeisterClassesOp( lhs, rhs, sub, true );
+        return R <> fail;
     end
 );
