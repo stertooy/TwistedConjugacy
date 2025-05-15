@@ -10,7 +10,8 @@
 ##      N:          intersection of Ker(hom1) and Ker(hom2)
 ##
 IntersectionKernels@ := { hom1, hom2 } -> NormalIntersection(
-    Kernel( hom1 ), Kernel( hom2 )
+    KernelOfMultiplicativeGeneralMapping( hom1 ),
+    KernelOfMultiplicativeGeneralMapping( hom2 )
 );
 
 

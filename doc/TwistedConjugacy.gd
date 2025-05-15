@@ -668,12 +668,6 @@ DeclareProperty( "IsInjective", IsGroupDerivation );
 DeclareProperty( "IsSurjective", IsGroupDerivation );
 
 #! @Description
-#! Returns <K>true</K> if the group derivation <A>der</A> is bijective, and <K>false</K> otherwise.
-#! @Arguments der
-#! @Label for group derivations
-DeclareProperty( "IsBijective", IsGroupDerivation );
-
-#! @Description
 #! Calculates the set of elements that are mapped to the identity by <A>der</A>.
 #! This will always be a subgroup of <C>Source</C>( <A>der</A> ).
 #! @Arguments der

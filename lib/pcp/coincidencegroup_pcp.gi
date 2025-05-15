@@ -112,7 +112,7 @@ CoincidenceGroupByCentre@ := function( G, H, hom1, hom2 )
         InducedHomomorphism( q, p, hom2 )
     );
     diff := DifferenceGroupHomomorphisms@( hom1, hom2, Coin, G );
-    return Kernel( diff );
+    return KernelOfMultiplicativeGeneralMapping( diff );
 end;
 
 
@@ -190,7 +190,7 @@ CoincidenceGroupStep4@ := function( G, H, hom1, hom2 )
         InducedHomomorphism( q, p, hom2 )
     );
     d := DifferenceGroupHomomorphisms@( hom1, hom2, Coin, G );
-    return Kernel( d );
+    return KernelOfMultiplicativeGeneralMapping( d );
 end;
 
 
@@ -233,7 +233,7 @@ CoincidenceGroupStep3@ := function( G, H, hom1, hom2 )
     bi := List( [ 1 .. n ], i -> tc( One( G ), ci[i] ^ -1 ) );
     di := List( [ 1 .. n ], i -> PreImagesRepresentativeNC( d, bi[i] ) );
     gens1 := List( [ 1 .. n ], i -> di[i] ^ -1 * ci[i] );
-    gens2 := SmallGeneratingSet( Kernel( d ) );
+    gens2 := SmallGeneratingSet( KernelOfMultiplicativeGeneralMapping( d ) );
     return Subgroup( H, Concatenation( gens1, gens2 ) );
 end;
 

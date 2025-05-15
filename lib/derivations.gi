@@ -425,6 +425,9 @@ InstallMethod(
             ActingDomain, K,
             FunctionAction, fnc
         );
+        if HasKernelOfGroupDerivation( derv ) then
+            SetStabilizerOfExternalSet( img, KernelOfGroupDerivation( derv ) );
+        fi;
         return img;
     end
 );

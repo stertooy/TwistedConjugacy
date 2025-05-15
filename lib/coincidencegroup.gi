@@ -96,7 +96,7 @@ InstallMethod(
         H := Source( hom1 );
         if not IsAbelian( G ) then TryNextMethod(); fi;
         diff := DifferenceGroupHomomorphisms@ ( hom1, hom2, H, G );
-        return Kernel( diff );
+        return KernelOfMultiplicativeGeneralMapping( diff );
     end
 );
 
