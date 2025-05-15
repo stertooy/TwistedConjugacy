@@ -295,7 +295,7 @@ InstallMethod(
         else
             gens := SmallGeneratingSet( H );
         fi;
-        orbits := OrbitsDomain( H, N_List, gens, gens, tc );
+        orbits := ExternalOrbits( H, N_List, gens, gens, tc );
         return List( orbits, First );
     end
 );
