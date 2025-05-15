@@ -80,6 +80,10 @@ rec(
 )
 gap> Print( derv );
 <group derivation: Pcp-group with orders [ 2, 0, 0, 0 ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
+gap> imgH := ImagesSource( derv );
+Group derivation image in Pcp-group with orders [ 2, 0, 0, 0 ]
+gap> Print( imgH );
+<group derivation image: Pcp-group with orders [ 2, 0, 0, 0 ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
 gap> K := Kernel( derv );
 Pcp-group with orders [  ]
 gap> h :=  H.1*H.2^-2*H.3^3*H.4^-4;;
@@ -92,10 +96,6 @@ gap> g = ImagesRepresentative( derv, x );
 true
 gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
-gap> imgH := ImagesSource( derv );
-Group derivation image in Pcp-group with orders [ 2, 0, 0, 0 ]
-gap> Print( imgH );
-<group derivation image: Pcp-group with orders [ 2, 0, 0, 0 ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
 gap> g in imgH;
 true
 gap> G.1 in imgH;
