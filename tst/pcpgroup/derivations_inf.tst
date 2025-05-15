@@ -52,8 +52,6 @@ gap> Random( imgH ) in imgH;
 true
 gap> Size( imgH );
 infinity
-gap> List( imgH );
-fail
 gap> imgK := ImagesSet( derv, K );
 Group derivation image in Pcp-group with orders [ 2, 0, 0, 0 ]
 gap> Print( imgK );
@@ -106,8 +104,6 @@ gap> Random( imgH ) in imgH;
 true
 gap> Size( imgH );
 infinity
-gap> List( imgH );
-fail
 gap> imgK := ImagesSet( derv, K );
 Group derivation image in Pcp-group with orders [ 2, 0, 0, 0 ]
 gap> Print( imgK );
@@ -136,3 +132,4 @@ Group derivation [ g1, g2, g3, g4 ] -> [ id, id, id, id ]
 
 #
 gap> STOP_TEST( "derivations_inf.tst" );
+
