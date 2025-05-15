@@ -96,49 +96,97 @@ tc( g1, h ) = g2;
 
 
 ###
-# SECTION 2
+# SECTION 1
 ###
 
-#! @Section Twisted Conjugacy Class
-#! The orbit of $g \in G$ under the $(\varphi,\psi)$-twisted conjugation action of $H$ on $G$ is called the **Reidemeister class** of $g$.
+#! @Section The Multiple Twisted Conjugacy Problem
+#! Let $H$ and $G_1, \ldots, G_n$ be groups. For each $i \in \{1,\ldots,n\}$, let $g_i,g_i' \in G_i$ and let $\varphi_i,\psi_i\colon H \to G_i$ be group homomorphisms.
+#! The multiple twisted conjugacy problem is the problem of finding some $h \in H$ such that $\varphi_i(h)^{-1}g_i\psi_i(h) = g_i'$ for all $i \in \{1,\ldots,n\}$.
+
+#! @Description
+#! Verifies whether the multiple twisted conjugacy problem for the given homomorphisms and elements has a solution.
+#! @Arguments hom1List[, hom2List], g1List[, g2List]
+DeclareGlobalFunction( "IsTwistedConjugateMultiple" );
+
+#! @Description
+#! Computes a solution to the multiple twisted conjugacy problem for the given homomorphisms and elements, or returns <K>fail</K> if no solution exists.
+#! @Arguments hom1List[, hom2List], g1List[, g2List]
+DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
+
+#! @BeginExample
+H := SymmetricGroup( 5 );;
+G := AlternatingGroup( 6 );;
+phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,4)(3,6), () ] );;
+psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,2)(3,4), () ] );;
+tau := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,2)(3,6), () ] );;
+khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
+ [ (1,3)(4,6), () ] );;
+IsTwistedConjugateMultiple( [ phi, psi ], [ khi, tau ],
+ [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );
+#! true
+RepresentativeTwistedConjugationMultiple( [ phi, psi ], [ khi, tau ],
+ [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );
+#! (1,2)
+#! @EndExample
+
+
+
+#! @Chapter Reidemeister Classes
+#! @ChapterLabel reidclass
+#! @ChapterTitle Reidemeister Classes
+
+#! The equivalence classes of the equivalence relation $\sim_{\varphi,\psi}$ are called the **Reidemeister classes of $(\varphi,\psi)$** or the **$(\varphi,\psi)$-twisted conjugacy classes**. We denote the Reidemeister class of $g \in G$ by $[g]_{\varphi,\psi}$. The number of Reidemeister classes is called the Reidemeister number $R(\varphi,\psi)$ and is always a positive integer or infinity.
+
+#! @Section Creating Reidemeister Classes
 
 #! @BeginGroup TwistedConjugacyClassGroup
 #! @Arguments hom1[, hom2], g
 #! @Returns the <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugacy class of <A>g</A>.
-DeclareGlobalFunction( "TwistedConjugacyClass" );
-#! @Arguments hom1[, hom2], g
 DeclareGlobalFunction( "ReidemeisterClass" );
+#! @Arguments hom1[, hom2], g
+DeclareGlobalFunction( "TwistedConjugacyClass" );
 #! @EndGroup
 
-#!
+#! @Section Operations on Reidemeister Classes
+
+
+#! @Group RepresentativeTCC
+#! @GroupTitle Representative
+#! @Label for twisted conjugacy classes
 DeclareAttribute( "Representative", IsReidemeisterClassGroupRep );
-#!
+
+#! @Group ActingDomainTCC
+#! @GroupTitle ActingDomain
+#! @Label for twisted conjugacy classes
 DeclareAttribute( "ActingDomain", IsReidemeisterClassGroupRep );
-#!
+
 #! @Group FunctionActionTCC
 #! @GroupTitle FunctionAction
 #! @Label for twisted conjugacy classes
 DeclareAttribute( "FunctionAction", IsReidemeisterClassGroupRep );
-#!
-#! @Group RandomTCC
+
+#! @Group InTCC
 #! @GroupTitle in
 #! @Label for twisted conjugacy classes
 DeclareOperation( "\in", [ IsObject, IsReidemeisterClassGroupRep ] );
-#!
+
+#! @Group SizeTCC
+#! @GroupTitle Size
+#! @Label for twisted conjugacy classes
 DeclareAttribute( "Size", IsReidemeisterClassGroupRep );
-#!
+
+#! @Group StabiliserOfExternalSetTCC
+#! @GroupTitle StabiliserOfExternalSet
+#! @Label for twisted conjugacy classes
 DeclareAttribute( "StabiliserOfExternalSet", IsReidemeisterClassGroupRep );
+
 #! TODO: mention that things like List, Size, Random should also work.
 
 
-
-###
-# SECTION 3
-###
-
-#! @Section Reidemeister Classes
-#! The equivalence classes of the equivalence relation $\sim_{\varphi,\psi}$ are called the **Reidemeister classes of $(\varphi,\psi)$** or the **$(\varphi,\psi)$-twisted conjugacy classes**. We denote the Reidemeister class of $g \in G$ by $[g]_{\varphi,\psi}$. The number of Reidemeister classes is called the Reidemeister number $R(\varphi,\psi)$ and is always a positive integer or infinity.
-
+#! @Section Calculating Reidemeister Classes
 
 #! @BeginGroup ReidemeisterClassesGroup
 #! @Description
@@ -161,18 +209,7 @@ DeclareGlobalFunction( "RepresentativesReidemeisterClasses" );
 DeclareGlobalFunction( "RepresentativesTwistedConjugacyClasses" );
 #! @EndGroup
 
-#! @BeginGroup ReidemeisterNumberGroup
-#! @Description
-#! Returns the Reidemeister number of ( <A>hom1</A>, <A>hom2</A> ), i.e. the number of Reidemeister classes.
-#! <P />
-#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='jian83-a' Where='Thm. 2.5'/>.
-#! If $G = H$, $G$ is finite non-abelian and $\psi = \operatorname{id}_G$, it relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
-#! Otherwise, it uses the output of <C>RepresentativesReidemeisterClasses</C>.
-#! @Arguments hom1[, hom2]
-DeclareGlobalFunction( "ReidemeisterNumber" );
-#! @Arguments hom1[, hom2]
-DeclareGlobalFunction( "NrTwistedConjugacyClasses" );
-#! @EndGroup
+
 
 #! @BeginExample
 tcc := ReidemeisterClass( phi, psi, g1 );
@@ -198,9 +235,24 @@ NrTwistedConjugacyClasses( phi, psi );
 #! @EndExample
 
 
-###
-# SECTION 3
-###
+#! @Chapter Reidemeister Numbers and Spectra
+#! @ChapterLabel reidnrspec
+#! @ChapterTitle Reidemeister Numbers and Spectra
+
+#! @Section Reidemeister Numbers
+
+#! @BeginGroup ReidemeisterNumberGroup
+#! @Description
+#! Returns the Reidemeister number of ( <A>hom1</A>, <A>hom2</A> ), i.e. the number of Reidemeister classes.
+#! <P />
+#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='jian83-a' Where='Thm. 2.5'/>.
+#! If $G = H$, $G$ is finite non-abelian and $\psi = \operatorname{id}_G$, it relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
+#! Otherwise, it uses the output of <C>RepresentativesReidemeisterClasses</C>.
+#! @Arguments hom1[, hom2]
+DeclareGlobalFunction( "ReidemeisterNumber" );
+#! @Arguments hom1[, hom2]
+DeclareGlobalFunction( "NrTwistedConjugacyClasses" );
+#! @EndGroup
 
 #! @Section Reidemeister Spectra
 #! The set of all Reidemeister numbers of automorphisms is called the **Reidemeister spectrum** and is denoted by $\operatorname{Spec}_R(G)$, i.e.
@@ -259,9 +311,9 @@ TotalReidemeisterSpectrum( Q );
 #! @EndExample
 
 
-###
-# SECTION 4
-###
+#! @Chapter Reidemeister Zeta Functions
+#! @ChapterLabel reidzeta
+#! @ChapterTitle Reidemeister Zeta Functions
 
 #! @Section Reidemeister Zeta Functions
 #! Let $\varphi,\psi\colon G \to G$ be endomorphisms such that $R(\varphi^n,\psi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the **Reidemeister zeta function** $Z_{\varphi,\psi}(s)$ of the pair $(\varphi,\psi)$ is defined as
@@ -316,54 +368,6 @@ PrintReidemeisterZeta( khi );
 #! @EndExample
 
 
-
-#####
-#
-# CHAPTER 3
-#
-#####
-
-#! @Chapter Multiple Twisted Conjugacy Problem
-#! @ChapterLabel mult
-#! @ChapterTitle Multiple Twisted Conjugacy Problem
-
-
-###
-# SECTION 1
-###
-
-#! @Section The Multiple Twisted Conjugacy Problem
-#! Let $H$ and $G_1, \ldots, G_n$ be groups. For each $i \in \{1,\ldots,n\}$, let $g_i,g_i' \in G_i$ and let $\varphi_i,\psi_i\colon H \to G_i$ be group homomorphisms.
-#! The multiple twisted conjugacy problem is the problem of finding some $h \in H$ such that $\varphi_i(h)^{-1}g_i\psi_i(h) = g_i'$ for all $i \in \{1,\ldots,n\}$.
-
-#! @Description
-#! Verifies whether the multiple twisted conjugacy problem for the given homomorphisms and elements has a solution.
-#! @Arguments hom1List[, hom2List], g1List[, g2List]
-DeclareGlobalFunction( "IsTwistedConjugateMultiple" );
-
-#! @Description
-#! Computes a solution to the multiple twisted conjugacy problem for the given homomorphisms and elements, or returns <K>fail</K> if no solution exists.
-#! @Arguments hom1List[, hom2List], g1List[, g2List]
-DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
-
-#! @BeginExample
-H := SymmetricGroup( 5 );;
-G := AlternatingGroup( 6 );;
-tau := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,4)(3,6), () ] );;
-phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,2)(3,4), () ] );;
-khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,2)(3,6), () ] );;
-psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,3)(4,6), () ] );;
-IsTwistedConjugateMultiple( [ tau, phi ], [ psi, khi ],
- [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );
-#! true
-RepresentativeTwistedConjugationMultiple( [ tau, phi ], [ psi, khi ],
- [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );
-#! (1,2)
-#! @EndExample
 
 
 
