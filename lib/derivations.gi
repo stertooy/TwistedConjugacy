@@ -389,7 +389,7 @@ InstallMethod(
     "for group derivations",
     [ IsGroupDerivation, IsGroup ],
     function( derv, K )
-        local G, info, S, lhs, rhs, emb, tcc, img;
+        local G, info, S, lhs, rhs, emb, tcc, img, fnc;
         G := Range( derv );
         info := GroupDerivationInfo( derv );
         S := info!.sdp;
@@ -405,12 +405,24 @@ InstallMethod(
             tcc := tcc,
             emb := emb
         );
+        fnc := function( g, k )
+            local tc, inv, s, t;
+            tc := TwistedConjugation( lhs, rhs );
+            inv := RestrictedInverseGeneralMapping( emb );
+            s := ImagesRepresentative( emb, g );
+            t := tc( s, k );
+            return ImagesRepresentative( inv, t );
+        end;
         ObjectifyWithAttributes(
             img, NewType(
                 FamilyObj( G ),
-                IsGroupDerivationImageRep
+                IsGroupDerivationImageRep and
+                HasActingDomain and
+                HasFunctionAction
             ),
-            Representative, One( G )
+            Representative, One( G ),
+            ActingDomain, K,
+            FunctionAction, fnc
         );
         return img;
     end
