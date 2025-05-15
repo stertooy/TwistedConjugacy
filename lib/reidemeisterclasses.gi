@@ -200,7 +200,7 @@ InstallGlobalFunction(
         else
             hom2 := arg[1];
         fi;
-        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, G );
+        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, G, false );
         if Rcl = fail then
             return fail;
         elif ASSERT@ then
@@ -245,9 +245,9 @@ InstallGlobalFunction(
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
     "for trivial subgroup",
-    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
+    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     8,
-    function( hom1, hom2, N )
+    function( hom1, hom2, N, one )
         if not IsTrivial( N ) then TryNextMethod(); fi;
         return [ One( N ) ];
     end
@@ -256,16 +256,16 @@ InstallMethod(
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
     "for central subgroup",
-    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
+    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     6,
-    function( hom1, hom2, N )
+    function( hom1, hom2, N, one )
         local G, H, diff, D, p;
         G := Range( hom1 );
         if not IsCentral( G, N ) then TryNextMethod(); fi;
         H := Source( hom1 );
         diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, N );
         D := ImagesSource( diff );
-        if IndexNC( N, D ) = infinity then
+        if ( one and N <> D ) or IndexNC( N, D ) = infinity then
             return fail;
         fi;
         p := NaturalHomomorphismByNormalSubgroupNC( N, D );
@@ -279,10 +279,10 @@ InstallMethod(
 InstallMethod(
     RepresentativesReidemeisterClassesOp,
     "for finite source",
-    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ],
+    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     5,
-    function( hom1, hom2, N )
-        local H, tc, N_List, gens, orbits;
+    function( hom1, hom2, N, one )
+        local H, tc, N_List, gens, orb;
         H := Source( hom1 );
         if not IsFinite( H ) then TryNextMethod(); fi;
         if not IsFinite( N ) then
@@ -295,7 +295,13 @@ InstallMethod(
         else
             gens := SmallGeneratingSet( H );
         fi;
-        orbits := ExternalOrbits( H, N_List, gens, gens, tc );
-        return List( orbits, First );
+        if one then
+            orb := ExternalOrbit( H, N_List, One( N ), gens, gens, tc );
+            if Size( orb ) < Length( N_List ) then
+                return fail;
+            fi;
+            return [ One( N ) ];
+        fi;
+        return List( ExternalOrbits( H, N_List, gens, gens, tc ), First );
     end
 );
