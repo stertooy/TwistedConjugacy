@@ -28,7 +28,7 @@ InstallGlobalFunction(
         ObjectifyWithAttributes(
             tcc, NewType(
                 FamilyObj( G ),
-                IsTwistedConjugacyClassGroupRep and
+                IsReidemeisterClassGroupRep and
                 HasActingDomain and
                 HasRepresentative and
                 HasFunctionAction
@@ -55,8 +55,8 @@ InstallGlobalFunction(
 ##
 InstallMethod(
     \in,
-    "for twisted conjugacy classes",
-    [ IsMultiplicativeElementWithInverse, IsTwistedConjugacyClassGroupRep ],
+    "for Reidemeister classes",
+    [ IsMultiplicativeElementWithInverse, IsReidemeisterClassGroupRep ],
     { g, tcc } -> IsTwistedConjugate(
         tcc!.lhs, tcc!.rhs,
         g, Representative(tcc )
@@ -73,8 +73,8 @@ InstallMethod(
 ##
 InstallMethod(
     PrintObj,
-    "for twisted conjugacy classes",
-    [ IsTwistedConjugacyClassGroupRep ],
+    "for Reidemeister classes",
+    [ IsReidemeisterClassGroupRep ],
     function( tcc )
         local homStrings, g, hom, homGensImgs;
         homStrings := [];
@@ -113,8 +113,8 @@ InstallMethod(
 ##
 InstallMethod(
     Size,
-    "for twisted conjugacy classes",
-    [ IsTwistedConjugacyClassGroupRep ],
+    "for Reidemeister classes",
+    [ IsReidemeisterClassGroupRep ],
     tcc -> IndexNC( ActingDomain( tcc ), StabilizerOfExternalSet( tcc ) )
 );
 
@@ -132,8 +132,8 @@ InstallMethod(
 ##
 InstallMethod(
     StabilizerOfExternalSet,
-    "for twisted conjugacy classes",
-    [ IsTwistedConjugacyClassGroupRep ],
+    "for Reidemeister classes",
+    [ IsReidemeisterClassGroupRep ],
     function( tcc )
         local g, hom1, hom2, G, inn;
         g := Representative( tcc );

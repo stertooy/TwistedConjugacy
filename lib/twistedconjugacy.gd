@@ -18,9 +18,9 @@ DeclareOperation(
 );
 
 
-DeclareGlobalFunction( "TwistedConjugacyClass" );
-DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
-DeclareRepresentation( "IsTwistedConjugacyClassGroupRep", IsExternalOrbit );
+DeclareGlobalFunction( "ReidemeisterClass" );
+DeclareSynonym( "TwistedConjugacyClass", ReidemeisterClass );
+DeclareRepresentation( "IsReidemeisterClassGroupRep", IsExternalOrbit );
 
 
 DeclareGlobalFunction( "ReidemeisterClasses" );
