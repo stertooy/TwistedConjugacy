@@ -113,9 +113,6 @@ DeclareGlobalFunction( "ReidemeisterClass" );
 #!
 DeclareAttribute( "Representative", IsReidemeisterClassGroupRep );
 #!
-#! (TODO: change this to record stuff? - doesn't seem worth saving this as attribute)
-DeclareAttribute( "GroupHomomorphismsOfReidemeisterClass", IsReidemeisterClassGroupRep );
-#!
 DeclareAttribute( "ActingDomain", IsReidemeisterClassGroupRep );
 #!
 #! @Group FunctionActionTCC
@@ -124,10 +121,8 @@ DeclareAttribute( "ActingDomain", IsReidemeisterClassGroupRep );
 DeclareAttribute( "FunctionAction", IsReidemeisterClassGroupRep );
 #!
 #! @Group RandomTCC
-#! @GroupTitle Random
+#! @GroupTitle in
 #! @Label for twisted conjugacy classes
-DeclareOperation( "Random", [ IsReidemeisterClassGroupRep ] );
-#!
 DeclareOperation( "\in", [ IsObject, IsReidemeisterClassGroupRep ] );
 #!
 DeclareAttribute( "Size", IsReidemeisterClassGroupRep );
@@ -184,15 +179,10 @@ tcc := ReidemeisterClass( phi, psi, g1 );
 #! (4,6,5)^G
 Representative( tcc );
 #! (4,6,5)
-GroupHomomorphismsOfReidemeisterClass( tcc );
-#! [ [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,4)(3,6), () ],
-#!   [ (1,2)(3,5,4), (2,3)(4,5) ] -> [ (1,2)(3,4), () ] ]
 ActingDomain( tcc ) = H;
 #! true
 FunctionAction( tcc )( g1, h );
 #! (1,6,4,2)(3,5)
-Random( tcc ) in tcc;
-#! true
 List( tcc );
 #! [ (4,6,5), (1,6,4,2)(3,5) ]
 Size( tcc );
@@ -727,14 +717,14 @@ Size( K );
 ImH := Image( der );
 #! Group derivation image in Group( [ f1, f2, f3, f4, f5 ] )
 h1 := H.1*H.3;;
-g1 := Image( der, h1 );
+g := Image( der, h1 );
 #! f2*f4
 ImK := Image( der, K );
 #! Group derivation image in Group( [ f1, f2, f3, f4, f5 ] )
-h2 := PreImagesRepresentative( der, g1 );;
-Image( der, h2 ) = g1;
+h2 := PreImagesRepresentative( der, g );;
+Image( der, h2 ) = g;
 #! true
-PreIm := PreImages( der, g1 );
+PreIm := PreImages( der, g );
 #! RightCoset(<group of size 9 with 2 generators>,<object>)
 PreIm = RightCoset( K, h2 );
 #! true
@@ -752,39 +742,21 @@ PreIm = RightCoset( K, h2 );
 #! @Label for a group derivation image
 DeclareAttribute( "Size", IsGroupDerivationImageRep );
 
-
-
-#! @Description
-#! Given an element <A>g</A> of a PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
-#! @Arguments img
-#! @Label for a group derivation image
-DeclareOperation( "Random", [ IsGroupDerivationImageRep ] );
-
 #! @Description
 #! Given double cosets <A>C</A> and <A>D</A> of a PcpGroup, this function tests whether <A>C</A> and <A>D</A> are equal.
 #! @Arguments g, img
 #! @Label for an element and a group derivation
 DeclareOperation( "\in", [ IsObject, IsGroupDerivationImageRep ] );
 
-#! @Description
-#! Given an element <A>g</A> of a PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
-#! @Arguments img
-#! @Label for a group derivation image
-DeclareGlobalFunction( "List" );
-
 #! @BeginExample
 Size( ImH );
 #! 8
 Size( ImK );
 #! 1
-g2 := G.1;;
-g3 := Random( ImH );;
-g1 in ImK;
-#! false
-g2 in ImH;
-#! false
-g3 in ImH;
+g in ImH;
 #! true
+g in ImK;
+#! false
 List( ImK );
 #! [ <identity> of ... ]
 #! @EndExample
