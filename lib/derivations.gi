@@ -417,6 +417,7 @@ InstallMethod(
             img, NewType(
                 FamilyObj( G ),
                 IsGroupDerivationImageRep and
+                HasRepresentative and
                 HasActingDomain and
                 HasFunctionAction
             ),
@@ -506,6 +507,24 @@ InstallMethod(
     "for group derivation images",
     [ IsGroupDerivationImageRep ],
     img -> Size( img!.tcc )
+);
+
+
+###############################################################################
+##
+## StabilizerOfExternalSet( img )
+##
+##  INPUT:
+##      img:        image of a group derivation H -> G
+##
+##  OUTPUT:
+##      stab:       stabiliser of the representative of img
+##
+InstallMethod(
+    StabilizerOfExternalSet,
+    "for group derivation images",
+    [ IsGroupDerivationImageRep ],
+    img -> StabilizerOfExternalSet( img!.tcc )
 );
 
 

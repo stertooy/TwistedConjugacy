@@ -24,20 +24,18 @@ InstallGlobalFunction(
             g := arg[1];
         fi;
         tc := TwistedConjugation( hom1, hom2 );
-        tcc := rec();
+        tcc := rec( lhs := hom1, rhs := hom2 );
         ObjectifyWithAttributes(
             tcc, NewType(
                 FamilyObj( G ),
-                IsReidemeisterClassGroupRep and
+                IsTwistedConjugacyClassGroupRep and
                 HasActingDomain and
                 HasRepresentative and
-                HasFunctionAction and
-                HasGroupHomomorphismsOfReidemeisterClass
+                HasFunctionAction
             ),
             ActingDomain, H,
             Representative, g,
-            FunctionAction, tc,
-            GroupHomomorphismsOfReidemeisterClass, [ hom1, hom2 ]
+            FunctionAction, tc
         );
         return tcc;
     end
@@ -57,16 +55,12 @@ InstallGlobalFunction(
 ##
 InstallMethod(
     \in,
-    "for Reidemeister classes",
-    [ IsMultiplicativeElementWithInverse, IsReidemeisterClassGroupRep ],
-    function( g, tcc )
-        local hom;
-        hom := GroupHomomorphismsOfReidemeisterClass( tcc );
-        return IsTwistedConjugate(
-            hom[1], hom[2],
-            g, Representative( tcc )
-        );
-    end
+    "for twisted conjugacy classes",
+    [ IsMultiplicativeElementWithInverse, IsTwistedConjugacyClassGroupRep ],
+    { g, tcc } -> IsTwistedConjugate(
+        tcc!.lhs, tcc!.rhs,
+        g, Representative(tcc )
+    )
 );
 
 
@@ -79,14 +73,13 @@ InstallMethod(
 ##
 InstallMethod(
     PrintObj,
-    "for Reidemeister classes",
-    [ IsReidemeisterClassGroupRep ],
+    "for twisted conjugacy classes",
+    [ IsTwistedConjugacyClassGroupRep ],
     function( tcc )
-        local homs, homStrings, g, hom, homGensImgs;
-        homs := GroupHomomorphismsOfReidemeisterClass( tcc );
+        local homStrings, g, hom, homGensImgs;
         homStrings := [];
         g := Representative( tcc );
-        for hom in homs do
+        for hom in [ tcc!.lhs, tcc!.rhs ] do
             homGensImgs := MappingGeneratorsImages( hom );
             Add( homStrings, Concatenation(
                 String( homGensImgs[1] ),
@@ -120,14 +113,9 @@ InstallMethod(
 ##
 InstallMethod(
     Size,
-    "for Reidemeister classes",
-    [ IsReidemeisterClassGroupRep ],
-    function( tcc )
-        local H, Coin;
-        H := ActingDomain( tcc );
-        Coin := StabilizerOfExternalSet( tcc );
-        return IndexNC( H, Coin );
-    end
+    "for twisted conjugacy classes",
+    [ IsTwistedConjugacyClassGroupRep ],
+    tcc -> IndexNC( ActingDomain( tcc ), StabilizerOfExternalSet( tcc ) )
 );
 
 
@@ -144,15 +132,16 @@ InstallMethod(
 ##
 InstallMethod(
     StabilizerOfExternalSet,
-    "for Reidemeister classes",
-    [ IsReidemeisterClassGroupRep ],
+    "for twisted conjugacy classes",
+    [ IsTwistedConjugacyClassGroupRep ],
     function( tcc )
-        local g, hom, G, inn;
+        local g, hom1, hom2, G, inn;
         g := Representative( tcc );
-        hom := GroupHomomorphismsOfReidemeisterClass( tcc );
-        G := Range( hom[1] );
+        hom1 := tcc!.lhs;
+        hom2 := tcc!.rhs;
+        G := Range( hom1 );
         inn := InnerAutomorphismNC( G, g );
-        return CoincidenceGroup2( hom[1] * inn, hom[2] );
+        return CoincidenceGroup2( hom1 * inn, hom2 );
     end
 );
 

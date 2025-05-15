@@ -17,16 +17,10 @@ DeclareOperation(
     [ IsList, IsList, IsList, IsList ]
 );
 
-DeclareGlobalFunction( "ReidemeisterClass" );
-DeclareSynonym( "TwistedConjugacyClass", ReidemeisterClass );
-DeclareRepresentation(
-    "IsReidemeisterClassGroupRep",
-    IsExternalOrbit
-);
-DeclareAttribute(
-    "GroupHomomorphismsOfReidemeisterClass",
-    IsReidemeisterClassGroupRep
-);
+
+DeclareGlobalFunction( "TwistedConjugacyClass" );
+DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
+DeclareRepresentation( "IsTwistedConjugacyClassGroupRep", IsExternalOrbit );
 
 
 DeclareGlobalFunction( "ReidemeisterClasses" );
@@ -43,10 +37,7 @@ DeclareOperation(
 
 
 DeclareGlobalFunction( "ReidemeisterNumber" );
-DeclareSynonym(
-    "NrTwistedConjugacyClasses",
-    ReidemeisterNumber
-);
+DeclareSynonym( "NrTwistedConjugacyClasses",  ReidemeisterNumber );
 DeclareOperation(
     "ReidemeisterNumberOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
@@ -54,25 +45,13 @@ DeclareOperation(
 
 
 DeclareGlobalFunction( "ReidemeisterSpectrum" );
-DeclareOperation(
-    "ReidemeisterSpectrumOp",
-    [ IsGroup ]
-);
+DeclareOperation( "ReidemeisterSpectrumOp", [ IsGroup ] );
 DeclareGlobalFunction( "ExtendedReidemeisterSpectrum" );
-DeclareOperation(
-    "ExtendedReidemeisterSpectrumOp",
-    [ IsGroup ]
-);
+DeclareOperation( "ExtendedReidemeisterSpectrumOp", [ IsGroup ] );
 DeclareGlobalFunction( "CoincidenceReidemeisterSpectrum" );
-DeclareOperation(
-    "CoincidenceReidemeisterSpectrumOp",
-    [ IsGroup, IsGroup ]
-);
+DeclareOperation( "CoincidenceReidemeisterSpectrumOp", [ IsGroup, IsGroup ] );
 DeclareGlobalFunction( "TotalReidemeisterSpectrum" );
-DeclareOperation(
-    "TotalReidemeisterSpectrumOp",
-    [ IsGroup ]
-);
+DeclareOperation( "TotalReidemeisterSpectrumOp", [ IsGroup ] );
 
 
 DeclareGlobalFunction( "ReidemeisterZetaCoefficients" );
