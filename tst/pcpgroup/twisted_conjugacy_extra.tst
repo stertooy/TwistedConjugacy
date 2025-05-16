@@ -63,8 +63,15 @@ gap> IsTwistedConjugate( idG2, G2.4, G2.4*G2.6^2 );
 false
 gap> IsTwistedConjugate( idG2, G2.1, G2.1^(G2.2) );
 true
+#@if CHECK_INTSTAB@Polycyclic
+gap> IsTwistedConjugate( idG2, G2.4, G2.4*G2.6 );
+#I  Stabilizer not increasing: exiting.
+#I  Stabilizer not increasing: exiting.
+true
+#@else
 gap> IsTwistedConjugate( idG2, G2.4, G2.4*G2.6 );
 true
+#@fi
 
 #
 gap> G3 := ExamplesOfSomePcpGroups( 11 );;

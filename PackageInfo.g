@@ -53,7 +53,7 @@ AbstractHTML := """
     computing Reidemeister classes, numbers, spectra, and zeta functions. It
     also includes utility functions for working with (double) cosets, group
     homomorphisms, and group derivations.
-    
+
     These methods are primarily designed for use with finite groups and with
     polycyclically presented groups (finite or infinite).
 """,
@@ -81,10 +81,14 @@ Extensions := [
 TestFile := "tst/testall.g",
 
 Keywords := [
+    "automorphism",
     "coincidence group",
+    "coset",
+    "derivation",
     "endomorphism",
     "fixed point group",
     "homomorphism",
+    "Reidemeister class",
     "Reidemeister number",
     "Reidemeister spectrum",
     "Reidemeister zeta function",

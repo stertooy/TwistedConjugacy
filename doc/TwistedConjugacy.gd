@@ -17,15 +17,14 @@
 #! @Copyright
 #! &copyright; 2020&ndash;2025 Sam Tertooy
 #! <P/>
-#! The &TwistedConjugacy; package is free software, it may be
-#! redistributed and/or modified under the terms and conditions of the
+#! The &TwistedConjugacy; package is free software, it may be redistributed
+#! and/or modified under the terms and conditions of the
 #! <URL Text="GNU Public License Version 2">
 #! https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</URL> or
 #! (at your option) any later version.
 
 #! @Acknowledgements
-#! This documentation was created using the &GAPDoc; and
-#! &AutoDoc; packages.
+#! This documentation was created using the &GAPDoc; and &AutoDoc; packages.
 
 
 
@@ -37,29 +36,23 @@
 
 #! @Chapter Preface
 
-#! Let $G, H$ be groups and $\varphi,\psi\colon H \to G$ group homomorphisms. Then the pair $(\varphi,\psi)$ induces a (right) group action on $G$ given by
-#! $$G \times H \to G\colon (g,h) \mapsto g \cdot h = \varphi(h)^{-1} g\psi(h).$$
-#! This group action is called **$(\varphi,\psi)$-twisted conjugation**, and induces an equivalence relation $\sim_{\varphi,\psi}$ on $G$:
-#! $$g_1 \sim_{\varphi,\psi} g_2 \iff \exists h \in H: g_1 \cdot h = g2.$$
-#! The equivalence classes (i.e. the orbits of the action) are called **Reidemeister classes** and the number of Reidemeister classes is called the **Reidemeister number** $R(\varphi,\psi)$ of the pair $(\varphi,\psi)$.
-#! The stabiliser of the identity $1_G$ for this action is the **coincidence group** $\operatorname{Coin}(\varphi, \psi )$, i.e. the subgroup of $H$ given by
-#! $$\operatorname{Coin}(\varphi,\psi) := \{\, h \in H \mid \varphi(h) = \psi(h) \,\}.$$
+#! Let $G$ and $H$ be groups and let $\varphi$ and $\psi$ be group
+#! homomorphisms from $H$ to $G$. The pair $(\varphi,\psi)$ induces a
+#! (right) group action of $H$ on $G$ given by the map $$G \times H \to G
+#! \colon (g,h) \mapsto \varphi(h)^{-1} g\,\psi(h).$$
+#! This group action is called **$(\varphi,\psi)$-twisted conjugation**. The
+#! orbits are called **Reidemeister classes** or **twisted conjugacy classes**,
+#! and the number of Reidemeister classes is called the **Reidemeister number**
+#! $R(\varphi,\psi)$ of the pair $(\varphi,\psi)$.
 
 #! <P/>
 
-#! The &TwistedConjugacy; package provides methods to solve the twisted conjugacy (search) problem, calculate Reidemeister classes, numbers, spectra and zeta functions,
-#! as well as construct coincidence groups of group homomorphisms. These methods are, for the most part, designed to be used on (group homomorphisms between) finite and
-#! polycyclic groups, the latter requiring the use of the &Polycyclic; package.
-
-#! <P/>
-
-#! Moreover, if &Polycyclic; is loaded, this package also allows calculating intersections of arbitrary subgroups and cosets,
-#! as well as solving the membership problem for double cosets in polycyclic groups.
-
-#! <P/>
-
-#! Bugs in this package, in &GAP; or any other package used directly or indirectly, may cause functions from this package to produce errors or even wrong results.
-#! You can set the variable <C>ASSERT&#64;TwistedConjugacy</C> to <K>true</K>, which will cause certain functions to verify the correctness of their output.
+#! Bugs in &TwistedConjugacy;, in &GAP;, or in any other package used directly
+#! or indirectly, may cause functions provided by this package to produce
+#! errors &ndash; or worse, incorrect results.
+#! If you are worried about this, you can set the variable
+#! <C>ASSERT&#64;TwistedConjugacy</C> to <K>true</K>. This will make certain
+#! function from &TwistedConjugacy; to verify the correctness of their output.
 #! This should make results more (but not completely!) reliable, at the cost of some performance.
 #!
 #! When using this package with PcpGroups, you can do the same for &Polycyclic;'s variables <C>CHECK_CENT&#64;Polycyclic</C>, <C>CHECK_IGS&#64;Polycyclic</C> and <C>CHECK_INTSTAB&#64;Polycyclic</C>.
