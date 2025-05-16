@@ -19,7 +19,15 @@ if IsBound( info.Extensions ) then
 fi;
 
 AutoDoc( rec(
-    autodoc := rec( scan_dirs := [ "doc" ] ),
+    scaffold := rec(
+        bib := "TwistedConjugacy.bib",
+        entities := rec(
+            AutoDoc := "<Package>AutoDoc</Package>",
+            Polycyclic := "<Package>Polycyclic</Package>",
+            TwistedConjugacy := "<Package>TwistedConjugacy</Package>"
+        )
+    ),
+    autodoc := rec( files := [ "doc/TwistedConjugacy.gd" ] ),
     gapdoc := rec(
         LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}" )
     ),

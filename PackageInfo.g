@@ -3,7 +3,7 @@ SetPackageInfo( rec(
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
 Version := "3.0.0dev",
-Date := "11/04/2025",
+Date := "25/05/2025",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -48,16 +48,19 @@ ArchiveURL      := Concatenation(
 ArchiveFormats := ".tar.gz",
 
 AbstractHTML := """
-    The TwistedConjugacy package provides methods to calculate Reidemeister
-    classes, numbers, spectra and zeta functions, as well as other methods
-    related to homomorphisms, endomorphisms and automorphisms of groups.
-    These methods are, for the most part, designed to be used with finite
-    groups and polycyclically presented groups.
+    The TwistedConjugacy package provides methods for solving the twisted
+    conjugacy problem (including the "search" and "multiple" variants) and for
+    computing Reidemeister classes, numbers, spectra, and zeta functions. It
+    also includes utility functions for working with (double) cosets, group
+    homomorphisms, and group derivations.
+    
+    These methods are primarily designed for use with finite groups and with
+    polycyclically presented groups (finite or infinite).
 """,
 
 PackageDoc := rec(
     BookName  := ~.PackageName,
-    ArchiveURLSubset := ["doc"],
+    ArchiveURLSubset := [ "doc" ],
     HTMLStart := "doc/chap0_mj.html",
     PDFFile   := "doc/manual.pdf",
     SixFile   := "doc/manual.six",
@@ -87,30 +90,5 @@ Keywords := [
     "Reidemeister zeta function",
     "twisted conjugacy"
 ],
-
-AutoDoc := rec(
-    TitlePage := rec(
-        Abstract := """
-            The <B>TwistedConjugacy</B> package provides methods to calculate
-            Reidemeister classes, numbers, spectra and zeta functions, as well
-            as other methods related to homomorphisms, endomorphisms and
-            automorphisms of groups. These methods are, for the most part,
-            designed to be used with finite groups and polycyclically presented
-            groups.
-        """,
-        Acknowledgements := """
-            This documentation was created using the <B>GAPDoc</B> and
-            <B>AutoDoc</B> packages.
-        """,
-        Copyright := """
-            &copyright; 2020-2025 Sam Tertooy <P/>
-            The <B>TwistedConjugacy</B> package is free software, it may be
-            redistributed and/or modified under the terms and conditions of the
-            <URL Text="GNU Public License Version 2">
-            https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</URL> or
-            (at your option) any later version.
-        """
-    )
-)
 
 ));

@@ -1,12 +1,41 @@
 #####
 #
+# TitlePage
+#
+#####
+
+#! @Abstract
+#! The &TwistedConjugacy; package provides methods for solving the twisted
+#! conjugacy problem (including the "search" and "multiple" variants) and for
+#! computing Reidemeister classes, numbers, spectra, and zeta functions. It
+#! also includes utility functions for working with (double) cosets, group
+#! homomorphisms, and group derivations.
+#! <P/>
+#! These methods are primarily designed for use with finite groups and with
+#! polycyclically presented groups (finite or infinite).
+
+#! @Copyright
+#! &copyright; 2020&ndash;2025 Sam Tertooy
+#! <P/>
+#! The &TwistedConjugacy; package is free software, it may be
+#! redistributed and/or modified under the terms and conditions of the
+#! <URL Text="GNU Public License Version 2">
+#! https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</URL> or
+#! (at your option) any later version.
+
+#! @Acknowledgements
+#! This documentation was created using the &GAPDoc; and
+#! &AutoDoc; packages.
+
+
+
+#####
+#
 # CHAPTER 1
 #
 #####
 
 #! @Chapter Preface
-#! @ChapterLabel preface
-#! @ChapterTitle Preface
 
 #! Let $G, H$ be groups and $\varphi,\psi\colon H \to G$ group homomorphisms. Then the pair $(\varphi,\psi)$ induces a (right) group action on $G$ given by
 #! $$G \times H \to G\colon (g,h) \mapsto g \cdot h = \varphi(h)^{-1} g\psi(h).$$
@@ -18,22 +47,22 @@
 
 #! <P/>
 
-#! The <B>TwistedConjugacy</B> package provides methods to solve the twisted conjugacy (search) problem, calculate Reidemeister classes, numbers, spectra and zeta functions,
+#! The &TwistedConjugacy; package provides methods to solve the twisted conjugacy (search) problem, calculate Reidemeister classes, numbers, spectra and zeta functions,
 #! as well as construct coincidence groups of group homomorphisms. These methods are, for the most part, designed to be used on (group homomorphisms between) finite and
-#! polycyclic groups, the latter requiring the use of the <B>Polycyclic</B> package.
+#! polycyclic groups, the latter requiring the use of the &Polycyclic; package.
 
 #! <P/>
 
-#! Moreover, if <B>Polycyclic</B> is loaded, this package also allows calculating intersections of arbitrary subgroups and cosets,
+#! Moreover, if &Polycyclic; is loaded, this package also allows calculating intersections of arbitrary subgroups and cosets,
 #! as well as solving the membership problem for double cosets in polycyclic groups.
 
 #! <P/>
 
-#! Bugs in this package, in <B>GAP</B> or any other package used directly or indirectly, may cause functions from this package to produce errors or even wrong results.
+#! Bugs in this package, in &GAP; or any other package used directly or indirectly, may cause functions from this package to produce errors or even wrong results.
 #! You can set the variable <C>ASSERT&#64;TwistedConjugacy</C> to <K>true</K>, which will cause certain functions to verify the correctness of their output.
 #! This should make results more (but not completely!) reliable, at the cost of some performance.
 #!
-#! When using this package with PcpGroups, you can do the same for <B>Polycyclic</B>'s variables <C>CHECK_CENT&#64;Polycyclic</C>, <C>CHECK_IGS&#64;Polycyclic</C> and <C>CHECK_INTSTAB&#64;Polycyclic</C>.
+#! When using this package with PcpGroups, you can do the same for &Polycyclic;'s variables <C>CHECK_CENT&#64;Polycyclic</C>, <C>CHECK_IGS&#64;Polycyclic</C> and <C>CHECK_INTSTAB&#64;Polycyclic</C>.
 
 
 
@@ -44,9 +73,6 @@
 #####
 
 #! @Chapter Twisted Conjugacy
-#! @ChapterLabel twicon
-#! @ChapterTitle Twisted Conjugacy
-
 
 ###
 # SECTION 1
@@ -62,6 +88,8 @@
 #! @Returns a function that maps the pair <C>(g,h)</C> to <A>hom1</A><C>(h)⁻¹</C> <C>g</C> <A>hom2</A><C>(h)</C>.
 DeclareGlobalFunction( "TwistedConjugation" );
 
+
+#! @Section The Twisted Conjugacy (Search) Problem
 
 #! @Arguments hom1[, hom2], g1[, g2]
 #! @Returns <K>true</K> if <A>g1</A> and <A>g2</A> are <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugate, otherwise <K>false</K>.
@@ -99,7 +127,7 @@ tc( g1, h ) = g2;
 # SECTION 1
 ###
 
-#! @Section The Multiple Twisted Conjugacy Problem
+#! @Section The Multiple Twisted Conjugacy (Search) Problem
 #! Let $H$ and $G_1, \ldots, G_n$ be groups. For each $i \in \{1,\ldots,n\}$, let $g_i,g_i' \in G_i$ and let $\varphi_i,\psi_i\colon H \to G_i$ be group homomorphisms.
 #! The multiple twisted conjugacy problem is the problem of finding some $h \in H$ such that $\varphi_i(h)^{-1}g_i\psi_i(h) = g_i'$ for all $i \in \{1,\ldots,n\}$.
 
