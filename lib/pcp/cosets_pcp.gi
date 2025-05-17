@@ -179,8 +179,8 @@ InstallMethod(
     function( G, U, V )
         local UV, iU, iV, l, r, Rcl;
         UV := DirectProduct( U, V );
-        iU := GroupHomomorphismByImages( U, G, Igs( U ), Igs( U ) );
-        iV := GroupHomomorphismByImages( V, G, Igs( V ), Igs( V ) );
+        iU := InclusionHomomorphism( U, G );
+        iV := InclusionHomomorphism( V, G );
         l := Projection( UV, 1 ) * iU;
         r := Projection( UV, 2 ) * iV;
         Rcl := RepresentativesReidemeisterClasses( l, r );

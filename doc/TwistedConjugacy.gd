@@ -50,6 +50,7 @@
 #! Bugs in &TwistedConjugacy;, in &GAP;, or in any other package used directly
 #! or indirectly, may cause functions provided by this package to produce
 #! errors &ndash; or worse, incorrect results.
+#! TODO: mention GAP's SetAssertionLevel, (don't go past 2)
 #! If you are worried about this, you can set the variable
 #! <C>ASSERT&#64;TwistedConjugacy</C> to <K>true</K>. This will make certain
 #! function from &TwistedConjugacy; to verify the correctness of their output.

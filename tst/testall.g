@@ -1,16 +1,18 @@
 LoadPackage( "TwistedConjugacy" );
+SetAssertionLevel( 2 );
 ASSERT@TwistedConjugacy := true;
+testOpts := rec(
+    exitGAP := false,
+    showProgress := true,
+    testOptions := rec( compareFunction := "uptowhitespace" )
+);
 
 pass := TestDirectory(
     [
         DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcgroup" ),
         DirectoriesPackageLibrary( "TwistedConjugacy", "tst/permgroup" )
     ],
-    rec(
-        exitGAP := false,
-        showProgress := true,
-        testOptions := rec( compareFunction := "uptowhitespace" )
-    )
+    testOpts
 );
 
 if LoadPackage( "Polycyclic" ) then
@@ -19,11 +21,7 @@ if LoadPackage( "Polycyclic" ) then
     CHECK_INTSTAB@Polycyclic := true;
     pass := TestDirectory(
         DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcpgroup" ),
-        rec(
-            exitGAP := false,
-            showProgress := true,
-            testOptions := rec( compareFunction := "uptowhitespace" )
-        )
+        testOpts
     ) and pass;
 fi;
 
