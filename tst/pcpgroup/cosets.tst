@@ -51,10 +51,10 @@ true
 
 #
 gap> G := ExamplesOfSomePcpGroups( 10 );;
-gap> H := Subgroup( G, [ G.1^3, G.4 ] );;
-gap> K := Subgroup( G, [ G.2^2, G.3^3 ] );;
+gap> H := Subgroup( G, [ G.1^2, G.4 ] );;
+gap> K := Subgroup( G, [ G.2^2, G.3^2 ] );;
 gap> Length( DoubleCosets( G, H, K ) );
-27
+12
 gap> G := ExamplesOfSomePcpGroups( 4 );;
 gap> H := Subgroup( G, [ G.1 ] );;
 gap> DoubleCosets( G, H, H );
