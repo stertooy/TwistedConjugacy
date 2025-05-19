@@ -40,8 +40,11 @@
 # Chapter 1: Introduction
 # Chapter 2: Mathematical Background
 
-# Also, add in an info level?...?
-
+# TODOS:
+# - Try use variables in this documentation (dependencies, version, ...)
+# - Also distribute .zip?
+# - Installation instructions
+# - Update README
 
 #! @Chapter Preface
 
