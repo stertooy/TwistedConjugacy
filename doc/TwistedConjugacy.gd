@@ -34,6 +34,15 @@
 #
 #####
 
+
+# Note to self: check https://docs.gap-system.org/pkg/agt/doc/chap1_mj.html
+#  and https://docs.gap-system.org/pkg/anupq/doc/chap3_mj.html
+# Chapter 1: Introduction
+# Chapter 2: Mathematical Background
+
+# Also, add in an info level?...?
+
+
 #! @Chapter Preface
 
 #! Let $G$ and $H$ be groups and let $\varphi$ and $\psi$ be group
@@ -47,16 +56,18 @@
 
 #! <P/>
 
-#! Bugs in &TwistedConjugacy;, in &GAP;, or in any other package used directly
-#! or indirectly, may cause functions provided by this package to produce
-#! errors &ndash; or worse, incorrect results.
-#! TODO: mention GAP's SetAssertionLevel, (don't go past 2)
-#! If you are worried about this, you can set the variable
-#! <C>ASSERT&#64;TwistedConjugacy</C> to <K>true</K>. This will make certain
-#! function from &TwistedConjugacy; to verify the correctness of their output.
-#! This should make results more (but not completely!) reliable, at the cost of some performance.
-#!
-#! When using this package with PcpGroups, you can do the same for &Polycyclic;'s variables <C>CHECK_CENT&#64;Polycyclic</C>, <C>CHECK_IGS&#64;Polycyclic</C> and <C>CHECK_INTSTAB&#64;Polycyclic</C>.
+#! Bugs in &GAP;, in the &TwistedConjugacy; package, or in any other package
+#! used directly or indirectly, may cause functions provided by
+#! &TwistedConjugacy; to produce errors &ndash; or worse, incorrect results.
+#! To help detect such issues, you can enable internal checks by setting the
+#! variable <C>ASSERT&#64;TwistedConjugacy</C> to <K>true</K>. Note that this
+#! will come at the cost of reduced performance.
+#! <P/>
+#! For additional safety, you can enable &GAP;'s built-in assertion features
+#! by calling <C>SetAssertionLevel( <A>lev</A> )</C> (we recommend setting
+#! <A>lev</A> to <C>2</C>) and, when working with PcpGroups, settings the
+#! variables <C>CHECK_CENT&#64;Polycyclic</C>, <C>CHECK_IGS&#64;Polycyclic</C>
+#! and <C>CHECK_INTSTAB&#64;Polycyclic</C> to <K>true</K>.
 
 
 

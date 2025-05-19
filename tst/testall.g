@@ -1,5 +1,4 @@
 LoadPackage( "TwistedConjugacy" );
-SetAssertionLevel( 2 );
 ASSERT@TwistedConjugacy := true;
 testOpts := rec(
     exitGAP := false,

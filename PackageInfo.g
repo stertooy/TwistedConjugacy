@@ -68,7 +68,8 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-    GAP := ">= 4.14"
+    GAP := ">= 4.14",
+    SuggestedOtherPackages := [ [ "AutPGrp", "1.11" ] ]
 ),
 
 Extensions := [
