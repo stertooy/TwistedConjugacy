@@ -4,12 +4,9 @@ gap> START_TEST( "Testing TwistedConjugacy for PermGroups: Reidemeister spectra"
 gap> filt := IsPermGroup;;
 
 # For given group, calculate spectra of group, subgroups and quotients
-# Reidemeister spectrum only, endomorphisms take too long
 gap> G := Group( [ (11,16)(12,15)(13,14), (2,4)(3,6)(5,9)(7,8), (1,2,4)(3,5,7)(6,8,9), (1,3,6)(2,5,8)(4,7,9), (10,11,12,13,14,15,16) ] );;
 gap> ReidemeisterSpectrum( G );
 [ 4, 6, 8, 10, 12, 15, 20, 30 ]
-gap> ExtendedReidemeisterSpectrum( G );
-[ 1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 30 ]
 
 # All spectra
 gap> H := Subgroup( G, [ G.1, G.2, G.3 ] );;
