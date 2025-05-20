@@ -44,6 +44,7 @@
 # - Try use variables in this documentation (dependencies, version, ...)
 # - Also distribute .zip?
 # - Installation instructions
+# ----- For Linux/WSL + For Cygwin
 # - Update README
 
 #! @Chapter Preface
