@@ -24,7 +24,13 @@ AutoDoc( rec(
         entities := rec(
             AutoDoc := "<Package>AutoDoc</Package>",
             Polycyclic := "<Package>Polycyclic</Package>",
-            TwistedConjugacy := "<Package>TwistedConjugacy</Package>"
+            TwistedConjugacy := Concatenation(
+                "<Package>",
+                info.PackageName,
+                "</Package>"
+            ),
+            RELEASEYEAR := String( info.Date{ [ 7 .. 10 ] } ),
+            VERSION := info.Version
         )
     ),
     autodoc := rec( files := [ "doc/TwistedConjugacy.gd" ] ),

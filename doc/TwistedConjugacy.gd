@@ -15,7 +15,7 @@
 #! polycyclically presented groups (finite or infinite).
 
 #! @Copyright
-#! &copyright; 2020&ndash;2025 Sam Tertooy
+#! &copyright; 2020&ndash;&RELEASEYEAR; Sam Tertooy
 #! <P/>
 #! The &TwistedConjugacy; package is free software, it may be redistributed
 #! and/or modified under the terms and conditions of the
