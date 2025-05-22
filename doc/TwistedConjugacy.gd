@@ -35,6 +35,13 @@
 #####
 
 
+#! @Chapter The &TwistedConjugacy; PackageManager
+
+#! @Section Introduction
+#! This is the manual for the &GAP; 4 package &TwistedConjugacy; version
+#! &VERSION;
+
+
 # Note to self: check https://docs.gap-system.org/pkg/agt/doc/chap1_mj.html
 #  and https://docs.gap-system.org/pkg/anupq/doc/chap3_mj.html
 # Chapter 1: Introduction
@@ -48,21 +55,20 @@
 # - Update README
 # - Use manual cross-references
 
-#! @Chapter Preface
+#! @Section Installation
+#! Install stuff
 
-#! INTRODUCTION ----
-#! This is the manual for the &GAP; 4 package &TwistedConjugacy; version
-#! &VERSION;
+#! @Section Loading
+#! Load stuff
 
-#! INSTALLATION ----
+#! @Section Citing
+#! Cite plsthx (Add BibTeX and BibLaTeX?)
 
-#! wget -qO- https://github.com/stertooy/TwistedConjugacy/releases/download/v2.4.0/TwistedConjugacy-2.4.0.tar.gz | tar xzf - --one-top-level=$HOME/.gap/pkg
+#! @Section Support
+#! To the rescue! (Issue tracker?)
+#! <URL Text='hi'>&ISSUEURL;</URL>
 
-#! LOADING ----
-
-#! CITING ---
-
-#! ISSUES / CONTACT
+#! @Chapter Mathematical Background
 
 
 #! Let $G$ and $H$ be groups and let $\varphi$ and $\psi$ be group

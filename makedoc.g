@@ -30,12 +30,14 @@ AutoDoc( rec(
                 "</Package>"
             ),
             RELEASEYEAR := String( info.Date{ [ 7 .. 10 ] } ),
-            VERSION := info.Version
+            VERSION := info.Version,
+            ARCHIVEURL := info.ArchiveURL,
+            ISSUEURL := info.IssueTrackerURL
         )
     ),
     autodoc := rec( files := [ "doc/TwistedConjugacy.gd" ] ),
     gapdoc := rec(
-        LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}" )
+        LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}\\usepackage{xurl}" )
     ),
     extract_examples := rec( units := "File" )
 ));
