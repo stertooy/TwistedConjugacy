@@ -1,6 +1,6 @@
 #####
 #
-# TitlePage
+# TITLEPAGE
 #
 #####
 
@@ -44,10 +44,26 @@
 # - Try use variables in this documentation (dependencies, version, ...)
 # - Also distribute .zip?
 # - Installation instructions
-# ----- For Linux/WSL + For Cygwin
+# ----- For Linux/WSL + For Cygwin + Via PackageManager
 # - Update README
+# - Use manual cross-references
 
 #! @Chapter Preface
+
+#! INTRODUCTION ----
+#! This is the manual for the &GAP; 4 package &TwistedConjugacy; version
+#! &VERSION;
+
+#! INSTALLATION ----
+
+#! wget -qO- https://github.com/stertooy/TwistedConjugacy/releases/download/v2.4.0/TwistedConjugacy-2.4.0.tar.gz | tar xzf - --one-top-level=$HOME/.gap/pkg
+
+#! LOADING ----
+
+#! CITING ---
+
+#! ISSUES / CONTACT
+
 
 #! Let $G$ and $H$ be groups and let $\varphi$ and $\psi$ be group
 #! homomorphisms from $H$ to $G$. The pair $(\varphi,\psi)$ induces a
