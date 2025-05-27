@@ -45,7 +45,7 @@ ArchiveURL      := Concatenation(
     "/", ~.PackageName, "-", ~.Version
 ),
 
-ArchiveFormats := ".tar.gz",
+ArchiveFormats := ".tar.gz .zip",
 
 AbstractHTML := """
     The TwistedConjugacy package provides methods for solving the twisted
@@ -86,7 +86,9 @@ Keywords := [
     "coincidence group",
     "coset",
     "derivation",
+    "double coset",
     "endomorphism",
+    "equaliser",
     "fixed point group",
     "homomorphism",
     "Reidemeister class",

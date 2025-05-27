@@ -56,10 +56,14 @@
 # - Use manual cross-references
 
 #! @Section Installation
-#! Install stuff
+#! You can download &TwistedConjugacy; as a .tar.gz-archive
+#! <URL Text='here'>&ARCHIVEURL;.tar.gz</URL>.
 
 #! @Section Loading
 #! Load stuff
+#! <Listing>
+#! wget -qO- &ARCHIVEURL; | tar xzf - --one-top-level=&dollar;HOME/.gap/pkg
+#!</Listing>
 
 #! @Section Citing
 #! Cite plsthx (Add BibTeX and BibLaTeX?)
