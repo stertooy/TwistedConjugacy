@@ -12,16 +12,16 @@
 ##
 InstallGlobalFunction(
     ReidemeisterClass,
-    function( hom1, x, arg... )
+    function( hom1, arg... )
         local G, H, hom2, g, tc, tcc;
         G := Range( hom1 );
         H := Source( hom1 );
-        if Length( arg ) = 0 then
+        if Length( arg ) = 1 then
             hom2 := IdentityMapping( G );
-            g := x;
+            g := First( arg );
         else
-            hom2 := x;
-            g := arg[1];
+            hom2 := First( arg );
+            g := Last( arg );
         fi;
         tc := TwistedConjugation( hom1, hom2 );
         tcc := rec( lhs := hom1, rhs := hom2 );
@@ -153,6 +153,7 @@ InstallMethod(
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G (optional)
+##      N:          normal subgroup of G with hom1 = hom2 mod N (optional)
 ##
 ##  OUTPUT:
 ##      L:          list containing the (hom1,hom2)-twisted conjugacy classes,
@@ -161,14 +162,19 @@ InstallMethod(
 InstallGlobalFunction(
     ReidemeisterClasses,
     function( hom1, arg... )
-        local G, hom2, Rcl;
+        local G, hom2, N, Rcl;
         G := Range( hom1 );
-        if Length( arg ) = 0 then
-            hom2 := IdentityMapping( G );
+        if IsGroupHomomorphism( First( arg ) ) then
+            hom2 := First( arg );
         else
-            hom2 := arg[1];
+            hom2 := IdentityMapping( G );
         fi;
-        Rcl := RepresentativesReidemeisterClasses( hom1, hom2 );
+        if IsGroup( Last( arg ) ) then
+            N := Last( arg );
+        else
+            N := G;
+        fi;
+        Rcl := RepresentativesReidemeisterClasses( hom1, hom2, N );
         if Rcl = fail then
             return fail;
         fi;
@@ -184,6 +190,7 @@ InstallGlobalFunction(
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G (optional)
+##      N:          normal subgroup of G with hom1 = hom2 mod N (optional)
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -193,14 +200,19 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     RepresentativesReidemeisterClasses,
     function( hom1, arg... )
-        local G, hom2, Rcl, copy, g, h, pos, i;
+        local G, hom2, N, Rcl, copy, g, h, pos, i;
         G := Range( hom1 );
-        if Length( arg ) = 0 then
-            hom2 := IdentityMapping( G );
+        if IsGroupHomomorphism( First( arg ) ) then
+            hom2 := First( arg );
         else
-            hom2 := arg[1];
+            hom2 := IdentityMapping( G );
         fi;
-        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, G, false );
+        if IsGroup( Last( arg ) ) then
+            N := Last( arg );
+        else
+            N := G;
+        fi;
+        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, N, false );
         if Rcl = fail then
             return fail;
         elif ASSERT@ then
