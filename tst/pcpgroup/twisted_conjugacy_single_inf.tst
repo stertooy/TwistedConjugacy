@@ -28,6 +28,9 @@ infinity
 gap> R1 := ReidemeisterClasses( endo1 );;
 gap> Size( R1 );
 6
+gap> R2 := ReidemeisterClasses( endo1, FittingSubgroup( G ) );;
+gap> Size( R2 );
+3
 
 #
 gap> tc := TwistedConjugation( endo1, endo2 );;
