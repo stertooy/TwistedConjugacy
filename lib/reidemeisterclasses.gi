@@ -153,7 +153,7 @@ InstallMethod(
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G (optional)
-##      N:          normal subgroup of G with hom1 = hom2 mod N (optional)
+##      N:          normal subgroup of G (optional)
 ##
 ##  OUTPUT:
 ##      L:          list containing the (hom1,hom2)-twisted conjugacy classes,
@@ -190,7 +190,7 @@ InstallGlobalFunction(
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G (optional)
-##      N:          normal subgroup of G with hom1 = hom2 mod N (optional)
+##      N:          normal subgroup of G (optional)
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -200,8 +200,9 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     RepresentativesReidemeisterClasses,
     function( hom1, arg... )
-        local G, hom2, N, Rcl, copy, g, h, pos, i;
+        local G, H, hom2, N, gens, tc, q, p, Rcl, copy, g, h, pos, i;
         G := Range( hom1 );
+        H := Source( hom1 );
         if IsGroupHomomorphism( First( arg ) ) then
             hom2 := First( arg );
         else
@@ -211,6 +212,15 @@ InstallGlobalFunction(
             N := Last( arg );
         else
             N := G;
+        fi;
+        gens := GeneratorsOfGroup( H );
+        tc := TwistedConjugation( hom1, hom2 );
+        if N <> G and not ForAll( gens, h -> tc( One( G ), h ) in N ) then
+            q := IdentityMapping( H );
+            p := NaturalHomomorphismByNormalSubgroupNC( G, N );
+            H := InducedCoincidenceGroup@( q, p, hom1, hom2 );
+            hom1 := RestrictedHomomorphism( hom1, H, G );
+            hom2 := RestrictedHomomorphism( hom2, H, G );
         fi;
         Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, N, false );
         if Rcl = fail then

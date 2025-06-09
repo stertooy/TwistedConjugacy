@@ -6,7 +6,11 @@ This file describes changes in the GAP package TwistedConjugacy.
 
 - Added method for (Representatives)ReidemeisterClasses and ReidemeisterNumber
   with no restrictions on the homomorphisms or the source and target groups
-- Added methods for equality and enumeration of double cosets of PcpGroups 
+- ReidemeisterClasses and RepresentativesReidemeisterClasses can now take a
+  normal subgroup as optional input, and will then only return the
+  (representatives of the) reidemeister classes that intersect this normal
+  subgroup
+- Added more methods related to double cosets of PcpGroups
 
 - Switched the order of the homomorphisms in the definition of the twisted
   conjugation action

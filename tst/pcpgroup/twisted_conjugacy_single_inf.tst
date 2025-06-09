@@ -31,6 +31,9 @@ gap> Size( R1 );
 gap> R2 := ReidemeisterClasses( endo1, FittingSubgroup( G ) );;
 gap> Size( R2 );
 3
+gap> R3 := ReidemeisterClasses( endo1, DerivedSubgroup( G ) );;
+gap> Size( R3 );
+3
 
 #
 gap> tc := TwistedConjugation( endo1, endo2 );;

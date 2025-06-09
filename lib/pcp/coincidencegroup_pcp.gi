@@ -20,10 +20,7 @@ CoincidenceGroupByTrivialSubgroup@ := function( G, H, hom1, hom2 )
     N := IntersectionKernels@( hom1, hom2 );
     p := IdentityMapping( G );
     q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-    Coin := CoincidenceGroup2(
-        InducedHomomorphism( q, p, hom1 ),
-        InducedHomomorphism( q, p, hom2 )
-    );
+    Coin := InducedCoincidenceGroup@( q, p, hom1, hom2 );
     return PreImagesSetNC( q, Coin );
 end;
 
@@ -52,10 +49,7 @@ CoincidenceGroupByFiniteQuotient@ := function( G, H, hom1, hom2, K )
     N := IntersectionPreImage@( hom1, hom2, K );
     p := NaturalHomomorphismByNormalSubgroupNC( G, K );
     q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-    CoinHN := CoincidenceGroup2(
-        InducedHomomorphism( q, p, hom1 ),
-        InducedHomomorphism( q, p, hom2 )
-    );
+    CoinHN := InducedCoincidenceGroup@( q, p, hom1, hom2 );
     hom1N := RestrictedHomomorphism( hom1, N, K );
     hom2N := RestrictedHomomorphism( hom2, N, K );
     tc := TwistedConjugation( hom1, hom2 );
@@ -107,10 +101,7 @@ CoincidenceGroupByCentre@ := function( G, H, hom1, hom2 )
     C := Center( G );
     p := NaturalHomomorphismByNormalSubgroupNC( G, C );
     q := IdentityMapping( H );
-    Coin := CoincidenceGroup2(
-        InducedHomomorphism( q, p, hom1 ),
-        InducedHomomorphism( q, p, hom2 )
-    );
+    Coin := InducedCoincidenceGroup@( q, p, hom1, hom2 );
     diff := DifferenceGroupHomomorphisms@( hom1, hom2, Coin, G );
     return KernelOfMultiplicativeGeneralMapping( diff );
 end;
@@ -290,10 +281,7 @@ CoincidenceGroupStep1@ := function( G, H, hom1, hom2 )
     A := Center( DerivedSubgroup( G ) );
     p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );
-    Coin := CoincidenceGroup2(
-        InducedHomomorphism( q, p, hom1 ),
-        InducedHomomorphism( q, p, hom2 )
-    );
+    Coin := InducedCoincidenceGroup@( q, p, hom1, hom2 );
     hom1r := RestrictedHomomorphism( hom1, Coin, G );
     hom2r := RestrictedHomomorphism( hom2, Coin, G );
     return CoincidenceGroupStep2@( G, Coin, hom1r, hom2r );
