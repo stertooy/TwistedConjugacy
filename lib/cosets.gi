@@ -38,10 +38,15 @@ InstallMethod(
     "for two subgroups",
     [ IsGroup, IsGroup, IsGroup ],
     function( G, U, V )
-        if IsNormal( G, U ) or IsNormal( G, V ) then
+        local DCS;
+        if IsNormal( U, V ) or IsNormal( V, U ) then
             return IndexNC( G, ClosureGroup( U, V ) );
         fi;
-        return Length( DoubleCosetsNC( G, U, V ) );
+        DCS := DoubleCosetsNC( G, U, V );
+        if DCS = fail then
+            return infinity;
+        fi;
+        return Length( DCS );
     end
 );
 

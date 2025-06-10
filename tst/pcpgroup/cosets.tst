@@ -79,6 +79,11 @@ gap> g := G.1;;
 gap> DC := DoubleCoset( H, g, K );;
 gap> Size( DC );
 7500
+gap> N := NormalTorsionSubgroup(G);;
+gap> DoubleCosetIndex( G, H, K );
+infinity
+gap> DoubleCosetIndex( N, H, K );
+300
 
 #
 gap> STOP_TEST( "cosets.tst" );
