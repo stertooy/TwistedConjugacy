@@ -24,6 +24,7 @@ AutoDoc( rec(
         entities := rec(
             AutoDoc := "<Package>AutoDoc</Package>",
             Polycyclic := "<Package>Polycyclic</Package>",
+            PackageManager := "<Package>PackageManager</Package>",
             TwistedConjugacy := Concatenation(
                 "<Package>",
                 info.PackageName,
@@ -37,7 +38,7 @@ AutoDoc( rec(
     ),
     autodoc := rec( files := [ "doc/TwistedConjugacy.gd" ] ),
     gapdoc := rec(
-        LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}\\usepackage{breakurl}" )
+        LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}" )
     ),
     extract_examples := rec( units := "File" )
 ));

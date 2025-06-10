@@ -12,7 +12,8 @@ This file describes changes in the GAP package TwistedConjugacy.
   
 - Added more methods related to double cosets of PcpGroups
 
-- Added methods related to group derivations
+- Added methods related to group derivations between finite groups and
+  PcpGroups
 
 - Switched the order of the homomorphisms in the definition of the twisted
   conjugation action
