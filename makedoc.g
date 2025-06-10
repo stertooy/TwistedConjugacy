@@ -24,6 +24,7 @@ AutoDoc( rec(
         entities := rec(
             AutoDoc := "<Package>AutoDoc</Package>",
             Polycyclic := "<Package>Polycyclic</Package>",
+            PackageManager := "<Package>PackageManager</Package>",
             TwistedConjugacy := Concatenation(
                 "<Package>",
                 info.PackageName,

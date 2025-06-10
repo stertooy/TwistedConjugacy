@@ -126,3 +126,7 @@ DeclareRepresentation( "IsGroupDerivationByFunction", IsAttributeStoringRep );
 InstallTrueMethod( IsGroupDerivation, IsGroupDerivationByFunction );
 
 DeclareRepresentation( "IsGroupDerivationImageRep", IsExternalOrbit );
+
+DeclareGlobalFunction( "DoubleCosetIndex" );
+DeclareOperation( "DoubleCosetIndexNC", [ IsGroup, IsGroup, IsGroup ] );
+

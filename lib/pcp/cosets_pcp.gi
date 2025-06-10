@@ -1,5 +1,29 @@
 ###############################################################################
 ##
+## DirectProductInclusions@( G, U, V )
+##
+##  INPUT:
+##      G:          group
+##      U:          subgroup of G
+##      V:          subgroup of G
+##
+##  OUTPUT:
+##      l:          map U x V -> G: (u,v) -> u
+##      r:          map U x V -> G: (u,v) -> v
+##
+DirectProductInclusions@ := function( G, U, V )
+    local UV, iU, iV, l, r;
+    UV := DirectProduct( U, V );
+    iU := InclusionHomomorphism( U, G );
+    iV := InclusionHomomorphism( V, G );
+    l := Projection( UV, 1 ) * iU;
+    r := Projection( UV, 2 ) * iV;
+    return [ l, r ];
+end;
+
+
+###############################################################################
+##
 ## Intersection2( U, V )
 ##
 ##  INPUT:
@@ -15,7 +39,7 @@ InstallMethod(
     [ IsPcpGroup, IsPcpGroup ],
     1,
     function( U, V )
-        local UxV, G, l, r, I;
+        local G, dp, l, r, I;
 
         # Catch trivial cases
         if IsSubset( V, U ) then
@@ -28,11 +52,10 @@ InstallMethod(
         if IsNormal( V, U ) or IsNormal( U, V ) then TryNextMethod(); fi;
 
         # Use CoincidenceGroup
-        UxV := DirectProduct( U, V );
         G := PcpGroupByCollectorNC( Collector( U ) );
-
-        l := Projection( UxV, 1 ) * InclusionHomomorphism( U, G );
-        r := Projection( UxV, 2 ) * InclusionHomomorphism( V, G );
+        dp := DirectProductInclusions@( G, U, V );
+        l := dp[1];
+        r := dp[2];
 
         I := ImagesSet( l, CoincidenceGroup2( l, r ) );
         if ASSERT@ then
@@ -147,15 +170,68 @@ InstallMethod(
     [ IsDoubleCoset and IsPcpElementCollection,
       IsDoubleCoset and IsPcpElementCollection ],
     function( UxV, UyV )
-        local x;
         if (
             LeftActingGroup( UxV ) <> LeftActingGroup( UyV ) or
             RightActingGroup( UxV ) <> RightActingGroup( UyV )
         ) then
             return false;
         fi;
+        return Representative( UxV ) in UyV;
+    end
+);
+
+
+###############################################################################
+##
+## Size( UxV )
+##
+##  INPUT:
+##      UxV:        double coset of a PcpGroup G
+##
+##  OUTPUT:
+##      size:       the size of the double coset
+##
+InstallMethod(
+    Size,
+    "for a double coset of a pcp group",
+    [ IsDoubleCoset and IsPcpElementCollection ],
+    function( UxV )
+        local U, V, x, G, dp, tcc;
+        U := LeftActingGroup( UxV );
+        V := RightActingGroup( UxV );
         x := Representative( UxV );
-        return x in UyV;
+        G := PcpGroupByCollectorNC( Collector( U ) );
+        dp := DirectProductInclusions@( G, U, V );
+        tcc := ReidemeisterClass( dp[1], dp[2], x );
+        return Size( tcc );
+    end
+);
+
+
+###############################################################################
+##
+## DoubleCosetRepsAndSizes( G, U, V )
+##
+##  INPUT:
+##      G:          PcpGroup
+##      U:          subgroup of G
+##      V:          subgroup of G
+##
+##  OUTPUT:
+##      L:          List of double coset representatives and sizes
+##
+InstallMethod(
+    DoubleCosetRepsAndSizes,
+    "for pcp groups",
+    [ IsPcpGroup, IsPcpGroup, IsPcpGroup ],
+    function( G, U, V )
+        local dp, Rcl, tcc;
+        dp := DirectProductInclusions@( G, U, V );
+        Rcl := CallFuncList( ReidemeisterClasses, dp );
+        if Rcl = fail then
+            return fail;
+        fi;
+        return List( Rcl, tcc -> [ Representative( tcc ), Size( tcc ) ] );
     end
 );
 
@@ -177,16 +253,13 @@ InstallMethod(
     "for pcp groups",
     [ IsPcpGroup, IsPcpGroup, IsPcpGroup ],
     function( G, U, V )
-        local UV, iU, iV, l, r, Rcl;
-        UV := DirectProduct( U, V );
-        iU := InclusionHomomorphism( U, G );
-        iV := InclusionHomomorphism( V, G );
-        l := Projection( UV, 1 ) * iU;
-        r := Projection( UV, 2 ) * iV;
-        Rcl := RepresentativesReidemeisterClasses( l, r );
+        local dp, Rcl, g;
+        dp := DirectProductInclusions@( G, U, V );
+        Rcl := CallFuncList( RepresentativesReidemeisterClasses, dp );
         if Rcl = fail then
             return fail;
         fi;
         return List( Rcl, g -> DoubleCoset( U, g, V ) );
     end
 );
+

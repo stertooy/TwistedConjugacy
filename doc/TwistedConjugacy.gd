@@ -35,11 +35,12 @@
 #####
 
 
-#! @Chapter The &TwistedConjugacy; PackageManager
+#! @Chapter thepkg
+#! @ChapterTitle The &TwistedConjugacy; Package
 
 #! @Section Introduction
 #! This is the manual for the &GAP; 4 package &TwistedConjugacy; version
-#! &VERSION;
+#! &VERSION;.
 
 
 # Note to self: check https://docs.gap-system.org/pkg/agt/doc/chap1_mj.html
@@ -57,20 +58,48 @@
 
 #! @Section Installation
 #! You can download &TwistedConjugacy; as a .tar.gz-archive
-#! <URL Text='here'>&ARCHIVEURL;.tar.gz</URL>.
+#! <URL Text='here'>&ARCHIVEURL;.tar.gz</URL>. After extracting, you should
+#! place it in a suitable <F>pkg</F> folder. For example, on a Debian-based
+#! Linux distribution (e.g. Ubuntu, Mint), you can place it in
+#! <F>&dollar;HOME/.gap/pkg</F> (recommended) to make it available for just
+#! yourself, or in the &GAP; installation directory (<F>gap-X.Y.Z/pkg</F>) to
+#! make it available for all users.
+#! You can use the following command to do this efficiently:
+#! <Listing Type="Command">
+#! wget -qO- https://[...].tar.gz | tar xzf - --one-top-level=&dollar;HOME/.gap/pkg
+#!</Listing>
+#! If &PackageManager; is installed and loaded, you can install
+#! &TwistedConjugacy; from within a GAP session:
+#! @BeginLog
+InstallPackage( "https://[...].tar.gz" );
+#! true
+#! @EndLog
+#! See also
+#! <Ref Sect="Installing a GAP Package" BookName="ref" Text="the relevant section"/>
+#! in the &GAP; manual.
+# <Ref Func="ReadPackage" BookName="ref"/>.
+# <Ref Func="TwistedConjugation" Style="Number"/>.
 
 #! @Section Loading
 #! Load stuff
-#! <Listing>
-#! wget -qO- &ARCHIVEURL; | tar xzf - --one-top-level=&dollar;HOME/.gap/pkg
-#!</Listing>
+#! @BeginLog
+LoadPackage( "TwistedConjugacy" );
+#! ... package banner(s) ...
+#! true
+#! @EndLog
+#! See also
+#! <Ref Sect="Loading a GAP Package" BookName="ref" Text="the relevant section"/>
+#! in the &GAP; manual.
 
 #! @Section Citing
 #! Cite plsthx (Add BibTeX and BibLaTeX?)
 
 #! @Section Support
 #! To the rescue! (Issue tracker?)
-#! <URL Text='hi'>&ISSUEURL;</URL>
+#! If you encounter any problems, please submit to them to the
+#! <URL Text='issue tracker'>&ISSUEURL;</URL>.
+#! If you have any questions on the usage or functionality, you may contact
+#! me via email.
 
 #! @Chapter Mathematical Background
 

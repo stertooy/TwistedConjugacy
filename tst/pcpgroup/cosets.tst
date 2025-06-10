@@ -48,17 +48,46 @@ fail
 gap> DCS := DoubleCosets( G, H, K );;
 gap> DCS = [ HzK, HxK ];
 true
+gap> DoubleCosetRepsAndSizes( G, H, K );
+[ [ id, infinity ], [ g3, infinity ] ]
+gap> DoubleCosetIndex( G, H, K );
+2
+gap> DoubleCosetIndex( H, K, K );
+Error, not contained
 
 #
 gap> G := ExamplesOfSomePcpGroups( 10 );;
 gap> H := Subgroup( G, [ G.1^2, G.4 ] );;
 gap> K := Subgroup( G, [ G.2^2, G.3^2 ] );;
+gap> L := Subgroup( G, [ G.1^3 ] );;
 gap> Length( DoubleCosets( G, H, K ) );
 12
+gap> RS := DoubleCosetRepsAndSizes( G, H, K );;
+gap> List( RS, Last ) = ListWithIdenticalEntries( 12, infinity );
+true
+gap> DoubleCosetIndex( G, H, L );
+infinity
+
+#
 gap> G := ExamplesOfSomePcpGroups( 4 );;
 gap> H := Subgroup( G, [ G.1 ] );;
 gap> DoubleCosets( G, H, H );
 fail
+gap> DoubleCosetRepsAndSizes( G, H, H );
+fail
+gap> DoubleCosetIndex( G, H, H );
 
 #
-gap> STOP_TEST( "twisted_conjugacy_single.tst" );
+gap> G := ExamplesOfSomePcpGroups( 14 );;
+gap> H := Subgroup( G,[ G.14, G.15 ] );;
+gap> K := Subgroup( G,[ G.18, G.19 ] );;
+gap> g := G.1;;
+gap> DC := DoubleCoset( H, g, K );;
+gap> Size( DC );
+7500
+gap> N := NormalTorsionSubgroup(G);;
+gap> DoubleCosetIndex( N, H, K );
+300
+
+#
+gap> STOP_TEST( "cosets.tst" );
