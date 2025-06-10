@@ -37,7 +37,7 @@ AutoDoc( rec(
     ),
     autodoc := rec( files := [ "doc/TwistedConjugacy.gd" ] ),
     gapdoc := rec(
-        LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}" )
+        LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}\\usepackage{breakurl}" )
     ),
     extract_examples := rec( units := "File" )
 ));

@@ -35,11 +35,11 @@
 #####
 
 
-#! @Chapter The &TwistedConjugacy; PackageManager
+#! @Chapter The &TwistedConjugacy; Package
 
 #! @Section Introduction
 #! This is the manual for the &GAP; 4 package &TwistedConjugacy; version
-#! &VERSION;
+#! &VERSION;.
 
 
 # Note to self: check https://docs.gap-system.org/pkg/agt/doc/chap1_mj.html
@@ -58,12 +58,19 @@
 #! @Section Installation
 #! You can download &TwistedConjugacy; as a .tar.gz-archive
 #! <URL Text='here'>&ARCHIVEURL;.tar.gz</URL>.
+#! <Listing>
+#! wget -qO- https://[...].tar.gz | tar xzf - --one-top-level=&dollar;HOME/.gap/pkg
+#!</Listing>
+#! @BeginLog
+#! LoadPackage( "PackageManager" );
+true
+#! InstallPackage( "https://[...].tar.gz" );
+true
+#! @EndLog
 
 #! @Section Loading
 #! Load stuff
-#! <Listing>
-#! wget -qO- &ARCHIVEURL; | tar xzf - --one-top-level=&dollar;HOME/.gap/pkg
-#!</Listing>
+
 
 #! @Section Citing
 #! Cite plsthx (Add BibTeX and BibLaTeX?)
