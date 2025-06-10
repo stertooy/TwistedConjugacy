@@ -72,6 +72,7 @@
 #! &TwistedConjugacy; from within a GAP session:
 #! @BeginLog
 InstallPackage( "https://[...].tar.gz" );
+#! ...
 #! true
 #! @EndLog
 #! See also
@@ -81,10 +82,11 @@ InstallPackage( "https://[...].tar.gz" );
 # <Ref Func="TwistedConjugation" Style="Number"/>.
 
 #! @Section Loading
-#! Load stuff
+#! When installed, loading &TwistedConjugacy; can be done simply by running
+#! <Ref Func="LoadPackage" BookName="ref" Style="Number"/>.
 #! @BeginLog
 LoadPackage( "TwistedConjugacy" );
-#! ... package banner(s) ...
+#! ...
 #! true
 #! @EndLog
 #! See also
@@ -92,14 +94,22 @@ LoadPackage( "TwistedConjugacy" );
 #! in the &GAP; manual.
 
 #! @Section Citing
-#! Cite plsthx (Add BibTeX and BibLaTeX?)
+#! Cite pls.
+#! In &BibTeX;:
+#! <Listing Type="BibTeX">
+#! ... TODO
+
+#! </Listing>
+#! Or in &BibLaTeX;
+#! <Listing Type="BibLaTeX">
+#! ... TODO
+#! </Listing>
 
 #! @Section Support
-#! To the rescue! (Issue tracker?)
 #! If you encounter any problems, please submit to them to the
 #! <URL Text='issue tracker'>&ISSUEURL;</URL>.
 #! If you have any questions on the usage or functionality, you may contact
-#! me via email.
+#! me via <Email><Link>&SUPPORTEMAIL;</Link><LinkText>email</LinkText></Email>.
 
 #! @Chapter Mathematical Background
 
@@ -517,10 +527,10 @@ Intersection( Hx, Kz );
 #! @Section Double cosets
 
 #! @Description
-#! Given an element <A>g</A> of a PcpGroup and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
+#! Given an element <A>g</A> of a group and a double coset <A>D</A> of that same group, this function tests whether <A>g</A> is an element of <A>D</A>.
 #! @Arguments g, D
 #! @Label for an element and a double coset
-DeclareOperation( "\in", [ IsPcpElement, IsDoubleCoset ] );
+DeclareOperation( "\in", [ IsMultiplicativeElementWithInverse, IsDoubleCoset ] );
 
 #! @Description
 #! Given double cosets <A>C</A> and <A>D</A> of a PcpGroup, this function tests whether <A>C</A> and <A>D</A> are equal.
@@ -529,9 +539,34 @@ DeclareOperation( "\in", [ IsPcpElement, IsDoubleCoset ] );
 DeclareOperation( "=", [ IsDoubleCoset, IsDoubleCoset ] );
 
 #! @Description
+#! Given a double coset <A>C</A> of a PcpGroup, this function calculates the size of <A>C</A>.
+#! @Arguments C
+#! @Label for a double coset
+DeclareOperation( "Size", [ IsDoubleCoset ] );
+
+#! @BeginGroup DoubleCosets
+#! @Description
 #! Given a PcpGroup <A>G</A> and two subgroups <A>H</A>, <A>K</A>, this function computes a duplicate-free list of all double cosets <A>H</A>$g$<A>K</A> for $g \in G$ if there are finitely many, or it returns <K>fail</K> otherwise.
 #! @Arguments G, H, K
 DeclareGlobalFunction( "DoubleCosets" );
+#! @Arguments G, H, K
+DeclareOperation( "DoubleCosetsNC", [ IsGroup, IsGroup, IsGroup ] );
+#! @EndGroup
+
+#! @Description
+#! blablabla
+#! @Arguments G, H, K
+DeclareOperation( "DoubleCosetRepsAndSizes", [ IsGroup, IsGroup, IsGroup ] );
+#! @EndGroup
+
+#! @BeginGroup DoubleCosetIndex
+#! @Description
+#! Given a PcpGroup <A>G</A> and two subgroups <A>H</A>, <A>K</A>, this function computes the double coset index of the pair (<A>H</A>,<A>K</A>).
+#! @Arguments G, H, K
+DeclareGlobalFunction( "DoubleCosetIndex" );
+#! @Arguments G, H, K
+DeclareOperation( "DoubleCosetIndexNC", [ IsGroup, IsGroup, IsGroup ] );
+#! @EndGroup
 
 #! @BeginExample
 HxK := DoubleCoset( H, x, K );;

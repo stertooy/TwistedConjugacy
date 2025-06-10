@@ -30,10 +30,12 @@ AutoDoc( rec(
                 info.PackageName,
                 "</Package>"
             ),
+            BibLaTeX := "Bib&LaTeX;",
             RELEASEYEAR := String( info.Date{ [ 7 .. 10 ] } ),
             VERSION := info.Version,
             ARCHIVEURL := info.ArchiveURL,
-            ISSUEURL := info.IssueTrackerURL
+            ISSUEURL := info.IssueTrackerURL,
+            SUPPORTEMAIL := info.SupportEmail
         )
     ),
     autodoc := rec( files := [ "doc/TwistedConjugacy.gd" ] ),
