@@ -170,15 +170,13 @@ InstallMethod(
     [ IsDoubleCoset and IsPcpElementCollection,
       IsDoubleCoset and IsPcpElementCollection ],
     function( UxV, UyV )
-        local x;
         if (
             LeftActingGroup( UxV ) <> LeftActingGroup( UyV ) or
             RightActingGroup( UxV ) <> RightActingGroup( UyV )
         ) then
             return false;
         fi;
-        x := Representative( UxV );
-        return x in UyV;
+        return Representative( UxV ) in UyV;
     end
 );
 
@@ -227,19 +225,13 @@ InstallMethod(
     "for pcp groups",
     [ IsPcpGroup, IsPcpGroup, IsPcpGroup ],
     function( G, U, V )
-        local dp, l, r, Rcl, L, tcc;
+        local dp, Rcl, tcc;
         dp := DirectProductInclusions@( G, U, V );
-        l := dp[1];
-        r := dp[2];
-        Rcl := ReidemeisterClasses( l, r );
+        Rcl := CallFuncList( ReidemeisterClasses, dp );
         if Rcl = fail then
             return fail;
         fi;
-        L := [];
-        for tcc in Rcl do
-            Add( L, [ Representative( tcc ), Size( tcc ) ] );
-        od;
-        return L;
+        return List( Rcl, tcc -> [ Representative( tcc ), Size( tcc ) ] );
     end
 );
 
@@ -261,11 +253,9 @@ InstallMethod(
     "for pcp groups",
     [ IsPcpGroup, IsPcpGroup, IsPcpGroup ],
     function( G, U, V )
-        local dp, l, r, Rcl;
+        local dp, Rcl, g;
         dp := DirectProductInclusions@( G, U, V );
-        l := dp[1];
-        r := dp[2];
-        Rcl := RepresentativesReidemeisterClasses( l, r );
+        Rcl := CallFuncList( RepresentativesReidemeisterClasses, dp );
         if Rcl = fail then
             return fail;
         fi;

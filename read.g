@@ -2,6 +2,7 @@ if not IsBound( ASSERT@ ) then ASSERT@ := false; fi;
 
 ReadPackage( "TwistedConjugacy", "lib/homomorphisms.gi" );
 ReadPackage( "TwistedConjugacy", "lib/coincidencegroup.gi" );
+ReadPackage( "TwistedConjugacy", "lib/cosets.gi" );
 ReadPackage( "TwistedConjugacy", "lib/derivations.gi" );
 ReadPackage( "TwistedConjugacy", "lib/twistedconjugation.gi" );
 ReadPackage( "TwistedConjugacy", "lib/twistedconjugationmultiple.gi" );

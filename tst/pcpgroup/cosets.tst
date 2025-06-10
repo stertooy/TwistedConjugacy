@@ -50,6 +50,10 @@ gap> DCS = [ HzK, HxK ];
 true
 gap> DoubleCosetRepsAndSizes( G, H, K );
 [ [ id, infinity ], [ g3, infinity ] ]
+gap> DoubleCosetIndex( G, H, K );
+2
+gap> DoubleCosetIndex( H, K, K );
+Error, not contained
 
 #
 gap> G := ExamplesOfSomePcpGroups( 10 );;
@@ -70,11 +74,11 @@ fail
 #
 gap> G := ExamplesOfSomePcpGroups( 14 );;
 gap> H := Subgroup( G,[ G.14, G.15 ] );;
-gap> K := Subgroup( G,[ G.18, G.19, G.20 ] );;
+gap> K := Subgroup( G,[ G.18, G.19 ] );;
 gap> g := G.1;;
 gap> DC := DoubleCoset( H, g, K );;
 gap> Size( DC );
-37500
+7500
 
 #
 gap> STOP_TEST( "cosets.tst" );
