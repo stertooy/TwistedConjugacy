@@ -59,17 +59,23 @@ Error, not contained
 gap> G := ExamplesOfSomePcpGroups( 10 );;
 gap> H := Subgroup( G, [ G.1^2, G.4 ] );;
 gap> K := Subgroup( G, [ G.2^2, G.3^2 ] );;
+gap> L := Subgroup( G, [ G.1^3 ] );;
 gap> Length( DoubleCosets( G, H, K ) );
 12
 gap> RS := DoubleCosetRepsAndSizes( G, H, K );;
 gap> List( RS, Last ) = ListWithIdenticalEntries( 12, infinity );
 true
+gap> DoubleCosetIndex( G, H, L );
+infinity
+
+#
 gap> G := ExamplesOfSomePcpGroups( 4 );;
 gap> H := Subgroup( G, [ G.1 ] );;
 gap> DoubleCosets( G, H, H );
 fail
 gap> DoubleCosetRepsAndSizes( G, H, H );
 fail
+gap> DoubleCosetIndex( G, H, H );
 
 #
 gap> G := ExamplesOfSomePcpGroups( 14 );;
@@ -80,8 +86,6 @@ gap> DC := DoubleCoset( H, g, K );;
 gap> Size( DC );
 7500
 gap> N := NormalTorsionSubgroup(G);;
-gap> DoubleCosetIndex( G, H, K );
-infinity
 gap> DoubleCosetIndex( N, H, K );
 300
 

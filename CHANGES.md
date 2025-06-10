@@ -1,16 +1,18 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
-3.0.0 (2025-04-11)
+3.0.0 (2025-07-01)
 ------------------
 
 - Added method for (Representatives)ReidemeisterClasses and ReidemeisterNumber
   with no restrictions on the homomorphisms or the source and target groups
-- ReidemeisterClasses and RepresentativesReidemeisterClasses can now take a
-  normal subgroup as optional input, and will then only return the
-  (representatives of the) reidemeister classes that intersect this normal
-  subgroup
+- (Representatives)ReidemeisterClasses now accepts a normal subgroup as
+  optional input, and will then only return the (representatives of the)
+  Reidemeister classes that intersect this normal subgroup
+  
 - Added more methods related to double cosets of PcpGroups
+
+- Added methods related to group derivations
 
 - Switched the order of the homomorphisms in the definition of the twisted
   conjugation action
