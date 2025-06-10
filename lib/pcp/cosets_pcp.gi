@@ -12,7 +12,7 @@
 ##      r:          map U x V -> G: (u,v) -> v
 ##
 DirectProductInclusions@ := function( G, U, V )
-    local UV, iU, iV, l, r, Rcl, L, g, tcc;
+    local UV, iU, iV, l, r;
     UV := DirectProduct( U, V );
     iU := InclusionHomomorphism( U, G );
     iV := InclusionHomomorphism( V, G );
@@ -39,7 +39,7 @@ InstallMethod(
     [ IsPcpGroup, IsPcpGroup ],
     1,
     function( U, V )
-        local UxV, G, dp, l, r, I;
+        local G, dp, l, r, I;
 
         # Catch trivial cases
         if IsSubset( V, U ) then
