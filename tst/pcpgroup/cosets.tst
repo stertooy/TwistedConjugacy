@@ -59,11 +59,11 @@ Error, not contained
 gap> G := ExamplesOfSomePcpGroups( 10 );;
 gap> H := Subgroup( G, [ G.1^2, G.4 ] );;
 gap> K := Subgroup( G, [ G.2^2, G.3^2 ] );;
-gap> L := Subgroup( G, [ G.1^3 ] );;
+gap> L := Subgroup( G, [ G.2 ] );;
 gap> Length( DoubleCosets( G, H, K ) );
 12
-gap> RS := DoubleCosetRepsAndSizes( G, H, K );;
-gap> List( RS, Last ) = ListWithIdenticalEntries( 12, infinity );
+gap> DCRS := DoubleCosetRepsAndSizes( G, H, K );;
+gap> List( DCRS, Last ) = ListWithIdenticalEntries( 12, infinity );
 true
 gap> DoubleCosetIndex( G, H, L );
 infinity
