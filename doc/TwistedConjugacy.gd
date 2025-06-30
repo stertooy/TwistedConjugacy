@@ -61,16 +61,19 @@
 #! <URL Text='here'>&ARCHIVEURL;.tar.gz</URL>. After extracting, you should
 #! place it in a suitable <F>pkg</F> folder. For example, on a Debian-based
 #! Linux distribution (e.g. Ubuntu, Mint), you can place it in
-#! <F>&dollar;HOME/.gap/pkg</F> (recommended) to make it available for just
-#! yourself, or in the &GAP; installation directory (<F>gap-X.Y.Z/pkg</F>) to
-#! make it available for all users.
+#! <F>&dollar;HOME/.gap/pkg</F> (recommended) which makes it available for just
+#! yourself, or in the &GAP; installation directory (<F>gap-X.Y.Z/pkg</F>)
+#! which makes it available for all users.
 #! You can use the following command to do this efficiently:
 #! <Listing Type="Command">
 #! wget -qO- https://[...].tar.gz | tar xzf - --one-top-level=&dollar;HOME/.gap/pkg
 #!</Listing>
-#! If &PackageManager; is installed and loaded, you can install
+#! If the &PackageManager; package is installed, you can install
 #! &TwistedConjugacy; from within a GAP session:
 #! @BeginLog
+LoadPackage( "PackageManager" );
+#! ...
+#! true
 InstallPackage( "https://[...].tar.gz" );
 #! ...
 #! true
@@ -82,7 +85,7 @@ InstallPackage( "https://[...].tar.gz" );
 # <Ref Func="TwistedConjugation" Style="Number"/>.
 
 #! @Section Loading
-#! When installed, loading &TwistedConjugacy; can be done simply by running
+#! Once installed, loading &TwistedConjugacy; can be done simply by running
 #! <Ref Func="LoadPackage" BookName="ref" Style="Number"/>.
 #! @BeginLog
 LoadPackage( "TwistedConjugacy" );
@@ -94,22 +97,40 @@ LoadPackage( "TwistedConjugacy" );
 #! in the &GAP; manual.
 
 #! @Section Citing
-#! Cite pls.
+#! If you use the &TwistedConjugacy; package in your research, we would love to
+#! hear about your work via an email to the address
+#! <Email>&SUPPORTEMAIL;</Email>.
+#! If you have used the the &TwistedConjugacy; package in the preparation of a
+#! paper and wish to refer to it, please cite it as described below.
+#! <P/>
 #! In &BibTeX;:
 #! <Listing Type="BibTeX">
-#! ... TODO
-
-#! </Listing>
-#! Or in &BibLaTeX;
+#! &AT;misc{TC&VERSION;,
+#!     author =       {Tertooy, Sam},
+#!     title =        {{TwistedConjugacy,
+#!                     &SUBTITLE;,
+#!                     Version &VERSION;}},
+#!     note =         {GAP package},
+#!     year =         {&RELEASEYEAR;},
+#!     howpublished = {\url{https://stertooy.github.io/TwistedConjugacy}}
+#! }</Listing>
+#! Or in &BibLaTeX;:
 #! <Listing Type="BibLaTeX">
-#! ... TODO
-#! </Listing>
+#! &AT;software{TC&VERSION;,
+#!     author =   {Tertooy, Sam},
+#!     title =    {TwistedConjugacy},
+#!     subtitle = {&SUBTITLE;},
+#!     version =  {&VERSION;},
+#!     note =     {GAP package},
+#!     year =     {&RELEASEYEAR;},
+#!     url =      {&HOMEURL;}
+#! }</Listing>
 
 #! @Section Support
 #! If you encounter any problems, please submit to them to the
 #! <URL Text='issue tracker'>&ISSUEURL;</URL>.
 #! If you have any questions on the usage or functionality, you may contact
-#! me via <Email><Link>&SUPPORTEMAIL;</Link><LinkText>email</LinkText></Email>.
+#! me via email at <Email>&SUPPORTEMAIL;</Email>.
 
 #! @Chapter Mathematical Background
 

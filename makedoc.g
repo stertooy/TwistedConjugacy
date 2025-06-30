@@ -22,6 +22,7 @@ AutoDoc( rec(
     scaffold := rec(
         bib := "TwistedConjugacy.bib",
         entities := rec(
+            AT := "@",
             AutoDoc := "<Package>AutoDoc</Package>",
             Polycyclic := "<Package>Polycyclic</Package>",
             PackageManager := "<Package>PackageManager</Package>",
@@ -35,7 +36,9 @@ AutoDoc( rec(
             VERSION := info.Version,
             ARCHIVEURL := info.ArchiveURL,
             ISSUEURL := info.IssueTrackerURL,
-            SUPPORTEMAIL := info.SupportEmail
+            HOMEURL := info.PackageWWWHome,
+            SUPPORTEMAIL := info.SupportEmail,
+            SUBTITLE := info.Subtitle
         )
     ),
     autodoc := rec( files := [ "doc/TwistedConjugacy.gd" ] ),
