@@ -76,6 +76,7 @@ fail
 gap> DoubleCosetRepsAndSizes( G, H, H );
 fail
 gap> DoubleCosetIndex( G, H, H );
+infinity
 
 #
 gap> G := ExamplesOfSomePcpGroups( 14 );;
