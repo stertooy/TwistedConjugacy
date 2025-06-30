@@ -108,5 +108,5 @@ jobs:
           FOLDERS="lib/** **/*.g"
           gaplint $FOLDERS --columns=79 --indentation=4 --disable=W001,W003,W004,W012,W013,W014,W046
           # Also check for double semicolon
-          blah=$(egrep -ir --include=*.{g,gi,gd} ";;" $FOLDERS | tee /dev/stderr)
-          if [[ ! $blah ]]; then exit 0; else exit 1; fi
+          semi=$(egrep -ir --include=*.{g,gi,gd} ";;" $FOLDERS | tee /dev/stderr)
+          if [[ ! $semi ]]; then exit 0; else exit 1; fi
