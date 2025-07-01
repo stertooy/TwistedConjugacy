@@ -34,7 +34,6 @@
 #
 #####
 
-
 #! @Chapter thepkg
 #! @ChapterTitle The &TwistedConjugacy; Package
 
@@ -68,19 +67,14 @@
 #! <Listing Type="Command">
 #! wget -qO- https://[...].tar.gz | tar xzf - --one-top-level=&dollar;HOME/.gap/pkg
 #!</Listing>
-#! If the &PackageManager; package is installed, you can install
-#! &TwistedConjugacy; from within a GAP session:
+#! If the &PackageManager; package is installed and loaded, you can install
+#! &TwistedConjugacy; from within a GAP session
+#! using <Ref Func="InstallPackage" BookName="PackageManager" Style="Number"/>.
 #! @BeginLog
-LoadPackage( "PackageManager" );
-#! ...
-#! true
 InstallPackage( "https://[...].tar.gz" );
 #! ...
 #! true
 #! @EndLog
-#! See also
-#! <Ref Sect="Installing a GAP Package" BookName="ref" Text="the relevant section"/>
-#! in the &GAP; manual.
 # <Ref Func="ReadPackage" BookName="ref"/>.
 # <Ref Func="TwistedConjugation" Style="Number"/>.
 
@@ -92,9 +86,6 @@ LoadPackage( "TwistedConjugacy" );
 #! ...
 #! true
 #! @EndLog
-#! See also
-#! <Ref Sect="Loading a GAP Package" BookName="ref" Text="the relevant section"/>
-#! in the &GAP; manual.
 
 #! @Section Citing
 #! If you use the &TwistedConjugacy; package in your research, we would love to
@@ -102,7 +93,9 @@ LoadPackage( "TwistedConjugacy" );
 #! <Email>&SUPPORTEMAIL;</Email>.
 #! If you have used the the &TwistedConjugacy; package in the preparation of a
 #! paper and wish to refer to it, please cite it as described below.
+
 #! <P/>
+
 #! In &BibTeX;:
 #! <Listing Type="BibTeX">
 #! &AT;misc{TC&VERSION;,
@@ -113,8 +106,8 @@ LoadPackage( "TwistedConjugacy" );
 #!     note =         {GAP package},
 #!     year =         {&RELEASEYEAR;},
 #!     howpublished = {\url{https://stertooy.github.io/TwistedConjugacy}}
-#! }</Listing>
-#! Or in &BibLaTeX;:
+#! }</Listing><P/>
+#! In &BibLaTeX;:
 #! <Listing Type="BibLaTeX">
 #! &AT;software{TC&VERSION;,
 #!     author =   {Tertooy, Sam},
@@ -129,32 +122,23 @@ LoadPackage( "TwistedConjugacy" );
 #! @Section Support
 #! If you encounter any problems, please submit to them to the
 #! <URL Text='issue tracker'>&ISSUEURL;</URL>.
-#! If you have any questions on the usage or functionality, you may contact
-#! me via email at <Email>&SUPPORTEMAIL;</Email>.
-
-#! @Chapter Mathematical Background
-
-
-#! Let $G$ and $H$ be groups and let $\varphi$ and $\psi$ be group
-#! homomorphisms from $H$ to $G$. The pair $(\varphi,\psi)$ induces a
-#! (right) group action of $H$ on $G$ given by the map $$G \times H \to G
-#! \colon (g,h) \mapsto \varphi(h)^{-1} g\,\psi(h).$$
-#! This group action is called **$(\varphi,\psi)$-twisted conjugation**. The
-#! orbits are called **Reidemeister classes** or **twisted conjugacy classes**,
-#! and the number of Reidemeister classes is called the **Reidemeister number**
-#! $R(\varphi,\psi)$ of the pair $(\varphi,\psi)$.
+#! If you have any questions on the usage or functionality of
+#! &TwistedConjugacy;, you may contact me via email at
+#! <Email>&SUPPORTEMAIL;</Email>.
 
 #! <P/>
 
-#! Bugs in &GAP;, in the &TwistedConjugacy; package, or in any other package
-#! used directly or indirectly, may cause functions provided by
-#! &TwistedConjugacy; to produce errors &ndash; or worse, incorrect results.
+#! Bugs in &GAP;, in this package, or in any other package used directly or
+#! indirectly, may cause functions provided by &TwistedConjugacy; to produce
+#! errors or incorrect results.
 #! To help detect such issues, you can enable internal checks by setting the
 #! variable <C>ASSERT&#64;TwistedConjugacy</C> to <K>true</K>. Note that this
 #! will come at the cost of reduced performance.
+
 #! <P/>
-#! For additional safety, you can enable &GAP;'s built-in assertion features
-#! by calling <C>SetAssertionLevel( <A>lev</A> )</C> (we recommend setting
+
+#! For additional safety, you can enable &GAP;'s built-in assertion features by
+#! calling <C>SetAssertionLevel( <A>lev</A> )</C> (we recommend setting
 #! <A>lev</A> to <C>2</C>) and, when working with PcpGroups, settings the
 #! variables <C>CHECK_CENT&#64;Polycyclic</C>, <C>CHECK_IGS&#64;Polycyclic</C>
 #! and <C>CHECK_INTSTAB&#64;Polycyclic</C> to <K>true</K>.
@@ -164,6 +148,67 @@ LoadPackage( "TwistedConjugacy" );
 #####
 #
 # CHAPTER 2
+#
+#####
+
+#! @Chapter Mathematical Background
+
+#! Let $G$ and $H$ be groups and let $\varphi$ and $\psi$ be group
+#! homomorphisms from $H$ to $G$. The pair $(\varphi,\psi)$ induces a
+#! (right) group action of $H$ on $G$ given by the map $$G \times H \to G
+#! \colon (g,h) \mapsto \varphi(h)^{-1} g\,\psi(h).$$
+#! This group action is called **$(\varphi,\psi)$-twisted conjugation**. The
+#! orbits are called **Reidemeister classes** or **twisted conjugacy classes**,
+#! and the number of Reidemeister classes is called the **Reidemeister number**
+#! $R(\varphi,\psi)$ of the pair $(\varphi,\psi)$. The stabiliser of the
+#! identity $1_G$ under the $(\varphi,\psi)$-twisted conjugacy action of $H$ is
+#! exactly the **coincidence group**
+#! $$\operatorname{Coin}(\varphi,\psi) =
+#! \left\{\, h \in H \mid \varphi(h) = \psi(h) \, \right\}.$$
+#! Generalising this, the stabiliser of any $g \in G$ is the coincidence group
+#! $\operatorname{Coin}(\iota_g\varphi,\psi)$, with $\iota_g$ the inner
+#! automorphism of $G$ that conjugates by $g$.
+
+#! <P/>
+
+#! Twisted conjugacy originates in Reidemeister-Nielsen fixed point theory,
+#! where it serves as a tool for studying fixed points of continuous self-maps
+#! on topological spaces.
+#! Let $X$ and $Y$ be topological spaces with universal covers
+#! $p \colon \tilde{X} \to X$ and $q \colon \tilde{Y} \to Y$ and let
+#! $\mathcal{D}(X), \mathcal{D}(Y)$ be their covering transformations groups.
+
+#! Let $f,g \colon X \to Y$ be continuous maps with lifts
+#! $\tilde{f}, \tilde{g} \colon \tilde{X} \to \tilde{Y}$. By $f_*\colon 
+#! \mathcal{D}(X) \to \mathcal{D}(Y)$, denote the group homomorphism defined by
+#! $\tilde{f} \circ \gamma = f_*(\gamma) \circ \tilde{f}$ for all  $\gamma \in 
+#! \mathcal{D}(X)$, and let $g_*$ be defined similarly. The
+#! set of coincidence points $\operatorname{Coin}(f,g)$ equals the union
+#! $$\operatorname{Coin}(f,g) = \bigcup_{\alpha \in \mathcal{D}(Y)}
+#! p(\operatorname{Coin}(\tilde{f}, \alpha \tilde{g})).$$
+#! For any two elements $\alpha, \beta \in \mathcal{D}(Y)$, the sets
+#! $p(\operatorname{Coin}(\tilde{f}, \alpha \tilde{g}))$ and
+#! $p(\operatorname{Coin}(\tilde{f}, \beta \tilde{g}))$ are either disjoint or
+#! equal. In fact, they are equal if and only if there exists some $\gamma
+#! \in \mathcal{D}(X)$ such that
+#! $$\alpha = f_*(\gamma)^{-1} \circ \beta \circ g_*(\gamma),$$
+#! which is exactly the same as saying that $\alpha$ and $\beta$ are
+#! $(f_*,g_*)$-twisted conjugate. Thus,
+#! $$\operatorname{Coin}(f,g) = \bigsqcup_{[\alpha]}
+#! p(\operatorname{Coin}(\tilde{f}, \alpha \tilde{g})),$$
+#! where $[\alpha]$ runs over the $(f_*,g_*)$-twisted conjugacy classess. For
+#! sufficiently well-behaved spaces $X,Y$ and maps $f,g$ with $R(f_*,g_*) &lt; \infty$,
+#! one obtains the inequality
+#! $$R(f_*,g_*) \leq |\operatorname{Coin}(f,g)|.$$
+#! 
+
+
+
+
+
+#####
+#
+# CHAPTER 3
 #
 #####
 
@@ -219,7 +264,7 @@ tc( g1, h ) = g2;
 
 
 ###
-# SECTION 1
+# SECTION 2
 ###
 
 #! @Section The Multiple Twisted Conjugacy (Search) Problem
@@ -263,7 +308,7 @@ RepresentativeTwistedConjugationMultiple( [ phi, psi ], [ khi, tau ],
 
 #! The equivalence classes of the equivalence relation $\sim_{\varphi,\psi}$ are called the **Reidemeister classes of $(\varphi,\psi)$** or the **$(\varphi,\psi)$-twisted conjugacy classes**. We denote the Reidemeister class of $g \in G$ by $[g]_{\varphi,\psi}$. The number of Reidemeister classes is called the Reidemeister number $R(\varphi,\psi)$ and is always a positive integer or infinity.
 
-#! @Section Creating Reidemeister Classes
+#! @Section Creating a Reidemeister Class
 
 #! @BeginGroup TwistedConjugacyClassGroup
 #! @Arguments hom1[, hom2], g
@@ -309,7 +354,7 @@ DeclareAttribute( "StabiliserOfExternalSet", IsReidemeisterClassGroupRep );
 #! TODO: mention that things like List, Size, Random should also work.
 
 
-#! @Section Calculating Reidemeister Classes
+#! @Section Calculating all Reidemeister Classes
 
 #! @BeginGroup ReidemeisterClassesGroup
 #! @Description
@@ -367,7 +412,7 @@ NrTwistedConjugacyClasses( phi, psi );
 #! @BeginGroup ReidemeisterNumberGroup
 #! @Description
 #! Returns the Reidemeister number of ( <A>hom1</A>, <A>hom2</A> ), i.e. the number of Reidemeister classes.
-#! <P />
+#! <P/>
 #! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='jian83-a' Where='Thm. 2.5'/>.
 #! If $G = H$, $G$ is finite non-abelian and $\psi = \operatorname{id}_G$, it relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
 #! Otherwise, it uses the output of <C>RepresentativesReidemeisterClasses</C>.
