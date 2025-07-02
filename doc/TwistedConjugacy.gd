@@ -35,7 +35,7 @@
 #####
 
 #! @Chapter thepkg
-#! @ChapterTitle The &TwistedConjugacy; Package
+#! @ChapterTitle The TwistedConjugacy Package
 
 #! @Section Introduction
 #! This is the manual for the &GAP; 4 package &TwistedConjugacy; version
@@ -261,7 +261,7 @@ DeclareGlobalFunction( "IsTwistedConjugate" );
 #! If <A>hom2</A> is omitted, then <A>hom1</A> must be an endomorphism, and <A>hom2</A> is taken to be the identity map.
 #! If <A>g2</A> is omitted, it is taken to be the identity element.
 #!
-#! If the source group is finite, this function relies on a stabiliser-orbit algorithm.
+#! If the source group is finite, this function relies on orbit-stabiliser algorithms provided by &GAP;. 
 #! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Thm. 3'/>, <Cite Key='bkl20-a' Where='Sec. 5.4'/>, <Cite Key='roma21-a' Where='Sec. 7'/> and <Cite Key='dt21-a'/>.
 DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 
@@ -290,16 +290,21 @@ tc( g1, h ) = g2;
 
 #! @Section The Multiple Twisted Conjugacy (Search) Problem
 #! Let $H$ and $G_1, \ldots, G_n$ be groups. For each $i \in \{1,\ldots,n\}$, let $g_i,g_i' \in G_i$ and let $\varphi_i,\psi_i\colon H \to G_i$ be group homomorphisms.
-#! The multiple twisted conjugacy problem is the problem of finding some $h \in H$ such that $\varphi_i(h)^{-1}g_i\psi_i(h) = g_i'$ for all $i \in \{1,\ldots,n\}$.
+#! The **multiple twisted conjugacy problem** is
+#! the decision problem that asks whether there exists some $h \in H$ such that
+#! $\varphi_i(h)^{-1}g_i\psi_i(h) = g_i'$ for all $i \in \{1,\ldots,n\}$.
 
-#! @Description
-#! Verifies whether the multiple twisted conjugacy problem for the given homomorphisms and elements has a solution.
+#! The **multiple twisted conjugacy search problem** is the problem of determining
+#! an explicit $h$ such that $\varphi_i(h)^{-1}g_i\psi_i(h) = g_i'$ for all $i \in \{1,\ldots,n\}$ (under the assumption that such
+#! $h$ exists).
+
 #! @Arguments hom1List[, hom2List], g1List[, g2List]
+#! @Returns <K>true</K> if <A>g1List</A><C>[i]</C> and <A>g2List</A><C>[i]</C> are <C>(<A>hom1List</A>[i],<A>hom2List</A>[i])</C>-twisted conjugate
+#! for all <C>i</C> via a common twisted conjugator, otherwise <K>false</K>.
 DeclareGlobalFunction( "IsTwistedConjugateMultiple" );
 
-#! @Description
-#! Computes a solution to the multiple twisted conjugacy problem for the given homomorphisms and elements, or returns <K>fail</K> if no solution exists.
 #! @Arguments hom1List[, hom2List], g1List[, g2List]
+#! @Returns an element that maps <A>g1List</A><C>[i]</C> to <A>g2List</A><C>[i]</C> under the <C>(<A>hom1List</A>[i],<A>hom2List</A>[i])</C>-twisted conjugacy action, or <K>fail</K> if no such element exists.
 DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
 
 #! @BeginExample
@@ -324,16 +329,18 @@ RepresentativeTwistedConjugationMultiple( [ phi, psi ], [ khi, tau ],
 
 
 #! @Chapter Reidemeister Classes
-#! @ChapterLabel reidclass
-#! @ChapterTitle Reidemeister Classes
 
-#! The equivalence classes of the equivalence relation $\sim_{\varphi,\psi}$ are called the **Reidemeister classes of $(\varphi,\psi)$** or the **$(\varphi,\psi)$-twisted conjugacy classes**. We denote the Reidemeister class of $g \in G$ by $[g]_{\varphi,\psi}$. The number of Reidemeister classes is called the Reidemeister number $R(\varphi,\psi)$ and is always a positive integer or infinity.
+#! The orbits of the $(\varphi,\psi)$-twisted conjugacy action are called the
+#! **Reidemeister classes of $(\varphi,\psi)$** or the
+#! **$(\varphi,\psi)$-twisted conjugacy classes**. We denote the Reidemeister
+#! class of $g \in G$ by $[g]_{\varphi,\psi}$.
 
 #! @Section Creating a Reidemeister Class
 
 #! @BeginGroup TwistedConjugacyClassGroup
 #! @Arguments hom1[, hom2], g
 #! @Returns the <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugacy class of <A>g</A>.
+#! @Description If <A>hom2</A> is omitted, then <A>hom1</A> must be an endomorphism, and <A>hom2</A> is taken to be the identity map.
 DeclareGlobalFunction( "ReidemeisterClass" );
 #! @Arguments hom1[, hom2], g
 DeclareGlobalFunction( "TwistedConjugacyClass" );
@@ -342,44 +349,74 @@ DeclareGlobalFunction( "TwistedConjugacyClass" );
 #! @Section Operations on Reidemeister Classes
 
 
+
 #! @Group RepresentativeTCC
 #! @GroupTitle Representative
 #! @Label for twisted conjugacy classes
+#! @Arguments tcc
+#! @Returns the representative of <A>tcc</A>.
 DeclareAttribute( "Representative", IsReidemeisterClassGroupRep );
-
-#! @Group ActingDomainTCC
-#! @GroupTitle ActingDomain
-#! @Label for twisted conjugacy classes
-DeclareAttribute( "ActingDomain", IsReidemeisterClassGroupRep );
 
 #! @Group FunctionActionTCC
 #! @GroupTitle FunctionAction
 #! @Label for twisted conjugacy classes
+#! @Arguments tcc
+#! @Returns the twisted conjugation action used to define <A>tcc</A>.
 DeclareAttribute( "FunctionAction", IsReidemeisterClassGroupRep );
 
 #! @Group InTCC
-#! @GroupTitle in
+#! @GroupTitle \in
 #! @Label for twisted conjugacy classes
+#! @Arguments g, tcc
+#! @Returns <K>true</K> if <A>g</A> is an element of <A>tcc</A>, otherwise <K>false</K>.
 DeclareOperation( "\in", [ IsObject, IsReidemeisterClassGroupRep ] );
 
 #! @Group SizeTCC
 #! @GroupTitle Size
 #! @Label for twisted conjugacy classes
+#! @Arguments tcc
+#! @Returns the number of elements in <A>tcc</A>.
 DeclareAttribute( "Size", IsReidemeisterClassGroupRep );
 
 #! @Group StabiliserOfExternalSetTCC
 #! @GroupTitle StabiliserOfExternalSet
 #! @Label for twisted conjugacy classes
+#! @Arguments tcc
+#! @Returns the stabiliser of <C>Representative(<A>tcc</A>)</C> under the action
+#! <C>FunctionAction(<A>tcc</A>)</C>.
 DeclareAttribute( "StabiliserOfExternalSet", IsReidemeisterClassGroupRep );
 
-#! TODO: mention that things like List, Size, Random should also work.
+#! @Group ListTCC
+#! @GroupTitle List
+#! @Label for twisted conjugacy classes
+#! @Arguments tcc
+#! @Returns a list containing the elements of <A>tcc</A>.
+#! @Description If <A>tcc</A> is infinite, this will run forever. If you are
+#! unsure of whether <A>tcc</A> is finite, it may be safer to first confirm this
+#! by using Size (TODO: ref).
+DeclareGlobalFunction( "List" );
+
+#! @Group RandomTCC
+#! @GroupTitle Random
+#! @Label for twisted conjugacy classes
+#! @Arguments tcc
+#! @Returns a random element in <A>tcc</A>.
+DeclareOperation( "Random", [ IsReidemeisterClassGroupRep ] );
+
+#! @Group EqualityTCC
+#! @GroupTitle \=
+#! @Label for twisted conjugacy classes
+#! @Arguments tcc1, tcc2
+#! @Returns <K>true</K> if <A>tcc1</A> is the same twisted conjugacy class as <A>tcc2</A>, otherwise <K>false</K>.
+#! @Description NOT IMPLEMENTED YET AAGH TODO
+DeclareOperation( "\=", [ IsReidemeisterClassGroupRep, IsReidemeisterClassGroupRep ] );
 
 
 #! @Section Calculating all Reidemeister Classes
 
 #! @BeginGroup ReidemeisterClassesGroup
 #! @Description
-#! Returns a list containing the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number $R( <A>hom1</A>, <A>hom2</A> )$ is finite, or returns <K>fail</K> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position.
+#! Returns a list containing the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if there are finitely many, or returns <K>fail</K> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position.
 #! <P />
 #! If $G$ and $H$ are finite, it relies on an orbit-stabiliser algorithm.
 #! Otherwise, it relies on the algorithms in <Cite Key='dt21-a'/> and <Cite Key='tert25-a'/>.
@@ -391,7 +428,7 @@ DeclareGlobalFunction( "TwistedConjugacyClasses" );
 
 #! @BeginGroup RepresentativesReidemeisterClassesGroup
 #! @Description
-#! Returns a list containing representatives of the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if the Reidemeister number $R( <A>hom1</A>, <A>hom2</A> )$ is finite, or returns <K>fail</K> otherwise. It is guaranteed that the identity is in the first position.
+#! Returns a list containing representatives of the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if there are finitely many, or returns <K>fail</K> otherwise. It is guaranteed that the identity is in the first position.
 #! @Arguments hom1[, hom2]
 DeclareGlobalFunction( "RepresentativesReidemeisterClasses" );
 #! @Arguments hom1[, hom2]
@@ -429,7 +466,7 @@ NrTwistedConjugacyClasses( phi, psi );
 #! @ChapterTitle Reidemeister Numbers and Spectra
 
 #! @Section Reidemeister Numbers
-
+#!  The number of Reidemeister classes is called the Reidemeister number $R(\varphi,\psi)$ and is always a positive integer or infinity.
 #! @BeginGroup ReidemeisterNumberGroup
 #! @Description
 #! Returns the Reidemeister number of ( <A>hom1</A>, <A>hom2</A> ), i.e. the number of Reidemeister classes.
