@@ -40,6 +40,7 @@
 #! @Section Introduction
 #! This is the manual for the &GAP; 4 package &TwistedConjugacy; version
 #! &VERSION;.
+#! TODO more stuff here?
 
 
 # Note to self: check https://docs.gap-system.org/pkg/agt/doc/chap1_mj.html
@@ -171,9 +172,9 @@ LoadPackage( "TwistedConjugacy" );
 
 #! <P/>
 
-#! Twisted conjugacy originates in Reidemeister-Nielsen fixed point theory,
-#! where it serves as a tool for studying fixed points of continuous self-maps
-#! on topological spaces.
+#! Twisted conjugacy originates in Reidemeister-Nielsen fixed point and coincidence theory,
+#! where it serves as a tool for studying fixed and coincidence points of continuous maps
+#! between topological spaces. We very briefly explain the connection below.
 #! Let $X$ and $Y$ be topological spaces with universal covers
 #! $p \colon \tilde{X} \to X$ and $q \colon \tilde{Y} \to Y$ and let
 #! $\mathcal{D}(X), \mathcal{D}(Y)$ be their covering transformations groups.
@@ -190,17 +191,17 @@ LoadPackage( "TwistedConjugacy" );
 #! $p(\operatorname{Coin}(\tilde{f}, \alpha \tilde{g}))$ and
 #! $p(\operatorname{Coin}(\tilde{f}, \beta \tilde{g}))$ are either disjoint or
 #! equal. In fact, they are equal if and only if there exists some $\gamma
-#! \in \mathcal{D}(X)$ such that
-#! $$\alpha = f_*(\gamma)^{-1} \circ \beta \circ g_*(\gamma),$$
-#! which is exactly the same as saying that $\alpha$ and $\beta$ are
-#! $(f_*,g_*)$-twisted conjugate. Thus,
+#! \in \mathcal{D}(X)$ such that $\alpha = f_*(\gamma)^{-1} \circ \beta \circ
+#! g_*(\gamma)$, which is exactly the same as saying that $\alpha$ and $\beta$
+#! are $(f_*,g_*)$-twisted conjugate. Thus,
 #! $$\operatorname{Coin}(f,g) = \bigsqcup_{[\alpha]}
 #! p(\operatorname{Coin}(\tilde{f}, \alpha \tilde{g})),$$
 #! where $[\alpha]$ runs over the $(f_*,g_*)$-twisted conjugacy classess. For
-#! sufficiently well-behaved spaces $X,Y$ and maps $f,g$ with $R(f_*,g_*) &lt; \infty$,
-#! one obtains the inequality
-#! $$R(f_*,g_*) \leq |\operatorname{Coin}(f,g)|.$$
-#! 
+#! sufficiently well-behaved spaces $X$ and $Y$ (e.g. nilmanifolds of equal dimension)
+#! we have that if $R(f_*,g_*) &lt; \infty$, then 
+#! $$R(f_*,g_*) \leq \left|\operatorname{Coin}(f,g)\right|,$$
+#! whereas if $R(f_*,g_*) = \infty$ there exist continuous maps $f'$ and $g'$ homotopic to $f$ and $g$ respectively such that
+#! $\operatorname{Coin}(f',g') = \varnothing$.
 
 
 
@@ -214,33 +215,53 @@ LoadPackage( "TwistedConjugacy" );
 
 #! @Chapter Twisted Conjugacy
 
+
 ###
 # SECTION 1
 ###
 
 #! @Section Twisted Conjugation Action
-#! Let $G, H$ be groups and $\varphi,\psi\colon H \to G$ group homomorphisms. Then the pair $(\varphi,\psi)$ induces a (right) group action on $G$ given by
-#! $$G \times H \to G\colon (g,h) \mapsto \varphi(h)^{-1} g\,\psi(h).$$
-#! This group action is called **$(\varphi,\psi)$-twisted conjugation**, and induces an equivalence relation on the group $G$. We say that $g_1, g_2 \in G$ are $(\varphi,\psi)$-twisted conjugate, denoted by $g_1 \sim_{\varphi,\psi} g_2$, if and only if there exists some element $h \in H$ such that $\varphi(h)^{-1}g_1\psi(h) = g_2$.
-#! <P/>If $\varphi\colon G \to G$ is an endomorphism of a group $G$, then by **$\varphi$-twisted conjugacy** we mean $(\varphi,\operatorname{id}_G)$-twisted conjugacy. Most functions in this package will allow you to input a single endomorphism instead of a pair of homomorphisms. The "missing" endomorphism will automatically be assumed to be the identity mapping. Similarly, if a single group element is given instead of two, the second will be assumed to be the identity.
+#! Let $G$ and $H$ be groups and let $\varphi$ and $\psi$ be group
+#! homomorphisms from $H$ to $G$. The pair $(\varphi,\psi)$ induces a
+#! (right) group action of $H$ on $G$ given by the map $$G \times H \to G
+#! \colon (g,h) \mapsto \varphi(h)^{-1} g\,\psi(h).$$
+#! This group action is called **$(\varphi,\psi)$-twisted conjugation**.
 
 #! @Arguments hom1[, hom2]
 #! @Returns a function that maps the pair <C>(g,h)</C> to <A>hom1</A><C>(h)⁻¹</C> <C>g</C> <A>hom2</A><C>(h)</C>.
+#! @Description If <A>hom2</A> is omitted, then <A>hom1</A> must be an endomorphism, and <A>hom2</A> is taken to be the identity map.
 DeclareGlobalFunction( "TwistedConjugation" );
 
 
+###
+# SECTION 2
+###
+
 #! @Section The Twisted Conjugacy (Search) Problem
+#! Given groups $G$ and $H$, group homomorphisms $\varphi$ and $\psi$ from $H$
+#! to $G$ and elements $g_1, g_2 \in G$, the **twisted conjugacy problem** is
+#! the decision problem that asks whether $g_1$ and $g_2$ are $(\varphi,\psi)$-twisted
+#! conjugate.
+#! The **twisted conjugacy search problem** is the problem of determining
+#! an explicit $h$ such that $\varphi(h)^{-1}g_1\psi(h) = g_2$ (under the assumption that such
+#! $h$ exists).
 
 #! @Arguments hom1[, hom2], g1[, g2]
 #! @Returns <K>true</K> if <A>g1</A> and <A>g2</A> are <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugate, otherwise <K>false</K>.
 #! @Description
+#! If <A>hom2</A> is omitted, then <A>hom1</A> must be an endomorphism, and <A>hom2</A> is taken to be the identity map.
+#! If <A>g2</A> is omitted, it is taken to be the identity element.
+#!
 #! This function relies on the output of <C>RepresentativeTwistedConjugation</C>.
 DeclareGlobalFunction( "IsTwistedConjugate" );
 
 #! @Arguments hom1[, hom2], g1[, g2]
-#! @Returns an element that maps <A>g1</A> to <A>g2</A> under the twisted conjugacy action of the pair <C>(<A>hom1</A>,<A>hom2</A>)</C>, or <K>fail</K> if no such element exists.
+#! @Returns an element that maps <A>g1</A> to <A>g2</A> under the <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugacy action, or <K>fail</K> if no such element exists.
 #! @Description
-#! If <C>H</C> is finite, it relies on a stabiliser-orbit algorithm.
+#! If <A>hom2</A> is omitted, then <A>hom1</A> must be an endomorphism, and <A>hom2</A> is taken to be the identity map.
+#! If <A>g2</A> is omitted, it is taken to be the identity element.
+#!
+#! If the source group is finite, this function relies on a stabiliser-orbit algorithm.
 #! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Thm. 3'/>, <Cite Key='bkl20-a' Where='Sec. 5.4'/>, <Cite Key='roma21-a' Where='Sec. 7'/> and <Cite Key='dt21-a'/>.
 DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 
@@ -264,7 +285,7 @@ tc( g1, h ) = g2;
 
 
 ###
-# SECTION 2
+# SECTION 3
 ###
 
 #! @Section The Multiple Twisted Conjugacy (Search) Problem
