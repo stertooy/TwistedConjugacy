@@ -39,6 +39,8 @@ gap> R1 := ReidemeisterClasses( endo1 );;
 gap> R2 := ReidemeisterClasses( endo2 );;
 gap> Representative( R1[1] ) = Representative( R2[1] );
 true
+gap> R1 = R2;
+false
 gap> ReidemeisterClass( endo1, One( G ) ) = ReidemeisterClass( endo2, One( G ) );
 false
 
@@ -52,6 +54,8 @@ gap> g1 := Random( R[10] );;
 gap> g2 := Random( R[10] );;
 gap> gc := RepresentativeTwistedConjugation( endo1, endo2, g1, g2 );;
 gap> tc( g1, gc ) = g2;
+true
+gap> ReidemeisterClass( endo1, endo2, g1 ) = ReidemeisterClass( endo1, endo2, g2 );
 true
 
 #

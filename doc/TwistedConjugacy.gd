@@ -352,48 +352,59 @@ DeclareGlobalFunction( "TwistedConjugacyClass" );
 
 #! @Group RepresentativeTCC
 #! @GroupTitle Representative
-#! @Label for twisted conjugacy classes
+#! @Label of a twisted conjugacy class
 #! @Arguments tcc
-#! @Returns the representative of <A>tcc</A>.
+#! @Returns the group element that was used to construct <A>tcc</A>.
 DeclareAttribute( "Representative", IsReidemeisterClassGroupRep );
+
+#! @Group ActionDomainTCC
+#! @GroupTitle ActionDomain
+#! @Label of a twisted conjugacy class
+#! @Arguments tcc
+#! @Returns the group whose twisted conjugacy action <A>tcc</A> is an orbit of.
+DeclareAttribute( "ActionDomain", IsReidemeisterClassGroupRep );
 
 #! @Group FunctionActionTCC
 #! @GroupTitle FunctionAction
-#! @Label for twisted conjugacy classes
+#! @Label of a twisted conjugacy class
 #! @Arguments tcc
-#! @Returns the twisted conjugation action used to define <A>tcc</A>.
+#! @Returns the twisted conjugacy action that <A>tcc</A> is an orbit of.
 DeclareAttribute( "FunctionAction", IsReidemeisterClassGroupRep );
 
 #! @Group InTCC
 #! @GroupTitle \in
-#! @Label for twisted conjugacy classes
+#! @Label for an element and a twisted conjugacy class
 #! @Arguments g, tcc
 #! @Returns <K>true</K> if <A>g</A> is an element of <A>tcc</A>, otherwise <K>false</K>.
 DeclareOperation( "\in", [ IsObject, IsReidemeisterClassGroupRep ] );
 
 #! @Group SizeTCC
 #! @GroupTitle Size
-#! @Label for twisted conjugacy classes
+#! @Label of a twisted conjugacy class
 #! @Arguments tcc
 #! @Returns the number of elements in <A>tcc</A>.
+#! @Description
+#! This is calculated as the index of <C>StabiliserOfExternalSet(<A>tcc</A>)</C> in <C>ActingDomain(<A>tcc</A>)</C>.
 DeclareAttribute( "Size", IsReidemeisterClassGroupRep );
+
 
 #! @Group StabiliserOfExternalSetTCC
 #! @GroupTitle StabiliserOfExternalSet
-#! @Label for twisted conjugacy classes
+#! @Label of a twisted conjugacy class
 #! @Arguments tcc
 #! @Returns the stabiliser of <C>Representative(<A>tcc</A>)</C> under the action
 #! <C>FunctionAction(<A>tcc</A>)</C>.
+#! @Description
+#! This is calculated using <Ref Func="CoincidenceGroup"/>.
 DeclareAttribute( "StabiliserOfExternalSet", IsReidemeisterClassGroupRep );
 
 #! @Group ListTCC
 #! @GroupTitle List
-#! @Label for twisted conjugacy classes
+#! @Label of a twisted conjugacy class
 #! @Arguments tcc
 #! @Returns a list containing the elements of <A>tcc</A>.
-#! @Description If <A>tcc</A> is infinite, this will run forever. If you are
-#! unsure of whether <A>tcc</A> is finite, it may be safer to first confirm this
-#! by using Size (TODO: ref).
+#! @Description If <A>tcc</A> is infinite, this will run forever. It is recommended
+#! to first test the finiteness of <A>tcc</A> using <Ref Attr="Size" Label="of a twisted conjugacy class"/>.
 DeclareGlobalFunction( "List" );
 
 #! @Group RandomTCC
@@ -403,35 +414,42 @@ DeclareGlobalFunction( "List" );
 #! @Returns a random element in <A>tcc</A>.
 DeclareOperation( "Random", [ IsReidemeisterClassGroupRep ] );
 
-#! @Group EqualityTCC
+#! @Group EqualsTCC
 #! @GroupTitle \=
 #! @Label for twisted conjugacy classes
 #! @Arguments tcc1, tcc2
-#! @Returns <K>true</K> if <A>tcc1</A> is the same twisted conjugacy class as <A>tcc2</A>, otherwise <K>false</K>.
-#! @Description NOT IMPLEMENTED YET AAGH TODO
+#! @Returns <K>true</K> if <A>tcc1</A> is equal to <A>tcc2</A>, otherwise <K>false</K>.
 DeclareOperation( "\=", [ IsReidemeisterClassGroupRep, IsReidemeisterClassGroupRep ] );
 
 
 #! @Section Calculating all Reidemeister Classes
 
 #! @BeginGroup ReidemeisterClassesGroup
+#! @Arguments hom1[, hom2][, N]
+#! @Returns a list containing the Reidemeister classes of (<A>hom1</A>, <A>hom2</A>) if there are finitely many, or <K>fail</K> otherwise.
 #! @Description
-#! Returns a list containing the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if there are finitely many, or returns <K>fail</K> otherwise. It is guaranteed that the Reidemeister class of the identity is in the first position.
+#! If <A>hom2</A> is omitted, then <A>hom1</A> must be an endomorphism, and <A>hom2</A> is taken to be the identity map.
+#! If <A>N</A> is provided, it must be a normal subgroup of <C>Range(<A>hom1</A>)</C>; the function will then only return the
+#! Reidemeister classes that intersect <A>N</A> non-trivially.
+#! It is guaranteed that the Reidemeister class of the identity is in the first position, and that the representatives of the classes belong to <A>N</A> if this argument is present.
 #! <P />
-#! If $G$ and $H$ are finite, it relies on an orbit-stabiliser algorithm.
+#! If $G$ and $H$ are finite, this function relies on an orbit-stabiliser algorithm.
 #! Otherwise, it relies on the algorithms in <Cite Key='dt21-a'/> and <Cite Key='tert25-a'/>.
-#! @Arguments hom1[, hom2]
 DeclareGlobalFunction( "ReidemeisterClasses" );
-#! @Arguments hom1[, hom2]
+#! @Arguments hom1[, hom2][, N]
 DeclareGlobalFunction( "TwistedConjugacyClasses" );
 #! @EndGroup
 
 #! @BeginGroup RepresentativesReidemeisterClassesGroup
+#! @Arguments hom1[, hom2][, N]
+#! @Returns a list containing representatives of the Reidemeister classes of (<A>hom1</A>, <A>hom2</A>) if there are finitely many, or <K>fail</K> otherwise.
 #! @Description
-#! Returns a list containing representatives of the Reidemeister classes of ( <A>hom1</A>, <A>hom2</A> ) if there are finitely many, or returns <K>fail</K> otherwise. It is guaranteed that the identity is in the first position.
-#! @Arguments hom1[, hom2]
+#! If <A>hom2</A> is omitted, then <A>hom1</A> must be an endomorphism, and <A>hom2</A> is taken to be the identity map.
+#! If <A>N</A> is provided, it must be a normal subgroup of <C>Range(<A>hom1</A>)</C>; the function will then only return the representatives of 
+#! the Reidemeister classes that intersect <A>N</A> non-trivially.
+#! It is guaranteed that the identity is in the first position, and that all elements belong to <A>N</A> if this argument is present.
 DeclareGlobalFunction( "RepresentativesReidemeisterClasses" );
-#! @Arguments hom1[, hom2]
+#! @Arguments hom1[, hom2][, N]
 DeclareGlobalFunction( "RepresentativesTwistedConjugacyClasses" );
 #! @EndGroup
 

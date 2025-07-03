@@ -59,7 +59,7 @@ InstallMethod(
     [ IsMultiplicativeElementWithInverse, IsReidemeisterClassGroupRep ],
     { g, tcc } -> IsTwistedConjugate(
         tcc!.lhs, tcc!.rhs,
-        g, Representative(tcc )
+        g, Representative( tcc )
     )
 );
 
@@ -142,6 +142,33 @@ InstallMethod(
         G := Range( hom1 );
         inn := InnerAutomorphismNC( G, g );
         return CoincidenceGroup2( hom1 * inn, hom2 );
+    end
+);
+
+
+###############################################################################
+##
+## \=( tcc1, tcc2 )
+##
+##  INPUT:
+##      tcc1:       twisted conjugacy class
+##      tcc2:       twisted conjugacy class
+##
+##  OUTPUT:
+##      bool:       true if tcc1 is equal to tcc2, false otherwise
+##
+InstallMethod(
+    \=,
+    "for Reidemeister classes",
+    [ IsReidemeisterClassGroupRep, IsReidemeisterClassGroupRep ],
+    function( tcc1, tcc2 )
+        if tcc1!.lhs <> tcc2!.lhs or tcc1!.rhs <> tcc2!.rhs then
+            return false;
+        fi;
+        return IsTwistedConjugate(
+            tcc1!.lhs, tcc1!.rhs,
+            Representative( tcc1 ), Representative( tcc2 )
+        );
     end
 );
 
