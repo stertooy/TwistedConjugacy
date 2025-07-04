@@ -174,7 +174,9 @@ LoadPackage( "TwistedConjugacy" );
 
 #! Twisted conjugacy originates in Reidemeister-Nielsen fixed point and coincidence theory,
 #! where it serves as a tool for studying fixed and coincidence points of continuous maps
-#! between topological spaces. We very briefly explain the connection below.
+#! between topological spaces. Below, we briefly illustrate how and where this algebraic notion
+#! pops up when studying coincidence points.
+
 #! Let $X$ and $Y$ be topological spaces with universal covers
 #! $p \colon \tilde{X} \to X$ and $q \colon \tilde{Y} \to Y$ and let
 #! $\mathcal{D}(X), \mathcal{D}(Y)$ be their covering transformations groups.
@@ -190,7 +192,7 @@ LoadPackage( "TwistedConjugacy" );
 #! For any two elements $\alpha, \beta \in \mathcal{D}(Y)$, the sets
 #! $p(\operatorname{Coin}(\tilde{f}, \alpha \tilde{g}))$ and
 #! $p(\operatorname{Coin}(\tilde{f}, \beta \tilde{g}))$ are either disjoint or
-#! equal. In fact, they are equal if and only if there exists some $\gamma
+#! equal. Moreover, they are equal if and only if there exists some $\gamma
 #! \in \mathcal{D}(X)$ such that $\alpha = f_*(\gamma)^{-1} \circ \beta \circ
 #! g_*(\gamma)$, which is exactly the same as saying that $\alpha$ and $\beta$
 #! are $(f_*,g_*)$-twisted conjugate. Thus,
@@ -220,7 +222,7 @@ LoadPackage( "TwistedConjugacy" );
 # SECTION 1
 ###
 
-#! @Section Twisted Conjugation Action
+#! @Section The Twisted Conjugation Action
 #! Let $G$ and $H$ be groups and let $\varphi$ and $\psi$ be group
 #! homomorphisms from $H$ to $G$. The pair $(\varphi,\psi)$ induces a
 #! (right) group action of $H$ on $G$ given by the map $$G \times H \to G
@@ -298,13 +300,26 @@ tc( g1, h ) = g2;
 #! an explicit $h$ such that $\varphi_i(h)^{-1}g_i\psi_i(h) = g_i'$ for all $i \in \{1,\ldots,n\}$ (under the assumption that such
 #! $h$ exists).
 
+#! <P/>
+
+#! By setting $G = G_1 \times \cdots \times G_n$ and defining the group homomorphisms
+#! $$ \varphi \colon H \to G \colon h \mapsto (\varphi_1(h), \ldots, \varphi_n(g)),$$
+#! $$ \psi \colon H \to G \colon h \mapsto (\psi_1(h), \ldots, \psi_n(g)),$$
+#! these problems reduce to their non-multiple variants.
+
 #! @Arguments hom1List[, hom2List], g1List[, g2List]
 #! @Returns <K>true</K> if <A>g1List</A><C>[i]</C> and <A>g2List</A><C>[i]</C> are <C>(<A>hom1List</A>[i],<A>hom2List</A>[i])</C>-twisted conjugate
 #! for all <C>i</C> via a common twisted conjugator, otherwise <K>false</K>.
+#! @Description
+#! If <A>hom2List</A> is omitted, then <A>hom1List</A> must be a list of endomorphisms, and <A>hom2List</A> is taken to be a list of identity maps.
+#! If <A>g2List</A> is omitted, it is taken to be a list of identity elements.
 DeclareGlobalFunction( "IsTwistedConjugateMultiple" );
 
 #! @Arguments hom1List[, hom2List], g1List[, g2List]
 #! @Returns an element that maps <A>g1List</A><C>[i]</C> to <A>g2List</A><C>[i]</C> under the <C>(<A>hom1List</A>[i],<A>hom2List</A>[i])</C>-twisted conjugacy action, or <K>fail</K> if no such element exists.
+#! @Description
+#! If <A>hom2List</A> is omitted, then <A>hom1List</A> must be a list of endomorphisms, and <A>hom2List</A> is taken to be a list of identity maps.
+#! If <A>g2List</A> is omitted, it is taken to be a list of identity elements.
 DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
 
 #! @BeginExample
@@ -384,7 +399,7 @@ DeclareOperation( "\in", [ IsObject, IsReidemeisterClassGroupRep ] );
 #! @Arguments tcc
 #! @Returns the number of elements in <A>tcc</A>.
 #! @Description
-#! This is calculated as the index of <C>StabiliserOfExternalSet(<A>tcc</A>)</C> in <C>ActingDomain(<A>tcc</A>)</C>.
+#! This is calculated using the orbit-stabiliser theorem.
 DeclareAttribute( "Size", IsReidemeisterClassGroupRep );
 
 
