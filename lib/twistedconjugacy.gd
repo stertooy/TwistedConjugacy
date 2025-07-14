@@ -10,12 +10,6 @@ DeclareOperation(
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ]
 );
-DeclareGlobalFunction( "IsTwistedConjugateMultiple" );
-DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
-DeclareOperation(
-    "RepresentativeTwistedConjugationMultOp",
-    [ IsList, IsList, IsList, IsList ]
-);
 
 
 DeclareGlobalFunction( "ReidemeisterClass" );
@@ -129,4 +123,3 @@ DeclareRepresentation( "IsGroupDerivationImageRep", IsExternalOrbit );
 
 DeclareGlobalFunction( "DoubleCosetIndex" );
 DeclareOperation( "DoubleCosetIndexNC", [ IsGroup, IsGroup, IsGroup ] );
-

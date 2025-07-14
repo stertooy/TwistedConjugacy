@@ -50,12 +50,12 @@ gap> g1L := [ g1, g2 ];;
 gap> g2L := [ tc( g1, h ), tc2( g2, h ) ];;
 gap> hom1L := [ hom1, hom2 ];;
 gap> hom2L := [ hom2, hom1 ];;
-gap> IsTwistedConjugateMultiple( hom1L, hom2L, g1L, g2L );
+gap> IsTwistedConjugate( hom1L, hom2L, g1L, g2L );
 true
-gap> h2 := RepresentativeTwistedConjugationMultiple( hom1L, hom2L, g1L, g2L );;
+gap> h2 := RepresentativeTwistedConjugation( hom1L, hom2L, g1L, g2L );;
 gap> g2L = [ tc( g1, h2 ), tc2( g2, h2 ) ];
 true
-gap> IsTwistedConjugateMultiple( hom1L, hom2L, [ G.1, G.2 ], [ G.2, G.1 ] );
+gap> IsTwistedConjugate( hom1L, hom2L, [ G.1, G.2 ], [ G.2, G.1 ] );
 false
 
 #

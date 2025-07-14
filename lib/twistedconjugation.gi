@@ -75,20 +75,40 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     RepresentativeTwistedConjugation,
     function( arg... )
-        local G, c, tc;
-        if Length( arg ) < 4 then
-            G := Range( arg[1] );
-            if arg[2] in G then
-                Add( arg, IdentityMapping( G ), 2 );
-            fi;
-        fi;
-        c := CallFuncList( RepresentativeTwistedConjugationOp, arg );
-        if ASSERT@ and c <> fail then
-            tc := TwistedConjugation( arg[1], arg[2] );
+        local n, G, c, i, tc, im;
+        if ForAll( arg, IsList ) then
+            n := Length( arg[1] );
             if Length( arg ) < 4 then
-                Add( arg, One( G ) );
+                G := Range( arg[1][1] );
+                if arg[2][1] in G then
+                    Add(
+                        arg,
+                        ListWithIdenticalEntries( n, IdentityMapping( G ) ),
+                        2
+                    );
+                fi;
             fi;
-            if tc( arg[3], c ) <> arg[4] then Error( "Assertion failure" ); fi;
+            c := CallFuncList( RepresentativeTwistedConjugationOp, arg );
+        else
+            n := 1;
+            if Length( arg ) < 4 then
+                G := Range( arg[1] );
+                if arg[2] in G then
+                    Add( arg, IdentityMapping( G ), 2 );
+                fi;
+            fi;
+            c := CallFuncList( RepresentativeTwistedConjugationOp, arg );
+            arg := List( arg, x -> [ x ] );
+        fi;
+        if ASSERT@ and c <> fail then
+            for i in [ 1 .. n ] do
+                tc := TwistedConjugation( arg[1][i], arg[2][i] );
+                im := tc( arg[3][i], c );
+                if (
+                    ( Length( arg ) = 4 and im <> arg[4][i] ) or
+                    ( Length( arg ) = 3 and not IsOne( im ) )
+                ) then Error( "Assertion failure" ); fi;
+            od;
         fi;
         return c;
     end

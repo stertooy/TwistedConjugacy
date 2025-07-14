@@ -1,82 +1,12 @@
 ###############################################################################
 ##
-## IsTwistedConjugateMultiple( hom1L, hom2L, g1L, g2L )
+## RepresentativeTwistedConjugationOp( hom1L, hom2L, g1L, g2L )
 ##
 ##  INPUT:
-##      hom1L:      group homomorphism H -> G
-##      hom2L:      group homomorphism H -> G (optional)
-##      g1L:        element of G
-##      g2L:        element of G (optional)
-##
-##  OUTPUT:
-##      boolL:      true if there exists an element h of H such that
-##                  (h^hom1_i)^-1 * g_1_i * h^hom2_i = g_2_i, or false
-##                  otherwise
-##
-##  REMARKS:
-##      If no hom2L is given, it is assumed that hom1L consists of
-##      endomorphisms G -> G and hom2L are assumed to be identity mappings of
-##      G. If no g2L is given, it is assumed to be a list of 1's.
-##
-InstallGlobalFunction(
-    IsTwistedConjugateMultiple,
-    function( arg... )
-        return CallFuncList(
-            RepresentativeTwistedConjugationMultiple,
-            arg
-        ) <> fail;
-    end
-);
-
-
-###############################################################################
-##
-## RepresentativeTwistedConjugationMultiple( hom1, hom2, g1, g2 )
-##
-##  INPUT:
-##      hom1L:      group homomorphism H -> G
-##      hom2L:      group homomorphism H -> G (optional)
-##      g1L:        element of G
-##      g2L:        element of G (optional)
-##
-##  OUTPUT:
-##      h:          element of H such that (h^hom1_i)^-1 * g_1_i * h^hom2_i =
-##                  g_2_i, or fail if no such element exists
-##
-##  REMARKS:
-##      If no hom2L is given, it is assumed that hom1L consists of
-##      endomorphisms G -> G and hom2L are assumed to be identity mappings of
-##      G. If no g2L is given, it is assumed to be a list of 1's.
-##
-InstallGlobalFunction(
-    RepresentativeTwistedConjugationMultiple,
-    function( arg... )
-        local G, n;
-        if Length( arg ) < 4 then
-            G := Range( arg[1][1] );
-            if arg[2][1] in G then
-                n := Length( arg[1] );
-                Add(
-                    arg,
-                    ListWithIdenticalEntries( n, IdentityMapping( G ) ),
-                    2
-                );
-            fi;
-        fi;
-        return CallFuncList( RepresentativeTwistedConjugationMultOp, arg );
-    end
-);
-
-
-###############################################################################
-##
-## RepresentativeTwistedConjugationMultOp( hom1, hom2, g1, g2 )
-##
-##  INPUT:
-##      hom1L:      group homomorphism H -> G
-##      hom2L:      group homomorphism H -> G
-##      g1L:        element of G
-##      g2L:        element of G (optional)
+##      hom1L:      list of group homomorphisms H -> G_i
+##      hom2L:      list of group homomorphisms H -> G_i
+##      g1L:        list of elements of G_i
+##      g2L:        list of elements of G_i (optional)
 ##
 ##  OUTPUT:
 ##      h:          element of H such that (h^hom2_i)^-1 * g_1_i * h^hom1_i =
@@ -85,8 +15,8 @@ InstallGlobalFunction(
 ##  REMARKS:
 ##      If no g2L is given, it is assumed to be a list of 1's.
 ##
-InstallMethod(
-    RepresentativeTwistedConjugationMultOp,
+InstallOtherMethod(
+    RepresentativeTwistedConjugationOp,
     "for two lists of homomorphisms and two lists of elements",
     [ IsList, IsList, IsList, IsList ],
     function( hom1L, hom2L, g1L, g2L )
@@ -100,12 +30,12 @@ InstallMethod(
             ighom1L[i] := hom1L[i] * inn;
             gL[i] := g2L[i] ^ -1 * g1L[i];
         od;
-        return RepresentativeTwistedConjugationMultOp( ighom1L, hom2L, gL );
+        return RepresentativeTwistedConjugationOp( ighom1L, hom2L, gL );
     end
 );
 
 InstallOtherMethod(
-    RepresentativeTwistedConjugationMultOp,
+    RepresentativeTwistedConjugationOp,
     "for two lists of homomorphisms and one list of elements",
     [ IsList, IsList, IsList ],
     function( hom1L, hom2L, gL )
