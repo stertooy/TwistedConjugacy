@@ -1,7 +1,7 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
-3.0.0 (2025-07-01)
+3.0.0 (2025-07-21)
 ------------------
 
 - Now requires GAP version >= 4.14

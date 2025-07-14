@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
-Version := "3.0.0dev",
-Date := "25/05/2025",
+Version := "3.0.0",
+Date := "21/07/2025",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -12,6 +12,7 @@ Persons := [
         IsMaintainer := true,
         FirstNames := "Sam",
         LastName := "Tertooy",
+        GitHubUsername := "stertooy",
         WWWHome := "https://stertooy.github.io/",
         Email := "sam.tertooy@kuleuven.be",
         PostalAddress := """
@@ -28,15 +29,17 @@ Persons := [
 
 SourceRepository := rec(
     Type := "git",
-    URL := Concatenation( "https://github.com/stertooy/", ~.PackageName )
+    URL := Concatenation(
+        "https://github.com/",
+        ~.Persons[1].GitHubUsername,
+        "/",
+        ~.PackageName
+    )
 ),
-SupportEmail := "sam.tertooy@kuleuven.be",
+SupportEmail := ~.Persons[1].Email,
 
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := Concatenation(
-    "https://stertooy.github.io/",
-    ~.PackageName
-),
+PackageWWWHome  := Concatenation( ~.Persons[1].WWWHome, ~.PackageName ),
 PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
 README_URL      := Concatenation( ~.PackageWWWHome, "/README.md" ),
 ArchiveURL      := Concatenation(
@@ -45,7 +48,7 @@ ArchiveURL      := Concatenation(
     "/", ~.PackageName, "-", ~.Version
 ),
 
-ArchiveFormats := ".tar.gz .zip",
+ArchiveFormats := ".tar.gz",
 
 AbstractHTML := """
     The TwistedConjugacy package provides methods for solving the twisted
@@ -55,7 +58,7 @@ AbstractHTML := """
     homomorphisms, and group derivations.
 
     These methods are primarily designed for use with finite groups and with
-    polycyclically presented groups (finite or infinite).
+    PcpGroups (finite or infinite) provided by the Polycyclic package.
 """,
 
 PackageDoc := rec(
@@ -89,7 +92,6 @@ Keywords := [
     "derivation",
     "double coset",
     "endomorphism",
-    "equaliser",
     "fixed point group",
     "homomorphism",
     "Reidemeister class",

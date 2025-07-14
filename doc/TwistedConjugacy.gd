@@ -6,7 +6,7 @@
 #! homomorphisms, and group derivations.
 #! <P/>
 #! These methods are primarily designed for use with finite groups and with
-#! polycyclically presented groups (finite or infinite).
+#! PcpGroups (finite or infinite) provided by the &Polycyclic; package.
 
 #! @Copyright
 #! &copyright; 2020&ndash;&RELEASEYEAR; Sam Tertooy
@@ -269,19 +269,8 @@ tc( g1, h ) = g2;
 
 #! <P/>
 
-#! By setting $G = G_1 \times \cdots \times G_n$, defining the group elements
-#! $$\begin{aligned}
-#! g  &amp;:= (g_1, \ldots, g_n),\\
-#! g' &amp;:=(g_1', \ldots, g_n'),
-#! \end{aligned}$$
-#! and defining the group homomorphisms
-#! $$\begin{aligned}
-#! \varphi \colon H \to G &amp;\colon h \mapsto (\varphi_1(h), \ldots, \varphi_n(g)),\\
-#! \psi \colon H \to G &amp;\colon h \mapsto (\psi_1(h), \ldots, \psi_n(g)),
-#! \end{aligned}$$
-#! these problems reduce to their non-multiple variants. The commands
 #! <Ref Func="IsTwistedConjugate"/> and <Ref Func="RepresentativeTwistedConjugation"/>
-#! can take lists as arguments and do this construction for you.
+#! can take lists instead of their usual arguments to solve these problems.
 
 #! @BeginExample
 H := SymmetricGroup( 5 );;
@@ -427,8 +416,6 @@ DeclareGlobalFunction( "RepresentativesTwistedConjugacyClasses" );
 DeclareGlobalFunction( "RepresentativesReidemeisterClasses" );
 #! @EndGroup
 
-
-
 #! @BeginExample
 tcc := TwistedConjugacyClass( phi, psi, g1 );
 #! (4,6,5)^G
@@ -451,7 +438,6 @@ RepresentativesTwistedConjugacyClasses( phi, psi ){[1..7]};
 NrTwistedConjugacyClasses( phi, psi );
 #! 184
 #! @EndExample
-
 
 #! @Chapter Reidemeister numbers and spectra
 
@@ -523,7 +509,6 @@ TotalReidemeisterSpectrum( Q );
 #! [ 1, 2, 3, 4, 5, 6, 8 ]
 #! @EndExample
 
-
 #! @Chapter Reidemeister zeta functions
 
 #! @Section Reidemeister zeta functions
@@ -575,18 +560,33 @@ PrintReidemeisterZeta( khi );
 
 #! @Chapter Cosets of PcpGroups
 
-#! Please note that the functions below are implemented only for PcpGroups.
+#! &GAP; is well-equipped to deal with **finite** cosets. However, if a coset
+#! is infinite, methods may not be available, may be faulty, or may run
+#! forever. The &TwistedConjugacy; package provides additional methods for
+#! existing functions that can deal with infinite cosets of PcpGroups.
+#!
+#! The only completely new functions are
+#! <Ref Func="DoubleCosetIndex" /> and its <C>NC</C> version.
 
 #! @Section Right cosets
 
+#! Calculating the intersection of two right cosets $Hx$ and $Ky$ can be
+#! reduced to calculating the intersection $H \cap K$ and verifying whether
+#! $xy^{-1} \in HK$ (see <Ref Oper="\in"
+#! Label="for an element and a double coset of a PcpGroup"/>).
+
 #! @BeginGroup
-#! @Returns the intersection of the (right) cosets <A>C1</A>, <A>C2</A>, ...,
-#! or the intersection of all right cosets contained in <A>list</A>.
+#! @Returns the intersection of the right cosets <A>C1</A>, <A>C2</A>, ...
+#! @Description
+#! Alternatively, this function also accepts a single list of right
+#! cosets <A>L</A> as argument.
+#!
+#! This intersection is always a right coset, or the empty list.
 #! @Label of right cosets of a PcpGroup
 #! @Arguments C1, C2, ...
 DeclareGlobalFunction( "Intersection" );
 #! @Label of a list of right cosets of a PcpGroup
-#! @Arguments list
+#! @Arguments L
 DeclareGlobalFunction( "Intersection" );
 #! @EndGroup
 
@@ -608,17 +608,37 @@ Intersection( Hx, Kz );
 
 #! @Section Double cosets
 
-#! &GAP; is well-equipped to deal with **finite** double cosets. However, if a
-#! double coset is infinite, many methods will end up running forever. The
-#! &TwistedConjugacy; package provides additional implementations for certain functions
-#! that can deal with infinite double cosets of PcpGroups.
+#! Algorithms designed for computing with twisted conjugacy classes can be
+#! leveraged to do computations involving double cosets, see
+#! <Cite Key='tert25-a'/> for a description on this.
+#! When the &TwistedConjugacy; package is loaded, it does this automatically,
+#! and the functions below should then work for PcpGroups, even if they are
+#! infinite.
 
 #! @BeginGroup
 #! @GroupTitle \in
-#! @Returns <K>true</K> if <A>g</A> is an element of the double coset <A>D</A>, otherwise <K>false</K>.
+#! @Returns <K>true</K> if <A>g</A> is an element of <A>D</A>, otherwise <K>false</K>.
 #! @Label for an element and a double coset of a PcpGroup
 #! @Arguments g, D
 DeclareOperation( "\in", [ IsMultiplicativeElementWithInverse, IsDoubleCoset ] );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle Size
+#! @Returns the number of elements in <A>D</A>.
+#! @Label of a double coset of a PcpGroup
+#! @Arguments D
+DeclareOperation( "Size", [ IsDoubleCoset ] );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle List
+#! @Returns a list containing the elements of <A>D</A>.
+#! @Description If <A>D</A> is infinite, this will run forever. It is recommended
+#! to first test the finiteness of <A>D</A> using <Ref Attr="Size" Label="of a double coset of a PcpGroup"/>.
+#! @Label of a double coset of a PcpGroup
+#! @Arguments D
+DeclareGlobalFunction( "List" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -630,23 +650,15 @@ DeclareOperation( "\=", [ IsDoubleCoset, IsDoubleCoset ] );
 #! @EndGroup
 
 #! @BeginGroup
-#! @GroupTitle Size
-#! @Returns the number of elements in the double coset <A>D</A>.
-#! @Label for a double coset of a PcpGroup
-#! @Arguments D
-DeclareOperation( "Size", [ IsDoubleCoset ] );
-#! @EndGroup
-
-#! @BeginGroup
 #! @GroupTitle DoubleCosets
-#! @Returns a duplicate-free list of all double cosets <A>H</A>$g$<A>K</A> for $g \in$<A>G</A> if there are finitely many, otherwise <K>fail</K>.
+#! @Returns a duplicate-free list of all <C>(<A>H</A>,<A>K</A>)</C>-double cosets in <A>G</A> if there are finitely many, otherwise <K>fail</K>.
 #! @Description
 #! The groups <A>H</A> and <A>K</A> must be subgroups of the group <A>G</A>.
 #! The <C>NC</C> version does not check whether this is the case.
 #! @Label for PcpGroups
 #! @Arguments G, H, K
 DeclareGlobalFunction( "DoubleCosets" );
-#! <Label Name="DoubleCosetsNC"/>
+# <Label Name="DoubleCosetsNC"/>
 #! @Label for PcpGroups
 #! @Arguments G, H, K
 DeclareOperation( "DoubleCosetsNC", [ IsPcpGroup, IsPcPGroup, IsPcPGroup ] );
@@ -654,14 +666,11 @@ DeclareOperation( "DoubleCosetsNC", [ IsPcpGroup, IsPcPGroup, IsPcPGroup ] );
 
 #! @BeginGroup
 #! @GroupTitle DoubleCosetRepsAndSizes
-#! @Returns a list of double coset representatives and their sizes, the entries
-#! are lists of the form <C>[ r, n ]</C> where <C>r</C> and <C>n</C> are an
-#! element of the double coset and the size of the coset, respectively.
+#! @Returns a list containing pairs of the form <C>[ r, n ]</C>, where <C>r</C>
+#! is a representative and <C>n</C> is the size of a double coset.
 #! @Description
-#! While for finite groups this operation is faster than
-#! <Ref Oper="DoubleCosetsNC" />, for PcpGroups this operation is usually slower
-#! since the calculation of the sizes requires the construction of
-#! coincidence groups (see <Ref Func="CoincidenceGroup" />).
+#! While for finite groups this function is supposed to be faster than
+#! <Ref Oper="DoubleCosetsNC" Label="for PcpGroups"/>, for PcpGroups it is usually **slower**.
 #! @Label for PcpGroups
 #! @Arguments G, H, K
 DeclareOperation( "DoubleCosetRepsAndSizes", [ IsPcpGroup, IsPcPGroup, IsPcPGroup ] );
@@ -673,10 +682,11 @@ DeclareOperation( "DoubleCosetRepsAndSizes", [ IsPcpGroup, IsPcPGroup, IsPcPGrou
 #! @Description
 #! The groups <A>H</A> and <A>K</A> must be subgroups of the group <A>G</A>.
 #! The <C>NC</C> version does not check whether this is the case.
-#! @Label of a double coset of a PcpGroup
+# @Label of a double coset of a PcpGroup
 #! @Arguments G, H, K
 DeclareGlobalFunction( "DoubleCosetIndex" );
-#! @Label of a double coset of a PcpGroup
+# @Label of a double coset of a PcpGroup
+#! @Label
 #! @Arguments G, H, K
 DeclareOperation( "DoubleCosetIndexNC", [ IsGroup, IsGroup, IsGroup ] );
 #! @EndGroup
