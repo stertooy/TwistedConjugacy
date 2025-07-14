@@ -161,7 +161,6 @@ InstallOtherMethod(
     end
 );
 
-
 InstallOtherMethod(
     RepresentativeTwistedConjugationOp,
     "for abelian range",

@@ -109,7 +109,35 @@ end;
 ##
 InstallGlobalFunction(
     GroupDerivationByImagesNC,
-    CreateGroupDerivation@
+    function( H, G, arg... )
+        local derv, filt, type, imgs, gens;
+        derv := rec(
+            act := Remove( arg ),
+        );
+        filt := IsGroupDerivationByImages and HasSource and HasRange and
+            HasMappingGeneratorsImages;
+        type := NewType( GeneralMappingsFamily(
+            ElementsFamily( FamilyObj( H ) ),
+            ElementsFamily( FamilyObj( G ) )
+        ), filt );
+        if not IsEmpty( arg ) then
+            imgs := Remove( arg );
+        else
+            imgs := GeneratorsOfGroup( G );
+        fi;
+        if not IsEmpty( arg ) then
+            gens := Remove( arg );
+        else
+            gens := GeneratorsOfGroup( H );
+        fi;
+        ObjectifyWithAttributes(
+            derv, type,
+            Source, H,
+            Range, G,
+            MappingGeneratorsImages, [ gens, imgs ]
+        );
+        return derv;
+    end
 );
 
 
@@ -153,7 +181,24 @@ InstallGlobalFunction(
 ##
 InstallGlobalFunction(
     GroupDerivationByFunction,
-    CreateGroupDerivation@
+    function( H, G, fun, act )
+        local derv, filt, type;
+        derv := rec(
+            act := act,
+            fun := fun
+        );
+        filt := IsGroupDerivationByFunction and HasSource and HasRange;
+        type := NewType( GeneralMappingsFamily(
+            ElementsFamily( FamilyObj( H ) ),
+            ElementsFamily( FamilyObj( G ) )
+        ), filt );
+        ObjectifyWithAttributes(
+            derv, type,
+            Source, H,
+            Range, G
+        );
+        return derv;
+    end
 );
 
 

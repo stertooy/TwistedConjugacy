@@ -49,4 +49,3 @@ InstallMethod(
         return Length( DCS );
     end
 );
-

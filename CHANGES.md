@@ -4,19 +4,26 @@ This file describes changes in the GAP package TwistedConjugacy.
 3.0.0 (2025-07-01)
 ------------------
 
+- Now requires GAP version >= 4.14
+
+- Switched the order of the homomorphisms in the definition of the twisted
+  conjugation action, which is likely to break scripts relying on older
+  versions of this package
+  
 - Added method for (Representatives)ReidemeisterClasses and ReidemeisterNumber
   with no restrictions on the homomorphisms or the source and target groups
 - (Representatives)ReidemeisterClasses now accepts a normal subgroup as
   optional input, and will then only return the (representatives of the)
   Reidemeister classes that intersect this normal subgroup
-  
+
+- RepresentativeTwistedConjugation and IsTwistedConjugate again accept lists as
+  input, replacing RepresentativeTwistedConjugationMultiple and
+  IsTwistedConjugateMultiple
+
 - Added more methods related to double cosets of PcpGroups
 
-- Added methods related to group derivations between finite groups and
+- Added methods related to group derivations between finite groups and between
   PcpGroups
-
-- Switched the order of the homomorphisms in the definition of the twisted
-  conjugation action
 
 - Improved the efficiency of CoincidenceGroup in certain cases
 - Improved the efficiency of CoincidenceReidemeisterSpectrum for non-abelian
