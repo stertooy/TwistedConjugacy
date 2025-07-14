@@ -20,27 +20,12 @@
 #! @Acknowledgements
 #! This documentation was created using the &GAPDoc; and &AutoDoc; packages.
 
-
 #! @Chapter The TwistedConjugacy package
 
 #! @Section Introduction
 #! This is the manual for the &GAP; 4 package &TwistedConjugacy; version
 #! &VERSION;.
 #! TODO more stuff here?
-
-
-# Note to self: check https://docs.gap-system.org/pkg/agt/doc/chap1_mj.html
-#  and https://docs.gap-system.org/pkg/anupq/doc/chap3_mj.html
-# Chapter 1: Introduction
-# Chapter 2: Mathematical Background
-
-# TODOS:
-# - Try use variables in this documentation (dependencies, version, ...)
-# - Also distribute .zip?
-# - Installation instructions
-# ----- For Linux/WSL + For Cygwin + Via PackageManager
-# - Update README
-# - Use manual cross-references
 
 #! @Section Installation
 #! You can download &TwistedConjugacy; as a .tar.gz-archive
@@ -128,14 +113,6 @@ LoadPackage( "TwistedConjugacy" );
 #! <A>lev</A> to <C>2</C>) and, when working with PcpGroups, settings the
 #! variables <C>CHECK_CENT&#64;Polycyclic</C>, <C>CHECK_IGS&#64;Polycyclic</C>
 #! and <C>CHECK_INTSTAB&#64;Polycyclic</C> to <K>true</K>.
-
-
-
-#####
-#
-# CHAPTER 2
-#
-#####
 
 #! @Chapter Mathematical Background
 
