@@ -175,7 +175,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## ReidemeisterClasses( hom1, hom2 )
+## ReidemeisterClasses( hom1, hom2, N )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -212,7 +212,7 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## RepresentativesReidemeisterClasses( hom1, hom2 )
+## RepresentativesReidemeisterClasses( hom1, hom2, N )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
