@@ -22,10 +22,8 @@
 
 #! @Chapter The TwistedConjugacy package
 
-#! @Section Introduction
 #! This is the manual for the &GAP; 4 package &TwistedConjugacy; version
-#! &VERSION;.
-#! TODO more stuff here?
+#! &VERSION;, developed by Sam Tertooy.
 
 #! @Section Installation
 #! You can download &TwistedConjugacy; as a .tar.gz-archive
@@ -374,7 +372,7 @@ DeclareOperation( "\=", [ IsReidemeisterClassGroupRep, IsReidemeisterClassGroupR
 #! It is guaranteed that the Reidemeister class of the identity is in the first position, and that the representatives of the classes belong to <A>N</A> if this argument is provided.
 #! <P />
 #! If $G$ and $H$ are finite, this function relies on an orbit-stabiliser algorithm.
-#! Otherwise, it relies on the algorithms in <Cite Key='dt21-a'/> and <Cite Key='tert25-a'/>.
+#! Otherwise, it relies on the algorithms in <Cite Key='dt21-a'/> and <Cite Key='tert25-a' />.
 #! @Arguments hom1[, hom2][, N]
 DeclareGlobalFunction( "TwistedConjugacyClasses" );
 #! @Arguments hom1[, hom2][, N]
@@ -587,7 +585,7 @@ Intersection( Hx, Kz );
 
 #! Algorithms designed for computing with twisted conjugacy classes can be
 #! leveraged to do computations involving double cosets, see
-#! <Cite Key='tert25-a'/> for a description on this.
+#! <Cite Key='tert25-a' Where="Sec. 9"/> for a description on this.
 #! When the &TwistedConjugacy; package is loaded, it does this automatically,
 #! and the functions below should then work for PcpGroups, even if they are
 #! infinite.
@@ -808,6 +806,12 @@ Source( res ) = N and Range( res ) = N;
 #! A **group derivation** $\delta \colon H \to G$ is a map such that
 #! $$\delta(h_1h_2) = \delta(h_1)^{h_2}\delta(h_2).$$
 #! Note that we do not require $G$ to be abelian.
+
+#! <P/>
+
+#! Algorithms designed for computing with twisted conjugacy classes can be
+#! leveraged to do computations involving group derivations, see
+#! <Cite Key='tert25-a'  Where="Sec. 10"/> for a description on this.
 
 #! <P/>
 
