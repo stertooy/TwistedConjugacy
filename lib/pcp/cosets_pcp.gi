@@ -1,5 +1,42 @@
 ###############################################################################
 ##
+## AsElementOfProductGroups@( g, U, V )
+##
+##  INPUT:
+##      g:          element of a group G
+##      U:          subgroup of G
+##      V:          subgroup of G
+##
+##  OUTPUT:
+##      u:          element of U such that g = u*v
+##      v:          element of V such that g = u*v
+##
+##  REMARKS:
+##      returns "fail" if no such u and v exist
+##
+AsElementOfProductGroups@ := function( g, U, V )
+    local G, UxV, l, r, s, u, v;
+
+    G := PcpGroupByCollectorNC( Collector( U ) );
+    UxV := DirectProduct( U, V );
+
+    l := Projection( UxV, 1 ) * InclusionHomomorphism( U, G );
+    r := Projection( UxV, 2 ) * InclusionHomomorphism( V, G );
+
+    s := RepresentativeTwistedConjugationOp( l, r, g );
+    if s = fail then
+        return fail;
+    fi;
+
+    u := ImagesRepresentative( l, s );
+    v := ImagesRepresentative( r, s ) ^ -1;
+
+    return [ u, v ];
+end;
+
+
+###############################################################################
+##
 ## DirectProductInclusions@( G, U, V )
 ##
 ##  INPUT:

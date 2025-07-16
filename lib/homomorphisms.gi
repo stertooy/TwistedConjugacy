@@ -77,7 +77,7 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-##  DifferenceGroupHomomorphisms@( hom1, hom2 )
+##  DifferenceGroupHomomorphisms( hom1, hom2, N, M )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -91,15 +91,18 @@ InstallGlobalFunction(
 ##  REMARKS:
 ##      Does not verify whether diff is a well-defined group homomorphism.
 ##
-DifferenceGroupHomomorphisms@ := function( hom1, hom2, N, M )
-    local gens, imgs;
-    gens := SmallGeneratingSet( N );
-    imgs := List(
-        gens,
-        n -> ImagesRepresentative( hom1, n ) / ImagesRepresentative( hom2, n )
-    );
-    return GroupHomomorphismByImagesNC( N, M, gens, imgs );
-end;
+InstallGlobalFunction(
+    DifferenceGroupHomomorphisms,
+    function( hom1, hom2, N, M )
+        local gens, imgs;
+        gens := SmallGeneratingSet( N );
+        imgs := List(
+            gens,
+            n -> ImagesRepresentative( hom1, n ) / ImagesRepresentative( hom2, n )
+        );
+        return GroupHomomorphismByImagesNC( N, M, gens, imgs );
+    end
+);
 
 
 ###############################################################################

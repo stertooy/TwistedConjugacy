@@ -93,11 +93,13 @@ DeclareOperation(
     "CoincidenceGroup2",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
+DeclareGlobalFunction( "InducedCoincidenceGroup" );
 
 
 DeclareGlobalFunction( "InducedHomomorphism" );
 DeclareGlobalFunction( "RestrictedHomomorphism" );
 DeclareGlobalFunction( "InclusionHomomorphism" );
+DeclareGlobalFunction( "DifferenceGroupHomomorphisms" );
 
 
 DeclareProperty( "IsNilpotentByAbelian", IsGroup );
@@ -123,3 +125,7 @@ DeclareRepresentation( "IsGroupDerivationImageRep", IsExternalOrbit );
 
 DeclareGlobalFunction( "DoubleCosetIndex" );
 DeclareOperation( "DoubleCosetIndexNC", [ IsGroup, IsGroup, IsGroup ] );
+
+DeclareGlobalFunction( "IntersectionOfKernels" );
+DeclareGlobalFunction( "IntersectionOfPreImages" );
+

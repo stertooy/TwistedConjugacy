@@ -245,7 +245,7 @@ InstallGlobalFunction(
         if N <> G and not ForAll( gens, h -> tc( One( G ), h ) in N ) then
             q := IdentityMapping( H );
             p := NaturalHomomorphismByNormalSubgroupNC( G, N );
-            H := InducedCoincidenceGroup@( q, p, hom1, hom2 );
+            H := InducedCoincidenceGroup( q, p, hom1, hom2 );
             hom1 := RestrictedHomomorphism( hom1, H, G );
             hom2 := RestrictedHomomorphism( hom2, H, G );
         fi;
@@ -312,7 +312,7 @@ InstallMethod(
         G := Range( hom1 );
         if not IsCentral( G, N ) then TryNextMethod(); fi;
         H := Source( hom1 );
-        diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, N );
+        diff := DifferenceGroupHomomorphisms( hom1, hom2, H, N );
         D := ImagesSource( diff );
         if ( one and N <> D ) or IndexNC( N, D ) = infinity then
             return fail;

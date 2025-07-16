@@ -1,5 +1,42 @@
 ###############################################################################
 ##
+## MultipleConjugacySolver@( G, r, s )
+##
+##  INPUT:
+##      G:          acting group
+##      r:          list of elements of G
+##      s:          list of elements of G
+##
+##  OUTPUT:
+##      a:          element of G that simultaneously conjugates every element
+##                  of r to the corresponding element of s, or fail if no such
+##                  element exists
+##
+##  REMARKS:
+##      Only for PcpGroups
+##
+MultipleConjugacySolver@ := function( G, r, s )
+    local a, i, Gi, ai, pcp;
+    a := One( G );
+    for i in [ 1 .. Length( r ) ] do
+        if i = 1 then
+            Gi := G;
+        else
+            Gi := Centraliser( Gi, s[ i - 1 ] );
+        fi;
+        pcp := PcpsOfEfaSeries( Gi );
+        ai := ConjugacyElementsBySeries( Gi, r[i] ^ a, s[i], pcp );
+        if ai = false then
+            return fail;
+        fi;
+        a := a * ai;
+    od;
+    return a;
+end;
+
+
+###############################################################################
+##
 ## RepTwistConjToIdByTrivialSubgroup@( G, H, hom1, hom2, g )
 ##
 ##  INPUT:
@@ -19,7 +56,7 @@
 ##
 RepTwistConjToIdByTrivialSubgroup@ := function( G, H, hom1, hom2, g )
     local N, id, q, hom1HN, hom2HN, qh;
-    N := IntersectionKernels@( hom1, hom2 );
+    N := IntersectionOfKernels( hom1, hom2 );
     id := IdentityMapping( G );
     q := NaturalHomomorphismByNormalSubgroupNC( H, N );
     hom1HN := InducedHomomorphism( q, id, hom1 );
@@ -56,7 +93,7 @@ end;
 RepTwistConjToIdByFiniteQuotient@ := function( G, H, hom1, hom2, g, M )
     local N, p, q, hom1HN, hom2HN, pg, qh1, Coin, h1, tc, m1, hom1N,
           hom2N, qh2, h2, m2, n;
-    N := IntersectionPreImage@( hom1, hom2, M );
+    N := IntersectionOfPreImages( hom1, hom2, M );
     p := NaturalHomomorphismByNormalSubgroupNC( G, M );
     q := NaturalHomomorphismByNormalSubgroupNC( H, N );
     hom1HN := InducedHomomorphism( q, p, hom1 );
@@ -118,7 +155,7 @@ RepTwistConjToIdByCentre@ := function( G, H, hom1, hom2, g )
     tc := TwistedConjugation( hom1, hom2 );
     c := tc( g, h1 );
     Coin := CoincidenceGroup2( hom1p, hom2p );
-    d := DifferenceGroupHomomorphisms@( hom1, hom2, Coin, G );
+    d := DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
     if not c in ImagesSource( d ) then
         return fail;
     fi;
@@ -234,7 +271,7 @@ RepTwistConjToIdStep3@ := function( G, H, hom1, hom2, a, A )
         return RepresentativeTwistedConjugationOp( hom1, hom2, a );
     fi;
     HH := DerivedSubgroup( H );
-    delta := DifferenceGroupHomomorphisms@( hom1, hom2, HH, G );
+    delta := DifferenceGroupHomomorphisms( hom1, hom2, HH, G );
     dHH := ImagesSource( delta );
     p := NaturalHomomorphismByNormalSubgroupNC( G, dHH );
     q := IdentityMapping( H );

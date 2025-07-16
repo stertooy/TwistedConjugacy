@@ -21,7 +21,7 @@
 ##
 ReidemeisterClassesByTrivialSubgroup@ := function( G, H, hom1, hom2, N, one )
     local L, id, q, hom1HL, hom2HL;
-    L := IntersectionKernels@( hom1, hom2 );
+    L := IntersectionOfKernels( hom1, hom2 );
     id := IdentityMapping( G );
     q := NaturalHomomorphismByNormalSubgroupNC( H, L );
     hom1HL := InducedHomomorphism( q, id, hom1 );
@@ -56,7 +56,7 @@ ReidemeisterClassesByFiniteQuotient@ := function( G, H, hom1, hom2, N, K, one )
     local L, p, q, GK, pN, hom1p, hom2p, RclGK, Rcl, hom1K, hom2K, M, pn,
           inn_pn, Coin, n, conj_n, inn_n_hom1K, RclM, inRclM, inn_n, tc, m1,
           isNew, h, m2, inn_nm2_hom1K;
-    L := IntersectionPreImage@( hom1, hom2, K );
+    L := IntersectionOfPreImages( hom1, hom2, K );
     p := NaturalHomomorphismByNormalSubgroupNC( G, K );
     q := NaturalHomomorphismByNormalSubgroupNC( H, L );
     hom1p := InducedHomomorphism( q, p, hom1 );
@@ -259,7 +259,7 @@ end;
 RepsReidClassesStep2@ := function( G, H, hom1, hom2, A, one )
     local HH, delta, dHH, p, q, hom1p, hom2p, pG, pA, Rcl;
     HH := DerivedSubgroup( H );
-    delta := DifferenceGroupHomomorphisms@( hom1, hom2, HH, A );
+    delta := DifferenceGroupHomomorphisms( hom1, hom2, HH, A );
     dHH := ImagesSource( delta );
     p := NaturalHomomorphismByNormalSubgroupNC( G, dHH );
     q := IdentityMapping( H );

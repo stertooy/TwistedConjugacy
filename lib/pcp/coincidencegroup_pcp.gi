@@ -17,10 +17,10 @@
 ##
 CoincidenceGroupByTrivialSubgroup@ := function( G, H, hom1, hom2 )
     local N, p, q, Coin;
-    N := IntersectionKernels@( hom1, hom2 );
+    N := IntersectionOfKernels( hom1, hom2 );
     p := IdentityMapping( G );
     q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-    Coin := InducedCoincidenceGroup@( q, p, hom1, hom2 );
+    Coin := InducedCoincidenceGroup( q, p, hom1, hom2 );
     return PreImagesSetNC( q, Coin );
 end;
 
@@ -46,10 +46,10 @@ end;
 ##
 CoincidenceGroupByFiniteQuotient@ := function( G, H, hom1, hom2, K )
     local N, p, q, CoinHN, hom1N, hom2N, tc, qh, gens, dict, func, C;
-    N := IntersectionPreImage@( hom1, hom2, K );
+    N := IntersectionOfPreImages( hom1, hom2, K );
     p := NaturalHomomorphismByNormalSubgroupNC( G, K );
     q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-    CoinHN := InducedCoincidenceGroup@( q, p, hom1, hom2 );
+    CoinHN := InducedCoincidenceGroup( q, p, hom1, hom2 );
     hom1N := RestrictedHomomorphism( hom1, N, K );
     hom2N := RestrictedHomomorphism( hom2, N, K );
     tc := TwistedConjugation( hom1, hom2 );
@@ -101,8 +101,8 @@ CoincidenceGroupByCentre@ := function( G, H, hom1, hom2 )
     C := Center( G );
     p := NaturalHomomorphismByNormalSubgroupNC( G, C );
     q := IdentityMapping( H );
-    Coin := InducedCoincidenceGroup@( q, p, hom1, hom2 );
-    diff := DifferenceGroupHomomorphisms@( hom1, hom2, Coin, G );
+    Coin := InducedCoincidenceGroup( q, p, hom1, hom2 );
+    diff := DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
     return KernelOfMultiplicativeGeneralMapping( diff );
 end;
 
@@ -180,7 +180,7 @@ CoincidenceGroupStep4@ := function( G, H, hom1, hom2 )
         InducedHomomorphism( q, p, hom1 ),
         InducedHomomorphism( q, p, hom2 )
     );
-    d := DifferenceGroupHomomorphisms@( hom1, hom2, Coin, G );
+    d := DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
     return KernelOfMultiplicativeGeneralMapping( d );
 end;
 
@@ -210,7 +210,7 @@ CoincidenceGroupStep3@ := function( G, H, hom1, hom2 )
         return CoincidenceGroup2( hom1, hom2 );
     fi;
     HH := DerivedSubgroup( H );
-    d := DifferenceGroupHomomorphisms@( hom1, hom2, HH, G );
+    d := DifferenceGroupHomomorphisms( hom1, hom2, HH, G );
     p := NaturalHomomorphismByNormalSubgroupNC( G, ImagesSource( d ) );
     q := IdentityMapping( H );
     Coin := CoincidenceGroupStep4@(
@@ -281,7 +281,7 @@ CoincidenceGroupStep1@ := function( G, H, hom1, hom2 )
     A := Center( DerivedSubgroup( G ) );
     p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );
-    Coin := InducedCoincidenceGroup@( q, p, hom1, hom2 );
+    Coin := InducedCoincidenceGroup( q, p, hom1, hom2 );
     hom1r := RestrictedHomomorphism( hom1, Coin, G );
     hom2r := RestrictedHomomorphism( hom2, Coin, G );
     return CoincidenceGroupStep2@( G, Coin, hom1r, hom2r );

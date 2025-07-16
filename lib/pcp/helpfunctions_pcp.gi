@@ -1,6 +1,6 @@
 ###############################################################################
 ##
-## IntersectionKernels@( hom1, hom2 )
+## IntersectionOfKernels( hom1, hom2 )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -9,15 +9,18 @@
 ##  OUTPUT:
 ##      N:          intersection of Ker(hom1) and Ker(hom2)
 ##
-IntersectionKernels@ := { hom1, hom2 } -> NormalIntersection(
-    KernelOfMultiplicativeGeneralMapping( hom1 ),
-    KernelOfMultiplicativeGeneralMapping( hom2 )
+InstallGlobalFunction(
+    IntersectionOfKernels,
+    { hom1, hom2 } -> NormalIntersection(
+        KernelOfMultiplicativeGeneralMapping( hom1 ),
+        KernelOfMultiplicativeGeneralMapping( hom2 )
+    )
 );
 
 
 ###############################################################################
 ##
-## IntersectionPreImage@( hom1, hom2, N )
+## IntersectionOfPreImages( hom1, hom2, M )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -27,10 +30,13 @@ IntersectionKernels@ := { hom1, hom2 } -> NormalIntersection(
 ##  OUTPUT:
 ##      N:          intersection of hom1^-1(M) and hom2^-1(M)
 ##
-IntersectionPreImage@ := { hom1, hom2, M } -> NormalIntersection(
-    # TODO: replace by PreImagesSet eventually
-    PreImagesSetNC( hom1, NormalIntersection( M, ImagesSource( hom1 ) ) ),
-    PreImagesSetNC( hom2, NormalIntersection( M, ImagesSource( hom2 ) ) )
+InstallGlobalFunction(
+    IntersectionOfPreImages,
+    { hom1, hom2, M } -> NormalIntersection(
+        # TODO: replace by PreImagesSet eventually
+        PreImagesSetNC( hom1, NormalIntersection( M, ImagesSource( hom1 ) ) ),
+        PreImagesSetNC( hom2, NormalIntersection( M, ImagesSource( hom2 ) ) )
+    )
 );
 
 
@@ -49,80 +55,6 @@ InstallMethod(
     [ IsGroup ],
     G -> IsNilpotentGroup( DerivedSubgroup( G ) )
 );
-
-
-###############################################################################
-##
-## AsElementOfProductGroups@( g, U, V )
-##
-##  INPUT:
-##      g:          element of a group G
-##      U:          subgroup of G
-##      V:          subgroup of G
-##
-##  OUTPUT:
-##      u:          element of U such that g = u*v
-##      v:          element of V such that g = u*v
-##
-##  REMARKS:
-##      returns "fail" if no such u and v exist
-##
-AsElementOfProductGroups@ := function( g, U, V )
-    local G, UxV, l, r, s, u, v;
-
-    G := PcpGroupByCollectorNC( Collector( U ) );
-    UxV := DirectProduct( U, V );
-
-    l := Projection( UxV, 1 ) * InclusionHomomorphism( U, G );
-    r := Projection( UxV, 2 ) * InclusionHomomorphism( V, G );
-
-    s := RepresentativeTwistedConjugationOp( l, r, g );
-    if s = fail then
-        return fail;
-    fi;
-
-    u := ImagesRepresentative( l, s );
-    v := ImagesRepresentative( r, s ) ^ -1;
-
-    return [ u, v ];
-end;
-
-
-###############################################################################
-##
-## MultipleConjugacySolver@( G, r, s )
-##
-##  INPUT:
-##      G:          acting group
-##      r:          list of elements of G
-##      s:          list of elements of G
-##
-##  OUTPUT:
-##      a:          element of G that simultaneously conjugates every element
-##                  of r to the corresponding element of s, or fail if no such
-##                  element exists
-##
-##  REMARKS:
-##      Only for PcpGroups
-##
-MultipleConjugacySolver@ := function( G, r, s )
-    local a, i, Gi, ai, pcp;
-    a := One( G );
-    for i in [ 1 .. Length( r ) ] do
-        if i = 1 then
-            Gi := G;
-        else
-            Gi := Centraliser( Gi, s[ i - 1 ] );
-        fi;
-        pcp := PcpsOfEfaSeries( Gi );
-        ai := ConjugacyElementsBySeries( Gi, r[i] ^ a, s[i], pcp );
-        if ai = false then
-            return fail;
-        fi;
-        a := a * ai;
-    od;
-    return a;
-end;
 
 
 ###############################################################################
