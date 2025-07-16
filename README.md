@@ -1,5 +1,5 @@
 [![Build Status](https://custom-icon-badges.demolab.com/github/actions/workflow/status/stertooy/TwistedConjugacy/CI.yml?branch=main&logo=play&logoColor=white&label=CI)](https://github.com/stertooy/TwistedConjugacy/actions/workflows/CI.yml?query=branch%3Amain)
-[![Code Coverage](https://custom-icon-badges.demolab.com/codecov/codecov/c/github/stertooy/TwistedConjugacy?logo=codecov&logoColor=white)](https://codecov.io/gh/sTertooy/TwistedConjugacy)
+[![Code Coverage](https://custom-icon-badges.demolab.com/codecov/c/github/stertooy/TwistedConjugacy?logo=codecov&logoColor=white)](https://codecov.io/gh/sTertooy/TwistedConjugacy)
 [![License](https://custom-icon-badges.demolab.com/badge/license-GPLv2%2B-blue.svg?logo=law&logoColor=white)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![Manual](https://img.shields.io/badge/manual-html-blue)](https://stertooy.github.io/TwistedConjugacy/doc/chap0_mj.html)
 [![Manual](https://img.shields.io/badge/manual-pdf-blue)](https://github.com/stertooy/TwistedConjugacy/releases/latest/download/manual.pdf)
