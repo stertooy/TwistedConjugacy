@@ -20,7 +20,7 @@ fi;
 
 AutoDoc( rec(
     scaffold := rec(
-        bib := "TwistedConjugacy.bib",
+        bib := "manual.bib",
         entities := rec(
             AT := "@",
             AutoDoc := "<Package>AutoDoc</Package>",
@@ -41,7 +41,7 @@ AutoDoc( rec(
             SUBTITLE := info.Subtitle
         )
     ),
-    autodoc := rec( files := [ "doc/TwistedConjugacy.gd" ] ),
+    autodoc := rec( files := [ "doc/manual.gd" ] ),
     gapdoc := rec(
         LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}" )
     ),
