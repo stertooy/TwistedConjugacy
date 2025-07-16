@@ -95,7 +95,7 @@ InstallGlobalFunction(
     DifferenceGroupHomomorphisms,
     function( hom1, hom2, N, M )
         local gens, imgs;
-        gens := SmallGeneratingSet( N );
+        gens := GeneratorsOfGroup( N );
         imgs := List(
             gens,
             n -> ImagesRepresentative( hom1, n ) /

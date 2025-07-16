@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/license-GPLv2%2B-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![Manual](https://img.shields.io/badge/manual-html-blue)](https://stertooy.github.io/TwistedConjugacy/doc/chap0_mj.html)
 [![Release](https://img.shields.io/github/release/stertooy/twistedconjugacy.svg)](https://github.com/stertooy/twistedconjugacy/releases)
-[![DOI](https://img.shields.io/badge/DOI-10/nv2g-blue)](https://doi.org/10/nv2g)
+[![DOI](https://img.shields.io/badge/DOI-10/nv2g-blue?logo=doi)](https://doi.org/10/nv2g)
 
 The GAP package TwistedConjugacy
 ==================================
