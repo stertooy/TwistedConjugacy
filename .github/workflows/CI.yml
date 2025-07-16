@@ -16,8 +16,8 @@ jobs:
       matrix:
         include:
           - gap-version: "master"
-            coverage: true
           - gap-version: "4.14.0"
+            no-coverage: true
 
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-slim
@@ -28,22 +28,21 @@ jobs:
         uses: actions/checkout@v4
 
       - name: "Run package tests with minimal packages"
-        uses: sTertooy/gda-test-pkg@v1
+        uses: gap-actions/run-pkg-tests@v3
         with:
-          GAP_FLAGS: "-A"
-          COVERAGE: ${{ matrix.coverage }}
-          ONLY_NEEDED: true
-          ERROR_ON_WARNING: true
+          NO_COVERAGE: ${{ matrix.no-coverage }}
+          only-needed: true
+          warnings-as-errors: true
 
       - name: "Run package tests with default packages"
-        uses: sTertooy/gda-test-pkg@v1
+        uses: gap-actions/run-pkg-tests@v3
         with:
           COVERAGE: ${{ matrix.coverage }}
           ERROR_ON_WARNING: true
             
       - name: "Process coverage"
-        uses: stertooy/gda-coverage@v1
-        if: ${{ matrix.coverage }}
+        uses: gap-actions/process-coverage@v2
+        if: ${{ !matrix.no-coverage }}
 
       - name: "Upload coverage"
         uses: codecov/codecov-action@v5
