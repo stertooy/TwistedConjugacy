@@ -37,8 +37,15 @@ jobs:
       - name: "Run package tests with default packages"
         uses: gap-actions/run-pkg-tests@v3
         with:
-          COVERAGE: ${{ matrix.coverage }}
-          ERROR_ON_WARNING: true
+          NO_COVERAGE: ${{ matrix.no-coverage }}
+          warnings-as-errors: true
+
+      - name: "Run package tests with all packages"
+        uses: gap-actions/run-pkg-tests@v3
+        with:
+          NO_COVERAGE: ${{ matrix.no-coverage }}
+          load-all: true
+          warnings-as-errors: true
             
       - name: "Process coverage"
         uses: gap-actions/process-coverage@v2
@@ -46,7 +53,7 @@ jobs:
 
       - name: "Upload coverage"
         uses: codecov/codecov-action@v5
-        if: ${{ matrix.coverage }}
+        if: ${{ !matrix.no-coverage }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
@@ -70,7 +77,7 @@ jobs:
           args: "--validate"
 
       - name: "Build manual"
-        uses: stertooy/gda-manual@v1
+        uses: stertooy/build-pkg-docs@gaproot-var
 
       - name: "Validate PackageInfo.g"
         shell: bash
