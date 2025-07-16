@@ -98,7 +98,8 @@ InstallGlobalFunction(
         gens := SmallGeneratingSet( N );
         imgs := List(
             gens,
-            n -> ImagesRepresentative( hom1, n ) / ImagesRepresentative( hom2, n )
+            n -> ImagesRepresentative( hom1, n ) /
+                ImagesRepresentative( hom2, n )
         );
         return GroupHomomorphismByImagesNC( N, M, gens, imgs );
     end
