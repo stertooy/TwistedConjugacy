@@ -77,7 +77,7 @@ jobs:
           args: "--validate"
 
       - name: "Build manual"
-        uses: stertooy/build-pkg-docs@use-gaproot
+        uses: stertooy/build-pkg-docs@fix
 
       - name: "Validate PackageInfo.g"
         shell: bash
