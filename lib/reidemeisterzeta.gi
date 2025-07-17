@@ -19,7 +19,6 @@ RemovePeriodsList@ := function( L )
     od;
 end;
 
-
 ###############################################################################
 ##
 ## DecomposePeriodicList@( L )
@@ -58,7 +57,6 @@ DecomposePeriodicList@ := function( L )
     return l;
 end;
 
-
 ###############################################################################
 ##
 ## ReidemeisterZetaCoefficients( endo1, endo2 )
@@ -87,7 +85,6 @@ InstallGlobalFunction(
         return ReidemeisterZetaCoefficientsOp( endo1, endo2 );
     end
 );
-
 
 ###############################################################################
 ##
@@ -140,7 +137,6 @@ InstallMethod(
     end
 );
 
-
 ###############################################################################
 ##
 ## IsRationalReidemeisterZeta( endo1, endo2 )
@@ -166,7 +162,6 @@ InstallGlobalFunction(
         return IsRationalReidemeisterZetaOp( endo1, endo2 );
     end
 );
-
 
 ###############################################################################
 ##
@@ -205,7 +200,6 @@ InstallMethod(
     end
 );
 
-
 ###############################################################################
 ##
 ## ReidemeisterZeta( endo1, endo2 )
@@ -230,7 +224,6 @@ InstallGlobalFunction(
         return ReidemeisterZetaOp( endo1, endo2 );
     end
 );
-
 
 ###############################################################################
 ##
@@ -272,7 +265,6 @@ InstallMethod(
     end
 );
 
-
 ###############################################################################
 ##
 ## PrintReidemeisterZeta( endo1, endo2 )
@@ -298,7 +290,6 @@ InstallGlobalFunction(
         return PrintReidemeisterZetaOp( endo1, endo2 );
     end
 );
-
 
 ###############################################################################
 ##

@@ -17,7 +17,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## ExtendedReidemeisterSpectrum( G )
@@ -36,7 +35,6 @@ InstallGlobalFunction(
         return ExtendedReidemeisterSpectrumOp( G );
     end
 );
-
 
 ###############################################################################
 ##
@@ -69,7 +67,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## TotalReidemeisterSpectrum( G )
@@ -88,7 +85,6 @@ InstallGlobalFunction(
         return TotalReidemeisterSpectrumOp( G );
     end
 );
-
 
 ###############################################################################
 ##
@@ -224,7 +220,6 @@ InstallMethod(
     end
 );
 
-
 ###############################################################################
 ##
 ## ExtendedReidemeisterSpectrumOp( G )
@@ -253,7 +248,6 @@ InstallMethod(
         );
     end
 );
-
 
 ###############################################################################
 ##
@@ -329,7 +323,6 @@ InstallOtherMethod(
         return SpecR;
     end
 );
-
 
 ###############################################################################
 ##

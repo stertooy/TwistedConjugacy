@@ -29,7 +29,6 @@ ReidemeisterClassesByTrivialSubgroup@ := function( G, H, hom1, hom2, N, one )
     return RepresentativesReidemeisterClassesOp( hom1HL, hom2HL, N, one );
 end;
 
-
 ###############################################################################
 ##
 ## ReidemeisterClassesByFiniteQuotient@( G, H, hom1, hom2, N, K )
@@ -121,7 +120,6 @@ ReidemeisterClassesByFiniteQuotient@ := function( G, H, hom1, hom2, N, K, one )
     return Rcl;
 end;
 
-
 ###############################################################################
 ##
 ## ReidemeisterClassesByNormalSubgroup@( G, H, hom1, hom2, N, K )
@@ -173,7 +171,6 @@ ReidemeisterClassesByNormalSubgroup@ := function( G, H, hom1, hom2, N, K, one )
     od;
     return Rcl;
 end;
-
 
 ###############################################################################
 ##
@@ -234,7 +231,6 @@ RepsReidClassesStep3@ := function( _, H, hom1, hom2, A, one )
     return List( Rcl, a -> PreImagesRepresentativeNC( iA, a ) );
 end;
 
-
 ###############################################################################
 ##
 ## RepsReidClassesStep2@( G, H, hom1, hom2, A )
@@ -274,7 +270,6 @@ RepsReidClassesStep2@ := function( G, H, hom1, hom2, A, one )
     return List( Rcl, pa -> PreImagesRepresentativeNC( p, pa ) );
 end;
 
-
 ###############################################################################
 ##
 ## RepsReidClassesStep1@( G, H, hom1, hom2, A )
@@ -301,7 +296,6 @@ RepsReidClassesStep1@ := function( _, H, hom1, hom2, A, one )
     r := RestrictedHomomorphism( hom2, H, K );
     return RepsReidClassesStep2@( K, H, l, r, A, one );
 end;
-
 
 ###############################################################################
 ##

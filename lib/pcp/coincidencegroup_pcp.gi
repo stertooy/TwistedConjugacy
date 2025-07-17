@@ -24,7 +24,6 @@ CoincidenceGroupByTrivialSubgroup@ := function( G, H, hom1, hom2 )
     return PreImagesSetNC( q, Coin );
 end;
 
-
 ###############################################################################
 ##
 ## CoincidenceGroupByFiniteQuotient@( G, H, hom1, hom2, K )
@@ -78,7 +77,6 @@ CoincidenceGroupByFiniteQuotient@ := function( G, H, hom1, hom2, K )
     return SubgroupNC( H, gens );
 end;
 
-
 ###############################################################################
 ##
 ## CoincidenceGroupByCentre@( G, H, hom1, hom2 )
@@ -105,7 +103,6 @@ CoincidenceGroupByCentre@ := function( G, H, hom1, hom2 )
     diff := DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
     return KernelOfMultiplicativeGeneralMapping( diff );
 end;
-
 
 ###############################################################################
 ##
@@ -142,7 +139,6 @@ CoincidenceGroupStep5@ := function( G, H, hom1, hom2 )
     C := NormalIntersection( C, ImagesSource( hom2 ) );
     return PreImagesSetNC( hom2, C );
 end;
-
 
 ###############################################################################
 ##
@@ -183,7 +179,6 @@ CoincidenceGroupStep4@ := function( G, H, hom1, hom2 )
     d := DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
     return KernelOfMultiplicativeGeneralMapping( d );
 end;
-
 
 ###############################################################################
 ##
@@ -228,7 +223,6 @@ CoincidenceGroupStep3@ := function( G, H, hom1, hom2 )
     return Subgroup( H, Concatenation( gens1, gens2 ) );
 end;
 
-
 ###############################################################################
 ##
 ## CoincidenceGroupStep2@( G, H, hom1, hom2 )
@@ -258,7 +252,6 @@ CoincidenceGroupStep2@ := function( G, H, hom1, hom2 )
     );
 end;
 
-
 ###############################################################################
 ##
 ## CoincidenceGroupStep1@( G, H, hom1, hom2 )
@@ -286,7 +279,6 @@ CoincidenceGroupStep1@ := function( G, H, hom1, hom2 )
     hom2r := RestrictedHomomorphism( hom2, Coin, G );
     return CoincidenceGroupStep2@( G, Coin, hom1r, hom2r );
 end;
-
 
 ###############################################################################
 ##

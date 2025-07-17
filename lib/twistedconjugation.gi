@@ -1,6 +1,6 @@
 ###############################################################################
 ##
-## TwistedConjugation( hom1, arg... )
+## TwistedConjugation( hom1, hom2 )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -24,7 +24,6 @@ InstallGlobalFunction(
         fi;
     end
 );
-
 
 ###############################################################################
 ##
@@ -51,7 +50,6 @@ InstallGlobalFunction(
         return CallFuncList( RepresentativeTwistedConjugation, arg ) <> fail;
     end
 );
-
 
 ###############################################################################
 ##
@@ -113,7 +111,6 @@ InstallGlobalFunction(
         return c;
     end
 );
-
 
 ###############################################################################
 ##

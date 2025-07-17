@@ -43,7 +43,6 @@ InstallMethod(
     end
 );
 
-
 ###############################################################################
 ##
 ## RepresentativesReidemeisterClassesOp( hom1, hom2 )
@@ -100,7 +99,6 @@ InstallMethod(
     end
 );
 
-
 ###############################################################################
 ##
 ## ReidemeisterNumberOp( hom1, hom2 )
@@ -145,7 +143,6 @@ InstallMethod(
         return ReidemeisterNumberOp( inv * hom1, inv * hom2 );
     end
 );
-
 
 ###############################################################################
 ##

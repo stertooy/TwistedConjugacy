@@ -25,7 +25,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## RestrictedHomomorphism( hom, N, M )
@@ -53,7 +52,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## InclusionHomomorphism( H, G )
@@ -73,7 +71,6 @@ InstallGlobalFunction(
         return GroupHomomorphismByImagesNC( H, G, gens, gens );
     end
 );
-
 
 ###############################################################################
 ##
@@ -105,7 +102,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## RepresentativesHomomorphismClasses( H, G )
@@ -132,7 +128,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## RepresentativesEndomorphismClasses( G )
@@ -153,7 +148,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## RepresentativesAutomorphismClasses( G )
@@ -171,7 +165,6 @@ InstallGlobalFunction(
         return RepresentativesAutomorphismClassesOp( G );
     end
 );
-
 
 ###############################################################################
 ##
@@ -235,7 +228,6 @@ KernelsOfHomomorphismClasses@ := function( H, KerOrbits, ImgOrbits )
     return [ Pairs, Heads, Isos ];
 end;
 
-
 ###############################################################################
 ##
 ## ImagesOfHomomorphismClasses@( Pairs, ImgOrbits, Reps, G )
@@ -284,7 +276,6 @@ ImagesOfHomomorphismClasses@ := function( Pairs, ImgOrbits, Reps, G )
     return Tails;
 end;
 
-
 ###############################################################################
 ##
 ## FuseHomomorphismClasses@( Pairs, Heads, Isos, Tails )
@@ -319,7 +310,6 @@ FuseHomomorphismClasses@ := function( Pairs, Heads, Isos, Tails )
     od;
     return homs;
 end;
-
 
 ###############################################################################
 ##
@@ -381,7 +371,6 @@ RepresentativesHomomorphismClasses2Generated@ := function( H, G )
     return MorClassLoop( G, bi, params, 9 );
 end;
 
-
 ###############################################################################
 ##
 ## RepresentativesHomomorphismClassesAbelian@( H, G )
@@ -415,7 +404,6 @@ RepresentativesHomomorphismClassesAbelian@ := function( H, G )
     od;
     return e;
 end;
-
 
 ###############################################################################
 ##
@@ -554,7 +542,6 @@ InstallMethod(
     end
 );
 
-
 ###############################################################################
 ##
 ## RepresentativesEndomorphismClassesOp( G )
@@ -647,7 +634,6 @@ InstallMethod(
         );
     end
 );
-
 
 ###############################################################################
 ##

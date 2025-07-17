@@ -11,11 +11,9 @@ DeclareOperation(
       IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ]
 );
 
-
 DeclareGlobalFunction( "ReidemeisterClass" );
 DeclareSynonym( "TwistedConjugacyClass", ReidemeisterClass );
 DeclareRepresentation( "IsReidemeisterClassGroupRep", IsExternalOrbit );
-
 
 DeclareGlobalFunction( "ReidemeisterClasses" );
 DeclareSynonym( "TwistedConjugacyClasses", ReidemeisterClasses );
@@ -29,14 +27,12 @@ DeclareOperation(
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ]
 );
 
-
 DeclareGlobalFunction( "ReidemeisterNumber" );
 DeclareSynonym( "NrTwistedConjugacyClasses", ReidemeisterNumber );
 DeclareOperation(
     "ReidemeisterNumberOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
-
 
 DeclareGlobalFunction( "ReidemeisterSpectrum" );
 DeclareOperation( "ReidemeisterSpectrumOp", [ IsGroup ] );
@@ -46,7 +42,6 @@ DeclareGlobalFunction( "CoincidenceReidemeisterSpectrum" );
 DeclareOperation( "CoincidenceReidemeisterSpectrumOp", [ IsGroup, IsGroup ] );
 DeclareGlobalFunction( "TotalReidemeisterSpectrum" );
 DeclareOperation( "TotalReidemeisterSpectrumOp", [ IsGroup ] );
-
 
 DeclareGlobalFunction( "ReidemeisterZetaCoefficients" );
 DeclareOperation(
@@ -69,7 +64,6 @@ DeclareOperation(
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 
-
 DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 DeclareOperation(
     "RepresentativesHomomorphismClassesOp",
@@ -86,7 +80,6 @@ DeclareOperation(
     [ IsGroup ]
 );
 
-
 DeclareGlobalFunction( "FixedPointGroup" );
 DeclareGlobalFunction( "CoincidenceGroup" );
 DeclareOperation(
@@ -95,12 +88,10 @@ DeclareOperation(
 );
 DeclareGlobalFunction( "InducedCoincidenceGroup" );
 
-
 DeclareGlobalFunction( "InducedHomomorphism" );
 DeclareGlobalFunction( "RestrictedHomomorphism" );
 DeclareGlobalFunction( "InclusionHomomorphism" );
 DeclareGlobalFunction( "DifferenceGroupHomomorphisms" );
-
 
 DeclareProperty( "IsNilpotentByAbelian", IsGroup );
 InstallTrueMethod( IsNilpotentByAbelian, IsNilpotentGroup );
@@ -128,4 +119,3 @@ DeclareOperation( "DoubleCosetIndexNC", [ IsGroup, IsGroup, IsGroup ] );
 
 DeclareGlobalFunction( "IntersectionOfKernels" );
 DeclareGlobalFunction( "IntersectionOfPreImages" );
-

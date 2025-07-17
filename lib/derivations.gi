@@ -1,10 +1,11 @@
 ###############################################################################
 ##
-## CreateGroupDerivationInfo@( derv, check )
+## CreateGroupDerivationInfo@( derv, bool )
 ##
 ##  INPUT:
 ##      derv:       group derivation
-##      check:      boolean
+##      bool:       true if the function should check this is indeed a
+##                  derivation
 ##
 ##  OUTPUT:
 ##      info:       record containing useful information
@@ -45,7 +46,6 @@ CreateGroupDerivationInfo@ := function( derv, check )
     fi;
     return rec( lhs := embH, rhs := rhs, sdp := S );
 end;
-
 
 ###############################################################################
 ##
@@ -92,7 +92,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## GroupDerivationByImages( arg... )
@@ -116,7 +115,6 @@ InstallGlobalFunction(
         return derv;
     end
 );
-
 
 ###############################################################################
 ##
@@ -153,7 +151,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## GroupDerivationInfo( derv )
@@ -169,7 +166,6 @@ InstallMethod(
     [ IsGroupDerivation ],
     derv -> CreateGroupDerivationInfo@( derv, false )
 );
-
 
 ###############################################################################
 ##
@@ -201,7 +197,6 @@ InstallMethod(
     end
 );
 
-
 ###############################################################################
 ##
 ## PrintObj( derv )
@@ -221,7 +216,6 @@ InstallMethod(
         );
     end
 );
-
 
 ###############################################################################
 ##
@@ -243,7 +237,6 @@ InstallMethod(
     end
 );
 
-
 ###############################################################################
 ##
 ## Kernel( derv )
@@ -260,7 +253,6 @@ InstallMethod(
     [ IsGroupDerivation ],
     KernelOfGroupDerivation
 );
-
 
 ###############################################################################
 ##
@@ -294,7 +286,6 @@ InstallMethod(
     end
 );
 
-
 ###############################################################################
 ##
 ## ImagesElm( derv, h )
@@ -312,7 +303,6 @@ InstallMethod(
     [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
     { derv, h } -> [ ImagesRepresentative( derv, h ) ]
 );
-
 
 ###############################################################################
 ##
@@ -343,7 +333,6 @@ InstallMethod(
     end
 );
 
-
 ###############################################################################
 ##
 ## PreImagesElm( derv, g )
@@ -368,7 +357,6 @@ InstallMethod(
         return RightCoset( KernelOfGroupDerivation( derv ), prei );
     end
 );
-
 
 ###############################################################################
 ##
@@ -426,7 +414,6 @@ InstallMethod(
     end
 );
 
-
 ###############################################################################
 ##
 ## ViewObj( img )
@@ -444,7 +431,6 @@ InstallMethod(
         Print( "Group derivation image in ", G );
     end
 );
-
 
 ###############################################################################
 ##
@@ -464,7 +450,6 @@ InstallMethod(
         Print( "<group derivation image: ", K, " -> ", G, " >" );
     end
 );
-
 
 ###############################################################################
 ##
@@ -488,7 +473,6 @@ InstallMethod(
     end
 );
 
-
 ###############################################################################
 ##
 ## Size( img )
@@ -505,7 +489,6 @@ InstallMethod(
     [ IsGroupDerivationImageRep ],
     img -> Size( img!.tcc )
 );
-
 
 ###############################################################################
 ##
@@ -524,7 +507,6 @@ InstallMethod(
     img -> StabilizerOfExternalSet( img!.tcc )
 );
 
-
 ###############################################################################
 ##
 ## IsInjective( derv )
@@ -541,7 +523,6 @@ InstallMethod(
     [ IsGroupDerivation ],
     derv -> IsTrivial( KernelOfGroupDerivation( derv ) )
 );
-
 
 ###############################################################################
 ##

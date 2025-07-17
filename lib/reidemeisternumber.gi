@@ -16,7 +16,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## ReidemeisterNumberOp( hom1, hom2 )
