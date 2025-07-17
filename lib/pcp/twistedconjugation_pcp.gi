@@ -34,7 +34,6 @@ MultipleConjugacySolver@ := function( G, r, s )
     return a;
 end;
 
-
 ###############################################################################
 ##
 ## RepTwistConjToIdByTrivialSubgroup@( G, H, hom1, hom2, g )
@@ -67,7 +66,6 @@ RepTwistConjToIdByTrivialSubgroup@ := function( G, H, hom1, hom2, g )
     fi;
     return PreImagesRepresentativeNC( q, qh );
 end;
-
 
 ###############################################################################
 ##
@@ -120,7 +118,6 @@ RepTwistConjToIdByFiniteQuotient@ := function( G, H, hom1, hom2, g, M )
     return fail;
 end;
 
-
 ###############################################################################
 ##
 ## RepTwistConjToIdByCentre@( G, H, hom1, hom2, g )
@@ -163,7 +160,6 @@ RepTwistConjToIdByCentre@ := function( G, H, hom1, hom2, g )
     h2 := PreImagesRepresentativeNC( d, c );
     return h1 * h2;
 end;
-
 
 ###############################################################################
 ##
@@ -209,7 +205,6 @@ RepTwistConjToIdStep5@ := function( G, H, hom1, hom2, a, A )
     return PreImagesRepresentativeNC( InducedHomomorphism( q, p, hom1 ), pg );
 end;
 
-
 ###############################################################################
 ##
 ## RepTwistConjToIdStep4@( G, H, hom1, hom2, a, A )
@@ -241,7 +236,6 @@ RepTwistConjToIdStep4@ := function( G, H, hom1, hom2, a, A )
     fi;
     return RepTwistConjToIdByCentre@( G, H, hom1, hom2, a );
 end;
-
 
 ###############################################################################
 ##
@@ -290,7 +284,6 @@ RepTwistConjToIdStep3@ := function( G, H, hom1, hom2, a, A )
     return h1 * h2;
 end;
 
-
 ###############################################################################
 ##
 ## RepTwistConjToIdStep2@( G, H, hom1, hom2, a, A )
@@ -319,7 +312,6 @@ RepTwistConjToIdStep2@ := function( G, H, hom1, hom2, a, A )
     hom2r := RestrictedHomomorphism( hom2, H, K );
     return RepTwistConjToIdStep3@( K, H, hom1r, hom2r, a, A );
 end;
-
 
 ###############################################################################
 ##
@@ -363,7 +355,6 @@ RepTwistConjToIdStep1@ := function( G, H, hom1, hom2, g )
     fi;
     return h1 * h2;
 end;
-
 
 ###############################################################################
 ##
