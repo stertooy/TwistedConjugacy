@@ -64,7 +64,7 @@ jobs:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name 
 
     container:
-      image: ghcr.io/stertooy/gda-image:tex-full
+      image: ghcr.io/stertooy/gda-image:tex-slim
 
     steps:
 
@@ -77,7 +77,7 @@ jobs:
           args: "--validate"
 
       - name: "Build manual"
-        uses: stertooy/build-pkg-docs@gaproot-var
+        uses: gap-actions/build-pkg-docs@v1.3.1
 
       - name: "Validate PackageInfo.g"
         shell: bash
