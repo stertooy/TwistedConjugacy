@@ -20,10 +20,10 @@ InstallMethod(
         auts := List( Igs( G ), g -> ImagesRepresentative( alpha, g ) );
         S := SplitExtensionByAutomorphisms( N, G, auts );
         groups := [ G, N ];
-        
+
         n := Length( Igs( G ) );
         k := Length( Igs( N ) );
-        
+
         emb1 := GroupHomomorphismByImagesNC(
             G, S, Igs( G ), Igs( S ){ [ 1 .. n ] }
         );
@@ -33,7 +33,7 @@ InstallMethod(
             N, S, Igs( N ), acts
         );
         SetIsInjective( emb2, true );
-        
+
         imgs := Concatenation(
             Igs( G ),
             ListWithIdenticalEntries( k, One( G ) )
@@ -42,7 +42,7 @@ InstallMethod(
         SetIsSurjective( proj, true );
         ker := SubgroupNC( S, acts );
         SetKernelOfMultiplicativeGeneralMapping( proj, ker );
-        
+
         info := rec(
             groups := groups,
             embeddings := [ emb1, emb2],
