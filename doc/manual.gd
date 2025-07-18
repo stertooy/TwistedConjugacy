@@ -108,7 +108,7 @@ LoadPackage( "TwistedConjugacy" );
 
 #! For additional safety, you can enable &GAP;'s built-in assertion features by
 #! calling <C>SetAssertionLevel( <A>lev</A> )</C> (we recommend setting
-#! <A>lev</A> to <C>2</C>) and, when working with PcpGroups, settings the
+#! <A>lev</A> to <C>2</C>) and, when working with PcpGroups, setting the
 #! variables <C>CHECK_CENT&#64;Polycyclic</C>, <C>CHECK_IGS&#64;Polycyclic</C>
 #! and <C>CHECK_INTSTAB&#64;Polycyclic</C> to <K>true</K>.
 
