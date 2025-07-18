@@ -60,7 +60,7 @@ LoadPackage( "TwistedConjugacy" );
 #! If you use the &TwistedConjugacy; package in your research, we would love to
 #! hear about your work via an email to the address
 #! <Email>&SUPPORTEMAIL;</Email>.
-#! If you have used the the &TwistedConjugacy; package in the preparation of a
+#! If you have used the &TwistedConjugacy; package in the preparation of a
 #! paper and wish to refer to it, please cite it as described below.
 
 #! <P/>
@@ -158,7 +158,7 @@ LoadPackage( "TwistedConjugacy" );
 #! are $(f_*,g_*)$-twisted conjugate. Thus,
 #! $$\operatorname{Coin}(f,g) = \bigsqcup_{[\alpha]}
 #! p(\operatorname{Coin}(\tilde{f}, \alpha \tilde{g})),$$
-#! where $[\alpha]$ runs over the $(f_*,g_*)$-twisted conjugacy classess. For
+#! where $[\alpha]$ runs over the $(f_*,g_*)$-twisted conjugacy classes. For
 #! sufficiently well-behaved spaces $X$ and $Y$ (e.g. nilmanifolds of equal dimension)
 #! we have that if $R(f_*,g_*) &lt; \infty$, then 
 #! $$R(f_*,g_*) \leq \left|\operatorname{Coin}(f,g)\right|,$$

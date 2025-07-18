@@ -48,10 +48,7 @@ AutoDoc( rec(
     extract_examples := rec( units := "File" )
 ));
 
-if not ForAll(
-    [ "doc/manual.six", "doc/manual.pdf", "doc/chap0.html" ],
-    IsReadableFile
-) then
+if not IsReadableFile( "doc/manual.six" ) then
     Info( InfoGAPDoc, 1, "#I One or more files could not be created.\n" );
     ForceQuitGap( 1 );
 else
