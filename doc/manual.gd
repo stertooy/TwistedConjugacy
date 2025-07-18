@@ -89,7 +89,7 @@ LoadPackage( "TwistedConjugacy" );
 #!}</Listing>
 
 #! @Section Support
-#! If you encounter any problems, please submit to them to the
+#! If you encounter any problems, please submit them to the
 #! <URL Text='issue tracker'>&ISSUEURL;</URL>.
 #! If you have any questions on the usage or functionality of
 #! &TwistedConjugacy;, you may contact me via email at
@@ -135,7 +135,7 @@ LoadPackage( "TwistedConjugacy" );
 #! Twisted conjugacy originates in Reidemeister-Nielsen fixed point and coincidence theory,
 #! where it serves as a tool for studying fixed and coincidence points of continuous maps
 #! between topological spaces. Below, we briefly illustrate how and where this algebraic notion
-#! pops up when studying coincidence points.
+#! arises when studying coincidence points.
 
 #! Let $X$ and $Y$ be topological spaces with universal covers
 #! $p \colon \tilde{X} \to X$ and $q \colon \tilde{Y} \to Y$ and let
@@ -822,7 +822,7 @@ Source( res ) = N and Range( res ) = N;
 #! The functions below only work for derivations between finite groups or between PcpGroups. 
 
 #! @BeginGroup
-#! @Returns the specified group derivation, or <K>fail</K> if the given arguments to not define a derivation.
+#! @Returns the specified group derivation, or <K>fail</K> if the given arguments do not define a derivation.
 #! @Description
 #! This works in the same vein as <Ref Func="GroupHomomorphismByImages" BookName="Ref" Style="Number"/>. The group <A>H</A> acts on the group <A>G</A> via <A>act</A>,
 #! which must be a homomorphism from <A>H</A> into a group of automorphisms of <A>G</A>. This command then returns the group derivation defined by mapping the list
@@ -844,7 +844,7 @@ DeclareGlobalFunction( "GroupDerivationByImagesNC" );
 #! which must be a homomorphism from <A>H</A> into a group of automorphisms of <A>G</A>. This command then returns the group derivation defined by mapping the
 #! element <C>h</C> of <A>H</A> to the element <A>fun</A>( <C>h</C> ) of <A>G</A>, where <A>fun</A> is a &GAP; function.
 #!
-#! No test are performed to check whether the arguments really produce a group derivation.
+#! No tests are performed to check whether the arguments really produce a group derivation.
 #! @Arguments H, G, fun, act
 DeclareGlobalFunction( "GroupDerivationByFunction" );
 
