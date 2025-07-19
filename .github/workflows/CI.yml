@@ -16,8 +16,8 @@ jobs:
       matrix:
         include:
           - gap-version: "master"
-            coverage: true
           - gap-version: "4.14.0"
+            no-coverage: true
 
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-slim
@@ -28,26 +28,32 @@ jobs:
         uses: actions/checkout@v4
 
       - name: "Run package tests with minimal packages"
-        uses: sTertooy/gda-test-pkg@v1
+        uses: gap-actions/run-pkg-tests@v3
         with:
-          GAP_FLAGS: "-A"
-          COVERAGE: ${{ matrix.coverage }}
-          ONLY_NEEDED: true
-          ERROR_ON_WARNING: true
+          NO_COVERAGE: ${{ matrix.no-coverage }}
+          only-needed: true
+          warnings-as-errors: true
 
       - name: "Run package tests with default packages"
-        uses: sTertooy/gda-test-pkg@v1
+        uses: gap-actions/run-pkg-tests@v3
         with:
-          COVERAGE: ${{ matrix.coverage }}
-          ERROR_ON_WARNING: true
+          NO_COVERAGE: ${{ matrix.no-coverage }}
+          warnings-as-errors: true
+
+      - name: "Run package tests with all packages"
+        uses: gap-actions/run-pkg-tests@v3
+        with:
+          NO_COVERAGE: ${{ matrix.no-coverage }}
+          load-all: true
+          warnings-as-errors: true
             
       - name: "Process coverage"
-        uses: stertooy/gda-coverage@v1
-        if: ${{ matrix.coverage }}
+        uses: gap-actions/process-coverage@v2
+        if: ${{ !matrix.no-coverage }}
 
       - name: "Upload coverage"
         uses: codecov/codecov-action@v5
-        if: ${{ matrix.coverage }}
+        if: ${{ !matrix.no-coverage }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
@@ -71,7 +77,7 @@ jobs:
           args: "--validate"
 
       - name: "Build manual"
-        uses: stertooy/gda-manual@v1
+        uses: gap-actions/build-pkg-docs@v1.3.2
 
       - name: "Validate PackageInfo.g"
         shell: bash
@@ -96,6 +102,8 @@ jobs:
 
       - name: "Setup Python"
         uses: actions/setup-python@v5
+        with:
+          python-version: 3
 
       - name: Install gaplint
         run: pip install gaplint
@@ -104,7 +112,7 @@ jobs:
         run: |
           shopt -s globstar
           FOLDERS="lib/** **/*.g"
-          gaplint $FOLDERS
+          gaplint $FOLDERS --columns=79 --indentation=4 --disable=W003,W004,W012,W013,W014,W046
           # Also check for double semicolon
-          blah=$(egrep -ir --include=*.{g,gi,gd} ";;" $FOLDERS | tee /dev/stderr)
-          if [[ ! $blah ]]; then exit 0; else exit 1; fi
+          semi=$(egrep -ir --include=*.{g,gi,gd} ";;" $FOLDERS | tee /dev/stderr)
+          if [[ ! $semi ]]; then exit 0; else exit 1; fi

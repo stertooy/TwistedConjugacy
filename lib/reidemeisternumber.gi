@@ -16,7 +16,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## ReidemeisterNumberOp( hom1, hom2 )
@@ -38,7 +37,7 @@ InstallMethod(
         H := Source( hom1 );
         G := Range( hom1 );
         if not IsAbelian( G ) then TryNextMethod(); fi;
-        diff := DifferenceGroupHomomorphisms@( hom1, hom2, H, G );
+        diff := DifferenceGroupHomomorphisms( hom1, hom2, H, G );
         N := Image( diff );
         return IndexNC( G, N );
     end
@@ -52,7 +51,7 @@ InstallMethod(
     function( hom1, hom2 )
         local G, Rcl;
         G := Range( hom1 );
-        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, G );
+        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, G, false );
         if Rcl <> fail then
             return Size( Rcl );
         fi;

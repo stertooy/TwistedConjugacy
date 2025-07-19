@@ -25,7 +25,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## RestrictedHomomorphism( hom, N, M )
@@ -53,7 +52,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## InclusionHomomorphism( H, G )
@@ -74,10 +72,9 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
-##  DifferenceGroupHomomorphisms@( hom1, hom2 )
+##  DifferenceGroupHomomorphisms( hom1, hom2, N, M )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -91,16 +88,19 @@ InstallGlobalFunction(
 ##  REMARKS:
 ##      Does not verify whether diff is a well-defined group homomorphism.
 ##
-DifferenceGroupHomomorphisms@ := function( hom1, hom2, N, M )
-    local gens, imgs;
-    gens := SmallGeneratingSet( N );
-    imgs := List(
-        gens,
-        n -> ImagesRepresentative( hom1, n ) / ImagesRepresentative( hom2, n )
-    );
-    return GroupHomomorphismByImagesNC( N, M, gens, imgs );
-end;
-
+InstallGlobalFunction(
+    DifferenceGroupHomomorphisms,
+    function( hom1, hom2, N, M )
+        local gens, imgs;
+        gens := GeneratorsOfGroup( N );
+        imgs := List(
+            gens,
+            n -> ImagesRepresentative( hom1, n ) /
+                ImagesRepresentative( hom2, n )
+        );
+        return GroupHomomorphismByImagesNC( N, M, gens, imgs );
+    end
+);
 
 ###############################################################################
 ##
@@ -128,7 +128,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## RepresentativesEndomorphismClasses( G )
@@ -149,7 +148,6 @@ InstallGlobalFunction(
     end
 );
 
-
 ###############################################################################
 ##
 ## RepresentativesAutomorphismClasses( G )
@@ -167,7 +165,6 @@ InstallGlobalFunction(
         return RepresentativesAutomorphismClassesOp( G );
     end
 );
-
 
 ###############################################################################
 ##
@@ -231,7 +228,6 @@ KernelsOfHomomorphismClasses@ := function( H, KerOrbits, ImgOrbits )
     return [ Pairs, Heads, Isos ];
 end;
 
-
 ###############################################################################
 ##
 ## ImagesOfHomomorphismClasses@( Pairs, ImgOrbits, Reps, G )
@@ -280,7 +276,6 @@ ImagesOfHomomorphismClasses@ := function( Pairs, ImgOrbits, Reps, G )
     return Tails;
 end;
 
-
 ###############################################################################
 ##
 ## FuseHomomorphismClasses@( Pairs, Heads, Isos, Tails )
@@ -315,7 +310,6 @@ FuseHomomorphismClasses@ := function( Pairs, Heads, Isos, Tails )
     od;
     return homs;
 end;
-
 
 ###############################################################################
 ##
@@ -377,7 +371,6 @@ RepresentativesHomomorphismClasses2Generated@ := function( H, G )
     return MorClassLoop( G, bi, params, 9 );
 end;
 
-
 ###############################################################################
 ##
 ## RepresentativesHomomorphismClassesAbelian@( H, G )
@@ -411,7 +404,6 @@ RepresentativesHomomorphismClassesAbelian@ := function( H, G )
     od;
     return e;
 end;
-
 
 ###############################################################################
 ##
@@ -550,7 +542,6 @@ InstallMethod(
     end
 );
 
-
 ###############################################################################
 ##
 ## RepresentativesEndomorphismClassesOp( G )
@@ -643,7 +634,6 @@ InstallMethod(
         );
     end
 );
-
 
 ###############################################################################
 ##

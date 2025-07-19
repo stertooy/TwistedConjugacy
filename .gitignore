@@ -1,6 +1,6 @@
 /doc/*
-!/doc/TwistedConjugacy.bib
-!/doc/TwistedConjugacy.gd
+!/doc/manual.bib
+!/doc/manual.gd
 
 /gh-pages/
 /tmp/

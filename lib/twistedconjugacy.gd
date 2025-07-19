@@ -10,25 +10,10 @@ DeclareOperation(
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ]
 );
-DeclareGlobalFunction( "IsTwistedConjugateMultiple" );
-DeclareGlobalFunction( "RepresentativeTwistedConjugationMultiple" );
-DeclareOperation(
-    "RepresentativeTwistedConjugationMultOp",
-    [ IsList, IsList, IsList, IsList ]
-);
 
 DeclareGlobalFunction( "ReidemeisterClass" );
 DeclareSynonym( "TwistedConjugacyClass", ReidemeisterClass );
-DeclareRepresentation(
-    "IsReidemeisterClassGroupRep",
-    IsExternalOrbit,
-    []
-);
-DeclareAttribute(
-    "GroupHomomorphismsOfReidemeisterClass",
-    IsReidemeisterClassGroupRep
-);
-
+DeclareRepresentation( "IsReidemeisterClassGroupRep", IsExternalOrbit );
 
 DeclareGlobalFunction( "ReidemeisterClasses" );
 DeclareSynonym( "TwistedConjugacyClasses", ReidemeisterClasses );
@@ -39,42 +24,24 @@ DeclareSynonym(
 );
 DeclareOperation(
     "RepresentativesReidemeisterClassesOp",
-    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup ]
+    [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ]
 );
-
 
 DeclareGlobalFunction( "ReidemeisterNumber" );
-DeclareSynonym(
-    "NrTwistedConjugacyClasses",
-    ReidemeisterNumber
-);
+DeclareSynonym( "NrTwistedConjugacyClasses", ReidemeisterNumber );
 DeclareOperation(
     "ReidemeisterNumberOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 
-
 DeclareGlobalFunction( "ReidemeisterSpectrum" );
-DeclareOperation(
-    "ReidemeisterSpectrumOp",
-    [ IsGroup ]
-);
+DeclareOperation( "ReidemeisterSpectrumOp", [ IsGroup ] );
 DeclareGlobalFunction( "ExtendedReidemeisterSpectrum" );
-DeclareOperation(
-    "ExtendedReidemeisterSpectrumOp",
-    [ IsGroup ]
-);
+DeclareOperation( "ExtendedReidemeisterSpectrumOp", [ IsGroup ] );
 DeclareGlobalFunction( "CoincidenceReidemeisterSpectrum" );
-DeclareOperation(
-    "CoincidenceReidemeisterSpectrumOp",
-    [ IsGroup, IsGroup ]
-);
+DeclareOperation( "CoincidenceReidemeisterSpectrumOp", [ IsGroup, IsGroup ] );
 DeclareGlobalFunction( "TotalReidemeisterSpectrum" );
-DeclareOperation(
-    "TotalReidemeisterSpectrumOp",
-    [ IsGroup ]
-);
-
+DeclareOperation( "TotalReidemeisterSpectrumOp", [ IsGroup ] );
 
 DeclareGlobalFunction( "ReidemeisterZetaCoefficients" );
 DeclareOperation(
@@ -97,7 +64,6 @@ DeclareOperation(
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
 
-
 DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 DeclareOperation(
     "RepresentativesHomomorphismClassesOp",
@@ -114,18 +80,42 @@ DeclareOperation(
     [ IsGroup ]
 );
 
-
 DeclareGlobalFunction( "FixedPointGroup" );
 DeclareGlobalFunction( "CoincidenceGroup" );
 DeclareOperation(
     "CoincidenceGroup2",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
-
+DeclareGlobalFunction( "InducedCoincidenceGroup" );
 
 DeclareGlobalFunction( "InducedHomomorphism" );
 DeclareGlobalFunction( "RestrictedHomomorphism" );
 DeclareGlobalFunction( "InclusionHomomorphism" );
-
+DeclareGlobalFunction( "DifferenceGroupHomomorphisms" );
 
 DeclareProperty( "IsNilpotentByAbelian", IsGroup );
+InstallTrueMethod( IsNilpotentByAbelian, IsNilpotentGroup );
+
+DeclareCategory( "IsGroupDerivation", IsSPGeneralMapping );
+InstallTrueMethod( IsMapping, IsGroupDerivation );
+InstallTrueMethod( RespectsOne, IsGroupDerivation );
+
+DeclareAttribute( "GroupDerivationInfo", IsGroupDerivation );
+DeclareAttribute( "KernelOfGroupDerivation", IsGroupDerivation );
+
+DeclareGlobalFunction( "GroupDerivationByImagesNC" );
+DeclareGlobalFunction( "GroupDerivationByImages" );
+DeclareRepresentation( "IsGroupDerivationByImages", IsAttributeStoringRep );
+InstallTrueMethod( IsGroupDerivation, IsGroupDerivationByImages );
+
+DeclareGlobalFunction( "GroupDerivationByFunction" );
+DeclareRepresentation( "IsGroupDerivationByFunction", IsAttributeStoringRep );
+InstallTrueMethod( IsGroupDerivation, IsGroupDerivationByFunction );
+
+DeclareRepresentation( "IsGroupDerivationImageRep", IsExternalOrbit );
+
+DeclareGlobalFunction( "DoubleCosetIndex" );
+DeclareOperation( "DoubleCosetIndexNC", [ IsGroup, IsGroup, IsGroup ] );
+
+DeclareGlobalFunction( "IntersectionOfKernels" );
+DeclareGlobalFunction( "IntersectionOfPreImages" );

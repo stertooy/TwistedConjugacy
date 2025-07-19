@@ -13,8 +13,6 @@ gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );
 infinity
-gap> List( tcc );
-fail
 gap> Random( tcc ) in tcc;
 true
 gap> ActingDomain( tcc ) = G;
@@ -30,6 +28,12 @@ infinity
 gap> R1 := ReidemeisterClasses( endo1 );;
 gap> Size( R1 );
 6
+gap> R2 := ReidemeisterClasses( endo1, FittingSubgroup( G ) );;
+gap> Size( R2 );
+3
+gap> R3 := ReidemeisterClasses( endo1, DerivedSubgroup( G ) );;
+gap> Size( R3 );
+3
 
 #
 gap> tc := TwistedConjugation( endo1, endo2 );;
@@ -66,12 +70,12 @@ gap> h := Random( G );;
 gap> g1L := [ g11, g21 ];;
 gap> g2L := [ tc1( g11, h ), tc2( g21, h ) ];;
 gap> endoL := [ endo1, endo2 ];;
-gap> IsTwistedConjugateMultiple( endoL, g1L, g2L );
+gap> IsTwistedConjugate( endoL, g1L, g2L );
 true
-gap> h2 := RepresentativeTwistedConjugationMultiple( endoL, g1L, g2L );;
+gap> h2 := RepresentativeTwistedConjugation( endoL, g1L, g2L );;
 gap> g2L = [ tc1( g11, h2 ), tc2( g21, h2 ) ];
 true
-gap> IsTwistedConjugateMultiple( endoL, [ G.1, G.2 ], [ G.2, G.1 ] );
+gap> IsTwistedConjugate( endoL, [ G.1, G.2 ], [ G.2, G.1 ] );
 false
 
 #
