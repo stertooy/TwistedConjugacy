@@ -77,7 +77,7 @@ jobs:
           args: "--validate"
 
       - name: "Build manual"
-        uses: gap-actions/build-pkg-docs@v1.3.1
+        uses: gap-actions/build-pkg-docs@v1.3.2
 
       - name: "Validate PackageInfo.g"
         shell: bash
