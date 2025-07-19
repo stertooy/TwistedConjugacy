@@ -26,7 +26,7 @@
 #! &VERSION;, developed by Sam Tertooy.
 
 #! @Section Installation
-#! You can download &TwistedConjugacy; as a .tar.gz-archive
+#! You can download &TwistedConjugacy; as a .tar.gz archive
 #! <URL Text='here'>&ARCHIVEURL;.tar.gz</URL>. After extracting, you should
 #! place it in a suitable <F>pkg</F> folder. For example, on a Debian-based
 #! Linux distribution (e.g. Ubuntu, Mint), you can place it in
@@ -294,11 +294,11 @@ DeclareAttribute( "Representative", IsReidemeisterClassGroupRep );
 #! @EndGroup
 
 #! @BeginGroup
-#! @GroupTitle ActionDomain
+#! @GroupTitle ActingDomain
 #! @Returns the group whose twisted conjugacy action <A>tcc</A> is an orbit of.
 #! @Label of a twisted conjugacy class
 #! @Arguments tcc
-DeclareAttribute( "ActionDomain", IsReidemeisterClassGroupRep );
+DeclareAttribute( "ActingDomain", IsReidemeisterClassGroupRep );
 #! @EndGroup
 
 #! @BeginGroup
