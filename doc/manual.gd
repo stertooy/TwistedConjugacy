@@ -496,7 +496,7 @@ TotalReidemeisterSpectrum( Q );
 
 #! @Returns two lists of integers.
 #! @Description
-#! For a finite group, the sequence of Reidemeister numbers of the iterates of <A>endo1</A> and <A>endo2</A>, i.e. the sequence $R(<A>endo1</A>,<A>endo2</A>)$, $R(<A>endo1</A>^2,<A>endo2</A>^2)$, ..., is eventually periodic.
+#! For a finite group, the sequence of Reidemeister numbers of the iterates of <A>endo1</A> and <A>endo2</A>, i.e. the sequence <C>R(<A>endo1</A>,<A>endo2</A>)</C>, <C>R(<A>endo1</A>^2,<A>endo2</A>^2)</C>, ..., is eventually periodic.
 #! Thus there exist a periodic sequence $(P_n)_{n \in \mathbb{N}}$ and an eventually zero sequence $(Q_n)_{n \in \mathbb{N}}$ such that
 #! $$\forall n \in \mathbb{N}: R(\varphi^n,\psi^n) = P_n + Q_n.$$
 #! This function returns two lists: the first list contains one period of the sequence $(P_n)_{n \in \mathbb{N}}$, the second list contains $(Q_n)_{n \in \mathbb{N}}$ up to the part where it becomes the constant zero sequence.
