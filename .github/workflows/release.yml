@@ -1,27 +1,29 @@
-name: Release
+name: Release GAP Package
 on:
-  - workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: "Set to true to prevent actually making a release"
+        type: boolean
+        required: false
+        default: false
+
 permissions: write-all
 
 jobs:
   release:
     name: "Release GAP Package"
     runs-on: ubuntu-latest
-
     steps:
-      - name: "Checkout"
-        uses: actions/checkout@v4
-      - name: "Setup Python"
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: gap-actions/setup-gap@v2
         with:
-          python-version: "3.12"
-      - name: "Setup GAP"
-        uses: gap-actions/setup-gap@v2
+          GAP_PKGS_TO_BUILD: json
+      - uses: gap-actions/build-pkg-docs@v1
         with:
-          GAPBRANCH: master
-      - name: "Build GAP Package"
-        uses: gap-actions/build-pkg@v1
-      - name: "Release GAP Package"
-        uses: stertooy/ReleaseTools@v0.0.10
-        env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          use-latex: true
+      - uses: stertooy/release-pkg@read-json-etc
+        with:
+          dry-run: ${{ inputs.dry-run }}
+      - uses: stertooy/update-gh-pages@first-attempt
+        if: ${{ !inputs.dry-run }}
