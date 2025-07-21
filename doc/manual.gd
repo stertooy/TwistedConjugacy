@@ -34,7 +34,8 @@
 #! yourself, or in the &GAP; installation directory (<F>gap-X.Y.Z/pkg</F>)
 #! which makes it available for all users.
 #!
-#! You can use the following command to efficiently install the package for yourself:
+#! You can use the following command to efficiently install the package for
+#! yourself:
 #! <Listing Type="Command">wget -qO- https://[...].tar.gz | tar xzf - --one-top-level=&dollar;HOME/.gap/pkg</Listing>
 #! If the &PackageManager; package is installed and loaded, you can install
 #! &TwistedConjugacy; from within a &GAP; session
@@ -44,8 +45,6 @@ InstallPackage( "https://[...].tar.gz" );
 #! ...
 #! true
 #! @EndLog
-# <Ref Func="ReadPackage" BookName="ref"/>.
-# <Ref Func="TwistedConjugation" Style="Number"/>.
 
 #! @Section Loading
 #! Once installed, loading &TwistedConjugacy; can be done by using
@@ -115,9 +114,9 @@ LoadPackage( "TwistedConjugacy" );
 #! @Chapter Mathematical Background
 
 #! Let $G$ and $H$ be groups and let $\varphi$ and $\psi$ be group
-#! homomorphisms from $H$ to $G$. The pair $(\varphi,\psi)$ induces a
-#! (right) group action of $H$ on $G$ given by the map $$G \times H \to G
-#! \colon (g,h) \mapsto \varphi(h)^{-1} g\,\psi(h).$$
+#! homomorphisms from $H$ to $G$. The pair $(\varphi,\psi)$ induces a (right)
+#! group action of $H$ on $G$ given by the map
+#! $$G \times H \to G \colon (g,h) \mapsto \varphi(h)^{-1} g\,\psi(h).$$
 #! This group action is called **$(\varphi,\psi)$-twisted conjugation**. The
 #! orbits are called **Reidemeister classes** or **twisted conjugacy classes**,
 #! and the number of Reidemeister classes is called the **Reidemeister number**
@@ -132,10 +131,11 @@ LoadPackage( "TwistedConjugacy" );
 
 #! <P/>
 
-#! Twisted conjugacy originates in Reidemeister-Nielsen fixed point and coincidence theory,
-#! where it serves as a tool for studying fixed and coincidence points of continuous maps
-#! between topological spaces. Below, we briefly illustrate how and where this algebraic notion
-#! arises when studying coincidence points.
+#! Twisted conjugacy originates in Reidemeister-Nielsen fixed point and
+#! coincidence theory, where it serves as a tool for studying fixed and
+#! coincidence points of continuous maps between topological spaces. Below, we
+#! briefly illustrate how and where this algebraic notion arises when studying
+#! coincidence points.
 
 #! Let $X$ and $Y$ be topological spaces with universal covers
 #! $p \colon \tilde{X} \to X$ and $q \colon \tilde{Y} \to Y$ and let
@@ -159,10 +159,12 @@ LoadPackage( "TwistedConjugacy" );
 #! $$\operatorname{Coin}(f,g) = \bigsqcup_{[\alpha]}
 #! p(\operatorname{Coin}(\tilde{f}, \alpha \tilde{g})),$$
 #! where $[\alpha]$ runs over the $(f_*,g_*)$-twisted conjugacy classes. For
-#! sufficiently well-behaved spaces $X$ and $Y$ (e.g. nilmanifolds of equal dimension)
+#! sufficiently well-behaved spaces $X$ and $Y$ (e.g. nilmanifolds of equal
+#! dimension)
 #! we have that if $R(f_*,g_*) &lt; \infty$, then 
 #! $$R(f_*,g_*) \leq \left|\operatorname{Coin}(f,g)\right|,$$
-#! whereas if $R(f_*,g_*) = \infty$ there exist continuous maps $f'$ and $g'$ homotopic to $f$ and $g$ respectively such that
+#! whereas if $R(f_*,g_*) = \infty$ there exist continuous maps $f'$ and $g'$
+#! homotopic to $f$ and $g$ respectively such that
 #! $\operatorname{Coin}(f',g') = \varnothing$.
 
 #! @Chapter Twisted conjugacy
@@ -177,18 +179,20 @@ LoadPackage( "TwistedConjugacy" );
 
 #! <P/>
 
-#! If $G = H$, $\varphi$ is an endomorphism of $G$ and $\psi = \operatorname{id}_G$,
-#! then the action is usually called **$\varphi$-twisted conjugation**.
-#!
+#! If $G = H$, $\varphi$ is an endomorphism of $G$ and
+#! $\psi = \operatorname{id}_G$, then the action is usually called
+#! **$\varphi$-twisted conjugation**.
 #! In general, for the &TwistedConjugacy; package, many functions will take
-#! two homomorphisms <A>hom1</A> and <A>hom2</A> as arguments. However, if <A>hom1</A>
-#! is an endomorphism, <A>hom2</A> can be omitted, in which case it is automatically
-#! taken to be the identity map.
+#! two homomorphisms <A>hom1</A> and <A>hom2</A> as arguments. However, if
+#! <A>hom1</A> is an endomorphism, <A>hom2</A> can be omitted, in which case it
+#! is automatically taken to be the identity map.
 #!
-#! Similarly, some functions will take two elements <A>g1</A> and <A>g2</A> as arguments.
-#! If <A>g2</A> is omitted, it is automatically taken to be the identity element.
+#! Similarly, some functions will take two elements <A>g1</A> and <A>g2</A> as
+#! arguments. If <A>g2</A> is omitted, it is automatically taken to be the
+#! identity element.
 
-#! @Returns a function that maps the pair <C>(g,h)</C> to <A>hom1</A><C>(h)⁻¹</C> <C>g</C> <A>hom2</A><C>(h)</C>.
+#! @Returns a function that maps the pair <C>(g,h)</C> to
+#! <A>hom1</A><C>(h)⁻¹</C> <C>g</C> <A>hom2</A><C>(h)</C>.
 #! @Arguments hom1[, hom2]
 DeclareGlobalFunction( "TwistedConjugation" );
 
@@ -196,20 +200,26 @@ DeclareGlobalFunction( "TwistedConjugation" );
 
 #! Given groups $G$ and $H$, group homomorphisms $\varphi$ and $\psi$ from $H$
 #! to $G$ and elements $g_1, g_2 \in G$, the **twisted conjugacy problem** is
-#! the decision problem that asks whether $g_1$ and $g_2$ are $(\varphi,\psi)$-twisted
-#! conjugate.
+#! the decision problem that asks whether $g_1$ and $g_2$ are
+#! $(\varphi,\psi)$-twisted conjugate.
 #! The **twisted conjugacy search problem** is the problem of determining
-#! an explicit $h$ such that $\varphi(h)^{-1}g_1\psi(h) = g_2$ (under the assumption that such
-#! $h$ exists).
+#! an explicit $h$ such that $\varphi(h)^{-1}g_1\psi(h) = g_2$ (under the
+#! assumption that such $h$ exists).
 
-#! @Returns <K>true</K> if <A>g1</A> and <A>g2</A> are <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugate, otherwise <K>false</K>.
+#! @Returns <K>true</K> if <A>g1</A> and <A>g2</A> are
+#! <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugate, otherwise <K>false</K>.
 #! @Arguments hom1[, hom2], g1[, g2]
 DeclareGlobalFunction( "IsTwistedConjugate" );
 
-#! @Returns an element that maps <A>g1</A> to <A>g2</A> under the <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugacy action, or <K>fail</K> if no such element exists.
+#! @Returns an element that maps <A>g1</A> to <A>g2</A> under the
+#! <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugacy action, or <K>fail</K> if
+#! no such element exists.
 #! @Description
-#! If the source group is finite, this function relies on orbit-stabiliser algorithms provided by &GAP;. 
-#! Otherwise, it relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Thm. 3'/>, <Cite Key='bkl20-a' Where='Sec. 5.4'/>, <Cite Key='roma21-a' Where='Sec. 7'/> and <Cite Key='dt21-a'/>.
+#! If the source group is finite, this function relies on orbit-stabiliser
+#! algorithms provided by &GAP;. Otherwise, it relies on a mixture of the
+#! algorithms described in <Cite Key='roma16-a' Where='Thm. 3'/>,
+#! <Cite Key='bkl20-a' Where='Sec. 5.4'/>,
+#! <Cite Key='roma21-a' Where='Sec. 7'/> and <Cite Key='dt21-a'/>.
 #! @Arguments hom1[, hom2], g1[, g2]
 DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
 
@@ -233,19 +243,22 @@ tc( g1, h ) = g2;
 
 #! @Section The multiple twisted conjugacy (search) problem
 
-#! Let $H$ and $G_1, \ldots, G_n$ be groups. For each $i \in \{1,\ldots,n\}$, let $g_i,g_i' \in G_i$ and let $\varphi_i,\psi_i\colon H \to G_i$ be group homomorphisms.
+#! Let $H$ and $G_1, \ldots, G_n$ be groups. For each $i \in \{1,\ldots,n\}$,
+#! let $g_i,g_i' \in G_i$ and let $\varphi_i,\psi_i\colon H \to G_i$ be group
+#! homomorphisms.
 #! The **multiple twisted conjugacy problem** is
 #! the decision problem that asks whether there exists some $h \in H$ such that
 #! $\varphi_i(h)^{-1}g_i\psi_i(h) = g_i'$ for all $i \in \{1,\ldots,n\}$.
 
-#! The **multiple twisted conjugacy search problem** is the problem of determining
-#! an explicit $h$ such that $\varphi_i(h)^{-1}g_i\psi_i(h) = g_i'$ for all $i \in \{1,\ldots,n\}$ (under the assumption that such
-#! $h$ exists).
+#! The **multiple twisted conjugacy search problem** is the problem of
+#! determining an explicit $h$ such that $\varphi_i(h)^{-1}g_i\psi_i(h) = g_i'$
+#! for all $i \in \{1,\ldots,n\}$ (under the assumption that such $h$ exists).
 
 #! <P/>
 
-#! <Ref Func="IsTwistedConjugate"/> and <Ref Func="RepresentativeTwistedConjugation"/>
-#! can take lists instead of their usual arguments to solve these problems.
+#! <Ref Func="IsTwistedConjugate" Style="Number"/> and
+#! <Ref Func="RepresentativeTwistedConjugation" Style="Number"/> can take lists
+#! instead of their usual arguments to solve these problems.
 
 #! @BeginExample
 H := SymmetricGroup( 5 );;
@@ -276,7 +289,8 @@ RepresentativeTwistedConjugation( [ phi, psi ], [ khi, tau ],
 #! @Section Creating a twisted conjugacy class
 
 #! @BeginGroup
-#! @Returns the <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugacy class of <A>g</A>.
+#! @Returns the <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugacy class of
+#! <A>g</A>.
 #! @Arguments hom1[, hom2], g
 DeclareGlobalFunction( "TwistedConjugacyClass" );
 #! @Arguments hom1[, hom2], g
@@ -311,7 +325,8 @@ DeclareAttribute( "FunctionAction", IsReidemeisterClassGroupRep );
 
 #! @BeginGroup
 #! @GroupTitle \in
-#! @Returns <K>true</K> if <A>g</A> is an element of <A>tcc</A>, otherwise <K>false</K>.
+#! @Returns <K>true</K> if <A>g</A> is an element of <A>tcc</A>, otherwise
+#! <K>false</K>.
 #! @Label for an element and a twisted conjugacy class
 #! @Arguments g, tcc
 DeclareOperation( "\in", [ IsObject, IsReidemeisterClassGroupRep ] );
@@ -329,8 +344,8 @@ DeclareAttribute( "Size", IsReidemeisterClassGroupRep );
 
 #! @BeginGroup
 #! @GroupTitle StabiliserOfExternalSet
-#! @Returns the stabiliser of <C>Representative(<A>tcc</A>)</C> under the action
-#! <C>FunctionAction(<A>tcc</A>)</C>.
+#! @Returns the stabiliser of <C>Representative(<A>tcc</A>)</C> under the
+#! action <C>FunctionAction(<A>tcc</A>)</C>.
 #! @Label of a twisted conjugacy class
 #! @Arguments tcc
 DeclareAttribute( "StabiliserOfExternalSet", IsReidemeisterClassGroupRep );
@@ -339,8 +354,10 @@ DeclareAttribute( "StabiliserOfExternalSet", IsReidemeisterClassGroupRep );
 #! @BeginGroup
 #! @GroupTitle List
 #! @Returns a list containing the elements of <A>tcc</A>.
-#! @Description If <A>tcc</A> is infinite, this will run forever. It is recommended
-#! to first test the finiteness of <A>tcc</A> using <Ref Attr="Size" Label="of a twisted conjugacy class"/>.
+#! @Description
+#! If <A>tcc</A> is infinite, this will run forever. It is recommended to first
+#! test the finiteness of <A>tcc</A> using
+#! <Ref Attr="Size" Label="of a twisted conjugacy class" Style="Number"/>.
 #! @Label of a twisted conjugacy class
 #! @Arguments tcc
 DeclareGlobalFunction( "List" );
@@ -356,7 +373,8 @@ DeclareOperation( "Random", [ IsReidemeisterClassGroupRep ] );
 
 #! @BeginGroup
 #! @GroupTitle \=
-#! @Returns <K>true</K> if <A>tcc1</A> is equal to <A>tcc2</A>, otherwise <K>false</K>.
+#! @Returns <K>true</K> if <A>tcc1</A> is equal to <A>tcc2</A>, otherwise
+#! <K>false</K>.
 #! @Label for twisted conjugacy classes
 #! @Arguments tcc1, tcc2
 DeclareOperation( "\=", [ IsReidemeisterClassGroupRep, IsReidemeisterClassGroupRep ] );
@@ -365,14 +383,20 @@ DeclareOperation( "\=", [ IsReidemeisterClassGroupRep, IsReidemeisterClassGroupR
 #! @Section Calculating all twisted conjugacy classes
 
 #! @BeginGroup
-#! @Returns a list containing the (<A>hom1</A>, <A>hom2</A>)-twisted conjugacy classes if there are finitely many, or <K>fail</K> otherwise.
+#! @Returns a list containing the (<A>hom1</A>, <A>hom2</A>)-twisted conjugacy
+#! classes if there are finitely many, or <K>fail</K> otherwise.
 #! @Description
-#! If the argument <A>N</A> is provided, it must be a normal subgroup of <C>Range(<A>hom1</A>)</C>; the function will then only return the
+#! If the argument <A>N</A> is provided, it must be a normal subgroup of
+#! <C>Range(<A>hom1</A>)</C>; the function will then only return the
 #! Reidemeister classes that intersect <A>N</A> non-trivially.
-#! It is guaranteed that the Reidemeister class of the identity is in the first position, and that the representatives of the classes belong to <A>N</A> if this argument is provided.
+#! It is guaranteed that the Reidemeister class of the identity is in the first
+#! position, and that the representatives of the classes belong to <A>N</A> if
+#! this argument is provided.
 #! <P />
-#! If $G$ and $H$ are finite, this function relies on an orbit-stabiliser algorithm.
-#! Otherwise, it relies on the algorithms in <Cite Key='dt21-a'/> and <Cite Key='tert25-a' />.
+#! If $G$ and $H$ are finite, this function relies on an orbit-stabiliser
+#! algorithm.
+#! Otherwise, it relies on the algorithms in <Cite Key='dt21-a'/> and
+#! <Cite Key='tert25-a' />.
 #! @Arguments hom1[, hom2][, N]
 DeclareGlobalFunction( "TwistedConjugacyClasses" );
 #! @Arguments hom1[, hom2][, N]
@@ -380,11 +404,16 @@ DeclareGlobalFunction( "ReidemeisterClasses" );
 #! @EndGroup
 
 #! @BeginGroup
-#! @Returns a list containing representatives of the (<A>hom1</A>, <A>hom2</A>)-twisted conjugacy classes if there are finitely many, or <K>fail</K> otherwise.
+#! @Returns a list containing representatives of the
+#! (<A>hom1</A>, <A>hom2</A>)-twisted conjugacy classes if there are finitely
+#! many, or <K>fail</K> otherwise.
 #! @Description
-#! If the argument <A>N</A> is provided, it must be a normal subgroup of <C>Range(<A>hom1</A>)</C>; the function will then only return the representatives of 
-#! the twisted conjugacy classes that intersect <A>N</A> non-trivially.
-#! It is guaranteed that the identity is in the first position, and that all elements belong to <A>N</A> if this argument is provided.
+#! If the argument <A>N</A> is provided, it must be a normal subgroup of
+#! <C>Range(<A>hom1</A>)</C>; the function will then only return the
+#! representatives of the twisted conjugacy classes that intersect <A>N</A>
+#! non-trivially.
+#! It is guaranteed that the identity is in the first position, and that all
+#! elements belong to <A>N</A> if this argument is provided.
 #! @Arguments hom1[, hom2][, N]
 DeclareGlobalFunction( "RepresentativesTwistedConjugacyClasses" );
 #! @Arguments hom1[, hom2][, N]
@@ -417,13 +446,17 @@ NrTwistedConjugacyClasses( phi, psi );
 #! @Chapter Reidemeister numbers and spectra
 
 #! @Section Reidemeister numbers
-#! The number of twisted conjugacy classes is called the Reidemeister number and is always a positive integer or infinity.
+#! The number of twisted conjugacy classes is called the Reidemeister number
+#! and is always a positive integer or infinity.
 #! @BeginGroup ReidemeisterNumberGroup
 #! @Returns the Reidemeister number of ( <A>hom1</A>, <A>hom2</A> ).
 #! @Description
-#! If $G$ is abelian, this function relies on (a generalisation of) <Cite Key='jian83-a' Where='Thm. 2.5'/>.
-#! If $G = H$, $G$ is finite non-abelian and $\psi = \operatorname{id}_G$, it relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
-#! Otherwise, it simply calculates the twisted conjugacy classes and then counts them.
+#! If $G$ is abelian, this function relies on (a generalisation of)
+#! <Cite Key='jian83-a' Where='Thm. 2.5'/>.
+#! If $G = H$, $G$ is finite non-abelian and $\psi = \operatorname{id}_G$, it
+#! relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
+#! Otherwise, it simply calculates the twisted conjugacy classes and then
+#! counts them.
 #! @Arguments hom1[, hom2]
 DeclareGlobalFunction( "ReidemeisterNumber" );
 #! @Arguments hom1[, hom2]
@@ -431,14 +464,21 @@ DeclareGlobalFunction( "NrTwistedConjugacyClasses" );
 #! @EndGroup
 
 #! @Section Reidemeister spectra
-#! The set of all Reidemeister numbers of automorphisms is called the **Reidemeister spectrum** and is denoted by $\operatorname{Spec}_R(G)$, i.e.
+#! The set of all Reidemeister numbers of automorphisms is called the
+#! **Reidemeister spectrum** and is denoted by $\operatorname{Spec}_R(G)$, i.e.
 #! $$\operatorname{Spec}_R(G) := \{\, R(\varphi) \mid \varphi \in \operatorname{Aut}(G) \,\}.$$
-#! The set of all Reidemeister numbers of endomorphisms is called the **extended Reidemeister spectrum** and is denoted by $\operatorname{ESpec}_R(G)$, i.e.
+#! The set of all Reidemeister numbers of endomorphisms is called the
+#! **extended Reidemeister spectrum** and is denoted by
+#! $\operatorname{ESpec}_R(G)$, i.e.
 #! $$\operatorname{ESpec}_R(G) := \{\, R(\varphi) \mid \varphi \in \operatorname{End}(G) \,\}.$$
-#! The set of all Reidemeister numbers of pairs of homomorphisms from a group $H$ to a group $G$ is called the **coincidence Reidemeister spectrum** of $H$ and $G$ and is denoted by $\operatorname{CSpec}_R(H,G)$, i.e.
+#! The set of all Reidemeister numbers of pairs of homomorphisms from a group
+#! $H$ to a group $G$ is called the **coincidence Reidemeister spectrum** of
+#! $H$ and $G$ and is denoted by $\operatorname{CSpec}_R(H,G)$, i.e.
 #! $$\operatorname{CSpec}_R(H,G) := \{\, R(\varphi, \psi) \mid \varphi,\psi \in \operatorname{Hom}(H,G) \,\}.$$
 #! If <A>H</A> = <A>G</A> this is also denoted by $\operatorname{CSpec}_R(G)$.
-#! The set of all Reidemeister numbers of pairs of homomorphisms from every group $H$ to a group $G$ is called the **total Reidemeister spectrum** and is denoted by $\operatorname{TSpec}_R(G)$, i.e.
+#! The set of all Reidemeister numbers of pairs of homomorphisms from every
+#! group $H$ to a group $G$ is called the **total Reidemeister spectrum** and
+#! is denoted by $\operatorname{TSpec}_R(G)$, i.e.
 #! $$\operatorname{TSpec}_R(G) := \bigcup_{H} \operatorname{CSpec}_R(H,G).$$
 
 #! <P/>
@@ -447,14 +487,16 @@ DeclareGlobalFunction( "NrTwistedConjugacyClasses" );
 
 #! @Returns the Reidemeister spectrum of <A>G</A>.
 #! @Description
-#! If $G$ is abelian, this function relies on the results from <Cite Key='send23-a'/>.
+#! If $G$ is abelian, this function relies on the results from
+#! <Cite Key='send23-a'/>.
 #! Otherwise, it relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
 #! @Arguments G
 DeclareGlobalFunction( "ReidemeisterSpectrum" );
 
 #! @Returns the extended Reidemeister spectrum of <A>G</A>.
 #! @Description
-#! If $G$ is abelian, this is just the set of all divisors of the order of <A>G</A>.
+#! If $G$ is abelian, this is just the set of all divisors of the order of
+#! <A>G</A>.
 #! Otherwise, this function relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
 #! @Arguments G
 DeclareGlobalFunction( "ExtendedReidemeisterSpectrum" );
@@ -488,32 +530,48 @@ TotalReidemeisterSpectrum( Q );
 
 #! @Section Reidemeister zeta functions
 
-#! Let $\varphi,\psi\colon G \to G$ be endomorphisms such that $R(\varphi^n,\psi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the **Reidemeister zeta function** $Z_{\varphi,\psi}(s)$ of the pair $(\varphi,\psi)$ is defined as
+#! Let $\varphi,\psi\colon G \to G$ be endomorphisms such that
+#! $R(\varphi^n,\psi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the
+#! **Reidemeister zeta function** $Z_{\varphi,\psi}(s)$ of the pair
+#! $(\varphi,\psi)$ is defined as
 #! $$Z_{\varphi,\psi}(s) := \exp \sum_{n=1}^\infty \frac{R(\varphi^n,\psi^n)}{n} s^n.$$
 #! <P/>
-#! Please note that the functions below are only implemented for endomorphisms of finite groups.
+#! Please note that the functions below are only implemented for endomorphisms
+#! of finite groups.
 
 
 #! @Returns two lists of integers.
 #! @Description
-#! For a finite group, the sequence of Reidemeister numbers of the iterates of <A>endo1</A> and <A>endo2</A>, i.e. the sequence <C>R(<A>endo1</A>,<A>endo2</A>)</C>, <C>R(<A>endo1</A>^2,<A>endo2</A>^2)</C>, ..., is eventually periodic.
-#! Thus there exist a periodic sequence $(P_n)_{n \in \mathbb{N}}$ and an eventually zero sequence $(Q_n)_{n \in \mathbb{N}}$ such that
+#! For a finite group, the sequence of Reidemeister numbers of the iterates of
+#! <A>endo1</A> and <A>endo2</A>, i.e. the sequence
+#! <C>R(<A>endo1</A>,<A>endo2</A>)</C>,
+#! <C>R(<A>endo1</A>^2,<A>endo2</A>^2)</C>, ..., is eventually periodic.
+#! Thus there exist a periodic sequence $(P_n)_{n \in \mathbb{N}}$ and an
+#! eventually zero sequence $(Q_n)_{n \in \mathbb{N}}$ such that
 #! $$\forall n \in \mathbb{N}: R(\varphi^n,\psi^n) = P_n + Q_n.$$
-#! This function returns two lists: the first list contains one period of the sequence $(P_n)_{n \in \mathbb{N}}$, the second list contains $(Q_n)_{n \in \mathbb{N}}$ up to the part where it becomes the constant zero sequence.
+#! This function returns two lists: the first list contains one period of the
+#! sequence $(P_n)_{n \in \mathbb{N}}$, the second list contains
+#! $(Q_n)_{n \in \mathbb{N}}$ up to the part where it becomes the constant zero
+#! sequence.
 #! @Arguments endo1[, endo2]
 DeclareGlobalFunction( "ReidemeisterZetaCoefficients" );
 
-#! @Returns <K>true</K> if the Reidemeister zeta function of <A>endo1</A> and <A>endo2</A> is rational, otherwise <K>false</K>.
+#! @Returns <K>true</K> if the Reidemeister zeta function of <A>endo1</A> and
+#! <A>endo2</A> is rational, otherwise <K>false</K>.
 #! @Arguments endo1[, endo2]
 DeclareGlobalFunction( "IsRationalReidemeisterZeta" );
 
-#! @Returns the Reidemeister zeta function of <A>endo1</A> and <A>endo2</A> if it is rational, otherwise <K>fail</K>.
+#! @Returns the Reidemeister zeta function of <A>endo1</A> and <A>endo2</A> if
+#! it is rational, otherwise <K>fail</K>.
 #! @Arguments endo1[, endo2]
 DeclareGlobalFunction( "ReidemeisterZeta" );
 
-#! @Returns a string describing the Reidemeister zeta function of <A>endo1</A> and <A>endo2</A>.
+#! @Returns a string describing the Reidemeister zeta function of <A>endo1</A>
+#! and <A>endo2</A>.
 #! @Description
-#! This is often more readable than evaluating <C>ReidemeisterZeta</C> in an indeterminate, and does not require rationality.
+#! This is often more readable than evaluating
+#! <Ref Func="ReidemeisterZeta" Style="Number"/> in an indeterminate, and does
+#! not require rationality.
 #! @Arguments endo1[, endo2]
 DeclareGlobalFunction( "PrintReidemeisterZeta" );
 
@@ -541,20 +599,20 @@ PrintReidemeisterZeta( khi );
 #! existing functions that can deal with infinite cosets of PcpGroups.
 #!
 #! The only completely new functions are
-#! <Ref Func="DoubleCosetIndex" /> and its <C>NC</C> version.
+#! <Ref Func="DoubleCosetIndex" Style="Number"/> and its <C>NC</C> version.
 
 #! @Section Right cosets
 
 #! Calculating the intersection of two right cosets $Hx$ and $Ky$ can be
 #! reduced to calculating the intersection $H \cap K$ and verifying whether
 #! $xy^{-1} \in HK$ (see <Ref Oper="\in"
-#! Label="for an element and a double coset of a PcpGroup"/>).
+#! Label="for an element and a double coset of a PcpGroup" Style="Number"/>).
 
 #! @BeginGroup
 #! @Returns the intersection of the right cosets <A>C1</A>, <A>C2</A>, ...
 #! @Description
-#! Alternatively, this function also accepts a single list of right
-#! cosets <A>L</A> as argument.
+#! Alternatively, this function also accepts a single list of right cosets
+#! <A>L</A> as argument.
 #!
 #! This intersection is always a right coset, or the empty list.
 #! @Label of right cosets of a PcpGroup
@@ -585,14 +643,14 @@ Intersection( Hx, Kz );
 
 #! Algorithms designed for computing with twisted conjugacy classes can be
 #! leveraged to do computations involving double cosets, see
-#! <Cite Key='tert25-a' Where="Sec. 9"/> for a description on this.
-#! When the &TwistedConjugacy; package is loaded, it does this automatically,
-#! and the functions below should then work for PcpGroups, even if they are
-#! infinite.
+#! <Cite Key='tert25-a' Where="Sec. 9"/> for a description on this. When the
+#! &TwistedConjugacy; package is loaded, it does this automatically, and the
+#! functions below should then work for PcpGroups, even if they are infinite.
 
 #! @BeginGroup
 #! @GroupTitle \in
-#! @Returns <K>true</K> if <A>g</A> is an element of <A>D</A>, otherwise <K>false</K>.
+#! @Returns <K>true</K> if <A>g</A> is an element of <A>D</A>, otherwise
+#! <K>false</K>.
 #! @Label for an element and a double coset of a PcpGroup
 #! @Arguments g, D
 DeclareOperation( "\in", [ IsMultiplicativeElementWithInverse, IsDoubleCoset ] );
@@ -609,8 +667,10 @@ DeclareOperation( "Size", [ IsDoubleCoset ] );
 #! @BeginGroup
 #! @GroupTitle List
 #! @Returns a list containing the elements of <A>D</A>.
-#! @Description If <A>D</A> is infinite, this will run forever. It is recommended
-#! to first test the finiteness of <A>D</A> using <Ref Attr="Size" Label="of a double coset of a PcpGroup"/>.
+#! @Description
+#! If <A>D</A> is infinite, this will run forever. It is recommended to first
+#! test the finiteness of <A>D</A> using
+#! <Ref Attr="Size" Label="of a double coset of a PcpGroup" Style="Number"/>.
 #! @Label of a double coset of a PcpGroup
 #! @Arguments D
 DeclareGlobalFunction( "List" );
@@ -618,7 +678,8 @@ DeclareGlobalFunction( "List" );
 
 #! @BeginGroup
 #! @GroupTitle \=
-#! @Returns <K>true</K> if <A>C</A> and <A>D</A> are the same double coset, otherwise <K>false</K>.
+#! @Returns <K>true</K> if <A>C</A> and <A>D</A> are the same double coset,
+#! otherwise <K>false</K>.
 #! @Label for double cosets of a PcpGroup
 #! @Arguments C, D
 DeclareOperation( "\=", [ IsDoubleCoset, IsDoubleCoset ] );
@@ -626,7 +687,8 @@ DeclareOperation( "\=", [ IsDoubleCoset, IsDoubleCoset ] );
 
 #! @BeginGroup
 #! @GroupTitle DoubleCosets
-#! @Returns a duplicate-free list of all <C>(<A>H</A>,<A>K</A>)</C>-double cosets in <A>G</A> if there are finitely many, otherwise <K>fail</K>.
+#! @Returns a duplicate-free list of all <C>(<A>H</A>,<A>K</A>)</C>-double
+#! cosets in <A>G</A> if there are finitely many, otherwise <K>fail</K>.
 #! @Description
 #! The groups <A>H</A> and <A>K</A> must be subgroups of the group <A>G</A>.
 #! The <C>NC</C> version does not check whether this is the case.
@@ -645,7 +707,8 @@ DeclareOperation( "DoubleCosetsNC", [ IsPcpGroup, IsPcPGroup, IsPcPGroup ] );
 #! is a representative and <C>n</C> is the size of a double coset.
 #! @Description
 #! While for finite groups this function is supposed to be faster than
-#! <Ref Oper="DoubleCosetsNC" Label="for PcpGroups"/>, for PcpGroups it is usually **slower**.
+#! <Ref Oper="DoubleCosetsNC" Label="for PcpGroups" Style="Number"/>, for
+#! PcpGroups it is usually **slower**.
 #! @Label for PcpGroups
 #! @Arguments G, H, K
 DeclareOperation( "DoubleCosetRepsAndSizes", [ IsPcpGroup, IsPcPGroup, IsPcPGroup ] );
@@ -693,21 +756,30 @@ DoubleCosetIndex( G, H, K );
 
 #! Please note that the functions below are only implemented for finite groups.
 
-#! @Returns a list of the automorphisms of <A>G</A> up to composition with inner automorphisms.
+#! @Returns a list of the automorphisms of <A>G</A> up to composition with
+#! inner automorphisms.
 #! @Arguments G
 DeclareGlobalFunction( "RepresentativesAutomorphismClasses" );
 
-#! @Returns a list of the endomorphisms of <A>G</A> up to composition with inner automorphisms.
+#! @Returns a list of the endomorphisms of <A>G</A> up to composition with
+#! inner automorphisms.
 #! @Description
-#! This does the same as calling <C>AllHomomorphismClasses(<A>G</A>,<A>G</A>)</C>, but should be faster for abelian and non-2-generated groups.
-#! For 2-generated groups, this function takes its source code from <C>AllHomomorphismClasses</C>.
+#! This does the same as calling
+#! <C>AllHomomorphismClasses(<A>G</A>,<A>G</A>)</C>, but should be faster for
+#! abelian and non-2-generated groups.
+#! For 2-generated groups, this function behaves nearly identical to
+#! <Ref Func="AllHomomorphismClasses" BookName="Ref" Style="Number"/>.
 #! @Arguments G
 DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
 
-#! @Returns a list of the homomorphisms from <A>H</A> to <A>G</A>, up to composition with inner automorphisms of <A>G</A>.
+#! @Returns a list of the homomorphisms from <A>H</A> to <A>G</A>, up to
+#! composition with inner automorphisms of <A>G</A>.
 #! @Description
-#! This does the same as calling <C>AllHomomorphismClasses(<A>H</A>,<A>G</A>)</C>, but should be faster for abelian and non-2-generated groups.
-#! For 2-generated groups, this function behaves nearly identical to <Ref Func="AllHomomorphismClasses" BookName="Ref" />.
+#! This does the same as calling
+#! <C>AllHomomorphismClasses(<A>H</A>,<A>G</A>)</C>, but should be faster for
+#! abelian and non-2-generated groups. For 2-generated groups, this function
+#! behaves nearly identical to
+#! <Ref Func="AllHomomorphismClasses" BookName="Ref" Style="Number"/>.
 #! @Arguments H, G
 DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 
@@ -733,13 +805,19 @@ ForAll( Homs, IsGroupHomomorphism );
 
 #! @Section Coincidence and fixed point groups
 
-#! @Returns the subgroup of <C>Source(<A>endo</A>)</C> consisting of the elements fixed under the endomorphism <A>endo</A>.
+#! @Returns the subgroup of <C>Source(<A>endo</A>)</C> consisting of the
+#! elements fixed under the endomorphism <A>endo</A>.
 #! @Arguments endo
 DeclareGlobalFunction( "FixedPointGroup" );
 
-#! @Returns the subgroup of <C>Source(<A>hom1</A>)</C> consisting of the elements <C>h</C> for which <C>h^<A>hom1</A></C> = <C>h^<A>hom2</A></C> = ...
+#! @Returns the subgroup of <C>Source(<A>hom1</A>)</C> consisting of the
+#! elements <C>h</C> for which <C>h^<A>hom1</A></C> = <C>h^<A>hom2</A></C> =
+#! ...
 #! @Description
-#! For infinite non-abelian groups, this function relies on a mixture of the algorithms described in <Cite Key='roma16-a' Where='Thm. 2'/>, <Cite Key='bkl20-a' Where='Sec. 5.4'/> and <Cite Key='roma21-a' Where='Sec. 7'/>.
+#! For infinite non-abelian groups, this function relies on a mixture of the
+#! algorithms described in <Cite Key='roma16-a' Where='Thm. 2'/>,
+#! <Cite Key='bkl20-a' Where='Sec. 5.4'/> and
+#! <Cite Key='roma21-a' Where='Sec. 7'/>.
 #! @Arguments hom1, hom2[, ...]
 DeclareGlobalFunction( "CoincidenceGroup" );
 
@@ -758,27 +836,35 @@ CoincidenceGroup( psi, khi ) = AlternatingGroup( 5 );
 
 #! @Section Induced and restricted group homomorphisms
 
-#! @Returns the homomorphism induced by <A>hom</A> between the images of <A>epi1</A> and <A>epi2</A>.
+#! @Returns the homomorphism induced by <A>hom</A> between the images of
+#! <A>epi1</A> and <A>epi2</A>.
 #! @Description
-#! Let <A>hom</A> be a group homomorphism from a group <C>H</C> to a group <C>G</C>,
-#! let <A>epi1</A> be an epimorphism from <C>H</C> to a group <C>Q</C> and
-#! let <A>epi2</A> be an epimorphism from <C>G</C> to a group <C>P</C> such that
-#! the kernel of <A>epi1</A> is mapped into the kernel of <A>epi2</A> by <A>hom</A>.
+#! Let <A>hom</A> be a group homomorphism from a group <C>H</C> to a group
+#! <C>G</C>, let <A>epi1</A> be an epimorphism from <C>H</C> to a group
+#! <C>Q</C> and let <A>epi2</A> be an epimorphism from <C>G</C> to a group
+#! <C>P</C> such that the kernel of <A>epi1</A> is mapped into the kernel of
+#! <A>epi2</A> by <A>hom</A>.
 #! This command returns the homomorphism from <C>Q</C> to <C>P</C> that maps
-#! <C>h^<A>epi1</A></C> to <C>(h^<A>hom</A>)^<A>epi2</A></C>,
-#! for any element <C>h</C> of <C>H</C>.
-#! This function generalises <Ref Func="InducedAutomorphism" BookName="ref" /> to homomorphisms.
+#! <C>h^<A>epi1</A></C> to <C>(h^<A>hom</A>)^<A>epi2</A></C>, for any element
+#! <C>h</C> of <C>H</C>.
+#! This function generalises
+#! <Ref Func="InducedAutomorphism" BookName="ref" Style="Number"/> to
+#! homomorphisms.
 #! @Arguments epi1, epi2, hom
 DeclareGlobalFunction( "InducedHomomorphism" );
 
-#! @Returns the homomorphism <A>hom</A>, but restricted as a map from <A>N</A> to <A>M</A>.
+#! @Returns the homomorphism <A>hom</A>, but restricted as a map from <A>N</A>
+#! to <A>M</A>.
 #! @Description
-#! Let <A>hom</A> be a group homomorphism from a group <C>H</C> to a group <C>G</C>,
-#! and let <A>N</A> be subgroup of <C>H</C> such that its image under <A>hom</A> is a subgroup of <A>M</A>.
+#! Let <A>hom</A> be a group homomorphism from a group <C>H</C> to a group
+#! <C>G</C>, and let <A>N</A> be subgroup of <C>H</C> such that its image under
+#! <A>hom</A> is a subgroup of <A>M</A>.
 #! This command returns the homomorphism from <A>N</A> to <A>M</A> that maps
 #! <C>n</C> to <C>n^<A>hom</A></C> for any element <C>n</C> of <A>N</A>. 
 #! No checks are made to verify that <A>hom</A> maps <A>N</A> into <A>M</A>.
-#! This function is similar to <C>RestrictedMapping</C>, but its range is explicitly set to <A>M</A>.
+#! This function is similar to
+#! <Ref Func="RestrictedMapping" BookName="ref" Style="Number"/>, but its range
+#! is explicitly set to <A>M</A>.
 #! @Arguments hom, N, M
 DeclareGlobalFunction( "RestrictedHomomorphism" );
 
@@ -801,8 +887,10 @@ Source( res ) = N and Range( res ) = N;
 
 #! @Chapter Group derivations
 
-#! Let $G$ and $H$ be groups and let $H$ act on $G$ via automorphisms, i.e. there is a group homomorphism
-#! $$\alpha \colon H \to \operatorname{Aut}(G)$$ such that $g^h = \alpha(h)(g)$ for all $g \in G$ and $h \in H$.
+#! Let $G$ and $H$ be groups and let $H$ act on $G$ via automorphisms, i.e.
+#! there is a group homomorphism
+#! $$\alpha \colon H \to \operatorname{Aut}(G)$$
+#! such that $g^h = \alpha(h)(g)$ for all $g \in G$ and $h \in H$.
 #! A **group derivation** $\delta \colon H \to G$ is a map such that
 #! $$\delta(h_1h_2) = \delta(h_1)^{h_2}\delta(h_2).$$
 #! Note that we do not require $G$ to be abelian.
@@ -815,23 +903,33 @@ Source( res ) = N and Range( res ) = N;
 
 #! <P/>
 
-#! Please note that the functions in this section require $G$ and $H$ to either both be finite, or both be PcpGroups.
+#! Please note that the functions in this section require $G$ and $H$ to either
+#! both be finite, or both be PcpGroups.
 
 #! @Section Creating group derivations
 
-#! The functions below only work for derivations between finite groups or between PcpGroups. 
+#! The functions below only work for derivations between finite groups or
+#! between PcpGroups. 
 
 #! @BeginGroup
-#! @Returns the specified group derivation, or <K>fail</K> if the given arguments do not define a derivation.
+#! @Returns the specified group derivation, or <K>fail</K> if the given
+#! arguments do not define a derivation.
 #! @Description
-#! This works in the same vein as <Ref Func="GroupHomomorphismByImages" BookName="Ref" Style="Number"/>. The group <A>H</A> acts on the group <A>G</A> via <A>act</A>,
-#! which must be a homomorphism from <A>H</A> into a group of automorphisms of <A>G</A>. This command then returns the group derivation defined by mapping the list
-#! <A>gens</A> of generators of <A>H</A> to the list <A>imgs</A> of images in <A>G</A>.
+#! This works in the same vein as
+#! <Ref Func="GroupHomomorphismByImages" BookName="Ref" Style="Number"/>. The
+#! group <A>H</A> acts on the group <A>G</A> via <A>act</A>, which must be a
+#! homomorphism from <A>H</A> into a group of automorphisms of <A>G</A>. This
+#! command then returns the group derivation defined by mapping the list
+#! <A>gens</A> of generators of <A>H</A> to the list <A>imgs</A> of images in
+#! <A>G</A>.
 #!
-#! If omitted, the arguments <A>gens</A> and <A>imgs</A> default to the <C>GeneratorsOfGroup</C> value of <A>H</A> and <A>G</A> respectively.
+#! If omitted, the arguments <A>gens</A> and <A>imgs</A> default to the
+#! <C>GeneratorsOfGroup</C> value of <A>H</A> and <A>G</A> respectively.
 #!
-#! This function checks whether <A>gens</A> generate <A>H</A> and whether the mapping of the generators extends to a group derivation.
-#! This test can be expensive, so if one is certain that the given arguments produce a group derivation, these checks can be avoided by using the <C>NC</C> version.
+#! This function checks whether <A>gens</A> generate <A>H</A> and whether the
+#! mapping of the generators extends to a group derivation. This test can be
+#! expensive, so if one is certain that the given arguments produce a group
+#! derivation, these checks can be avoided by using the <C>NC</C> version.
 #! @Arguments H, G[[, gens], imgs], act
 DeclareGlobalFunction( "GroupDerivationByImages" );
 #! @Arguments H, G[[, gens], imgs], act
@@ -840,11 +938,16 @@ DeclareGlobalFunction( "GroupDerivationByImagesNC" );
 
 #! @Returns the specified group derivation.
 #! @Description
-#! <C>GroupDerivationByFunction</C> works in the same vein as <Ref Func="GroupHomomorphismByFunction" BookName="Ref" Style="Number"/>. The group <A>H</A> acts on the group <A>G</A> via <A>act</A>,
-#! which must be a homomorphism from <A>H</A> into a group of automorphisms of <A>G</A>. This command then returns the group derivation defined by mapping the
-#! element <C>h</C> of <A>H</A> to the element <A>fun</A>( <C>h</C> ) of <A>G</A>, where <A>fun</A> is a &GAP; function.
+#! <C>GroupDerivationByFunction</C> works in the same vein as
+#! <Ref Func="GroupHomomorphismByFunction" BookName="Ref" Style="Number"/>. The
+#! group <A>H</A> acts on the group <A>G</A> via <A>act</A>, which must be a
+#! homomorphism from <A>H</A> into a group of automorphisms of <A>G</A>. This
+#! command then returns the group derivation defined by mapping the element
+#! <C>h</C> of <A>H</A> to the element <A>fun</A>( <C>h</C> ) of <A>G</A>,
+#! where <A>fun</A> is a &GAP; function.
 #!
-#! No tests are performed to check whether the arguments really produce a group derivation.
+#! No tests are performed to check whether the arguments really produce a group
+#! derivation.
 #! @Arguments H, G, fun, act
 DeclareGlobalFunction( "GroupDerivationByFunction" );
 
@@ -874,7 +977,8 @@ der := GroupDerivationByImages( H, G, gens, imgs, act );
 
 #! @BeginGroup
 #! @GroupTitle IsInjective
-#! @Returns <K>true</K> if the group derivation <A>der</A> is injective, otherwise <K>false</K>.
+#! @Returns <K>true</K> if the group derivation <A>der</A> is injective,
+#! otherwise <K>false</K>.
 #! @Label for a group derivation
 #! @Arguments der
 DeclareProperty( "IsInjective", IsGroupDerivation );
@@ -882,7 +986,8 @@ DeclareProperty( "IsInjective", IsGroupDerivation );
 
 #! @BeginGroup
 #! @GroupTitle IsSurjective
-#! @Returns <K>true</K> if the group derivation <A>der</A> is surjective, otherwise <K>false</K>.
+#! @Returns <K>true</K> if the group derivation <A>der</A> is surjective,
+#! otherwise <K>false</K>.
 #! @Label for a group derivation
 #! @Arguments der
 DeclareProperty( "IsSurjective", IsGroupDerivation );
@@ -890,7 +995,8 @@ DeclareProperty( "IsSurjective", IsGroupDerivation );
 
 #! @BeginGroup
 #! @GroupTitle IsBijective
-#! @Returns <K>true</K> if the group derivation <A>der</A> is bijjective, otherwise <K>false</K>.
+#! @Returns <K>true</K> if the group derivation <A>der</A> is bijjective,
+#! otherwise <K>false</K>.
 #! @Label for a group derivation
 #! @Arguments der
 DeclareProperty( "IsBijective", IsGroupDerivation );
@@ -910,8 +1016,9 @@ DeclareOperation( "Kernel", [ IsGroupDerivation ] );
 #! @GroupTitle Image
 #! @Returns the image of the group derivation <A>der</A>.
 #! @Description
-#! One can optionally give an element <A>elm</A> or a subgroup <A>sub</A> as a second argument,
-#! in which case <C>Image</C> will calculate the image of this argument under <A>der</A>.
+#! One can optionally give an element <A>elm</A> or a subgroup <A>sub</A> as a
+#! second argument, in which case <C>Image</C> will calculate the image of this
+#! argument under <A>der</A>.
 #! @Label of a group derivation
 #! @Arguments der
 DeclareGlobalFunction( "Image" );
@@ -933,10 +1040,12 @@ DeclareOperation( "PreImagesRepresentative", [ IsGeneralMapping, IsObject ] );
 #! @EndGroup
 
 #! @BeginGroup
-#! @GroupTitle PreImagges
-#! @Returns the set of all preimages of the element <A>elm</A> under the group derivation <A>der</A>.
+#! @GroupTitle PreImages
+#! @Returns the set of all preimages of the element <A>elm</A> under the group
+#! derivation <A>der</A>.
 #! @Description
-#! This will always be a (right) coset of <C>Kernel</C>( <A>der</A> ), or the empty list.
+#! This will always be a (right) coset of <C>Kernel</C>( <A>der</A> ), or the
+#! empty list.
 #! @Label of an element under a group derivation
 #! @Arguments der, elm
 DeclareGlobalFunction( "PreImages" );
@@ -966,13 +1075,14 @@ PreIm = RightCoset( K, h2 );
 
 #! @Section Images of group derivations
 
-#! In general, the image of a group derivation is not a subgroup. However, it is
-#! still possible to do a membership test, to calculate the number of elements,
-#! and to enumerate the elements if there are only finitely many.
+#! In general, the image of a group derivation is not a subgroup. However, it
+#! is still possible to do a membership test, to calculate the number of
+#! elements, and to enumerate the elements if there are only finitely many.
 
 #! @BeginGroup
 #! @GroupTitle \in
-#! @Returns <K>true</K> if <A>elm</A> is an element of <A>img</A>, otherwise <K>false</K>.
+#! @Returns <K>true</K> if <A>elm</A> is an element of <A>img</A>, otherwise
+#! <K>false</K>.
 #! @Label for an element and a group derivation
 #! @Arguments elm, img
 DeclareOperation( "\in", [ IsObject, IsGroupDerivationImageRep ] );
