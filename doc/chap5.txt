@@ -1,0 +1,106 @@
+  
+  [1X5 [33X[0;0YReidemeister numbers and spectra[133X[101X
+  
+  
+  [1X5.1 [33X[0;0YReidemeister numbers[133X[101X
+  
+  [33X[0;0YThe  number  of  twisted conjugacy classes is called the Reidemeister number
+  and is always a positive integer or infinity.[133X
+  
+  [1X5.1-1 ReidemeisterNumber[101X
+  
+  [33X[1;0Y[29X[2XReidemeisterNumber[102X( [3Xhom1[103X[, [3Xhom2[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XNrTwistedConjugacyClasses[102X( [3Xhom1[103X[, [3Xhom2[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe Reidemeister number of ( [3Xhom1[103X, [3Xhom2[103X ).[133X
+  
+  [33X[0;0YIf  [23XG[123X is abelian, this function relies on (a generalisation of) [Jia83, Thm.
+  2.5].  If  [23XG = H[123X, [23XG[123X is finite non-abelian and [23X\psi = \operatorname{id}_G[123X, it
+  relies  on  [FH94,  Thm.  5].  Otherwise,  it  simply calculates the twisted
+  conjugacy classes and then counts them.[133X
+  
+  
+  [1X5.2 [33X[0;0YReidemeister spectra[133X[101X
+  
+  [33X[0;0YThe  set  of  all  Reidemeister  numbers  of  automorphisms  is  called  the
+  [13XReidemeister spectrum[113X and is denoted by [23X\operatorname{Spec}_R(G)[123X, i.e.[133X
+  
+  
+  [24X[33X[0;6Y\operatorname{Spec}_R(G)    :=    \{\,    R(\varphi)    \mid   \varphi   \in
+  \operatorname{Aut}(G) \,\}.[133X
+  
+  [124X
+  
+  [33X[0;0YThe  set of all Reidemeister numbers of endomorphisms is called the [13Xextended
+  Reidemeister spectrum[113X and is denoted by [23X\operatorname{ESpec}_R(G)[123X, i.e.[133X
+  
+  
+  [24X[33X[0;6Y\operatorname{ESpec}_R(G)    :=    \{\,    R(\varphi)   \mid   \varphi   \in
+  \operatorname{End}(G) \,\}.[133X
+  
+  [124X
+  
+  [33X[0;0YThe set of all Reidemeister numbers of pairs of homomorphisms from a group [23XH[123X
+  to  a group [23XG[123X is called the [13Xcoincidence Reidemeister spectrum[113X of [23XH[123X and [23XG[123X and
+  is denoted by [23X\operatorname{CSpec}_R(H,G)[123X, i.e.[133X
+  
+  
+  [24X[33X[0;6Y\operatorname{CSpec}_R(H,G)  :=  \{\, R(\varphi, \psi) \mid \varphi,\psi \in
+  \operatorname{Hom}(H,G) \,\}.[133X
+  
+  [124X
+  
+  [33X[0;0YIf  [3XH[103X  = [3XG[103X this is also denoted by [23X\operatorname{CSpec}_R(G)[123X. The set of all
+  Reidemeister numbers of pairs of homomorphisms from every group [23XH[123X to a group
+  [23XG[123X   is   called   the   [13Xtotal   Reidemeister  spectrum[113X  and  is  denoted  by
+  [23X\operatorname{TSpec}_R(G)[123X, i.e.[133X
+  
+  
+  [24X[33X[0;6Y\operatorname{TSpec}_R(G) := \bigcup_{H} \operatorname{CSpec}_R(H,G).[133X
+  
+  [124X
+  
+  [33X[0;0YPlease note that the functions below are only implemented for finite groups.[133X
+  
+  [1X5.2-1 ReidemeisterSpectrum[101X
+  
+  [33X[1;0Y[29X[2XReidemeisterSpectrum[102X( [3XG[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe Reidemeister spectrum of [3XG[103X.[133X
+  
+  [33X[0;0YIf  [23XG[123X  is  abelian,  this  function  relies  on  the  results  from [Sen23].
+  Otherwise, it relies on [FH94, Thm. 5].[133X
+  
+  [1X5.2-2 ExtendedReidemeisterSpectrum[101X
+  
+  [33X[1;0Y[29X[2XExtendedReidemeisterSpectrum[102X( [3XG[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe extended Reidemeister spectrum of [3XG[103X.[133X
+  
+  [33X[0;0YIf  [23XG[123X  is  abelian,  this is just the set of all divisors of the order of [3XG[103X.
+  Otherwise, this function relies on [FH94, Thm. 5].[133X
+  
+  [1X5.2-3 CoincidenceReidemeisterSpectrum[101X
+  
+  [33X[1;0Y[29X[2XCoincidenceReidemeisterSpectrum[102X( [[3XH[103X, ][3XG[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe coincidence Reidemeister spectrum of [3XH[103X and [3XG[103X.[133X
+  
+  [1X5.2-4 TotalReidemeisterSpectrum[101X
+  
+  [33X[1;0Y[29X[2XTotalReidemeisterSpectrum[102X( [3XG[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe total Reidemeister spectrum of [3XH[103X and [3XG[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQ := QuaternionGroup( 8 );;[127X[104X
+    [4X[25Xgap>[125X [27XD := DihedralGroup( 8 );;[127X[104X
+    [4X[25Xgap>[125X [27XReidemeisterSpectrum( Q );[127X[104X
+    [4X[28X[ 2, 3, 5 ][128X[104X
+    [4X[25Xgap>[125X [27XExtendedReidemeisterSpectrum( Q );[127X[104X
+    [4X[28X[ 1, 2, 3, 5 ][128X[104X
+    [4X[25Xgap>[125X [27XCoincidenceReidemeisterSpectrum( Q );[127X[104X
+    [4X[28X[ 1, 2, 3, 4, 5, 8 ][128X[104X
+    [4X[25Xgap>[125X [27XCoincidenceReidemeisterSpectrum( D, Q );[127X[104X
+    [4X[28X[ 4, 8 ][128X[104X
+    [4X[25Xgap>[125X [27XCoincidenceReidemeisterSpectrum( Q, D );[127X[104X
+    [4X[28X[ 2, 3, 4, 6, 8 ][128X[104X
+    [4X[25Xgap>[125X [27XTotalReidemeisterSpectrum( Q );[127X[104X
+    [4X[28X[ 1, 2, 3, 4, 5, 6, 8 ][128X[104X
+  [4X[32X[104X
+  

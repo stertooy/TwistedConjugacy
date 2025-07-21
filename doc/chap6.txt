@@ -1,0 +1,76 @@
+  
+  [1X6 [33X[0;0YReidemeister zeta functions[133X[101X
+  
+  
+  [1X6.1 [33X[0;0YReidemeister zeta functions[133X[101X
+  
+  [33X[0;0YLet    [23X\varphi,\psi\colon    G    \to   G[123X   be   endomorphisms   such   that
+  [23XR(\varphi^n,\psi^n) < \infty[123X for all [23Xn \in \mathbb{N}[123X. Then the [13XReidemeister
+  zeta function[113X [23XZ_{\varphi,\psi}(s)[123X of the pair [23X(\varphi,\psi)[123X is defined as[133X
+  
+  
+  [24X[33X[0;6YZ_{\varphi,\psi}(s)  := \exp \sum_{n=1}^\infty \frac{R(\varphi^n,\psi^n)}{n}
+  s^n.[133X
+  
+  [124X
+  
+  [33X[0;0YPlease  note that the functions below are only implemented for endomorphisms
+  of finite groups.[133X
+  
+  [1X6.1-1 ReidemeisterZetaCoefficients[101X
+  
+  [33X[1;0Y[29X[2XReidemeisterZetaCoefficients[102X( [3Xendo1[103X[, [3Xendo2[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ytwo lists of integers.[133X
+  
+  [33X[0;0YFor  a finite group, the sequence of Reidemeister numbers of the iterates of
+  [3Xendo1[103X  and [3Xendo2[103X, i.e. the sequence [10XR([3Xendo1[103X[10X,[3Xendo2[103X[10X)[110X, [10XR([3Xendo1[103X[10X^2,[3Xendo2[103X[10X^2)[110X, ...,
+  is  eventually  periodic.  Thus there exist a periodic sequence [23X(P_n)_{n \in
+  \mathbb{N}}[123X  and  an  eventually zero sequence [23X(Q_n)_{n \in \mathbb{N}}[123X such
+  that[133X
+  
+  
+  [24X[33X[0;6Y\forall n \in \mathbb{N}: R(\varphi^n,\psi^n) = P_n + Q_n.[133X
+  
+  [124X
+  
+  [33X[0;0YThis  function  returns two lists: the first list contains one period of the
+  sequence  [23X(P_n)_{n  \in  \mathbb{N}}[123X,  the second list contains [23X(Q_n)_{n \in
+  \mathbb{N}}[123X up to the part where it becomes the constant zero sequence.[133X
+  
+  [1X6.1-2 IsRationalReidemeisterZeta[101X
+  
+  [33X[1;0Y[29X[2XIsRationalReidemeisterZeta[102X( [3Xendo1[103X[, [3Xendo2[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xtrue[109X  if  the  Reidemeister  zeta  function  of [3Xendo1[103X and [3Xendo2[103X is
+            rational, otherwise [9Xfalse[109X.[133X
+  
+  [1X6.1-3 ReidemeisterZeta[101X
+  
+  [33X[1;0Y[29X[2XReidemeisterZeta[102X( [3Xendo1[103X[, [3Xendo2[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe  Reidemeister  zeta  function  of  [3Xendo1[103X  and  [3Xendo2[103X  if it is
+            rational, otherwise [9Xfail[109X.[133X
+  
+  [1X6.1-4 PrintReidemeisterZeta[101X
+  
+  [33X[1;0Y[29X[2XPrintReidemeisterZeta[102X( [3Xendo1[103X[, [3Xendo2[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya  string  describing  the Reidemeister zeta function of [3Xendo1[103X and
+            [3Xendo2[103X.[133X
+  
+  [33X[0;0YThis  is  often more readable than evaluating [2XReidemeisterZeta[102X ([14X6.1-3[114X) in an
+  indeterminate, and does not require rationality.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xkhi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],[127X[104X
+    [4X[25X>[125X [27X [ (1,2,6,3,5), (1,4,5) ] );;[127X[104X
+    [4X[25Xgap>[125X [27XReidemeisterZetaCoefficients( khi );[127X[104X
+    [4X[28X[ [ 7 ], [  ] ][128X[104X
+    [4X[25Xgap>[125X [27XIsRationalReidemeisterZeta( khi );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XReidemeisterZeta( khi );[127X[104X
+    [4X[28Xfunction( s ) ... end[128X[104X
+    [4X[25Xgap>[125X [27Xs := Indeterminate( Rationals, "s" );;[127X[104X
+    [4X[25Xgap>[125X [27XReidemeisterZeta( khi )(s);[127X[104X
+    [4X[28X(1)/(-s^7+7*s^6-21*s^5+35*s^4-35*s^3+21*s^2-7*s+1)[128X[104X
+    [4X[25Xgap>[125X [27XPrintReidemeisterZeta( khi );[127X[104X
+    [4X[28X"(1-s)^(-7)"[128X[104X
+  [4X[32X[104X
+  

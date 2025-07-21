@@ -1,0 +1,33 @@
+  
+  
+  [1XReferences[101X
+  
+  [[20XBKL+20[120X]  [16XBassino,  F., Kapovich, I., Lohrey, M., Miasnikov, A., Nicaud, C.,
+  Nikolaev, A., Rivin, I., Shpilrain, V., Ushakov, A. and Weil, P.[116X, [17XComplexity
+  and Randomness in Group Theory[117X, De Gruyter (2020).
+  
+  [[20XDT21[120X] [16XDekimpe, K. and Tertooy, S.[116X, [17XAlgorithms for twisted conjugacy classes
+  of polycyclic-by-finite groups[117X, [18XTopology Appl.[118X, [19X293[119X (2021), 107565.
+  
+  [[20XFH94[120X]  [16XFel'shtyn,  A.  and  Hill,  R.[116X,  [17XThe Reidemeister zeta function with
+  applications  to  Nielsen theory and a connection with Reidemeister torsion[117X,
+  [18XK-Theory[118X, [19X8[119X, 4 (1994), 367-393.
+  
+  [[20XJia83[120X] [16XJiang, B.[116X, [17XLectures on Nielsen fixed point theory[117X, Amer. Math. Soc.,
+  Contemp. Math., [19X14[119X (1983).
+  
+  [[20XRom16[120X]  [16XRoman'kov,  V.[116X,  [17XOn  solvability of equations with endomorphisms in
+  nilpotent groups[117X, [18XSib. Elektron. Mat. Izv.[118X, [19X13[119X (2016), 716-725.
+  
+  [[20XRom21[120X]  [16XRoman'kov,  V.[116X,  [17XAlgorithmic  theory  of  solvable  groups[117X,  [18XPrikl.
+  Diskretn. Mat.[118X, [19X52[119X (2021), 16-64.
+  
+  [[20XSen23[120X]  [16XSenden,  P.[116X,  [17XThe  Reidemeister  Spectrum of Finite Abelian Groups[117X,
+  [18XProc. Edinburgh Math. Soc.[118X, [19X66[119X, 4 (2023), 940-959.
+  
+  [[20XTer25[120X]   [16XTertooy,   S.[116X,   [17XAlgorithms   for  twisted  conjugacy  classes  of
+  polycyclic-by-finite groups II[117X (2025), (arXiv:2504.03596 [math.GR]).
+  
+  
+  
+  [32X

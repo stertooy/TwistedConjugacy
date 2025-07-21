@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (TwistedConjugacy) - Chapter 9: Group derivations</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap9"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap8_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap9.html">[MathJax off]</a></p>
+<p><a id="X7B8C20A9826087E1" name="X7B8C20A9826087E1"></a></p>
+<div class="ChapSects"><a href="chap9_mj.html#X7B8C20A9826087E1">9 <span class="Heading">Group derivations</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap9_mj.html#X7AAB25B587D3DF70">9.1 <span class="Heading">Creating group derivations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9_mj.html#X8303ADE37FFAA109">9.1-1 GroupDerivationByImages</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9_mj.html#X7C9D096A7B996E89">9.1-2 GroupDerivationByFunction</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap9_mj.html#X7AE626D685C68CF0">9.2 <span class="Heading">Operations for group derivations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9_mj.html#X7F065FD7822C0A12">9.2-1 <span class="Heading">IsInjective</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9_mj.html#X784ECE847E005B8F">9.2-2 <span class="Heading">IsSurjective</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9_mj.html#X878F56AB7B342767">9.2-3 <span class="Heading">IsBijective</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9_mj.html#X7DCD99628504B810">9.2-4 <span class="Heading">Kernel</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9_mj.html#X87F4D35A826599C6">9.2-5 <span class="Heading">Image</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9_mj.html#X7AE24A1586B7DE79">9.2-6 <span class="Heading">PreImagesRepresentative</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9_mj.html#X85C8590E832002EF">9.2-7 <span class="Heading">PreImages</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap9_mj.html#X801FDEFE8155D0B1">9.3 <span class="Heading">Images of group derivations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9_mj.html#X87BDB89B7AAFE8AD">9.3-1 <span class="Heading">\in</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9_mj.html#X858ADA3B7A684421">9.3-2 <span class="Heading">Size</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9_mj.html#X7EBA57FC7CCF8449">9.3-3 <span class="Heading">List</span></a>
+</span>
+</div></div>
+</div>
+
+<h3>9 <span class="Heading">Group derivations</span></h3>
+
+<p>Let <span class="SimpleMath">\(G\)</span> and <span class="SimpleMath">\(H\)</span> be groups and let <span class="SimpleMath">\(H\)</span> act on <span class="SimpleMath">\(G\)</span> via automorphisms, i.e. there is a group homomorphism</p>
+
+<p class="center">\[\alpha \colon H \to \operatorname{Aut}(G)\]</p>
+
+<p>such that <span class="SimpleMath">\(g^h = \alpha(h)(g)\)</span> for all <span class="SimpleMath">\(g \in G\)</span> and <span class="SimpleMath">\(h \in H\)</span>. A <em>group derivation</em> <span class="SimpleMath">\(\delta \colon H \to G\)</span> is a map such that</p>
+
+<p class="center">\[\delta(h_1h_2) = \delta(h_1)^{h_2}\delta(h_2).\]</p>
+
+<p>Note that we do not require <span class="SimpleMath">\(G\)</span> to be abelian.</p>
+
+<p>Algorithms designed for computing with twisted conjugacy classes can be leveraged to do computations involving group derivations, see <a href="chapBib_mj.html#biBtert25-a">[Ter25, Sec. 10]</a> for a description on this.</p>
+
+<p>Please note that the functions in this section require <span class="SimpleMath">\(G\)</span> and <span class="SimpleMath">\(H\)</span> to either both be finite, or both be PcpGroups.</p>
+
+<p><a id="X7AAB25B587D3DF70" name="X7AAB25B587D3DF70"></a></p>
+
+<h4>9.1 <span class="Heading">Creating group derivations</span></h4>
+
+<p>The functions below only work for derivations between finite groups or between PcpGroups.</p>
+
+<p><a id="X8303ADE37FFAA109" name="X8303ADE37FFAA109"></a></p>
+
+<h5>9.1-1 GroupDerivationByImages</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GroupDerivationByImages</code>( <var class="Arg">H</var>, <var class="Arg">G</var>[[, <var class="Arg">gens</var>], <var class="Arg">imgs</var>], <var class="Arg">act</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GroupDerivationByImagesNC</code>( <var class="Arg">H</var>, <var class="Arg">G</var>[[, <var class="Arg">gens</var>], <var class="Arg">imgs</var>], <var class="Arg">act</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: the specified group derivation, or <code class="keyw">fail</code> if the given arguments do not define a derivation.</p>
+
+<p>This works in the same vein as <code class="func">GroupHomomorphismByImages</code> (<a href="https://docs.gap-system.org/doc/ref/chap40_mj.html#X7F348F497C813BE0"><span class="RefLink">Ref 40.1-1</span></a>). The group <var class="Arg">H</var> acts on the group <var class="Arg">G</var> via <var class="Arg">act</var>, which must be a homomorphism from <var class="Arg">H</var> into a group of automorphisms of <var class="Arg">G</var>. This command then returns the group derivation defined by mapping the list <var class="Arg">gens</var> of generators of <var class="Arg">H</var> to the list <var class="Arg">imgs</var> of images in <var class="Arg">G</var>.</p>
+
+<p>If omitted, the arguments <var class="Arg">gens</var> and <var class="Arg">imgs</var> default to the <code class="code">GeneratorsOfGroup</code> value of <var class="Arg">H</var> and <var class="Arg">G</var> respectively.</p>
+
+<p>This function checks whether <var class="Arg">gens</var> generate <var class="Arg">H</var> and whether the mapping of the generators extends to a group derivation. This test can be expensive, so if one is certain that the given arguments produce a group derivation, these checks can be avoided by using the <code class="code">NC</code> version.</p>
+
+<p><a id="X7C9D096A7B996E89" name="X7C9D096A7B996E89"></a></p>
+
+<h5>9.1-2 GroupDerivationByFunction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GroupDerivationByFunction</code>( <var class="Arg">H</var>, <var class="Arg">G</var>, <var class="Arg">fun</var>, <var class="Arg">act</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: the specified group derivation.</p>
+
+<p><code class="code">GroupDerivationByFunction</code> works in the same vein as <code class="func">GroupHomomorphismByFunction</code> (<a href="https://docs.gap-system.org/doc/ref/chap40_mj.html#X7BC6C20E7CEDBFC5"><span class="RefLink">Ref 40.1-4</span></a>). The group <var class="Arg">H</var> acts on the group <var class="Arg">G</var> via <var class="Arg">act</var>, which must be a homomorphism from <var class="Arg">H</var> into a group of automorphisms of <var class="Arg">G</var>. This command then returns the group derivation defined by mapping the element <code class="code">h</code> of <var class="Arg">H</var> to the element <var class="Arg">fun</var>( <code class="code">h</code> ) of <var class="Arg">G</var>, where <var class="Arg">fun</var> is a <strong class="pkg">GAP</strong> function.</p>
+
+<p>No tests are performed to check whether the arguments really produce a group derivation.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H := PcGroupCode( 149167619499417164, 72 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := PcGroupCode( 5551210572, 72 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">inn := InnerAutomorphism( G, G.2 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">hom := GroupHomomorphismByImages(</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     G, G,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     [ G.1*G.2, G.5 ], [ G.1*G.2^2*G.3^2*G.4, G.5 ]</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">act := GroupHomomorphismByImages(</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     H, AutomorphismGroup( G ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     [ H.2, H.1*H.4 ], [ inn, hom ]</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gens := [ H.2, H.1*H.4 ];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">imgs := [ G.5, G.2 ];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">der := GroupDerivationByImages( H, G, gens, imgs, act );</span>
+Group derivation [ f2, f1*f4 ] -&gt; [ f5, f2 ]
+</pre></div>
+
+<p><a id="X7AE626D685C68CF0" name="X7AE626D685C68CF0"></a></p>
+
+<h4>9.2 <span class="Heading">Operations for group derivations</span></h4>
+
+<p>Many of the functions, operations, attributes... available to group homomorphisms are available for group derivations as well. We list some of the more useful ones.</p>
+
+<p><a id="X7F065FD7822C0A12" name="X7F065FD7822C0A12"></a></p>
+
+<h5>9.2-1 <span class="Heading">IsInjective</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsInjective</code>( <var class="Arg">der</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="keyw">true</code> if the group derivation <var class="Arg">der</var> is injective, otherwise <code class="keyw">false</code>.</p>
+
+<p><a id="X784ECE847E005B8F" name="X784ECE847E005B8F"></a></p>
+
+<h5>9.2-2 <span class="Heading">IsSurjective</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSurjective</code>( <var class="Arg">der</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="keyw">true</code> if the group derivation <var class="Arg">der</var> is surjective, otherwise <code class="keyw">false</code>.</p>
+
+<p><a id="X878F56AB7B342767" name="X878F56AB7B342767"></a></p>
+
+<h5>9.2-3 <span class="Heading">IsBijective</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsBijective</code>( <var class="Arg">der</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="keyw">true</code> if the group derivation <var class="Arg">der</var> is bijjective, otherwise <code class="keyw">false</code>.</p>
+
+<p><a id="X7DCD99628504B810" name="X7DCD99628504B810"></a></p>
+
+<h5>9.2-4 <span class="Heading">Kernel</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Kernel</code>( <var class="Arg">der</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: the set of elements that are mapped to the identity by <var class="Arg">der</var>.</p>
+
+<p>This will always be a subgroup of <code class="code">Source</code>(<var class="Arg">der</var>).</p>
+
+<p><a id="X87F4D35A826599C6" name="X87F4D35A826599C6"></a></p>
+
+<h5>9.2-5 <span class="Heading">Image</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Image</code>( <var class="Arg">der</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Image</code>( <var class="Arg">der</var>, <var class="Arg">elm</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Image</code>( <var class="Arg">der</var>, <var class="Arg">coll</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: the image of the group derivation <var class="Arg">der</var>.</p>
+
+<p>One can optionally give an element <var class="Arg">elm</var> or a subgroup <var class="Arg">sub</var> as a second argument, in which case <code class="code">Image</code> will calculate the image of this argument under <var class="Arg">der</var>.</p>
+
+<p><a id="X7AE24A1586B7DE79" name="X7AE24A1586B7DE79"></a></p>
+
+<h5>9.2-6 <span class="Heading">PreImagesRepresentative</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PreImagesRepresentative</code>( <var class="Arg">der</var>, <var class="Arg">elm</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: a preimage of the element <var class="Arg">elm</var> under the group derivation <var class="Arg">der</var>, or <code class="keyw">fail</code> if no preimage exists.</p>
+
+<p><a id="X85C8590E832002EF" name="X85C8590E832002EF"></a></p>
+
+<h5>9.2-7 <span class="Heading">PreImages</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PreImages</code>( <var class="Arg">der</var>, <var class="Arg">elm</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: the set of all preimages of the element <var class="Arg">elm</var> under the group derivation <var class="Arg">der</var>.</p>
+
+<p>This will always be a (right) coset of <code class="code">Kernel</code>( <var class="Arg">der</var> ), or the empty list.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsInjective( der ) or IsSurjective( der );</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">K := Kernel( der );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size( K );</span>
+9
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ImH := Image( der );</span>
+Group derivation image in Group( [ f1, f2, f3, f4, f5 ] )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">h1 := H.1*H.3;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g := Image( der, h1 );</span>
+f2*f4
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ImK := Image( der, K );</span>
+Group derivation image in Group( [ f1, f2, f3, f4, f5 ] )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">h2 := PreImagesRepresentative( der, g );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Image( der, h2 ) = g;</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PreIm := PreImages( der, g );</span>
+RightCoset(&lt;group of size 9 with 2 generators&gt;,&lt;object&gt;)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PreIm = RightCoset( K, h2 );</span>
+true
+</pre></div>
+
+<p><a id="X801FDEFE8155D0B1" name="X801FDEFE8155D0B1"></a></p>
+
+<h4>9.3 <span class="Heading">Images of group derivations</span></h4>
+
+<p>In general, the image of a group derivation is not a subgroup. However, it is still possible to do a membership test, to calculate the number of elements, and to enumerate the elements if there are only finitely many.</p>
+
+<p><a id="X87BDB89B7AAFE8AD" name="X87BDB89B7AAFE8AD"></a></p>
+
+<h5>9.3-1 <span class="Heading">\in</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \in</code>( <var class="Arg">elm</var>, <var class="Arg">img</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="keyw">true</code> if <var class="Arg">elm</var> is an element of <var class="Arg">img</var>, otherwise <code class="keyw">false</code>.</p>
+
+<p><a id="X858ADA3B7A684421" name="X858ADA3B7A684421"></a></p>
+
+<h5>9.3-2 <span class="Heading">Size</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Size</code>( <var class="Arg">img</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Returns: the number of elements in <var class="Arg">img</var>.</p>
+
+<p><a id="X7EBA57FC7CCF8449" name="X7EBA57FC7CCF8449"></a></p>
+
+<h5>9.3-3 <span class="Heading">List</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; List</code>( <var class="Arg">img</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: a list containing the elements of <var class="Arg">img</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size( ImH );</span>
+8
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size( ImK );</span>
+1
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g in ImH;</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g in ImK;</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( ImK );</span>
+[ &lt;identity&gt; of ... ]
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap8_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

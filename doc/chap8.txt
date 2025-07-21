@@ -1,0 +1,133 @@
+  
+  [1X8 [33X[0;0YGroup homomorphisms[133X[101X
+  
+  
+  [1X8.1 [33X[0;0YRepresentatives of homomorphisms between groups[133X[101X
+  
+  [33X[0;0YPlease note that the functions below are only implemented for finite groups.[133X
+  
+  [1X8.1-1 RepresentativesAutomorphismClasses[101X
+  
+  [33X[1;0Y[29X[2XRepresentativesAutomorphismClasses[102X( [3XG[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya  list  of  the  automorphisms  of [3XG[103X up to composition with inner
+            automorphisms.[133X
+  
+  [1X8.1-2 RepresentativesEndomorphismClasses[101X
+  
+  [33X[1;0Y[29X[2XRepresentativesEndomorphismClasses[102X( [3XG[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya  list  of  the  endomorphisms  of [3XG[103X up to composition with inner
+            automorphisms.[133X
+  
+  [33X[0;0YThis  does  the  same  as calling [10XAllHomomorphismClasses([3XG[103X[10X,[3XG[103X[10X)[110X, but should be
+  faster  for abelian and non-2-generated groups. For 2-generated groups, this
+  function  behaves  nearly  identical  to  [2XAllHomomorphismClasses[102X ([14XReference:
+  AllHomomorphismClasses[114X).[133X
+  
+  [1X8.1-3 RepresentativesHomomorphismClasses[101X
+  
+  [33X[1;0Y[29X[2XRepresentativesHomomorphismClasses[102X( [3XH[103X, [3XG[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya  list  of  the homomorphisms from [3XH[103X to [3XG[103X, up to composition with
+            inner automorphisms of [3XG[103X.[133X
+  
+  [33X[0;0YThis  does  the  same  as calling [10XAllHomomorphismClasses([3XH[103X[10X,[3XG[103X[10X)[110X, but should be
+  faster  for abelian and non-2-generated groups. For 2-generated groups, this
+  function  behaves  nearly  identical  to  [2XAllHomomorphismClasses[102X ([14XReference:
+  AllHomomorphismClasses[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XG := SymmetricGroup( 6 );;[127X[104X
+    [4X[25Xgap>[125X [27XAuts := RepresentativesAutomorphismClasses( G );;[127X[104X
+    [4X[25Xgap>[125X [27XSize( Auts );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XForAll( Auts, IsGroupHomomorphism and IsEndoMapping and IsBijective );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XEnds := RepresentativesEndomorphismClasses( G );;[127X[104X
+    [4X[25Xgap>[125X [27XSize( Ends );[127X[104X
+    [4X[28X6[128X[104X
+    [4X[25Xgap>[125X [27XForAll( Ends, IsGroupHomomorphism and IsEndoMapping );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XH := SymmetricGroup( 5 );;[127X[104X
+    [4X[25Xgap>[125X [27XHoms := RepresentativesHomomorphismClasses( H, G );;[127X[104X
+    [4X[25Xgap>[125X [27XSize( Homs );[127X[104X
+    [4X[28X6[128X[104X
+    [4X[25Xgap>[125X [27XForAll( Homs, IsGroupHomomorphism );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X8.2 [33X[0;0YCoincidence and fixed point groups[133X[101X
+  
+  [1X8.2-1 FixedPointGroup[101X
+  
+  [33X[1;0Y[29X[2XFixedPointGroup[102X( [3Xendo[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe  subgroup  of  [10XSource([3Xendo[103X[10X)[110X  consisting  of the elements fixed
+            under the endomorphism [3Xendo[103X.[133X
+  
+  [1X8.2-2 CoincidenceGroup[101X
+  
+  [33X[1;0Y[29X[2XCoincidenceGroup[102X( [3Xhom1[103X, [3Xhom2[103X[, [3X...[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe  subgroup  of  [10XSource([3Xhom1[103X[10X)[110X  consisting  of the elements [10Xh[110X for
+            which [10Xh^[3Xhom1[103X[10X[110X = [10Xh^[3Xhom2[103X[10X[110X = ...[133X
+  
+  [33X[0;0YFor  infinite  non-abelian  groups, this function relies on a mixture of the
+  algorithms described in [Rom16, Thm. 2], [BKL+20, Sec. 5.4] and [Rom21, Sec.
+  7].[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xphi := GroupHomomorphismByImages( G, G, [ (1,2,5,6,4), (1,2)(3,6)(4,5) ],[127X[104X
+    [4X[25X>[125X [27X [ (2,3,4,5,6), (1,2) ] );;[127X[104X
+    [4X[25Xgap>[125X [27XSet( FixedPointGroup( phi ) );[127X[104X
+    [4X[28X[ (), (1,2,3,6,5), (1,3,5,2,6), (1,5,6,3,2), (1,6,2,5,3) ][128X[104X
+    [4X[25Xgap>[125X [27Xpsi := GroupHomomorphismByImages( H, G, [ (1,2,3,4,5), (1,2) ],[127X[104X
+    [4X[25X>[125X [27X [ (), (1,2) ] );;[127X[104X
+    [4X[25Xgap>[125X [27Xkhi := GroupHomomorphismByImages( H, G, [ (1,2,3,4,5), (1,2) ],[127X[104X
+    [4X[25X>[125X [27X [ (), (1,2)(3,4) ] );;[127X[104X
+    [4X[25Xgap>[125X [27XCoincidenceGroup( psi, khi ) = AlternatingGroup( 5 );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X8.3 [33X[0;0YInduced and restricted group homomorphisms[133X[101X
+  
+  [1X8.3-1 InducedHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XInducedHomomorphism[102X( [3Xepi1[103X, [3Xepi2[103X, [3Xhom[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe  homomorphism  induced  by  [3Xhom[103X between the images of [3Xepi1[103X and
+            [3Xepi2[103X.[133X
+  
+  [33X[0;0YLet  [3Xhom[103X be a group homomorphism from a group [10XH[110X to a group [10XG[110X, let [3Xepi1[103X be an
+  epimorphism  from  [10XH[110X to a group [10XQ[110X and let [3Xepi2[103X be an epimorphism from [10XG[110X to a
+  group  [10XP[110X  such  that the kernel of [3Xepi1[103X is mapped into the kernel of [3Xepi2[103X by
+  [3Xhom[103X.  This  command returns the homomorphism from [10XQ[110X to [10XP[110X that maps [10Xh^[3Xepi1[103X[10X[110X to
+  [10X(h^[3Xhom[103X[10X)^[3Xepi2[103X[10X[110X,   for   any   element   [10Xh[110X  of  [10XH[110X.  This  function  generalises
+  [2XInducedAutomorphism[102X ([14XReference: InducedAutomorphism[114X) to homomorphisms.[133X
+  
+  [1X8.3-2 RestrictedHomomorphism[101X
+  
+  [33X[1;0Y[29X[2XRestrictedHomomorphism[102X( [3Xhom[103X, [3XN[103X, [3XM[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe homomorphism [3Xhom[103X, but restricted as a map from [3XN[103X to [3XM[103X.[133X
+  
+  [33X[0;0YLet  [3Xhom[103X  be  a group homomorphism from a group [10XH[110X to a group [10XG[110X, and let [3XN[103X be
+  subgroup of [10XH[110X such that its image under [3Xhom[103X is a subgroup of [3XM[103X. This command
+  returns  the homomorphism from [3XN[103X to [3XM[103X that maps [10Xn[110X to [10Xn^[3Xhom[103X[10X[110X for any element [10Xn[110X
+  of  [3XN[103X. No checks are made to verify that [3Xhom[103X maps [3XN[103X into [3XM[103X. This function is
+  similar  to  [2XRestrictedMapping[102X ([14XReference: RestrictedMapping[114X), but its range
+  is explicitly set to [3XM[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XG := PcGroupCode( 1018013, 28 );;[127X[104X
+    [4X[25Xgap>[125X [27Xphi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ],[127X[104X
+    [4X[25X>[125X [27X [ G.1*G.2*G.3^2, G.3^4 ] );;[127X[104X
+    [4X[25Xgap>[125X [27XN := DerivedSubgroup( G );;[127X[104X
+    [4X[25Xgap>[125X [27Xp := NaturalHomomorphismByNormalSubgroup( G, N );[127X[104X
+    [4X[28X[ f1, f2, f3 ] -> [ f1, f2, <identity> of ... ][128X[104X
+    [4X[25Xgap>[125X [27Xind := InducedHomomorphism( p, p, phi );[127X[104X
+    [4X[28X[ f1 ] -> [ f1*f2 ][128X[104X
+    [4X[25Xgap>[125X [27XSource( ind ) = Range( p ) and Range( ind ) = Range( p );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xres := RestrictedHomomorphism( phi, N, N );[127X[104X
+    [4X[28X[ f3 ] -> [ f3^4 ][128X[104X
+    [4X[25Xgap>[125X [27XSource( res ) = N and Range( res ) = N;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  

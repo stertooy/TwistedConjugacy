@@ -1,0 +1,110 @@
+  
+  [1X3 [33X[0;0YTwisted conjugacy[133X[101X
+  
+  
+  [1X3.1 [33X[0;0YThe twisted conjugation action[133X[101X
+  
+  [33X[0;0YLet [23XG[123X and [23XH[123X be groups and let [23X\varphi[123X and [23X\psi[123X be group homomorphisms from [23XH[123X
+  to [23XG[123X. The pair [23X(\varphi,\psi)[123X induces a (right) group action of [23XH[123X on [23XG[123X given
+  by the map[133X
+  
+  
+  [24X[33X[0;6YG \times H \to G \colon (g,h) \mapsto \varphi(h)^{-1} g\,\psi(h).[133X
+  
+  [124X
+  
+  [33X[0;0YThis group action is called [13X[23X(\varphi,\psi)[123X-twisted conjugation[113X.[133X
+  
+  [33X[0;0YIf  [23XG  =  H[123X, [23X\varphi[123X is an endomorphism of [23XG[123X and [23X\psi = \operatorname{id}_G[123X,
+  then  the  action is usually called [13X[23X\varphi[123X-twisted conjugation[113X. In general,
+  for the [5XTwistedConjugacy[105X package, many functions will take two homomorphisms
+  [3Xhom1[103X and [3Xhom2[103X as arguments. However, if [3Xhom1[103X is an endomorphism, [3Xhom2[103X can be
+  omitted, in which case it is automatically taken to be the identity map.[133X
+  
+  [33X[0;0YSimilarly,  some functions will take two elements [3Xg1[103X and [3Xg2[103X as arguments. If
+  [3Xg2[103X is omitted, it is automatically taken to be the identity element.[133X
+  
+  [1X3.1-1 TwistedConjugation[101X
+  
+  [33X[1;0Y[29X[2XTwistedConjugation[102X( [3Xhom1[103X[, [3Xhom2[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya function that maps the pair [10X(g,h)[110X to [3Xhom1[103X[10X(h)⁻¹[110X [10Xg[110X [3Xhom2[103X[10X(h)[110X.[133X
+  
+  
+  [1X3.2 [33X[0;0YThe twisted conjugacy (search) problem[133X[101X
+  
+  [33X[0;0YGiven  groups  [23XG[123X and [23XH[123X, group homomorphisms [23X\varphi[123X and [23X\psi[123X from [23XH[123X to [23XG[123X and
+  elements  [23Xg_1,  g_2  \in  G[123X,  the  [13Xtwisted conjugacy problem[113X is the decision
+  problem  that asks whether [23Xg_1[123X and [23Xg_2[123X are [23X(\varphi,\psi)[123X-twisted conjugate.
+  The  [13Xtwisted  conjugacy  search  problem[113X  is  the  problem of determining an
+  explicit  [23Xh[123X  such that [23X\varphi(h)^{-1}g_1\psi(h) = g_2[123X (under the assumption
+  that such [23Xh[123X exists).[133X
+  
+  [1X3.2-1 IsTwistedConjugate[101X
+  
+  [33X[1;0Y[29X[2XIsTwistedConjugate[102X( [3Xhom1[103X[, [3Xhom2[103X], [3Xg1[103X[, [3Xg2[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xtrue[109X  if  [3Xg1[103X  and  [3Xg2[103X are [10X([3Xhom1[103X[10X,[3Xhom2[103X[10X)[110X-twisted conjugate, otherwise
+            [9Xfalse[109X.[133X
+  
+  [1X3.2-2 RepresentativeTwistedConjugation[101X
+  
+  [33X[1;0Y[29X[2XRepresentativeTwistedConjugation[102X( [3Xhom1[103X[, [3Xhom2[103X], [3Xg1[103X[, [3Xg2[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yan  element  that  maps  [3Xg1[103X  to  [3Xg2[103X  under the [10X([3Xhom1[103X[10X,[3Xhom2[103X[10X)[110X-twisted
+            conjugacy action, or [9Xfail[109X if no such element exists.[133X
+  
+  [33X[0;0YIf  the  source  group  is  finite, this function relies on orbit-stabiliser
+  algorithms  provided  by  [5XGAP[105X.  Otherwise,  it  relies  on  a mixture of the
+  algorithms described in [Rom16, Thm. 3], [BKL+20, Sec. 5.4], [Rom21, Sec. 7]
+  and [DT21].[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XG := AlternatingGroup( 6 );;[127X[104X
+    [4X[25Xgap>[125X [27XH := SymmetricGroup( 5 );;[127X[104X
+    [4X[25Xgap>[125X [27Xphi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],[127X[104X
+    [4X[25X>[125X [27X [ (1,4)(3,6), () ] );;[127X[104X
+    [4X[25Xgap>[125X [27Xpsi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],[127X[104X
+    [4X[25X>[125X [27X [ (1,2)(3,4), () ] );;[127X[104X
+    [4X[25Xgap>[125X [27Xtc := TwistedConjugation( phi, psi );;[127X[104X
+    [4X[25Xgap>[125X [27Xg1 := (4,6,5);;[127X[104X
+    [4X[25Xgap>[125X [27Xg2 := (1,6,4,2)(3,5);;[127X[104X
+    [4X[25Xgap>[125X [27XIsTwistedConjugate( psi, phi, g1, g2 );[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xh := RepresentativeTwistedConjugation( phi, psi, g1, g2 );[127X[104X
+    [4X[28X(1,2)[128X[104X
+    [4X[25Xgap>[125X [27Xtc( g1, h ) = g2;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X3.3 [33X[0;0YThe multiple twisted conjugacy (search) problem[133X[101X
+  
+  [33X[0;0YLet  [23XH[123X  and  [23XG_1,  \ldots, G_n[123X be groups. For each [23Xi \in \{1,\ldots,n\}[123X, let
+  [23Xg_i,g_i'  \in  G_i[123X  and  let  [23X\varphi_i,\psi_i\colon  H  \to  G_i[123X  be  group
+  homomorphisms.  The  [13Xmultiple  twisted  conjugacy  problem[113X  is  the decision
+  problem   that   asks   whether   there  exists  some  [23Xh  \in  H[123X  such  that
+  [23X\varphi_i(h)^{-1}g_i\psi_i(h)  =  g_i'[123X  for  all  [23Xi  \in \{1,\ldots,n\}[123X. The
+  [13Xmultiple  twisted  conjugacy search problem[113X is the problem of determining an
+  explicit  [23Xh[123X  such  that  [23X\varphi_i(h)^{-1}g_i\psi_i(h)  = g_i'[123X for all [23Xi \in
+  \{1,\ldots,n\}[123X (under the assumption that such [23Xh[123X exists).[133X
+  
+  [33X[0;0Y[2XIsTwistedConjugate[102X  ([14X3.2-1[114X) and [2XRepresentativeTwistedConjugation[102X ([14X3.2-2[114X) can
+  take lists instead of their usual arguments to solve these problems.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XH := SymmetricGroup( 5 );;[127X[104X
+    [4X[25Xgap>[125X [27XG := AlternatingGroup( 6 );;[127X[104X
+    [4X[25Xgap>[125X [27Xphi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],[127X[104X
+    [4X[25X>[125X [27X [ (1,4)(3,6), () ] );;[127X[104X
+    [4X[25Xgap>[125X [27Xpsi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],[127X[104X
+    [4X[25X>[125X [27X [ (1,2)(3,4), () ] );;[127X[104X
+    [4X[25Xgap>[125X [27Xtau := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],[127X[104X
+    [4X[25X>[125X [27X [ (1,2)(3,6), () ] );;[127X[104X
+    [4X[25Xgap>[125X [27Xkhi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],[127X[104X
+    [4X[25X>[125X [27X [ (1,3)(4,6), () ] );;[127X[104X
+    [4X[25Xgap>[125X [27XIsTwistedConjugate( [ phi, psi ], [ khi, tau ],[127X[104X
+    [4X[25X>[125X [27X [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XRepresentativeTwistedConjugation( [ phi, psi ], [ khi, tau ],[127X[104X
+    [4X[25X>[125X [27X [ (1,5)(4,6), (1,4)(3,5) ], [ (1,4,5,3,6), (2,4,5,6,3) ] );[127X[104X
+    [4X[28X(1,2)[128X[104X
+  [4X[32X[104X
+  
