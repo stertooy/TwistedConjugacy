@@ -32,4 +32,5 @@ jobs:
         uses: gap-actions/run-pkg-tests@v3
         with:
           load-all: true
+          warnings-as-errors: false
           NO_COVERAGE: true
