@@ -29,6 +29,7 @@ jobs:
           ALL_PACKAGES: true
 
       - name: "Run package tests with all packages"
-        uses: sTertooy/gda-test-pkg@v1
+        uses: gap-actions/run-pkg-tests@v3
         with:
-          ALL_PACKAGES: true
+          load-all: true
+          NO_COVERAGE: true
