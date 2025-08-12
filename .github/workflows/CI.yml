@@ -25,7 +25,7 @@ jobs:
     steps:
 
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: "Run package tests with minimal packages"
         uses: gap-actions/run-pkg-tests@v3
@@ -64,18 +64,23 @@ jobs:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name 
 
     container:
-      image: ghcr.io/stertooy/gda-image:tex-slim
+      image: ghcr.io/stertooy/gda-image:master-full
 
     steps:
 
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: "Validate CITATION.cff"
         uses: citation-file-format/cffconvert-github-action@2.0.0
         with:
           args: "--validate"
-
+          
+      - name: "Test GAPROOT"
+        shell: bash
+        run: |
+          echo "GAPROOT IS $GAPROOT"
+          
       - name: "Build manual"
         uses: gap-actions/build-pkg-docs@v1.3.2
 
@@ -98,7 +103,7 @@ jobs:
     steps:
     
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: "Setup Python"
         uses: actions/setup-python@v5
