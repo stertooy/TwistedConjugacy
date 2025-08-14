@@ -76,11 +76,6 @@ jobs:
         with:
           args: "--validate"
           
-      - name: "Test GAPROOT"
-        shell: bash
-        run: |
-          echo "GAPROOT IS $GAPROOT"
-          
       - name: "Build manual"
         uses: gap-actions/build-pkg-docs@v1.3.2
 
