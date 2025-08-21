@@ -52,6 +52,100 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
+## OrbitAffineAction( K, g, derv )
+##
+##  INPUT:
+##      K:          subgroup of H
+##      g:          element of G
+##      derv:       group derivation H -> G
+##
+##  OUTPUT:
+##      orb:        the orbit of g under the affine action of derv
+##
+InstallGlobalFunction(
+    OrbitAffineAction,
+    function( K, g, derv )
+        local G, map, emb, s, tcc, orb;
+        G := Range( derv );
+        map := FourMapsForAffineAction@( K, derv );
+        emb := map[3];
+        s := ImagesRepresentative( emb, g );
+        tcc := ReidemeisterClass( map[1], map[2], s );
+        orb := rec(
+            tcc := tcc,
+            emb := emb
+        );
+        ObjectifyWithAttributes(
+            orb, NewType(
+                FamilyObj( G ),
+                IsOrbitAffineActionRep and
+                HasRepresentative and
+                HasActingDomain and
+                HasFunctionAction
+            ),
+            Representative, g,
+            ActingDomain, K,
+            FunctionAction, map[4]
+        );
+        return orb;
+    end
+);
+
+###############################################################################
+##
+## OrbitsAffineAction( K, derv )
+##
+##  INPUT:
+##      K:          subgroup of H
+##      derv:       group derivation H -> G
+##
+##  OUTPUT:
+##      L:          list containing the orbits of the affine action of derv, or
+##                  fail if there are infinitely many
+##
+InstallGlobalFunction(
+    OrbitsAffineAction,
+    function( K, derv )
+        local G, map, emb, iG, R, reps;
+        G := Range( derv );
+        map := FourMapsForAffineAction@( K, derv );
+        emb := map[3];
+        iG := ImagesSet( emb, G );
+        R := RepresentativesReidemeisterClasses( map[1], map[2], iG );
+        reps := List( R, s -> PreImagesRepresentative( emb, s ) );
+        return List( reps, g -> OrbitAffineAction( K, g, derv ) );
+    end
+);
+
+###############################################################################
+##
+## NrOrbitsAffineAction( K, derv )
+##
+##  INPUT:
+##      K:          subgroup of H
+##      derv:       group derivation H -> G
+##
+##  OUTPUT:
+##      R:          the number of orbits of the affine action of derv
+##
+InstallGlobalFunction(
+    NrOrbitsAffineAction,
+    function( K, derv )
+        local G, map, emb, iG, R;
+        G := Range( derv );
+        map := FourMapsForAffineAction@( K, derv );
+        emb := map[3];
+        iG := ImagesSet( emb, G );
+        R := RepresentativesReidemeisterClasses( map[1], map[2], iG );
+        if IsBool( R ) then
+            return infinity;
+        fi;
+        return Length( R );
+    end
+);
+
+###############################################################################
+##
 ## StabilizerAffineAction( K, g, derv )
 ##
 ##  INPUT:
@@ -93,47 +187,6 @@ InstallGlobalFunction(
         s1 := ImagesRepresentative( map[3], g1 );
         s2 := ImagesRepresentative( map[3], g2 );
         return RepresentativeTwistedConjugation( map[1], map[2], s1, s2 );
-    end
-);
-
-###############################################################################
-##
-## OrbitAffineAction( K, g, derv )
-##
-##  INPUT:
-##      K:          subgroup of H
-##      g:          element of G
-##      derv:       group derivation H -> G
-##
-##  OUTPUT:
-##      orb:        the orbit of g under the affine action of derv
-##
-InstallGlobalFunction(
-    OrbitAffineAction,
-    function( K, g, derv )
-        local G, map, emb, s, tcc, orb;
-        G := Range( derv );
-        map := FourMapsForAffineAction@( K, derv );
-        emb := map[3];
-        s := ImagesRepresentative( emb, g );
-        tcc := ReidemeisterClass( map[1], map[2], s );
-        orb := rec(
-            tcc := tcc,
-            emb := emb
-        );
-        ObjectifyWithAttributes(
-            orb, NewType(
-                FamilyObj( G ),
-                IsOrbitAffineActionRep and
-                HasRepresentative and
-                HasActingDomain and
-                HasFunctionAction
-            ),
-            Representative, g,
-            ActingDomain, K,
-            FunctionAction, map[4]
-        );
-        return orb;
     end
 );
 

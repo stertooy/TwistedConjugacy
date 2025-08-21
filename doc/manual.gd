@@ -1161,7 +1161,8 @@ DeclareGlobalFunction( "OrbitAffineAction" );
 #! @BeginGroup
 #! @GroupTitle OrbitsAffineAction
 #! @Returns a list containing the orbits under the affine action of <A>K</A>
-#! via <A>der</A>.
+#! via <A>der</A> if there are finitely many, or <K>fail</K> if there are
+#! infinitely many.
 #! @Arguments K, der
 DeclareGlobalFunction( "OrbitsAffineAction" );
 #! @EndGroup
