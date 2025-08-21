@@ -1,3 +1,17 @@
+###############################################################################
+##
+## FourMapsForAffineAction@( K, derv )
+##
+##  INPUT:
+##      K:          subgroup of H
+##      derv:       group derivation H -> G
+##
+##  OUTPUT:
+##      lhs:        group homomorphism H -> S
+##      rhs:        group homomorphism H -> S
+##      emb:        group homomorphism G -> S
+##      fnc:        affine action of H on G
+##
 FourMapsForAffineAction@ := function( K, derv )
     local info, S, lhs, rhs, emb, fnc;
     info := GroupDerivationInfo( derv );
@@ -20,6 +34,18 @@ FourMapsForAffineAction@ := function( K, derv )
     return [ lhs, rhs, emb, fnc ];
 end;
 
+
+###############################################################################
+##
+## AffineActionByGroupDerivation( K, derv )
+##
+##  INPUT:
+##      K:          subgroup of H
+##      derv:       group derivation H -> G
+##
+##  OUTPUT:
+##      act:        affine action of H on G
+##
 InstallGlobalFunction(
     AffineActionByGroupDerivation,
     { K, derv } -> FourMapsForAffineAction@( K, derv )[4]
@@ -27,7 +53,7 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## StabilizerAffineAction( K, g, der )
+## StabilizerAffineAction( K, g, derv )
 ##
 ##  INPUT:
 ##      K:          subgroup of H
@@ -46,6 +72,20 @@ InstallGlobalFunction(
     end
 );
 
+###############################################################################
+##
+## RepresentativeAffineAction( K, g1, g2, derv )
+##
+##  INPUT:
+##      K:          subgroup of H
+##      g1:         element of G
+##      g2:         element of G
+##      derv:       group derivation H -> G
+##
+##  OUTPUT:
+##      k:          element of K that maps g1 to g2 under the affine action of
+##                  derv
+##
 InstallGlobalFunction(
     RepresentativeAffineAction,
     function( K, g1, g2, derv )
@@ -57,6 +97,18 @@ InstallGlobalFunction(
     end
 );
 
+###############################################################################
+##
+## OrbitAffineAction( K, g, derv )
+##
+##  INPUT:
+##      K:          subgroup of H
+##      g:          element of G
+##      derv:       group derivation H -> G
+##
+##  OUTPUT:
+##      orb:        the orbit of g under the affine action of derv
+##
 InstallGlobalFunction(
     OrbitAffineAction,
     function( K, g, derv )
@@ -133,7 +185,7 @@ InstallMethod(
 ##      orb:        orbit of an affine action
 ##
 ##  OUTPUT:
-##      stab:       stabiliser of the representative of img
+##      stab:       stabiliser of the representative of orb
 ##
 InstallMethod(
     StabilizerOfExternalSet,
@@ -141,4 +193,3 @@ InstallMethod(
     [ IsOrbitAffineActionRep ],
     orb -> StabilizerOfExternalSet( orb!.tcc )
 );
-
