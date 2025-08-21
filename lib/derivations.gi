@@ -374,42 +374,10 @@ InstallMethod(
     "for group derivations",
     [ IsGroupDerivation, IsGroup ],
     function( derv, K )
-        local G, info, S, lhs, rhs, emb, tcc, img, fnc;
+        local G, img;
         G := Range( derv );
-        info := GroupDerivationInfo( derv );
-        S := info!.sdp;
-        lhs := info!.lhs;
-        rhs := info!.rhs;
-        emb := Embedding( S, 2 );
-        if K <> Source( derv ) then
-            lhs := RestrictedHomomorphism( lhs, K, S );
-            rhs := RestrictedHomomorphism( rhs, K, S );
-        fi;
-        tcc := ReidemeisterClass( lhs, rhs, One( S ) );
-        img := rec(
-            tcc := tcc,
-            emb := emb
-        );
-        fnc := function( g, k )
-            local tc, inv, s, t;
-            tc := TwistedConjugation( lhs, rhs );
-            inv := RestrictedInverseGeneralMapping( emb );
-            s := ImagesRepresentative( emb, g );
-            t := tc( s, k );
-            return ImagesRepresentative( inv, t );
-        end;
-        ObjectifyWithAttributes(
-            img, NewType(
-                FamilyObj( G ),
-                IsGroupDerivationImageRep and
-                HasRepresentative and
-                HasActingDomain and
-                HasFunctionAction
-            ),
-            Representative, One( G ),
-            ActingDomain, K,
-            FunctionAction, fnc
-        );
+        img := OrbitAffineAction( K, One( G ), derv );
+        SetIsGroupDerivationImage( img, true );
         return img;
     end
 );
@@ -424,7 +392,7 @@ InstallMethod(
 InstallMethod(
     ViewObj,
     "for group derivation images",
-    [ IsGroupDerivationImageRep ],
+    [ IsGroupDerivationImage ],
     function( img )
         local G;
         G := Source( img!.emb );
@@ -442,69 +410,13 @@ InstallMethod(
 InstallMethod(
     PrintObj,
     "for group derivation images",
-    [ IsGroupDerivationImageRep ],
+    [ IsGroupDerivationImage ],
     function( img )
         local G, K;
         G := Source( img!.emb );
         K := ActingDomain( img!.tcc );
         Print( "<group derivation image: ", K, " -> ", G, " >" );
     end
-);
-
-###############################################################################
-##
-## \in( img, g )
-##
-##  INPUT:
-##      img:        image of a group derivation H -> G
-##      g:          element of G
-##
-##  OUTPUT:
-##      bool:       true if g lies in img, otherwise false
-##
-InstallMethod(
-    \in,
-    "for group derivation images",
-    [ IsMultiplicativeElementWithInverse, IsGroupDerivationImageRep ],
-    function( g, img )
-        local s;
-        s := ImagesRepresentative( img!.emb, g );
-        return s in img!.tcc;
-    end
-);
-
-###############################################################################
-##
-## Size( img )
-##
-##  INPUT:
-##      img:        image of a group derivation H -> G
-##
-##  OUTPUT:
-##      n:          number of elements in img (or infinity)
-##
-InstallMethod(
-    Size,
-    "for group derivation images",
-    [ IsGroupDerivationImageRep ],
-    img -> Size( img!.tcc )
-);
-
-###############################################################################
-##
-## StabilizerOfExternalSet( img )
-##
-##  INPUT:
-##      img:        image of a group derivation H -> G
-##
-##  OUTPUT:
-##      stab:       stabiliser of the representative of img
-##
-InstallMethod(
-    StabilizerOfExternalSet,
-    "for group derivation images",
-    [ IsGroupDerivationImageRep ],
-    img -> StabilizerOfExternalSet( img!.tcc )
 );
 
 ###############################################################################

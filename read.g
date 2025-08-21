@@ -1,5 +1,6 @@
 if not IsBound( ASSERT@ ) then ASSERT@ := false; fi;
 
+ReadPackage( "TwistedConjugacy", "lib/affineactions.gi" );
 ReadPackage( "TwistedConjugacy", "lib/coincidencegroup.gi" );
 ReadPackage( "TwistedConjugacy", "lib/cosets.gi" );
 ReadPackage( "TwistedConjugacy", "lib/derivations.gi" );

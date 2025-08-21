@@ -112,7 +112,13 @@ DeclareGlobalFunction( "GroupDerivationByFunction" );
 DeclareRepresentation( "IsGroupDerivationByFunction", IsAttributeStoringRep );
 InstallTrueMethod( IsGroupDerivation, IsGroupDerivationByFunction );
 
-DeclareRepresentation( "IsGroupDerivationImageRep", IsExternalOrbit );
+DeclareGlobalFunction( "OrbitAffineAction" );
+DeclareGlobalFunction( "StabilizerAffineAction" );
+DeclareGlobalFunction( "RepresentativeAffineAction" );
+DeclareGlobalFunction( "AffineActionByGroupDerivation" );
+
+DeclareRepresentation( "IsOrbitAffineActionRep", IsExternalOrbit );
+DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineActionRep );
 
 DeclareGlobalFunction( "DoubleCosetIndex" );
 DeclareOperation( "DoubleCosetIndexNC", [ IsGroup, IsGroup, IsGroup ] );
