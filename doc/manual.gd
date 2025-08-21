@@ -903,13 +903,10 @@ Source( res ) = N and Range( res ) = N;
 
 #! <P/>
 
-#! Please note that the functions in this section require $G$ and $H$ to either
+#! Please note that the functions in this chapter require $G$ and $H$ to either
 #! both be finite, or both be PcpGroups.
 
 #! @Section Creating group derivations
-
-#! The functions below only work for derivations between finite groups or
-#! between PcpGroups. 
 
 #! @BeginGroup
 #! @Returns the specified group derivation, or <K>fail</K> if the given
@@ -1085,7 +1082,7 @@ PreIm = RightCoset( K, h2 );
 #! <K>false</K>.
 #! @Label for an element and a group derivation
 #! @Arguments elm, img
-DeclareOperation( "\in", [ IsObject, IsGroupDerivationImageRep ] );
+DeclareOperation( "\in", [ IsObject, IsGroupDerivationImage ] );
 #! @EndGroup
 
 #! @BeginGroup
@@ -1093,12 +1090,16 @@ DeclareOperation( "\in", [ IsObject, IsGroupDerivationImageRep ] );
 #! @Returns the number of elements in <A>img</A>.
 #! @Label of a group derivation image
 #! @Arguments img
-DeclareAttribute( "Size", IsGroupDerivationImageRep );
+DeclareAttribute( "Size", IsGroupDerivationImage );
 #! @EndGroup
 
 #! @BeginGroup
 #! @GroupTitle List
 #! @Returns a list containing the elements of <A>img</A>.
+#! @Description
+#! If <A>img</A> is infinite, this will run forever. It is recommended to first
+#! test the finiteness of <A>img</A> using
+#! <Ref Attr="Size" Label="of a group derivation image" Style="Number"/>.
 #! @Label of a group derivation image
 #! @Arguments img
 DeclareGlobalFunction( "List" );
@@ -1116,3 +1117,109 @@ g in ImK;
 List( ImK );
 #! [ <identity> of ... ]
 #! @EndExample
+
+#! @Chapter Affine actions
+
+#! Let $G$ and $H$ be groups, let $H$ act on $G$ via automorphisms via
+#! $$\alpha \colon H \to \operatorname{Aut}(G)$$
+#! and let $\delta \colon H \to G$ be a group derivation with respect to this
+#! action. Then we can construct a new action, called an **affine action**, by
+#! $$G \times H \to G \colon g^h = \alpha(h)(g) \delta(g).$$
+
+#! <P/>
+
+#! Algorithms designed for computing with twisted conjugacy classes can be
+#! leveraged to do computations involving affine actions, see
+#! <Cite Key='tert25-a'  Where="Sec. 11"/> for a description on this.
+
+#! <P/>
+
+#! Please note that the functions in this chapter require $G$ and $H$ to either
+#! both be finite, or both be PcpGroups.
+
+#! @Section Creating an affine action
+
+#! @BeginGroup
+#! @Returns the affine action of <A>K</A> via the derivation <A>derv</A>.
+#! @Arguments K, der
+DeclareGlobalFunction( "AffineActionByGroupDerivation" );
+#! @EndGroup
+
+
+#! @Section Operations for affine actions
+
+#! These functions are analogues of existing &GAP; functions for group actions.
+
+#! @BeginGroup
+#! @GroupTitle OrbitAffineAction
+#! @Returns the orbit of <A>g</A> under the affine action of <A>K</A> via
+#! <A>der</A>.
+#! @Arguments K, g, der
+DeclareGlobalFunction( "OrbitAffineAction" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle OrbitsAffineAction
+#! @Returns a list containing the orbits under the affine action of <A>K</A>
+#! via <A>der</A>.
+#! @Arguments K, der
+DeclareGlobalFunction( "OrbitsAffineAction" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle NrOrbitsAffineAction
+#! @Returns the number of orbits under the affine action of <A>K</A> via
+#! <A>der</A>.
+#! @Arguments K, der
+DeclareGlobalFunction( "NrOrbitsAffineAction" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle StabiliserAffineAction
+#! @Returns the stabiliser of <A>g</A> under the affine action of <A>K</A> via
+#! <A>der</A>.
+#! @Arguments K, g, der
+DeclareGlobalFunction( "StabiliserAffineAction" );
+#! @Arguments K, g, der
+DeclareGlobalFunction( "StabilizerAffineAction" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle RepresentativeAffineAction
+#! @Returns an element of <A>K</A> that maps <A>g1</A> to <A>g2</A> under the
+#! affine action of <A>K</A> via <A>der</A>, or <K>fail</K> if no such element
+#! exists.
+#! @Arguments K, g1, g2, der
+DeclareGlobalFunction( "RepresentativeAffineAction" );
+#! @EndGroup
+
+#! @Section Orbits of affine actions
+
+#! @BeginGroup
+#! @GroupTitle \in
+#! @Returns <K>true</K> if <A>elm</A> is an element of <A>orb</A>, otherwise
+#! <K>false</K>.
+#! @Label for an element and an orbit of an affine action
+#! @Arguments elm, orb
+DeclareOperation( "\in", [ IsObject, IsOrbitAffineActionRep ] );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle Size
+#! @Returns the number of elements in <A>orb</A>.
+#! @Label of an orbit of an affine action
+#! @Arguments orb
+DeclareAttribute( "Size", IsOrbitAffineActionRep );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle List
+#! @Returns a list containing the elements of <A>orb</A>.
+#! @Description
+#! If <A>orb</A> is infinite, this will run forever. It is recommended to first
+#! test the finiteness of <A>orb</A> using
+#! <Ref Attr="Size" Label="of an orbit of an affine action" Style="Number"/>.
+#! @Label of an orbit of an affine action
+#! @Arguments orb
+DeclareGlobalFunction( "List" );
+#! @EndGroup

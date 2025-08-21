@@ -34,7 +34,6 @@ FourMapsForAffineAction@ := function( K, derv )
     return [ lhs, rhs, emb, fnc ];
 end;
 
-
 ###############################################################################
 ##
 ## AffineActionByGroupDerivation( K, derv )
