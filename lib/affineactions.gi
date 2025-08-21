@@ -1,6 +1,5 @@
 FourMapsForAffineAction@ := function( K, derv )
-    local G, info, S, lhs, rhs, emb, fnc;
-    G := Range( derv );
+    local info, S, lhs, rhs, emb, fnc;
     info := GroupDerivationInfo( derv );
     S := info!.sdp;
     lhs := info!.lhs;
@@ -25,7 +24,6 @@ InstallGlobalFunction(
     AffineActionByGroupDerivation,
     { K, derv } -> FourMapsForAffineAction@( K, derv )[4]
 );
-
 
 ###############################################################################
 ##
@@ -62,7 +60,7 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     OrbitAffineAction,
     function( K, g, derv )
-        local G, map, emb, s, tcc, orb, fnc;
+        local G, map, emb, s, tcc, orb;
         G := Range( derv );
         map := FourMapsForAffineAction@( K, derv );
         emb := map[3];
@@ -87,7 +85,6 @@ InstallGlobalFunction(
         return orb;
     end
 );
-
 
 ###############################################################################
 ##
