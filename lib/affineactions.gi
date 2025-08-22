@@ -101,7 +101,7 @@ InstallGlobalFunction(
 ##
 ##  OUTPUT:
 ##      L:          list containing the orbits of the affine action of derv, or
-##                  fail if there are infinitely many
+##                  "fail" if there are infinitely many
 ##
 InstallGlobalFunction(
     OrbitsAffineAction,
@@ -112,6 +112,9 @@ InstallGlobalFunction(
         emb := map[3];
         iG := ImagesSet( emb, G );
         R := RepresentativesReidemeisterClasses( map[1], map[2], iG );
+        if IsBool( R ) then
+            return fail;
+        fi;
         reps := List( R, s -> PreImagesRepresentative( emb, s ) );
         return List( reps, g -> OrbitAffineAction( K, g, derv ) );
     end

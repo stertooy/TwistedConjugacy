@@ -62,6 +62,41 @@ true
 gap> IsBijective( derv );
 true
 
+# Affine action 1
+gap> aff := AffineActionByGroupDerivation( H, derv );
+function( g, k ) ... end
+gap> orb := OrbitAffineAction( H, G.1, derv );
+(10,12)(13,15)^G
+gap> stab := StabilizerAffineAction( H, G.1, derv );
+Group(())
+gap> NrOrbitsAffineAction( H, derv );
+1
+gap> OrbitsAffineAction( H, derv );
+[ ()^G ]
+gap> h := RepresentativeAffineAction( H, G.1, G.2, derv );;
+gap> aff( G.1, h ) = G.2;
+true
+gap> G.1*G.2 in orb;
+true
+gap> Size( orb ) = Size( G );
+true
+gap> aff := AffineActionByGroupDerivation( K, derv );
+function( g, k ) ... end
+gap> orb := OrbitAffineAction( K, G.1, derv );
+(10,12)(13,15)^G
+gap> stab := StabilizerAffineAction( K, G.1, derv );
+Group(())
+gap> NrOrbitsAffineAction( K, derv );
+72
+gap> h := RepresentativeAffineAction( K, G.1, G.2, derv );
+fail
+gap> aff( G.1, G.2 ) = G.1;
+true
+gap> G.1*G.2 in orb;
+false
+gap> Size( orb ) = 1;
+true 
+
 # Group derivation 2
 gap> imgs := [ (11,14)(13,15), (1,6,2,7,3,8,4,9,5)(10,11,13)(12,14,15) ];;
 gap> derv := GroupDerivationByImages( H, G, gensH, imgs, act );
