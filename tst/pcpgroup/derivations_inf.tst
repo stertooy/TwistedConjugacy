@@ -67,6 +67,41 @@ true
 gap> IsSurjective( derv );
 false
 
+# Affine action
+gap> aff := AffineActionByGroupDerivation( H, derv );
+function( g, k ) ... end
+gap> orb := OrbitAffineAction( H, G.1, derv );
+g1^G
+gap> stab := StabilizerAffineAction( H, G.1, derv );
+Pcp-group with orders [  ]
+gap> NrOrbitsAffineAction( H, derv );
+4
+gap> OrbitsAffineAction( H, derv );
+[ id^G, g2*g4^G, g1*g2*g4^G, g1*g4^G ]
+gap> h := RepresentativeAffineAction( H, G.1^2, G.2^2, derv );;
+gap> aff( G.1^2, h ) = G.2^2;
+true
+gap> G.1*G.2^2 in orb;
+true
+gap> Size( orb );
+infinity
+gap> aff := AffineActionByGroupDerivation( K, derv );
+function( g, k ) ... end
+gap> orb := OrbitAffineAction( K, G.1, derv );
+g1^G
+gap> stab := StabilizerAffineAction( K, G.1, derv );
+Pcp-group with orders [  ]
+gap> NrOrbitsAffineAction( K, derv );
+infinity
+gap> OrbitsAffineAction( K, derv );
+fail
+gap> h := RepresentativeAffineAction( K, G.1^2, G.2^2, derv );
+fail
+gap> G.1*G.2^2 in orb;
+false
+gap> Size( orb );
+1
+
 # Group derivation by function
 gap> derv := GroupDerivationByFunction( H, G, h -> (h^hom1)^-1*h^hom2, act );
 Group derivation via function( h ) ... end
