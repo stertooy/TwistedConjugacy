@@ -61,6 +61,8 @@ gap> aff := AffineActionByGroupDerivation( H, derv );
 function( g, k ) ... end
 gap> orb := OrbitAffineAction( H, G.1, derv );
 f1^G
+gap> Print( orb );
+OrbitAffineAction( f1 )
 gap> stab := StabilizerAffineAction( H, G.1, derv );
 Group([  ])
 gap> NrOrbitsAffineAction( H, derv );

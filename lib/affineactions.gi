@@ -261,6 +261,6 @@ InstallMethod(
     "for orbits of affine actions",
     [ IsOrbitAffineActionRep ],
     function( orb )
-        Print( "OrbitAffineAction( ",  Representative( orb ),  " )" );
+        Print( "OrbitAffineAction( ", Representative( orb ), " )" );
     end
 );
