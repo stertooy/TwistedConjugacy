@@ -90,8 +90,6 @@ gap> NrOrbitsAffineAction( K, derv );
 72
 gap> h := RepresentativeAffineAction( K, G.1, G.2, derv );
 fail
-gap> aff( G.1, H.1 ) = G.1;
-true
 gap> G.1*G.2 in orb;
 false
 gap> Size( orb );

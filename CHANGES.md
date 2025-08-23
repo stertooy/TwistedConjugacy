@@ -1,6 +1,13 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
+3.2.0 (2025-08-24)
+------------------
+
+- Functionality for affine actions added
+
+
+
 3.0.0 (2025-07-21)
 ------------------
 
