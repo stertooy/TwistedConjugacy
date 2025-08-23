@@ -248,3 +248,19 @@ InstallMethod(
     [ IsOrbitAffineActionRep ],
     orb -> StabilizerOfExternalSet( orb!.tcc )
 );
+
+###############################################################################
+##
+## PrintObj( orb )
+##
+##  INPUT:
+##      orb:        orbit of an affine action
+##
+InstallMethod(
+    PrintObj,
+    "for orbits of affine actions",
+    [ IsOrbitAffineActionRep ],
+    function( orb )
+        Print( "OrbitAffineAction( ",  Representative( orb ),  " )" );
+    end
+);

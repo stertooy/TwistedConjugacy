@@ -72,6 +72,8 @@ gap> aff := AffineActionByGroupDerivation( H, derv );
 function( g, k ) ... end
 gap> orb := OrbitAffineAction( H, G.1, derv );
 g1^G
+gap> Print( orb );
+OrbitAffineAction( g1 )
 gap> stab := StabilizerAffineAction( H, G.1, derv );
 Pcp-group with orders [  ]
 gap> NrOrbitsAffineAction( H, derv );
