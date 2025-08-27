@@ -96,7 +96,6 @@ InstallGlobalFunction(
 ## OrbitsAffineAction( K, derv )
 ##
 ##  INPUT:
-##      K:          subgroup of H
 ##      derv:       group derivation H -> G
 ##
 ##  OUTPUT:
@@ -105,10 +104,10 @@ InstallGlobalFunction(
 ##
 InstallGlobalFunction(
     OrbitsAffineAction,
-    function( K, derv )
+    function( derv )
         local G, map, emb, iG, R, reps;
         G := Range( derv );
-        map := FourMapsForAffineAction@( K, derv );
+        map := FourMapsForAffineAction@( derv );
         emb := map[3];
         iG := ImagesSet( emb, G );
         R := RepresentativesReidemeisterClasses( map[1], map[2], iG );
@@ -116,13 +115,13 @@ InstallGlobalFunction(
             return fail;
         fi;
         reps := List( R, s -> PreImagesRepresentative( emb, s ) );
-        return List( reps, g -> OrbitAffineAction( K, g, derv ) );
+        return List( reps, g -> OrbitAffineAction( g, derv ) );
     end
 );
 
 ###############################################################################
 ##
-## NrOrbitsAffineAction( K, derv )
+## NrOrbitsAffineAction( K,derv )
 ##
 ##  INPUT:
 ##      K:          subgroup of H
@@ -179,7 +178,7 @@ InstallGlobalFunction(
 ##      derv:       group derivation H -> G
 ##
 ##  OUTPUT:
-##      k:          element of K that maps g1 to g2 under the affine action of
+##      h:          element of H that maps g1 to g2 under the affine action of
 ##                  derv
 ##
 InstallGlobalFunction(
