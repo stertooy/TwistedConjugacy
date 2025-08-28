@@ -82,6 +82,14 @@ gap> G.1*G.2 in orb;
 true
 gap> Size( orb ) = Size( G );
 true
+gap> dervA := GroupDerivationByAffineAction( H, G, aff );
+Group derivation [
+  ( 2, 4, 3)( 5,11, 9, 7,13,12,10, 8, 6),
+  ( 1, 2, 4, 3)( 6,11)( 7,10)( 8, 9)(12,13) ] -> 
+[ ( 1, 9, 8, 7, 6, 5, 4, 3, 2)(10,11,13)(12,14,15),
+  ( 1, 6, 2, 7, 3, 8, 4, 9, 5)(10,14,13,12,11,15) ]
+gap> ForAll( H, h -> h^derv = h^dervA );
+true
 gap> aff := AffineActionByGroupDerivation( K, derv );
 function( g, k ) ... end
 gap> orb := OrbitAffineAction( K, G.1, derv );
@@ -96,6 +104,10 @@ gap> G.1*G.2 in orb;
 false
 gap> Size( orb );
 1
+gap> dervB := GroupDerivationByAffineAction( K, G, aff );
+Group derivation [  ] -> [  ]
+gap> ForAll( K, k -> k^derv = k^dervA );
+true
 
 # Group derivation 2
 gap> imgs := [ (11,14)(13,15), (1,6,2,7,3,8,4,9,5)(10,11,13)(12,14,15) ];;
@@ -171,6 +183,14 @@ gap> G.1^3 in orb;
 true
 gap> Size( orb );
 8
+gap> dervA := GroupDerivationByAffineAction( H, G, aff );
+Group derivation [
+  ( 2, 4, 3)( 5,11, 9, 7,13,12,10, 8, 6), 
+  ( 1, 2, 4, 3)( 6,11)( 7,10)( 8, 9)(12,13) ] -> 
+[ (10,12)(11,14),
+  ( 1, 6, 2, 7, 3, 8, 4, 9, 5)(10,11,13)(12,14,15) ]
+gap> ForAll( H, h -> h^derv = h^dervA );
+true
 gap> aff := AffineActionByGroupDerivation( K, derv );
 function( g, k ) ... end
 gap> orb := OrbitAffineAction( K, G.1, derv );
@@ -188,6 +208,13 @@ gap> G.1*G.2 in orb;
 false
 gap> Size( orb );
 3
+gap> dervB := GroupDerivationByAffineAction( K, G, aff );
+Group derivation [
+  ( 1, 3, 4)( 5,11, 9, 7,13,12,10, 8, 6), 
+  ( 5, 7,10)( 6, 9,12)( 8,11,13) ] ->
+[ (), () ]
+gap> ForAll( K, k -> k^derv = k^dervA );
+true
 
 #
 gap> STOP_TEST( "derivations.tst" );

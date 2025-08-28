@@ -87,6 +87,10 @@ gap> G.1*G.2^2 in orb;
 true
 gap> Size( orb );
 infinity
+gap> dervA := GroupDerivationByAffineAction( H, G, aff );
+Group derivation [ g1, g2, g3, g4 ] -> [ g4, g2^2*g4^-2, g3^-1*g4^-1, g4^2 ]
+gap> ForAll( GeneratorsOfGroup( H ), h -> h^derv = h^dervA );
+true
 gap> aff := AffineActionByGroupDerivation( K, derv );
 function( g, k ) ... end
 gap> orb := OrbitAffineAction( K, G.1, derv );
@@ -103,6 +107,10 @@ gap> G.1*G.2^2 in orb;
 false
 gap> Size( orb );
 1
+gap> dervB := GroupDerivationByAffineAction( K, G, aff );
+Group derivation [  ] -> [  ]
+gap> ForAll( GeneratorsOfGroup( H ), h -> h^derv = h^dervA );
+true
 
 # Group derivation by function
 gap> derv := GroupDerivationByFunction( H, G, h -> (h^hom1)^-1*h^hom2, act );

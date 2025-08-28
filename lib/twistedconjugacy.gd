@@ -112,6 +112,8 @@ DeclareGlobalFunction( "GroupDerivationByFunction" );
 DeclareRepresentation( "IsGroupDerivationByFunction", IsAttributeStoringRep );
 InstallTrueMethod( IsGroupDerivation, IsGroupDerivationByFunction );
 
+DeclareGlobalFunction( "GroupDerivationByAffineAction" );
+
 DeclareGlobalFunction( "OrbitAffineAction" );
 DeclareGlobalFunction( "OrbitsAffineAction" );
 DeclareGlobalFunction( "NrOrbitsAffineAction" );

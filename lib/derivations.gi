@@ -163,21 +163,28 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
-GroupDerivationByAffineAction := function( H, G, aff )
-    local autsG, imgsG, gensH, gensG, h, dh, imgsA, act;
-    autsG := [];
-    imgsG := [];
-    gensH := GeneratorsOfGroup( H );
-    gensG := GeneratorsOfGroup( G );
-    for h in gensH do
-        dh := aff( One( G ), h );
-        Add( imgsG, dh );
-        imgsA := List( gensG, g -> aff( g, h ) * dh ^ -1 );
-        Add( autsG, GroupHomomorphismByImagesNC( G, G, gensG, imgsA ) );
-    od;
-    act := GroupHomomorphismByImagesNC( H, Group( autsG ), gensH, autsG );
-    return GroupDerivationByImagesNC( H, G, gensH, imgsG, act );
-end;
+InstallGlobalFunction(
+    GroupDerivationByAffineAction,
+    function( H, G, aff )
+        local autsG, imgsG, gensH, gensG, h, dh, imgsA, idG, act;
+        autsG := [];
+        imgsG := [];
+        gensH := GeneratorsOfGroup( H );
+        gensG := GeneratorsOfGroup( G );
+        for h in gensH do
+            dh := aff( One( G ), h );
+            Add( imgsG, dh );
+            imgsA := List( gensG, g -> aff( g, h ) * dh ^ -1 );
+            Add( autsG, GroupHomomorphismByImagesNC( G, G, gensG, imgsA ) );
+        od;
+        idG := IdentityMapping( G );
+        act := GroupHomomorphismByImagesNC(
+            H, Group( autsG, idG ),
+            gensH, autsG
+        );
+        return GroupDerivationByImagesNC( H, G, gensH, imgsG, act );
+    end
+);
 
 ###############################################################################
 ##
