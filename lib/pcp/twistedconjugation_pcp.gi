@@ -286,10 +286,9 @@ end;
 
 ###############################################################################
 ##
-## RepTwistConjToIdStep2@( G, H, hom1, hom2, a, A )
+## RepTwistConjToIdStep2@( H, hom1, hom2, a, A )
 ##
 ##  INPUT:
-##      G:          infinite PcpGroup
 ##      H:          infinite PcpGroup
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
@@ -305,7 +304,7 @@ end;
 ##        - [A,[G,G]] = 1;
 ##        - h^hom1 = h^hom2 mod A, for all h in H.
 ##
-RepTwistConjToIdStep2@ := function( G, H, hom1, hom2, a, A )
+RepTwistConjToIdStep2@ := function( H, hom1, hom2, a, A )
     local K, hom1r, hom2r;
     K := ClosureGroup( ImagesSource( hom1 ), A );
     hom1r := RestrictedHomomorphism( hom1, H, K );
@@ -349,7 +348,7 @@ RepTwistConjToIdStep1@ := function( G, H, hom1, hom2, g )
     Coin := CoincidenceGroup2( hom1p, hom2p );
     hom1r := RestrictedHomomorphism( hom1, Coin, G );
     hom2r := RestrictedHomomorphism( hom2, Coin, G );
-    h2 := RepTwistConjToIdStep2@( G, Coin, hom1r, hom2r, a, A );
+    h2 := RepTwistConjToIdStep2@( Coin, hom1r, hom2r, a, A );
     if h2 = fail then
         return fail;
     fi;
