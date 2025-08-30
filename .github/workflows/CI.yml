@@ -112,8 +112,7 @@ jobs:
         run: |
           shopt -s globstar extglob
           FILES="*.g !(doc)/**/*.g*"
-          gaplint $FILES --columns=79 --indentation=4 --disable=W003,W004,W012,W013,W014
-          #,W046
+          gaplint $FILES --columns=79 --indentation=4 --disable=W003,W004,W012,W013,W014,W046
           # Also check for double semicolon
           semi=$(egrep -ir --include=*.{g,gi,gd} ";;" $FOLDERS | tee /dev/stderr)
           if [[ ! $semi ]]; then exit 0; else exit 1; fi
