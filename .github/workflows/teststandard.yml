@@ -10,9 +10,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - gap-version: "master"
-          - gap-version: "4.14.0"
+        gap-version: ["master","4.15.0-beta1","4.14.0"]
+
 
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-slim
