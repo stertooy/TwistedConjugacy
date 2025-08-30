@@ -277,6 +277,8 @@ InstallGlobalFunction(
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##      N:          normal subgroup of G with hom1 = hom2 mod N
+##      one:        boolean to toggle returning fail as soon as there is more
+##                  than one Reidemeister class
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-

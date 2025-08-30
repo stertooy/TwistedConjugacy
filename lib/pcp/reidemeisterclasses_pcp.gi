@@ -1,6 +1,6 @@
 ###############################################################################
 ##
-## ReidemeisterClassesByTrivialSubgroup@( G, H, hom1, hom2, N )
+## ReidemeisterClassesByTrivialSubgroup@( G, H, hom1, hom2, N, one )
 ##
 ##  INPUT:
 ##      G:          finite group
@@ -8,6 +8,8 @@
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##      N:          normal subgroup of G with hom1 = hom2 mod N
+##      one:        boolean to toggle returning fail as soon as there is more
+##                  than one Reidemeister class
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -31,7 +33,7 @@ end;
 
 ###############################################################################
 ##
-## ReidemeisterClassesByFiniteQuotient@( G, H, hom1, hom2, N, K )
+## ReidemeisterClassesByFiniteQuotient@( G, H, hom1, hom2, N, K, one )
 ##
 ##  INPUT:
 ##      G:          infinite PcpGroup
@@ -40,6 +42,8 @@ end;
 ##      hom2:       group homomorphism H -> G
 ##      N:          normal subgroup of G with hom1 = hom2 mod N
 ##      K:          finite index normal subgroup of G
+##      one:        boolean to toggle returning fail as soon as there is more
+##                  than one Reidemeister class
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -122,7 +126,7 @@ end;
 
 ###############################################################################
 ##
-## ReidemeisterClassesByNormalSubgroup@( G, H, hom1, hom2, N, K )
+## ReidemeisterClassesByNormalSubgroup@( G, H, hom1, hom2, N, K, one )
 ##
 ##  INPUT:
 ##      G:          infinite PcpGroup
@@ -131,6 +135,8 @@ end;
 ##      hom2:       group homomorphism H -> G
 ##      N:          normal subgroup of G with hom1 = hom2 mod N
 ##      M:          normal subgroup of G
+##      one:        boolean to toggle returning fail as soon as there is more
+##                  than one Reidemeister class
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -174,7 +180,7 @@ end;
 
 ###############################################################################
 ##
-## RepsReidClassesStep3@( G, H, hom1, hom2, A )
+## RepsReidClassesStep3@( G, H, hom1, hom2, A, one )
 ##
 ##  INPUT:
 ##      G:          infinite PcpGroup
@@ -182,6 +188,8 @@ end;
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##      A:          abelian normal subgroup of G with hom1 = hom2 mod A
+##      one:        boolean to toggle returning fail as soon as there is more
+##                  than one Reidemeister class
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -233,7 +241,7 @@ end;
 
 ###############################################################################
 ##
-## RepsReidClassesStep2@( G, H, hom1, hom2, A )
+## RepsReidClassesStep2@( G, H, hom1, hom2, A, one )
 ##
 ##  INPUT:
 ##      G:          infinite PcpGroup
@@ -241,6 +249,8 @@ end;
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##      A:          abelian normal subgroup of G with hom1 = hom2 mod A
+##      one:        boolean to toggle returning fail as soon as there is more
+##                  than one Reidemeister class
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -280,6 +290,8 @@ end;
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##      A:          abelian normal subgroup of G with hom1 = hom2 mod A
+##      one:        boolean to toggle returning fail as soon as there is more
+##                  than one Reidemeister class
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -289,7 +301,7 @@ end;
 ##  REMARKS:
 ##      Assumes that [A,[G,G]] = 1
 ##
-RepsReidClassesStep1@ := function( _, H, hom1, hom2, A, one )
+RepsReidClassesStep1@ := function( _G, H, hom1, hom2, A, one )
     local K, l, r;
     K := ClosureGroup( ImagesSource( hom1 ), A );
     l := RestrictedHomomorphism( hom1, H, K );
@@ -299,12 +311,14 @@ end;
 
 ###############################################################################
 ##
-## RepresentativesReidemeisterClassesOp( hom1, hom2, N )
+## RepresentativesReidemeisterClassesOp( hom1, hom2, N, one )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##      N:          normal subgroup of G with hom1 = hom2 mod N
+##      one:        boolean to toggle returning fail as soon as there is more
+##                  than one Reidemeister class
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
