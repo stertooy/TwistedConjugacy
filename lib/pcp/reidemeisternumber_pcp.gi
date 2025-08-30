@@ -14,7 +14,7 @@ InstallMethod(
     "for nilpotent-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     2,
-    function( hom1, hom2 )
+    function( hom1, _hom2 )
         local G, H;
         G := Range( hom1 );
         H := Source( hom1 );

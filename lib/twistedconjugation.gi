@@ -150,7 +150,7 @@ InstallOtherMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     7,
-    function( hom1, hom2, g )
+    function( hom1, _hom2, g )
         local H;
         if not IsOne( g ) then TryNextMethod(); fi;
         H := Source( hom1 );

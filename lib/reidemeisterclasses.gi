@@ -288,7 +288,7 @@ InstallMethod(
     "for trivial subgroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     8,
-    function( hom1, hom2, N, one )
+    function( _hom1, _hom2, N, _one )
         if not IsTrivial( N ) then TryNextMethod(); fi;
         return [ One( N ) ];
     end

@@ -74,7 +74,7 @@ InstallMethod(
     "for trivial range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     7,
-    function( hom1, hom2 )
+    function( hom1, _hom2 )
         local G, H;
         G := Range( hom1 );
         H := Source( hom1 );
