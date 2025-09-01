@@ -71,7 +71,7 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-    GAP := ">= 4.14",
+    GAP := ">= 4.10",
     NeededOtherPackages := [ ],
     SuggestedOtherPackages := [ [ "AutPGrp", "1.11" ] ]
 ),
