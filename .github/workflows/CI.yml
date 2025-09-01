@@ -20,6 +20,10 @@ jobs:
             no-coverage: true
           - gap-version: "4.14.0"
             no-coverage: true
+          - gap-version: "4.13.1"
+            no-coverage: true
+          - gap-version: "4.13.0"
+            no-coverage: true
 
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-slim
@@ -73,6 +77,10 @@ jobs:
           - gap-version: "4.15.0-beta1"
             no-coverage: true
           - gap-version: "4.14.0"
+            no-coverage: true
+          - gap-version: "4.13.1"
+            no-coverage: true
+          - gap-version: "4.13.0"
             no-coverage: true
 
     container:
