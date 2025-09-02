@@ -31,13 +31,14 @@ jobs:
       - name: "Install Polycyclic 2.17 if necessary"
         shell: bash
         run: |
-          gap --bare << GAPInput
+          gap -A << GAPInput
             if LoadPackage("polycyclic","2.17") <> true then
               LoadPackage("PackageManager":OnlyNeeded);
               QuitGap(InstallPackage("polycyclic","=2.17"));
             fi;
             QUIT;
           GAPInput
+          gap -A -c 'QuitGap(LoadPackage("polycyclic","2.17"));'
 
       - name: "Run package tests with minimal packages"
         uses: gap-actions/run-pkg-tests@v3
