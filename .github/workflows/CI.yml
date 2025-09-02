@@ -44,14 +44,14 @@ jobs:
       - name: "Run package tests with minimal packages"
         uses: gap-actions/run-pkg-tests@v3
         with:
-          NO_COVERAGE: ${{ !inputs.coverage }}
+          NO_COVERAGE: ${{ !matrix.coverage }}
           only-needed: true
           warnings-as-errors: true
 
       - name: "Run package tests with default packages"
         uses: gap-actions/run-pkg-tests@v3
         with:
-          NO_COVERAGE: ${{ !inputs.coverage }}
+          NO_COVERAGE: ${{ !matrix.coverage }}
           warnings-as-errors: true
             
       - name: "Process coverage"
