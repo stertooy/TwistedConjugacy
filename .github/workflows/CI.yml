@@ -18,7 +18,7 @@ jobs:
         coverage: [ false ]
         include:
           - gap-version: "master"
-            coverage: true
+            coverage: ""
 
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-slim
@@ -42,23 +42,23 @@ jobs:
       - name: "Run package tests with minimal packages"
         uses: gap-actions/run-pkg-tests@v3
         with:
-          NO_COVERAGE: "${{ matrix.coverage == 'false' }}"
+          NO_COVERAGE: ${{ matrix.coverage }}
           only-needed: true
           warnings-as-errors: true
 
       - name: "Run package tests with default packages"
         uses: gap-actions/run-pkg-tests@v3
         with:
-          NO_COVERAGE: "${{ matrix.coverage == 'false' }}"
+          NO_COVERAGE: ${{ matrix.coverage }}
           warnings-as-errors: true
             
       - name: "Process coverage"
         uses: gap-actions/process-coverage@v2
-        if: ${{ matrix.coverage }}
+        if: ${{ matrix.coverage == "" }}
 
       - name: "Upload coverage"
         uses: codecov/codecov-action@v5
-        if: ${{ matrix.coverage }}
+        if: ${{ matrix.coverage == "" }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
