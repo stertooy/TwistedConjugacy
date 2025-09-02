@@ -32,9 +32,9 @@ jobs:
         shell: bash
         run: |
           gap --bare << GAPInput
-            if LoadPackage("polycyclic","2.17") <> true then
+            if not LoadPackage("polycyclic","2.17") then
               LoadPackage("PackageManager":OnlyNeeded);
-              InstallPackage("polycyclic");
+              QuitGap(InstallPackage("polycyclic","=2.17"));
             fi;
             QUIT;
           GAPInput
