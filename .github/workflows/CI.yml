@@ -150,15 +150,12 @@ jobs:
           python-version: 3
 
       - name: Install gaplint
+        shell: bash
         run: pip install gaplint
 
       - name: Run linter
+        shell: bash
         run: |
           shopt -s globstar extglob
           FILES="*.g !(doc)/**/*.g*"
-          gaplint $FILES --columns=79 --indentation=4 --disable=W003,W004,W012,W013,W014,W046
-          # Also check for double semicolon
-          semi=$(egrep -ir --include=*.{g,gi,gd} ";;" $FILES | tee /dev/stderr)
-          if [[ ! $semi ]]; then exit 0; else exit 1; fi
-          # TODO: replace above by
-          # gaplint $FILES --config-file=.github/gaplint.yml
+          gaplint $FILES --config-file=.github/gaplint.yml
