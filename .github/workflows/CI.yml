@@ -14,13 +14,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        gap-version: [ "4.14.0", "4.15.0-beta1" ]
+        coverage: [ false ]
         include:
           - gap-version: "master"
             coverage: true
-          - gap-version: "4.15.0-beta1"
-            coverage: false
-          - gap-version: "4.14.0"
-            coverage: false
 
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-slim
@@ -44,14 +42,14 @@ jobs:
       - name: "Run package tests with minimal packages"
         uses: gap-actions/run-pkg-tests@v3
         with:
-          NO_COVERAGE: ${{ !matrix.coverage }}
+          NO_COVERAGE: ${{ matrix.coverage && 'false' || 'true' }}
           only-needed: true
           warnings-as-errors: true
 
       - name: "Run package tests with default packages"
         uses: gap-actions/run-pkg-tests@v3
         with:
-          NO_COVERAGE: ${{ !matrix.coverage }}
+          NO_COVERAGE: ${{ matrix.coverage && 'false' || 'true' }}
           warnings-as-errors: true
             
       - name: "Process coverage"
@@ -73,10 +71,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        gap-version:
-          - "master"
-          - "4.15.0-beta1"
-          - "4.14.0"
+        gap-version: [ "4.14.0", "4.15.0-beta1", "master" ]
 
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-slim
