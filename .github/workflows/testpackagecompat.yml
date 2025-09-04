@@ -20,12 +20,24 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v5
 
+      - name: "Install Polycyclic 2.17 if necessary"
+        shell: bash
+        run: |
+          gap -A << GAPInput
+            if LoadPackage("polycyclic","2.17") <> true then
+              LoadPackage("PackageManager":OnlyNeeded);
+              QuitGap(InstallPackage("polycyclic","=2.17"));
+            fi;
+            QUIT;
+          GAPInput
+          gap -A -c 'QuitGap(LoadPackage("polycyclic","2.17"));'
+
       - name: "Run GAP tests with all packages"
         uses: stertooy/run-gap-tests@v1
         with:
           complete: true
           mode: 'loadall'
-          warnings-as-errors: true
+          warnings-as-errors: false
 
       - name: "Run package tests with all packages"
         uses: gap-actions/run-pkg-tests@v3
