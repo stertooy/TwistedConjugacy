@@ -7,7 +7,7 @@ on:
 jobs:
 
   test-pkg:
-    name: "Test package on GAP-${{ matrix.gap-version }}, mode: ${{ matrix.mode }}"
+    name: "Test package with GAP-${{ matrix.gap-version }}, mode: ${{ matrix.mode }}"
     runs-on: ubuntu-latest
 
     strategy:
@@ -55,7 +55,7 @@ jobs:
           fail_ci_if_error: true
 
   test-gap:
-    name: "Test GAP-${{ matrix.gap-version }}, mode: ${{ matrix.mode }}"
+    name: "Test GAP-${{ matrix.gap-version }} with package, mode: ${{ matrix.mode }}"
     runs-on: ubuntu-latest
 
     strategy:
@@ -84,7 +84,7 @@ jobs:
           GAPInput
           gap -A -c 'QuitGap(LoadPackage("polycyclic","2.17"));'
 
-      - name: "Run GAP tests with necessary packages"
+      - name: "Run GAP tests"
         uses: stertooy/run-gap-tests@v1
         with:
           mode: ${{ matrix.mode }}
@@ -134,11 +134,11 @@ jobs:
         with:
           python-version: 3
 
-      - name: Install gaplint
+      - name: "Install gaplint"
         shell: bash
         run: pip install gaplint
 
-      - name: Run linter
+      - name: "Run gaplint"
         shell: bash
         run: |
           shopt -s globstar extglob
