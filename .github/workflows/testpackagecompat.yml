@@ -1,4 +1,4 @@
-name: "Test compatibility with other GAP packages (complete)"
+name: Run compatibility tests
 
 on:
   - workflow_dispatch
