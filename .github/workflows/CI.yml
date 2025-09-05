@@ -9,8 +9,7 @@ jobs:
   test-pkg:
     name: "Run package tests on GAP-${{ matrix.gap-version }} (mode: ${{ matrix.mode }})"
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name 
-    
+
     strategy:
       fail-fast: false
       matrix:
@@ -40,7 +39,7 @@ jobs:
       - name: "Run package tests"
         uses: gap-actions/run-pkg-tests@v3
         with:
-          NO_COVERAGE: ${{ matrix.gap-version == 'master' && '' || 'false' }}
+          NO_COVERAGE: ${{ matrix.gap-version != 'master' && 'false' || '' }}
           only-needed: ${{ matrix.mode == 'onlyneeded' }}
           warnings-as-errors: true
             
@@ -58,8 +57,7 @@ jobs:
   test-gap:
     name: "Run GAP tests on GAP-${{ matrix.gap-version }} (mode: ${{ matrix.mode }})"
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name 
-    
+
     strategy:
       fail-fast: false
       matrix:
@@ -97,7 +95,6 @@ jobs:
   validate:
     name: "Validate manual & metadata"
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name 
 
     container:
       image: ghcr.io/stertooy/gda-image:master-full
@@ -129,7 +126,6 @@ jobs:
   lint:
     name: "Lint"
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name 
 
     steps:
     
