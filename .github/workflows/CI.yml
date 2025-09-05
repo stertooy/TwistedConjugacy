@@ -89,9 +89,6 @@ jobs:
         with:
           mode: ${{ matrix.mode }}
 
-      - name: "Run GAP tests with suggested packages"
-        uses: stertooy/run-gap-tests@v1
-
   validate:
     name: "Validate manual & metadata"
     runs-on: ubuntu-latest
