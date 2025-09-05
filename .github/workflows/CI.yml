@@ -7,7 +7,7 @@ on:
 jobs:
 
   test-pkg:
-    name: "Package tests on GAP-${{ matrix.gap-version }, mode: ${{ matrix.mode }}"
+    name: "Test package on GAP-${{ matrix.gap-version }}, mode: ${{ matrix.mode }}"
     runs-on: ubuntu-latest
 
     strategy:
@@ -55,7 +55,7 @@ jobs:
           fail_ci_if_error: true
 
   test-gap:
-    name: "GAP tests on GAP-${{ matrix.gap-version }, mode: ${{ matrix.mode }}"
+    name: "Test GAP-${{ matrix.gap-version }, mode: ${{ matrix.mode }}"
     runs-on: ubuntu-latest
 
     strategy:
