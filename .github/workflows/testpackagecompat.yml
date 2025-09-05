@@ -4,8 +4,43 @@ on:
   - workflow_dispatch
 
 jobs:
-  test:
-    name: "Test on GAP-${{ matrix.gap-version }}"
+  test-pkg:
+    name: "Test package with GAP-${{ matrix.gap-version }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        gap-version: ["master","4.15.0-beta1","4.14.0"]
+
+    container:
+      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-full
+
+    steps:
+
+      - name: "Checkout"
+        uses: actions/checkout@v5
+
+      - name: "Install Polycyclic 2.17 if necessary"
+        shell: bash
+        run: |
+          gap -A << GAPInput
+            if LoadPackage("polycyclic","2.17") <> true then
+              LoadPackage("PackageManager":OnlyNeeded);
+              QuitGap(InstallPackage("polycyclic","=2.17"));
+            fi;
+            QUIT;
+          GAPInput
+          gap -A -c 'QuitGap(LoadPackage("polycyclic","2.17"));'
+
+      - name: "Run package tests"
+        uses: gap-actions/run-pkg-tests@v3
+        with:
+          load-all: true
+          warnings-as-errors: false
+          NO_COVERAGE: true
+
+  test-gap:
+    name: "Test GAP-${{ matrix.gap-version }} with package"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -37,10 +72,3 @@ jobs:
         with:
           mode: 'loadall'
           warnings-as-errors: false
-
-      - name: "Run package tests"
-        uses: gap-actions/run-pkg-tests@v3
-        with:
-          load-all: true
-          warnings-as-errors: false
-          NO_COVERAGE: true
