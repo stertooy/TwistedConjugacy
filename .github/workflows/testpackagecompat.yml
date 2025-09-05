@@ -1,4 +1,4 @@
-name: Run compatibility tests
+name: Run package compatibility tests
 
 on:
   - workflow_dispatch
@@ -32,14 +32,13 @@ jobs:
           GAPInput
           gap -A -c 'QuitGap(LoadPackage("polycyclic","2.17"));'
 
-      - name: "Run GAP tests with all packages"
+      - name: "Run GAP tests"
         uses: stertooy/run-gap-tests@v1
         with:
-          complete: true
           mode: 'loadall'
           warnings-as-errors: false
 
-      - name: "Run package tests with all packages"
+      - name: "Run package tests"
         uses: gap-actions/run-pkg-tests@v3
         with:
           load-all: true
