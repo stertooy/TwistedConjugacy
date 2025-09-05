@@ -55,7 +55,7 @@ jobs:
           fail_ci_if_error: true
 
   test-gap:
-    name: "Test GAP-${{ matrix.gap-version }, mode: ${{ matrix.mode }}"
+    name: "Test GAP-${{ matrix.gap-version }}, mode: ${{ matrix.mode }}"
     runs-on: ubuntu-latest
 
     strategy:
