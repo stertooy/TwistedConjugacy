@@ -1,4 +1,4 @@
-name: Run package tests
+name: Run CI tests
 on:
   - push
   - pull_request
@@ -7,7 +7,7 @@ on:
 jobs:
 
   test-pkg:
-    name: "Run package tests on GAP-${{ matrix.gap-version }} (mode: ${{ matrix.mode }})"
+    name: "Package tests on GAP-${{ matrix.gap-version }, mode: ${{ matrix.mode }}"
     runs-on: ubuntu-latest
 
     strategy:
@@ -55,7 +55,7 @@ jobs:
           fail_ci_if_error: true
 
   test-gap:
-    name: "Run GAP tests on GAP-${{ matrix.gap-version }} (mode: ${{ matrix.mode }})"
+    name: "GAP tests on GAP-${{ matrix.gap-version }, mode: ${{ matrix.mode }}"
     runs-on: ubuntu-latest
 
     strategy:
