@@ -46,11 +46,11 @@ jobs:
             
       - name: "Process coverage"
         uses: gap-actions/process-coverage@v2
-        if: ${{ matrix.coverage == '' }}
+        if: ${{ matrix.gap-version == 'master' }}
 
       - name: "Upload coverage"
         uses: codecov/codecov-action@v5
-        if: ${{ matrix.coverage == '' }}
+        if: ${{ matrix.gap-version == 'master' }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
