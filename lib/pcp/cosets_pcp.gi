@@ -59,7 +59,7 @@ end;
 
 ###############################################################################
 ##
-## Intersection2( U, V )
+## IntersectionPcpGroups@( U, V )
 ##
 ##  INPUT:
 ##      U:          subgroup of a PcpGroup G
@@ -68,40 +68,34 @@ end;
 ##  OUTPUT:
 ##      I:          intersection of U and V
 ##
-InstallMethod(
-    Intersection2,
-    "for pcp groups, using coincidence groups",
-    [ IsPcpGroup, IsPcpGroup ],
-    1,
-    function( U, V )
-        local G, dp, l, r, I;
+IntersectionPcpGroups@ := function( U, V )
+    local G, dp, l, r, I;
 
-        # Catch trivial cases
-        if IsSubset( V, U ) then
-            return U;
-        elif IsSubset( U, V ) then
-            return V;
-        fi;
+    # Catch trivial cases
+    if IsSubset( V, U ) then
+        return U;
+    elif IsSubset( U, V ) then
+        return V;
+    fi;
 
-        # Defer to polycyclic's implementation
-        if IsNormal( V, U ) or IsNormal( U, V ) then TryNextMethod(); fi;
+    # Defer to polycyclic's implementation
+    if IsNormal( V, U ) or IsNormal( U, V ) then TryNextMethod(); fi;
 
-        # Use CoincidenceGroup
-        G := PcpGroupByCollectorNC( Collector( U ) );
-        dp := DirectProductInclusions@( G, U, V );
-        l := dp[1];
-        r := dp[2];
+    # Use CoincidenceGroup
+    G := PcpGroupByCollectorNC( Collector( U ) );
+    dp := DirectProductInclusions@( G, U, V );
+    l := dp[1];
+    r := dp[2];
 
-        I := ImagesSet( l, CoincidenceGroup2( l, r ) );
-        if ASSERT@ then
-            if not (
-                IsSubset( U, I ) and
-                IsSubset( V, I )
-            ) then Error( "Assertion failure" ); fi;
-        fi;
-        return I;
-    end
-);
+    I := ImagesSet( l, CoincidenceGroup2( l, r ) );
+    if ASSERT@ then
+        if not (
+            IsSubset( U, I ) and
+            IsSubset( V, I )
+        ) then Error( "Assertion failure" ); fi;
+    fi;
+    return I;
+end;
 
 ###############################################################################
 ##
@@ -133,7 +127,7 @@ InstallMethod(
             return [];
         fi;
 
-        I := Intersection2( U, V );
+        I := IntersectionPcpGroups@( U, V );
         z := s[2] * y;
 
         if ASSERT@ then

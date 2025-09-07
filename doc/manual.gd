@@ -948,6 +948,12 @@ DeclareGlobalFunction( "GroupDerivationByImagesNC" );
 #! @Arguments H, G, fun, act
 DeclareGlobalFunction( "GroupDerivationByFunction" );
 
+
+#! @Returns the derivation that makes up the translational part of the affine
+#! action.
+#! @Arguments H, G, act
+DeclareGlobalFunction( "GroupDerivationByAffineAction" );
+
 #! @BeginExample
 H := PcGroupCode( 149167619499417164, 72 );;
 G := PcGroupCode( 5551210572, 72 );;

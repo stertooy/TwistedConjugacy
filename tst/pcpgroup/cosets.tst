@@ -7,11 +7,6 @@ gap> K := Subgroup( G, [ G.1*G.3^-2*G.4^2, G.1*G.4^4 ] );;
 gap> x := G.1*G.3^-1;;
 gap> y := G.1*G.2^-1*G.3^-2*G.4^-1;;
 gap> z := G.1*G.2*G.3*G.4^2;;
-gap> I := Intersection( H, K );;
-gap> IsSubgroup( H, I ) and IsSubgroup( K, I );
-true
-gap> Intersection( H, I ) = I and Intersection( I, K ) = I;
-true
 
 #
 gap> Hx := RightCoset( H, x );;
