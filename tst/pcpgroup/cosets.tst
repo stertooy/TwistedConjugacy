@@ -16,6 +16,10 @@ gap> Intersection( Hx, Hy );
 [  ]
 gap> Iw := Intersection( Hx, Ky );
 RightCoset(<group with 2 generators>,<object>)
+gap> Intersection( Hx, Iw ) = Iw;
+true
+gap> Intersection( Iw, Ky ) = Iw;
+true
 gap> I := ActingDomain( Iw );;
 gap> IsSubgroup( H, I ) and IsSubgroup( K, I );
 true
