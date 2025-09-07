@@ -1,11 +1,13 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
-3.2.0 (2025-08-24)
+3.1.0 (2025-09-14)
 ------------------
 
 - Functionality for affine actions added
 
+- Now requires Polycyclic version >= 2.17
+- Ensured that this package does not break the Polycyclic test suite
 
 
 3.0.0 (2025-07-21)

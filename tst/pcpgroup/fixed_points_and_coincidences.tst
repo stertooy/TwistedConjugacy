@@ -2,8 +2,8 @@ gap> START_TEST( "Testing TwistedConjugacy for PcpGroups: fixed point groups and
 
 # Preparation
 gap> filt := IsPcpGroup;;
-gap> G := PcGroupToPcpGroup( SmallGroup( 252, 34 ) );;
-gap> H := PcGroupToPcpGroup( SmallGroup( 84, 5 ) );;
+gap> G := PcGroupToPcpGroup( PcGroupCode( 57308604420143, 252 ) );;
+gap> H := PcGroupToPcpGroup( PcGroupCode( 23814281243, 84 ) );;
 gap> T := TrivialGroup( IsPcGroup );;
 gap> gensG := GeneratorsOfGroup( G );;
 gap> gensH := [ H.1, H.3*H.4 ];;
