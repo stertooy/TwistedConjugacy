@@ -37,14 +37,14 @@ jobs:
           gap -A -c 'QuitGap(LoadPackage("polycyclic","2.17"));'
 
       - name: "Run package tests"
-        uses: gap-actions/run-pkg-tests@v3
+        uses: gap-actions/run-pkg-tests@main
         with:
-          NO_COVERAGE: ${{ matrix.gap-version != 'master' && 'false' || '' }}
+          coverage: ${{ matrix.gap-version == 'master' }}
           only-needed: ${{ matrix.mode == 'onlyneeded' }}
           warnings-as-errors: true
             
       - name: "Process coverage"
-        uses: gap-actions/process-coverage@v2
+        uses: gap-actions/process-coverage@main
         if: ${{ matrix.gap-version == 'master' }}
 
       - name: "Upload coverage"
@@ -107,7 +107,7 @@ jobs:
           args: "--validate"
           
       - name: "Build manual"
-        uses: gap-actions/build-pkg-docs@v1
+        uses: gap-actions/build-pkg-docs@main
 
       - name: "Validate PackageInfo.g"
         shell: bash
