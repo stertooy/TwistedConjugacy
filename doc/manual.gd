@@ -55,12 +55,6 @@ LoadPackage( "TwistedConjugacy" );
 #! true
 #! @EndLog
 
-#! @BeginLog
-LoadPackage( "&PackageName;" );
-#! ...
-#! true
-#! @EndLog
-
 #! @Section Citing
 #! If you use the &PACKAGENAME; package in your research, we would love to
 #! hear about your work via an email to the address
