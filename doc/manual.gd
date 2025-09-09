@@ -1,5 +1,5 @@
 #! @Abstract
-#! The &TwistedConjugacy; package provides methods for solving the twisted
+#! The &PACKAGENAME; package provides methods for solving the twisted
 #! conjugacy problem (including the "search" and "multiple" variants) and for
 #! computing Reidemeister classes, numbers, spectra, and zeta functions. It
 #! also includes utility functions for working with (double) cosets, group
@@ -11,7 +11,7 @@
 #! @Copyright
 #! &copyright; 2020&ndash;&RELEASEYEAR; Sam Tertooy
 #! <P/>
-#! The &TwistedConjugacy; package is free software, it may be redistributed
+#! The &PACKAGENAME; package is free software, it may be redistributed
 #! and/or modified under the terms and conditions of the
 #! <URL Text="GNU Public License Version 2">
 #! https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</URL> or
@@ -20,13 +20,13 @@
 #! @Acknowledgements
 #! This documentation was created using the &GAPDoc; and &AutoDoc; packages.
 
-#! @Chapter The TwistedConjugacy package
+#! @Chapter The &PackageName; package
 
-#! This is the manual for the &GAP; 4 package &TwistedConjugacy; version
+#! This is the manual for the &GAP; 4 package &PACKAGENAME; version
 #! &VERSION;, developed by Sam Tertooy.
 
 #! @Section Installation
-#! You can download &TwistedConjugacy; as a .tar.gz archive
+#! You can download &PACKAGENAME; as a .tar.gz archive
 #! <URL Text='here'>&ARCHIVEURL;.tar.gz</URL>. After extracting, you should
 #! place it in a suitable <F>pkg</F> folder. For example, on a Debian-based
 #! Linux distribution (e.g. Ubuntu, Mint), you can place it in
@@ -38,7 +38,7 @@
 #! yourself:
 #! <Listing Type="Command">wget -qO- https://[...].tar.gz | tar xzf - --one-top-level=&dollar;HOME/.gap/pkg</Listing>
 #! If the &PackageManager; package is installed and loaded, you can install
-#! &TwistedConjugacy; from within a &GAP; session
+#! &PACKAGENAME; from within a &GAP; session
 #! using <Ref Func="InstallPackage" BookName="PackageManager" Style="Number"/>.
 #! @BeginLog
 InstallPackage( "https://[...].tar.gz" );
@@ -47,7 +47,7 @@ InstallPackage( "https://[...].tar.gz" );
 #! @EndLog
 
 #! @Section Loading
-#! Once installed, loading &TwistedConjugacy; can be done by using
+#! Once installed, loading &PACKAGENAME; can be done by using
 #! <Ref Func="LoadPackage" BookName="ref" Style="Number"/>.
 #! @BeginLog
 LoadPackage( "TwistedConjugacy" );
@@ -56,10 +56,10 @@ LoadPackage( "TwistedConjugacy" );
 #! @EndLog
 
 #! @Section Citing
-#! If you use the &TwistedConjugacy; package in your research, we would love to
+#! If you use the &PACKAGENAME; package in your research, we would love to
 #! hear about your work via an email to the address
 #! <Email>&SUPPORTEMAIL;</Email>.
-#! If you have used the &TwistedConjugacy; package in the preparation of a
+#! If you have used the &PACKAGENAME; package in the preparation of a
 #! paper and wish to refer to it, please cite it as described below.
 
 #! <P/>
@@ -68,7 +68,7 @@ LoadPackage( "TwistedConjugacy" );
 #!<Listing Type="BibTeX">
 #!&AT;misc{TC&VERSION;,
 #!    author =       {Tertooy, Sam},
-#!    title =        {{TwistedConjugacy,
+#!    title =        {{&PackageName;,
 #!                    &SUBTITLE;,
 #!                    Version &VERSION;}},
 #!    note =         {GAP package},
@@ -79,7 +79,7 @@ LoadPackage( "TwistedConjugacy" );
 #!<Listing Type="BibLaTeX">
 #!&AT;software{TC&VERSION;,
 #!    author =   {Tertooy, Sam},
-#!    title =    {TwistedConjugacy},
+#!    title =    {&PackageName;},
 #!    subtitle = {&SUBTITLE;},
 #!    version =  {&VERSION;},
 #!    note =     {GAP package},
@@ -91,13 +91,13 @@ LoadPackage( "TwistedConjugacy" );
 #! If you encounter any problems, please submit them to the
 #! <URL Text='issue tracker'>&ISSUEURL;</URL>.
 #! If you have any questions on the usage or functionality of
-#! &TwistedConjugacy;, you may contact me via email at
+#! &PACKAGENAME;, you may contact me via email at
 #! <Email>&SUPPORTEMAIL;</Email>.
 
 #! <P/>
 
 #! Bugs in &GAP;, in this package, or in any other package used directly or
-#! indirectly, may cause functions provided by &TwistedConjugacy; to produce
+#! indirectly, may cause functions provided by &PACKAGENAME; to produce
 #! errors or incorrect results.
 #! To help detect such issues, you can enable internal checks by setting the
 #! variable <C>ASSERT&#64;TwistedConjugacy</C> to <K>true</K>. Note that this
@@ -182,7 +182,7 @@ LoadPackage( "TwistedConjugacy" );
 #! If $G = H$, $\varphi$ is an endomorphism of $G$ and
 #! $\psi = \operatorname{id}_G$, then the action is usually called
 #! **$\varphi$-twisted conjugation**.
-#! In general, for the &TwistedConjugacy; package, many functions will take
+#! In general, for the &PACKAGENAME; package, many functions will take
 #! two homomorphisms <A>hom1</A> and <A>hom2</A> as arguments. However, if
 #! <A>hom1</A> is an endomorphism, <A>hom2</A> can be omitted, in which case it
 #! is automatically taken to be the identity map.
@@ -595,7 +595,7 @@ PrintReidemeisterZeta( khi );
 
 #! &GAP; is well-equipped to deal with **finite** cosets. However, if a coset
 #! is infinite, methods may not be available, may be faulty, or may run
-#! forever. The &TwistedConjugacy; package provides additional methods for
+#! forever. The &PACKAGENAME; package provides additional methods for
 #! existing functions that can deal with infinite cosets of PcpGroups.
 #!
 #! The only completely new functions are
@@ -644,7 +644,7 @@ Intersection( Hx, Kz );
 #! Algorithms designed for computing with twisted conjugacy classes can be
 #! leveraged to do computations involving double cosets, see
 #! <Cite Key='tert25-a' Where="Sec. 9"/> for a description on this. When the
-#! &TwistedConjugacy; package is loaded, it does this automatically, and the
+#! &PACKAGENAME; package is loaded, it does this automatically, and the
 #! functions below should then work for PcpGroups, even if they are infinite.
 
 #! @BeginGroup
