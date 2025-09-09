@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for PcpGroups: derivations" );
+gap> START_TEST( "Testing TwistedConjugacy for PcpGroups: derivations between finite groups" );
 
 # Preparation
 gap> H := PcGroupToPcpGroup( PcGroupCode( 149167619499417164, 72 ) );;
