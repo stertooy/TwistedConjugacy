@@ -22,7 +22,6 @@ AutoDoc( rec(
     scaffold := rec(
         bib := "manual.bib",
         entities := rec(
-            AT := "@",
             AutoDoc := "<Package>AutoDoc</Package>",
             Polycyclic := "<Package>Polycyclic</Package>",
             PackageManager := "<Package>PackageManager</Package>",
@@ -33,6 +32,7 @@ AutoDoc( rec(
                 pkgName,
                 "</Package>"
             ),
+            ABBREV := "TC",
             AUTHOR := Concatenation(
                 info.Persons[1].FirstNames, " ", info.Persons[1].LastName
             ),
