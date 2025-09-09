@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for PcpGroups: twisted conjugation by endomorphisms" );
+gap> START_TEST( "Testing TwistedConjugacy for PcpGroups: cosets" );
 
 #
 gap> G := ExamplesOfSomePcpGroups( 5 );;
