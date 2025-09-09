@@ -9,7 +9,7 @@
 #! PcpGroups (finite or infinite) provided by the &Polycyclic; package.
 
 #! @Copyright
-#! &copyright; 2020&ndash;&RELEASEYEAR; Sam Tertooy
+#! &copyright; 2020&ndash;&RELEASEYEAR; &AUTHOR;
 #! <P/>
 #! The &PACKAGENAME; package is free software, it may be redistributed
 #! and/or modified under the terms and conditions of the
@@ -23,7 +23,7 @@
 #! @Chapter The &PackageName; package
 
 #! This is the manual for the &GAP; 4 package &PACKAGENAME; version
-#! &VERSION;, developed by Sam Tertooy.
+#! &VERSION;, developed by &AUTHOR;.
 
 #! @Section Installation
 #! You can download &PACKAGENAME; as a .tar.gz archive
@@ -66,19 +66,19 @@ LoadPackage( "TwistedConjugacy" );
 
 #! In &BibTeX;:
 #!<Listing Type="BibTeX">
-#!&AT;misc{TC&VERSION;,
-#!    author =       {Tertooy, Sam},
+#!&#64;misc{TC&VERSION;,
+#!    author =       {&AUTHORREVERSED;},
 #!    title =        {{&PackageName;,
 #!                    &SUBTITLE;,
 #!                    Version &VERSION;}},
 #!    note =         {GAP package},
 #!    year =         {&RELEASEYEAR;},
-#!    howpublished = {\url{https://stertooy.github.io/TwistedConjugacy}}
+#!    howpublished = {\url{&HOMEURL;}}
 #!}</Listing><P/>
 #! In &BibLaTeX;:
 #!<Listing Type="BibLaTeX">
-#!&AT;software{TC&VERSION;,
-#!    author =   {Tertooy, Sam},
+#!&#64;software{TC&VERSION;,
+#!    author =   {&AUTHORREVERSED;},
 #!    title =    {&PackageName;},
 #!    subtitle = {&SUBTITLE;},
 #!    version =  {&VERSION;},
@@ -100,7 +100,7 @@ LoadPackage( "TwistedConjugacy" );
 #! indirectly, may cause functions provided by &PACKAGENAME; to produce
 #! errors or incorrect results.
 #! To help detect such issues, you can enable internal checks by setting the
-#! variable <C>ASSERT&#64;TwistedConjugacy</C> to <K>true</K>. Note that this
+#! variable <C>ASSERT&#64;&PackageName;</C> to <K>true</K>. Note that this
 #! will come at the cost of reduced performance.
 
 #! <P/>
