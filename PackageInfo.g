@@ -3,7 +3,7 @@ SetPackageInfo( rec(
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
 Version := "3.1.0",
-Date := "24/08/2025",
+Date := "14/09/2025",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -86,6 +86,7 @@ Extensions := [
 TestFile := "tst/testall.g",
 
 Keywords := [
+    "affine action",
     "automorphism",
     "coincidence group",
     "coset",
@@ -98,7 +99,8 @@ Keywords := [
     "Reidemeister number",
     "Reidemeister spectrum",
     "Reidemeister zeta function",
-    "twisted conjugacy"
+    "twisted conjugacy",
+    "twisted conjugation"
 ],
 
 ));
