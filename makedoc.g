@@ -26,12 +26,19 @@ AutoDoc( rec(
             AutoDoc := "<Package>AutoDoc</Package>",
             Polycyclic := "<Package>Polycyclic</Package>",
             PackageManager := "<Package>PackageManager</Package>",
-            TwistedConjugacy := Concatenation(
+            BibLaTeX := "Bib&LaTeX;",
+            PackageName := pkgName,
+            PACKAGENAME := Concatenation(
                 "<Package>",
-                info.PackageName,
+                pkgName,
                 "</Package>"
             ),
-            BibLaTeX := "Bib&LaTeX;",
+            AUTHOR := Concatenation(
+                info.Persons[1].FirstNames, " ", info.Persons[1].LastName
+            ),
+            AUTHORREVERSED := Concatenation(
+                info.Persons[1].LastName, ", ", info.Persons[1].FirstNames
+            ),
             RELEASEYEAR := String( info.Date{ [ 7 .. 10 ] } ),
             VERSION := info.Version,
             ARCHIVEURL := info.ArchiveURL,
