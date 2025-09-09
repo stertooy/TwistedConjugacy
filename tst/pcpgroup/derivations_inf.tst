@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for infinite PcpGroups: derivations" );
+gap> START_TEST( "Testing TwistedConjugacy for infinite PcpGroups: derivations between infinite groups" );
 
 # Preparation
 gap> G := ExamplesOfSomePcpGroups( 5 );;
