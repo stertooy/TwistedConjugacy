@@ -55,6 +55,12 @@ LoadPackage( "TwistedConjugacy" );
 #! true
 #! @EndLog
 
+#! @BeginLog
+LoadPackage( "&PackageName;" );
+#! ...
+#! true
+#! @EndLog
+
 #! @Section Citing
 #! If you use the &PACKAGENAME; package in your research, we would love to
 #! hear about your work via an email to the address
@@ -66,7 +72,7 @@ LoadPackage( "TwistedConjugacy" );
 
 #! In &BibTeX;:
 #!<Listing Type="BibTeX">
-#!&#64;misc{TC&VERSION;,
+#!&#64;misc{&ABBREV;&VERSION;,
 #!    author =       {&AUTHORREVERSED;},
 #!    title =        {{&PackageName;,
 #!                    &SUBTITLE;,
@@ -77,7 +83,7 @@ LoadPackage( "TwistedConjugacy" );
 #!}</Listing><P/>
 #! In &BibLaTeX;:
 #!<Listing Type="BibLaTeX">
-#!&#64;software{TC&VERSION;,
+#!&#64;software{&ABBREV;&VERSION;,
 #!    author =   {&AUTHORREVERSED;},
 #!    title =    {&PackageName;},
 #!    subtitle = {&SUBTITLE;},
@@ -111,7 +117,7 @@ LoadPackage( "TwistedConjugacy" );
 #! variables <C>CHECK_CENT&#64;Polycyclic</C>, <C>CHECK_IGS&#64;Polycyclic</C>
 #! and <C>CHECK_INTSTAB&#64;Polycyclic</C> to <K>true</K>.
 
-#! @Chapter Mathematical Background
+#! @Chapter Mathematical background
 
 #! Let $G$ and $H$ be groups and let $\varphi$ and $\psi$ be group
 #! homomorphisms from $H$ to $G$. The pair $(\varphi,\psi)$ induces a (right)
