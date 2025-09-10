@@ -12,7 +12,7 @@
 ##      emb:        group homomorphism G -> S
 ##      fnc:        affine action of H on G
 ##
-BindGlobal (
+BindGlobal(
     "TWC_FourMapsForAffineAction",
     function( K, derv )
         local info, S, lhs, rhs, emb, fnc;
