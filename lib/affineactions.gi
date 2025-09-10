@@ -1,41 +1,5 @@
 ###############################################################################
 ##
-## FourMapsForAffineAction@( K, derv )
-##
-##  INPUT:
-##      K:          subgroup of H
-##      derv:       group derivation H -> G
-##
-##  OUTPUT:
-##      lhs:        group homomorphism H -> S
-##      rhs:        group homomorphism H -> S
-##      emb:        group homomorphism G -> S
-##      fnc:        affine action of H on G
-##
-FourMapsForAffineAction@ := function( K, derv )
-    local info, S, lhs, rhs, emb, fnc;
-    info := GroupDerivationInfo( derv );
-    S := info!.sdp;
-    lhs := info!.lhs;
-    rhs := info!.rhs;
-    if K <> Source( derv ) then
-        lhs := RestrictedHomomorphism( lhs, K, S );
-        rhs := RestrictedHomomorphism( rhs, K, S );
-    fi;
-    emb := Embedding( S, 2 );
-    fnc := function( g, k )
-        local tc, inv, s, t;
-        tc := TwistedConjugation( lhs, rhs );
-        inv := RestrictedInverseGeneralMapping( emb );
-        s := ImagesRepresentative( emb, g );
-        t := tc( s, k );
-        return ImagesRepresentative( inv, t );
-    end;
-    return [ lhs, rhs, emb, fnc ];
-end;
-
-###############################################################################
-##
 ## AffineActionByGroupDerivation( K, derv )
 ##
 ##  INPUT:
@@ -47,7 +11,7 @@ end;
 ##
 InstallGlobalFunction(
     AffineActionByGroupDerivation,
-    { K, derv } -> FourMapsForAffineAction@( K, derv )[4]
+    { K, derv } -> TWC_FourMapsForAffineAction( K, derv )[4]
 );
 
 ###############################################################################
@@ -67,7 +31,7 @@ InstallGlobalFunction(
     function( K, g, derv )
         local G, map, emb, s, tcc, orb;
         G := Range( derv );
-        map := FourMapsForAffineAction@( K, derv );
+        map := TWC_FourMapsForAffineAction( K, derv );
         emb := map[3];
         s := ImagesRepresentative( emb, g );
         tcc := ReidemeisterClass( map[1], map[2], s );
@@ -108,7 +72,7 @@ InstallGlobalFunction(
     function( K, derv )
         local G, map, emb, iG, R, reps;
         G := Range( derv );
-        map := FourMapsForAffineAction@( K, derv );
+        map := TWC_FourMapsForAffineAction( K, derv );
         emb := map[3];
         iG := ImagesSet( emb, G );
         R := RepresentativesReidemeisterClasses( map[1], map[2], iG );
@@ -136,7 +100,7 @@ InstallGlobalFunction(
     function( K, derv )
         local G, map, emb, iG, R;
         G := Range( derv );
-        map := FourMapsForAffineAction@( K, derv );
+        map := TWC_FourMapsForAffineAction( K, derv );
         emb := map[3];
         iG := ImagesSet( emb, G );
         R := RepresentativesReidemeisterClasses( map[1], map[2], iG );
@@ -186,7 +150,7 @@ InstallGlobalFunction(
     RepresentativeAffineAction,
     function( K, g1, g2, derv )
         local map, s1, s2;
-        map := FourMapsForAffineAction@( K, derv );
+        map := TWC_FourMapsForAffineAction( K, derv );
         s1 := ImagesRepresentative( map[3], g1 );
         s2 := ImagesRepresentative( map[3], g2 );
         return RepresentativeTwistedConjugation( map[1], map[2], s1, s2 );
