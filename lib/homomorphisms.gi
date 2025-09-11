@@ -54,7 +54,7 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## InclusionHomomorphism( H, G )
+## TWC_InclusionHomomorphism( H, G )
 ##
 ##  INPUT:
 ##      H:          subgroup of G
@@ -64,7 +64,7 @@ InstallGlobalFunction(
 ##      hom:        natural inclusion H -> G
 ##
 InstallGlobalFunction(
-    InclusionHomomorphism,
+    TWC_InclusionHomomorphism,
     function( H, G )
         local gens;
         gens := GeneratorsOfGroup( H );
@@ -74,7 +74,7 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-##  DifferenceGroupHomomorphisms( hom1, hom2, N, M )
+##  TWC_DifferenceGroupHomomorphisms( hom1, hom2, N, M )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -89,7 +89,7 @@ InstallGlobalFunction(
 ##      Does not verify whether diff is a well-defined group homomorphism.
 ##
 InstallGlobalFunction(
-    DifferenceGroupHomomorphisms,
+    TWC_DifferenceGroupHomomorphisms,
     function( hom1, hom2, N, M )
         local gens, imgs;
         gens := GeneratorsOfGroup( N );
