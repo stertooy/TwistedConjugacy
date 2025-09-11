@@ -176,32 +176,28 @@ BindGlobal(
     "TWC_CoincidenceGroupStep4",
     function( G, H, hom1, hom2 )
         local C, p, q, Coin, d;
-        C := First( UpperCentralSeries( G ) );
-        p := NaturalHomomorphismByNormalSubgroupNC( G, C );
-        q := IdentityMapping( H );
-        Coin := TWC_CoincidenceGroupStep4(
-            ImagesSource( p ), H,
-            InducedHomomorphism( q, p, hom1 ),
-            InducedHomomorphism( q, p, hom2 )
-        );
-        d := DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
-        return KernelOfMultiplicativeGeneralMapping( d );
-        #if IsNilpotentByFinite( G ) then
-        #    return CoincidenceGroup2( hom1, hom2 );
-        #fi;
-        #C := Center( G );
-        #if IsTrivial( C ) then
-        #    return TWC_CoincidenceGroupStep5( G, H, hom1, hom2 );
-        #fi;
-        #p := NaturalHomomorphismByNormalSubgroupNC( G, C );
-        #q := IdentityMapping( H );
-        #Coin := TWC_CoincidenceGroupStep4(
-        #    ImagesSource( p ), H,
-        #    InducedHomomorphism( q, p, hom1 ),
-        #    InducedHomomorphism( q, p, hom2 )
-        #);
-        #d := DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
-        #return KernelOfMultiplicativeGeneralMapping( d );
+        if IsNilpotentByFinite( G ) then
+            return CoincidenceGroup2( hom1, hom2 );
+        fi;
+        blah := function( G, H, hom1, hom2 )
+        local C, p, q, Coin, d;
+            C := Center( G );
+            if IsTrivial( C ) then
+                Print("STEP 4: CALL TO STEP 5 BELOW\n");
+                return TWC_CoincidenceGroupStep5( G, H, hom1, hom2 );
+            fi;
+            p := NaturalHomomorphismByNormalSubgroupNC( G, C );
+            q := IdentityMapping( H );
+            Print("STEP 4: CALL TO STEP 4 BELOW\n");
+            Coin := blah(
+                ImagesSource( p ), H,
+                InducedHomomorphism( q, p, hom1 ),
+                InducedHomomorphism( q, p, hom2 )
+            );
+            d := DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
+            return KernelOfMultiplicativeGeneralMapping( d );
+        end;
+        return blah( G, H, hom1, hom2 );
     end
 );
 
@@ -235,6 +231,7 @@ BindGlobal(
         d := DifferenceGroupHomomorphisms( hom1, hom2, HH, G );
         p := NaturalHomomorphismByNormalSubgroupNC( G, ImagesSource( d ) );
         q := IdentityMapping( H );
+        Print("STEP 3: CALL TO STEP 4 BELOW\n");
         Coin := TWC_CoincidenceGroupStep4(
             ImagesSource( p ), H,
             InducedHomomorphism( q, p, hom1 ),
