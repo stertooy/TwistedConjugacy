@@ -6,6 +6,7 @@ ReadPackage( "TwistedConjugacy", "lib/coincidencegroup.gi" );
 ReadPackage( "TwistedConjugacy", "lib/cosets.gi" );
 ReadPackage( "TwistedConjugacy", "lib/derivations.g" );
 ReadPackage( "TwistedConjugacy", "lib/derivations.gi" );
+ReadPackage( "TwistedConjugacy", "lib/homomorphisms.g" );
 ReadPackage( "TwistedConjugacy", "lib/homomorphisms.gi" );
 ReadPackage( "TwistedConjugacy", "lib/reidemeisterclasses.gi" );
 ReadPackage( "TwistedConjugacy", "lib/reidemeisternumber.gi" );
