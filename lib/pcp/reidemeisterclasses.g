@@ -25,7 +25,7 @@ BindGlobal(
     "TWC_ReidemeisterClassesByTrivialSubgroup",
     function( G, H, hom1, hom2, N, one )
         local L, id, q, hom1HL, hom2HL;
-        L := IntersectionOfKernels( hom1, hom2 );
+        L := TWC_IntersectionOfKernels( hom1, hom2 );
         id := IdentityMapping( G );
         q := NaturalHomomorphismByNormalSubgroupNC( H, L );
         hom1HL := InducedHomomorphism( q, id, hom1 );
@@ -64,7 +64,7 @@ BindGlobal(
         local L, p, q, GK, pN, hom1p, hom2p, RclGK, Rcl, hom1K, hom2K, M, pn,
               inn_pn, Coin, n, conj_n, inn_n_hom1K, RclM, inRclM, inn_n, tc,
               m1, isNew, h, m2, inn_nm2_hom1K;
-        L := IntersectionOfPreImages( hom1, hom2, K );
+        L := TWC_IntersectionOfPreImages( hom1, hom2, K );
         p := NaturalHomomorphismByNormalSubgroupNC( G, K );
         q := NaturalHomomorphismByNormalSubgroupNC( H, L );
         hom1p := InducedHomomorphism( q, p, hom1 );
