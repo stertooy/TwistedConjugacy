@@ -256,7 +256,7 @@ BindGlobal(
         #fi;
         #return TWC_RepTwistConjToIdByCentre( G, H, hom1, hom2, a );
 
-        fi
+        fi;
         C := Centre( G );
         if IsTrivial( Center( G ) ) then
             return TWC_RepTwistConjToIdStep5( G, H, hom1, hom2, a, A );
