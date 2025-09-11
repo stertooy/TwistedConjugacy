@@ -1,7 +1,8 @@
 DeclareGlobalFunction( "InducedHomomorphism" );
 DeclareGlobalFunction( "RestrictedHomomorphism" );
-DeclareGlobalFunction( "InclusionHomomorphism" );
-DeclareGlobalFunction( "DifferenceGroupHomomorphisms" );
+
+DeclareGlobalFunction( "TWC_InclusionHomomorphism" );
+DeclareGlobalFunction( "TWC_DifferenceGroupHomomorphisms" );
 
 DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 DeclareOperation(
