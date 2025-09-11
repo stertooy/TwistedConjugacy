@@ -44,7 +44,7 @@ InstallGlobalFunction(
             );
             Coin := new;
         od;
-        if ASSERT@ then
+        if TWC_ASSERT then
             arg := Concatenation( [ hom1 ], arg );
             for h in GeneratorsOfGroup( Coin ) do
                 imgs := [];
@@ -93,7 +93,7 @@ InstallMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not IsAbelian( G ) then TryNextMethod(); fi;
-        diff := DifferenceGroupHomomorphisms( hom1, hom2, H, G );
+        diff := TWC_DifferenceGroupHomomorphisms( hom1, hom2, H, G );
         return KernelOfMultiplicativeGeneralMapping( diff );
     end
 );
@@ -120,7 +120,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## InducedCoincidenceGroup( q, p, hom1, hom2 )
+## TWC_InducedCoincidenceGroup( q, p, hom1, hom2 )
 ##
 ##  INPUT:
 ##      q:          projection H -> Q
@@ -132,7 +132,7 @@ InstallMethod(
 ##      coin:       coincidence group of the induced homomorphisms Q -> P
 ##
 InstallGlobalFunction(
-    InducedCoincidenceGroup,
+    TWC_InducedCoincidenceGroup,
     function( q, p, hom1, hom2 )
         local ind1, ind2;
         ind1 := InducedHomomorphism( q, p, hom1 );

@@ -100,7 +100,7 @@ LoadPackage( "TwistedConjugacy" );
 #! indirectly, may cause functions provided by &PACKAGENAME; to produce
 #! errors or incorrect results.
 #! To help detect such issues, you can enable internal checks by setting the
-#! variable <C>ASSERT&#64;&PackageName;</C> to <K>true</K>. Note that this
+#! variable <C>TWC_ASSERT</C> to <K>true</K>. Note that this
 #! will come at the cost of reduced performance.
 
 #! <P/>

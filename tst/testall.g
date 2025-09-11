@@ -1,5 +1,5 @@
 LoadPackage( "TwistedConjugacy" );
-ASSERT@TwistedConjugacy := true;
+TWC_ASSERT := true;
 testOpts := rec(
     exitGAP := false,
     showProgress := true,
