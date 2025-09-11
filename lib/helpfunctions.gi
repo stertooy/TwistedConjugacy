@@ -16,7 +16,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## IntersectionOfKernels( hom1, hom2 )
+## TWC_IntersectionOfKernels( hom1, hom2 )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -26,7 +26,7 @@ InstallMethod(
 ##      N:          intersection of Ker(hom1) and Ker(hom2)
 ##
 InstallGlobalFunction(
-    IntersectionOfKernels,
+    TWC_IntersectionOfKernels,
     { hom1, hom2 } -> NormalIntersection(
         KernelOfMultiplicativeGeneralMapping( hom1 ),
         KernelOfMultiplicativeGeneralMapping( hom2 )
@@ -35,7 +35,7 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## IntersectionOfPreImages( hom1, hom2, M )
+## TWC_IntersectionOfPreImages( hom1, hom2, M )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -46,7 +46,7 @@ InstallGlobalFunction(
 ##      N:          intersection of hom1^-1(M) and hom2^-1(M)
 ##
 InstallGlobalFunction(
-    IntersectionOfPreImages,
+    TWC_IntersectionOfPreImages,
     { hom1, hom2, M } -> NormalIntersection(
         # TODO: replace by PreImagesSet eventually
         PreImagesSetNC( hom1, NormalIntersection( M, ImagesSource( hom1 ) ) ),
