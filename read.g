@@ -10,5 +10,6 @@ ReadPackage( "TwistedConjugacy", "lib/homomorphisms.gi" );
 ReadPackage( "TwistedConjugacy", "lib/reidemeisterclasses.gi" );
 ReadPackage( "TwistedConjugacy", "lib/reidemeisternumber.gi" );
 ReadPackage( "TwistedConjugacy", "lib/reidemeisterspectrum.gi" );
+ReadPackage( "TwistedConjugacy", "lib/reidemeisterzeta.g" );
 ReadPackage( "TwistedConjugacy", "lib/reidemeisterzeta.gi" );
 ReadPackage( "TwistedConjugacy", "lib/twistedconjugation.gi" );
