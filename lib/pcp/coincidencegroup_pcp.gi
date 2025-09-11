@@ -24,7 +24,7 @@ InstallMethod(
             not IsFinite( H ) and
             IsFinite( G )
         ) then TryNextMethod(); fi;
-        return CoincidenceGroupByTrivialSubgroup@( G, H, hom1, hom2 );
+        return TWC_CoincidenceGroupByTrivialSubgroup( G, H, hom1, hom2 );
     end
 );
 
@@ -45,7 +45,7 @@ InstallMethod(
             not IsAbelian( G ) and
             IsNilpotentGroup( G )
         ) then TryNextMethod(); fi;
-        return CoincidenceGroupByCentre@( G, H, hom1, hom2 );
+        return TWC_CoincidenceGroupByCentre( G, H, hom1, hom2 );
     end
 );
 
@@ -67,7 +67,7 @@ InstallMethod(
             IsNilpotentByFinite( G )
         ) then TryNextMethod(); fi;
         F := FittingSubgroup( G );
-        return CoincidenceGroupByFiniteQuotient@( G, H, hom1, hom2, F );
+        return TWC_CoincidenceGroupByFiniteQuotient( G, H, hom1, hom2, F );
     end
 );
 
@@ -87,7 +87,7 @@ InstallMethod(
             not IsNilpotentByFinite( G ) and
             IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
-        return CoincidenceGroupStep1@( G, H, hom1, hom2 );
+        return TWC_CoincidenceGroupStep1( G, H, hom1, hom2 );
     end
 );
 
@@ -108,6 +108,6 @@ InstallMethod(
             not IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
         K := NilpotentByAbelianByFiniteSeries( G )[2];
-        return CoincidenceGroupByFiniteQuotient@( G, H, hom1, hom2, K );
+        return TWC_CoincidenceGroupByFiniteQuotient( G, H, hom1, hom2, K );
     end
 );
