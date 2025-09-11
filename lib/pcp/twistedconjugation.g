@@ -247,12 +247,41 @@ BindGlobal(
 BindGlobal(
     "TWC_RepTwistConjToIdStep4",
     function( G, H, hom1, hom2, a, A )
+        local C, p, q, hom1p, hom2p, pg, h1, tc, c, Coin, d, h2, pG, pA;
+
         if IsNilpotentByFinite( G ) then
             return RepresentativeTwistedConjugationOp( hom1, hom2, a );
-        elif IsTrivial( Center( G ) ) then
+        #elif IsTrivial( Center( G ) ) then
+        #    return TWC_RepTwistConjToIdStep5( G, H, hom1, hom2, a, A );
+        #fi;
+        #return TWC_RepTwistConjToIdByCentre( G, H, hom1, hom2, a );
+
+        fi
+        C := Centre( G );
+        if IsTrivial( Center( G ) ) then
             return TWC_RepTwistConjToIdStep5( G, H, hom1, hom2, a, A );
         fi;
-        return TWC_RepTwistConjToIdByCentre( G, H, hom1, hom2, a );
+        p := NaturalHomomorphismByNormalSubgroupNC( G, C );
+        q := IdentityMapping( H );
+        hom1p := InducedHomomorphism( q, p, hom1 );
+        hom2p := InducedHomomorphism( q, p, hom2 );
+        pg := ImagesRepresentative( p, g );
+        pG := ImagesSource( p );
+        pA := ImagesSeet( p, A );
+        h1 := TWC_RepTwistConjToIdStep4( pG, H, hom1p, hom2p, a, pA );
+        if h1 = fail then
+            return fail;
+        fi;
+        tc := TwistedConjugation( hom1, hom2 );
+        c := tc( g, h1 );
+        Coin := CoincidenceGroup2( hom1p, hom2p );
+        d := DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
+        if not c in ImagesSource( d ) then
+            return fail;
+        fi;
+        # TODO: Replace by PreImagesRepresentative eventually
+        h2 := PreImagesRepresentativeNC( d, c );
+        return h1 * h2;
     end
 );
 
