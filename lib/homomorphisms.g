@@ -20,8 +20,8 @@
 BindGlobal(
     "TWC_KernelsOfHomomorphismClasses",
     function( H, KerOrbits, ImgOrbits )
-        local AutH, asAuto, Pairs, Heads, Isos, i, N, p, Q, j, M, iso, kerOrbit,
-              possibleImgs;
+        local AutH, asAuto, Pairs, Heads, Isos, i, N, p, Q, j, M, iso,
+              kerOrbit, possibleImgs;
         AutH := AutomorphismGroup( H );
         asAuto := { A, aut } -> ImagesSet( aut, A );
         Pairs := [];
@@ -186,7 +186,9 @@ BindGlobal(
                     for k in [ 1, 2 ] do
                         go := Order( gens[k] );
                         if Random( 1, 6 ) = 1 then
-                            gens[k] := gens[k] ^ ( go / Random( Factors( go ) ) );
+                            gens[k] := gens[k] ^ (
+                                go / Random( Factors( go ) )
+                            );
                         fi;
                     od;
                 until IndexNC( H, SubgroupNC( H, gens ) ) = 1;
@@ -239,7 +241,10 @@ BindGlobal(
             imgsG := [];
             for g in gensG do
                 og := Order( g );
-                pows := Filtered( [ 0 .. og - 1 ], x -> ( ( x * oh) mod og ) = 0 );
+                pows := Filtered(
+                    [ 0 .. og - 1 ],
+                    x -> ( ( x * oh ) mod og ) = 0
+                );
                 Add( imgsG, List( pows, x -> g ^ x ) );
             od;
             Add( imgs, List( Cartesian( imgsG ), Product ) );
