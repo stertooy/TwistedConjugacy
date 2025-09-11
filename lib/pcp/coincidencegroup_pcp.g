@@ -229,7 +229,6 @@ BindGlobal(
         d := DifferenceGroupHomomorphisms( hom1, hom2, HH, G );
         p := NaturalHomomorphismByNormalSubgroupNC( G, ImagesSource( d ) );
         q := IdentityMapping( H );
-        Print("STEP 3: CALL TO STEP 4 BELOW\n");
         Coin := TWC_CoincidenceGroupStep4(
             ImagesSource( p ), H,
             InducedHomomorphism( q, p, hom1 ),
