@@ -281,7 +281,7 @@ BindGlobal(
     function( G, H, hom1, hom2, A, one )
         local HH, delta, dHH, p, q, hom1p, hom2p, pG, pA, Rcl;
         HH := DerivedSubgroup( H );
-        delta := DifferenceGroupHomomorphisms( hom1, hom2, HH, A );
+        delta := TWC_DifferenceGroupHomomorphisms( hom1, hom2, HH, A );
         dHH := ImagesSource( delta );
         p := NaturalHomomorphismByNormalSubgroupNC( G, dHH );
         q := IdentityMapping( H );
