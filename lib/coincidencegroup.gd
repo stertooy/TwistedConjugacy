@@ -4,4 +4,4 @@ DeclareOperation(
     "CoincidenceGroup2",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
-DeclareGlobalFunction( "InducedCoincidenceGroup" );
+DeclareGlobalFunction( "TWC_InducedCoincidenceGroup" );
