@@ -226,7 +226,7 @@ InstallMethod(
     "for abelian source and abelian range",
     [ IsGroup and IsFinite and IsAbelian, IsGroup and IsFinite and IsAbelian ],
     SUM_FLAGS + 2,
-    RepresentativesHomomorphismClassesAbelian@
+    TWC_RepresentativesHomomorphismClassesAbelian
 );
 
 InstallMethod(
@@ -252,7 +252,7 @@ InstallMethod(
     1,
     function( H, G )
         if Size( SmallGeneratingSet( H ) ) <> 2 then TryNextMethod(); fi;
-        return RepresentativesHomomorphismClasses2Generated@( H, G );
+        return TWC_RepresentativesHomomorphismClasses2Generated( H, G );
     end
 );
 
@@ -289,17 +289,17 @@ InstallMethod(
         );
 
         # Step 3: Calculate info on kernels
-        KerInfo := KernelsOfHomomorphismClasses@( H, KerOrbits, ImgOrbits );
+        KerInfo := TWC_KernelsOfHomomorphismClasses( H, KerOrbits, ImgOrbits );
         Pairs := KerInfo[1];
         Heads := KerInfo[2];
         Isos := KerInfo[3];
 
         # Step 4: Calculate info on images
         Reps := EmptyPlist( Length( ImgOrbits ) );
-        Tails := ImagesOfHomomorphismClasses@( Pairs, ImgOrbits, Reps, G );
+        Tails := TWC_ImagesOfHomomorphismClasses( Pairs, ImgOrbits, Reps, G );
 
         # Step 5: Calculate the homomorphisms
-        return FuseHomomorphismClasses@( Pairs, Heads, Isos, Tails );
+        return TWC_FuseHomomorphismClasses( Pairs, Heads, Isos, Tails );
     end
 );
 
@@ -331,7 +331,7 @@ InstallMethod(
     "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian ],
     SUM_FLAGS + 2,
-    G -> RepresentativesHomomorphismClassesAbelian@( G, G )
+    G -> TWC_RepresentativesHomomorphismClassesAbelian( G, G )
 );
 
 InstallMethod(
@@ -341,7 +341,7 @@ InstallMethod(
     1,
     function( G )
         if Size( SmallGeneratingSet( G ) ) <> 2 then TryNextMethod(); fi;
-        return RepresentativesHomomorphismClasses2Generated@( G, G );
+        return TWC_RepresentativesHomomorphismClasses2Generated( G, G );
     end
 );
 
@@ -380,18 +380,18 @@ InstallMethod(
         od;
 
         # Step 3: Calculate info on kernels
-        KerInfo := KernelsOfHomomorphismClasses@( G, KerOrbits, SubOrbits );
+        KerInfo := TWC_KernelsOfHomomorphismClasses( G, KerOrbits, SubOrbits );
         Pairs := KerInfo[1];
         Reps := KerInfo[2];
         Isos := KerInfo[3];
 
         # Step 4: Calculate info on images
-        Tails := ImagesOfHomomorphismClasses@( Pairs, SubOrbits, Reps, G );
+        Tails := TWC_ImagesOfHomomorphismClasses( Pairs, SubOrbits, Reps, G );
 
         # Step 5: Calculate the homomorphisms
         return Concatenation(
             RepresentativesAutomorphismClasses( G ),
-            FuseHomomorphismClasses@( Pairs, Reps, Isos, Tails )
+            TWC_FuseHomomorphismClasses( Pairs, Reps, Isos, Tails )
         );
     end
 );
