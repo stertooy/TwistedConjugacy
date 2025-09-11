@@ -93,7 +93,7 @@ InstallMethod(
         G := Range( hom1 );
         H := Source( hom1 );
         if not IsAbelian( G ) then TryNextMethod(); fi;
-        diff := DifferenceGroupHomomorphisms( hom1, hom2, H, G );
+        diff := TWC_DifferenceGroupHomomorphisms( hom1, hom2, H, G );
         return KernelOfMultiplicativeGeneralMapping( diff );
     end
 );
