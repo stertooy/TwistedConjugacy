@@ -32,8 +32,11 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     IntersectionOfPreImages,
     { hom1, hom2, M } -> NormalIntersection(
-        PreImagesSet( hom1, M ),
-        PreImagesSet( hom2, M )
+        # TODO: replace by PreImagesSet eventually, if possible
+        # Polycyclic only contains implementation for group homomorphisms by
+        # images, not by functions
+        PreImagesSetNC( hom1, NormalIntersection( M, ImagesSource( hom1 ) ) ),
+        PreImagesSetNC( hom2, NormalIntersection( M, ImagesSource( hom2 ) ) )
     )
 );
 
