@@ -1,4 +1,5 @@
 DeclareGlobalFunction( "OrbitAffineAction" );
+DeclareRepresentation( "IsOrbitAffineActionRep", IsExternalOrbit );
 
 DeclareGlobalFunction( "OrbitsAffineAction" );
 DeclareGlobalFunction( "NrOrbitsAffineAction" );
