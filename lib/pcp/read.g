@@ -6,4 +6,5 @@ ReadPackage( "TwistedConjugacy", "lib/pcp/helpfunctions.gi" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/reidemeisterclasses.g" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/reidemeisterclasses.gi" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/reidemeisternumber.gi" );
+ReadPackage( "TwistedConjugacy", "lib/pcp/twistedconjugation.g" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/twistedconjugation.gi" );
