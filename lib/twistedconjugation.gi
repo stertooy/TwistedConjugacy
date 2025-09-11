@@ -169,7 +169,7 @@ InstallOtherMethod(
         G := Range( hom1 );
         if not IsAbelian( G ) then TryNextMethod(); fi;
         H := Source( hom1 );
-        diff := DifferenceGroupHomomorphisms( hom1, hom2, H, G );
+        diff := TWC_DifferenceGroupHomomorphisms( hom1, hom2, H, G );
         # TODO: Replace this by PreImagesRepresentative (without NC) eventually
         if not g in ImagesSource( diff ) then
             return fail;
