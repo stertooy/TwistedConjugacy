@@ -98,7 +98,7 @@ InstallGlobalFunction(
             c := CallFuncList( RepresentativeTwistedConjugationOp, arg );
             arg := List( arg, x -> [ x ] );
         fi;
-        if ASSERT@ and c <> fail then
+        if TWC_ASSERT and c <> fail then
             for i in [ 1 .. n ] do
                 tc := TwistedConjugation( arg[1][i], arg[2][i] );
                 im := tc( arg[3][i], c );
