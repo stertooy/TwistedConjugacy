@@ -108,7 +108,7 @@ BindGlobal(
         p := NaturalHomomorphismByNormalSubgroupNC( G, C );
         q := IdentityMapping( H );
         Coin := TWC_InducedCoincidenceGroup( q, p, hom1, hom2 );
-        diff := DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
+        diff := TWC_DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
         return KernelOfMultiplicativeGeneralMapping( diff );
     end
 );
@@ -192,7 +192,7 @@ BindGlobal(
                 InducedHomomorphism( q, p, hom1 ),
                 InducedHomomorphism( q, p, hom2 )
             );
-            d := DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
+            d := TWC_DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
             return KernelOfMultiplicativeGeneralMapping( d );
         end;
         return recfun( G, H, hom1, hom2 );
@@ -226,7 +226,7 @@ BindGlobal(
             return CoincidenceGroup2( hom1, hom2 );
         fi;
         HH := DerivedSubgroup( H );
-        d := DifferenceGroupHomomorphisms( hom1, hom2, HH, G );
+        d := TWC_DifferenceGroupHomomorphisms( hom1, hom2, HH, G );
         p := NaturalHomomorphismByNormalSubgroupNC( G, ImagesSource( d ) );
         q := IdentityMapping( H );
         Coin := TWC_CoincidenceGroupStep4(
