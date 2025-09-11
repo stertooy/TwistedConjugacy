@@ -1,5 +1,5 @@
 DeclareProperty( "IsNilpotentByAbelian", IsGroup );
 InstallTrueMethod( IsNilpotentByAbelian, IsNilpotentGroup );
 
-DeclareGlobalFunction( "IntersectionOfKernels" );
-DeclareGlobalFunction( "IntersectionOfPreImages" );
+DeclareGlobalFunction( "TWC_IntersectionOfKernels" );
+DeclareGlobalFunction( "TWC_IntersectionOfPreImages" );
