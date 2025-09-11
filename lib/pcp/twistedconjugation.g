@@ -269,7 +269,7 @@ BindGlobal(
         pa := ImagesRepresentative( p, a );
         pG := ImagesSource( p );
         pA := ImagesSet( p, A );
-        h1 := blah( pG, H, hom1p, hom2p, a, pA );
+        h1 := blah( pG, H, hom1p, hom2p, pa, pA );
         if h1 = fail then
             return fail;
         fi;
