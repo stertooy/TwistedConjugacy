@@ -175,22 +175,19 @@ BindGlobal(
 BindGlobal(
     "TWC_CoincidenceGroupStep4",
     function( G, H, hom1, hom2 )
-        local blah;
+        local recfun;
         if IsNilpotentByFinite( G ) then
-            Print("STEP 4: RETURN EARLY\n");
             return CoincidenceGroup2( hom1, hom2 );
         fi;
-        blah := function( G, H, hom1, hom2 )
-        local C, p, q, Coin, d;
+        recfun := function( G, H, hom1, hom2 )
+            local C, p, q, Coin, d;
             C := Center( G );
             if IsTrivial( C ) then
-                Print("STEP 4: CALL TO STEP 5 BELOW\n");
                 return TWC_CoincidenceGroupStep5( G, H, hom1, hom2 );
             fi;
             p := NaturalHomomorphismByNormalSubgroupNC( G, C );
             q := IdentityMapping( H );
-            Print("STEP 4: CALL TO STEP 4 BELOW\n");
-            Coin := blah(
+            Coin := recfun(
                 ImagesSource( p ), H,
                 InducedHomomorphism( q, p, hom1 ),
                 InducedHomomorphism( q, p, hom2 )
@@ -198,7 +195,7 @@ BindGlobal(
             d := DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
             return KernelOfMultiplicativeGeneralMapping( d );
         end;
-        return blah( G, H, hom1, hom2 );
+        return recfun( G, H, hom1, hom2 );
     end
 );
 
@@ -226,7 +223,6 @@ BindGlobal(
     function( G, H, hom1, hom2 )
         local HH, d, p, q, Coin, ci, n, tc, bi, di, gens1, gens2;
         if IsNilpotentByFinite( G ) then
-            Print("STEP 3: RETURN EARLY\n");
             return CoincidenceGroup2( hom1, hom2 );
         fi;
         HH := DerivedSubgroup( H );
@@ -245,7 +241,9 @@ BindGlobal(
         bi := List( [ 1 .. n ], i -> tc( One( G ), ci[i] ^ -1 ) );
         di := List( [ 1 .. n ], i -> PreImagesRepresentativeNC( d, bi[i] ) );
         gens1 := List( [ 1 .. n ], i -> di[i] ^ -1 * ci[i] );
-        gens2 := SmallGeneratingSet( KernelOfMultiplicativeGeneralMapping( d ) );
+        gens2 := SmallGeneratingSet(
+            KernelOfMultiplicativeGeneralMapping( d )
+        );
         return Subgroup( H, Concatenation( gens1, gens2 ) );
     end
 );
