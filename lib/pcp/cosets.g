@@ -92,7 +92,9 @@ BindGlobal(
         # Use CoincidenceGroup
         G := PcpGroupByCollectorNC( Collector( U ) );
         dp := TWC_DirectProductInclusions( G, U, V );
+        l := dp[1];
+        r := dp[2];
 
-        return  ImagesSet( l, CoincidenceGroup2( dp[1], dp[2] ) );
+        return ImagesSet( l, CoincidenceGroup2( l, r ) );
     end
 );
