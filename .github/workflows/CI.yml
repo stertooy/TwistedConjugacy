@@ -41,14 +41,14 @@ jobs:
           GAPInput
 
       - name: "Run package tests"
-        uses: gap-actions/run-pkg-tests@v3
+        uses: gap-actions/run-pkg-tests@v4
         with:
-          NO_COVERAGE: ${{ matrix.gap-version != 'master' && 'false' || '' }}
-          only-needed: ${{ matrix.mode == 'onlyneeded' }}
+          coverage: ${{ matrix.gap-version == 'master' }}
+          mode: ${{ matrix.mode }}
           warnings-as-errors: true
             
       - name: "Process coverage"
-        uses: gap-actions/process-coverage@v2
+        uses: gap-actions/process-coverage@v3
         if: ${{ matrix.gap-version == 'master' }}
 
       - name: "Upload coverage"
