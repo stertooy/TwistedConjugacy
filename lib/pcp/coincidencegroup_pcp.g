@@ -176,13 +176,7 @@ BindGlobal(
     "TWC_CoincidenceGroupStep4",
     function( G, H, hom1, hom2 )
         local C, p, q, Coin, d;
-        if IsNilpotentByFinite( G ) then
-            return CoincidenceGroup2( hom1, hom2 );
-        fi;
-        C := Center( G );
-        if IsTrivial( C ) then
-            return TWC_CoincidenceGroupStep5( G, H, hom1, hom2 );
-        fi;
+        C := First( UpperCentralSeries( G ) );
         p := NaturalHomomorphismByNormalSubgroupNC( G, C );
         q := IdentityMapping( H );
         Coin := TWC_CoincidenceGroupStep4(
@@ -192,6 +186,22 @@ BindGlobal(
         );
         d := DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
         return KernelOfMultiplicativeGeneralMapping( d );
+        #if IsNilpotentByFinite( G ) then
+        #    return CoincidenceGroup2( hom1, hom2 );
+        #fi;
+        #C := Center( G );
+        #if IsTrivial( C ) then
+        #    return TWC_CoincidenceGroupStep5( G, H, hom1, hom2 );
+        #fi;
+        #p := NaturalHomomorphismByNormalSubgroupNC( G, C );
+        #q := IdentityMapping( H );
+        #Coin := TWC_CoincidenceGroupStep4(
+        #    ImagesSource( p ), H,
+        #    InducedHomomorphism( q, p, hom1 ),
+        #    InducedHomomorphism( q, p, hom2 )
+        #);
+        #d := DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
+        #return KernelOfMultiplicativeGeneralMapping( d );
     end
 );
 
