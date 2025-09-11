@@ -306,7 +306,7 @@ InstallMethod(
         G := Range( hom1 );
         if not IsCentral( G, N ) then TryNextMethod(); fi;
         H := Source( hom1 );
-        diff := DifferenceGroupHomomorphisms( hom1, hom2, H, N );
+        diff := TWC_DifferenceGroupHomomorphisms( hom1, hom2, H, N );
         D := ImagesSource( diff );
         if ( one and N <> D ) or IndexNC( N, D ) = infinity then
             return fail;
