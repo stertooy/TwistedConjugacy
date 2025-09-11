@@ -32,9 +32,8 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     IntersectionOfPreImages,
     { hom1, hom2, M } -> NormalIntersection(
-        # TODO: replace by PreImagesSet eventually
-        PreImagesSetNC( hom1, NormalIntersection( M, ImagesSource( hom1 ) ) ),
-        PreImagesSetNC( hom2, NormalIntersection( M, ImagesSource( hom2 ) ) )
+        PreImagesSet( hom1, M ),
+        PreImagesSet( hom2, M )
     )
 );
 
