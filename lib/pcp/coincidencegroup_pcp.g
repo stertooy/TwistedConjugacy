@@ -175,7 +175,7 @@ BindGlobal(
 BindGlobal(
     "TWC_CoincidenceGroupStep4",
     function( G, H, hom1, hom2 )
-        local C, p, q, Coin, d;
+        local blah;
         if IsNilpotentByFinite( G ) then
             return CoincidenceGroup2( hom1, hom2 );
         fi;
