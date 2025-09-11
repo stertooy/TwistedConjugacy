@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for infinite PcpGroups: derivations" );
+gap> START_TEST( "Testing TwistedConjugacy for infinite PcpGroups: derivations between infinite groups" );
 
 # Preparation
 gap> G := ExamplesOfSomePcpGroups( 5 );;
@@ -66,6 +66,51 @@ gap> IsInjective( derv );
 true
 gap> IsSurjective( derv );
 false
+
+# Affine action
+gap> aff := AffineActionByGroupDerivation( H, derv );
+function( g, k ) ... end
+gap> orb := OrbitAffineAction( H, G.1, derv );
+g1^G
+gap> Print( orb );
+OrbitAffineAction( g1 )
+gap> stab := StabilizerAffineAction( H, G.1, derv );
+Pcp-group with orders [  ]
+gap> NrOrbitsAffineAction( H, derv );
+4
+gap> OrbitsAffineAction( H, derv );
+[ id^G, g2*g4^G, g1*g2*g4^G, g1*g4^G ]
+gap> h := RepresentativeAffineAction( H, G.1^2, G.2^2, derv );;
+gap> aff( G.1^2, h ) = G.2^2;
+true
+gap> G.1*G.2^2 in orb;
+true
+gap> Size( orb );
+infinity
+gap> dervA := GroupDerivationByAffineAction( H, G, aff );
+Group derivation [ g1, g2, g3, g4 ] -> [ g4, g2^2*g4^-2, g3^-1*g4^-1, g4^2 ]
+gap> ForAll( GeneratorsOfGroup( H ), h -> h^derv = h^dervA );
+true
+gap> aff := AffineActionByGroupDerivation( K, derv );
+function( g, k ) ... end
+gap> orb := OrbitAffineAction( K, G.1, derv );
+g1^G
+gap> stab := StabilizerAffineAction( K, G.1, derv );
+Pcp-group with orders [  ]
+gap> NrOrbitsAffineAction( K, derv );
+infinity
+gap> OrbitsAffineAction( K, derv );
+fail
+gap> h := RepresentativeAffineAction( K, G.1^2, G.2^2, derv );
+fail
+gap> G.1*G.2^2 in orb;
+false
+gap> Size( orb );
+1
+gap> dervB := GroupDerivationByAffineAction( K, G, aff );
+Group derivation [  ] -> [  ]
+gap> ForAll( GeneratorsOfGroup( H ), h -> h^derv = h^dervA );
+true
 
 # Group derivation by function
 gap> derv := GroupDerivationByFunction( H, G, h -> (h^hom1)^-1*h^hom2, act );

@@ -1,64 +1,5 @@
 ###############################################################################
 ##
-## RemovePeriodsList@( L )
-##
-##  INPUT:
-##      L:          periodic list
-##
-##  OUTPUT:
-##      M:          sublist consisting of single period
-##
-RemovePeriodsList@ := function( L )
-    local n, i, M;
-    n := Length( L );
-    for i in DivisorsInt( n ) do
-        M := L{[ 1 .. i ]};
-        if L = Concatenation( ListWithIdenticalEntries( n / i, M ) ) then
-            return M;
-        fi;
-    od;
-end;
-
-###############################################################################
-##
-## DecomposePeriodicList@( L )
-##
-##  INPUT:
-##      L:          periodic list that is a finite linear combination
-##                  of the sequences ei = (0,0,0,i,0,0,0,i,...)
-##
-##  OUTPUT:
-##      l:          list of integers such that L = sum_i l_i ei, or fail if
-##                  no such list of integers exists
-##
-##  REMARKS:
-##      This is essentially the inverse Discrete Fourier Transform.
-##
-DecomposePeriodicList@ := function( L )
-    local n, l, i, per, ei;
-    n := Length( L );
-    l := ListWithIdenticalEntries( n, 0 );
-    for i in [ 1 .. n ] do
-        if n mod i <> 0 then
-            if L[i] <> 0 then
-                return fail;
-            fi;
-            continue;
-        fi;
-        l[i] := L[i] / i;
-        if not IsInt( l[i] ) then
-            return fail;
-        fi;
-        per := ListWithIdenticalEntries( i - 1, 0 );
-        Add( per, i );
-        ei := Concatenation( ListWithIdenticalEntries( n / i, per ) );
-        L := L - l[i] * ei;
-    od;
-    return l;
-end;
-
-###############################################################################
-##
 ## ReidemeisterZetaCoefficients( endo1, endo2 )
 ##
 ##  INPUT:
@@ -127,7 +68,7 @@ InstallMethod(
         );
         R := Concatenation(
             R{ [ 1 .. l ] },
-            RemovePeriodsList@( R{[ 1 + l .. k + l ] })
+            TWC_RemovePeriodsList( R{[ 1 + l .. k + l ] })
         );
         k := Length( R ) - l;
         P := List( [ 1 .. k ], n -> R[ ( n - l - 1 ) mod k + 1 + l ] );
@@ -192,7 +133,7 @@ InstallMethod(
         coeffs := ReidemeisterZetaCoefficientsOp( endo1, endo2 );
         if (
             not IsEmpty( coeffs[2] ) or
-            DecomposePeriodicList@( coeffs[1] ) = fail
+            TWC_DecomposePeriodicList( coeffs[1] ) = fail
         ) then
             return false;
         fi;
@@ -248,7 +189,7 @@ InstallMethod(
         if not IsEmpty( coeffs[2] ) then
             return fail;
         fi;
-        p := DecomposePeriodicList@( coeffs[1] );
+        p := TWC_DecomposePeriodicList( coeffs[1] );
         if p = fail then
             return fail;
         fi;
@@ -341,7 +282,7 @@ InstallMethod(
         fi;
         factors := [];
         powers := [];
-        p := DecomposePeriodicList@( P );
+        p := TWC_DecomposePeriodicList( P );
         if p = fail then
             k := Length( P );
             for i in [ 0 .. k - 1 ] do

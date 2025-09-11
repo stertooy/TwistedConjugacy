@@ -1,5 +1,5 @@
 LoadPackage( "TwistedConjugacy" );
-ASSERT@TwistedConjugacy := true;
+TWC_ASSERT := true;
 testOpts := rec(
     exitGAP := false,
     showProgress := true,
@@ -14,7 +14,7 @@ pass := TestDirectory(
     testOpts
 );
 
-if LoadPackage( "Polycyclic" ) then
+if IsPackageLoaded( "Polycyclic" ) then
     CHECK_CENT@Polycyclic := true;
     CHECK_IGS@Polycyclic := true;
     CHECK_INTSTAB@Polycyclic := true;

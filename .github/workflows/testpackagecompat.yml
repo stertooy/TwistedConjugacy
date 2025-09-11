@@ -1,18 +1,16 @@
-name: "Test compatibility with other GAP packages (complete)"
+name: Run package compatibility tests
 
 on:
   - workflow_dispatch
 
 jobs:
-  test:
-    name: "Test on GAP-${{ matrix.gap-version }}"
+  test-pkg:
+    name: "Test package with GAP-${{ matrix.gap-version }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - gap-version: "master"
-          - gap-version: "4.14.0"
+        gap-version: ["master","4.15.0-beta1","4.14.0"]
 
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-full
@@ -22,15 +20,55 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v5
 
-      - name: "Run GAP tests with all packages"
-        uses: sTertooy/gda-test-gap@v1
-        with:
-          COMPLETE: true
-          ALL_PACKAGES: true
+      - name: "Install Polycyclic 2.17 if necessary"
+        shell: bash
+        run: |
+          gap -A << GAPInput
+            if LoadPackage("polycyclic","2.17") <> true then
+              LoadPackage("PackageManager":OnlyNeeded);
+              QuitGap(InstallPackage("polycyclic","=2.17"));
+            fi;
+            QUIT;
+          GAPInput
+          gap -A -c 'QuitGap(LoadPackage("polycyclic","2.17"));'
 
-      - name: "Run package tests with all packages"
+      - name: "Run package tests"
         uses: gap-actions/run-pkg-tests@v3
         with:
           load-all: true
           warnings-as-errors: false
           NO_COVERAGE: true
+
+  test-gap:
+    name: "Test GAP-${{ matrix.gap-version }} with package"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        gap-version: ["master","4.15.0-beta1","4.14.0"]
+
+    container:
+      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-full
+
+    steps:
+
+      - name: "Checkout"
+        uses: actions/checkout@v5
+
+      - name: "Install Polycyclic 2.17 if necessary"
+        shell: bash
+        run: |
+          gap -A << GAPInput
+            if LoadPackage("polycyclic","2.17") <> true then
+              LoadPackage("PackageManager":OnlyNeeded);
+              QuitGap(InstallPackage("polycyclic","=2.17"));
+            fi;
+            QUIT;
+          GAPInput
+          gap -A -c 'QuitGap(LoadPackage("polycyclic","2.17"));'
+
+      - name: "Run GAP tests"
+        uses: stertooy/run-gap-tests@v1
+        with:
+          mode: 'loadall'
+          warnings-as-errors: false

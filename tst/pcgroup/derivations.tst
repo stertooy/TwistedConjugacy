@@ -56,6 +56,49 @@ true
 gap> IsBijective( derv );
 true
 
+# Affine action 1
+gap> aff := AffineActionByGroupDerivation( H, derv );
+function( g, k ) ... end
+gap> orb := OrbitAffineAction( H, G.1, derv );
+f1^G
+gap> Print( orb );
+OrbitAffineAction( f1 )
+gap> stab := StabilizerAffineAction( H, G.1, derv );
+Group([  ])
+gap> NrOrbitsAffineAction( H, derv );
+1
+gap> OrbitsAffineAction( H, derv );
+[ <identity> of ...^G ]
+gap> h := RepresentativeAffineAction( H, G.1, G.2, derv );;
+gap> aff( G.1, h ) = G.2;
+true
+gap> G.1*G.2 in orb;
+true
+gap> Size( orb ) = Size( G );
+true
+gap> dervA := GroupDerivationByAffineAction( H, G, aff );
+Group derivation [ f1, f2, f3, f4, f5 ] -> [ f1*f2*f4, f2^2, f3, f4*f5, f4 ]
+gap> ForAll( H, h -> h^derv = h^dervA );
+true
+gap> aff := AffineActionByGroupDerivation( K, derv );
+function( g, k ) ... end
+gap> orb := OrbitAffineAction( K, G.1, derv );
+f1^G
+gap> stab := StabilizerAffineAction( K, G.1, derv );
+Group([  ])
+gap> NrOrbitsAffineAction( K, derv );
+72
+gap> h := RepresentativeAffineAction( K, G.1, G.2, derv );
+fail
+gap> G.1*G.2 in orb;
+false
+gap> Size( orb );
+1
+gap> dervB := GroupDerivationByAffineAction( K, G, aff );
+Group derivation [  ] -> [  ]
+gap> ForAll( K, k -> k^derv = k^dervA );
+true
+
 # Group derivation 2
 gap> imgs := [ G.5, G.2 ];;
 gap> derv := GroupDerivationByImages( H, G, gensH, imgs, act );
@@ -104,6 +147,51 @@ gap> IsInjective( derv ) or IsSurjective( derv );
 false
 gap> IsBijective( derv );
 false
+
+# Affine action 2
+gap> aff := AffineActionByGroupDerivation( H, derv );
+function( g, k ) ... end
+gap> orb := OrbitAffineAction( H, G.1, derv );
+f1^G
+gap> stab := StabilizerAffineAction( H, G.1, derv );;
+gap> ForAll( GeneratorsOfGroup( stab ), h -> aff( G.1, h ) = G.1 );
+true
+gap> NrOrbitsAffineAction( H, derv );
+10
+gap> Length( OrbitsAffineAction( H, derv ) );
+10
+gap> h := RepresentativeAffineAction( H, G.1, G.1*G.2, derv );;
+gap> aff( G.1, h ) = G.1*G.2;
+true
+gap> G.1*G.5 in orb;
+true
+gap> Size( orb );
+8
+gap> dervA := GroupDerivationByAffineAction( H, G, aff );
+Group derivation [ f1, f2, f3, f4, f5 ] -> [ f2*f4, f5, <identity> of ..., f4*f5, f4 ]
+gap> ForAll( H, h -> h^derv = h^dervA );
+true
+gap> aff := AffineActionByGroupDerivation( K, derv );
+function( g, k ) ... end
+gap> orb := OrbitAffineAction( K, G.1, derv );
+f1^G
+gap> stab := StabilizerAffineAction( K, G.1, derv );;
+gap> Size( stab );
+9
+gap> NrOrbitsAffineAction( K, derv );
+36
+gap> h := RepresentativeAffineAction( K, G.1, G.2, derv );
+fail
+gap> ForAll( stab, k -> aff( G.1, k ) = G.1 );
+true
+gap> G.1*G.2 in orb;
+false
+gap> Size( orb );
+1
+gap> dervB := GroupDerivationByAffineAction( K, G, aff );
+Group derivation [ f2*f4*f5, f3 ] -> [ <identity> of ..., <identity> of ... ]
+gap> ForAll( K, k -> k^derv = k^dervA );
+true
 
 #
 gap> STOP_TEST( "derivations.tst" );

@@ -1,5 +1,5 @@
 #! @Abstract
-#! The &TwistedConjugacy; package provides methods for solving the twisted
+#! The &PACKAGENAME; package provides methods for solving the twisted
 #! conjugacy problem (including the "search" and "multiple" variants) and for
 #! computing Reidemeister classes, numbers, spectra, and zeta functions. It
 #! also includes utility functions for working with (double) cosets, group
@@ -9,9 +9,9 @@
 #! PcpGroups (finite or infinite) provided by the &Polycyclic; package.
 
 #! @Copyright
-#! &copyright; 2020&ndash;&RELEASEYEAR; Sam Tertooy
+#! &copyright; 2020&ndash;&RELEASEYEAR; &AUTHOR;
 #! <P/>
-#! The &TwistedConjugacy; package is free software, it may be redistributed
+#! The &PACKAGENAME; package is free software, it may be redistributed
 #! and/or modified under the terms and conditions of the
 #! <URL Text="GNU Public License Version 2">
 #! https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</URL> or
@@ -20,13 +20,13 @@
 #! @Acknowledgements
 #! This documentation was created using the &GAPDoc; and &AutoDoc; packages.
 
-#! @Chapter The TwistedConjugacy package
+#! @Chapter The &PackageName; package
 
-#! This is the manual for the &GAP; 4 package &TwistedConjugacy; version
-#! &VERSION;, developed by Sam Tertooy.
+#! This is the manual for the &GAP; 4 package &PACKAGENAME; version
+#! &VERSION;, developed by &AUTHOR;.
 
 #! @Section Installation
-#! You can download &TwistedConjugacy; as a .tar.gz archive
+#! You can download &PACKAGENAME; as a .tar.gz archive
 #! <URL Text='here'>&ARCHIVEURL;.tar.gz</URL>. After extracting, you should
 #! place it in a suitable <F>pkg</F> folder. For example, on a Debian-based
 #! Linux distribution (e.g. Ubuntu, Mint), you can place it in
@@ -38,7 +38,7 @@
 #! yourself:
 #! <Listing Type="Command">wget -qO- https://[...].tar.gz | tar xzf - --one-top-level=&dollar;HOME/.gap/pkg</Listing>
 #! If the &PackageManager; package is installed and loaded, you can install
-#! &TwistedConjugacy; from within a &GAP; session
+#! &PACKAGENAME; from within a &GAP; session
 #! using <Ref Func="InstallPackage" BookName="PackageManager" Style="Number"/>.
 #! @BeginLog
 InstallPackage( "https://[...].tar.gz" );
@@ -47,7 +47,7 @@ InstallPackage( "https://[...].tar.gz" );
 #! @EndLog
 
 #! @Section Loading
-#! Once installed, loading &TwistedConjugacy; can be done by using
+#! Once installed, loading &PACKAGENAME; can be done by using
 #! <Ref Func="LoadPackage" BookName="ref" Style="Number"/>.
 #! @BeginLog
 LoadPackage( "TwistedConjugacy" );
@@ -56,30 +56,30 @@ LoadPackage( "TwistedConjugacy" );
 #! @EndLog
 
 #! @Section Citing
-#! If you use the &TwistedConjugacy; package in your research, we would love to
+#! If you use the &PACKAGENAME; package in your research, we would love to
 #! hear about your work via an email to the address
 #! <Email>&SUPPORTEMAIL;</Email>.
-#! If you have used the &TwistedConjugacy; package in the preparation of a
+#! If you have used the &PACKAGENAME; package in the preparation of a
 #! paper and wish to refer to it, please cite it as described below.
 
 #! <P/>
 
 #! In &BibTeX;:
 #!<Listing Type="BibTeX">
-#!&AT;misc{TC&VERSION;,
-#!    author =       {Tertooy, Sam},
-#!    title =        {{TwistedConjugacy,
+#!&#64;misc{&ABBREV;&VERSION;,
+#!    author =       {&AUTHORREVERSED;},
+#!    title =        {{&PackageName;,
 #!                    &SUBTITLE;,
 #!                    Version &VERSION;}},
 #!    note =         {GAP package},
 #!    year =         {&RELEASEYEAR;},
-#!    howpublished = {\url{https://stertooy.github.io/TwistedConjugacy}}
+#!    howpublished = {\url{&HOMEURL;}}
 #!}</Listing><P/>
 #! In &BibLaTeX;:
 #!<Listing Type="BibLaTeX">
-#!&AT;software{TC&VERSION;,
-#!    author =   {Tertooy, Sam},
-#!    title =    {TwistedConjugacy},
+#!&#64;software{&ABBREV;&VERSION;,
+#!    author =   {&AUTHORREVERSED;},
+#!    title =    {&PackageName;},
 #!    subtitle = {&SUBTITLE;},
 #!    version =  {&VERSION;},
 #!    note =     {GAP package},
@@ -91,16 +91,16 @@ LoadPackage( "TwistedConjugacy" );
 #! If you encounter any problems, please submit them to the
 #! <URL Text='issue tracker'>&ISSUEURL;</URL>.
 #! If you have any questions on the usage or functionality of
-#! &TwistedConjugacy;, you may contact me via email at
+#! &PACKAGENAME;, you may contact me via email at
 #! <Email>&SUPPORTEMAIL;</Email>.
 
 #! <P/>
 
 #! Bugs in &GAP;, in this package, or in any other package used directly or
-#! indirectly, may cause functions provided by &TwistedConjugacy; to produce
+#! indirectly, may cause functions provided by &PACKAGENAME; to produce
 #! errors or incorrect results.
 #! To help detect such issues, you can enable internal checks by setting the
-#! variable <C>ASSERT&#64;TwistedConjugacy</C> to <K>true</K>. Note that this
+#! variable <C>TWC_ASSERT</C> to <K>true</K>. Note that this
 #! will come at the cost of reduced performance.
 
 #! <P/>
@@ -111,7 +111,7 @@ LoadPackage( "TwistedConjugacy" );
 #! variables <C>CHECK_CENT&#64;Polycyclic</C>, <C>CHECK_IGS&#64;Polycyclic</C>
 #! and <C>CHECK_INTSTAB&#64;Polycyclic</C> to <K>true</K>.
 
-#! @Chapter Mathematical Background
+#! @Chapter Mathematical background
 
 #! Let $G$ and $H$ be groups and let $\varphi$ and $\psi$ be group
 #! homomorphisms from $H$ to $G$. The pair $(\varphi,\psi)$ induces a (right)
@@ -182,7 +182,7 @@ LoadPackage( "TwistedConjugacy" );
 #! If $G = H$, $\varphi$ is an endomorphism of $G$ and
 #! $\psi = \operatorname{id}_G$, then the action is usually called
 #! **$\varphi$-twisted conjugation**.
-#! In general, for the &TwistedConjugacy; package, many functions will take
+#! In general, for the &PACKAGENAME; package, many functions will take
 #! two homomorphisms <A>hom1</A> and <A>hom2</A> as arguments. However, if
 #! <A>hom1</A> is an endomorphism, <A>hom2</A> can be omitted, in which case it
 #! is automatically taken to be the identity map.
@@ -595,7 +595,7 @@ PrintReidemeisterZeta( khi );
 
 #! &GAP; is well-equipped to deal with **finite** cosets. However, if a coset
 #! is infinite, methods may not be available, may be faulty, or may run
-#! forever. The &TwistedConjugacy; package provides additional methods for
+#! forever. The &PACKAGENAME; package provides additional methods for
 #! existing functions that can deal with infinite cosets of PcpGroups.
 #!
 #! The only completely new functions are
@@ -644,7 +644,7 @@ Intersection( Hx, Kz );
 #! Algorithms designed for computing with twisted conjugacy classes can be
 #! leveraged to do computations involving double cosets, see
 #! <Cite Key='tert25-a' Where="Sec. 9"/> for a description on this. When the
-#! &TwistedConjugacy; package is loaded, it does this automatically, and the
+#! &PACKAGENAME; package is loaded, it does this automatically, and the
 #! functions below should then work for PcpGroups, even if they are infinite.
 
 #! @BeginGroup
@@ -903,13 +903,10 @@ Source( res ) = N and Range( res ) = N;
 
 #! <P/>
 
-#! Please note that the functions in this section require $G$ and $H$ to either
+#! Please note that the functions in this chapter require $G$ and $H$ to either
 #! both be finite, or both be PcpGroups.
 
 #! @Section Creating group derivations
-
-#! The functions below only work for derivations between finite groups or
-#! between PcpGroups. 
 
 #! @BeginGroup
 #! @Returns the specified group derivation, or <K>fail</K> if the given
@@ -950,6 +947,12 @@ DeclareGlobalFunction( "GroupDerivationByImagesNC" );
 #! derivation.
 #! @Arguments H, G, fun, act
 DeclareGlobalFunction( "GroupDerivationByFunction" );
+
+
+#! @Returns the derivation that makes up the translational part of the affine
+#! action.
+#! @Arguments H, G, act
+DeclareGlobalFunction( "GroupDerivationByAffineAction" );
 
 #! @BeginExample
 H := PcGroupCode( 149167619499417164, 72 );;
@@ -1085,7 +1088,7 @@ PreIm = RightCoset( K, h2 );
 #! <K>false</K>.
 #! @Label for an element and a group derivation
 #! @Arguments elm, img
-DeclareOperation( "\in", [ IsObject, IsGroupDerivationImageRep ] );
+DeclareOperation( "\in", [ IsObject, IsGroupDerivationImage ] );
 #! @EndGroup
 
 #! @BeginGroup
@@ -1093,12 +1096,16 @@ DeclareOperation( "\in", [ IsObject, IsGroupDerivationImageRep ] );
 #! @Returns the number of elements in <A>img</A>.
 #! @Label of a group derivation image
 #! @Arguments img
-DeclareAttribute( "Size", IsGroupDerivationImageRep );
+DeclareAttribute( "Size", IsGroupDerivationImage );
 #! @EndGroup
 
 #! @BeginGroup
 #! @GroupTitle List
 #! @Returns a list containing the elements of <A>img</A>.
+#! @Description
+#! If <A>img</A> is infinite, this will run forever. It is recommended to first
+#! test the finiteness of <A>img</A> using
+#! <Ref Attr="Size" Label="of a group derivation image" Style="Number"/>.
 #! @Label of a group derivation image
 #! @Arguments img
 DeclareGlobalFunction( "List" );
@@ -1115,4 +1122,140 @@ g in ImK;
 #! false
 List( ImK );
 #! [ <identity> of ... ]
+#! @EndExample
+
+#! @Chapter Affine actions
+
+#! Let $G$ and $H$ be groups, let $H$ act on $G$ via automorphisms via
+#! $$\alpha \colon H \to \operatorname{Aut}(G)$$
+#! and let $\delta \colon H \to G$ be a group derivation with respect to this
+#! action. Then we can construct a new action, called an **affine action**, by
+#! $$G \times H \to G \colon g^h = \alpha(h)(g) \delta(g).$$
+
+#! <P/>
+
+#! Algorithms designed for computing with twisted conjugacy classes can be
+#! leveraged to do computations involving affine actions, see
+#! <Cite Key='tert25-a'  Where="Sec. 11"/> for a description on this.
+
+#! <P/>
+
+#! Please note that the functions in this chapter require $G$ and $H$ to either
+#! both be finite, or both be PcpGroups.
+
+#! @Section Creating an affine action
+
+#! @BeginGroup
+#! @Returns the affine action of <A>K</A> via the derivation <A>derv</A>.
+#! @Arguments K, der
+DeclareGlobalFunction( "AffineActionByGroupDerivation" );
+#! @EndGroup
+
+#! @BeginExample
+aff := AffineActionByGroupDerivation( H, der );
+#! function( g, k ) ... end
+#! @EndExample
+
+#! @Section Operations for affine actions
+
+#! These functions are analogues of existing &GAP; functions for group actions.
+
+#! @BeginGroup
+#! @GroupTitle OrbitAffineAction
+#! @Returns the orbit of <A>g</A> under the affine action of <A>K</A> via
+#! <A>der</A>.
+#! @Arguments K, g, der
+DeclareGlobalFunction( "OrbitAffineAction" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle OrbitsAffineAction
+#! @Returns a list containing the orbits under the affine action of <A>K</A>
+#! via <A>der</A> if there are finitely many, or <K>fail</K> if there are
+#! infinitely many.
+#! @Arguments K, der
+DeclareGlobalFunction( "OrbitsAffineAction" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle NrOrbitsAffineAction
+#! @Returns the number of orbits under the affine action of <A>K</A> via
+#! <A>der</A>.
+#! @Arguments K, der
+DeclareGlobalFunction( "NrOrbitsAffineAction" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle StabiliserAffineAction
+#! @Returns the stabiliser of <A>g</A> under the affine action of <A>K</A> via
+#! <A>der</A>.
+#! @Arguments K, g, der
+DeclareGlobalFunction( "StabiliserAffineAction" );
+#! @Arguments K, g, der
+DeclareGlobalFunction( "StabilizerAffineAction" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle RepresentativeAffineAction
+#! @Returns an element of <A>K</A> that maps <A>g1</A> to <A>g2</A> under the
+#! affine action of <A>K</A> via <A>der</A>, or <K>fail</K> if no such element
+#! exists.
+#! @Arguments K, g1, g2, der
+DeclareGlobalFunction( "RepresentativeAffineAction" );
+#! @EndGroup
+
+#! @BeginExample
+g1 := G.1;;
+orb := OrbitAffineAction( H, g1, der );
+#! f1^G
+NrOrbitsAffineAction( H, der );
+#! 10
+stab := StabiliserAffineAction( H, g1, der );;
+Set( stab );
+#! [ <identity> of ..., f3, f3^2, f2^2*f5, f2*f4*f5,
+#!   f2^2*f3*f5, f2*f3*f4*f5, f2^2*f3^2*f5, f2*f3^2*f4*f5 ]
+g2 := G.1*G.4*G.5;;
+h := RepresentativeAffineAction( H, g1, g2, der );;
+aff( g1, h ) = g2;
+#! true
+#! @EndExample
+
+#! @Section Orbits of affine actions
+
+#! @BeginGroup
+#! @GroupTitle \in
+#! @Returns <K>true</K> if <A>elm</A> is an element of <A>orb</A>, otherwise
+#! <K>false</K>.
+#! @Label for an element and an orbit of an affine action
+#! @Arguments elm, orb
+DeclareOperation( "\in", [ IsObject, IsOrbitAffineActionRep ] );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle Size
+#! @Returns the number of elements in <A>orb</A>.
+#! @Label of an orbit of an affine action
+#! @Arguments orb
+DeclareAttribute( "Size", IsOrbitAffineActionRep );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle List
+#! @Returns a list containing the elements of <A>orb</A>.
+#! @Description
+#! If <A>orb</A> is infinite, this will run forever. It is recommended to first
+#! test the finiteness of <A>orb</A> using
+#! <Ref Attr="Size" Label="of an orbit of an affine action" Style="Number"/>.
+#! @Label of an orbit of an affine action
+#! @Arguments orb
+DeclareGlobalFunction( "List" );
+#! @EndGroup
+
+#! @BeginExample
+g2 in orb;
+#! true
+G.2 in orb;
+#! false
+Size( orb );
+#! 8
 #! @EndExample

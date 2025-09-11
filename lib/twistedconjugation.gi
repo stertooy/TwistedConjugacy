@@ -98,7 +98,7 @@ InstallGlobalFunction(
             c := CallFuncList( RepresentativeTwistedConjugationOp, arg );
             arg := List( arg, x -> [ x ] );
         fi;
-        if ASSERT@ and c <> fail then
+        if TWC_ASSERT and c <> fail then
             for i in [ 1 .. n ] do
                 tc := TwistedConjugation( arg[1][i], arg[2][i] );
                 im := tc( arg[3][i], c );
@@ -150,7 +150,7 @@ InstallOtherMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse ],
     7,
-    function( hom1, hom2, g )
+    function( hom1, _hom2, g )
         local H;
         if not IsOne( g ) then TryNextMethod(); fi;
         H := Source( hom1 );
@@ -169,7 +169,7 @@ InstallOtherMethod(
         G := Range( hom1 );
         if not IsAbelian( G ) then TryNextMethod(); fi;
         H := Source( hom1 );
-        diff := DifferenceGroupHomomorphisms( hom1, hom2, H, G );
+        diff := TWC_DifferenceGroupHomomorphisms( hom1, hom2, H, G );
         # TODO: Replace this by PreImagesRepresentative (without NC) eventually
         if not g in ImagesSource( diff ) then
             return fail;

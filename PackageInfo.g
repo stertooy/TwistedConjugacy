@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
-Version := "3.0.0",
-Date := "21/07/2025",
+Version := "3.1.0",
+Date := "14/09/2025",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -79,13 +79,14 @@ Dependencies := rec(
 Extensions := [
     rec(
         needed := [ [ "Polycyclic", "2.16" ] ],
-        filename := "lib/pcp/read_pcp.g"
+        filename := "lib/pcp/read.g"
     )
 ],
 
 TestFile := "tst/testall.g",
 
 Keywords := [
+    "affine action",
     "automorphism",
     "coincidence group",
     "coset",
@@ -98,7 +99,8 @@ Keywords := [
     "Reidemeister number",
     "Reidemeister spectrum",
     "Reidemeister zeta function",
-    "twisted conjugacy"
+    "twisted conjugacy",
+    "twisted conjugation"
 ],
 
 ));

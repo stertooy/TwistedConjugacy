@@ -238,14 +238,14 @@ InstallGlobalFunction(
         if N <> G and not ForAll( gens, h -> tc( One( G ), h ) in N ) then
             q := IdentityMapping( H );
             p := NaturalHomomorphismByNormalSubgroupNC( G, N );
-            H := InducedCoincidenceGroup( q, p, hom1, hom2 );
+            H := TWC_InducedCoincidenceGroup( q, p, hom1, hom2 );
             hom1 := RestrictedHomomorphism( hom1, H, G );
             hom2 := RestrictedHomomorphism( hom2, H, G );
         fi;
         Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, N, false );
         if Rcl = fail then
             return fail;
-        elif ASSERT@ then
+        elif TWC_ASSERT then
             copy := ShallowCopy( Rcl );
             g := Remove( copy );
             while not IsEmpty( copy ) do
@@ -277,6 +277,8 @@ InstallGlobalFunction(
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##      N:          normal subgroup of G with hom1 = hom2 mod N
+##      one:        boolean to toggle returning fail as soon as there is more
+##                  than one Reidemeister class
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
@@ -288,7 +290,7 @@ InstallMethod(
     "for trivial subgroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     8,
-    function( hom1, hom2, N, one )
+    function( _hom1, _hom2, N, _one )
         if not IsTrivial( N ) then TryNextMethod(); fi;
         return [ One( N ) ];
     end
@@ -304,7 +306,7 @@ InstallMethod(
         G := Range( hom1 );
         if not IsCentral( G, N ) then TryNextMethod(); fi;
         H := Source( hom1 );
-        diff := DifferenceGroupHomomorphisms( hom1, hom2, H, N );
+        diff := TWC_DifferenceGroupHomomorphisms( hom1, hom2, H, N );
         D := ImagesSource( diff );
         if ( one and N <> D ) or IndexNC( N, D ) = infinity then
             return fail;
