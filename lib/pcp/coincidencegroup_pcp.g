@@ -177,6 +177,7 @@ BindGlobal(
     function( G, H, hom1, hom2 )
         local blah;
         if IsNilpotentByFinite( G ) then
+            Print("STEP 4: RETURN EARLY\n");
             return CoincidenceGroup2( hom1, hom2 );
         fi;
         blah := function( G, H, hom1, hom2 )
@@ -225,7 +226,7 @@ BindGlobal(
     function( G, H, hom1, hom2 )
         local HH, d, p, q, Coin, ci, n, tc, bi, di, gens1, gens2;
         if IsNilpotentByFinite( G ) then
-            Print("STEP 4: RETURN EARLY\n");
+            Print("STEP 3: RETURN EARLY\n");
             return CoincidenceGroup2( hom1, hom2 );
         fi;
         HH := DerivedSubgroup( H );
