@@ -1,3 +1,4 @@
+ReadPackage( "TwistedConjugacy", "lib/pcp/coincidencegroup_pcp.g" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/coincidencegroup_pcp.gi" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/convert_pcp.gi" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/cosets_pcp.gi" );
