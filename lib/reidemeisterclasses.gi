@@ -245,7 +245,7 @@ InstallGlobalFunction(
         Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, N, false );
         if Rcl = fail then
             return fail;
-        elif ASSERT@ then
+        elif TWC_ASSERT then
             copy := ShallowCopy( Rcl );
             g := Remove( copy );
             while not IsEmpty( copy ) do
