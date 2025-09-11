@@ -120,7 +120,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## InducedCoincidenceGroup( q, p, hom1, hom2 )
+## TWC_InducedCoincidenceGroup( q, p, hom1, hom2 )
 ##
 ##  INPUT:
 ##      q:          projection H -> Q
@@ -132,7 +132,7 @@ InstallMethod(
 ##      coin:       coincidence group of the induced homomorphisms Q -> P
 ##
 InstallGlobalFunction(
-    InducedCoincidenceGroup,
+    TWC_InducedCoincidenceGroup,
     function( q, p, hom1, hom2 )
         local ind1, ind2;
         ind1 := InducedHomomorphism( q, p, hom1 );
