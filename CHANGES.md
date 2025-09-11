@@ -7,9 +7,13 @@ This file describes changes in the GAP package TwistedConjugacy.
 - Now requires Polycyclic version >= 2.17
 
 - Functionality for affine actions added
+- Assertion variable renamed to `TWC_ASSERT`
 
 - Ensured that this package does not break the Polycyclic test suite
 - Package tests no longer require the SmallGrp and TransGrp packages
+
+- Large changes to file structure
+
 
 
 3.0.0 (2025-07-21)
