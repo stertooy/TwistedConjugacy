@@ -1,4 +1,4 @@
-if not IsBound( ASSERT@ ) then ASSERT@ := false; fi;
+if not IsBound( TWC_ASSERT ) then TWC_ASSERT := false; fi;
 
 ReadPackage( "TwistedConjugacy", "lib/affineactions.g" );
 ReadPackage( "TwistedConjugacy", "lib/affineactions.gi" );
