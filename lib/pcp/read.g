@@ -3,7 +3,6 @@ ReadPackage( "TwistedConjugacy", "lib/pcp/coincidencegroup.gi" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/convert.gi" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/cosets.g" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/cosets.gi" );
-ReadPackage( "TwistedConjugacy", "lib/pcp/helpfunctions.gi" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/reidemeisterclasses.g" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/reidemeisterclasses.gi" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/reidemeisternumber.gi" );
