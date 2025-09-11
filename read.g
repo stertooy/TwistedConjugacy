@@ -8,6 +8,7 @@ ReadPackage( "TwistedConjugacy", "lib/derivations.g" );
 ReadPackage( "TwistedConjugacy", "lib/derivations.gi" );
 ReadPackage( "TwistedConjugacy", "lib/homomorphisms.g" );
 ReadPackage( "TwistedConjugacy", "lib/homomorphisms.gi" );
+ReadPackage( "TwistedConjugacy", "lib/helpfunctions.gi" );
 ReadPackage( "TwistedConjugacy", "lib/reidemeisterclasses.gi" );
 ReadPackage( "TwistedConjugacy", "lib/reidemeisternumber.gi" );
 ReadPackage( "TwistedConjugacy", "lib/reidemeisterspectrum.gi" );
