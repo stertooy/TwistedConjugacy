@@ -238,7 +238,7 @@ InstallGlobalFunction(
         if N <> G and not ForAll( gens, h -> tc( One( G ), h ) in N ) then
             q := IdentityMapping( H );
             p := NaturalHomomorphismByNormalSubgroupNC( G, N );
-            H := InducedCoincidenceGroup( q, p, hom1, hom2 );
+            H := TWC_InducedCoincidenceGroup( q, p, hom1, hom2 );
             hom1 := RestrictedHomomorphism( hom1, H, G );
             hom2 := RestrictedHomomorphism( hom2, H, G );
         fi;
