@@ -23,12 +23,12 @@ InstallMethod(
         x := Representative( Ux );
         y := Representative( Vy );
 
-        s := AsElementOfProductGroups@( x * y ^ -1, U, V );
+        s := TWC_AsElementOfProductGroups( x * y ^ -1, U, V );
         if s = fail then
             return [];
         fi;
 
-        I := IntersectionPcpGroups@( U, V );
+        I := TWC_IntersectionPcpGroups( U, V );
         z := s[2] * y;
 
         if ASSERT@ then
@@ -68,7 +68,7 @@ InstallMethod(
         T := OnPoints( U, x );
         z := OnLeftInverse( y, x );
 
-        s := AsElementOfProductGroups@( z, T, V );
+        s := TWC_AsElementOfProductGroups( z, T, V );
         if ASSERT@ then
             if not IsBool( s ) and not(
                 z = s[1] * s[2] and
@@ -127,7 +127,7 @@ InstallMethod(
         V := RightActingGroup( UxV );
         x := Representative( UxV );
         G := PcpGroupByCollectorNC( Collector( U ) );
-        dp := DirectProductInclusions@( G, U, V );
+        dp := TWC_DirectProductInclusions( G, U, V );
         tcc := ReidemeisterClass( dp[1], dp[2], x );
         return Size( tcc );
     end
@@ -151,7 +151,7 @@ InstallMethod(
     [ IsPcpGroup, IsPcpGroup, IsPcpGroup ],
     function( G, U, V )
         local dp, Rcl, tcc;
-        dp := DirectProductInclusions@( G, U, V );
+        dp := TWC_DirectProductInclusions( G, U, V );
         Rcl := CallFuncList( ReidemeisterClasses, dp );
         if Rcl = fail then
             return fail;
@@ -178,7 +178,7 @@ InstallMethod(
     [ IsPcpGroup, IsPcpGroup, IsPcpGroup ],
     function( G, U, V )
         local dp, Rcl, g;
-        dp := DirectProductInclusions@( G, U, V );
+        dp := TWC_DirectProductInclusions( G, U, V );
         Rcl := CallFuncList( RepresentativesReidemeisterClasses, dp );
         if Rcl = fail then
             return fail;
