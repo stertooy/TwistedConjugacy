@@ -22,8 +22,8 @@ BindGlobal(
         G := PcpGroupByCollectorNC( Collector( U ) );
         UxV := DirectProduct( U, V );
 
-        l := Projection( UxV, 1 ) * InclusionHomomorphism( U, G );
-        r := Projection( UxV, 2 ) * InclusionHomomorphism( V, G );
+        l := Projection( UxV, 1 ) * TWC_InclusionHomomorphism( U, G );
+        r := Projection( UxV, 2 ) * TWC_InclusionHomomorphism( V, G );
 
         s := RepresentativeTwistedConjugationOp( l, r, g );
         if s = fail then
@@ -55,8 +55,8 @@ BindGlobal(
     function( G, U, V )
         local UV, iU, iV, l, r;
         UV := DirectProduct( U, V );
-        iU := InclusionHomomorphism( U, G );
-        iV := InclusionHomomorphism( V, G );
+        iU := TWC_InclusionHomomorphism( U, G );
+        iV := TWC_InclusionHomomorphism( V, G );
         l := Projection( UV, 1 ) * iU;
         r := Projection( UV, 2 ) * iV;
         return [ l, r ];
