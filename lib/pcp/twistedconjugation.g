@@ -250,10 +250,10 @@ BindGlobal(
         local blah;
         if IsNilpotentByFinite( G ) then
             return RepresentativeTwistedConjugationOp( hom1, hom2, a );
-        #elif IsTrivial( Center( G ) ) then
-        #    return TWC_RepTwistConjToIdStep5( G, H, hom1, hom2, a, A );
-        #fi;
-        #return TWC_RepTwistConjToIdByCentre( G, H, hom1, hom2, a );
+        # elif IsTrivial( Center( G ) ) then
+        #     return TWC_RepTwistConjToIdStep5( G, H, hom1, hom2, a, A );
+        # fi;
+        # return TWC_RepTwistConjToIdByCentre( G, H, hom1, hom2, a );
 
         fi;
         blah := function( G, H, hom1, hom2, a, A )
