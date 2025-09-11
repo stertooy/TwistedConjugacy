@@ -77,7 +77,7 @@ BindGlobal(
 BindGlobal(
     "TWC_IntersectionPcpGroups",
     function( U, V )
-        local G, dp, l, r, I;
+        local G, dp, l, r;
 
         # Catch trivial cases
         if IsSubset( V, U ) then
@@ -92,16 +92,7 @@ BindGlobal(
         # Use CoincidenceGroup
         G := PcpGroupByCollectorNC( Collector( U ) );
         dp := TWC_DirectProductInclusions( G, U, V );
-        l := dp[1];
-        r := dp[2];
 
-        I := ImagesSet( l, CoincidenceGroup2( l, r ) );
-        if ASSERT@ then
-            if not (
-                IsSubset( U, I ) and
-                IsSubset( V, I )
-            ) then Error( "Assertion failure" ); fi;
-        fi;
-        return I;
+        return  ImagesSet( l, CoincidenceGroup2( dp[1], dp[2] ) );
     end
 );
