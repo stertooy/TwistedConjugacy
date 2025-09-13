@@ -1,9 +1,15 @@
-name: Release new version
+name: Release
+
 on:
   workflow_dispatch:
     inputs:
       dry-run:
-        description: "Set to true to prevent actually making a release"
+        description: "Only create an archive containing the release instead of publishing it on GitHub"
+        type: boolean
+        required: false
+        default: false
+      force:
+        description: "Allow overwriting an existing release, or making a release with an incorrect date"
         type: boolean
         required: false
         default: false
@@ -12,18 +18,27 @@ permissions: write-all
 
 jobs:
   release:
-    name: "Release GAP Package"
+    name: "Release the GAP package"
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: gap-actions/setup-gap@v2
-        with:
-          GAP_PKGS_TO_BUILD: json
-      - uses: gap-actions/build-pkg-docs@v1
+      - uses: actions/checkout@v5
+      - uses: gap-actions/setup-gap@v3
+      - uses: gap-actions/build-pkg-docs@v2
         with:
           use-latex: true
-      - uses: stertooy/release-pkg@read-json-etc
+      - run: |
+          {
+            echo 'BODY<<EOF'
+            sed -n '/^[0-9]\+\.[0-9]\+\.[0-9]\+/{:a;n;/^[0-9]\+\.[0-9]\+\.[0-9]\+/q;/^-/p;ba}' CHANGES.md
+            echo EOF
+          } >> $GITHUB_ENV
+      - run: |
+          echo "$BODY"
+      - uses: gap-actions/release-pkg@v1
         with:
           dry-run: ${{ inputs.dry-run }}
-      - uses: stertooy/update-gh-pages@first-attempt
+          body-text: ${{ env.BODY }} 
+          force: ${{ inputs.force }}
+      - uses: gap-actions/update-gh-pages@v1
         if: ${{ !inputs.dry-run }}
