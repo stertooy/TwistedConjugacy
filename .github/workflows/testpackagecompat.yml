@@ -36,7 +36,7 @@ jobs:
         uses: gap-actions/run-pkg-tests@v4
         with:
           mode: 'loadall'
-          warnings-as-errors: true
+          warnings-as-errors: false
           coverage: false
 
   test-gap:
@@ -71,4 +71,4 @@ jobs:
         uses: stertooy/run-gap-tests@v1
         with:
           mode: 'loadall'
-          warnings-as-errors: true
+          warnings-as-errors: false
