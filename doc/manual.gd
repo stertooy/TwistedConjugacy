@@ -643,7 +643,7 @@ Intersection( Hx, Kz );
 
 #! Algorithms designed for computing with twisted conjugacy classes can be
 #! leveraged to do computations involving double cosets, see
-#! <Cite Key='tert25-a' Where="Sec. 9"/> for a description on this. When the
+#! <Cite Key='tert25-a'/> for a description on this. When the
 #! &PACKAGENAME; package is loaded, it does this automatically, and the
 #! functions below should then work for PcpGroups, even if they are infinite.
 
@@ -899,7 +899,7 @@ Source( res ) = N and Range( res ) = N;
 
 #! Algorithms designed for computing with twisted conjugacy classes can be
 #! leveraged to do computations involving group derivations, see
-#! <Cite Key='tert25-a'  Where="Sec. 10"/> for a description on this.
+#! <Cite Key='tert25-a'/> for a description on this.
 
 #! <P/>
 
@@ -1127,16 +1127,16 @@ List( ImK );
 #! @Chapter Affine actions
 
 #! Let $G$ and $H$ be groups, let $H$ act on $G$ via automorphisms via
-#! $$\alpha \colon H \to \operatorname{Aut}(G)$$
+#! $$\alpha \colon H \to \operatorname{Aut}(G) \colon h \mapsto \alpha_h$$
 #! and let $\delta \colon H \to G$ be a group derivation with respect to this
 #! action. Then we can construct a new action, called an **affine action**, by
-#! $$G \times H \to G \colon g^h = \alpha(h)(g) \delta(g).$$
+#! $$G \times H \to G \colon g^h = \alpha_h(g) \delta(g).$$
 
 #! <P/>
 
 #! Algorithms designed for computing with twisted conjugacy classes can be
 #! leveraged to do computations involving affine actions, see
-#! <Cite Key='tert25-a'  Where="Sec. 11"/> for a description on this.
+#! <Cite Key='tert25-a'/> for a description on this.
 
 #! <P/>
 
