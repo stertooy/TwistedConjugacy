@@ -25,6 +25,7 @@ jobs:
         run: ln -f -s $PWD /tmp/gaproot/pkg/
 
       - name: "Install Polycyclic 2.17 if necessary"
+        if: ${{ matrix.mode == 'default' }}
         shell: bash
         run: |
           gap -A << GAPInput
