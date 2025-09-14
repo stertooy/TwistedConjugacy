@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (TwistedConjugacy) - Chapter 7: Cosets of PcpGroups</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap7"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap6.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap8.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap7_mj.html">[MathJax on]</a></p>
+<p><a id="X86AB2EC37E2F6C19" name="X86AB2EC37E2F6C19"></a></p>
+<div class="ChapSects"><a href="chap7.html#X86AB2EC37E2F6C19">7 <span class="Heading">Cosets of PcpGroups</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7.html#X7A16782E7B3F98F6">7.1 <span class="Heading">Right cosets</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X827675EB8157DF2D">7.1-1 Intersection</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7.html#X78B98B257E981046">7.2 <span class="Heading">Double cosets</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X87BDB89B7AAFE8AD">7.2-1 <span class="Heading">\in</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X858ADA3B7A684421">7.2-2 <span class="Heading">Size</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7EBA57FC7CCF8449">7.2-3 <span class="Heading">List</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X806A4814806A4814">7.2-4 <span class="Heading">\=</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7A5EFABB86E6D4D5">7.2-5 <span class="Heading">DoubleCosets</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X7A25B1C886CF8C6A">7.2-6 <span class="Heading">DoubleCosetRepsAndSizes</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7.html#X805F0F1E803BE255">7.2-7 <span class="Heading">DoubleCosetIndex</span></a>
+</span>
+</div></div>
+</div>
+
+<h3>7 <span class="Heading">Cosets of PcpGroups</span></h3>
+
+<p><strong class="pkg">GAP</strong> is well-equipped to deal with <em>finite</em> cosets. However, if a coset is infinite, methods may not be available, may be faulty, or may run forever. The <strong class="pkg">TwistedConjugacy</strong> package provides additional methods for existing functions that can deal with infinite cosets of PcpGroups.</p>
+
+<p>The only completely new functions are <code class="func">DoubleCosetIndex</code> (<a href="chap7.html#X805F0F1E803BE255"><span class="RefLink">7.2-7</span></a>) and its <code class="code">NC</code> version.</p>
+
+<p><a id="X7A16782E7B3F98F6" name="X7A16782E7B3F98F6"></a></p>
+
+<h4>7.1 <span class="Heading">Right cosets</span></h4>
+
+<p>Calculating the intersection of two right cosets <span class="Math">Hx</span> and <span class="Math">Ky</span> can be reduced to calculating the intersection <span class="Math">H \cap K</span> and verifying whether <span class="Math">xy^{-1} \in HK</span> (see <code class="func">\in</code> (<a href="chap7.html#X87BDB89B7AAFE8AD"><span class="RefLink">7.2-1</span></a>)).</p>
+
+<p><a id="X827675EB8157DF2D" name="X827675EB8157DF2D"></a></p>
+
+<h5>7.1-1 Intersection</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Intersection</code>( <var class="Arg">C1</var>, <var class="Arg">C2</var>, <var class="Arg">...</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Intersection</code>( <var class="Arg">L</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: the intersection of the right cosets <var class="Arg">C1</var>, <var class="Arg">C2</var>, ...</p>
+
+<p>Alternatively, this function also accepts a single list of right cosets <var class="Arg">L</var> as argument.</p>
+
+<p>This intersection is always a right coset, or the empty list.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := ExamplesOfSomePcpGroups( 5 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H := Subgroup( G, [ G.1*G.2^-1*G.3^-1*G.4^-1, G.2^-1*G.3*G.4^-2 ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">K := Subgroup( G, [ G.1*G.3^-2*G.4^2, G.1*G.4^4 ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">x := G.1*G.3^-1;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">y := G.1*G.2^-1*G.3^-2*G.4^-1;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">z := G.1*G.2*G.3*G.4^2;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Hx := RightCoset( H, x );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Ky := RightCoset( K, y );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Intersection( Hx, Ky );</span>
+RightCoset(&lt;group with 2 generators&gt;,&lt;object&gt;)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Kz := RightCoset( K, z );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Intersection( Hx, Kz );</span>
+[  ]
+</pre></div>
+
+<p><a id="X78B98B257E981046" name="X78B98B257E981046"></a></p>
+
+<h4>7.2 <span class="Heading">Double cosets</span></h4>
+
+<p>Algorithms designed for computing with twisted conjugacy classes can be leveraged to do computations involving double cosets, see <a href="chapBib.html#biBtert25-a">[Ter25]</a> for a description on this. When the <strong class="pkg">TwistedConjugacy</strong> package is loaded, it does this automatically, and the functions below should then work for PcpGroups, even if they are infinite.</p>
+
+<p><a id="X87BDB89B7AAFE8AD" name="X87BDB89B7AAFE8AD"></a></p>
+
+<h5>7.2-1 <span class="Heading">\in</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \in</code>( <var class="Arg">g</var>, <var class="Arg">D</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="keyw">true</code> if <var class="Arg">g</var> is an element of <var class="Arg">D</var>, otherwise <code class="keyw">false</code>.</p>
+
+<p><a id="X858ADA3B7A684421" name="X858ADA3B7A684421"></a></p>
+
+<h5>7.2-2 <span class="Heading">Size</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Size</code>( <var class="Arg">D</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: the number of elements in <var class="Arg">D</var>.</p>
+
+<p><a id="X7EBA57FC7CCF8449" name="X7EBA57FC7CCF8449"></a></p>
+
+<h5>7.2-3 <span class="Heading">List</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; List</code>( <var class="Arg">D</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: a list containing the elements of <var class="Arg">D</var>.</p>
+
+<p>If <var class="Arg">D</var> is infinite, this will run forever. It is recommended to first test the finiteness of <var class="Arg">D</var> using <code class="func">Size</code> (<a href="chap7.html#X858ADA3B7A684421"><span class="RefLink">7.2-2</span></a>).</p>
+
+<p><a id="X806A4814806A4814" name="X806A4814806A4814"></a></p>
+
+<h5>7.2-4 <span class="Heading">\=</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \=</code>( <var class="Arg">C</var>, <var class="Arg">D</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="keyw">true</code> if <var class="Arg">C</var> and <var class="Arg">D</var> are the same double coset, otherwise <code class="keyw">false</code>.</p>
+
+<p><a id="X7A5EFABB86E6D4D5" name="X7A5EFABB86E6D4D5"></a></p>
+
+<h5>7.2-5 <span class="Heading">DoubleCosets</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DoubleCosets</code>( <var class="Arg">G</var>, <var class="Arg">H</var>, <var class="Arg">K</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DoubleCosetsNC</code>( <var class="Arg">G</var>, <var class="Arg">H</var>, <var class="Arg">K</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: a duplicate-free list of all <code class="code">(<var class="Arg">H</var>,<var class="Arg">K</var>)</code>-double cosets in <var class="Arg">G</var> if there are finitely many, otherwise <code class="keyw">fail</code>.</p>
+
+<p>The groups <var class="Arg">H</var> and <var class="Arg">K</var> must be subgroups of the group <var class="Arg">G</var>. The <code class="code">NC</code> version does not check whether this is the case.</p>
+
+<p><a id="X7A25B1C886CF8C6A" name="X7A25B1C886CF8C6A"></a></p>
+
+<h5>7.2-6 <span class="Heading">DoubleCosetRepsAndSizes</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DoubleCosetRepsAndSizes</code>( <var class="Arg">G</var>, <var class="Arg">H</var>, <var class="Arg">K</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: a list containing pairs of the form <code class="code">[ r, n ]</code>, where <code class="code">r</code> is a representative and <code class="code">n</code> is the size of a double coset.</p>
+
+<p>While for finite groups this function is supposed to be faster than <code class="func">DoubleCosetsNC</code> (<a href="chap7.html#X7A5EFABB86E6D4D5"><span class="RefLink">7.2-5</span></a>), for PcpGroups it is usually <em>slower</em>.</p>
+
+<p><a id="X805F0F1E803BE255" name="X805F0F1E803BE255"></a></p>
+
+<h5>7.2-7 <span class="Heading">DoubleCosetIndex</span></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DoubleCosetIndex</code>( <var class="Arg">G</var>, <var class="Arg">H</var>, <var class="Arg">K</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DoubleCosetIndexNC</code>( <var class="Arg">G</var>, <var class="Arg">H</var>, <var class="Arg">K</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Returns: the double coset index of the pair (<var class="Arg">H</var>,<var class="Arg">K</var>).</p>
+
+<p>The groups <var class="Arg">H</var> and <var class="Arg">K</var> must be subgroups of the group <var class="Arg">G</var>. The <code class="code">NC</code> version does not check whether this is the case.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">HxK := DoubleCoset( H, x, K );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">HyK := DoubleCoset( H, y, K );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">HzK := DoubleCoset( H, z, K );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">y in HxK;</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">z in HxK;</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">HxK = HyK;</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">HxK = HzK;</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DoubleCosets( G, H, K );</span>
+[ DoubleCoset(&lt;group with 2 generators&gt;,&lt;object&gt;,&lt;group with 2 generators&gt;),
+  DoubleCoset(&lt;group with 2 generators&gt;,&lt;object&gt;,&lt;group with 2 generators&gt;) ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DoubleCosetIndex( G, H, K );</span>
+2
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap6.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap8.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>
