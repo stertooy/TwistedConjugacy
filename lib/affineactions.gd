@@ -3,7 +3,7 @@ DeclareGlobalName( "OrbitAffineAction" );
 DeclareGlobalName( "OrbitsAffineAction" );
 DeclareGlobalName( "NrOrbitsAffineAction" );
 
-DeclareGlobalName( "StabilizerAffineAction" );
+DeclareGlobalFunction( "StabilizerAffineAction" );
 DeclareSynonym( "StabiliserAffineAction", StabilizerAffineAction );
 
 DeclareGlobalName( "RepresentativeAffineAction" );
