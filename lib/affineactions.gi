@@ -18,7 +18,7 @@ DeclareRepresentation(
 ##  OUTPUT:
 ##      act:        affine action of H on G
 ##
-InstallGlobalFunction(
+BindGlobal(
     AffineActionByGroupDerivation,
     { K, derv } -> TWC_FourMapsForAffineAction( K, derv )[4]
 );
