@@ -2,7 +2,10 @@
 ##
 ## IsOrbitAffineActionRep
 ##
-DeclareRepresentation( "IsOrbitAffineActionRep", IsExternalOrbit );
+DeclareRepresentation(
+    "IsOrbitAffineActionRep",
+    IsOrbitAffineAction and IsExternalOrbit
+);
 
 ###############################################################################
 ##
