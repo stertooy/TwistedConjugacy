@@ -9,3 +9,5 @@ DeclareSynonym( "StabiliserAffineAction", StabilizerAffineAction );
 DeclareGlobalName( "RepresentativeAffineAction" );
 
 DeclareGlobalName( "AffineActionByGroupDerivation" );
+
+DeclareCategory( "IsAffineOrbit", IsExternalSet );
