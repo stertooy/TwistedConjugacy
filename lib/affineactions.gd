@@ -10,4 +10,4 @@ DeclareGlobalName( "RepresentativeAffineAction" );
 
 DeclareGlobalName( "AffineActionByGroupDerivation" );
 
-DeclareCategory( "IsAffineOrbit", IsExternalSet );
+DeclareCategory( "IsOrbitAffineAction", IsExternalSet );
