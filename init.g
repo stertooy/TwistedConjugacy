@@ -1,11 +1,4 @@
-# Introduce NC versions of preimage functions as a temporary measure
-if not IsBound( PreImagesSetNC ) then
-    BindGlobal( "PreImagesSetNC", PreImagesSet );
-fi;
-if not IsBound( PreImagesRepresentativeNC ) then
-    BindGlobal( "PreImagesRepresentativeNC", PreImagesRepresentative );
-fi;
-
+DeclareGlobalName( "TWC" );
 ReadPackage( "TwistedConjugacy", "lib/affineactions.gd" );
 ReadPackage( "TwistedConjugacy", "lib/coincidencegroup.gd" );
 ReadPackage( "TwistedConjugacy", "lib/cosets.gd" );
