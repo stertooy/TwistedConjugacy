@@ -16,4 +16,4 @@ InstallTrueMethod( IsGroupDerivation, IsGroupDerivationByFunction );
 
 DeclareGlobalFunction( "GroupDerivationByAffineAction" );
 
-DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineAction );
+DeclareProperty( "IsGroupDerivationImage", IsExternalSet );
