@@ -4,7 +4,7 @@
 ##
 DeclareRepresentation(
     "IsOrbitAffineActionRep",
-    IsExternalOrbit
+    IsExternalOrbit and IsOrbitAffineAction
 );
 
 ###############################################################################
