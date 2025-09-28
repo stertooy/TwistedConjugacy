@@ -182,8 +182,8 @@ InstallMethod(
 ##      L:          list containing the (hom1,hom2)-twisted conjugacy classes,
 ##                  or fail if there are infinitely many
 ##
-InstallGlobalFunction(
-    ReidemeisterClasses,
+BindGlobal(
+    "ReidemeisterClasses",
     function( hom1, arg... )
         local G, hom2, N, Rcl;
         G := Range( hom1 );
@@ -205,6 +205,8 @@ InstallGlobalFunction(
     end
 );
 
+BindGlobal( "TwistedConjugacyClasses", ReidemeisterClasses );
+
 ###############################################################################
 ##
 ## RepresentativesReidemeisterClasses( hom1, hom2, N )
@@ -219,8 +221,8 @@ InstallGlobalFunction(
 ##                  twisted conjugacy class, or fail if there are infinitely
 ##                  many
 ##
-InstallGlobalFunction(
-    RepresentativesReidemeisterClasses,
+BindGlobal(
+    "RepresentativesReidemeisterClasses",
     function( hom1, arg... )
         local G, H, hom2, N, gens, tc, q, p, Rcl, copy, g, h, pos, i;
         G := Range( hom1 );
@@ -269,6 +271,11 @@ InstallGlobalFunction(
         fi;
         return Rcl;
     end
+);
+
+BindGlobal(
+    "RepresentativesTwistedConjugacyClasses",
+    RepresentativesReidemeisterClasses
 );
 
 ###############################################################################
