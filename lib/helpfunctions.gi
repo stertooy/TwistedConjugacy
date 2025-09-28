@@ -25,8 +25,8 @@ InstallMethod(
 ##  OUTPUT:
 ##      N:          intersection of Ker(hom1) and Ker(hom2)
 ##
-InstallGlobalFunction(
-    TWC_IntersectionOfKernels,
+BindGlobal(
+    "TWC_IntersectionOfKernels",
     { hom1, hom2 } -> NormalIntersection(
         KernelOfMultiplicativeGeneralMapping( hom1 ),
         KernelOfMultiplicativeGeneralMapping( hom2 )
@@ -45,8 +45,8 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      N:          intersection of hom1^-1(M) and hom2^-1(M)
 ##
-InstallGlobalFunction(
-    TWC_IntersectionOfPreImages,
+BindGlobal(
+    "TWC_IntersectionOfPreImages",
     { hom1, hom2, M } -> NormalIntersection(
         # TODO: replace by PreImagesSet eventually
         PreImagesSetNC( hom1, NormalIntersection( M, ImagesSource( hom1 ) ) ),
