@@ -1,14 +1,5 @@
 ###############################################################################
 ##
-## IsOrbitAffineActionRep
-##
-DeclareRepresentation(
-    "IsOrbitAffineActionRep",
-    IsExternalOrbit
-);
-
-###############################################################################
-##
 ## AffineActionByGroupDerivation( K, derv )
 ##
 ##  INPUT:
