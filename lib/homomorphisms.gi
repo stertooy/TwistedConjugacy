@@ -54,56 +54,6 @@ BindGlobal(
 
 ###############################################################################
 ##
-## TWC_InclusionHomomorphism( H, G )
-##
-##  INPUT:
-##      H:          subgroup of G
-##      G:          group
-##
-##  OUTPUT:
-##      hom:        natural inclusion H -> G
-##
-BindGlobal(
-    "TWC_InclusionHomomorphism",
-    function( H, G )
-        local gens;
-        gens := GeneratorsOfGroup( H );
-        return GroupHomomorphismByImagesNC( H, G, gens, gens );
-    end
-);
-
-###############################################################################
-##
-##  TWC_DifferenceGroupHomomorphisms( hom1, hom2, N, M )
-##
-##  INPUT:
-##      hom1:       group homomorphism H -> G
-##      hom2:       group homomorphism H -> G
-##      N:          subgroup of H
-##      M:          subgroup of G
-##
-##  OUTPUT:
-##      diff:       group homomorphism N -> M: n -> n^hom2 * ( n^hom1 )^-1
-##
-##  REMARKS:
-##      Does not verify whether diff is a well-defined group homomorphism.
-##
-BindGlobal(
-    "TWC_DifferenceGroupHomomorphisms",
-    function( hom1, hom2, N, M )
-        local gens, imgs;
-        gens := GeneratorsOfGroup( N );
-        imgs := List(
-            gens,
-            n -> ImagesRepresentative( hom1, n ) /
-                ImagesRepresentative( hom2, n )
-        );
-        return GroupHomomorphismByImagesNC( N, M, gens, imgs );
-    end
-);
-
-###############################################################################
-##
 ## RepresentativesHomomorphismClasses( H, G )
 ##
 ##  INPUT:
@@ -226,7 +176,7 @@ InstallMethod(
     "for abelian source and abelian range",
     [ IsGroup and IsFinite and IsAbelian, IsGroup and IsFinite and IsAbelian ],
     SUM_FLAGS + 2,
-    TWC_RepresentativesHomomorphismClassesAbelian
+    TWC.RepresentativesHomomorphismClassesAbelian
 );
 
 InstallMethod(
@@ -252,7 +202,7 @@ InstallMethod(
     1,
     function( H, G )
         if Size( SmallGeneratingSet( H ) ) <> 2 then TryNextMethod(); fi;
-        return TWC_RepresentativesHomomorphismClasses2Generated( H, G );
+        return TWC.RepresentativesHomomorphismClasses2Generated( H, G );
     end
 );
 
@@ -289,17 +239,17 @@ InstallMethod(
         );
 
         # Step 3: Calculate info on kernels
-        KerInfo := TWC_KernelsOfHomomorphismClasses( H, KerOrbits, ImgOrbits );
+        KerInfo := TWC.KernelsOfHomomorphismClasses( H, KerOrbits, ImgOrbits );
         Pairs := KerInfo[1];
         Heads := KerInfo[2];
         Isos := KerInfo[3];
 
         # Step 4: Calculate info on images
         Reps := EmptyPlist( Length( ImgOrbits ) );
-        Tails := TWC_ImagesOfHomomorphismClasses( Pairs, ImgOrbits, Reps, G );
+        Tails := TWC.ImagesOfHomomorphismClasses( Pairs, ImgOrbits, Reps, G );
 
         # Step 5: Calculate the homomorphisms
-        return TWC_FuseHomomorphismClasses( Pairs, Heads, Isos, Tails );
+        return TWC.FuseHomomorphismClasses( Pairs, Heads, Isos, Tails );
     end
 );
 
@@ -331,7 +281,7 @@ InstallMethod(
     "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian ],
     SUM_FLAGS + 2,
-    G -> TWC_RepresentativesHomomorphismClassesAbelian( G, G )
+    G -> TWC.RepresentativesHomomorphismClassesAbelian( G, G )
 );
 
 InstallMethod(
@@ -341,7 +291,7 @@ InstallMethod(
     1,
     function( G )
         if Size( SmallGeneratingSet( G ) ) <> 2 then TryNextMethod(); fi;
-        return TWC_RepresentativesHomomorphismClasses2Generated( G, G );
+        return TWC.RepresentativesHomomorphismClasses2Generated( G, G );
     end
 );
 
@@ -380,18 +330,18 @@ InstallMethod(
         od;
 
         # Step 3: Calculate info on kernels
-        KerInfo := TWC_KernelsOfHomomorphismClasses( G, KerOrbits, SubOrbits );
+        KerInfo := TWC.KernelsOfHomomorphismClasses( G, KerOrbits, SubOrbits );
         Pairs := KerInfo[1];
         Reps := KerInfo[2];
         Isos := KerInfo[3];
 
         # Step 4: Calculate info on images
-        Tails := TWC_ImagesOfHomomorphismClasses( Pairs, SubOrbits, Reps, G );
+        Tails := TWC.ImagesOfHomomorphismClasses( Pairs, SubOrbits, Reps, G );
 
         # Step 5: Calculate the homomorphisms
         return Concatenation(
             RepresentativesAutomorphismClasses( G ),
-            TWC_FuseHomomorphismClasses( Pairs, Reps, Isos, Tails )
+            TWC.FuseHomomorphismClasses( Pairs, Reps, Isos, Tails )
         );
     end
 );
