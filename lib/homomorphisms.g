@@ -1,5 +1,49 @@
 ###############################################################################
 ##
+## InclusionHomomorphism( H, G )
+##
+##  INPUT:
+##      H:          subgroup of G
+##      G:          group
+##
+##  OUTPUT:
+##      hom:        natural inclusion H -> G
+##
+TWC.InclusionHomomorphism := function( H, G )
+    local gens;
+    gens := GeneratorsOfGroup( H );
+    return GroupHomomorphismByImagesNC( H, G, gens, gens );
+end;
+
+###############################################################################
+##
+##  DifferenceGroupHomomorphisms( hom1, hom2, N, M )
+##
+##  INPUT:
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
+##      N:          subgroup of H
+##      M:          subgroup of G
+##
+##  OUTPUT:
+##      diff:       group homomorphism N -> M: n -> n^hom2 * ( n^hom1 )^-1
+##
+##  REMARKS:
+##      Does not verify whether diff is a well-defined group homomorphism.
+##
+TWC.DifferenceGroupHomomorphisms := function( hom1, hom2, N, M )
+    local gens, imgs;
+    gens := GeneratorsOfGroup( N );
+    imgs := List(
+        gens,
+        n -> ImagesRepresentative( hom1, n ) /
+            ImagesRepresentative( hom2, n )
+    );
+    return GroupHomomorphismByImagesNC( N, M, gens, imgs );
+end;
+
+###############################################################################
+##
 ## KernelsOfHomomorphismClasses( H, KerOrbits, ImgOrbits )
 ##
 ##  INPUT:
