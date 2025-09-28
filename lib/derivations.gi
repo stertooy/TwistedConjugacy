@@ -363,7 +363,7 @@ InstallMethod(
         local G, img;
         G := Range( derv );
         img := OrbitAffineAction( K, One( G ), derv );
-        Setter( IsGroupDerivationImage )( img, true );
+        SetIsGroupDerivationImage( img, true );
         return img;
     end
 );
@@ -378,7 +378,7 @@ InstallMethod(
 InstallMethod(
     ViewObj,
     "for group derivation images",
-    [ IsGroupDerivationImage ],
+    [ IsGroupDerivationImage and IsOrbitAffineActionRep ],
     function( img )
         local G;
         G := Source( img!.emb );
@@ -396,7 +396,7 @@ InstallMethod(
 InstallMethod(
     PrintObj,
     "for group derivation images",
-    [ IsGroupDerivationImage ],
+    [ IsGroupDerivationImage and IsOrbitAffineActionRep ],
     function( img )
         local G, K;
         G := Source( img!.emb );
