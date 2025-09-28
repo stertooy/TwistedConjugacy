@@ -10,6 +10,7 @@ BindGlobal( "TWC", rec( ASSERT := false ) );
 
 ReadPackage( "TwistedConjugacy", "lib/affineactions.g" );
 ReadPackage( "TwistedConjugacy", "lib/affineactions.gi" );
+ReadPackage( "TwistedConjugacy", "lib/coincidencegroup.g" );
 ReadPackage( "TwistedConjugacy", "lib/coincidencegroup.gi" );
 ReadPackage( "TwistedConjugacy", "lib/cosets.gi" );
 ReadPackage( "TwistedConjugacy", "lib/derivations.g" );
