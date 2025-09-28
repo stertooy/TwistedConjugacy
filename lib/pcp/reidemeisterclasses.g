@@ -55,7 +55,7 @@ end;
 ##      representatives of (hom1p,hom2p), with hom1p, hom2p: H/L -> G/K,
 ##      where L is normal in H.
 ##
-TWC.ReidemeisterClassesByFinQuo :=function( G, H, hom1, hom2, N, K, one )
+TWC.ReidemeisterClassesByFinQuo := function( G, H, hom1, hom2, N, K, one )
     local L, p, q, GK, pN, hom1p, hom2p, RclGK, Rcl, hom1K, hom2K, M, pn,
           inn_pn, Coin, n, conj_n, inn_n_hom1K, RclM, inRclM, inn_n, tc, m1,
           isNew, h, m2, inn_nm2_hom1K;
