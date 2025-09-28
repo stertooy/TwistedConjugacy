@@ -26,7 +26,7 @@ TWC.IntersectionOfKernels := { hom1, hom2 } -> NormalIntersection(
 ##  OUTPUT:
 ##      N:          intersection of hom1^-1(M) and hom2^-1(M)
 ##
-TWC.IntersectionOfPreImages:= { hom1, hom2, M } -> NormalIntersection(
+TWC.IntersectionOfPreImages := { hom1, hom2, M } -> NormalIntersection(
     # TODO: replace by PreImagesSet eventually
     PreImagesSetNC( hom1, NormalIntersection( M, ImagesSource( hom1 ) ) ),
     PreImagesSetNC( hom2, NormalIntersection( M, ImagesSource( hom2 ) ) )
