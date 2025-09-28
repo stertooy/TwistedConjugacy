@@ -13,8 +13,8 @@
 ##  REMARKS:
 ##      For every n, R(endo1^n,endo2^n) = P_n + Q_n
 ##
-InstallGlobalFunction(
-    ReidemeisterZetaCoefficients,
+BindGlobal(
+    "ReidemeisterZetaCoefficients",
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -68,7 +68,7 @@ InstallMethod(
         );
         R := Concatenation(
             R{ [ 1 .. l ] },
-            TWC_RemovePeriodsList( R{[ 1 + l .. k + l ] })
+            TWC.RemovePeriodsList( R{[ 1 + l .. k + l ] })
         );
         k := Length( R ) - l;
         P := List( [ 1 .. k ], n -> R[ ( n - l - 1 ) mod k + 1 + l ] );
@@ -90,8 +90,8 @@ InstallMethod(
 ##      bool:       true if the Reidemeister zeta function of endo1 and endo2
 ##                  is rational
 ##
-InstallGlobalFunction(
-    IsRationalReidemeisterZeta,
+BindGlobal(
+    "IsRationalReidemeisterZeta",
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -133,7 +133,7 @@ InstallMethod(
         coeffs := ReidemeisterZetaCoefficientsOp( endo1, endo2 );
         if (
             not IsEmpty( coeffs[2] ) or
-            TWC_DecomposePeriodicList( coeffs[1] ) = fail
+            TWC.DecomposePeriodicList( coeffs[1] ) = fail
         ) then
             return false;
         fi;
@@ -152,8 +152,8 @@ InstallMethod(
 ##  OUTPUT:
 ##      func:       the Reidemeister zeta function of endo1 and endo2
 ##
-InstallGlobalFunction(
-    ReidemeisterZeta,
+BindGlobal(
+    "ReidemeisterZeta",
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -189,7 +189,7 @@ InstallMethod(
         if not IsEmpty( coeffs[2] ) then
             return fail;
         fi;
-        p := TWC_DecomposePeriodicList( coeffs[1] );
+        p := TWC.DecomposePeriodicList( coeffs[1] );
         if p = fail then
             return fail;
         fi;
@@ -218,8 +218,8 @@ InstallMethod(
 ##      str:        a string containing the Reidemeister zeta function of endo1
 ##                  and endo2 in text form
 ##
-InstallGlobalFunction(
-    PrintReidemeisterZeta,
+BindGlobal(
+    "PrintReidemeisterZeta",
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -282,7 +282,7 @@ InstallMethod(
         fi;
         factors := [];
         powers := [];
-        p := TWC_DecomposePeriodicList( P );
+        p := TWC.DecomposePeriodicList( P );
         if p = fail then
             k := Length( P );
             for i in [ 0 .. k - 1 ] do
