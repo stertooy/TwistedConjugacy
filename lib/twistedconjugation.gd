@@ -1,6 +1,6 @@
-DeclareGlobalFunction( "TwistedConjugation" );
-DeclareGlobalFunction( "IsTwistedConjugate" );
-DeclareGlobalFunction( "RepresentativeTwistedConjugation" );
+DeclareGlobalName( "TwistedConjugation" );
+DeclareGlobalName( "IsTwistedConjugate" );
+DeclareGlobalName( "RepresentativeTwistedConjugation" );
 DeclareOperation(
     "RepresentativeTwistedConjugationOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism,
