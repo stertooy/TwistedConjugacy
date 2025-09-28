@@ -35,8 +35,8 @@ BindGlobal(
 ##  OUTPUT:
 ##      orb:        the orbit of g under the affine action of derv
 ##
-InstallGlobalFunction(
-    OrbitAffineAction,
+BindGlobal(
+    "OrbitAffineAction",
     function( K, g, derv )
         local G, map, emb, s, tcc, orb;
         G := Range( derv );
@@ -76,8 +76,8 @@ InstallGlobalFunction(
 ##      L:          list containing the orbits of the affine action of derv, or
 ##                  "fail" if there are infinitely many
 ##
-InstallGlobalFunction(
-    OrbitsAffineAction,
+BindGlobal(
+    "OrbitsAffineAction",
     function( K, derv )
         local G, map, emb, iG, R, reps;
         G := Range( derv );
@@ -104,8 +104,8 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      R:          the number of orbits of the affine action of derv
 ##
-InstallGlobalFunction(
-    NrOrbitsAffineAction,
+BindGlobal(
+    "NrOrbitsAffineAction",
     function( K, derv )
         local G, map, emb, iG, R;
         G := Range( derv );
@@ -132,13 +132,18 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      stab:       stabiliser of g under the affine action of derv
 ##
-InstallGlobalFunction(
-    StabilizerAffineAction,
+BindGlobal(
+    "StabilizerAffineAction",
     function( K, g, derv )
         local orb;
         orb := OrbitAffineAction( K, g, derv );
         return StabilizerOfExternalSet( orb );
     end
+);
+
+BindGlobal(
+    "StabiliserAffineAction",
+    StabilizerAffineAction
 );
 
 ###############################################################################
@@ -155,8 +160,8 @@ InstallGlobalFunction(
 ##      k:          element of K that maps g1 to g2 under the affine action of
 ##                  derv
 ##
-InstallGlobalFunction(
-    RepresentativeAffineAction,
+BindGlobal(
+    "RepresentativeAffineAction",
     function( K, g1, g2, derv )
         local map, s1, s2;
         map := TWC_FourMapsForAffineAction( K, derv );
