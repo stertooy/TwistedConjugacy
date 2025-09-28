@@ -60,7 +60,7 @@ BindGlobal(
     "TWC_RepTwistConjToIdByTrivialSubgroup",
     function( G, H, hom1, hom2, g )
         local N, id, q, hom1HN, hom2HN, qh;
-        N := TWC_IntersectionOfKernels( hom1, hom2 );
+        N := TWC.IntersectionOfKernels( hom1, hom2 );
         id := IdentityMapping( G );
         q := NaturalHomomorphismByNormalSubgroupNC( H, N );
         hom1HN := InducedHomomorphism( q, id, hom1 );
