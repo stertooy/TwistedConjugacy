@@ -11,7 +11,7 @@
 ##
 BindGlobal(
     "AffineActionByGroupDerivation",
-    { K, derv } -> TWC_FourMapsForAffineAction( K, derv )[4]
+    { K, derv } -> TWC.FourMapsForAffineAction( K, derv )[4]
 );
 
 ###############################################################################
@@ -31,7 +31,7 @@ BindGlobal(
     function( K, g, derv )
         local G, map, emb, s, tcc, orb;
         G := Range( derv );
-        map := TWC_FourMapsForAffineAction( K, derv );
+        map := TWC.FourMapsForAffineAction( K, derv );
         emb := map[3];
         s := ImagesRepresentative( emb, g );
         tcc := ReidemeisterClass( map[1], map[2], s );
@@ -72,7 +72,7 @@ BindGlobal(
     function( K, derv )
         local G, map, emb, iG, R, reps;
         G := Range( derv );
-        map := TWC_FourMapsForAffineAction( K, derv );
+        map := TWC.FourMapsForAffineAction( K, derv );
         emb := map[3];
         iG := ImagesSet( emb, G );
         R := RepresentativesReidemeisterClasses( map[1], map[2], iG );
@@ -100,7 +100,7 @@ BindGlobal(
     function( K, derv )
         local G, map, emb, iG, R;
         G := Range( derv );
-        map := TWC_FourMapsForAffineAction( K, derv );
+        map := TWC.FourMapsForAffineAction( K, derv );
         emb := map[3];
         iG := ImagesSet( emb, G );
         R := RepresentativesReidemeisterClasses( map[1], map[2], iG );
@@ -155,7 +155,7 @@ BindGlobal(
     "RepresentativeAffineAction",
     function( K, g1, g2, derv )
         local map, s1, s2;
-        map := TWC_FourMapsForAffineAction( K, derv );
+        map := TWC.FourMapsForAffineAction( K, derv );
         s1 := ImagesRepresentative( map[3], g1 );
         s2 := ImagesRepresentative( map[3], g2 );
         return RepresentativeTwistedConjugation( map[1], map[2], s1, s2 );
