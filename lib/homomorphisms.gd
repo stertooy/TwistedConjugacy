@@ -1,9 +1,6 @@
 DeclareGlobalName( "InducedHomomorphism" );
 DeclareGlobalName( "RestrictedHomomorphism" );
 
-DeclareGlobalName( "TWC_InclusionHomomorphism" );
-DeclareGlobalName( "TWC_DifferenceGroupHomomorphisms" );
-
 DeclareGlobalName( "RepresentativesHomomorphismClasses" );
 DeclareOperation(
     "RepresentativesHomomorphismClassesOp",
