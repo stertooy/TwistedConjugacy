@@ -1,4 +1,5 @@
 DeclareGlobalName( "TWC" );
+
 ReadPackage( "TwistedConjugacy", "lib/affineactions.gd" );
 ReadPackage( "TwistedConjugacy", "lib/coincidencegroup.gd" );
 ReadPackage( "TwistedConjugacy", "lib/cosets.gd" );
