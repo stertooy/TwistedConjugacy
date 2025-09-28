@@ -1,5 +1,23 @@
 ###############################################################################
 ##
+## IsGroupDerivationByImagesRep
+##
+DeclareRepresentation(
+    "IsGroupDerivationByImagesRep",
+    IsGroupDerivation and IsAttributeStoringRep
+);
+
+###############################################################################
+##
+## IsGroupDerivationByFunctionRep
+##
+DeclareRepresentation(
+    "IsGroupDerivationByFunctionRep",
+    IsGroupDerivation and IsAttributeStoringRep
+);
+
+###############################################################################
+##
 ## IsGroupDerivationImageRep
 ##
 DeclareRepresentation(
