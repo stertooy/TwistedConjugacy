@@ -99,7 +99,7 @@ BindGlobal(
     function( G, H, hom1, hom2, g, M )
         local N, p, q, hom1HN, hom2HN, pg, qh1, Coin, h1, tc, m1, hom1N, hom2N,
               qh2, h2, m2, n;
-        N := TWC_IntersectionOfPreImages( hom1, hom2, M );
+        N := TWC.IntersectionOfPreImages( hom1, hom2, M );
         p := NaturalHomomorphismByNormalSubgroupNC( G, M );
         q := NaturalHomomorphismByNormalSubgroupNC( H, N );
         hom1HN := InducedHomomorphism( q, p, hom1 );
