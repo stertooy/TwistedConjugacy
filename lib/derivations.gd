@@ -15,3 +15,5 @@ DeclareRepresentation( "IsGroupDerivationByFunction", IsAttributeStoringRep );
 InstallTrueMethod( IsGroupDerivation, IsGroupDerivationByFunction );
 
 DeclareGlobalFunction( "GroupDerivationByAffineAction" );
+
+DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineAction );
