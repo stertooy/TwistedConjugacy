@@ -1,7 +1,7 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
-3.1.1 (2025-09-14)
+3.1.1 (2025-XX-YY)
 ------------------
 
 - Assertion variable renamed (again) to `TWC.ASSERT`
