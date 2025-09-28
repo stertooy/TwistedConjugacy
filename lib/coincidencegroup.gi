@@ -8,8 +8,8 @@
 ##  OUTPUT:
 ##      fix:        subgroup of G consisting of g for which g^phi = g
 ##
-InstallGlobalFunction(
-    FixedPointGroup,
+BindGlobal(
+    "FixedPointGroup",
     function( endo )
         local G;
         G := Range( endo );
@@ -31,8 +31,8 @@ InstallGlobalFunction(
 ##      coin:       subgroup of H consisting of h for which
 ##                  h^hom1 = h^hom2 = ... = h^homN
 ##
-InstallGlobalFunction(
-    CoincidenceGroup,
+BindGlobal(
+    "CoincidenceGroup",
     function( hom1, hom2, arg... )
         local G, Coin, new, homi, h, imgs;
         G := Range( hom1 );
@@ -115,28 +115,5 @@ InstallMethod(
         fi;
         tc := TwistedConjugation( hom1, hom2 );
         return StabilizerOp( H, One( G ), gens, gens, tc );
-    end
-);
-
-###############################################################################
-##
-## TWC_InducedCoincidenceGroup( q, p, hom1, hom2 )
-##
-##  INPUT:
-##      q:          projection H -> Q
-##      p:          projection G -> P
-##      hom1:       group endomorphism H -> G
-##      hom2:       group endomorphism H -> G
-##
-##  OUTPUT:
-##      coin:       coincidence group of the induced homomorphisms Q -> P
-##
-InstallGlobalFunction(
-    TWC_InducedCoincidenceGroup,
-    function( q, p, hom1, hom2 )
-        local ind1, ind2;
-        ind1 := InducedHomomorphism( q, p, hom1 );
-        ind2 := InducedHomomorphism( q, p, hom2 );
-        return CoincidenceGroup2( ind1, ind2 );
     end
 );
