@@ -36,7 +36,7 @@ end;
 
 ###############################################################################
 ##
-## RepTwistConjToIdByTrivialSubgroup( G, H, hom1, hom2, g )
+## RepTwistConjToIdByTrivSub( G, H, hom1, hom2, g )
 ##
 ##  INPUT:
 ##      G:          finite group
@@ -53,7 +53,7 @@ end;
 ##      Used for factoring the calculation of h through
 ##      H -> H/N -> G, with N the intersection of Ker(hom1) and Ker(hom2).
 ##
-TWC.RepTwistConjToIdByTrivialSubgroup := function( G, H, hom1, hom2, g )
+TWC.RepTwistConjToIdByTrivSub := function( G, H, hom1, hom2, g )
     local N, id, q, hom1HN, hom2HN, qh;
     N := TWC.IntersectionOfKernels( hom1, hom2 );
     id := IdentityMapping( G );
@@ -69,7 +69,7 @@ end;
 
 ###############################################################################
 ##
-## RepTwistConjToIdByFiniteQuotient( G, H, hom1, hom2, g, M )
+## RepTwistConjToIdByFinQuo( G, H, hom1, hom2, g, M )
 ##
 ##  INPUT:
 ##      G:          infinite PcpGroup
@@ -88,7 +88,7 @@ end;
 ##      hom2N: N -> M (with N normal in H) and hom1HN, hom2HN: H/N -> G/M. Only
 ##      works if Coin(hom1HN,hom2HN) is finite.
 ##
-TWC.RepTwistConjToIdByFiniteQuotient := function( G, H, hom1, hom2, g, M )
+TWC.RepTwistConjToIdByFinQuo := function( G, H, hom1, hom2, g, M )
     local N, p, q, hom1HN, hom2HN, pg, qh1, Coin, h1, tc, m1, hom1N, hom2N,
           qh2, h2, m2, n;
     N := TWC.IntersectionOfPreImages( hom1, hom2, M );
