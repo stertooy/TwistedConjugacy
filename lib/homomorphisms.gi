@@ -10,8 +10,8 @@
 ##  OUTPUT:
 ##      hom2:       induced group homomorphism H/N -> G/M
 ##
-InstallGlobalFunction(
-    InducedHomomorphism,
+BindGlobal(
+    "InducedHomomorphism",
     function( epi1, epi2, hom )
         local GM, HN, gens, imgs;
         GM := ImagesSource( epi2 );
@@ -37,8 +37,8 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      hom2:       restricted group homomorphism N -> M
 ##
-InstallGlobalFunction(
-    RestrictedHomomorphism,
+BindGlobal(
+    "RestrictedHomomorphism",
     function( hom, N, M )
         local gens, imgs;
         if Source( hom ) = N and HasMappingGeneratorsImages( hom ) then
@@ -63,8 +63,8 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      hom:        natural inclusion H -> G
 ##
-InstallGlobalFunction(
-    TWC_InclusionHomomorphism,
+BindGlobal(
+    "TWC_InclusionHomomorphism",
     function( H, G )
         local gens;
         gens := GeneratorsOfGroup( H );
@@ -88,8 +88,8 @@ InstallGlobalFunction(
 ##  REMARKS:
 ##      Does not verify whether diff is a well-defined group homomorphism.
 ##
-InstallGlobalFunction(
-    TWC_DifferenceGroupHomomorphisms,
+BindGlobal(
+    "TWC_DifferenceGroupHomomorphisms",
     function( hom1, hom2, N, M )
         local gens, imgs;
         gens := GeneratorsOfGroup( N );
@@ -114,8 +114,8 @@ InstallGlobalFunction(
 ##      L:          list of all group homomorphisms H -> G, up to inner
 ##                  automorphisms of G
 ##
-InstallGlobalFunction(
-    RepresentativesHomomorphismClasses,
+BindGlobal(
+    "RepresentativesHomomorphismClasses",
     function( H, G )
         IsFinite( H );
         IsAbelian( H );
@@ -138,8 +138,8 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      L:          list of all endomorphisms of G, up to inner automorphisms
 ##
-InstallGlobalFunction(
-    RepresentativesEndomorphismClasses,
+BindGlobal(
+    "RepresentativesEndomorphismClasses",
     function( G )
         IsFinite( G );
         IsAbelian( G );
@@ -158,8 +158,8 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      L:          list of all automorphisms of G, up to inner automorphisms
 ##
-InstallGlobalFunction(
-    RepresentativesAutomorphismClasses,
+BindGlobal(
+    "RepresentativesAutomorphismClasses",
     function( G )
         IsAbelian( G );
         return RepresentativesAutomorphismClassesOp( G );
