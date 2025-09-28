@@ -58,7 +58,7 @@ BindGlobal(
     function( arg... )
         local derv, info;
         derv := CallFuncList( GroupDerivationByImagesNC, arg );
-        info := TWC_CreateGroupDerivationInfo( derv, true );
+        info := TWC.CreateGroupDerivationInfo( derv, true );
         if info!.rhs = fail then
             return fail;
         fi;
@@ -150,7 +150,7 @@ BindGlobal(
 InstallMethod(
     GroupDerivationInfo,
     [ IsGroupDerivation ],
-    derv -> TWC_CreateGroupDerivationInfo( derv, false )
+    derv -> TWC.CreateGroupDerivationInfo( derv, false )
 );
 
 ###############################################################################
