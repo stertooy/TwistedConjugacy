@@ -163,7 +163,7 @@ BindGlobal(
         tc := TwistedConjugation( hom1, hom2 );
         c := tc( g, h1 );
         Coin := CoincidenceGroup2( hom1p, hom2p );
-        d := TWC_DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
+        d := TWC.DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
         if not c in ImagesSource( d ) then
             return fail;
         fi;
@@ -286,7 +286,7 @@ BindGlobal(
             return RepresentativeTwistedConjugationOp( hom1, hom2, a );
         fi;
         HH := DerivedSubgroup( H );
-        delta := TWC_DifferenceGroupHomomorphisms( hom1, hom2, HH, G );
+        delta := TWC.DifferenceGroupHomomorphisms( hom1, hom2, HH, G );
         dHH := ImagesSource( delta );
         p := NaturalHomomorphismByNormalSubgroupNC( G, dHH );
         q := IdentityMapping( H );
