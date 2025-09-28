@@ -17,7 +17,7 @@ InstallGlobalFunction(
         derv := rec(
             act := Remove( arg ),
         );
-        filt := IsGroupDerivationByImages and HasSource and HasRange and
+        filt := IsGroupDerivationByImagesRep and HasSource and HasRange and
             HasMappingGeneratorsImages;
         type := NewType( GeneralMappingsFamily(
             ElementsFamily( FamilyObj( H ) ),
@@ -88,7 +88,7 @@ InstallGlobalFunction(
             act := act,
             fun := fun
         );
-        filt := IsGroupDerivationByFunction and HasSource and HasRange;
+        filt := IsGroupDerivationByFunctionRep and HasSource and HasRange;
         type := NewType( GeneralMappingsFamily(
             ElementsFamily( FamilyObj( H ) ),
             ElementsFamily( FamilyObj( G ) )
@@ -163,7 +163,7 @@ InstallMethod(
 InstallMethod(
     ViewObj,
     "for group derivations by images",
-    [ IsGroupDerivationByImages ],
+    [ IsGroupDerivationByImagesRep ],
     function( derv )
         local gens, imgs;
         gens := MappingGeneratorsImages( derv )[1];
@@ -175,7 +175,7 @@ InstallMethod(
 InstallMethod(
     ViewObj,
     "for group derivations by a function",
-    [ IsGroupDerivationByFunction ],
+    [ IsGroupDerivationByFunctionRep ],
     function( derv )
         local fun;
         fun := derv!.fun;
@@ -254,7 +254,7 @@ InstallMethod(
 InstallMethod(
     ImagesRepresentative,
     "for group derivations with an underlying function",
-    [ IsGroupDerivationByFunction, IsMultiplicativeElementWithInverse ],
+    [ IsGroupDerivationByFunctionRep, IsMultiplicativeElementWithInverse ],
     { derv, h } -> derv!.fun( h )
 );
 
