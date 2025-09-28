@@ -29,9 +29,7 @@ InstallMethod(
             not IsFinite( H ) and
             IsFinite( G )
         ) then TryNextMethod(); fi;
-        return TWC_ReidemeisterClassesByTrivialSubgroup(
-            G, H, hom1, hom2, N, one
-        );
+        return TWC.ReidemeisterClassesByTrivSub( G, H, hom1, hom2, N, one );
     end
 );
 
@@ -52,9 +50,7 @@ InstallMethod(
             IsNilpotentGroup( G )
         ) then TryNextMethod(); fi;
         C := Center( G );
-        return TWC_ReidemeisterClassesByNormalSubgroup(
-            G, H, hom1, hom2, N, C, one
-        );
+        return TWC.ReidemeisterClassesByNormSub( G, H, hom1, hom2, N, C, one );
     end
 );
 
@@ -76,9 +72,7 @@ InstallMethod(
             IsNilpotentByFinite( G )
         ) then TryNextMethod(); fi;
         F := FittingSubgroup( G );
-        return TWC_ReidemeisterClassesByFiniteQuotient(
-            G, H, hom1, hom2, N, F, one
-        );
+        return TWC.ReidemeisterClassesByFinQuo( G, H, hom1, hom2, N, F, one );
     end
 );
 
@@ -102,7 +96,7 @@ InstallMethod(
         if ForAny( GeneratorsOfGroup( N ), n ->
             ForAny( GeneratorsOfGroup( D ), d -> d * n <> n * d )
         ) then TryNextMethod(); fi;
-        return TWC_RepsReidClassesStep1( G, H, hom1, hom2, N, one );
+        return TWC.RepsReidClassesStep1( G, H, hom1, hom2, N, one );
     end
 );
 
@@ -123,7 +117,7 @@ InstallMethod(
             IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
         K := Center( DerivedSubgroup( G ) );
-        return TWC_ReidemeisterClassesByNormalSubgroup(
+        return TWC.ReidemeisterClassesByNormalSubgroup(
             G, H, hom1, hom2, N, K, one
         );
     end
@@ -146,8 +140,6 @@ InstallMethod(
             not IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
         K := NilpotentByAbelianByFiniteSeries( G )[2];
-        return TWC_ReidemeisterClassesByFiniteQuotient(
-            G, H, hom1, hom2, N, K, one
-        );
+        return TWC.ReidemeisterClassesByFinQuo( G, H, hom1, hom2, N, K, one );
     end
 );
