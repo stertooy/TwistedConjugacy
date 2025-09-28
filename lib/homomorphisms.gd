@@ -1,20 +1,20 @@
-DeclareGlobalFunction( "InducedHomomorphism" );
-DeclareGlobalFunction( "RestrictedHomomorphism" );
+DeclareGlobalName( "InducedHomomorphism" );
+DeclareGlobalName( "RestrictedHomomorphism" );
 
-DeclareGlobalFunction( "TWC_InclusionHomomorphism" );
-DeclareGlobalFunction( "TWC_DifferenceGroupHomomorphisms" );
+DeclareGlobalName( "TWC_InclusionHomomorphism" );
+DeclareGlobalName( "TWC_DifferenceGroupHomomorphisms" );
 
-DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
+DeclareGlobalName( "RepresentativesHomomorphismClasses" );
 DeclareOperation(
     "RepresentativesHomomorphismClassesOp",
     [ IsGroup, IsGroup ]
 );
-DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
+DeclareGlobalName( "RepresentativesEndomorphismClasses" );
 DeclareOperation(
     "RepresentativesEndomorphismClassesOp",
     [ IsGroup ]
 );
-DeclareGlobalFunction( "RepresentativesAutomorphismClasses" );
+DeclareGlobalName( "RepresentativesAutomorphismClasses" );
 DeclareOperation(
     "RepresentativesAutomorphismClassesOp",
     [ IsGroup ]
