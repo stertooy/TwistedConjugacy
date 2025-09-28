@@ -10,8 +10,8 @@
 ##  OUTPUT:
 ##      tcc:        (hom1,hom2)-twisted conjugacy class of g
 ##
-InstallGlobalFunction(
-    ReidemeisterClass,
+BindGlobal(
+    "ReidemeisterClass",
     function( hom1, arg... )
         local G, H, hom2, g, tc, tcc;
         G := Range( hom1 );
@@ -40,6 +40,8 @@ InstallGlobalFunction(
         return tcc;
     end
 );
+
+BindGlobal( "TwistedConjugacyClass", ReidemeisterClass );
 
 ###############################################################################
 ##
