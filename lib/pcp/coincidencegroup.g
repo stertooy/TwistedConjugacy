@@ -19,7 +19,7 @@ BindGlobal(
     "TWC_CoincidenceGroupByTrivialSubgroup",
     function( G, H, hom1, hom2 )
         local N, p, q, Coin;
-        N := TWC_IntersectionOfKernels( hom1, hom2 );
+        N := TWC.IntersectionOfKernels( hom1, hom2 );
         p := IdentityMapping( G );
         q := NaturalHomomorphismByNormalSubgroupNC( H, N );
         Coin := TWC.InducedCoincidenceGroup( q, p, hom1, hom2 );
@@ -50,7 +50,7 @@ BindGlobal(
     "TWC_CoincidenceGroupByFiniteQuotient",
     function( G, H, hom1, hom2, K )
         local N, p, q, CoinHN, hom1N, hom2N, tc, qh, gens, dict, func, C;
-        N := TWC_IntersectionOfPreImages( hom1, hom2, K );
+        N := TWC.IntersectionOfPreImages( hom1, hom2, K );
         p := NaturalHomomorphismByNormalSubgroupNC( G, K );
         q := NaturalHomomorphismByNormalSubgroupNC( H, N );
         CoinHN := TWC.InducedCoincidenceGroup( q, p, hom1, hom2 );
