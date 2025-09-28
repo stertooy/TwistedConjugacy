@@ -1,5 +1,14 @@
 ###############################################################################
 ##
+## IsGroupDerivationImageRep
+##
+DeclareRepresentation(
+    "IsGroupDerivationImageRep",
+    IsOrbitAffineActionRep
+);
+
+###############################################################################
+##
 ## TWC_CreateGroupDerivationInfo( derv, bool )
 ##
 ##  INPUT:
