@@ -132,10 +132,7 @@ BindGlobal(
     end
 );
 
-BindGlobal(
-    "StabiliserAffineAction",
-    StabilizerAffineAction
-);
+BindGlobal( "StabiliserAffineAction", StabilizerAffineAction );
 
 ###############################################################################
 ##
