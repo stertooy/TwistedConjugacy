@@ -9,7 +9,7 @@ DeclareRepresentation(
 
 ###############################################################################
 ##
-## TWC_FourMapsForAffineAction( K, derv )
+## FourMapsForAffineAction( K, derv )
 ##
 ##  INPUT:
 ##      K:          subgroup of H
