@@ -31,7 +31,7 @@ InstallMethod(
         I := TWC_IntersectionPcpGroups( U, V );
         z := s[2] * y;
 
-        if TWC_ASSERT then
+        if TWC.ASSERT then
             if not (
                 IsSubgroup( U, I ) and
                 IsSubgroup( V, I ) and
@@ -69,7 +69,7 @@ InstallMethod(
         z := OnLeftInverse( y, x );
 
         s := TWC_AsElementOfProductGroups( z, T, V );
-        if TWC_ASSERT then
+        if TWC.ASSERT then
             if not IsBool( s ) and not(
                 z = s[1] * s[2] and
                 s[1] in T and
