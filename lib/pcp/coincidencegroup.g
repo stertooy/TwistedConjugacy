@@ -22,7 +22,7 @@ BindGlobal(
         N := TWC_IntersectionOfKernels( hom1, hom2 );
         p := IdentityMapping( G );
         q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-        Coin := TWC_InducedCoincidenceGroup( q, p, hom1, hom2 );
+        Coin := TWC.InducedCoincidenceGroup( q, p, hom1, hom2 );
         return PreImagesSetNC( q, Coin );
     end
 );
@@ -53,7 +53,7 @@ BindGlobal(
         N := TWC_IntersectionOfPreImages( hom1, hom2, K );
         p := NaturalHomomorphismByNormalSubgroupNC( G, K );
         q := NaturalHomomorphismByNormalSubgroupNC( H, N );
-        CoinHN := TWC_InducedCoincidenceGroup( q, p, hom1, hom2 );
+        CoinHN := TWC.InducedCoincidenceGroup( q, p, hom1, hom2 );
         hom1N := RestrictedHomomorphism( hom1, N, K );
         hom2N := RestrictedHomomorphism( hom2, N, K );
         tc := TwistedConjugation( hom1, hom2 );
@@ -107,7 +107,7 @@ BindGlobal(
         C := Center( G );
         p := NaturalHomomorphismByNormalSubgroupNC( G, C );
         q := IdentityMapping( H );
-        Coin := TWC_InducedCoincidenceGroup( q, p, hom1, hom2 );
+        Coin := TWC.InducedCoincidenceGroup( q, p, hom1, hom2 );
         diff := TWC_DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
         return KernelOfMultiplicativeGeneralMapping( diff );
     end
@@ -303,7 +303,7 @@ BindGlobal(
         A := Center( DerivedSubgroup( G ) );
         p := NaturalHomomorphismByNormalSubgroupNC( G, A );
         q := IdentityMapping( H );
-        Coin := TWC_InducedCoincidenceGroup( q, p, hom1, hom2 );
+        Coin := TWC.InducedCoincidenceGroup( q, p, hom1, hom2 );
         hom1r := RestrictedHomomorphism( hom1, Coin, G );
         hom2r := RestrictedHomomorphism( hom2, Coin, G );
         return TWC_CoincidenceGroupStep2( G, Coin, hom1r, hom2r );
