@@ -10,8 +10,8 @@
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
-InstallGlobalFunction(
-    GroupDerivationByImagesNC,
+BindGlobal(
+    "GroupDerivationByImagesNC",
     function( H, G, arg... )
         local derv, filt, type, imgs, gens;
         derv := rec(
@@ -53,8 +53,8 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
-InstallGlobalFunction(
-    GroupDerivationByImages,
+BindGlobal(
+    "GroupDerivationByImages",
     function( arg... )
         local derv, info;
         derv := CallFuncList( GroupDerivationByImagesNC, arg );
@@ -80,8 +80,8 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
-InstallGlobalFunction(
-    GroupDerivationByFunction,
+BindGlobal(
+    "GroupDerivationByFunction",
     function( H, G, fun, act )
         local derv, filt, type;
         derv := rec(
@@ -114,8 +114,8 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
-InstallGlobalFunction(
-    GroupDerivationByAffineAction,
+BindGlobal(
+    "GroupDerivationByAffineAction",
     function( H, G, aff )
         local autsG, imgsG, gensH, gensG, h, dh, imgsA, idG, act;
         autsG := [];
