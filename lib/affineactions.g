@@ -1,5 +1,14 @@
 ###############################################################################
 ##
+## IsOrbitAffineActionRep
+##
+DeclareRepresentation(
+    "IsOrbitAffineActionRep",
+    IsExternalOrbit
+);
+
+###############################################################################
+##
 ## TWC_FourMapsForAffineAction( K, derv )
 ##
 ##  INPUT:
