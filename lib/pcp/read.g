@@ -1,4 +1,3 @@
-BindGlobal( "TwistedConjugacy", rec() );
 ReadPackage( "TwistedConjugacy", "lib/pcp/coincidencegroup.g" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/coincidencegroup.gi" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/convert.gi" );
