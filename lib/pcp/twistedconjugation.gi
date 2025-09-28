@@ -30,7 +30,7 @@ InstallOtherMethod(
             not IsFinite( H ) and
             IsFinite( G )
         ) then TryNextMethod(); fi;
-        return TWC_RepTwistConjToIdByTrivialSubgroup( G, H, hom1, hom2, g );
+        return TWC.RepTwistConjToIdByTrivSub( G, H, hom1, hom2, g );
     end
 );
 
@@ -52,7 +52,7 @@ InstallOtherMethod(
             not IsAbelian( G ) and
             IsNilpotentGroup( G )
         ) then TryNextMethod(); fi;
-        return TWC_RepTwistConjToIdByCentre( G, H, hom1, hom2, g );
+        return TWC.RepTwistConjToIdByCentre( G, H, hom1, hom2, g );
     end
 );
 
@@ -75,7 +75,7 @@ InstallOtherMethod(
             IsNilpotentByFinite( G )
         ) then TryNextMethod(); fi;
         F := FittingSubgroup( G );
-        return TWC_RepTwistConjToIdByFiniteQuotient( G, H, hom1, hom2, g, F );
+        return TWC.RepTwistConjToIdByFinQuo( G, H, hom1, hom2, g, F );
     end
 );
 
@@ -96,7 +96,7 @@ InstallOtherMethod(
             not IsNilpotentByFinite( G ) and
             IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
-        return TWC_RepTwistConjToIdStep1( G, H, hom1, hom2, g );
+        return TWC.RepTwistConjToIdStep1( G, H, hom1, hom2, g );
     end
 );
 
@@ -118,6 +118,6 @@ InstallOtherMethod(
             not IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
         K := NilpotentByAbelianByFiniteSeries( G )[2];
-        return TWC_RepTwistConjToIdByFiniteQuotient( G, H, hom1, hom2, g, K );
+        return TWC.RepTwistConjToIdByFinQuo( G, H, hom1, hom2, g, K );
     end
 );
