@@ -9,12 +9,14 @@
 ##  OUTPUT:
 ##      R:          Reidemeister number R(hom1,hom2)
 ##
-InstallGlobalFunction(
-    ReidemeisterNumber,
+BindGlobal(
+    "ReidemeisterNumber",
     function( arg... )
         return CallFuncList( ReidemeisterNumberOp, arg );
     end
 );
+
+BindGlobal( "NrTwistedConjugacyClasses", ReidemeisterNumber );
 
 ###############################################################################
 ##
