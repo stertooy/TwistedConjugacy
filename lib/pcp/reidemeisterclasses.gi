@@ -117,9 +117,7 @@ InstallMethod(
             IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
         K := Center( DerivedSubgroup( G ) );
-        return TWC.ReidemeisterClassesByNormalSubgroup(
-            G, H, hom1, hom2, N, K, one
-        );
+        return TWC.ReidemeisterClassesByNormSub( G, H, hom1, hom2, N, K, one );
     end
 );
 
