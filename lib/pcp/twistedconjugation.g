@@ -120,7 +120,7 @@ end;
 
 ###############################################################################
 ##
-## RepTwistConjToIdByCentre( G, H, hom1, hom2, g )
+## RepTwistConjToIdByCentre( G, H, hom1, hom2, g, N )
 ##
 ##  INPUT:
 ##      G:          infinite PcpGroup
@@ -128,6 +128,7 @@ end;
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##      g:          element of G
+##      N:          normal subgroup of G
 ##
 ##  OUTPUT:
 ##      h:          element of H such that (h^hom2)^-1 * g * h^hom1 = 1, or
@@ -137,15 +138,21 @@ end;
 ##      Used for factoring the calculation of h through H -> G -> G/C, with C
 ##      the centre of G.
 ##
-TWC.RepTwistConjToIdByCentre := function( G, H, hom1, hom2, g )
-    local C, p, q, hom1p, hom2p, pg, h1, tc, c, Coin, d, h2;
+TWC.RepTwistConjToIdByCentre := function( G, H, hom1, hom2, g, N )
+    local C, p, q, hom1p, hom2p, pg, pG, pN, h1, tc, c, Coin, d, h2;
     C := Centre( G );
     p := NaturalHomomorphismByNormalSubgroupNC( G, C );
     q := IdentityMapping( H );
     hom1p := InducedHomomorphism( q, p, hom1 );
     hom2p := InducedHomomorphism( q, p, hom2 );
     pg := ImagesRepresentative( p, g );
-    h1 := RepresentativeTwistedConjugationOp( hom1p, hom2p, pg );
+    if IsBool( N ) then
+        h1 := RepresentativeTwistedConjugationOp( hom1p, hom2p, pg );
+    else
+        pG := ImagesSource( p );
+        pN := ImagesSet( N );
+        h1 := TWC.RepTwistConjToIdStep4( pG, H, hom1p, hom2p, pg, pN );
+    fi;
     if h1 = fail then
         return fail;
     fi;
@@ -230,12 +237,10 @@ end;
 ##        - [H,H] is a subgroup of Coin(hom1,hom2).
 ##
 TWC.RepTwistConjToIdStep4 := function( G, H, hom1, hom2, a, A )
-    if IsNilpotentByFinite( G ) then
-        return RepresentativeTwistedConjugationOp( hom1, hom2, a );
-    elif IsTrivial( Center( G ) ) then
+    if IsTrivial( Center( G ) ) then
         return TWC.RepTwistConjToIdStep5( G, H, hom1, hom2, a, A );
     fi;
-    return TWC.RepTwistConjToIdByCentre( G, H, hom1, hom2, a );
+    return TWC.RepTwistConjToIdByCentre( G, H, hom1, hom2, a, A );
 end;
 
 ###############################################################################
@@ -275,7 +280,11 @@ TWC.RepTwistConjToIdStep3 := function( G, H, hom1, hom2, a, A )
     pa := ImagesRepresentative( p, a );
     pA := ImagesSet( p, A );
     pG := ImagesSource( p );
-    h1 := TWC.RepTwistConjToIdStep4( pG, H, hom1p, hom2p, pa, pA );
+    if IsNilpotentByFinite( pG ) then
+        h1 := RepresentativeTwistedConjugationOp( hom1p, hom2p, pa );
+    else
+        h1 := TWC.RepTwistConjToIdStep4( pG, H, hom1p, hom2p, pa, pA );
+    fi;
     if h1 = fail then
         return fail;
     fi;
