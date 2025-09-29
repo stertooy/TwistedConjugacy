@@ -150,7 +150,7 @@ TWC.RepTwistConjToIdByCentre := function( G, H, hom1, hom2, g, N )
         h1 := RepresentativeTwistedConjugationOp( hom1p, hom2p, pg );
     else
         pG := ImagesSource( p );
-        pN := ImagesSet( N );
+        pN := ImagesSet( p, N );
         h1 := TWC.RepTwistConjToIdStep4( pG, H, hom1p, hom2p, pg, pN );
     fi;
     if h1 = fail then
