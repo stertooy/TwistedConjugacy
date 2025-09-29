@@ -52,7 +52,7 @@ InstallOtherMethod(
             not IsAbelian( G ) and
             IsNilpotentGroup( G )
         ) then TryNextMethod(); fi;
-        return TWC.RepTwistConjToIdByCentre( G, H, hom1, hom2, g );
+        return TWC.RepTwistConjToIdByCentre( G, H, hom1, hom2, g, false );
     end
 );
 
