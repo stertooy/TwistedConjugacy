@@ -161,27 +161,20 @@ end;
 ##        - [H,H] is a subgroup of Coin(hom1,hom2).
 ##
 TWC.CoincidenceGroupStep4 := function( G, H, hom1, hom2 )
-    local recfun;
-    if IsNilpotentByFinite( G ) then
-        return CoincidenceGroup2( hom1, hom2 );
+    local C, p, q, Coin, d;
+    C := Center( G );
+    if IsTrivial( C ) then
+        return TWC.CoincidenceGroupStep5( G, H, hom1, hom2 );
     fi;
-    recfun := function( G, H, hom1, hom2 )
-        local C, p, q, Coin, d;
-        C := Center( G );
-        if IsTrivial( C ) then
-            return TWC.CoincidenceGroupStep5( G, H, hom1, hom2 );
-        fi;
-        p := NaturalHomomorphismByNormalSubgroupNC( G, C );
-        q := IdentityMapping( H );
-        Coin := recfun(
-            ImagesSource( p ), H,
-            InducedHomomorphism( q, p, hom1 ),
-            InducedHomomorphism( q, p, hom2 )
-        );
-        d := TWC.DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
-        return KernelOfMultiplicativeGeneralMapping( d );
-    end;
-    return recfun( G, H, hom1, hom2 );
+    p := NaturalHomomorphismByNormalSubgroupNC( G, C );
+    q := IdentityMapping( H );
+    Coin := TWC.CoincidenceGroupStep4(
+        ImagesSource( p ), H,
+        InducedHomomorphism( q, p, hom1 ),
+        InducedHomomorphism( q, p, hom2 )
+    );
+    d := TWC.DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
+    return KernelOfMultiplicativeGeneralMapping( d );
 end;
 
 ###############################################################################
@@ -204,7 +197,7 @@ end;
 ##        - G = A Im(hom1) = A Im(hom2).
 ##
 TWC.CoincidenceGroupStep3 := function( G, H, hom1, hom2 )
-    local HH, d, p, q, Coin, ci, n, tc, bi, di, gens1, gens2;
+    local HH, d, p, q, Q, ind1, ind2, Coin, ci, n, tc, bi, di, gens1, gens2;
     if IsNilpotentByFinite( G ) then
         return CoincidenceGroup2( hom1, hom2 );
     fi;
@@ -212,11 +205,14 @@ TWC.CoincidenceGroupStep3 := function( G, H, hom1, hom2 )
     d := TWC.DifferenceGroupHomomorphisms( hom1, hom2, HH, G );
     p := NaturalHomomorphismByNormalSubgroupNC( G, ImagesSource( d ) );
     q := IdentityMapping( H );
-    Coin := TWC.CoincidenceGroupStep4(
-        ImagesSource( p ), H,
-        InducedHomomorphism( q, p, hom1 ),
-        InducedHomomorphism( q, p, hom2 )
-    );
+    Q := ImagesSource( p );
+    ind1 := InducedHomomorphism( q, p, hom1 );
+    ind2 := InducedHomomorphism( q, p, hom2 );
+    if IsNilpotentByFinite( Q ) then
+        Coin := CoincidenceGroup2( ind1, ind2 );
+    else
+        Coin := TWC.CoincidenceGroupStep4( Q, H, ind1, ind2 );
+    fi;
     ci := SmallGeneratingSet( Coin );
     n := Length( ci );
     tc := TwistedConjugation( hom1, hom2 );
