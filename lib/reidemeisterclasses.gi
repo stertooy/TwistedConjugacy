@@ -10,8 +10,8 @@
 ##  OUTPUT:
 ##      tcc:        (hom1,hom2)-twisted conjugacy class of g
 ##
-InstallGlobalFunction(
-    ReidemeisterClass,
+BindGlobal(
+    "ReidemeisterClass",
     function( hom1, arg... )
         local G, H, hom2, g, tc, tcc;
         G := Range( hom1 );
@@ -40,6 +40,8 @@ InstallGlobalFunction(
         return tcc;
     end
 );
+
+BindGlobal( "TwistedConjugacyClass", ReidemeisterClass );
 
 ###############################################################################
 ##
@@ -180,8 +182,8 @@ InstallMethod(
 ##      L:          list containing the (hom1,hom2)-twisted conjugacy classes,
 ##                  or fail if there are infinitely many
 ##
-InstallGlobalFunction(
-    ReidemeisterClasses,
+BindGlobal(
+    "ReidemeisterClasses",
     function( hom1, arg... )
         local G, hom2, N, Rcl;
         G := Range( hom1 );
@@ -203,6 +205,8 @@ InstallGlobalFunction(
     end
 );
 
+BindGlobal( "TwistedConjugacyClasses", ReidemeisterClasses );
+
 ###############################################################################
 ##
 ## RepresentativesReidemeisterClasses( hom1, hom2, N )
@@ -217,8 +221,8 @@ InstallGlobalFunction(
 ##                  twisted conjugacy class, or fail if there are infinitely
 ##                  many
 ##
-InstallGlobalFunction(
-    RepresentativesReidemeisterClasses,
+BindGlobal(
+    "RepresentativesReidemeisterClasses",
     function( hom1, arg... )
         local G, H, hom2, N, gens, tc, q, p, Rcl, copy, g, h, pos, i;
         G := Range( hom1 );
@@ -238,14 +242,14 @@ InstallGlobalFunction(
         if N <> G and not ForAll( gens, h -> tc( One( G ), h ) in N ) then
             q := IdentityMapping( H );
             p := NaturalHomomorphismByNormalSubgroupNC( G, N );
-            H := TWC_InducedCoincidenceGroup( q, p, hom1, hom2 );
+            H := TWC.InducedCoincidenceGroup( q, p, hom1, hom2 );
             hom1 := RestrictedHomomorphism( hom1, H, G );
             hom2 := RestrictedHomomorphism( hom2, H, G );
         fi;
         Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, N, false );
         if Rcl = fail then
             return fail;
-        elif TWC_ASSERT then
+        elif TWC.ASSERT then
             copy := ShallowCopy( Rcl );
             g := Remove( copy );
             while not IsEmpty( copy ) do
@@ -267,6 +271,11 @@ InstallGlobalFunction(
         fi;
         return Rcl;
     end
+);
+
+BindGlobal(
+    "RepresentativesTwistedConjugacyClasses",
+    RepresentativesReidemeisterClasses
 );
 
 ###############################################################################
@@ -306,7 +315,7 @@ InstallMethod(
         G := Range( hom1 );
         if not IsCentral( G, N ) then TryNextMethod(); fi;
         H := Source( hom1 );
-        diff := TWC_DifferenceGroupHomomorphisms( hom1, hom2, H, N );
+        diff := TWC.DifferenceGroupHomomorphisms( hom1, hom2, H, N );
         D := ImagesSource( diff );
         if ( one and N <> D ) or IndexNC( N, D ) = infinity then
             return fail;

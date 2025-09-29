@@ -1,0 +1,5 @@
+###############################################################################
+##
+## IsReidemeisterClassGroupRep
+##
+DeclareRepresentation( "IsReidemeisterClassGroupRep", IsExternalOrbit );

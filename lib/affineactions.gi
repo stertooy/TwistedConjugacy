@@ -9,9 +9,9 @@
 ##  OUTPUT:
 ##      act:        affine action of H on G
 ##
-InstallGlobalFunction(
-    AffineActionByGroupDerivation,
-    { K, derv } -> TWC_FourMapsForAffineAction( K, derv )[4]
+BindGlobal(
+    "AffineActionByGroupDerivation",
+    { K, derv } -> TWC.FourMapsForAffineAction( K, derv )[4]
 );
 
 ###############################################################################
@@ -26,12 +26,12 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      orb:        the orbit of g under the affine action of derv
 ##
-InstallGlobalFunction(
-    OrbitAffineAction,
+BindGlobal(
+    "OrbitAffineAction",
     function( K, g, derv )
         local G, map, emb, s, tcc, orb;
         G := Range( derv );
-        map := TWC_FourMapsForAffineAction( K, derv );
+        map := TWC.FourMapsForAffineAction( K, derv );
         emb := map[3];
         s := ImagesRepresentative( emb, g );
         tcc := ReidemeisterClass( map[1], map[2], s );
@@ -67,12 +67,12 @@ InstallGlobalFunction(
 ##      L:          list containing the orbits of the affine action of derv, or
 ##                  "fail" if there are infinitely many
 ##
-InstallGlobalFunction(
-    OrbitsAffineAction,
+BindGlobal(
+    "OrbitsAffineAction",
     function( K, derv )
         local G, map, emb, iG, R, reps;
         G := Range( derv );
-        map := TWC_FourMapsForAffineAction( K, derv );
+        map := TWC.FourMapsForAffineAction( K, derv );
         emb := map[3];
         iG := ImagesSet( emb, G );
         R := RepresentativesReidemeisterClasses( map[1], map[2], iG );
@@ -95,12 +95,12 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      R:          the number of orbits of the affine action of derv
 ##
-InstallGlobalFunction(
-    NrOrbitsAffineAction,
+BindGlobal(
+    "NrOrbitsAffineAction",
     function( K, derv )
         local G, map, emb, iG, R;
         G := Range( derv );
-        map := TWC_FourMapsForAffineAction( K, derv );
+        map := TWC.FourMapsForAffineAction( K, derv );
         emb := map[3];
         iG := ImagesSet( emb, G );
         R := RepresentativesReidemeisterClasses( map[1], map[2], iG );
@@ -123,14 +123,16 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      stab:       stabiliser of g under the affine action of derv
 ##
-InstallGlobalFunction(
-    StabilizerAffineAction,
+BindGlobal(
+    "StabilizerAffineAction",
     function( K, g, derv )
         local orb;
         orb := OrbitAffineAction( K, g, derv );
         return StabilizerOfExternalSet( orb );
     end
 );
+
+BindGlobal( "StabiliserAffineAction", StabilizerAffineAction );
 
 ###############################################################################
 ##
@@ -146,11 +148,11 @@ InstallGlobalFunction(
 ##      k:          element of K that maps g1 to g2 under the affine action of
 ##                  derv
 ##
-InstallGlobalFunction(
-    RepresentativeAffineAction,
+BindGlobal(
+    "RepresentativeAffineAction",
     function( K, g1, g2, derv )
         local map, s1, s2;
-        map := TWC_FourMapsForAffineAction( K, derv );
+        map := TWC.FourMapsForAffineAction( K, derv );
         s1 := ImagesRepresentative( map[3], g1 );
         s2 := ImagesRepresentative( map[3], g2 );
         return RepresentativeTwistedConjugation( map[1], map[2], s1, s2 );

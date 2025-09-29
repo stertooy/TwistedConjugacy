@@ -1,6 +1,33 @@
 ###############################################################################
 ##
-## TWC_CreateGroupDerivationInfo( derv, bool )
+## IsGroupDerivationByImagesRep
+##
+DeclareRepresentation(
+    "IsGroupDerivationByImagesRep",
+    IsGroupDerivation and IsAttributeStoringRep
+);
+
+###############################################################################
+##
+## IsGroupDerivationByFunctionRep
+##
+DeclareRepresentation(
+    "IsGroupDerivationByFunctionRep",
+    IsGroupDerivation and IsAttributeStoringRep
+);
+
+###############################################################################
+##
+## IsGroupDerivationImageRep
+##
+DeclareRepresentation(
+    "IsGroupDerivationImageRep",
+    IsOrbitAffineActionRep
+);
+
+###############################################################################
+##
+## CreateGroupDerivationInfo( derv, bool )
 ##
 ##  INPUT:
 ##      derv:       group derivation
@@ -10,42 +37,39 @@
 ##  OUTPUT:
 ##      info:       record containing useful information
 ##
-BindGlobal(
-    "TWC_CreateGroupDerivationInfo",
-    function( derv, check )
-        local H, G, act, S, embH, embG, gens, imgs, embsH, embsG, rhs;
+TWC.CreateGroupDerivationInfo := function( derv, check )
+    local H, G, act, S, embH, embG, gens, imgs, embsH, embsG, rhs;
 
-        H := Source( derv );
-        G := Range( derv );
-        act := derv!.act;
-        S := SemidirectProduct( H, act, G );
+    H := Source( derv );
+    G := Range( derv );
+    act := derv!.act;
+    S := SemidirectProduct( H, act, G );
 
-        embH := Embedding( S, 1 );
-        embG := Embedding( S, 2 );
+    embH := Embedding( S, 1 );
+    embG := Embedding( S, 2 );
 
-        if IsBound( derv!.fun ) then
-            rhs := GroupHomomorphismByFunction(
-                H, S,
-                h -> ImagesRepresentative( embH, h ) *
-                    ImagesRepresentative( embG, derv!.fun( h ) )
-            );
+    if IsBound( derv!.fun ) then
+        rhs := GroupHomomorphismByFunction(
+            H, S,
+            h -> ImagesRepresentative( embH, h ) *
+                ImagesRepresentative( embG, derv!.fun( h ) )
+        );
+    else
+        gens := MappingGeneratorsImages( derv )[1];
+
+        embsH := List( gens, h -> ImagesRepresentative( embH, h ) );
+        embsG := List(
+            MappingGeneratorsImages( derv )[2],
+            g -> ImagesRepresentative( embG, g )
+        );
+
+        imgs := List( [ 1 .. Length( gens ) ], i -> embsH[i] * embsG[i] );
+
+        if check then
+            rhs := GroupHomomorphismByImages( H, S, gens, imgs );
         else
-            gens := MappingGeneratorsImages( derv )[1];
-
-            embsH := List( gens, h -> ImagesRepresentative( embH, h ) );
-            embsG := List(
-                MappingGeneratorsImages( derv )[2],
-                g -> ImagesRepresentative( embG, g )
-            );
-
-            imgs := List( [ 1 .. Length( gens ) ], i -> embsH[i] * embsG[i] );
-
-            if check then
-                rhs := GroupHomomorphismByImages( H, S, gens, imgs );
-            else
-                rhs := GroupHomomorphismByImagesNC( H, S, gens, imgs );
-            fi;
+            rhs := GroupHomomorphismByImagesNC( H, S, gens, imgs );
         fi;
-        return rec( lhs := embH, rhs := rhs, sdp := S );
-    end
-);
+    fi;
+    return rec( lhs := embH, rhs := rhs, sdp := S );
+end;

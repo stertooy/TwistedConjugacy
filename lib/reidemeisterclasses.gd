@@ -1,14 +1,12 @@
-DeclareGlobalFunction( "ReidemeisterClass" );
-DeclareSynonym( "TwistedConjugacyClass", ReidemeisterClass );
-DeclareRepresentation( "IsReidemeisterClassGroupRep", IsExternalOrbit );
+DeclareGlobalName( "ReidemeisterClass" );
+DeclareGlobalName( "TwistedConjugacyClass" );
 
-DeclareGlobalFunction( "ReidemeisterClasses" );
-DeclareSynonym( "TwistedConjugacyClasses", ReidemeisterClasses );
-DeclareGlobalFunction( "RepresentativesReidemeisterClasses" );
-DeclareSynonym(
-    "RepresentativesTwistedConjugacyClasses",
-    RepresentativesReidemeisterClasses
-);
+DeclareGlobalName( "ReidemeisterClasses" );
+DeclareGlobalName( "TwistedConjugacyClasses" );
+
+DeclareGlobalName( "RepresentativesReidemeisterClasses" );
+DeclareGlobalName( "RepresentativesTwistedConjugacyClasses" );
+
 DeclareOperation(
     "RepresentativesReidemeisterClassesOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ]

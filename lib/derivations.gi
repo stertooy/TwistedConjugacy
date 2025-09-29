@@ -10,14 +10,14 @@
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
-InstallGlobalFunction(
-    GroupDerivationByImagesNC,
+BindGlobal(
+    "GroupDerivationByImagesNC",
     function( H, G, arg... )
         local derv, filt, type, imgs, gens;
         derv := rec(
             act := Remove( arg ),
         );
-        filt := IsGroupDerivationByImages and HasSource and HasRange and
+        filt := IsGroupDerivationByImagesRep and HasSource and HasRange and
             HasMappingGeneratorsImages;
         type := NewType( GeneralMappingsFamily(
             ElementsFamily( FamilyObj( H ) ),
@@ -53,12 +53,12 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
-InstallGlobalFunction(
-    GroupDerivationByImages,
+BindGlobal(
+    "GroupDerivationByImages",
     function( arg... )
         local derv, info;
         derv := CallFuncList( GroupDerivationByImagesNC, arg );
-        info := TWC_CreateGroupDerivationInfo( derv, true );
+        info := TWC.CreateGroupDerivationInfo( derv, true );
         if info!.rhs = fail then
             return fail;
         fi;
@@ -80,15 +80,15 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
-InstallGlobalFunction(
-    GroupDerivationByFunction,
+BindGlobal(
+    "GroupDerivationByFunction",
     function( H, G, fun, act )
         local derv, filt, type;
         derv := rec(
             act := act,
             fun := fun
         );
-        filt := IsGroupDerivationByFunction and HasSource and HasRange;
+        filt := IsGroupDerivationByFunctionRep and HasSource and HasRange;
         type := NewType( GeneralMappingsFamily(
             ElementsFamily( FamilyObj( H ) ),
             ElementsFamily( FamilyObj( G ) )
@@ -114,8 +114,8 @@ InstallGlobalFunction(
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
-InstallGlobalFunction(
-    GroupDerivationByAffineAction,
+BindGlobal(
+    "GroupDerivationByAffineAction",
     function( H, G, aff )
         local autsG, imgsG, gensH, gensG, h, dh, imgsA, idG, act;
         autsG := [];
@@ -150,7 +150,7 @@ InstallGlobalFunction(
 InstallMethod(
     GroupDerivationInfo,
     [ IsGroupDerivation ],
-    derv -> TWC_CreateGroupDerivationInfo( derv, false )
+    derv -> TWC.CreateGroupDerivationInfo( derv, false )
 );
 
 ###############################################################################
@@ -163,7 +163,7 @@ InstallMethod(
 InstallMethod(
     ViewObj,
     "for group derivations by images",
-    [ IsGroupDerivationByImages ],
+    [ IsGroupDerivationByImagesRep ],
     function( derv )
         local gens, imgs;
         gens := MappingGeneratorsImages( derv )[1];
@@ -175,7 +175,7 @@ InstallMethod(
 InstallMethod(
     ViewObj,
     "for group derivations by a function",
-    [ IsGroupDerivationByFunction ],
+    [ IsGroupDerivationByFunctionRep ],
     function( derv )
         local fun;
         fun := derv!.fun;
@@ -254,7 +254,7 @@ InstallMethod(
 InstallMethod(
     ImagesRepresentative,
     "for group derivations with an underlying function",
-    [ IsGroupDerivationByFunction, IsMultiplicativeElementWithInverse ],
+    [ IsGroupDerivationByFunctionRep, IsMultiplicativeElementWithInverse ],
     { derv, h } -> derv!.fun( h )
 );
 
@@ -378,7 +378,7 @@ InstallMethod(
 InstallMethod(
     ViewObj,
     "for group derivation images",
-    [ IsGroupDerivationImage ],
+    [ IsGroupDerivationImage and IsOrbitAffineActionRep ],
     function( img )
         local G;
         G := Source( img!.emb );
@@ -396,7 +396,7 @@ InstallMethod(
 InstallMethod(
     PrintObj,
     "for group derivation images",
-    [ IsGroupDerivationImage ],
+    [ IsGroupDerivationImage and IsOrbitAffineActionRep ],
     function( img )
         local G, K;
         G := Source( img!.emb );

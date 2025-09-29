@@ -1,5 +1,6 @@
-DeclareGlobalFunction( "ReidemeisterNumber" );
-DeclareSynonym( "NrTwistedConjugacyClasses", ReidemeisterNumber );
+DeclareGlobalName( "ReidemeisterNumber" );
+DeclareGlobalName( "NrTwistedConjugacyClasses" );
+
 DeclareOperation(
     "ReidemeisterNumberOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]

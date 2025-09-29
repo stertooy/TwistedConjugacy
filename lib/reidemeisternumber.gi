@@ -9,12 +9,14 @@
 ##  OUTPUT:
 ##      R:          Reidemeister number R(hom1,hom2)
 ##
-InstallGlobalFunction(
-    ReidemeisterNumber,
+BindGlobal(
+    "ReidemeisterNumber",
     function( arg... )
         return CallFuncList( ReidemeisterNumberOp, arg );
     end
 );
+
+BindGlobal( "NrTwistedConjugacyClasses", ReidemeisterNumber );
 
 ###############################################################################
 ##
@@ -37,7 +39,7 @@ InstallMethod(
         H := Source( hom1 );
         G := Range( hom1 );
         if not IsAbelian( G ) then TryNextMethod(); fi;
-        diff := TWC_DifferenceGroupHomomorphisms( hom1, hom2, H, G );
+        diff := TWC.DifferenceGroupHomomorphisms( hom1, hom2, H, G );
         N := Image( diff );
         return IndexNC( G, N );
     end

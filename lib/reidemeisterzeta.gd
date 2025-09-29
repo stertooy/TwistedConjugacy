@@ -1,19 +1,19 @@
-DeclareGlobalFunction( "ReidemeisterZetaCoefficients" );
+DeclareGlobalName( "ReidemeisterZetaCoefficients" );
 DeclareOperation(
     "ReidemeisterZetaCoefficientsOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
-DeclareGlobalFunction( "IsRationalReidemeisterZeta" );
+DeclareGlobalName( "IsRationalReidemeisterZeta" );
 DeclareOperation(
     "IsRationalReidemeisterZetaOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
-DeclareGlobalFunction( "ReidemeisterZeta" );
+DeclareGlobalName( "ReidemeisterZeta" );
 DeclareOperation(
     "ReidemeisterZetaOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
-DeclareGlobalFunction( "PrintReidemeisterZeta" );
+DeclareGlobalName( "PrintReidemeisterZeta" );
 DeclareOperation(
     "PrintReidemeisterZetaOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
