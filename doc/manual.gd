@@ -26,7 +26,7 @@
 #! &VERSION;, developed by &AUTHOR;.
 
 #! @Section Installation
-#! If you are using &GAP; version4.15.0 or newer, then &PACKAGENAME; should
+#! If you are using &GAP; version 4.15.0 or newer, then &PACKAGENAME; should
 #! be installed by default.
 #! 
 #! If this is not the case, but the &PackageManager; package is installed and
