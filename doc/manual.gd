@@ -648,7 +648,7 @@ Intersection( Hx, Kz );
 
 #! Algorithms designed for computing with twisted conjugacy classes can be
 #! leveraged to do computations involving double cosets, see
-#! <Cite Key='tert25-a'/> for a description on this. When the
+#! <Cite Key='tert25-a' Where='Sec. 9'/> for a description on this. When the
 #! &PACKAGENAME; package is loaded, it does this automatically, and the
 #! functions below should then work for PcpGroups, even if they are infinite.
 
@@ -904,7 +904,7 @@ Source( res ) = N and Range( res ) = N;
 
 #! Algorithms designed for computing with twisted conjugacy classes can be
 #! leveraged to do computations involving group derivations, see
-#! <Cite Key='tert25-a'/> for a description on this.
+#! <Cite Key='tert25-a' Where='Sec. 10'/> for a description on this.
 
 #! <P/>
 
@@ -1141,7 +1141,7 @@ List( ImK );
 
 #! Algorithms designed for computing with twisted conjugacy classes can be
 #! leveraged to do computations involving affine actions, see
-#! <Cite Key='tert25-a'/> for a description on this.
+#! <Cite Key='tert25-a' Where='Sec. 10'/> for a description on this.
 
 #! <P/>
 
