@@ -6,7 +6,7 @@ This file describes changes in the GAP package TwistedConjugacy.
 
 - Assertion variable renamed (again) to `TWC.ASSERT`
 
-- Update license text to latest version (by @jamesjer)
+- Update license text to latest version
 - Update installation instructions in manual
 - More changes to file structure
 - Janitorial changes
