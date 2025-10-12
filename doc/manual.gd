@@ -1131,12 +1131,15 @@ List( ImK );
 
 #! @Chapter Affine actions
 
-#! Let $G$ and $H$ be groups, let $H$ act on $G$ via automorphisms via
+#! Let $G$ and $H$ be groups, let $H$ act on $G$ (via automorphisms) by
 #! $$\alpha \colon H \to \operatorname{Aut}(G) \colon h \mapsto \alpha_h$$
 #! and let $\delta \colon H \to G$ be a group derivation with respect to this
 #! action. Then we can construct a new action, called the **affine action**
 #! associated to $\delta$, by
 #! $$G \times H \to G \colon g^h = \alpha_h(g) \delta(g).$$
+#! If $K$ is a subgroup of $H$, then the restriction of the affine action of
+#! $H$ on $G$ to $K$ coincides with the affine action of $K$ on $G$ associated
+#! to the restriction of $\delta$ to $K$.
 
 #! <P/>
 
@@ -1152,7 +1155,7 @@ List( ImK );
 #! @Section Creating an affine action
 
 #! @BeginGroup
-#! @Returns the affine action of <A>K</A> via the derivation <A>derv</A>.
+#! @Returns the affine action of <A>K</A> associated to the derivation <A>der</A>.
 #! @Description
 #! The group <A>K</A> must be a subgroup of <C>Source(<A>der</A>)</C>.
 #! @Arguments K, der
@@ -1170,8 +1173,8 @@ aff := AffineActionByGroupDerivation( H, der );
 
 #! @BeginGroup
 #! @GroupTitle OrbitAffineAction
-#! @Returns the orbit of <A>g</A> under the affine action of <A>K</A> via
-#! <A>der</A>.
+#! @Returns the orbit of <A>g</A> under the affine action of <A>K</A> associated
+#! to <A>der</A>.
 #! @Arguments K, g, der
 DeclareGlobalFunction( "OrbitAffineAction" );
 #! @EndGroup
@@ -1179,24 +1182,24 @@ DeclareGlobalFunction( "OrbitAffineAction" );
 #! @BeginGroup
 #! @GroupTitle OrbitsAffineAction
 #! @Returns a list containing the orbits under the affine action of <A>K</A>
-#! via <A>der</A> if there are finitely many, or <K>fail</K> if there are
-#! infinitely many.
+#! associated to  <A>der</A> if there are finitely many, or <K>fail</K> if there
+#! are infinitely many.
 #! @Arguments K, der
 DeclareGlobalFunction( "OrbitsAffineAction" );
 #! @EndGroup
 
 #! @BeginGroup
 #! @GroupTitle NrOrbitsAffineAction
-#! @Returns the number of orbits under the affine action of <A>K</A> via
-#! <A>der</A>.
+#! @Returns the number of orbits under the affine action of <A>K</A> associated
+#! to <A>der</A>.
 #! @Arguments K, der
 DeclareGlobalFunction( "NrOrbitsAffineAction" );
 #! @EndGroup
 
 #! @BeginGroup
 #! @GroupTitle StabiliserAffineAction
-#! @Returns the stabiliser of <A>g</A> under the affine action of <A>K</A> via
-#! <A>der</A>.
+#! @Returns the stabiliser of <A>g</A> under the affine action of <A>K</A> associated
+#! to <A>der</A>.
 #! @Arguments K, g, der
 DeclareGlobalFunction( "StabiliserAffineAction" );
 #! @Arguments K, g, der
@@ -1206,8 +1209,8 @@ DeclareGlobalFunction( "StabilizerAffineAction" );
 #! @BeginGroup
 #! @GroupTitle RepresentativeAffineAction
 #! @Returns an element of <A>K</A> that maps <A>g1</A> to <A>g2</A> under the
-#! affine action of <A>K</A> via <A>der</A>, or <K>fail</K> if no such element
-#! exists.
+#! affine action of <A>K</A> associated to <A>der</A>, or <K>fail</K> if no such
+#! element exists.
 #! @Arguments K, g1, g2, der
 DeclareGlobalFunction( "RepresentativeAffineAction" );
 #! @EndGroup
