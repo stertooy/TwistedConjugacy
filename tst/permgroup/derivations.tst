@@ -80,6 +80,8 @@ gap> aff( G.1, h ) = G.2;
 true
 gap> G.1*G.2 in orb;
 true
+gap> OrbitAffineAction( H, G.1*G.2, derv ) = orb;
+true
 gap> Size( orb ) = Size( G );
 true
 gap> dervA := GroupDerivationByAffineAction( H, G, aff );
@@ -101,6 +103,8 @@ gap> NrOrbitsAffineAction( K, derv );
 gap> h := RepresentativeAffineAction( K, G.1, G.2, derv );
 fail
 gap> G.1*G.2 in orb;
+false
+gap> OrbitAffineAction( K, G.1*G.2, derv ) = orb;
 false
 gap> Size( orb );
 1
