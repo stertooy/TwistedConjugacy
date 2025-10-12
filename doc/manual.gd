@@ -1034,7 +1034,7 @@ DeclareGlobalFunction( "Image" );
 #! @Arguments der, elm
 DeclareGlobalFunction( "Image" );
 #! @Label of a subgroup under a group derivation
-#! @Arguments der, coll
+#! @Arguments der, sub
 DeclareGlobalFunction( "Image" );
 #! @EndGroup
 
