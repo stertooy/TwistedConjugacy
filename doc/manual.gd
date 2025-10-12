@@ -1136,7 +1136,7 @@ List( ImK );
 #! and let $\delta \colon H \to G$ be a group derivation with respect to this
 #! action. Then we can construct a new action, called the **affine action**
 #! associated to $\delta$, by
-#! $$G \times H \to G \colon g^h = \alpha_h(g) \delta(g).$$
+#! $$G \times H \to G \colon g^h = \alpha_h(g) \delta(h).$$
 #! If $K$ is a subgroup of $H$, then the restriction of the affine action of
 #! $H$ on $G$ to $K$ coincides with the affine action of $K$ on $G$ associated
 #! to the restriction of $\delta$ to $K$.
