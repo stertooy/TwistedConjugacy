@@ -5,10 +5,14 @@ This file describes changes in the GAP package TwistedConjugacy.
 ------------------
 
 - Assertion variable renamed (again) to `TWC.ASSERT`
-
+- Affine actions can now be compared using the equality (`=`)
+  operator
+  
 - Update license text to latest version
 - Update installation instructions in manual
 - More changes to file structure
+- Small improvements to the documentation of derivations and affine
+  actions
 - Janitorial changes
 
 

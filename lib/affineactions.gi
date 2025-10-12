@@ -183,6 +183,22 @@ InstallMethod(
 
 ###############################################################################
 ##
+## PrintObj( orb )
+##
+##  INPUT:
+##      orb:        orbit of an affine action
+##
+InstallMethod(
+    PrintObj,
+    "for orbits of affine actions",
+    [ IsOrbitAffineActionRep ],
+    function( orb )
+        Print( "OrbitAffineAction( ", Representative( orb ), " )" );
+    end
+);
+
+###############################################################################
+##
 ## Size( orb )
 ##
 ##  INPUT:
@@ -217,16 +233,18 @@ InstallMethod(
 
 ###############################################################################
 ##
-## PrintObj( orb )
+## \=( orb1, orb22 )
 ##
 ##  INPUT:
-##      orb:        orbit of an affine action
+##      orb1:       orbit of an affine action
+##      orb2:       orbit of an affine action
+##
+##  OUTPUT:
+##      bool:       true if orb1 is equal to orb2, false otherwise
 ##
 InstallMethod(
-    PrintObj,
+    \=,
     "for orbits of affine actions",
-    [ IsOrbitAffineActionRep ],
-    function( orb )
-        Print( "OrbitAffineAction( ", Representative( orb ), " )" );
-    end
+    [ IsOrbitAffineActionRep, IsOrbitAffineActionRep ],
+    { orb1, orb2 } -> orb1!.tcc = orb2!.tcc
 );
