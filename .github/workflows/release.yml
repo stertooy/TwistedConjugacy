@@ -35,6 +35,7 @@ jobs:
         run: |
           {
             echo 'BODY<<EOF'
+            echo "## What's Changed"
             sed -n '/^[0-9]\+\.[0-9]\+\.[0-9]\+/{:a;n;/^[0-9]\+\.[0-9]\+\.[0-9]\+/q;/^[-]\+$/ba;/^-/p;ba}' CHANGES.md
             echo EOF
           } >> $GITHUB_ENV
