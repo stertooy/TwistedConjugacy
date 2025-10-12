@@ -1239,7 +1239,7 @@ aff( g1, h ) = g2;
 #! true
 #! @EndExample
 
-#! @Section Orbits of affine actions
+#! @Section Operations on orbits of affine actions
 
 #! @BeginGroup
 #! @GroupTitle Representative
