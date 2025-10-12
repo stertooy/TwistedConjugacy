@@ -1242,6 +1242,30 @@ aff( g1, h ) = g2;
 #! @Section Orbits of affine actions
 
 #! @BeginGroup
+#! @GroupTitle Representative
+#! @Returns the group element that was used to construct <A>orb</A>.
+#! @Label of an orbit of an affine action
+#! @Arguments orb
+DeclareAttribute( "Representative", IsOrbitAffineActionRep );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle ActingDomain
+#! @Returns the group whose affine action <A>orb</A> is an orbit of.
+#! @Label of an orbit of an affine action
+#! @Arguments orb
+DeclareAttribute( "ActingDomain", IsOrbitAffineActionRep );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle FunctionAction
+#! @Returns the affine action that <A>orb</A> is an orbit of.
+#! @Label of an orbit of an affine action
+#! @Arguments orb
+DeclareAttribute( "FunctionAction", IsOrbitAffineActionRep );
+#! @EndGroup
+
+#! @BeginGroup
 #! @GroupTitle \in
 #! @Returns <K>true</K> if <A>elm</A> is an element of <A>orb</A>, otherwise
 #! <K>false</K>.
@@ -1259,6 +1283,15 @@ DeclareAttribute( "Size", IsOrbitAffineActionRep );
 #! @EndGroup
 
 #! @BeginGroup
+#! @GroupTitle StabiliserOfExternalSet
+#! @Returns the stabiliser of <C>Representative(<A>orb</A>)</C> under the
+#! action <C>FunctionAction(<A>orb</A>)</C>.
+#! @Label of an orbit of an affine action
+#! @Arguments orb
+DeclareAttribute( "StabiliserOfExternalSet", IsOrbitAffineActionRep );
+#! @EndGroup
+
+#! @BeginGroup
 #! @GroupTitle List
 #! @Returns a list containing the elements of <A>orb</A>.
 #! @Description
@@ -1268,6 +1301,23 @@ DeclareAttribute( "Size", IsOrbitAffineActionRep );
 #! @Label of an orbit of an affine action
 #! @Arguments orb
 DeclareGlobalFunction( "List" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle Random
+#! @Returns a random element in <A>orb</A>.
+#! @Label in an orbit of an affine action
+#! @Arguments orb
+DeclareOperation( "Random", [ IsOrbitAffineActionRep ] );
+#! @EndGroup
+
+#! @BeginGroup
+#! @GroupTitle \=
+#! @Returns <K>true</K> if <A>orb1</A> is equal to <A>orb2</A>, otherwise
+#! <K>false</K>.
+#! @Label for orbits of an affine action
+#! @Arguments orb1, orb2
+DeclareOperation( "\=", [ IsOrbitAffineActionRep, IsOrbitAffineActionRep ] );
 #! @EndGroup
 
 #! @BeginExample
