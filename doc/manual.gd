@@ -894,8 +894,8 @@ Source( res ) = N and Range( res ) = N;
 
 #! Let $G$ and $H$ be groups and let $H$ act on $G$ via automorphisms, i.e.
 #! there is a group homomorphism
-#! $$\alpha \colon H \to \operatorname{Aut}(G)$$
-#! such that $g^h = \alpha(h)(g)$ for all $g \in G$ and $h \in H$.
+#! $$\alpha \colon H \to \operatorname{Aut}(G) \colon h \mapsto \alpha_h$$
+#! such that $g^h = \alpha_h(g)$ for all $g \in G$ and $h \in H$.
 #! A **group derivation** $\delta \colon H \to G$ is a map such that
 #! $$\delta(h_1h_2) = \delta(h_1)^{h_2}\delta(h_2).$$
 #! Note that we do not require $G$ to be abelian.
