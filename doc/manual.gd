@@ -1134,7 +1134,8 @@ List( ImK );
 #! Let $G$ and $H$ be groups, let $H$ act on $G$ via automorphisms via
 #! $$\alpha \colon H \to \operatorname{Aut}(G) \colon h \mapsto \alpha_h$$
 #! and let $\delta \colon H \to G$ be a group derivation with respect to this
-#! action. Then we can construct a new action, called an **affine action**, by
+#! action. Then we can construct a new action, called the **affine action**
+#! associated to $\delta$, by
 #! $$G \times H \to G \colon g^h = \alpha_h(g) \delta(g).$$
 
 #! <P/>
@@ -1152,6 +1153,8 @@ List( ImK );
 
 #! @BeginGroup
 #! @Returns the affine action of <A>K</A> via the derivation <A>derv</A>.
+#! @Description
+#! The group <A>K</A> must be a subgroup of <C>Source(<A>der</A>)</C>.
 #! @Arguments K, der
 DeclareGlobalFunction( "AffineActionByGroupDerivation" );
 #! @EndGroup
