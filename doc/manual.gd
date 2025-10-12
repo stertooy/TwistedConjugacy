@@ -1175,6 +1175,8 @@ aff := AffineActionByGroupDerivation( H, der );
 #! @GroupTitle OrbitAffineAction
 #! @Returns the orbit of <A>g</A> under the affine action of <A>K</A> associated
 #! to <A>der</A>.
+#! @Description
+#! The group <A>K</A> must be a subgroup of <C>Source(<A>der</A>)</C>.
 #! @Arguments K, g, der
 DeclareGlobalFunction( "OrbitAffineAction" );
 #! @EndGroup
@@ -1184,6 +1186,8 @@ DeclareGlobalFunction( "OrbitAffineAction" );
 #! @Returns a list containing the orbits under the affine action of <A>K</A>
 #! associated to  <A>der</A> if there are finitely many, or <K>fail</K> if there
 #! are infinitely many.
+#! @Description
+#! The group <A>K</A> must be a subgroup of <C>Source(<A>der</A>)</C>.
 #! @Arguments K, der
 DeclareGlobalFunction( "OrbitsAffineAction" );
 #! @EndGroup
@@ -1200,6 +1204,8 @@ DeclareGlobalFunction( "NrOrbitsAffineAction" );
 #! @GroupTitle StabiliserAffineAction
 #! @Returns the stabiliser of <A>g</A> under the affine action of <A>K</A> associated
 #! to <A>der</A>.
+#! @Description
+#! The group <A>K</A> must be a subgroup of <C>Source(<A>der</A>)</C>.
 #! @Arguments K, g, der
 DeclareGlobalFunction( "StabiliserAffineAction" );
 #! @Arguments K, g, der
@@ -1211,6 +1217,8 @@ DeclareGlobalFunction( "StabilizerAffineAction" );
 #! @Returns an element of <A>K</A> that maps <A>g1</A> to <A>g2</A> under the
 #! affine action of <A>K</A> associated to <A>der</A>, or <K>fail</K> if no such
 #! element exists.
+#! @Description
+#! The group <A>K</A> must be a subgroup of <C>Source(<A>der</A>)</C>.
 #! @Arguments K, g1, g2, der
 DeclareGlobalFunction( "RepresentativeAffineAction" );
 #! @EndGroup
