@@ -1,6 +1,12 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
+3.1.2 (2025-11-23)
+------------------
+
+- TODO
+
+
 3.1.1 (2025-10-12)
 ------------------
 
