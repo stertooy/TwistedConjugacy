@@ -14,8 +14,8 @@ authors:
 title: TwistedConjugacy
 type: software
 abstract: Computation with twisted conjugacy classes.
-version: 3.1.1
-date-released: 2025-10-12
+version: 3.1.2
+date-released: 2025-11-23
 license: GPL-2.0-or-later
 repository-code: https://github.com/stertooy/TwistedConjugacy/
 url: https://stertooy.github.io/TwistedConjugacy/
@@ -26,8 +26,8 @@ preferred-citation:
   authors:
     - family-names: Tertooy
       given-names: Sam
-  version: 3.1.1
+  version: 3.1.2
   notes: GAP package
-  month: 10
+  month: 11
   year: 2025
   url: https://stertooy.github.io/TwistedConjugacy/
