@@ -41,7 +41,6 @@ jobs:
           GAPInput
 
       - name: "Run GAP tests"
-        if: ${{ inputs.test-suite == 'GAP' }}
         uses: stertooy/run-gap-tests@v1
         with:
           complete: ${{ inputs.complete }}
