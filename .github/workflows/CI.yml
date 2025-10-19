@@ -23,7 +23,7 @@ jobs:
     steps:
 
       - name: "Setup"
-        uses: ./.github.workflows/setup.yml
+        uses: ./.github/workflows/setup.yml
 
       - name: "Run GAP tests"
         if: ${{ matrix.test-suite == 'GAP' }}
