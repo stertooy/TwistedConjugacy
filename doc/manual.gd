@@ -72,24 +72,24 @@ LoadPackage( "TwistedConjugacy" );
 #! In &BibTeX;:
 #!<Listing Type="BibTeX">
 #!&#64;misc{&ABBREV;&VERSION;,
-#!    author =       {&AUTHORREVERSED;},
-#!    title =        {{&PackageName;,
-#!                    &SUBTITLE;,
-#!                    Version &VERSION;}},
-#!    note =         {GAP package},
-#!    year =         {&RELEASEYEAR;},
+#!    author       = {&AUTHORREVERSED;},
+#!    title        = {{&PackageName;,
+#!                     &SUBTITLE;,
+#!                     Version &VERSION;}},
+#!    note         = {GAP package},
+#!    year         = {&RELEASEYEAR;},
 #!    howpublished = {\url{&HOMEURL;}}
 #!}</Listing><P/>
 #! In &BibLaTeX;:
 #!<Listing Type="BibLaTeX">
 #!&#64;software{&ABBREV;&VERSION;,
-#!    author =   {&AUTHORREVERSED;},
-#!    title =    {&PackageName;},
+#!    author   = {&AUTHORREVERSED;},
+#!    title    = {&PackageName;},
 #!    subtitle = {&SUBTITLE;},
-#!    version =  {&VERSION;},
-#!    note =     {GAP package},
-#!    year =     {&RELEASEYEAR;},
-#!    url =      {&HOMEURL;}
+#!    version  = {&VERSION;},
+#!    note     = {GAP package},
+#!    year     = {&RELEASEYEAR;},
+#!    url      = {&HOMEURL;}
 #!}</Listing>
 
 #! @Section Support
@@ -700,7 +700,6 @@ DeclareOperation( "\=", [ IsDoubleCoset, IsDoubleCoset ] );
 #! @Label for PcpGroups
 #! @Arguments G, H, K
 DeclareGlobalFunction( "DoubleCosets" );
-# <Label Name="DoubleCosetsNC"/>
 #! @Label for PcpGroups
 #! @Arguments G, H, K
 DeclareOperation( "DoubleCosetsNC", [ IsPcpGroup, IsPcPGroup, IsPcPGroup ] );
@@ -725,10 +724,8 @@ DeclareOperation( "DoubleCosetRepsAndSizes", [ IsPcpGroup, IsPcPGroup, IsPcPGrou
 #! @Description
 #! The groups <A>H</A> and <A>K</A> must be subgroups of the group <A>G</A>.
 #! The <C>NC</C> version does not check whether this is the case.
-# @Label of a double coset of a PcpGroup
 #! @Arguments G, H, K
 DeclareGlobalFunction( "DoubleCosetIndex" );
-# @Label of a double coset of a PcpGroup
 #! @Label
 #! @Arguments G, H, K
 DeclareOperation( "DoubleCosetIndexNC", [ IsGroup, IsGroup, IsGroup ] );
