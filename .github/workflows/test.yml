@@ -8,6 +8,10 @@ on:
         type: string
       mode:
         type: string
+      warnings-as-errors:
+        type: boolean
+      complete:
+        type: boolean
 
 jobs:
 
@@ -40,7 +44,9 @@ jobs:
         if: ${{ inputs.test-suite == 'GAP' }}
         uses: stertooy/run-gap-tests@v1
         with:
+          complete: ${{ inputs.complete }}
           mode: ${{ inputs.mode }}
+          warnings-as-errors: ${{ inputs.warnings-as-errors }}
 
       - name: "Run package tests"
         if: ${{ inputs.test-suite == 'package' }}
@@ -48,7 +54,7 @@ jobs:
         with:
           coverage: ${{ inputs.gap-version == 'master' }}
           mode: ${{ inputs.mode }}
-          warnings-as-errors: true
+          warnings-as-errors: ${{ inputs.warnings-as-errors }}
 
       - name: "Process coverage"
         if: ${{ inputs.test-suite == 'package' && inputs.gap-version == 'master' }}
