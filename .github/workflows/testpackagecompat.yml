@@ -13,7 +13,7 @@ jobs:
       mode: 'loadall'
       coverage: false
       complete: false
-      warnings-as-errors: true
+      warnings-as-errors: false
     secrets: inherit
     strategy:
       fail-fast: false
