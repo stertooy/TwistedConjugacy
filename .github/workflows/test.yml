@@ -39,7 +39,7 @@ jobs:
         run: |
           gap -A << GAPInput
             LoadPackage( "PackageManager" : OnlyNeeded );
-            QuitGap( InstallPackage( "polycyclic", "=2.17" );
+            QuitGap( InstallPackage( "polycyclic", "=2.17" ) );
           GAPInput
 
       - name: "Run GAP tests"
