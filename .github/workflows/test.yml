@@ -1,0 +1,63 @@
+name: Test
+on:
+  workflow_call:
+    inputs:
+      test-suite:
+        type: string
+      gap-version:
+        type: string
+      mode:
+        type: string
+
+jobs:
+
+  test:
+    name: "Test ${{ inputs.test-suite }} (version: ${{ inputs.gap-version }}, mode: ${{ inputs.mode }})"
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+    container:
+      image: ghcr.io/stertooy/gda-image:${{ inputs.gap-version }}-${{ inputs.mode == 'loadall' && 'full' || 'slim' }}
+
+    steps:
+
+      - name: "Checkout"
+        uses: actions/checkout@v5
+
+      - name: "Add custom GAP root"
+        run: ln -f -s $PWD /tmp/gaproot/pkg/
+
+      - name: "Install Polycyclic 2.17"
+        if: ${{ inputs.mode != 'onlyneeded' && inputs.gap-version == '4.14.0' }}
+        run: |
+          gap -A << GAPInput
+            LoadPackage( "PackageManager" : OnlyNeeded );
+            QuitGap( InstallPackage( "polycyclic", "=2.17" );
+          GAPInput
+
+      - name: "Run GAP tests"
+        if: ${{ inputs.test-suite == 'GAP' }}
+        uses: stertooy/run-gap-tests@v1
+        with:
+          mode: ${{ inputs.mode }}
+
+      - name: "Run package tests"
+        if: ${{ inputs.test-suite == 'package' }}
+        uses: gap-actions/run-pkg-tests@v4
+        with:
+          coverage: ${{ inputs.gap-version == 'master' }}
+          mode: ${{ inputs.mode }}
+          warnings-as-errors: true
+
+      - name: "Process coverage"
+        if: ${{ inputs.test-suite == 'package' && inputs.gap-version == 'master' }}
+        uses: gap-actions/process-coverage@v3
+
+      - name: "Upload coverage"
+        if: ${{ inputs.test-suite == 'package' && inputs.gap-version == 'master' }}
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
