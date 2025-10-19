@@ -13,6 +13,7 @@ jobs:
       test-suite: ${{ matrix.test-suite }}
       gap-version: ${{ matrix.gap-version }}
       mode: ${{ matrix.mode }}
+    secrets: inherit
     strategy:
       fail-fast: false
       matrix:
