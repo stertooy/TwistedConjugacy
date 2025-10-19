@@ -1,0 +1,19 @@
+name: Pre-release tests
+on:
+  - workflow_dispatch
+
+jobs:
+
+  ci-test:
+    uses: ./.github/workflows/CI.yml
+
+  compat-test:
+    uses: ./.github/workflows/testpackagecompat.yml
+
+  gap-test:
+    uses: ./.github/workflows/teststandard.yml
+
+  release-test:
+    uses: ./.github/workflows/release.yml
+    with:
+      dry-run: true
