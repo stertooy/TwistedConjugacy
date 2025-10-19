@@ -1,4 +1,4 @@
-name: Validate
+name: Docs
 on:
   - push
   - pull_request
@@ -8,7 +8,7 @@ on:
 jobs:
 
   validate:
-    name: "Validate manual & metadata"
+    name: "Create and test manual"
     runs-on: ubuntu-latest
 
     container:
@@ -21,11 +21,6 @@ jobs:
 
       - name: "Add custom GAP root"
         run: ln -f -s $PWD /tmp/gaproot/pkg/
-
-      - name: "Validate CITATION.cff"
-        uses: citation-file-format/cffconvert-github-action@2.0.0
-        with:
-          args: "--validate"
 
       - name: "Build manual"
         uses: gap-actions/build-pkg-docs@v2
