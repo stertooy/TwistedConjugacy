@@ -28,27 +28,22 @@ jobs:
       - name: "Add custom GAP root"
         run: ln -f -s $PWD /tmp/gaproot/pkg/
 
-      - name: "Install Polycyclic 2.17 if necessary"
-        if: ${{ matrix.mode != 'onlyneeded' }}
+      - name: "Install Polycyclic 2.17"
+        if: ${{ matrix.mode != 'onlyneeded' && matrix.gap-version == '4.14.0' }}
         run: |
           gap -A << GAPInput
-            pkg := "polycyclic";
-            ver := "2.17";
-            if TestPackageAvailability( pkg, ver, true ) = fail then
-              LoadPackage( "PackageManager" : OnlyNeeded );
-              QuitGap( InstallPackage( pkg, Concatenation( "=", ver ) ) );
-            fi;
-            QUIT;
+            LoadPackage( "PackageManager" : OnlyNeeded );
+            QuitGap( InstallPackage( "polycyclic", "=2.17" );
           GAPInput
 
       - name: "Run GAP tests"
-        if: ${{ matrix.text-suite == 'GAP' }}
+        if: ${{ matrix.test-suite == 'GAP' }}
         uses: stertooy/run-gap-tests@v1
         with:
           mode: ${{ matrix.mode }}
 
       - name: "Run package tests"
-        if: ${{ matrix.text-suite == 'package' }}
+        if: ${{ matrix.test-suite == 'package' }}
         uses: gap-actions/run-pkg-tests@v4
         with:
           coverage: ${{ matrix.gap-version == 'master' }}
@@ -56,11 +51,11 @@ jobs:
           warnings-as-errors: true
 
       - name: "Process coverage"
-        if: ${{ matrix.text-suite == 'package' && matrix.gap-version == 'master' }}
+        if: ${{ matrix.test-suite == 'package' && matrix.gap-version == 'master' }}
         uses: gap-actions/process-coverage@v3
 
       - name: "Upload coverage"
-        if: ${{ matrix.text-suite == 'package' && matrix.gap-version == 'master' }}
+        if: ${{ matrix.test-suite == 'package' && matrix.gap-version == 'master' }}
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
