@@ -8,47 +8,17 @@ jobs:
 
   test:
     name: "Test ${{ matrix.test-suite }} (version: ${{ matrix.gap-version }}, mode: ${{ matrix.mode }})"
-    runs-on: ubuntu-latest
-
+    uses: ./.github/workflows/test.yml
+    with:
+      test-suite: ${{ matrix.test-suite }}
+      gap-version: ${{ matrix.gap-version }}
+      mode: ${{ matrix.mode }}
     strategy:
       fail-fast: false
       matrix:
         test-suite: [ "package", "GAP" ]
         gap-version: [ "4.14.0", "4.15.0", "4.15.1", "master" ]
         mode: [ "default", "onlyneeded" ]
-
-    container:
-      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-slim
-
-    steps:
-
-      - name: "Setup"
-        uses: ./.github/workflows/setup.yml
-
-      - name: "Run GAP tests"
-        if: ${{ matrix.test-suite == 'GAP' }}
-        uses: stertooy/run-gap-tests@v1
-        with:
-          mode: ${{ matrix.mode }}
-
-      - name: "Run package tests"
-        if: ${{ matrix.test-suite == 'package' }}
-        uses: gap-actions/run-pkg-tests@v4
-        with:
-          coverage: ${{ matrix.gap-version == 'master' }}
-          mode: ${{ matrix.mode }}
-          warnings-as-errors: true
-
-      - name: "Process coverage"
-        if: ${{ matrix.test-suite == 'package' && matrix.gap-version == 'master' }}
-        uses: gap-actions/process-coverage@v3
-
-      - name: "Upload coverage"
-        if: ${{ matrix.test-suite == 'package' && matrix.gap-version == 'master' }}
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
 
   validate:
     name: "Validate manual & metadata"
