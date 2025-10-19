@@ -15,6 +15,7 @@ jobs:
       mode: ${{ matrix.mode }}
       complete: false
       warnings-as-errors: true
+      coverage: ${{ matrix.test-suite == 'package' && matrix.gap-version == 'master' }}
     secrets: inherit
     strategy:
       fail-fast: false
