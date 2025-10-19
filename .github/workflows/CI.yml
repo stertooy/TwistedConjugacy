@@ -7,20 +7,31 @@ on:
 
 jobs:
 
-  test:
-    name: "Test ${{ matrix.test-suite }} (version: ${{ matrix.gap-version }}, mode: ${{ matrix.mode }})"
-    uses: ./.github/workflows/test.yml
+  test-pkg:
+    name: "Test package (version: ${{ matrix.gap-version }}, mode: ${{ matrix.mode }})"
+    uses: ./.github/workflows/test-pkg.yml
     with:
-      test-suite: ${{ matrix.test-suite }}
       gap-version: ${{ matrix.gap-version }}
       mode: ${{ matrix.mode }}
-      complete: false
       warnings-as-errors: true
-      coverage: ${{ matrix.test-suite == 'package' && matrix.gap-version == 'master' }}
+      coverage: ${{ matrix.gap-version == 'master' }}
     secrets: inherit
     strategy:
       fail-fast: false
       matrix:
-        test-suite: [ "package", "GAP" ]
+        gap-version: [ "4.14.0", "4.15.0", "4.15.1", "master" ]
+        mode: [ "default", "onlyneeded" ]
+
+  test-gap:
+    name: "Test GAP (version: ${{ matrix.gap-version }}, mode: ${{ matrix.mode }})"
+    uses: ./.github/workflows/test-gap.yml
+    with:
+      gap-version: ${{ matrix.gap-version }}
+      mode: ${{ matrix.mode }}
+      complete: false
+      warnings-as-errors: true
+    strategy:
+      fail-fast: false
+      matrix:
         gap-version: [ "4.14.0", "4.15.0", "4.15.1", "master" ]
         mode: [ "default", "onlyneeded" ]
