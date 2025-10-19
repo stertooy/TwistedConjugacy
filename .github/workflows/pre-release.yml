@@ -1,6 +1,5 @@
 name: Pre-release tests
 on:
-  - push
   - workflow_dispatch
 
 jobs:
