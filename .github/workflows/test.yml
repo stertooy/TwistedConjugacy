@@ -14,8 +14,8 @@ on:
         type: boolean
 
 jobs:
-
   test:
+    name: "Test ${{ inputs.test-suite }} (version: ${{ inputs.gap-version }}, mode: ${{ inputs.mode }})"
     runs-on: ubuntu-latest
 
     strategy:
