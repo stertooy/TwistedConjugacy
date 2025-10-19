@@ -1,6 +1,10 @@
 name: Pre-release
 on:
-  - workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      force:
+        type: boolean
+        default: false
 
 jobs:
 
@@ -70,3 +74,4 @@ jobs:
     uses: ./.github/workflows/release.yml
     with:
       dry-run: true
+      force: ${{ inputs.force }}
