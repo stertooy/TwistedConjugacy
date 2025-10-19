@@ -8,7 +8,7 @@ on:
 jobs:
 
   validate:
-    name: "Create,test and upload manual"
+    name: "Create, test and upload manual"
     runs-on: ubuntu-latest
 
     container:
