@@ -22,19 +22,8 @@ jobs:
 
     steps:
 
-      - name: "Checkout"
-        uses: actions/checkout@v5
-
-      - name: "Add custom GAP root"
-        run: ln -f -s $PWD /tmp/gaproot/pkg/
-
-      - name: "Install Polycyclic 2.17"
-        if: ${{ matrix.mode != 'onlyneeded' && matrix.gap-version == '4.14.0' }}
-        run: |
-          gap -A << GAPInput
-            LoadPackage( "PackageManager" : OnlyNeeded );
-            QuitGap( InstallPackage( "polycyclic", "=2.17" );
-          GAPInput
+      - name: "Setup"
+        uses: ./.github.workflows/setup.yml
 
       - name: "Run GAP tests"
         if: ${{ matrix.test-suite == 'GAP' }}
