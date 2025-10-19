@@ -6,65 +6,14 @@ on:
 
 jobs:
 
-  test-pkg:
-    name: "Test package with GAP-${{ matrix.gap-version }}, mode: ${{ matrix.mode }}"
+  test:
+    name: "Test ${{ matrix.test-suite }} (version: ${{ matrix.gap-version }}, mode: ${{ matrix.mode }})"
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
-        gap-version: [ "4.14.0", "4.15.0", "4.15.1", "master" ]
-        mode: [ "default", "onlyneeded" ]
-
-    container:
-      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-slim
-
-    steps:
-
-      - name: "Checkout"
-        uses: actions/checkout@v5
-
-      - name: "Add custom GAP root"
-        run: ln -f -s $PWD /tmp/gaproot/pkg/
-
-      - name: "Install Polycyclic 2.17 if necessary"
-        if: ${{ matrix.mode != 'onlyneeded' }}
-        run: |
-          gap -A << GAPInput
-            pkg := "polycyclic";
-            ver := "2.17";
-            if TestPackageAvailability( pkg, ver, true ) = fail then
-              LoadPackage( "PackageManager" : OnlyNeeded );
-              QuitGap( InstallPackage( pkg, Concatenation( "=", ver ) ) );
-            fi;
-            QUIT;
-          GAPInput
-
-      - name: "Run package tests"
-        uses: gap-actions/run-pkg-tests@v4
-        with:
-          coverage: ${{ matrix.gap-version == 'master' }}
-          mode: ${{ matrix.mode }}
-          warnings-as-errors: true
-            
-      - name: "Process coverage"
-        uses: gap-actions/process-coverage@v3
-        if: ${{ matrix.gap-version == 'master' }}
-
-      - name: "Upload coverage"
-        uses: codecov/codecov-action@v5
-        if: ${{ matrix.gap-version == 'master' }}
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
-
-  test-gap:
-    name: "Test GAP-${{ matrix.gap-version }} with package, mode: ${{ matrix.mode }}"
-    runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
+        test-suite: [ "package", "GAP" ]
         gap-version: [ "4.14.0", "4.15.0", "4.15.1", "master" ]
         mode: [ "default", "onlyneeded" ]
 
@@ -93,9 +42,29 @@ jobs:
           GAPInput
 
       - name: "Run GAP tests"
+        if: ${{ matrix.text-suite == 'GAP' }}
         uses: stertooy/run-gap-tests@v1
         with:
           mode: ${{ matrix.mode }}
+
+      - name: "Run package tests"
+        if: ${{ matrix.text-suite == 'package' }}
+        uses: gap-actions/run-pkg-tests@v4
+        with:
+          coverage: ${{ matrix.gap-version == 'master' }}
+          mode: ${{ matrix.mode }}
+          warnings-as-errors: true
+
+      - name: "Process coverage"
+        if: ${{ matrix.text-suite == 'package' && matrix.gap-version == 'master' }}
+        uses: gap-actions/process-coverage@v3
+
+      - name: "Upload coverage"
+        if: ${{ matrix.text-suite == 'package' && matrix.gap-version == 'master' }}
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
 
   validate:
     name: "Validate manual & metadata"
@@ -116,7 +85,7 @@ jobs:
         uses: citation-file-format/cffconvert-github-action@2.0.0
         with:
           args: "--validate"
-          
+
       - name: "Build manual"
         uses: gap-actions/build-pkg-docs@v2
 
