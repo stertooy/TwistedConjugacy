@@ -61,6 +61,10 @@ jobs:
     name: "Run gaplint"
     uses: ./.github/workflows/lint.yml
 
+  validate:
+    name: "Run validation"
+    uses: ./.github/workflows/validate.yml
+
   release-test:
     name: "Dry run of Release"
     uses: ./.github/workflows/release.yml
