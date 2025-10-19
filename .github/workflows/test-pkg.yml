@@ -1,23 +1,19 @@
-name: Test
+name: Test package
 on:
   workflow_call:
     inputs:
-      test-suite:
-        type: string
       gap-version:
         type: string
       mode:
         type: string
       warnings-as-errors:
         type: boolean
-      complete:
-        type: boolean
       coverage:
         type: boolean
 
 jobs:
   test:
-    name: "Test ${{ inputs.test-suite }} (version: ${{ inputs.gap-version }}, mode: ${{ inputs.mode }})"
+    name: "Test package (GAP-version: ${{ inputs.gap-version }}, mode: ${{ inputs.mode }})"
     runs-on: ubuntu-latest
 
     strategy:
@@ -42,16 +38,7 @@ jobs:
             QuitGap( InstallPackage( "polycyclic", "=2.17" ) );
           GAPInput
 
-      - name: "Run GAP tests"
-        if: ${{ inputs.test-suite == 'GAP' }}
-        uses: stertooy/run-gap-tests@v1
-        with:
-          complete: ${{ inputs.complete }}
-          mode: ${{ inputs.mode }}
-          warnings-as-errors: ${{ inputs.warnings-as-errors }}
-
       - name: "Run package tests"
-        if: ${{ inputs.test-suite == 'package' }}
         uses: gap-actions/run-pkg-tests@v4
         with:
           coverage: ${{ inputs.coverage }}
