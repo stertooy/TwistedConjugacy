@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    name: "Test ${{ matrix.test-suite }} (version: ${{ matrix.gap-version }}, mode: ${{ matrix.mode }})"
+    name: "Test ${{ matrix.test-suite }} (version: ${{ matrix.gap-version }}, mode: loadall)"
     uses: ./.github/workflows/test.yml
     with:
       test-suite: ${{ matrix.test-suite }}
