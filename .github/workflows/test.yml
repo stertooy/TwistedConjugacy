@@ -12,6 +12,8 @@ on:
         type: boolean
       complete:
         type: boolean
+      coverage:
+        type: boolean
 
 jobs:
   test:
@@ -52,16 +54,16 @@ jobs:
         if: ${{ inputs.test-suite == 'package' }}
         uses: gap-actions/run-pkg-tests@v4
         with:
-          coverage: ${{ inputs.gap-version == 'master' }}
+          coverage: ${{ inputs.coverage }}
           mode: ${{ inputs.mode }}
           warnings-as-errors: ${{ inputs.warnings-as-errors }}
 
       - name: "Process coverage"
-        if: ${{ inputs.test-suite == 'package' && inputs.gap-version == 'master' }}
+        if: ${{ inputs.coverage }}
         uses: gap-actions/process-coverage@v3
 
       - name: "Upload coverage"
-        if: ${{ inputs.test-suite == 'package' && inputs.gap-version == 'master' }}
+        if: ${{ inputs.coverage }}
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
