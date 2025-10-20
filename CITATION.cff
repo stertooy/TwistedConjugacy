@@ -1,33 +1,43 @@
 cff-version: 1.2.0
-message: If you use this software, please cite it as below.
+message: If you use this GAP package, please cite it using the metadata from this file.
+type: software
+title: TwistedConjugacy
+abstract: Computation with twisted conjugacy classes
+version: 3.1.2
+date-released: 2025-11-23
+license: GPL-2.0-or-later
+doi: 10.5281/zenodo.14283553
 authors:
   - family-names: Tertooy
     given-names: Sam
-    email: sam.tertooy@kuleuven.be
-    orcid: https://orcid.org/0000-0002-5750-9153
     affiliation: KU Leuven, Kulak Kortrijk Campus
+    email: sam.tertooy@kuleuven.be
+    website: https://stertooy.github.io/
+    orcid: https://orcid.org/0000-0002-5750-9153
     address: Etienne Sabbelaan 53
     post-code: 8500
     city: Kortrijk
     country: BE
-    website: https://stertooy.github.io/
-title: TwistedConjugacy
-type: software
-abstract: Computation with twisted conjugacy classes.
-version: 3.1.2
-date-released: 2025-11-23
-license: GPL-2.0-or-later
-repository-code: https://github.com/stertooy/TwistedConjugacy/
-url: https://stertooy.github.io/TwistedConjugacy/
-doi: 10.5281/zenodo.14283553
-preferred-citation:
-  type: software
-  title: TwistedConjugacy, Computation with twisted conjugacy classes
-  authors:
-    - family-names: Tertooy
-      given-names: Sam
-  version: 3.1.2
-  notes: GAP package
-  month: 11
-  year: 2025
-  url: https://stertooy.github.io/TwistedConjugacy/
+contact:
+  - name: Support Email
+    email: sam.tertooy@kuleuven.be
+  - name: Issue Tracker
+    website: https://github.com/stertooy/TwistedConjugacy/issues
+repository-code: https://github.com/stertooy/TwistedConjugacy
+url: https://stertooy.github.io/TwistedConjugacy
+keywords:
+  - affine action
+  - automorphism
+  - coincidence group
+  - coset
+  - derivation
+  - double coset
+  - endomorphism
+  - fixed point group
+  - homomorphism
+  - Reidemeister class
+  - Reidemeister number
+  - Reidemeister spectrum
+  - Reidemeister zeta function
+  - twisted conjugacy
+  - twisted conjugation
