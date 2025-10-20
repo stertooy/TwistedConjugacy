@@ -23,4 +23,4 @@ jobs:
           args: "--validate"
 
       - name: "Compare PackageInfo.g with CITATION.cff"
-        uses: stertooy/validate-citation-with-pkginfo@v0.1
+        uses: stertooy/validate-citation-with-pkginfo@v1
