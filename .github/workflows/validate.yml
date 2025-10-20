@@ -9,6 +9,9 @@ jobs:
     name: "Validate"
     runs-on: ubuntu-latest
 
+    container:
+      image: ghcr.io/stertooy/gda-image:master-slim
+
     steps:
     
       - name: "Checkout"
