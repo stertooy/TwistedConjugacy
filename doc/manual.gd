@@ -614,6 +614,7 @@ PrintReidemeisterZeta( khi );
 #! Label="for an element and a double coset of a PcpGroup" Style="Number"/>).
 
 #! @BeginGroup
+#! @GroupTitle Intersection
 #! @Returns the intersection of the right cosets <A>C1</A>, <A>C2</A>, ...
 #! @Description
 #! Alternatively, this function also accepts a single list of right cosets
