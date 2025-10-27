@@ -30,7 +30,7 @@ jobs:
         run: gap -c "QuitGap(ValidatePackageInfo(\"PackageInfo.g\"));"
 
       - name: "Upload manual"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: "Manual"
           path: ./doc/manual.pdf
