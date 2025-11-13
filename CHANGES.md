@@ -1,7 +1,7 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
-3.1.2 (2025-11-23)
+3.1.2 (2025-11-14)
 ------------------
 
 - Fix faulty URLs in the documentation
