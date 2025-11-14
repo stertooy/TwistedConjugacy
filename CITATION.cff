@@ -4,7 +4,7 @@ type: software
 title: TwistedConjugacy
 abstract: Computation with twisted conjugacy classes
 version: 3.1.2
-date-released: 2025-11-23
+date-released: 2025-11-14
 license: GPL-2.0-or-later
 doi: 10.5281/zenodo.14283553
 authors:
