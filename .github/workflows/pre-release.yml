@@ -59,7 +59,8 @@ jobs:
 
       - name: "Verify that we do not interfere with Polycyclic's tests"
         shell: bash
-        run: gap --bare -c 'LoadPackage("Polycyclic");LoadPackage("TwistedConjugacy");TestPackage("Polycyclic");'
+        run: gap --bare -c 'LoadPackage("Polycyclic");LoadPackage("TwistedConjugacy");LoadPackage("SmallGrp");TestPackage("Polycyclic");'
+        # Currently SmallGrp is needed for Polycyclic's tests
 
   lint:
     name: "Run gaplint"
