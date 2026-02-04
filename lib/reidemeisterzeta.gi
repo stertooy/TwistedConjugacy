@@ -1,6 +1,6 @@
 ###############################################################################
 ##
-## ReidemeisterZetaFunctionCoefficients( endo1, endo2 )
+## IteratedReidemeisterNumberDecomposition( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -14,7 +14,7 @@
 ##      For every n, R(endo1^n,endo2^n) = P_n + Q_n
 ##
 BindGlobal(
-    "ReidemeisterZetaFunctionCoefficients",
+    "IteratedReidemeisterNumberDecomposition",
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -23,13 +23,13 @@ BindGlobal(
         else
             endo2 := arg[1];
         fi;
-        return ReidemeisterZetaFunctionCoefficientsOp( endo1, endo2 );
+        return IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
     end
 );
 
 ###############################################################################
 ##
-## ReidemeisterZetaFunctionCoefficientsOp( endo1, endo2 )
+## IteratedReidemeisterNumberDecompositionOp( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -43,7 +43,7 @@ BindGlobal(
 ##      For every n, R(endo1^n,endo2^n) = P_n + Q_n
 ##
 InstallMethod(
-    ReidemeisterZetaFunctionCoefficientsOp,
+    IteratedReidemeisterNumberDecompositionOp,
     "for finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     function( endo1, endo2 )
@@ -130,7 +130,7 @@ InstallMethod(
         then
             return true;
         fi;
-        coeffs := ReidemeisterZetaFunctionCoefficientsOp( endo1, endo2 );
+        coeffs := RIteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
         if (
             not IsEmpty( coeffs[2] ) or
             TWC.DecomposePeriodicList( coeffs[1] ) = fail
@@ -185,7 +185,7 @@ InstallMethod(
         local G, coeffs, p;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
-        coeffs := ReidemeisterZetaFunctionCoefficientsOp( endo1, endo2 );
+        coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
         if not IsEmpty( coeffs[2] ) then
             return fail;
         fi;
@@ -252,7 +252,7 @@ InstallMethod(
         local G, coeffs, P, Q, q, i, qi, zeta, factors, powers, p, k, pi;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
-        coeffs := ReidemeisterZetaFunctionCoefficientsOp( endo1, endo2 );
+        coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
         P := coeffs[1];
         Q := coeffs[2];
         if not IsEmpty( Q ) then
