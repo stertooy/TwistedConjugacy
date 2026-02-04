@@ -520,6 +520,6 @@ InstallMethod(
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
         s := Indeterminate( Rationals, "s" );
-        Print( ReidemeisterGeneratingFunction( s ) );
+        Print( ReidemeisterGeneratingFunction( endo1, endo2 )( s ) );
     end
 );
