@@ -404,7 +404,7 @@ InstallMethod(
     IsRationalReidemeisterGeneratingFunctionOp,
     "for finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
-    function( endo1, endo2 )
+    function( endo1, _endo2 )
         local G;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
@@ -465,7 +465,7 @@ InstallMethod(
         P := ShiftedCoeffs( p, 1 );
         Q := ShiftedCoeffs( q, 1 );
         return function( s )
-            local num, den
+            local num, den;
             num := ValuePol( P, s );
             den := 1 - s ^ Length( p );
             return ValuePol( Q, s ) + num / den;
