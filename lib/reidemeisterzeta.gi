@@ -130,7 +130,7 @@ InstallMethod(
         then
             return true;
         fi;
-        coeffs := RIteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
+        coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
         if (
             not IsEmpty( coeffs[2] ) or
             TWC.DecomposePeriodicList( coeffs[1] ) = fail
