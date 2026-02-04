@@ -557,7 +557,7 @@ DeclareGlobalFunction( "IteratedReidemeisterNumberDecomposition" );
 #! @BeginExample
 khi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],
  [ (1,2,6,3,5), (1,4,5) ] );;
-ReidemeisterZetaCoefficients( khi );
+IteratedReidemeisterNumberDecomposition( khi );
 #! [ [ 7 ], [  ] ]
 #! @EndExample
 
