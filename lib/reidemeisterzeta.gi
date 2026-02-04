@@ -1,6 +1,6 @@
 ###############################################################################
 ##
-## ReidemeisterZetaCoefficients( endo1, endo2 )
+## ReidemeisterZetaFunctionCoefficients( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -14,7 +14,7 @@
 ##      For every n, R(endo1^n,endo2^n) = P_n + Q_n
 ##
 BindGlobal(
-    "ReidemeisterZetaCoefficients",
+    "ReidemeisterZetaFunctionCoefficients",
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -23,13 +23,13 @@ BindGlobal(
         else
             endo2 := arg[1];
         fi;
-        return ReidemeisterZetaCoefficientsOp( endo1, endo2 );
+        return ReidemeisterZetaFunctionCoefficientsOp( endo1, endo2 );
     end
 );
 
 ###############################################################################
 ##
-## ReidemeisterZetaCoefficientsOp( endo1, endo2 )
+## ReidemeisterZetaFunctionCoefficientsOp( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -43,7 +43,7 @@ BindGlobal(
 ##      For every n, R(endo1^n,endo2^n) = P_n + Q_n
 ##
 InstallMethod(
-    ReidemeisterZetaCoefficientsOp,
+    ReidemeisterZetaFunctionCoefficientsOp,
     "for finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     function( endo1, endo2 )
@@ -80,7 +80,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## IsRationalReidemeisterZeta( endo1, endo2 )
+## IsRationalReidemeisterZetaFunction( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -91,7 +91,7 @@ InstallMethod(
 ##                  is rational
 ##
 BindGlobal(
-    "IsRationalReidemeisterZeta",
+    "IsRationalReidemeisterZetaFunction",
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -100,13 +100,13 @@ BindGlobal(
         else
             endo2 := arg[1];
         fi;
-        return IsRationalReidemeisterZetaOp( endo1, endo2 );
+        return IsRationalReidemeisterZetaFunctionOp( endo1, endo2 );
     end
 );
 
 ###############################################################################
 ##
-## IsRationalReidemeisterZetaOp( endo1, endo2 )
+## IsRationalReidemeisterZetaFunctionOp( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -117,7 +117,7 @@ BindGlobal(
 ##                  is rational
 ##
 InstallMethod(
-    IsRationalReidemeisterZetaOp,
+    IsRationalReidemeisterZetaFunctionOp,
     "for finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     function( endo1, endo2 )
@@ -130,7 +130,7 @@ InstallMethod(
         then
             return true;
         fi;
-        coeffs := ReidemeisterZetaCoefficientsOp( endo1, endo2 );
+        coeffs := ReidemeisterZetaFunctionCoefficientsOp( endo1, endo2 );
         if (
             not IsEmpty( coeffs[2] ) or
             TWC.DecomposePeriodicList( coeffs[1] ) = fail
@@ -143,7 +143,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## ReidemeisterZeta( endo1, endo2 )
+## ReidemeisterZetaFunction( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -153,7 +153,7 @@ InstallMethod(
 ##      func:       the Reidemeister zeta function of endo1 and endo2
 ##
 BindGlobal(
-    "ReidemeisterZeta",
+    "ReidemeisterZetaFunction",
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -162,13 +162,13 @@ BindGlobal(
         else
             endo2 := arg[1];
         fi;
-        return ReidemeisterZetaOp( endo1, endo2 );
+        return ReidemeisterZetaFunctionOp( endo1, endo2 );
     end
 );
 
 ###############################################################################
 ##
-## ReidemeisterZetaOp( endo1, endo2 )
+## ReidemeisterZetaFunctionOp( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -178,14 +178,14 @@ BindGlobal(
 ##      func:       the Reidemeister zeta function of endo1 and endo2
 ##
 InstallMethod(
-    ReidemeisterZetaOp,
+    ReidemeisterZetaFunctionOp,
     "for rational Reidemeister zeta functions of finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     function( endo1, endo2 )
         local G, coeffs, p;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
-        coeffs := ReidemeisterZetaCoefficientsOp( endo1, endo2 );
+        coeffs := ReidemeisterZetaFunctionCoefficientsOp( endo1, endo2 );
         if not IsEmpty( coeffs[2] ) then
             return fail;
         fi;
@@ -208,7 +208,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## PrintReidemeisterZeta( endo1, endo2 )
+## PrintReidemeisterZetaFunction( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -219,7 +219,7 @@ InstallMethod(
 ##                  and endo2 in text form
 ##
 BindGlobal(
-    "PrintReidemeisterZeta",
+    "PrintReidemeisterZetaFunction",
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -228,13 +228,13 @@ BindGlobal(
         else
             endo2 := arg[1];
         fi;
-        return PrintReidemeisterZetaOp( endo1, endo2 );
+        return PrintReidemeisterZetaFunctionOp( endo1, endo2 );
     end
 );
 
 ###############################################################################
 ##
-## PrintReidemeisterZetaOp( endo1, endo2 )
+## PrintReidemeisterZetaFunctionOp( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -245,14 +245,14 @@ BindGlobal(
 ##                  and endo2 in text form
 ##
 InstallMethod(
-    PrintReidemeisterZetaOp,
+    PrintReidemeisterZetaFunctionOp,
     "for finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     function( endo1, endo2 )
         local G, coeffs, P, Q, q, i, qi, zeta, factors, powers, p, k, pi;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
-        coeffs := ReidemeisterZetaCoefficientsOp( endo1, endo2 );
+        coeffs := ReidemeisterZetaFunctionCoefficientsOp( endo1, endo2 );
         P := coeffs[1];
         Q := coeffs[2];
         if not IsEmpty( Q ) then
