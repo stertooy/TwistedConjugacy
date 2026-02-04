@@ -457,9 +457,6 @@ InstallMethod(
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
         coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
-        if not IsEmpty( coeffs[2] ) then
-            return fail;
-        fi;
         p := coeffs[1];
         q := coeffs[2];
         P := ShiftedCoeffs( p, 1 );
