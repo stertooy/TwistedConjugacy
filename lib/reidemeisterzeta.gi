@@ -460,7 +460,7 @@ InstallMethod(
         if not IsEmpty( coeffs[2] ) then
             return fail;
         fi;
-        p := TWC.DecomposePeriodicList( coeffs[1] );
+        p := coeffs[1];
         q := coeffs[2];
         P := ShiftedCoeffs( p, 1 );
         Q := ShiftedCoeffs( q, 1 );
