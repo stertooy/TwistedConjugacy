@@ -38,7 +38,7 @@ TWC.DecomposePeriodicList := function( L )
     n := Length( L );
     l := ListWithIdenticalEntries( n, 0 );
     for i in [ 1 .. n ] do
-        l[i] := Sum( DivisorsInt( i ), d -> MoebiusMu( i / d ) * L[i] ) / i;
+        l[i] := Sum( DivisorsInt( i ), d -> MoebiusMu( i / d ) * L[d] ) / i;
     od;
     return l;
 end;
