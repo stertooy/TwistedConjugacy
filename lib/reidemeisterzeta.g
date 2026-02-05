@@ -28,7 +28,8 @@ end;
 ##                  of the sequences ei = (0,0,0,i,0,0,0,i,...)
 ##
 ##  OUTPUT:
-##      l:          list of rational numbers such that L = sum_i l_i ei
+##      l:          list of integers such that L = sum_i l_i ei, or fail if
+##                  no such list of integers exists
 ##
 ##  REMARKS:
 ##      This is essentially the inverse Discrete Fourier Transform.
@@ -38,7 +39,20 @@ TWC.DecomposePeriodicList := function( L )
     n := Length( L );
     l := ListWithIdenticalEntries( n, 0 );
     for i in [ 1 .. n ] do
-        l[i] := Sum( DivisorsInt( i ), d -> MoebiusMu( i / d ) * L[d] ) / i;
+        if n mod i <> 0 then
+            if L[i] <> 0 then
+                return fail;
+            fi;
+            continue;
+        fi;
+        l[i] := L[i] / i;
+        if not IsInt( l[i] ) then
+            return fail;
+        fi;
+        per := ListWithIdenticalEntries( i - 1, 0 );
+        Add( per, i );
+        ei := Concatenation( ListWithIdenticalEntries( n / i, per ) );
+        L := L - l[i] * ei;
     od;
     return l;
 end;
