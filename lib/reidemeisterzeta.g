@@ -35,11 +35,24 @@ end;
 ##      This is essentially the inverse Discrete Fourier Transform.
 ##
 TWC.DecomposePeriodicList := function( L )
-    local N, l, n, k;
-    N := Length( L );
-    l := ListWithIdenticalEntries( N, 0 );
-    for n in [ 0 .. N-1 ] do
-        l[n+1] := Sum( [0..N-1], k -> L[k+1] * E(N)^(k*n) )/N;
+    local n, l, i, per, ei;
+    n := Length( L );
+    l := ListWithIdenticalEntries( n, 0 );
+    for i in [ 1 .. n ] do
+        if n mod i <> 0 then
+            if L[i] <> 0 then
+                return fail;
+            fi;
+            continue;
+        fi;
+        l[i] := L[i] / i;
+        if not IsInt( l[i] ) then
+            return fail;
+        fi;
+        per := ListWithIdenticalEntries( i - 1, 0 );
+        Add( per, i );
+        ei := Concatenation( ListWithIdenticalEntries( n / i, per ) );
+        L := L - l[i] * ei;
     od;
     return l;
 end;
