@@ -249,12 +249,13 @@ InstallMethod(
     "for finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     function( endo1, endo2 )
-        local G, coeffs, P, Q, q, i, qi, zeta, factors, powers, p, k, pi;
+        local G, coeffs, P, Q, q, i, qi, zeta, factors, powers, p, k, pi, s, root, zeta, pow;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
         coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
         P := coeffs[1];
         Q := coeffs[2];
+        s := Indeterminate( Rationals, "s" );
         if not IsEmpty( Q ) then
             q := "";
             for i in [ 1 .. Length( Q ) ] do
@@ -290,39 +291,7 @@ InstallMethod(
                 if pi = 0 then
                     continue;
                 fi;
-                if i = k / 2 then
-                    Add( factors, "1+s" );
-                elif i = 0 then
-                    Add( factors, "1-s" );
-                elif i = 1 then
-                    Add( factors, Concatenation(
-                        "1-E(",
-                        PrintString( k ),
-                        ")*s"
-                    ));
-                elif i = k / 2 + 1 then
-                    Add( factors, Concatenation(
-                        "1+E(",
-                        PrintString( k ),
-                        ")*s"
-                    ));
-                elif k mod 2 = 0 and i > k / 2 then
-                    Add( factors, Concatenation(
-                        "1+E(",
-                        PrintString( k ),
-                        ")^",
-                        PrintString( i - k / 2 ),
-                        "*s"
-                    ));
-                else
-                    Add( factors, Concatenation(
-                        "1-E(",
-                        PrintString( k ),
-                        ")^",
-                        PrintString( i ),
-                        "*s"
-                    ));
-                fi;
+                Add( factors, 1-E(k)^i*s );
                 Add( powers, -pi );
             od;
         else
@@ -330,35 +299,23 @@ InstallMethod(
                 if p[i] = 0 then
                     continue;
                 fi;
-                if i > 1 then
-                    Add( factors, Concatenation( "1-s^", PrintString( i ) ) );
-                else
-                    Add( factors, "1-s" );
-                fi;
+                Add( factors, 1-s^i );
                 Add( powers, -p[i] );
             od;
         fi;
+        # TEMP
+        zeta := 1;
+        root := Lcm( List( powers, DenominatorRat ) );
+        
         for i in [ 1 .. Length( factors ) ] do
-            if zeta <> "" then
-                zeta := Concatenation( zeta, "*" );
-            fi;
-            zeta := Concatenation( zeta, "(", factors[i], ")" );
-            if not IsPosInt( powers[i] ) then
-                zeta := Concatenation(
-                    zeta,
-                    "^(",
-                    PrintString( powers[i] ),
-                    ")"
-                );
-            elif powers[i] <> 1 then
-                zeta := Concatenation(
-                    zeta,
-                    "^",
-                    PrintString( powers[i] )
-                );
-            fi;
+            #if zeta <> "" then
+            #    zeta := Concatenation( zeta, "*" );
+            #fi;
+            #zeta := Concatenation( zeta, "(", factors[i], ")" );
+            pow := powers[i] * root;
+            zeta := zeta * factors[i]^pow;
         od;
-        return zeta;
+        return Concatenation( "(", String(zeta), ")^(1/), String( root ), ")" );
     end
 );
 
