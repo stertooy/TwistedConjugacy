@@ -11,6 +11,8 @@ gap> endo1 := GroupHomomorphismByImages( G, G, gens, imgs1 );;
 gap> endo2 := GroupHomomorphismByImages( G, G, gens, imgs2 );;
 
 #
+gap> IteratedReidemeisterNumberDecomposition( endo1, endo2 );
+[ [ 42 ], [  ] ]
 gap> IsRationalReidemeisterZetaFunction( endo1, endo2 );
 true
 gap> zeta := ReidemeisterZetaFunction( endo1, endo2 );;
@@ -18,8 +20,13 @@ gap> zeta( 10/3 );
 109418989131512359209/311973482284542371301330321821976049
 gap> PrintReidemeisterZetaFunction( endo1, endo2 );
 "(1-s)^(-42)"
-gap> IteratedReidemeisterNumberDecomposition( endo1, endo2 );
-[ [ 42 ], [  ] ]
+gap> IsRationalReidemeisterGeneratingFunction( endo1, endo2 );
+true
+gap> genr := ReidemeisterGeneratingFunction( endo1, endo2 );;
+gap> genr( 10/3 );
+-60
+gap> PrintReidemeisterGeneratingFunction( endo1, endo2 );
+"(42*s)/(-s+1)"
 
 #
 gap> IsRationalReidemeisterZetaFunction( endo1 );
