@@ -249,7 +249,7 @@ InstallMethod(
     "for finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     function( endo1, endo2 )
-        local G, coeffs, P, Q, q, i, qi, zeta, factors, powers, p, k, pi, s, root, zeta, pow;
+        local G, coeffs, P, Q, q, i, qi, zeta, factors, powers, p, k, pi, s, root, pow;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
         coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
@@ -315,7 +315,7 @@ InstallMethod(
             pow := powers[i] * root;
             zeta := zeta * factors[i]^pow;
         od;
-        return Concatenation( "(", String(zeta), ")^(1/), String( root ), ")" );
+        return Concatenation( "(", String(zeta), ")^(1/", String( root ), ")" );
     end
 );
 
