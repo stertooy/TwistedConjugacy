@@ -637,8 +637,8 @@ IsRationalReidemeisterGeneratingFunction( phi, psi );
 #! true
 ReidemeisterGeneratingFunction( phi, psi )( 2 );
 #! -36
-PrintReidemeisterZetaFunction( phi, psi );
-#! "exp(-6*s)*(1-s)^(-12)"
+PrintReidemeisterGeneratingFunction( phi, psi );
+#! "(6*s^2+6*s)/(-s+1)"
 #! @EndExample
 
 #! @Chapter Cosets of PcpGroups
