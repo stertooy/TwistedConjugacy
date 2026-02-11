@@ -555,10 +555,13 @@ TotalReidemeisterSpectrum( Q );
 DeclareGlobalFunction( "IteratedReidemeisterNumberDecomposition" );
 
 #! @BeginExample
-khi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],
- [ (1,2,6,3,5), (1,4,5) ] );;
-IteratedReidemeisterNumberDecomposition( khi );
-#! [ [ 7 ], [  ] ]
+G := PcGroupCode( 3913, 12 );;
+phi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ], [ One(G), One(G) ] );;
+psi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ], [ G.2, One(G) ] );;
+IteratedReidemeisterNumberDecomposition( phi );
+#! [ [ 1 ], [  ] ]
+IteratedReidemeisterNumberDecomposition( phi, psi );
+#! [ [ 12 ], [ -6 ] ]
 #! @EndExample
 
 #! @Section Reidemeister zeta functions
@@ -590,15 +593,15 @@ DeclareGlobalFunction( "ReidemeisterZetaFunction" );
 DeclareGlobalFunction( "PrintReidemeisterZetaFunction" );
 
 #! @BeginExample
-IsRationalReidemeisterZetaFunction( khi );
+IsRationalReidemeisterZetaFunction( phi );
 #! true
-ReidemeisterZetaFunction( khi );
-#! function( s ) ... end
+IsRationalReidemeisterZetaFunction( phi, psi );
+#! false
 s := Indeterminate( Rationals, "s" );;
-ReidemeisterZetaFunction( khi )(s);
-#! (1)/(-s^7+7*s^6-21*s^5+35*s^4-35*s^3+21*s^2-7*s+1)
-PrintReidemeisterZetaFunction( khi );
-#! "(1-s)^(-7)"
+ReidemeisterZetaFunction( phi )(s);
+#! (1)/(-s+1)
+PrintReidemeisterZetaFunction( phi, psi );
+"exp(-6*s)*(1-s)^(-12)"
 #! @EndExample
 
 #! @Section Reidemeister generating functions
@@ -630,8 +633,12 @@ DeclareGlobalFunction( "ReidemeisterGeneratingFunction" );
 DeclareGlobalFunction( "PrintReidemeisterGeneratingFunction" );
 
 #! @BeginExample
-"TODO";
-#! "TODO"
+IsRationalReidemeisterGeneratingFunction( phi, psi );
+#! true
+ReidemeisterGeneratingFunction( phi, psi )( 2 );
+#! -36
+PrintReidemeisterZetaFunction( phi, psi );
+#! "exp(-6*s)*(1-s)^(-12)"
 #! @EndExample
 
 #! @Chapter Cosets of PcpGroups
