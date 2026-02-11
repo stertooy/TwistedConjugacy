@@ -11,6 +11,8 @@ gap> endo1 := GroupHomomorphismByImages( G, G, gens, imgs1 );;
 gap> endo2 := GroupHomomorphismByImages( G, G, gens, imgs2 );;
 
 #
+gap> IteratedReidemeisterNumberDecomposition( endo1, endo2 );
+[ [ 42 ], [  ] ]
 gap> IsRationalReidemeisterZetaFunction( endo1, endo2 );
 true
 gap> zeta := ReidemeisterZetaFunction( endo1, endo2 );;
@@ -18,10 +20,17 @@ gap> zeta( 10/3 );
 109418989131512359209/311973482284542371301330321821976049
 gap> PrintReidemeisterZetaFunction( endo1, endo2 );
 "(1-s)^(-42)"
-gap> IteratedReidemeisterNumberDecomposition( endo1, endo2 );
-[ [ 42 ], [  ] ]
+gap> IsRationalReidemeisterGeneratingFunction( endo1, endo2 );
+true
+gap> genr := ReidemeisterGeneratingFunction( endo1, endo2 );;
+gap> genr( 10/3 );
+-60
+gap> PrintReidemeisterGeneratingFunction( endo1, endo2 );
+"(42*s)/(-s+1)"
 
 #
+gap> IteratedReidemeisterNumberDecomposition( endo1 );
+[ [ 4, 6, 10, 6, 4, 12 ], [  ] ]
 gap> IsRationalReidemeisterZetaFunction( endo1 );
 true
 gap> zeta1 := ReidemeisterZetaFunction( endo1 );;
@@ -29,10 +38,17 @@ gap> zeta1( 10/3 );
 -531441/206851765939
 gap> PrintReidemeisterZetaFunction( endo1 );
 "(1-s)^(-4)*(1-s^2)^(-1)*(1-s^3)^(-2)"
-gap> IteratedReidemeisterNumberDecomposition( endo1 );
-[ [ 4, 6, 10, 6, 4, 12 ], [  ] ]
+gap> IsRationalReidemeisterGeneratingFunction( endo1 );
+true
+gap> genr := ReidemeisterGeneratingFunction( endo1 );;
+gap> genr( 10/3 );
+-25440/1807
+gap> PrintReidemeisterGeneratingFunction( endo1 );
+"(12*s^4+16*s^3+10*s^2+4*s)/(-s^4-s^3+s+1)"
 
 #
+gap> IteratedReidemeisterNumberDecomposition( endo2 );
+[ [ 3, 3, 6 ], [  ] ]
 gap> IsRationalReidemeisterZetaFunction( endo2 );
 true
 gap> zeta2 := ReidemeisterZetaFunction( endo2 );;
@@ -40,8 +56,13 @@ gap> zeta2( 10/3 );
 729/333739
 gap> PrintReidemeisterZetaFunction( endo2 );
 "(1-s)^(-3)*(1-s^3)^(-1)"
-gap> IteratedReidemeisterNumberDecomposition( endo2 );
-[ [ 3, 3, 6 ], [  ] ]
+gap> IsRationalReidemeisterGeneratingFunction( endo2 );
+true
+gap> genr := ReidemeisterGeneratingFunction( endo2 );;
+gap> genr( 10/3 );
+-7170/973
+gap> PrintReidemeisterGeneratingFunction( endo2 );
+"(6*s^3+3*s^2+3*s)/(-s^3+1)"
 
 #
 gap> D := DerivedSubgroup( G );;
