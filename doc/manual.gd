@@ -601,7 +601,7 @@ s := Indeterminate( Rationals, "s" );;
 ReidemeisterZetaFunction( phi )(s);
 #! (1)/(-s+1)
 PrintReidemeisterZetaFunction( phi, psi );
-"exp(-6*s)*(1-s)^(-12)"
+#! "exp(-6*s)*(1-s)^(-12)"
 #! @EndExample
 
 #! @Section Reidemeister generating functions
