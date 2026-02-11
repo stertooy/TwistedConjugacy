@@ -531,19 +531,12 @@ TotalReidemeisterSpectrum( Q );
 #! [ 1, 2, 3, 4, 5, 6, 8 ]
 #! @EndExample
 
-#! @Chapter Reidemeister zeta functions
+#! @Chapter Reidemeister zeta and generating functions
 
-#! @Section Reidemeister zeta functions
-
-#! Let $\varphi,\psi\colon G \to G$ be endomorphisms such that
-#! $R(\varphi^n,\psi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the
-#! **Reidemeister zeta function** $Z_{\varphi,\psi}(s)$ of the pair
-#! $(\varphi,\psi)$ is defined as
-#! $$Z_{\varphi,\psi}(s) := \exp \sum_{n=1}^\infty \frac{R(\varphi^n,\psi^n)}{n} s^n.$$
-#! <P/>
-#! Please note that the functions below are only implemented for endomorphisms
+#! Please note that the functions in this chapter are only implemented for endomorphisms
 #! of finite groups.
 
+#! @Section Decomposing Reidemeister number sequences
 
 #! @Returns two lists of integers.
 #! @Description
@@ -559,41 +552,93 @@ TotalReidemeisterSpectrum( Q );
 #! $(Q_n)_{n \in \mathbb{N}}$ up to the part where it becomes the constant zero
 #! sequence.
 #! @Arguments endo1[, endo2]
-DeclareGlobalFunction( "ReidemeisterZetaCoefficients" );
+DeclareGlobalFunction( "IteratedReidemeisterNumberDecomposition" );
+
+#! @BeginExample
+G := PcGroupCode( 3913, 12 );;
+phi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ], [ One(G), One(G) ] );;
+psi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ], [ G.2, One(G) ] );;
+IteratedReidemeisterNumberDecomposition( phi );
+#! [ [ 1 ], [  ] ]
+IteratedReidemeisterNumberDecomposition( phi, psi );
+#! [ [ 12 ], [ -6 ] ]
+#! @EndExample
+
+#! @Section Reidemeister zeta functions
+
+#! Let $\varphi,\psi\colon G \to G$ be endomorphisms such that
+#! $R(\varphi^n,\psi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the
+#! **Reidemeister zeta function** $Z_{\varphi,\psi}(s)$ of the pair
+#! $(\varphi,\psi)$ is defined as
+#! $$Z_{\varphi,\psi}(s) := \exp \sum_{n=1}^\infty \frac{R(\varphi^n,\psi^n)}{n} s^n.$$
+#! <P/>
 
 #! @Returns <K>true</K> if the Reidemeister zeta function of <A>endo1</A> and
 #! <A>endo2</A> is rational, otherwise <K>false</K>.
 #! @Arguments endo1[, endo2]
-DeclareGlobalFunction( "IsRationalReidemeisterZeta" );
+DeclareGlobalFunction( "IsRationalReidemeisterZetaFunction" );
 
 #! @Returns the Reidemeister zeta function of <A>endo1</A> and <A>endo2</A> if
 #! it is rational, otherwise <K>fail</K>.
 #! @Arguments endo1[, endo2]
-DeclareGlobalFunction( "ReidemeisterZeta" );
+DeclareGlobalFunction( "ReidemeisterZetaFunction" );
 
 #! @Returns a string describing the Reidemeister zeta function of <A>endo1</A>
 #! and <A>endo2</A>.
 #! @Description
 #! This is often more readable than evaluating
-#! <Ref Func="ReidemeisterZeta" Style="Number"/> in an indeterminate, and does
+#! <Ref Func="ReidemeisterZetaFunction" Style="Number"/> in an indeterminate, and does
 #! not require rationality.
 #! @Arguments endo1[, endo2]
-DeclareGlobalFunction( "PrintReidemeisterZeta" );
+DeclareGlobalFunction( "PrintReidemeisterZetaFunction" );
 
 #! @BeginExample
-khi := GroupHomomorphismByImages( G, G, [ (1,2,3,4,5), (4,5,6) ],
- [ (1,2,6,3,5), (1,4,5) ] );;
-ReidemeisterZetaCoefficients( khi );
-#! [ [ 7 ], [  ] ]
-IsRationalReidemeisterZeta( khi );
+IsRationalReidemeisterZetaFunction( phi );
 #! true
-ReidemeisterZeta( khi );
-#! function( s ) ... end
+IsRationalReidemeisterZetaFunction( phi, psi );
+#! false
 s := Indeterminate( Rationals, "s" );;
-ReidemeisterZeta( khi )(s);
-#! (1)/(-s^7+7*s^6-21*s^5+35*s^4-35*s^3+21*s^2-7*s+1)
-PrintReidemeisterZeta( khi );
-#! "(1-s)^(-7)"
+ReidemeisterZetaFunction( phi )(s);
+#! (1)/(-s+1)
+PrintReidemeisterZetaFunction( phi, psi );
+#! "exp(-6*s)*(1-s)^(-12)"
+#! @EndExample
+
+#! @Section Reidemeister generating functions
+
+#! Let $\varphi,\psi\colon G \to G$ be endomorphisms such that
+#! $R(\varphi^n,\psi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the
+#! **Reidemeister generating function** $Z^*_{\varphi,\psi}(s)$ of the pair
+#! $(\varphi,\psi)$ is defined as
+#! $$Z^*_{\varphi,\psi}(s) := \sum_{n=1}^\infty R(\varphi^n,\psi^n) s^n.$$
+#! <P/>
+
+#! @Returns <K>true</K> if the Reidemeister generating function of <A>endo1</A> and
+#! <A>endo2</A> is rational, otherwise <K>false</K>.
+#! @Arguments endo1[, endo2]
+DeclareGlobalFunction( "IsRationalReidemeisterGeneratingFunction" );
+
+#! @Returns the Reidemeister generating function of <A>endo1</A> and <A>endo2</A> if
+#! it is rational, otherwise <K>fail</K>.
+#! @Arguments endo1[, endo2]
+DeclareGlobalFunction( "ReidemeisterGeneratingFunction" );
+
+#! @Returns a string describing the Reidemeister generating function of <A>endo1</A>
+#! and <A>endo2</A>.
+#! @Description
+#! This is often more readable than evaluating
+#! <Ref Func="ReidemeisterGeneratingFunction" Style="Number"/> in an indeterminate, and does
+#! not require rationality.
+#! @Arguments endo1[, endo2]
+DeclareGlobalFunction( "PrintReidemeisterGeneratingFunction" );
+
+#! @BeginExample
+IsRationalReidemeisterGeneratingFunction( phi, psi );
+#! true
+ReidemeisterGeneratingFunction( phi, psi )( 2 );
+#! -36
+PrintReidemeisterGeneratingFunction( phi, psi );
+#! "(6*s^2+6*s)/(-s+1)"
 #! @EndExample
 
 #! @Chapter Cosets of PcpGroups

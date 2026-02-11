@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
-Version := "3.1.2",
-Date := "14/11/2025",
+Version := "3.2.0",
+Date := "11/02/2026",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -78,7 +78,7 @@ Dependencies := rec(
 
 Extensions := [
     rec(
-        needed := [ [ "Polycyclic", "2.16" ] ],
+        needed := [ [ "Polycyclic", "2.17" ] ],
         filename := "lib/pcp/read.g"
     )
 ],

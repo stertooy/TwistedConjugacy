@@ -1,6 +1,17 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
+3.2.0 (2026-02-11)
+------------------
+
+- Renamed many of the existing functions available for Reidemeister
+  zeta functions
+- Added support for Reidemeister generating functions
+
+- Janitorial changes
+
+
+
 3.1.2 (2025-11-14)
 ------------------
 

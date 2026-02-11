@@ -1,20 +1,37 @@
-DeclareGlobalName( "ReidemeisterZetaCoefficients" );
+DeclareGlobalName( "IteratedReidemeisterNumberDecomposition" );
 DeclareOperation(
-    "ReidemeisterZetaCoefficientsOp",
+    "IteratedReidemeisterNumberDecompositionOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
-DeclareGlobalName( "IsRationalReidemeisterZeta" );
+
+DeclareGlobalName( "IsRationalReidemeisterZetaFunction" );
 DeclareOperation(
-    "IsRationalReidemeisterZetaOp",
+    "IsRationalReidemeisterZetaFunctionOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
-DeclareGlobalName( "ReidemeisterZeta" );
+DeclareGlobalName( "ReidemeisterZetaFunction" );
 DeclareOperation(
-    "ReidemeisterZetaOp",
+    "ReidemeisterZetaFunctionOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );
-DeclareGlobalName( "PrintReidemeisterZeta" );
+DeclareGlobalName( "PrintReidemeisterZetaFunction" );
 DeclareOperation(
-    "PrintReidemeisterZetaOp",
+    "PrintReidemeisterZetaFunctionOp",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ]
+);
+
+DeclareGlobalName( "IsRationalReidemeisterGeneratingFunction" );
+DeclareOperation(
+    "IsRationalReidemeisterGeneratingFunctionOp",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ]
+);
+DeclareGlobalName( "ReidemeisterGeneratingFunction" );
+DeclareOperation(
+    "ReidemeisterGeneratingFunctionOp",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ]
+);
+DeclareGlobalName( "PrintReidemeisterGeneratingFunction" );
+DeclareOperation(
+    "PrintReidemeisterGeneratingFunctionOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism ]
 );

@@ -1,6 +1,6 @@
 ###############################################################################
 ##
-## ReidemeisterZetaCoefficients( endo1, endo2 )
+## IteratedReidemeisterNumberDecomposition( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -14,7 +14,7 @@
 ##      For every n, R(endo1^n,endo2^n) = P_n + Q_n
 ##
 BindGlobal(
-    "ReidemeisterZetaCoefficients",
+    "IteratedReidemeisterNumberDecomposition",
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -23,13 +23,13 @@ BindGlobal(
         else
             endo2 := arg[1];
         fi;
-        return ReidemeisterZetaCoefficientsOp( endo1, endo2 );
+        return IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
     end
 );
 
 ###############################################################################
 ##
-## ReidemeisterZetaCoefficientsOp( endo1, endo2 )
+## IteratedReidemeisterNumberDecompositionOp( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -43,7 +43,7 @@ BindGlobal(
 ##      For every n, R(endo1^n,endo2^n) = P_n + Q_n
 ##
 InstallMethod(
-    ReidemeisterZetaCoefficientsOp,
+    IteratedReidemeisterNumberDecompositionOp,
     "for finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     function( endo1, endo2 )
@@ -80,7 +80,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## IsRationalReidemeisterZeta( endo1, endo2 )
+## IsRationalReidemeisterZetaFunction( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -91,7 +91,7 @@ InstallMethod(
 ##                  is rational
 ##
 BindGlobal(
-    "IsRationalReidemeisterZeta",
+    "IsRationalReidemeisterZetaFunction",
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -100,13 +100,13 @@ BindGlobal(
         else
             endo2 := arg[1];
         fi;
-        return IsRationalReidemeisterZetaOp( endo1, endo2 );
+        return IsRationalReidemeisterZetaFunctionOp( endo1, endo2 );
     end
 );
 
 ###############################################################################
 ##
-## IsRationalReidemeisterZetaOp( endo1, endo2 )
+## IsRationalReidemeisterZetaFunctionOp( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -117,7 +117,7 @@ BindGlobal(
 ##                  is rational
 ##
 InstallMethod(
-    IsRationalReidemeisterZetaOp,
+    IsRationalReidemeisterZetaFunctionOp,
     "for finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     function( endo1, endo2 )
@@ -130,7 +130,7 @@ InstallMethod(
         then
             return true;
         fi;
-        coeffs := ReidemeisterZetaCoefficientsOp( endo1, endo2 );
+        coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
         if (
             not IsEmpty( coeffs[2] ) or
             TWC.DecomposePeriodicList( coeffs[1] ) = fail
@@ -143,7 +143,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## ReidemeisterZeta( endo1, endo2 )
+## ReidemeisterZetaFunction( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -153,7 +153,7 @@ InstallMethod(
 ##      func:       the Reidemeister zeta function of endo1 and endo2
 ##
 BindGlobal(
-    "ReidemeisterZeta",
+    "ReidemeisterZetaFunction",
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -162,13 +162,13 @@ BindGlobal(
         else
             endo2 := arg[1];
         fi;
-        return ReidemeisterZetaOp( endo1, endo2 );
+        return ReidemeisterZetaFunctionOp( endo1, endo2 );
     end
 );
 
 ###############################################################################
 ##
-## ReidemeisterZetaOp( endo1, endo2 )
+## ReidemeisterZetaFunctionOp( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -178,14 +178,14 @@ BindGlobal(
 ##      func:       the Reidemeister zeta function of endo1 and endo2
 ##
 InstallMethod(
-    ReidemeisterZetaOp,
+    ReidemeisterZetaFunctionOp,
     "for rational Reidemeister zeta functions of finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     function( endo1, endo2 )
         local G, coeffs, p;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
-        coeffs := ReidemeisterZetaCoefficientsOp( endo1, endo2 );
+        coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
         if not IsEmpty( coeffs[2] ) then
             return fail;
         fi;
@@ -208,7 +208,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## PrintReidemeisterZeta( endo1, endo2 )
+## PrintReidemeisterZetaFunction( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -219,7 +219,7 @@ InstallMethod(
 ##                  and endo2 in text form
 ##
 BindGlobal(
-    "PrintReidemeisterZeta",
+    "PrintReidemeisterZetaFunction",
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -228,13 +228,13 @@ BindGlobal(
         else
             endo2 := arg[1];
         fi;
-        return PrintReidemeisterZetaOp( endo1, endo2 );
+        return PrintReidemeisterZetaFunctionOp( endo1, endo2 );
     end
 );
 
 ###############################################################################
 ##
-## PrintReidemeisterZetaOp( endo1, endo2 )
+## PrintReidemeisterZetaFunctionOp( endo1, endo2 )
 ##
 ##  INPUT:
 ##      endo1:      endomorphism of G
@@ -245,14 +245,14 @@ BindGlobal(
 ##                  and endo2 in text form
 ##
 InstallMethod(
-    PrintReidemeisterZetaOp,
+    PrintReidemeisterZetaFunctionOp,
     "for finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     function( endo1, endo2 )
         local G, coeffs, P, Q, q, i, qi, zeta, factors, powers, p, k, pi;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
-        coeffs := ReidemeisterZetaCoefficientsOp( endo1, endo2 );
+        coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
         P := coeffs[1];
         Q := coeffs[2];
         if not IsEmpty( Q ) then
@@ -359,5 +359,164 @@ InstallMethod(
             fi;
         od;
         return zeta;
+    end
+);
+
+###############################################################################
+##
+## IsRationalReidemeisterGeneratingFunction( endo1, endo2 )
+##
+##  INPUT:
+##      endo1:      endomorphism of G
+##      endo2:      endomorphism of G (optional)
+##
+##  OUTPUT:
+##      bool:       true if the Reidemeister generating function of endo1 and
+##                  endo2 is rational
+##
+BindGlobal(
+    "IsRationalReidemeisterGeneratingFunction",
+    function( endo1, arg... )
+        local G, endo2;
+        G := Range( endo1 );
+        if Length( arg ) = 0 then
+            endo2 := IdentityMapping( G );
+        else
+            endo2 := arg[1];
+        fi;
+        return IsRationalReidemeisterGeneratingFunctionOp( endo1, endo2 );
+    end
+);
+
+###############################################################################
+##
+## IsRationalReidemeisterGeneratingFunctionOp( endo1, endo2 )
+##
+##  INPUT:
+##      endo1:      endomorphism of G
+##      endo2:      endomorphism of G
+##
+##  OUTPUT:
+##      bool:       true if the Reidemeister generating function of endo1 and
+##                  endo2 is rational
+##
+InstallMethod(
+    IsRationalReidemeisterGeneratingFunctionOp,
+    "for finite groups",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ],
+    function( endo1, _endo2 )
+        local G;
+        G := Range( endo1 );
+        if not IsFinite( G ) then TryNextMethod(); fi;
+        return true;
+    end
+);
+
+###############################################################################
+##
+## ReidemeisterGeneratingFunction( endo1, endo2 )
+##
+##  INPUT:
+##      endo1:      endomorphism of G
+##      endo2:      endomorphism of G (optional)
+##
+##  OUTPUT:
+##      func:       the Reidemeister generating function of endo1 and endo2
+##
+BindGlobal(
+    "ReidemeisterGeneratingFunction",
+    function( endo1, arg... )
+        local G, endo2;
+        G := Range( endo1 );
+        if Length( arg ) = 0 then
+            endo2 := IdentityMapping( G );
+        else
+            endo2 := arg[1];
+        fi;
+        return ReidemeisterGeneratingFunctionOp( endo1, endo2 );
+    end
+);
+
+###############################################################################
+##
+## ReidemeisterGeneratingFunctionOp( endo1, endo2 )
+##
+##  INPUT:
+##      endo1:      endomorphism of G
+##      endo2:      endomorphism of G
+##
+##  OUTPUT:
+##      func:       the Reidemeister generating function of endo1 and endo2
+##
+InstallMethod(
+    ReidemeisterGeneratingFunctionOp,
+    "for rational Reidemeister Generating functions of finite groups",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ],
+    function( endo1, endo2 )
+        local G, coeffs, p, q, P, Q;
+        G := Range( endo1 );
+        if not IsFinite( G ) then TryNextMethod(); fi;
+        coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
+        p := coeffs[1];
+        q := coeffs[2];
+        P := ShiftedCoeffs( p, 1 );
+        Q := ShiftedCoeffs( q, 1 );
+        return function( s )
+            local num, den;
+            num := ValuePol( P, s );
+            den := 1 - s ^ Length( p );
+            return ValuePol( Q, s ) + num / den;
+        end;
+    end
+);
+
+###############################################################################
+##
+## PrintReidemeisterGeneratingFunction( endo1, endo2 )
+##
+##  INPUT:
+##      endo1:      endomorphism of G
+##      endo2:      endomorphism of G (optional)
+##
+##  OUTPUT:
+##      str:        a string containing the Reidemeister generating function of
+##                  endo1 and endo2 in text form
+##
+BindGlobal(
+    "PrintReidemeisterGeneratingFunction",
+    function( endo1, arg... )
+        local G, endo2;
+        G := Range( endo1 );
+        if Length( arg ) = 0 then
+            endo2 := IdentityMapping( G );
+        else
+            endo2 := arg[1];
+        fi;
+        return PrintReidemeisterGeneratingFunctionOp( endo1, endo2 );
+    end
+);
+
+###############################################################################
+##
+## PrintReidemeisterGeneratingFunctionOp( endo1, endo2 )
+##
+##  INPUT:
+##      endo1:      endomorphism of G
+##      endo2:      endomorphism of G
+##
+##  OUTPUT:
+##      str:        a string containing the Reidemeister Generating function of
+##                  endo1 and endo2 in text form
+##
+InstallMethod(
+    PrintReidemeisterGeneratingFunctionOp,
+    "for finite groups",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ],
+    function( endo1, endo2 )
+        local G, s;
+        G := Range( endo1 );
+        if not IsFinite( G ) then TryNextMethod(); fi;
+        s := Indeterminate( Rationals, "s" );
+        return String( ReidemeisterGeneratingFunction( endo1, endo2 )( s ) );
     end
 );
