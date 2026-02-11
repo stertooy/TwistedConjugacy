@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (TwistedConjugacy) - Chapter 6: Reidemeister zeta and generating functions</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap6"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap5.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap7.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap6_mj.html">[MathJax on]</a></p>
+<p><a id="X7E82F3067F87436B" name="X7E82F3067F87436B"></a></p>
+<div class="ChapSects"><a href="chap6.html#X7E82F3067F87436B">6 <span class="Heading">Reidemeister zeta and generating functions</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X7AFEF82081BCE78E">6.1 <span class="Heading">Decomposing Reidemeister number sequences</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X783C0BFB7F0E1482">6.1-1 IteratedReidemeisterNumberDecomposition</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X862C248A828A2C4A">6.2 <span class="Heading">Reidemeister zeta functions</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X87044CE5875527C0">6.2-1 IsRationalReidemeisterZetaFunction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8241C6E683F807B8">6.2-2 ReidemeisterZetaFunction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7F38E27B859E2B1A">6.2-3 PrintReidemeisterZetaFunction</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X86EF23C586585292">6.3 <span class="Heading">Reidemeister generating functions</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X84EFD6D27AFD7E30">6.3-1 IsRationalReidemeisterGeneratingFunction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E33247E86DEA4DB">6.3-2 ReidemeisterGeneratingFunction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X81C6F3AA825BE327">6.3-3 PrintReidemeisterGeneratingFunction</a></span>
+</div></div>
+</div>
+
+<h3>6 <span class="Heading">Reidemeister zeta and generating functions</span></h3>
+
+<p>Please note that the functions in this chapter are only implemented for endomorphisms of finite groups.</p>
+
+<p><a id="X7AFEF82081BCE78E" name="X7AFEF82081BCE78E"></a></p>
+
+<h4>6.1 <span class="Heading">Decomposing Reidemeister number sequences</span></h4>
+
+<p><a id="X783C0BFB7F0E1482" name="X783C0BFB7F0E1482"></a></p>
+
+<h5>6.1-1 IteratedReidemeisterNumberDecomposition</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IteratedReidemeisterNumberDecomposition</code>( <var class="Arg">endo1</var>[, <var class="Arg">endo2</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: two lists of integers.</p>
+
+<p>For a finite group, the sequence of Reidemeister numbers of the iterates of <var class="Arg">endo1</var> and <var class="Arg">endo2</var>, i.e. the sequence <code class="code">R(<var class="Arg">endo1</var>,<var class="Arg">endo2</var>)</code>, <code class="code">R(<var class="Arg">endo1</var>^2,<var class="Arg">endo2</var>^2)</code>, ..., is eventually periodic. Thus there exist a periodic sequence <span class="Math">(P_n)_{n \in \mathbb{N}}</span> and an eventually zero sequence <span class="Math">(Q_n)_{n \in \mathbb{N}}</span> such that</p>
+
+<p class="pcenter">\forall n \in \mathbb{N}: R(\varphi^n,\psi^n) = P_n + Q_n.</p>
+
+<p>This function returns two lists: the first list contains one period of the sequence <span class="Math">(P_n)_{n \in \mathbb{N}}</span>, the second list contains <span class="Math">(Q_n)_{n \in \mathbb{N}}</span> up to the part where it becomes the constant zero sequence.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := PcGroupCode( 3913, 12 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">phi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ], [ One(G), One(G) ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">psi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ], [ G.2, One(G) ] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IteratedReidemeisterNumberDecomposition( phi );</span>
+[ [ 1 ], [  ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IteratedReidemeisterNumberDecomposition( phi, psi );</span>
+[ [ 12 ], [ -6 ] ]
+</pre></div>
+
+<p><a id="X862C248A828A2C4A" name="X862C248A828A2C4A"></a></p>
+
+<h4>6.2 <span class="Heading">Reidemeister zeta functions</span></h4>
+
+<p>Let <span class="Math">\varphi,\psi\colon G \to G</span> be endomorphisms such that <span class="Math">R(\varphi^n,\psi^n) &lt; \infty</span> for all <span class="Math">n \in \mathbb{N}</span>. Then the <em>Reidemeister zeta function</em> <span class="Math">Z_{\varphi,\psi}(s)</span> of the pair <span class="Math">(\varphi,\psi)</span> is defined as</p>
+
+<p class="pcenter">Z_{\varphi,\psi}(s) := \exp \sum_{n=1}^\infty \frac{R(\varphi^n,\psi^n)}{n} s^n.</p>
+
+<p><a id="X87044CE5875527C0" name="X87044CE5875527C0"></a></p>
+
+<h5>6.2-1 IsRationalReidemeisterZetaFunction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsRationalReidemeisterZetaFunction</code>( <var class="Arg">endo1</var>[, <var class="Arg">endo2</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="keyw">true</code> if the Reidemeister zeta function of <var class="Arg">endo1</var> and <var class="Arg">endo2</var> is rational, otherwise <code class="keyw">false</code>.</p>
+
+<p><a id="X8241C6E683F807B8" name="X8241C6E683F807B8"></a></p>
+
+<h5>6.2-2 ReidemeisterZetaFunction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ReidemeisterZetaFunction</code>( <var class="Arg">endo1</var>[, <var class="Arg">endo2</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: the Reidemeister zeta function of <var class="Arg">endo1</var> and <var class="Arg">endo2</var> if it is rational, otherwise <code class="keyw">fail</code>.</p>
+
+<p><a id="X7F38E27B859E2B1A" name="X7F38E27B859E2B1A"></a></p>
+
+<h5>6.2-3 PrintReidemeisterZetaFunction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PrintReidemeisterZetaFunction</code>( <var class="Arg">endo1</var>[, <var class="Arg">endo2</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: a string describing the Reidemeister zeta function of <var class="Arg">endo1</var> and <var class="Arg">endo2</var>.</p>
+
+<p>This is often more readable than evaluating <code class="func">ReidemeisterZetaFunction</code> (<a href="chap6.html#X8241C6E683F807B8"><span class="RefLink">6.2-2</span></a>) in an indeterminate, and does not require rationality.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsRationalReidemeisterZetaFunction( phi );</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsRationalReidemeisterZetaFunction( phi, psi );</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s := Indeterminate( Rationals, "s" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ReidemeisterZetaFunction( phi )(s);</span>
+(1)/(-s+1)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintReidemeisterZetaFunction( phi, psi );</span>
+"exp(-6*s)*(1-s)^(-12)"
+</pre></div>
+
+<p><a id="X86EF23C586585292" name="X86EF23C586585292"></a></p>
+
+<h4>6.3 <span class="Heading">Reidemeister generating functions</span></h4>
+
+<p>Let <span class="Math">\varphi,\psi\colon G \to G</span> be endomorphisms such that <span class="Math">R(\varphi^n,\psi^n) &lt; \infty</span> for all <span class="Math">n \in \mathbb{N}</span>. Then the <em>Reidemeister generating function</em> <span class="Math">Z^*_{\varphi,\psi}(s)</span> of the pair <span class="Math">(\varphi,\psi)</span> is defined as</p>
+
+<p class="pcenter">Z^*_{\varphi,\psi}(s) := \sum_{n=1}^\infty R(\varphi^n,\psi^n) s^n.</p>
+
+<p><a id="X84EFD6D27AFD7E30" name="X84EFD6D27AFD7E30"></a></p>
+
+<h5>6.3-1 IsRationalReidemeisterGeneratingFunction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsRationalReidemeisterGeneratingFunction</code>( <var class="Arg">endo1</var>[, <var class="Arg">endo2</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: <code class="keyw">true</code> if the Reidemeister generating function of <var class="Arg">endo1</var> and <var class="Arg">endo2</var> is rational, otherwise <code class="keyw">false</code>.</p>
+
+<p><a id="X7E33247E86DEA4DB" name="X7E33247E86DEA4DB"></a></p>
+
+<h5>6.3-2 ReidemeisterGeneratingFunction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ReidemeisterGeneratingFunction</code>( <var class="Arg">endo1</var>[, <var class="Arg">endo2</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: the Reidemeister generating function of <var class="Arg">endo1</var> and <var class="Arg">endo2</var> if it is rational, otherwise <code class="keyw">fail</code>.</p>
+
+<p><a id="X81C6F3AA825BE327" name="X81C6F3AA825BE327"></a></p>
+
+<h5>6.3-3 PrintReidemeisterGeneratingFunction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PrintReidemeisterGeneratingFunction</code>( <var class="Arg">endo1</var>[, <var class="Arg">endo2</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: a string describing the Reidemeister generating function of <var class="Arg">endo1</var> and <var class="Arg">endo2</var>.</p>
+
+<p>This is often more readable than evaluating <code class="func">ReidemeisterGeneratingFunction</code> (<a href="chap6.html#X7E33247E86DEA4DB"><span class="RefLink">6.3-2</span></a>) in an indeterminate, and does not require rationality.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsRationalReidemeisterGeneratingFunction( phi, psi );</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ReidemeisterGeneratingFunction( phi, psi )( 2 );</span>
+-36
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintReidemeisterGeneratingFunction( phi, psi );</span>
+"(6*s^2+6*s)/(-s+1)"
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap5.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap7.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>
