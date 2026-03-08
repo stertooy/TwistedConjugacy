@@ -30,7 +30,7 @@ if err then ForceQuitGap( 1 ); fi;
 
 AutoDoc( rec(
     scaffold := rec(
-        bib := "bilbiography.bib",
+        bib := "bibliography.bib",
         entities := rec(
             AutoDoc := "<Package>AutoDoc</Package>",
             Polycyclic := "<Package>Polycyclic</Package>",
