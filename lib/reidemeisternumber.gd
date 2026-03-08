@@ -1,5 +1,5 @@
-DeclareGlobalName( "ReidemeisterNumber" );
-DeclareGlobalName( "NrTwistedConjugacyClasses" );
+DeclareGlobalFunction( "ReidemeisterNumber" );
+DeclareSynonym( "NrTwistedConjugacyClasses", ReidemeisterNumber );
 
 DeclareOperation(
     "ReidemeisterNumberOp",
