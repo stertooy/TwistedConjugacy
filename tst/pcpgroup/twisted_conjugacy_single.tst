@@ -9,9 +9,9 @@ gap> endo1 := GroupHomomorphismByImages( G, G, gens, imgs1 );;
 gap> endo2 := GroupHomomorphismByImages( G, G, gens, imgs2 );;
 
 #
-gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
+gap> tcc := TwistedConjugacyClass( endo1, endo2, One( G ) );;
 gap> Print( tcc );
-ReidemeisterClass( [ [ g1, g2, g3, g4, g5 ] -> [ g1*g5^6, g1*g2*g3^2*g4^2*g5^6, g3^2, g3*g4^2, id ], [ g1, g2, g3, g4, g5 ] -> [ id, g2*g3*g4, g3, g3^2*g4, id ] ], id )
+TwistedConjugacyClass( [ [ g1, g2, g3, g4, g5 ] -> [ g1*g5^6, g1*g2*g3^2*g4^2*g5^6, g3^2, g3*g4^2, id ], [ g1, g2, g3, g4, g5 ] -> [ id, g2*g3*g4, g3, g3^2*g4, id ] ], id )
 gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );
