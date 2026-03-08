@@ -54,7 +54,7 @@ BindGlobal(
 ##
 InstallMethod(
     \in,
-    "for Reidemeister classes",
+    "for twisted conjugacy classes",
     [ IsMultiplicativeElementWithInverse, IsTwistedConjugacyClassGroupRep ],
     { g, tcc } -> IsTwistedConjugate(
         tcc!.lhs, tcc!.rhs,
@@ -71,7 +71,7 @@ InstallMethod(
 ##
 InstallMethod(
     PrintObj,
-    "for Reidemeister classes",
+    "for twisted conjugacy classes",
     [ IsTwistedConjugacyClassGroupRep ],
     function( tcc )
         local homStrings, g, hom, homGensImgs;
@@ -110,7 +110,7 @@ InstallMethod(
 ##
 InstallMethod(
     Size,
-    "for Reidemeister classes",
+    "for twisted conjugacy classes",
     [ IsTwistedConjugacyClassGroupRep ],
     tcc -> IndexNC( ActingDomain( tcc ), StabilizerOfExternalSet( tcc ) )
 );
@@ -128,7 +128,7 @@ InstallMethod(
 ##
 InstallMethod(
     StabilizerOfExternalSet,
-    "for Reidemeister classes",
+    "for twisted conjugacy classes",
     [ IsTwistedConjugacyClassGroupRep ],
     function( tcc )
         local g, hom1, hom2, G, inn;
@@ -154,7 +154,7 @@ InstallMethod(
 ##
 InstallMethod(
     \=,
-    "for Reidemeister classes",
+    "for twisted conjugacy classes",
     [ IsTwistedConjugacyClassGroupRep, IsTwistedConjugacyClassGroupRep ],
     function( tcc1, tcc2 )
         if tcc1!.lhs <> tcc2!.lhs or tcc1!.rhs <> tcc2!.rhs then
@@ -202,8 +202,6 @@ BindGlobal(
         return List( Rcl, g -> TwistedConjugacyClass( hom1, hom2, g ) );
     end
 );
-
-BindGlobal( "TwistedConjugacyClasses", TwistedConjugacyClasses );
 
 ###############################################################################
 ##
@@ -271,11 +269,6 @@ BindGlobal(
     end
 );
 
-BindGlobal(
-    "RepresentativesTwistedConjugacyClasses",
-    RepresentativesTwistedConjugacyClasses
-);
-
 ###############################################################################
 ##
 ## RepresentativesTwistedConjugacyClassesOp( hom1, hom2, N )
@@ -285,7 +278,7 @@ BindGlobal(
 ##      hom2:       group homomorphism H -> G
 ##      N:          normal subgroup of G with hom1 = hom2 mod N
 ##      one:        boolean to toggle returning fail as soon as there is more
-##                  than one Reidemeister class
+##                  than one twisted conjugacy class
 ##
 ##  OUTPUT:
 ##      L:          list containing a representative of each (hom1,hom2)-
