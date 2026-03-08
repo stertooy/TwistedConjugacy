@@ -1,13 +1,13 @@
-DeclareGlobalName( "ReidemeisterClass" );
 DeclareGlobalName( "TwistedConjugacyClass" );
+DeclareGlobalName( "ReidemeisterClass" );
 
-DeclareGlobalName( "ReidemeisterClasses" );
 DeclareGlobalName( "TwistedConjugacyClasses" );
+DeclareGlobalName( "ReidemeisterClasses" );
 
-DeclareGlobalName( "RepresentativesReidemeisterClasses" );
 DeclareGlobalName( "RepresentativesTwistedConjugacyClasses" );
+DeclareGlobalName( "RepresentativesReidemeisterClasses" );
 
 DeclareOperation(
-    "RepresentativesReidemeisterClassesOp",
+    "RepresentativesTwistedConjugacyClassesOp",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ]
 );
