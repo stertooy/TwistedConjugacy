@@ -444,7 +444,7 @@ InstallMethod(
         sub := ImagesSource( emb );
         lhs := info!.lhs;
         rhs := info!.rhs;
-        R := RepresentativesReidemeisterClassesOp( lhs, rhs, sub, true );
+        R := RepresentativesTwistedConjugacyClassesOp( lhs, rhs, sub, true );
         return R <> fail;
     end
 );
