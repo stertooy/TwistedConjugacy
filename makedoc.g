@@ -30,7 +30,7 @@ if err then ForceQuitGap( 1 ); fi;
 
 AutoDoc( rec(
     scaffold := rec(
-        bib := "manual.bib",
+        bib := "bilbiography.bib",
         entities := rec(
             AutoDoc := "<Package>AutoDoc</Package>",
             Polycyclic := "<Package>Polycyclic</Package>",
@@ -56,7 +56,7 @@ AutoDoc( rec(
             SUBTITLE := info.Subtitle
         )
     ),
-    autodoc := rec( files := [ "doc/manual.gd" ] ),
+    autodoc := rec( scan_dir := [ "doc" ] ),
     gapdoc := rec(
         LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}" )
     ),
