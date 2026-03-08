@@ -1,13 +1,13 @@
-DeclareGlobalName( "OrbitAffineAction" );
+DeclareGlobalFunction( "OrbitAffineAction" );
 
-DeclareGlobalName( "OrbitsAffineAction" );
-DeclareGlobalName( "NrOrbitsAffineAction" );
+DeclareGlobalFunction( "OrbitsAffineAction" );
+DeclareGlobalFunction( "NrOrbitsAffineAction" );
 
-DeclareGlobalName( "StabilizerAffineAction" );
-DeclareGlobalName( "StabiliserAffineAction" );
+DeclareGlobalFunction( "StabiliserAffineAction" );
+DeclareSynonym( "StabilizerAffineAction", StabiliserAffineAction );
 
-DeclareGlobalName( "RepresentativeAffineAction" );
+DeclareGlobalFunction( "RepresentativeAffineAction" );
 
-DeclareGlobalName( "AffineActionByGroupDerivation" );
+DeclareGlobalFunction( "AffineActionByGroupDerivation" );
 
 DeclareCategory( "IsOrbitAffineAction", IsExternalSet );
