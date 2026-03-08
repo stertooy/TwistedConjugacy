@@ -1,6 +1,6 @@
-@Chapter twistedconjugacyclasses
+#! @Chapter twistedconjugacyclasses
 
-@Section tcc_creation
+#! @Section tcc_creation
 
 #! @BeginGroup
 #! @Returns the <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugacy class of
@@ -11,7 +11,7 @@ DeclareGlobalFunction( "TwistedConjugacyClass" );
 DeclareGlobalFunction( "ReidemeisterClass" );
 #! @EndGroup
 
-@Section tcc_opers
+#! @Section tcc_opers
 
 #! @BeginGroup
 #! @GroupTitle Representative
