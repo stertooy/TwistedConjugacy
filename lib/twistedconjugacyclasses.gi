@@ -1,6 +1,6 @@
 ###############################################################################
 ##
-## ReidemeisterClass( hom1, hom2, g )
+## TwistedConjugacyClass( hom1, hom2, g )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -11,7 +11,7 @@
 ##      tcc:        (hom1,hom2)-twisted conjugacy class of g
 ##
 BindGlobal(
-    "ReidemeisterClass",
+    "TwistedConjugacyClass",
     function( hom1, arg... )
         local G, H, hom2, g, tc, tcc;
         G := Range( hom1 );
@@ -28,7 +28,7 @@ BindGlobal(
         ObjectifyWithAttributes(
             tcc, NewType(
                 FamilyObj( G ),
-                IsReidemeisterClassGroupRep and
+                IsTwistedConjugacyClassGroupRep and
                 HasActingDomain and
                 HasRepresentative and
                 HasFunctionAction
@@ -40,8 +40,6 @@ BindGlobal(
         return tcc;
     end
 );
-
-BindGlobal( "TwistedConjugacyClass", ReidemeisterClass );
 
 ###############################################################################
 ##
@@ -57,7 +55,7 @@ BindGlobal( "TwistedConjugacyClass", ReidemeisterClass );
 InstallMethod(
     \in,
     "for Reidemeister classes",
-    [ IsMultiplicativeElementWithInverse, IsReidemeisterClassGroupRep ],
+    [ IsMultiplicativeElementWithInverse, IsTwistedConjugacyClassGroupRep ],
     { g, tcc } -> IsTwistedConjugate(
         tcc!.lhs, tcc!.rhs,
         g, Representative( tcc )
@@ -74,7 +72,7 @@ InstallMethod(
 InstallMethod(
     PrintObj,
     "for Reidemeister classes",
-    [ IsReidemeisterClassGroupRep ],
+    [ IsTwistedConjugacyClassGroupRep ],
     function( tcc )
         local homStrings, g, hom, homGensImgs;
         homStrings := [];
@@ -88,7 +86,7 @@ InstallMethod(
             ));
         od;
         Print(
-            "ReidemeisterClass( [ ",
+            "TwistedConjugacyClass( [ ",
             PrintString( homStrings[1] ),
             ", ",
             PrintString( homStrings[2] ),
@@ -113,7 +111,7 @@ InstallMethod(
 InstallMethod(
     Size,
     "for Reidemeister classes",
-    [ IsReidemeisterClassGroupRep ],
+    [ IsTwistedConjugacyClassGroupRep ],
     tcc -> IndexNC( ActingDomain( tcc ), StabilizerOfExternalSet( tcc ) )
 );
 
@@ -131,7 +129,7 @@ InstallMethod(
 InstallMethod(
     StabilizerOfExternalSet,
     "for Reidemeister classes",
-    [ IsReidemeisterClassGroupRep ],
+    [ IsTwistedConjugacyClassGroupRep ],
     function( tcc )
         local g, hom1, hom2, G, inn;
         g := Representative( tcc );
@@ -157,7 +155,7 @@ InstallMethod(
 InstallMethod(
     \=,
     "for Reidemeister classes",
-    [ IsReidemeisterClassGroupRep, IsReidemeisterClassGroupRep ],
+    [ IsTwistedConjugacyClassGroupRep, IsTwistedConjugacyClassGroupRep ],
     function( tcc1, tcc2 )
         if tcc1!.lhs <> tcc2!.lhs or tcc1!.rhs <> tcc2!.rhs then
             return false;
@@ -171,7 +169,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## ReidemeisterClasses( hom1, hom2, N )
+## TwistedConjugacyClasses( hom1, hom2, N )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -183,7 +181,7 @@ InstallMethod(
 ##                  or fail if there are infinitely many
 ##
 BindGlobal(
-    "ReidemeisterClasses",
+    "TwistedConjugacyClasses",
     function( hom1, arg... )
         local G, hom2, N, Rcl;
         G := Range( hom1 );
@@ -197,19 +195,19 @@ BindGlobal(
         else
             N := G;
         fi;
-        Rcl := RepresentativesReidemeisterClasses( hom1, hom2, N );
+        Rcl := RepresentativesTwistedConjugacyClasses( hom1, hom2, N );
         if Rcl = fail then
             return fail;
         fi;
-        return List( Rcl, g -> ReidemeisterClass( hom1, hom2, g ) );
+        return List( Rcl, g -> TwistedConjugacyClass( hom1, hom2, g ) );
     end
 );
 
-BindGlobal( "TwistedConjugacyClasses", ReidemeisterClasses );
+BindGlobal( "TwistedConjugacyClasses", TwistedConjugacyClasses );
 
 ###############################################################################
 ##
-## RepresentativesReidemeisterClasses( hom1, hom2, N )
+## RepresentativesTwistedConjugacyClasses( hom1, hom2, N )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -222,7 +220,7 @@ BindGlobal( "TwistedConjugacyClasses", ReidemeisterClasses );
 ##                  many
 ##
 BindGlobal(
-    "RepresentativesReidemeisterClasses",
+    "RepresentativesTwistedConjugacyClasses",
     function( hom1, arg... )
         local G, H, hom2, N, gens, tc, q, p, Rcl, copy, g, h, pos, i;
         G := Range( hom1 );
@@ -246,7 +244,7 @@ BindGlobal(
             hom1 := RestrictedHomomorphism( hom1, H, G );
             hom2 := RestrictedHomomorphism( hom2, H, G );
         fi;
-        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, N, false );
+        Rcl := RepresentativesTwistedConjugacyClassesOp( hom1, hom2, N, false );
         if Rcl = fail then
             return fail;
         elif TWC.ASSERT then
@@ -275,12 +273,12 @@ BindGlobal(
 
 BindGlobal(
     "RepresentativesTwistedConjugacyClasses",
-    RepresentativesReidemeisterClasses
+    RepresentativesTwistedConjugacyClasses
 );
 
 ###############################################################################
 ##
-## RepresentativesReidemeisterClassesOp( hom1, hom2, N )
+## RepresentativesTwistedConjugacyClassesOp( hom1, hom2, N )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -295,7 +293,7 @@ BindGlobal(
 ##                  infinitely many
 ##
 InstallMethod(
-    RepresentativesReidemeisterClassesOp,
+    RepresentativesTwistedConjugacyClassesOp,
     "for trivial subgroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     8,
@@ -306,7 +304,7 @@ InstallMethod(
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClassesOp,
+    RepresentativesTwistedConjugacyClassesOp,
     "for central subgroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     6,
@@ -329,7 +327,7 @@ InstallMethod(
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClassesOp,
+    RepresentativesTwistedConjugacyClassesOp,
     "for finite source",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     5,
