@@ -14,6 +14,7 @@ DeclareGlobalFunction( "ReidemeisterClass" );
 # START TEST
 #! @Arguments hom1[, hom2], g
 #! @Group AAAAgroup
+#! @ChapterInfo reidemeisternumbers, reidemeisternumbers
 DeclareGlobalFunction( "BBBBB" );
 
 #! @BeginGroup AAAAgroup
