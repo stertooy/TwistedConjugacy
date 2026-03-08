@@ -10,8 +10,8 @@
 ##  OUTPUT:
 ##      ind:        double coset index of (U,V)
 ##
-InstallGlobalFunction(
-    DoubleCosetIndex,
+BindGlobal(
+    "DoubleCosetIndex",
     function( G, U, V )
         if not ( IsSubset( G, U ) and IsSubset( G, V ) ) then
             Error( "not contained" );
