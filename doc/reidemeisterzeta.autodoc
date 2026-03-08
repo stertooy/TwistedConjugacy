@@ -1,0 +1,36 @@
+@Chapter reidemeisterzeta
+@ChapterTitle Reidemeister zeta and generating functions
+
+Please note that the functions in this chapter are only implemented for endomorphisms
+of finite groups.
+
+@Section decomposingreidnr
+@SectionTitle Decomposing Reidemeister number sequences
+
+For a finite group, the sequence of Reidemeister numbers of the iterates of
+<A>endo1</A> and <A>endo2</A>, i.e. the sequence
+<C>R(<A>endo1</A>,<A>endo2</A>)</C>,
+<C>R(<A>endo1</A>^2,<A>endo2</A>^2)</C>, ..., is eventually periodic.
+Thus there exist a periodic sequence $(P_n)_{n \in \mathbb{N}}$ and an
+eventually zero sequence $(Q_n)_{n \in \mathbb{N}}$ such that
+$$\forall n \in \mathbb{N}: R(\varphi^n,\psi^n) = P_n + Q_n.$$
+
+@Section reidemeisterzeta
+@SectionTitle Reidemeister zeta functions
+
+Let $\varphi,\psi\colon G \to G$ be endomorphisms such that
+$R(\varphi^n,\psi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the
+**Reidemeister zeta function** $Z_{\varphi,\psi}(s)$ of the pair
+$(\varphi,\psi)$ is defined as
+$$Z_{\varphi,\psi}(s) := \exp \sum_{n=1}^\infty \frac{R(\varphi^n,\psi^n)}{n} s^n.$$
+<P/>
+
+@Section reidemeistergen
+@SectionTitle Reidemeister generating functions
+
+Let $\varphi,\psi\colon G \to G$ be endomorphisms such that
+$R(\varphi^n,\psi^n) &lt; \infty$ for all $n \in \mathbb{N}$. Then the
+**Reidemeister generating function** $Z^*_{\varphi,\psi}(s)$ of the pair
+$(\varphi,\psi)$ is defined as
+$$Z^*_{\varphi,\psi}(s) := \sum_{n=1}^\infty R(\varphi^n,\psi^n) s^n.$$
+<P/>
