@@ -10,8 +10,8 @@
 ##  OUTPUT:
 ##      hom2:       induced group homomorphism H/N -> G/M
 ##
-BindGlobal(
-    "InducedHomomorphism",
+InstallGlobalFunction(
+    InducedHomomorphism,
     function( epi1, epi2, hom )
         local GM, HN, gens, imgs;
         GM := ImagesSource( epi2 );
@@ -37,8 +37,8 @@ BindGlobal(
 ##  OUTPUT:
 ##      hom2:       restricted group homomorphism N -> M
 ##
-BindGlobal(
-    "RestrictedHomomorphism",
+InstallGlobalFunction(
+    RestrictedHomomorphism,
     function( hom, N, M )
         local gens, imgs;
         if Source( hom ) = N and HasMappingGeneratorsImages( hom ) then
@@ -64,8 +64,8 @@ BindGlobal(
 ##      L:          list of all group homomorphisms H -> G, up to inner
 ##                  automorphisms of G
 ##
-BindGlobal(
-    "RepresentativesHomomorphismClasses",
+InstallGlobalFunction(
+    RepresentativesHomomorphismClasses,
     function( H, G )
         IsFinite( H );
         IsAbelian( H );
@@ -88,8 +88,8 @@ BindGlobal(
 ##  OUTPUT:
 ##      L:          list of all endomorphisms of G, up to inner automorphisms
 ##
-BindGlobal(
-    "RepresentativesEndomorphismClasses",
+InstallGlobalFunction(
+    RepresentativesEndomorphismClasses,
     function( G )
         IsFinite( G );
         IsAbelian( G );
@@ -108,8 +108,8 @@ BindGlobal(
 ##  OUTPUT:
 ##      L:          list of all automorphisms of G, up to inner automorphisms
 ##
-BindGlobal(
-    "RepresentativesAutomorphismClasses",
+InstallGlobalFunction(
+    RepresentativesAutomorphismClasses,
     function( G )
         IsAbelian( G );
         return RepresentativesAutomorphismClassesOp( G );
