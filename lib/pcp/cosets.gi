@@ -128,7 +128,7 @@ InstallMethod(
         x := Representative( UxV );
         G := PcpGroupByCollectorNC( Collector( U ) );
         dp := TWC.DirectProductInclusions( G, U, V );
-        tcc := ReidemeisterClass( dp[1], dp[2], x );
+        tcc := TwistedConjugacyClass( dp[1], dp[2], x );
         return Size( tcc );
     end
 );
@@ -152,7 +152,7 @@ InstallMethod(
     function( G, U, V )
         local dp, Rcl, tcc;
         dp := TWC.DirectProductInclusions( G, U, V );
-        Rcl := CallFuncList( ReidemeisterClasses, dp );
+        Rcl := CallFuncList( TwistedConjugacyClasses, dp );
         if Rcl = fail then
             return fail;
         fi;
@@ -179,7 +179,7 @@ InstallMethod(
     function( G, U, V )
         local dp, Rcl, g;
         dp := TWC.DirectProductInclusions( G, U, V );
-        Rcl := CallFuncList( RepresentativesReidemeisterClasses, dp );
+        Rcl := CallFuncList( RepresentativesTwistedConjugacyClasses, dp );
         if Rcl = fail then
             return fail;
         fi;
