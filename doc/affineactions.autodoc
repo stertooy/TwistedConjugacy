@@ -1,0 +1,34 @@
+@Chapter affineactions
+@ChapterTitle Affine actions
+
+Let $G$ and $H$ be groups, let $H$ act on $G$ (via automorphisms) by
+$$\alpha \colon H \to \operatorname{Aut}(G) \colon h \mapsto \alpha_h$$
+and let $\delta \colon H \to G$ be a group derivation with respect to this
+action. Then we can construct a new action, called the **affine action**
+associated to $\delta$, by
+$$G \times H \to G \colon g^h = \alpha_h(g) \delta(h).$$
+If $K$ is a subgroup of $H$, then the restriction of the affine action of
+$H$ on $G$ to $K$ coincides with the affine action of $K$ on $G$ associated
+to the restriction of $\delta$ to $K$.
+
+<P/>
+
+Algorithms designed for computing with twisted conjugacy classes can be
+leveraged to do computations involving affine actions, see
+<Cite Key='tert25-a' Where='Sec. 10'/> for a description on this.
+
+<P/>
+
+Please note that the functions in this chapter require $G$ and $H$ to either
+both be finite, or both be PcpGroups.
+
+@Section affact_creating
+@SectionTitle Creating an affine action
+
+@Section affact_operations
+@SectionTitle Operations for affine actions
+
+These functions are analogues of existing &GAP; functions for group actions.
+
+@Section affact_orbits
+@SectionTitle Operations on orbits of affine actions
