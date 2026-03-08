@@ -9,8 +9,8 @@
 ##  OUTPUT:
 ##      act:        affine action of H on G
 ##
-BindGlobal(
-    "AffineActionByGroupDerivation",
+InstallGlobalFunction(
+    AffineActionByGroupDerivation,
     { K, derv } -> TWC.FourMapsForAffineAction( K, derv )[4]
 );
 
@@ -26,8 +26,8 @@ BindGlobal(
 ##  OUTPUT:
 ##      orb:        the orbit of g under the affine action of derv
 ##
-BindGlobal(
-    "OrbitAffineAction",
+InstallGlobalFunction(
+    OrbitAffineAction,
     function( K, g, derv )
         local G, map, emb, s, tcc, orb;
         G := Range( derv );
@@ -67,8 +67,8 @@ BindGlobal(
 ##      L:          list containing the orbits of the affine action of derv, or
 ##                  "fail" if there are infinitely many
 ##
-BindGlobal(
-    "OrbitsAffineAction",
+InstallGlobalFunction(
+    OrbitsAffineAction,
     function( K, derv )
         local G, map, emb, iG, R, reps;
         G := Range( derv );
@@ -95,8 +95,8 @@ BindGlobal(
 ##  OUTPUT:
 ##      R:          the number of orbits of the affine action of derv
 ##
-BindGlobal(
-    "NrOrbitsAffineAction",
+InstallGlobalFunction(
+    NrOrbitsAffineAction,
     function( K, derv )
         local G, map, emb, iG, R;
         G := Range( derv );
@@ -123,16 +123,14 @@ BindGlobal(
 ##  OUTPUT:
 ##      stab:       stabiliser of g under the affine action of derv
 ##
-BindGlobal(
-    "StabilizerAffineAction",
+InstallGlobalFunction(
+    StabiliserAffineAction,
     function( K, g, derv )
         local orb;
         orb := OrbitAffineAction( K, g, derv );
         return StabilizerOfExternalSet( orb );
     end
 );
-
-BindGlobal( "StabiliserAffineAction", StabilizerAffineAction );
 
 ###############################################################################
 ##
@@ -148,8 +146,8 @@ BindGlobal( "StabiliserAffineAction", StabilizerAffineAction );
 ##      k:          element of K that maps g1 to g2 under the affine action of
 ##                  derv
 ##
-BindGlobal(
-    "RepresentativeAffineAction",
+InstallGlobalFunction(
+    RepresentativeAffineAction,
     function( K, g1, g2, derv )
         local map, s1, s2;
         map := TWC.FourMapsForAffineAction( K, derv );
