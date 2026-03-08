@@ -242,7 +242,9 @@ InstallGlobalFunction(
             hom1 := RestrictedHomomorphism( hom1, H, G );
             hom2 := RestrictedHomomorphism( hom2, H, G );
         fi;
-        Rcl := RepresentativesTwistedConjugacyClassesOp( hom1, hom2, N, false );
+        Rcl := RepresentativesTwistedConjugacyClassesOp(
+            hom1, hom2, N, false
+        );
         if Rcl = fail then
             return fail;
         elif TWC.ASSERT then
