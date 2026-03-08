@@ -10,8 +10,8 @@
 ##  OUTPUT:
 ##      tcc:        (hom1,hom2)-twisted conjugacy class of g
 ##
-BindGlobal(
-    "TwistedConjugacyClass",
+InstallGlobalFunction(
+    TwistedConjugacyClass,
     function( hom1, arg... )
         local G, H, hom2, g, tc, tcc;
         G := Range( hom1 );
@@ -180,8 +180,8 @@ InstallMethod(
 ##      L:          list containing the (hom1,hom2)-twisted conjugacy classes,
 ##                  or fail if there are infinitely many
 ##
-BindGlobal(
-    "TwistedConjugacyClasses",
+InstallGlobalFunction(
+    TwistedConjugacyClasses,
     function( hom1, arg... )
         local G, hom2, N, Rcl;
         G := Range( hom1 );
@@ -217,8 +217,8 @@ BindGlobal(
 ##                  twisted conjugacy class, or fail if there are infinitely
 ##                  many
 ##
-BindGlobal(
-    "RepresentativesTwistedConjugacyClasses",
+InstallGlobalFunction(
+    RepresentativesTwistedConjugacyClasses,
     function( hom1, arg... )
         local G, H, hom2, N, gens, tc, q, p, Rcl, copy, g, h, pos, i;
         G := Range( hom1 );
