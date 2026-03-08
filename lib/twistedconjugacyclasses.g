@@ -1,0 +1,5 @@
+###############################################################################
+##
+## IsTwistedConjugacyClassGroupRep
+##
+DeclareRepresentation( "IsTwistedConjugacyClassGroupRep", IsExternalOrbit );
