@@ -5,7 +5,10 @@ DeclareGlobalFunction( "TwistedConjugacyClasses" );
 DeclareSynonym( "ReidemeisterClasses", TwistedConjugacyClasses );
 
 DeclareGlobalFunction( "RepresentativesTwistedConjugacyClasses" );
-DeclareSynonym( "RepresentativesReidemeisterClasses", RepresentativesTwistedConjugacyClasses );
+DeclareSynonym(
+    "RepresentativesReidemeisterClasses",
+    RepresentativesTwistedConjugacyClasses
+);
 
 DeclareOperation(
     "RepresentativesTwistedConjugacyClassesOp",
