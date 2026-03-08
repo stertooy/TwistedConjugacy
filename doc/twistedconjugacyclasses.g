@@ -11,21 +11,6 @@ DeclareGlobalFunction( "TwistedConjugacyClass" );
 DeclareGlobalFunction( "ReidemeisterClass" );
 #! @EndGroup
 
-# START TEST
-#! @Arguments hom1[, hom2], g
-#! @Group AAAAgroup
-#! @ChapterInfo reidemeisternumbers, reidemeisternumbers
-DeclareGlobalFunction( "BBBBB" );
-
-#! @BeginGroup AAAAgroup
-#! @ChapterInfo reidemeisternumbers, reidemeisternumbers
-#! @Returns the <C>(<A>hom1</A>,<A>hom2</A>)</C>-twisted conjugacy class of
-#! <A>g</A>.
-#! @Arguments hom1[, hom2], g
-DeclareGlobalFunction( "AAAAA" );
-#! @EndGroup
-# END TEST
-
 #! @Section tcc_opers
 
 #! @BeginGroup
