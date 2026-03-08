@@ -1,17 +1,17 @@
-DeclareGlobalName( "InducedHomomorphism" );
-DeclareGlobalName( "RestrictedHomomorphism" );
+DeclareGlobalFunction( "InducedHomomorphism" );
+DeclareGlobalFunction( "RestrictedHomomorphism" );
 
-DeclareGlobalName( "RepresentativesHomomorphismClasses" );
+DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 DeclareOperation(
     "RepresentativesHomomorphismClassesOp",
     [ IsGroup, IsGroup ]
 );
-DeclareGlobalName( "RepresentativesEndomorphismClasses" );
+DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
 DeclareOperation(
     "RepresentativesEndomorphismClassesOp",
     [ IsGroup ]
 );
-DeclareGlobalName( "RepresentativesAutomorphismClasses" );
+DeclareGlobalFunction( "RepresentativesAutomorphismClasses" );
 DeclareOperation(
     "RepresentativesAutomorphismClassesOp",
     [ IsGroup ]

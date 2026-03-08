@@ -13,8 +13,8 @@
 ##  REMARKS:
 ##      For every n, R(endo1^n,endo2^n) = P_n + Q_n
 ##
-BindGlobal(
-    "IteratedReidemeisterNumberDecomposition",
+InstallGlobalFunction(
+    IteratedReidemeisterNumberDecomposition,
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -90,8 +90,8 @@ InstallMethod(
 ##      bool:       true if the Reidemeister zeta function of endo1 and endo2
 ##                  is rational
 ##
-BindGlobal(
-    "IsRationalReidemeisterZetaFunction",
+InstallGlobalFunction(
+    IsRationalReidemeisterZetaFunction,
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -152,8 +152,8 @@ InstallMethod(
 ##  OUTPUT:
 ##      func:       the Reidemeister zeta function of endo1 and endo2
 ##
-BindGlobal(
-    "ReidemeisterZetaFunction",
+InstallGlobalFunction(
+    ReidemeisterZetaFunction,
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -218,8 +218,8 @@ InstallMethod(
 ##      str:        a string containing the Reidemeister zeta function of endo1
 ##                  and endo2 in text form
 ##
-BindGlobal(
-    "PrintReidemeisterZetaFunction",
+InstallGlobalFunction(
+    PrintReidemeisterZetaFunction,
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -374,8 +374,8 @@ InstallMethod(
 ##      bool:       true if the Reidemeister generating function of endo1 and
 ##                  endo2 is rational
 ##
-BindGlobal(
-    "IsRationalReidemeisterGeneratingFunction",
+InstallGlobalFunction(
+    IsRationalReidemeisterGeneratingFunction,
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -423,8 +423,8 @@ InstallMethod(
 ##  OUTPUT:
 ##      func:       the Reidemeister generating function of endo1 and endo2
 ##
-BindGlobal(
-    "ReidemeisterGeneratingFunction",
+InstallGlobalFunction(
+    ReidemeisterGeneratingFunction,
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );
@@ -482,8 +482,8 @@ InstallMethod(
 ##      str:        a string containing the Reidemeister generating function of
 ##                  endo1 and endo2 in text form
 ##
-BindGlobal(
-    "PrintReidemeisterGeneratingFunction",
+InstallGlobalFunction(
+    PrintReidemeisterGeneratingFunction,
     function( endo1, arg... )
         local G, endo2;
         G := Range( endo1 );

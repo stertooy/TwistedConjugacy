@@ -8,8 +8,8 @@
 ##  OUTPUT:
 ##      Spec:       Reidemeister spectrum of G
 ##
-BindGlobal(
-    "ReidemeisterSpectrum",
+InstallGlobalFunction(
+    ReidemeisterSpectrum,
     function( G )
         IsFinite( G );
         IsAbelian( G );
@@ -27,8 +27,8 @@ BindGlobal(
 ##  OUTPUT:
 ##      Spec:       extended Reidemeister spectrum of G
 ##
-BindGlobal(
-    "ExtendedReidemeisterSpectrum",
+InstallGlobalFunction(
+    ExtendedReidemeisterSpectrum,
     function( G )
         IsFinite( G );
         IsAbelian( G );
@@ -50,8 +50,8 @@ BindGlobal(
 ##  REMARKS:
 ##      If G is omitted, it is assumed to be equal to H.
 ##
-BindGlobal(
-    "CoincidenceReidemeisterSpectrum",
+InstallGlobalFunction(
+    CoincidenceReidemeisterSpectrum,
     function( H, arg... )
         local G;
         IsFinite( H );
@@ -77,8 +77,8 @@ BindGlobal(
 ##  OUTPUT:
 ##      Spec:       total Reidemeister spectrum of G
 ##
-BindGlobal(
-    "TotalReidemeisterSpectrum",
+InstallGlobalFunction(
+    TotalReidemeisterSpectrum,
     function( G )
         IsFinite( G );
         IsAbelian( G );

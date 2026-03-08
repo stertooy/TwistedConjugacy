@@ -1,8 +1,11 @@
-DeclareGlobalName( "ReidemeisterSpectrum" );
+DeclareGlobalFunction( "ReidemeisterSpectrum" );
 DeclareOperation( "ReidemeisterSpectrumOp", [ IsGroup ] );
-DeclareGlobalName( "ExtendedReidemeisterSpectrum" );
+
+DeclareGlobalFunction( "ExtendedReidemeisterSpectrum" );
 DeclareOperation( "ExtendedReidemeisterSpectrumOp", [ IsGroup ] );
-DeclareGlobalName( "CoincidenceReidemeisterSpectrum" );
+
+DeclareGlobalFunction( "CoincidenceReidemeisterSpectrum" );
 DeclareOperation( "CoincidenceReidemeisterSpectrumOp", [ IsGroup, IsGroup ] );
-DeclareGlobalName( "TotalReidemeisterSpectrum" );
+
+DeclareGlobalFunction( "TotalReidemeisterSpectrum" );
 DeclareOperation( "TotalReidemeisterSpectrumOp", [ IsGroup ] );

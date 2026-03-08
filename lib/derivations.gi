@@ -10,8 +10,8 @@
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
-BindGlobal(
-    "GroupDerivationByImagesNC",
+InstallGlobalFunction(
+    GroupDerivationByImagesNC,
     function( H, G, arg... )
         local derv, filt, type, imgs, gens;
         derv := rec(
@@ -53,8 +53,8 @@ BindGlobal(
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
-BindGlobal(
-    "GroupDerivationByImages",
+InstallGlobalFunction(
+    GroupDerivationByImages,
     function( arg... )
         local derv, info;
         derv := CallFuncList( GroupDerivationByImagesNC, arg );
@@ -80,8 +80,8 @@ BindGlobal(
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
-BindGlobal(
-    "GroupDerivationByFunction",
+InstallGlobalFunction(
+    GroupDerivationByFunction,
     function( H, G, fun, act )
         local derv, filt, type;
         derv := rec(
@@ -114,8 +114,8 @@ BindGlobal(
 ##  OUTPUT:
 ##      derv:       group derivation
 ##
-BindGlobal(
-    "GroupDerivationByAffineAction",
+InstallGlobalFunction(
+    GroupDerivationByAffineAction,
     function( H, G, aff )
         local autsG, imgsG, gensH, gensG, h, dh, imgsA, idG, act;
         autsG := [];
@@ -444,7 +444,7 @@ InstallMethod(
         sub := ImagesSource( emb );
         lhs := info!.lhs;
         rhs := info!.rhs;
-        R := RepresentativesReidemeisterClassesOp( lhs, rhs, sub, true );
+        R := RepresentativesTwistedConjugacyClassesOp( lhs, rhs, sub, true );
         return R <> fail;
     end
 );

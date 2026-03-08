@@ -9,8 +9,8 @@
 ##  OUTPUT:
 ##      tc:         function (g,h) -> (h^hom1)^-1 * g * (h^hom2)
 ##
-BindGlobal(
-    "TwistedConjugation",
+InstallGlobalFunction(
+    TwistedConjugation,
     function( hom1, arg... )
         local hom2;
         if Length( arg ) = 0 then
@@ -44,8 +44,8 @@ BindGlobal(
 ##      and hom2 is assumed to be the identity mapping of G. If no g2 is given,
 ##      it is assumed to be 1.
 ##
-BindGlobal(
-    "IsTwistedConjugate",
+InstallGlobalFunction(
+    IsTwistedConjugate,
     function( arg... )
         return CallFuncList( RepresentativeTwistedConjugation, arg ) <> fail;
     end
@@ -70,8 +70,8 @@ BindGlobal(
 ##      and hom2 is assumed to be the identity mapping of G. If no g2 is given,
 ##      it is assumed to be 1.
 ##
-BindGlobal(
-    "RepresentativeTwistedConjugation",
+InstallGlobalFunction(
+    RepresentativeTwistedConjugation,
     function( arg... )
         local n, G, c, i, tc, im;
         if ForAll( arg, IsList ) then

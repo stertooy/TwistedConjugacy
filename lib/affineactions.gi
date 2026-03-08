@@ -75,7 +75,7 @@ BindGlobal(
         map := TWC.FourMapsForAffineAction( K, derv );
         emb := map[3];
         iG := ImagesSet( emb, G );
-        R := RepresentativesReidemeisterClasses( map[1], map[2], iG );
+        R := RepresentativesTwistedConjugacyClasses( map[1], map[2], iG );
         if IsBool( R ) then
             return fail;
         fi;
@@ -103,7 +103,7 @@ BindGlobal(
         map := TWC.FourMapsForAffineAction( K, derv );
         emb := map[3];
         iG := ImagesSet( emb, G );
-        R := RepresentativesReidemeisterClasses( map[1], map[2], iG );
+        R := RepresentativesTwistedConjugacyClasses( map[1], map[2], iG );
         if IsBool( R ) then
             return infinity;
         fi;

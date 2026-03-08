@@ -5,9 +5,9 @@ InstallTrueMethod( RespectsOne, IsGroupDerivation );
 DeclareAttribute( "GroupDerivationInfo", IsGroupDerivation );
 DeclareAttribute( "KernelOfGroupDerivation", IsGroupDerivation );
 
-DeclareGlobalName( "GroupDerivationByImagesNC" );
-DeclareGlobalName( "GroupDerivationByImages" );
-DeclareGlobalName( "GroupDerivationByFunction" );
-DeclareGlobalName( "GroupDerivationByAffineAction" );
+DeclareGlobalFunction( "GroupDerivationByImagesNC" );
+DeclareGlobalFunction( "GroupDerivationByImages" );
+DeclareGlobalFunction( "GroupDerivationByFunction" );
+DeclareGlobalFunction( "GroupDerivationByAffineAction" );
 
 DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineAction );

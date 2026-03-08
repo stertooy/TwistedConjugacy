@@ -45,7 +45,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## RepresentativesReidemeisterClassesOp( hom1, hom2 )
+## RepresentativesTwistedConjugacyClassesOp( hom1, hom2 )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -57,7 +57,7 @@ InstallMethod(
 ##                  many
 ##
 InstallMethod(
-    RepresentativesReidemeisterClassesOp,
+    RepresentativesTwistedConjugacyClassesOp,
     "turn finite PcpGroup range into PcGroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     101,
@@ -69,7 +69,7 @@ InstallMethod(
             IsFinite( G )
         ) then TryNextMethod(); fi;
         iso := IsomorphismPcGroup( G );
-        Rcl := RepresentativesReidemeisterClassesOp(
+        Rcl := RepresentativesTwistedConjugacyClassesOp(
             hom1 * iso, hom2 * iso,
             ImagesSet( iso, N ), one
         );
@@ -81,7 +81,7 @@ InstallMethod(
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClassesOp,
+    RepresentativesTwistedConjugacyClassesOp,
     "turn finite PcpGroup source into PcGroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     100,
@@ -93,7 +93,7 @@ InstallMethod(
             IsFinite( H )
         ) then TryNextMethod(); fi;
         inv := InverseGeneralMapping( IsomorphismPcGroup( H ) );
-        return RepresentativesReidemeisterClassesOp(
+        return RepresentativesTwistedConjugacyClassesOp(
             inv * hom1, inv * hom2, N, one
         );
     end

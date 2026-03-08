@@ -9,14 +9,12 @@
 ##  OUTPUT:
 ##      R:          Reidemeister number R(hom1,hom2)
 ##
-BindGlobal(
-    "ReidemeisterNumber",
+InstallGlobalFunction(
+    ReidemeisterNumber,
     function( arg... )
         return CallFuncList( ReidemeisterNumberOp, arg );
     end
 );
-
-BindGlobal( "NrTwistedConjugacyClasses", ReidemeisterNumber );
 
 ###############################################################################
 ##
@@ -53,7 +51,9 @@ InstallMethod(
     function( hom1, hom2 )
         local G, Rcl;
         G := Range( hom1 );
-        Rcl := RepresentativesReidemeisterClassesOp( hom1, hom2, G, false );
+        Rcl := RepresentativesTwistedConjugacyClassesOp(
+            hom1, hom2, G, false
+        );
         if Rcl <> fail then
             return Size( Rcl );
         fi;

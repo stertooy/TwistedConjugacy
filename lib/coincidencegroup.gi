@@ -8,8 +8,8 @@
 ##  OUTPUT:
 ##      fix:        subgroup of G consisting of g for which g^phi = g
 ##
-BindGlobal(
-    "FixedPointGroup",
+InstallGlobalFunction(
+    FixedPointGroup,
     function( endo )
         local G;
         G := Range( endo );
@@ -31,8 +31,8 @@ BindGlobal(
 ##      coin:       subgroup of H consisting of h for which
 ##                  h^hom1 = h^hom2 = ... = h^homN
 ##
-BindGlobal(
-    "CoincidenceGroup",
+InstallGlobalFunction(
+    CoincidenceGroup,
     function( hom1, hom2, arg... )
         local G, Coin, new, homi, h, imgs;
         G := Range( hom1 );

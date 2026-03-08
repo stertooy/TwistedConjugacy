@@ -1,0 +1,1 @@
+DeclareGlobalVariable( "TWC" );

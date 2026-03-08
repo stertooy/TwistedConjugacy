@@ -1,6 +1,6 @@
 ###############################################################################
 ##
-## ReidemeisterClassesByTrivSub( G, H, hom1, hom2, N, one )
+## RepsTCClassesByTrivSub( G, H, hom1, hom2, N, one )
 ##
 ##  INPUT:
 ##      G:          finite group
@@ -21,19 +21,19 @@
 ##      hom1HL, hom2HL: H/L -> G, with L the intersection of Ker(hom1) and
 ##      Ker(hom2).
 ##
-TWC.ReidemeisterClassesByTrivSub := function( G, H, hom1, hom2, N, one )
+TWC.RepsTCClassesByTrivSub := function( G, H, hom1, hom2, N, one )
     local L, id, q, hom1HL, hom2HL;
     L := TWC.IntersectionOfKernels( hom1, hom2 );
     id := IdentityMapping( G );
     q := NaturalHomomorphismByNormalSubgroupNC( H, L );
     hom1HL := InducedHomomorphism( q, id, hom1 );
     hom2HL := InducedHomomorphism( q, id, hom2 );
-    return RepresentativesReidemeisterClassesOp( hom1HL, hom2HL, N, one );
+    return RepresentativesTwistedConjugacyClassesOp( hom1HL, hom2HL, N, one );
 end;
 
 ###############################################################################
 ##
-## ReidemeisterClassesByFinQuo( G, H, hom1, hom2, N, K, one )
+## RepsTCClassesByFinQuo( G, H, hom1, hom2, N, K, one )
 ##
 ##  INPUT:
 ##      G:          infinite PcpGroup
@@ -55,7 +55,7 @@ end;
 ##      representatives of (hom1p,hom2p), with hom1p, hom2p: H/L -> G/K,
 ##      where L is normal in H.
 ##
-TWC.ReidemeisterClassesByFinQuo := function( G, H, hom1, hom2, N, K, one )
+TWC.RepsTCClassesByFinQuo := function( G, H, hom1, hom2, N, K, one )
     local L, p, q, GK, pN, hom1p, hom2p, RclGK, Rcl, hom1K, hom2K, M, pn,
           inn_pn, Coin, n, conj_n, inn_n_hom1K, RclM, inRclM, inn_n, tc, m1,
           isNew, h, m2, inn_nm2_hom1K;
@@ -65,7 +65,7 @@ TWC.ReidemeisterClassesByFinQuo := function( G, H, hom1, hom2, N, K, one )
     hom1p := InducedHomomorphism( q, p, hom1 );
     hom2p := InducedHomomorphism( q, p, hom2 );
     pN := ImagesSet( p, N );
-    RclGK := RepresentativesReidemeisterClassesOp( hom1p, hom2p, pN, one );
+    RclGK := RepresentativesTwistedConjugacyClassesOp( hom1p, hom2p, pN, one );
     if RclGK = fail then
         return fail;
     fi;
@@ -78,7 +78,7 @@ TWC.ReidemeisterClassesByFinQuo := function( G, H, hom1, hom2, N, K, one )
         n := PreImagesRepresentativeNC( p, pn );
         conj_n := ConjugatorAutomorphismNC( K, n );
         inn_n_hom1K := hom1K * conj_n;
-        RclM := RepresentativesReidemeisterClassesOp(
+        RclM := RepresentativesTwistedConjugacyClassesOp(
             inn_n_hom1K, hom2K, M, false
         );
         if RclM = fail then
@@ -126,7 +126,7 @@ end;
 
 ###############################################################################
 ##
-## ReidemeisterClassesByNormSub( G, H, hom1, hom2, N, K, one )
+## RepsTCClassesByNormSub( G, H, hom1, hom2, N, K, one )
 ##
 ##  INPUT:
 ##      G:          infinite PcpGroup
@@ -147,7 +147,7 @@ end;
 ##      Calculates the representatives of (hom1,hom2) by first calculating the
 ##      representatives of (hom1p,hom2p), with hom1p, hom2p: H -> G/K.
 ##
-TWC.ReidemeisterClassesByNormSub := function( G, H, hom1, hom2, N, K, one )
+TWC.RepsTCClassesByNormSub := function( G, H, hom1, hom2, N, K, one )
     local p, idH, pN, hom1p, hom2p, RclGK, Rcl, M, pn, n, inn_n, C_n, hom1_n,
           hom2_n, RclM, inn_pn, GK;
     p := NaturalHomomorphismByNormalSubgroupNC( G, K );
@@ -155,7 +155,7 @@ TWC.ReidemeisterClassesByNormSub := function( G, H, hom1, hom2, N, K, one )
     pN := ImagesSet( p, N );
     hom1p := InducedHomomorphism( idH, p, hom1 );
     hom2p := InducedHomomorphism( idH, p, hom2 );
-    RclGK := RepresentativesReidemeisterClassesOp( hom1p, hom2p, pN, one );
+    RclGK := RepresentativesTwistedConjugacyClassesOp( hom1p, hom2p, pN, one );
     if RclGK = fail then
         return fail;
     fi;
@@ -169,7 +169,7 @@ TWC.ReidemeisterClassesByNormSub := function( G, H, hom1, hom2, N, K, one )
         C_n := CoincidenceGroup2( hom1p * inn_pn, hom2p );
         hom1_n := RestrictedHomomorphism( hom1 * inn_n, C_n, G );
         hom2_n := RestrictedHomomorphism( hom2, C_n, G );
-        RclM := RepresentativesReidemeisterClassesOp(
+        RclM := RepresentativesTwistedConjugacyClassesOp(
             hom1_n, hom2_n, M, one
         );
         if RclM = fail then
@@ -182,7 +182,7 @@ end;
 
 ###############################################################################
 ##
-## RepsReidClassesStep3( G, H, hom1, hom2, A, one )
+## RepsTCClassesStep3( G, H, hom1, hom2, A, one )
 ##
 ##  INPUT:
 ##      G:          infinite PcpGroup
@@ -204,7 +204,7 @@ end;
 ##        - G = A Im(hom1) = A Im(hom2);
 ##        - [H,H] is a subgroup of Coin(hom1,hom2);
 ##
-TWC.RepsReidClassesStep3 := function( _, H, hom1, hom2, A, one )
+TWC.RepsTCClassesStep3 := function( _, H, hom1, hom2, A, one )
     local q, Hab, igs, prei, imgs1, auts, Aut, alpha, S, imgs2, n, diff,
           iHab, iA, embsHab, embsA, l, r, N, Rcl;
     q := NaturalHomomorphismByNormalSubgroupNC( H, DerivedSubgroup( H ) );
@@ -234,7 +234,7 @@ TWC.RepsReidClassesStep3 := function( _, H, hom1, hom2, A, one )
         igs, List( [ 1 .. n ], i -> embsHab[i] * embsA[i] )
     );
     N := ImagesSource( iA );
-    Rcl := RepresentativesReidemeisterClassesOp( l, r, N, one );
+    Rcl := RepresentativesTwistedConjugacyClassesOp( l, r, N, one );
     if Rcl = fail then
         return fail;
     fi;
@@ -243,7 +243,7 @@ end;
 
 ###############################################################################
 ##
-## RepsReidClassesStep2( G, H, hom1, hom2, A, one )
+## RepsTCClassesStep2( G, H, hom1, hom2, A, one )
 ##
 ##  INPUT:
 ##      G:          infinite PcpGroup
@@ -264,7 +264,7 @@ end;
 ##        - [A,[G,G]] = 1;
 ##        - G = A Im(hom1) = A Im(hom2);
 ##
-TWC.RepsReidClassesStep2 := function( G, H, hom1, hom2, A, one )
+TWC.RepsTCClassesStep2 := function( G, H, hom1, hom2, A, one )
     local HH, delta, dHH, p, q, hom1p, hom2p, pG, pA, Rcl;
     HH := DerivedSubgroup( H );
     delta := TWC.DifferenceGroupHomomorphisms( hom1, hom2, HH, A );
@@ -275,7 +275,7 @@ TWC.RepsReidClassesStep2 := function( G, H, hom1, hom2, A, one )
     hom2p := InducedHomomorphism( q, p, hom2 );
     pG := ImagesSource( p );
     pA := ImagesSet( p, A );
-    Rcl := TWC.RepsReidClassesStep3( pG, H, hom1p, hom2p, pA, one );
+    Rcl := TWC.RepsTCClassesStep3( pG, H, hom1p, hom2p, pA, one );
     if Rcl = fail then
         return fail;
     fi;
@@ -284,7 +284,7 @@ end;
 
 ###############################################################################
 ##
-## RepsReidClassesStep1( G, H, hom1, hom2, A )
+## RepsTCClassesStep1( G, H, hom1, hom2, A )
 ##
 ##  INPUT:
 ##      G:          infinite PcpGroup
@@ -303,10 +303,10 @@ end;
 ##  REMARKS:
 ##      Assumes that [A,[G,G]] = 1
 ##
-TWC.RepsReidClassesStep1 := function( _G, H, hom1, hom2, A, one )
+TWC.RepsTCClassesStep1 := function( _G, H, hom1, hom2, A, one )
     local K, l, r;
     K := ClosureGroup( ImagesSource( hom1 ), A );
     l := RestrictedHomomorphism( hom1, H, K );
     r := RestrictedHomomorphism( hom2, H, K );
-    return TWC.RepsReidClassesStep2( K, H, l, r, A, one );
+    return TWC.RepsTCClassesStep2( K, H, l, r, A, one );
 end;
