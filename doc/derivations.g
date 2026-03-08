@@ -171,7 +171,7 @@ PreIm = RightCoset( K, h2 );
 #! @GroupTitle \in
 #! @Returns <K>true</K> if <A>elm</A> is an element of <A>img</A>, otherwise
 #! <K>false</K>.
-#! @Label for an element and a group derivation
+#! @Label for an element and a group derivation image
 #! @Arguments elm, img
 DeclareOperation( "\in", [ IsObject, IsGroupDerivationImage ] );
 #! @EndGroup
