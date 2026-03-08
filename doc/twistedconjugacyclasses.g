@@ -18,7 +18,7 @@ DeclareGlobalFunction( "ReidemeisterClass" );
 #! @Returns the group element that was used to construct <A>tcc</A>.
 #! @Label of a twisted conjugacy class
 #! @Arguments tcc
-DeclareAttribute( "Representative", IsReidemeisterClassGroupRep );
+DeclareAttribute( "Representative", IsTwistedConjugacyClassGroupRep );
 #! @EndGroup
 
 #! @BeginGroup
@@ -26,7 +26,7 @@ DeclareAttribute( "Representative", IsReidemeisterClassGroupRep );
 #! @Returns the group whose twisted conjugacy action <A>tcc</A> is an orbit of.
 #! @Label of a twisted conjugacy class
 #! @Arguments tcc
-DeclareAttribute( "ActingDomain", IsReidemeisterClassGroupRep );
+DeclareAttribute( "ActingDomain", IsTwistedConjugacyClassGroupRep );
 #! @EndGroup
 
 #! @BeginGroup
@@ -34,7 +34,7 @@ DeclareAttribute( "ActingDomain", IsReidemeisterClassGroupRep );
 #! @Returns the twisted conjugacy action that <A>tcc</A> is an orbit of.
 #! @Label of a twisted conjugacy class
 #! @Arguments tcc
-DeclareAttribute( "FunctionAction", IsReidemeisterClassGroupRep );
+DeclareAttribute( "FunctionAction", IsTwistedConjugacyClassGroupRep );
 #! @EndGroup
 
 #! @BeginGroup
@@ -43,7 +43,7 @@ DeclareAttribute( "FunctionAction", IsReidemeisterClassGroupRep );
 #! <K>false</K>.
 #! @Label for an element and a twisted conjugacy class
 #! @Arguments g, tcc
-DeclareOperation( "\in", [ IsObject, IsReidemeisterClassGroupRep ] );
+DeclareOperation( "\in", [ IsObject, IsTwistedConjugacyClassGroupRep ] );
 #! @EndGroup
 
 #! @BeginGroup
@@ -53,7 +53,7 @@ DeclareOperation( "\in", [ IsObject, IsReidemeisterClassGroupRep ] );
 #! This is calculated using the orbit-stabiliser theorem.
 #! @Label of a twisted conjugacy class
 #! @Arguments tcc
-DeclareAttribute( "Size", IsReidemeisterClassGroupRep );
+DeclareAttribute( "Size", IsTwistedConjugacyClassGroupRep );
 #! @EndGroup
 
 #! @BeginGroup
@@ -62,7 +62,7 @@ DeclareAttribute( "Size", IsReidemeisterClassGroupRep );
 #! action <C>FunctionAction(<A>tcc</A>)</C>.
 #! @Label of a twisted conjugacy class
 #! @Arguments tcc
-DeclareAttribute( "StabiliserOfExternalSet", IsReidemeisterClassGroupRep );
+DeclareAttribute( "StabiliserOfExternalSet", IsTwistedConjugacyClassGroupRep );
 #! @EndGroup
 
 #! @BeginGroup
@@ -82,7 +82,7 @@ DeclareGlobalFunction( "List" );
 #! @Returns a random element in <A>tcc</A>.
 #! @Label in a twisted conjugacy class
 #! @Arguments tcc
-DeclareOperation( "Random", [ IsReidemeisterClassGroupRep ] );
+DeclareOperation( "Random", [ IsTwistedConjugacyClassGroupRep ] );
 #! @EndGroup
 
 #! @BeginGroup
@@ -91,7 +91,7 @@ DeclareOperation( "Random", [ IsReidemeisterClassGroupRep ] );
 #! <K>false</K>.
 #! @Label for twisted conjugacy classes
 #! @Arguments tcc1, tcc2
-DeclareOperation( "\=", [ IsReidemeisterClassGroupRep, IsReidemeisterClassGroupRep ] );
+DeclareOperation( "\=", [ IsTwistedConjugacyClassGroupRep, IsTwistedConjugacyClassGroupRep ] );
 #! @EndGroup
 
 #! @Section tcc_calc
