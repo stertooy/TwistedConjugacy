@@ -28,7 +28,7 @@ TWC.RepsTCClassesByTrivSub := function( G, H, hom1, hom2, N, one )
     q := NaturalHomomorphismByNormalSubgroupNC( H, L );
     hom1HL := InducedHomomorphism( q, id, hom1 );
     hom2HL := InducedHomomorphism( q, id, hom2 );
-    return RepresentativesReidemeisterClassesOp( hom1HL, hom2HL, N, one );
+    return RepresentativesTwistedConjugacyClassesOp( hom1HL, hom2HL, N, one );
 end;
 
 ###############################################################################
@@ -65,7 +65,7 @@ TWC.RepsTCClassesByFinQuo := function( G, H, hom1, hom2, N, K, one )
     hom1p := InducedHomomorphism( q, p, hom1 );
     hom2p := InducedHomomorphism( q, p, hom2 );
     pN := ImagesSet( p, N );
-    RclGK := RepresentativesReidemeisterClassesOp( hom1p, hom2p, pN, one );
+    RclGK := RepresentativesTwistedConjugacyClassesOp( hom1p, hom2p, pN, one );
     if RclGK = fail then
         return fail;
     fi;
@@ -78,7 +78,7 @@ TWC.RepsTCClassesByFinQuo := function( G, H, hom1, hom2, N, K, one )
         n := PreImagesRepresentativeNC( p, pn );
         conj_n := ConjugatorAutomorphismNC( K, n );
         inn_n_hom1K := hom1K * conj_n;
-        RclM := RepresentativesReidemeisterClassesOp(
+        RclM := RepresentativesTwistedConjugacyClassesOp(
             inn_n_hom1K, hom2K, M, false
         );
         if RclM = fail then
@@ -155,7 +155,7 @@ TWC.RepsTCClassesByNormSub := function( G, H, hom1, hom2, N, K, one )
     pN := ImagesSet( p, N );
     hom1p := InducedHomomorphism( idH, p, hom1 );
     hom2p := InducedHomomorphism( idH, p, hom2 );
-    RclGK := RepresentativesReidemeisterClassesOp( hom1p, hom2p, pN, one );
+    RclGK := RepresentativesTwistedConjugacyClassesOp( hom1p, hom2p, pN, one );
     if RclGK = fail then
         return fail;
     fi;
@@ -169,7 +169,7 @@ TWC.RepsTCClassesByNormSub := function( G, H, hom1, hom2, N, K, one )
         C_n := CoincidenceGroup2( hom1p * inn_pn, hom2p );
         hom1_n := RestrictedHomomorphism( hom1 * inn_n, C_n, G );
         hom2_n := RestrictedHomomorphism( hom2, C_n, G );
-        RclM := RepresentativesReidemeisterClassesOp(
+        RclM := RepresentativesTwistedConjugacyClassesOp(
             hom1_n, hom2_n, M, one
         );
         if RclM = fail then
@@ -234,7 +234,7 @@ TWC.RepsTCClassesStep3 := function( _, H, hom1, hom2, A, one )
         igs, List( [ 1 .. n ], i -> embsHab[i] * embsA[i] )
     );
     N := ImagesSource( iA );
-    Rcl := RepresentativesReidemeisterClassesOp( l, r, N, one );
+    Rcl := RepresentativesTwistedConjugacyClassesOp( l, r, N, one );
     if Rcl = fail then
         return fail;
     fi;
