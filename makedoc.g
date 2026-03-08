@@ -56,7 +56,7 @@ AutoDoc( rec(
             SUBTITLE := info.Subtitle
         )
     ),
-    autodoc := rec( scan_dir := [ "doc" ] ),
+    autodoc := rec( scan_dirs := [ "doc" ] ),
     gapdoc := rec(
         LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}" )
     ),
