@@ -1,0 +1,21 @@
+@Abstract
+The &PACKAGENAME; package provides methods for solving the twisted
+conjugacy problem (including the "search" and "multiple" variants) and for
+computing Reidemeister classes, numbers, spectra, and zeta functions. It
+also includes utility functions for working with (double) cosets, group
+homomorphisms, and group derivations.
+<P/>
+These methods are primarily designed for use with finite groups and with
+PcpGroups (finite or infinite) provided by the &Polycyclic; package.
+
+@Copyright
+&copyright; 2020&ndash;&RELEASEYEAR; &AUTHOR;
+<P/>
+The &PACKAGENAME; package is free software, it may be redistributed
+and/or modified under the terms and conditions of the
+<URL Text="GNU Public License Version 2">
+https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</URL> or
+(at your option) any later version.
+
+@Acknowledgements
+This documentation was created using the &GAPDoc; and &AutoDoc; packages.
