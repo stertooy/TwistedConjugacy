@@ -1,11 +1,11 @@
-DeclareGlobalName( "TwistedConjugacyClass" );
-DeclareGlobalName( "ReidemeisterClass" );
+DeclareGlobalFunction( "TwistedConjugacyClass" );
+DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 
-DeclareGlobalName( "TwistedConjugacyClasses" );
-DeclareGlobalName( "ReidemeisterClasses" );
+DeclareGlobalFunction( "TwistedConjugacyClasses" );
+DeclareSynonym( "ReidemeisterClasses", TwistedConjugacyClasses );
 
-DeclareGlobalName( "RepresentativesTwistedConjugacyClasses" );
-DeclareGlobalName( "RepresentativesReidemeisterClasses" );
+DeclareGlobalFunction( "RepresentativesTwistedConjugacyClasses" );
+DeclareSynonym( "RepresentativesReidemeisterClasses", RepresentativesTwistedConjugacyClasses );
 
 DeclareOperation(
     "RepresentativesTwistedConjugacyClassesOp",
