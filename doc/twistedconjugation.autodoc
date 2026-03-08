@@ -1,0 +1,54 @@
+@Chapter twistedconjugation
+@ChapterTitle Twisted conjugation
+
+@Section twistedconjugationaction
+@SectionTitle The twisted conjugation action
+
+Let $G$ and $H$ be groups and let $\varphi$ and $\psi$ be group
+homomorphisms from $H$ to $G$. The pair $(\varphi,\psi)$ induces a
+(right) group action of $H$ on $G$ given by the map $$G \times H \to G
+\colon (g,h) \mapsto \varphi(h)^{-1} g\,\psi(h).$$
+This group action is called **$(\varphi,\psi)$-twisted conjugation**.
+
+<P/>
+
+If $G = H$, $\varphi$ is an endomorphism of $G$ and
+$\psi = \operatorname{id}_G$, then the action is usually called
+**$\varphi$-twisted conjugation**.
+In general, for the &PACKAGENAME; package, many functions will take
+two homomorphisms <A>hom1</A> and <A>hom2</A> as arguments. However, if
+<A>hom1</A> is an endomorphism, <A>hom2</A> can be omitted, in which case it
+is automatically taken to be the identity map.
+Similarly, some functions will take two elements <A>g1</A> and <A>g2</A> as
+arguments. If <A>g2</A> is omitted, it is automatically taken to be the
+identity element.
+
+@Section tcp
+@SectionTitle The twisted conjugacy (search) problem
+
+Given groups $G$ and $H$, group homomorphisms $\varphi$ and $\psi$ from $H$
+to $G$ and elements $g_1, g_2 \in G$, the **twisted conjugacy problem** is
+the decision problem that asks whether $g_1$ and $g_2$ are
+$(\varphi,\psi)$-twisted conjugate.
+The **twisted conjugacy search problem** is the problem of determining
+an explicit $h$ such that $\varphi(h)^{-1}g_1\psi(h) = g_2$ (under the
+assumption that such $h$ exists).
+
+@Section mtcp
+@SectionTitle The multiple twisted conjugacy (search) problem
+
+Let $H$ and $G_1, \ldots, G_n$ be groups. For each $i \in \{1,\ldots,n\}$,
+let $g_i,g_i' \in G_i$ and let $\varphi_i,\psi_i\colon H \to G_i$ be group
+homomorphisms.
+The **multiple twisted conjugacy problem** is
+the decision problem that asks whether there exists some $h \in H$ such that
+$\varphi_i(h)^{-1}g_i\psi_i(h) = g_i'$ for all $i \in \{1,\ldots,n\}$.
+The **multiple twisted conjugacy search problem** is the problem of
+determining an explicit $h$ such that $\varphi_i(h)^{-1}g_i\psi_i(h) = g_i'$
+for all $i \in \{1,\ldots,n\}$ (under the assumption that such $h$ exists).
+
+<P/>
+
+<Ref Func="IsTwistedConjugate" Style="Number"/> and
+<Ref Func="RepresentativeTwistedConjugation" Style="Number"/> can take lists
+instead of their usual arguments to solve these problems.
