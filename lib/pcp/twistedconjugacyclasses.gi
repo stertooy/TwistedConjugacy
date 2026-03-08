@@ -1,6 +1,6 @@
 ###############################################################################
 ##
-## RepresentativesReidemeisterClassesOp( hom1, hom2, N, one )
+## RepresentativesTwistedConjugacyClassesOp( hom1, hom2, N, one )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
@@ -15,7 +15,7 @@
 ##                  infinitely many
 ##
 InstallMethod(
-    RepresentativesReidemeisterClassesOp,
+    RepresentativesTwistedConjugacyClassesOp,
     "for finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     7,
@@ -29,12 +29,12 @@ InstallMethod(
             not IsFinite( H ) and
             IsFinite( G )
         ) then TryNextMethod(); fi;
-        return TWC.ReidemeisterClassesByTrivSub( G, H, hom1, hom2, N, one );
+        return TWC.RepsTCClassesByTrivSub( G, H, hom1, hom2, N, one );
     end
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClassesOp,
+    RepresentativesTwistedConjugacyClassesOp,
     "for nilpotent range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     4,
@@ -50,12 +50,12 @@ InstallMethod(
             IsNilpotentGroup( G )
         ) then TryNextMethod(); fi;
         C := Center( G );
-        return TWC.ReidemeisterClassesByNormSub( G, H, hom1, hom2, N, C, one );
+        return TWC.RepsTCClassesByNormSub( G, H, hom1, hom2, N, C, one );
     end
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClassesOp,
+    RepresentativesTwistedConjugacyClassesOp,
     "for nilpotent-by-finite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     3,
@@ -72,12 +72,12 @@ InstallMethod(
             IsNilpotentByFinite( G )
         ) then TryNextMethod(); fi;
         F := FittingSubgroup( G );
-        return TWC.ReidemeisterClassesByFinQuo( G, H, hom1, hom2, N, F, one );
+        return TWC.RepsTCClassesByFinQuo( G, H, hom1, hom2, N, F, one );
     end
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClassesOp,
+    RepresentativesTwistedConjugacyClassesOp,
     "for abelian subgroup commuting with the derived subgroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     2,
@@ -96,12 +96,12 @@ InstallMethod(
         if ForAny( GeneratorsOfGroup( N ), n ->
             ForAny( GeneratorsOfGroup( D ), d -> d * n <> n * d )
         ) then TryNextMethod(); fi;
-        return TWC.RepsReidClassesStep1( G, H, hom1, hom2, N, one );
+        return TWC.RepsTCClassesStep1( G, H, hom1, hom2, N, one );
     end
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClassesOp,
+    RepresentativesTwistedConjugacyClassesOp,
     "for nilpotent-by-abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     1,
@@ -117,12 +117,12 @@ InstallMethod(
             IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
         K := Center( DerivedSubgroup( G ) );
-        return TWC.ReidemeisterClassesByNormSub( G, H, hom1, hom2, N, K, one );
+        return TWC.RepsTCClassesByNormSub( G, H, hom1, hom2, N, K, one );
     end
 );
 
 InstallMethod(
-    RepresentativesReidemeisterClassesOp,
+    RepresentativesTwistedConjugacyClassesOp,
     "for polycyclic range",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
     0,
@@ -138,6 +138,6 @@ InstallMethod(
             not IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
         K := NilpotentByAbelianByFiniteSeries( G )[2];
-        return TWC.ReidemeisterClassesByFinQuo( G, H, hom1, hom2, N, K, one );
+        return TWC.RepsTCClassesByFinQuo( G, H, hom1, hom2, N, K, one );
     end
 );
