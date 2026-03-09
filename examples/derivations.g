@@ -55,3 +55,41 @@ g in ImK;
 List( ImK );
 #! [ <identity> of ... ]
 #! @EndExample
+
+#! @Chapter affineactions
+
+#! @Section affact_creating
+
+#! @BeginExample
+aff := AffineActionByGroupDerivation( H, der );
+#! function( g, k ) ... end
+#! @EndExample
+
+#! @Section affact_operations
+
+#! @BeginExample
+g1 := G.1;;
+orb := OrbitAffineAction( H, g1, der );
+#! f1^G
+NrOrbitsAffineAction( H, der );
+#! 10
+stab := StabiliserAffineAction( H, g1, der );;
+Set( stab );
+#! [ <identity> of ..., f3, f3^2, f2^2*f5, f2*f4*f5,
+#!   f2^2*f3*f5, f2*f3*f4*f5, f2^2*f3^2*f5, f2*f3^2*f4*f5 ]
+g2 := G.1*G.4*G.5;;
+h := RepresentativeAffineAction( H, g1, g2, der );;
+aff( g1, h ) = g2;
+#! true
+#! @EndExample
+
+#! @Section affact_orbits
+
+#! @BeginExample
+g2 in orb;
+#! true
+G.2 in orb;
+#! false
+Size( orb );
+#! 8
+#! @EndExample
