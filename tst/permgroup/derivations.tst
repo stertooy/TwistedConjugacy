@@ -69,7 +69,7 @@ gap> orb := OrbitAffineAction( H, G.1, derv );
 (10,12)(13,15)^G
 gap> Print( orb );
 OrbitAffineAction( (10,12)(13,15) )
-gap> stab := StabilizerAffineAction( H, G.1, derv );
+gap> stab := StabiliserAffineAction( H, G.1, derv );
 Group(())
 gap> NrOrbitsAffineAction( H, derv );
 1
@@ -96,7 +96,7 @@ gap> aff := AffineActionByGroupDerivation( K, derv );
 function( g, k ) ... end
 gap> orb := OrbitAffineAction( K, G.1, derv );
 (10,12)(13,15)^G
-gap> stab := StabilizerAffineAction( K, G.1, derv );
+gap> stab := StabiliserAffineAction( K, G.1, derv );
 Group(())
 gap> NrOrbitsAffineAction( K, derv );
 72
@@ -173,7 +173,7 @@ gap> aff := AffineActionByGroupDerivation( H, derv );
 function( g, k ) ... end
 gap> orb := OrbitAffineAction( H, G.1, derv );
 (10,12)(13,15)^G
-gap> stab := StabilizerAffineAction( H, G.1, derv );;
+gap> stab := StabiliserAffineAction( H, G.1, derv );;
 gap> ForAll( GeneratorsOfGroup( stab ), h -> aff( G.1, h ) = G.1 );
 true
 gap> NrOrbitsAffineAction( H, derv );
@@ -199,7 +199,7 @@ gap> aff := AffineActionByGroupDerivation( K, derv );
 function( g, k ) ... end
 gap> orb := OrbitAffineAction( K, G.1, derv );
 (10,12)(13,15)^G
-gap> stab := StabilizerAffineAction( K, G.1, derv );;
+gap> stab := StabiliserAffineAction( K, G.1, derv );;
 gap> Size( stab );
 3
 gap> NrOrbitsAffineAction( K, derv );
