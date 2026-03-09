@@ -38,8 +38,8 @@ DeclareOperation(
 #! and <A>endo2</A>.
 #! @Description
 #! This is often more readable than evaluating
-#! <Ref Func="ReidemeisterZetaFunction" Style="Number"/> in an indeterminate, and does
-#! not require rationality.
+#! <Ref Func="ReidemeisterZetaFunction" Style="Number"/> in an indeterminate,
+#! and does not require rationality.
 #! @Arguments endo1[, endo2]
 DeclareGlobalFunction( "PrintReidemeisterZetaFunction" );
 
@@ -49,8 +49,8 @@ DeclareOperation(
 );
 
 #! @ChapterInfo reidemeisterzeta, reidemeistergen
-#! @Returns <K>true</K> if the Reidemeister generating function of <A>endo1</A> and
-#! <A>endo2</A> is rational, otherwise <K>false</K>.
+#! @Returns <K>true</K> if the Reidemeister generating function of <A>endo1</A>
+#! and <A>endo2</A> is rational, otherwise <K>false</K>.
 #! @Arguments endo1[, endo2]
 DeclareGlobalFunction( "IsRationalReidemeisterGeneratingFunction" );
 
@@ -60,8 +60,8 @@ DeclareOperation(
 );
 
 #! @ChapterInfo reidemeisterzeta, reidemeistergen
-#! @Returns the Reidemeister generating function of <A>endo1</A> and <A>endo2</A> if
-#! it is rational, otherwise <K>fail</K>.
+#! @Returns the Reidemeister generating function of <A>endo1</A> and
+#! <A>endo2</A> if it is rational, otherwise <K>fail</K>.
 #! @Arguments endo1[, endo2]
 DeclareGlobalFunction( "ReidemeisterGeneratingFunction" );
 
@@ -71,12 +71,12 @@ DeclareOperation(
 );
 
 #! @ChapterInfo reidemeisterzeta, reidemeistergen
-#! @Returns a string describing the Reidemeister generating function of <A>endo1</A>
-#! and <A>endo2</A>.
+#! @Returns a string describing the Reidemeister generating function of
+#! <A>endo1</A> and <A>endo2</A>.
 #! @Description
 #! This is often more readable than evaluating
-#! <Ref Func="ReidemeisterGeneratingFunction" Style="Number"/> in an indeterminate, and does
-#! not require rationality.
+#! <Ref Func="ReidemeisterGeneratingFunction" Style="Number"/> in an
+#! indeterminate, and does not require rationality.
 #! @Arguments endo1[, endo2]
 DeclareGlobalFunction( "PrintReidemeisterGeneratingFunction" );
 
