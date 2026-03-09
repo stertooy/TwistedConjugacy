@@ -6,8 +6,8 @@
 DeclareGlobalFunction( "TwistedConjugacyClass" );
 #! @Arguments hom1[, hom2], g
 # DeclareGlobalFunction( "ReidemeisterClass" );
-DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @EndGroup
+DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 
 #! @BeginGroup
 #! @ChapterInfo twistedconjugacyclasses, tcc_opers
