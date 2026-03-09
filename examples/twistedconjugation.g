@@ -1,6 +1,6 @@
 #! @Chapter twistedconjugation
 
-#! @Section tcp
+#! @Section twistedconjugationaction
 
 #! @BeginExample
 G := AlternatingGroup( 6 );;
@@ -11,24 +11,26 @@ psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,2)(3,4), () ] );;
 tc := TwistedConjugation( phi, psi );;
 g1 := (4,6,5);;
+h1 := (1,3,2)(4,5);;
+tc( g1, h1 );
+#! (1,6,4,2)(3,5)
+#! @EndExample
+
+#! @Section tcp
+
+#! @BeginExample
 g2 := (1,6,4,2)(3,5);;
 IsTwistedConjugate( psi, phi, g1, g2 );
 #! false
-h := RepresentativeTwistedConjugation( phi, psi, g1, g2 );
+h2 := RepresentativeTwistedConjugation( phi, psi, g1, g2 );
 #! (1,2)
-tc( g1, h ) = g2;
+tc( g1, h2 ) = g2;
 #! true
 #! @EndExample
 
 #! @Section mtcp
 
 #! @BeginExample
-H := SymmetricGroup( 5 );;
-G := AlternatingGroup( 6 );;
-phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,4)(3,6), () ] );;
-psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
- [ (1,2)(3,4), () ] );;
 tau := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
  [ (1,2)(3,6), () ] );;
 khi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
@@ -52,7 +54,7 @@ Representative( tcc );
 #! (4,6,5)
 ActingDomain( tcc ) = H;
 #! true
-FunctionAction( tcc )( g1, h );
+FunctionAction( tcc )( g1, h2 );
 #! (1,6,4,2)(3,5)
 List( tcc );
 #! [ (4,6,5), (1,6,4,2)(3,5) ]
