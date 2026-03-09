@@ -4,9 +4,11 @@
 #! <A>g</A>.
 #! @Arguments hom1[, hom2], g
 DeclareGlobalFunction( "TwistedConjugacyClass" );
-#! @EndGroup
-
+#! @Arguments hom1[, hom2], g
+# DeclareGlobalFunction( "ReidemeisterClass" );
+#
 DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
+#! @EndGroup
 
 #! @BeginGroup
 #! @ChapterInfo twistedconjugacyclasses, tcc_opers
