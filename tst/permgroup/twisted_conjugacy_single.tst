@@ -35,13 +35,13 @@ gap> NrTwistedConjugacyClasses( endo1 );
 4
 gap> ReidemeisterNumber( endo2 );
 3
-gap> R1 := ReidemeisterClasses( endo1 );;
-gap> R2 := ReidemeisterClasses( endo2 );;
+gap> R1 := TwistedConjugacyClasses( endo1 );;
+gap> R2 := TwistedConjugacyClasses( endo2 );;
 gap> Representative( R1[1] ) = Representative( R2[1] );
 true
 gap> R1 = R2;
 false
-gap> ReidemeisterClass( endo1, One( G ) ) = ReidemeisterClass( endo2, One( G ) );
+gap> TwistedConjugacyClass( endo1, One( G ) ) = TwistedConjugacyClass( endo2, One( G ) );
 false
 
 #
@@ -55,7 +55,7 @@ gap> g2 := Random( R[10] );;
 gap> gc := RepresentativeTwistedConjugation( endo1, endo2, g1, g2 );;
 gap> tc( g1, gc ) = g2;
 true
-gap> ReidemeisterClass( endo1, endo2, g1 ) = ReidemeisterClass( endo1, endo2, g2 );
+gap> TwistedConjugacyClass( endo1, endo2, g1 ) = TwistedConjugacyClass( endo1, endo2, g2 );
 true
 
 #
@@ -103,7 +103,7 @@ gap> endo1D := RestrictedHomomorphism( endo1, D, D );;
 gap> endo2D := RestrictedHomomorphism( endo2, D, D );;
 
 #
-gap> tccD := ReidemeisterClass( endo1D, endo2D, One( D ) );;
+gap> tccD := TwistedConjugacyClass( endo1D, endo2D, One( D ) );;
 gap> Representative( tccD ) = One( D );
 true
 gap> Size( tccD );
@@ -127,11 +127,11 @@ gap> NrTwistedConjugacyClasses( endo1D );
 1
 gap> ReidemeisterNumber( endo2D );
 3
-gap> RD1 := ReidemeisterClasses( endo1D );;
-gap> RD2 := ReidemeisterClasses( endo2D );;
+gap> RD1 := TwistedConjugacyClasses( endo1D );;
+gap> RD2 := TwistedConjugacyClasses( endo2D );;
 gap> Representative( RD1[1] ) = Representative( RD2[1] );
 true
-gap> ReidemeisterClass( endo1D, One( D ) ) = ReidemeisterClass( endo2D, One( D ) );
+gap> TwistedConjugacyClass( endo1D, One( D ) ) = TwistedConjugacyClass( endo2D, One( D ) );
 false
 
 #
@@ -169,9 +169,9 @@ true
 #
 gap> T := TrivialSubgroup( G );;
 gap> endoT := GroupHomomorphismByImages( T, T, [ One( T ) ], [ One( T ) ] );;
-gap> Size( ReidemeisterClasses( endoT ) );
+gap> Size( TwistedConjugacyClasses( endoT ) );
 1
-gap> RepresentativesReidemeisterClasses( endoT ) = [ One( T ) ];
+gap> RepresentativesTwistedConjugacyClasses( endoT ) = [ One( T ) ];
 true
 
 #
