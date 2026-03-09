@@ -4,8 +4,10 @@
 
 #! @BeginExample
 G := PcGroupCode( 3913, 12 );;
-phi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ], [ One( G ), One( G ) ] );;
-psi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ], [ G.2, One( G ) ] );;
+phi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ],
+ [ One( G ), One( G ) ] );;
+psi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ],
+ [ G.2, One( G ) ] );;
 IteratedReidemeisterNumberDecomposition( phi );
 #! [ [ 1 ], [  ] ]
 IteratedReidemeisterNumberDecomposition( phi, psi );
