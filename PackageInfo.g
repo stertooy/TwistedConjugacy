@@ -48,7 +48,7 @@ ArchiveURL      := Concatenation(
     "/", ~.PackageName, "-", ~.Version
 ),
 
-ArchiveFormats := ".tar.gz",
+ArchiveFormats := ".tar.gz .tar.bz2 .zip",
 
 AbstractHTML := """
     The TwistedConjugacy package provides methods for solving the twisted
