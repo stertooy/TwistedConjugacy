@@ -6,7 +6,6 @@
 H := PcGroupCode( 149167619499417164, 72 );;
 G := PcGroupCode( 5551210572, 72 );;
 inn := InnerAutomorphism( G, G.2 );;
-###############################################################################
 hom := GroupHomomorphismByImages( G, G, [ G.1 * G.2, G.5 ],
  [ G.1 * G.2 ^ 2 * G.3 ^ 2 * G.4, G.5 ] );;
 act := GroupHomomorphismByImages( H, AutomorphismGroup( G ),
@@ -77,7 +76,7 @@ stab := StabiliserAffineAction( H, g1, der );;
 Set( stab );
 #! [ <identity> of ..., f3, f3^2, f2^2*f5, f2*f4*f5,
 #!   f2^2*f3*f5, f2*f3*f4*f5, f2^2*f3^2*f5, f2*f3^2*f4*f5 ]
-g2 := G.1*G.4*G.5;;
+g2 := G.1 * G.4 * G.5;;
 h := RepresentativeAffineAction( H, g1, g2, der );;
 aff( g1, h ) = g2;
 #! true
