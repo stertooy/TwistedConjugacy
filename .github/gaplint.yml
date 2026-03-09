@@ -1,8 +1,0 @@
-columns: 79
-indentation: 4
-disable:
-- W003
-- W004
-- W012
-- W013
-- W014
