@@ -63,8 +63,8 @@ StabiliserOfExternalSet( tcc );
 TwistedConjugacyClasses( phi, psi ){ [ 1 .. 7 ] };
 #! [ ()^G, (4,5,6)^G, (4,6,5)^G, (3,4)(5,6)^G, (3,4,5)^G, (3,4,6)^G, (3,5,4)^G ]
 Concatenation( "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-  "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-#! "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+#! "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 RepresentativesTwistedConjugacyClasses( phi, psi ){ [ 1 .. 7 ] };
 #! [ (), (4,5,6), (4,6,5), (3,4)(5,6), (3,4,5), (3,4,6), (3,5,4) ]
 NrTwistedConjugacyClasses( phi, psi );
