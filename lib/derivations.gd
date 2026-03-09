@@ -123,7 +123,8 @@ DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineAction );
 #! <A>der</A>, or <K>fail</K> if no preimage exists.
 #! @Label of an element under a group derivation
 #! @Arguments der, elm
-# DeclareOperation( "PreImagesRepresentative", [ IsGeneralMapping, IsObject ] );
+# DeclareOperation( "PreImagesRepresentative",
+#   [ IsGeneralMapping, IsObject ] );
 #! @EndGroup
 
 #! @BeginGroup
