@@ -19,6 +19,8 @@ StabiliserOfExternalSet( tcc );
 #! Group([ (1,2,3,4,5), (1,3,4,5,2) ])
 TwistedConjugacyClasses( phi, psi ){ [ 1 .. 7 ] };
 #! [ ()^G, (4,5,6)^G, (4,6,5)^G, (3,4)(5,6)^G, (3,4,5)^G, (3,4,6)^G, (3,5,4)^G ]
+List( G );
+#! [ FSLFJDSFSDFS ]
 RepresentativesTwistedConjugacyClasses( phi, psi ){ [ 1 .. 7 ] };
 #! [ (), (4,5,6), (4,6,5), (3,4)(5,6), (3,4,5), (3,4,6), (3,5,4) ]
 NrTwistedConjugacyClasses( phi, psi );
