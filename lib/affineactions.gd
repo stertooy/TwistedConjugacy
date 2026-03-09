@@ -2,7 +2,8 @@ DeclareCategory( "IsOrbitAffineAction", IsExternalSet );
 
 #! @BeginGroup
 #! @ChapterInfo affineactions, affact_creating
-#! @Returns the affine action of <A>K</A> associated to the derivation <A>der</A>.
+#! @Returns the affine action of <A>K</A> associated to the derivation
+#! <A>der</A>.
 #! @Description
 #! The group <A>K</A> must be a subgroup of <C>Source(<A>der</A>)</C>.
 #! @Arguments K, der
@@ -12,8 +13,8 @@ DeclareGlobalFunction( "AffineActionByGroupDerivation" );
 #! @BeginGroup
 #! @ChapterInfo affineactions, affact_operations
 #! @GroupTitle OrbitAffineAction
-#! @Returns the orbit of <A>g</A> under the affine action of <A>K</A> associated
-#! to <A>der</A>.
+#! @Returns the orbit of <A>g</A> under the affine action of <A>K</A>
+#! associated to <A>der</A>.
 #! @Description
 #! The group <A>K</A> must be a subgroup of <C>Source(<A>der</A>)</C>.
 #! @Arguments K, g, der
@@ -24,8 +25,8 @@ DeclareGlobalFunction( "OrbitAffineAction" );
 #! @ChapterInfo affineactions, affact_operations
 #! @GroupTitle OrbitsAffineAction
 #! @Returns a list containing the orbits under the affine action of <A>K</A>
-#! associated to  <A>der</A> if there are finitely many, or <K>fail</K> if there
-#! are infinitely many.
+#! associated to  <A>der</A> if there are finitely many, or <K>fail</K> if
+#! there are infinitely many.
 #! @Description
 #! The group <A>K</A> must be a subgroup of <C>Source(<A>der</A>)</C>.
 #! @Arguments K, der
@@ -35,8 +36,8 @@ DeclareGlobalFunction( "OrbitsAffineAction" );
 #! @BeginGroup
 #! @ChapterInfo affineactions, affact_operations
 #! @GroupTitle NrOrbitsAffineAction
-#! @Returns the number of orbits under the affine action of <A>K</A> associated
-#! to <A>der</A>.
+#! @Returns the number of orbits under the affine action of <A>K</A>
+#! associated to <A>der</A>.
 #! @Arguments K, der
 DeclareGlobalFunction( "NrOrbitsAffineAction" );
 #! @EndGroup
@@ -44,8 +45,8 @@ DeclareGlobalFunction( "NrOrbitsAffineAction" );
 #! @BeginGroup
 #! @ChapterInfo affineactions, affact_operations
 #! @GroupTitle StabiliserAffineAction
-#! @Returns the stabiliser of <A>g</A> under the affine action of <A>K</A> associated
-#! to <A>der</A>.
+#! @Returns the stabiliser of <A>g</A> under the affine action of <A>K</A>
+#! associated to <A>der</A>.
 #! @Description
 #! The group <A>K</A> must be a subgroup of <C>Source(<A>der</A>)</C>.
 #! @Arguments K, g, der
@@ -60,8 +61,8 @@ DeclareSynonym( "StabilizerAffineAction", StabiliserAffineAction );
 #! @ChapterInfo affineactions, affact_operations
 #! @GroupTitle RepresentativeAffineAction
 #! @Returns an element of <A>K</A> that maps <A>g1</A> to <A>g2</A> under the
-#! affine action of <A>K</A> associated to <A>der</A>, or <K>fail</K> if no such
-#! element exists.
+#! affine action of <A>K</A> associated to <A>der</A>, or <K>fail</K> if no
+#! such element exists.
 #! @Description
 #! The group <A>K</A> must be a subgroup of <C>Source(<A>der</A>)</C>.
 #! @Arguments K, g1, g2, der
