@@ -38,7 +38,7 @@ gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
 gap> imgH := ImagesSource( derv );
 Group derivation image in Pcp-group with orders [ 2, 0, 0, 0 ]
-gap> K = StabilizerOfExternalSet( imgH );
+gap> K = StabiliserOfExternalSet( imgH );
 true
 gap> Print( imgH );
 <group derivation image: Pcp-group with orders [ 2, 0, 0, 0 ] -> Pcp-group with orders [ 2, 0, 0, 0 ] >
@@ -74,7 +74,7 @@ gap> orb := OrbitAffineAction( H, G.1, derv );
 g1^G
 gap> Print( orb );
 OrbitAffineAction( g1 )
-gap> stab := StabilizerAffineAction( H, G.1, derv );
+gap> stab := StabiliserAffineAction( H, G.1, derv );
 Pcp-group with orders [  ]
 gap> NrOrbitsAffineAction( H, derv );
 4
@@ -95,7 +95,7 @@ gap> aff := AffineActionByGroupDerivation( K, derv );
 function( g, k ) ... end
 gap> orb := OrbitAffineAction( K, G.1, derv );
 g1^G
-gap> stab := StabilizerAffineAction( K, G.1, derv );
+gap> stab := StabiliserAffineAction( K, G.1, derv );
 Pcp-group with orders [  ]
 gap> NrOrbitsAffineAction( K, derv );
 infinity
