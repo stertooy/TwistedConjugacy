@@ -4,8 +4,12 @@
 
 #! @BeginExample
 G := PcGroupCode( 3913, 12 );;
-phi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ], [ One(G), One(G) ] );;
-psi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ], [ G.2, One(G) ] );;
+phi := GroupHomomorphismByImages(
+    G, G, [ G.1, G.3 ], [ One( G ), One( G ) ]
+);;
+psi := GroupHomomorphismByImages(
+    G, G, [ G.1, G.3 ], [ G.2, One( G ) ]
+);;
 IteratedReidemeisterNumberDecomposition( phi );
 #! [ [ 1 ], [  ] ]
 IteratedReidemeisterNumberDecomposition( phi, psi );
@@ -20,7 +24,7 @@ IsRationalReidemeisterZetaFunction( phi );
 IsRationalReidemeisterZetaFunction( phi, psi );
 #! false
 s := Indeterminate( Rationals, "s" );;
-ReidemeisterZetaFunction( phi )(s);
+ReidemeisterZetaFunction( phi )( s );
 #! (1)/(-s+1)
 PrintReidemeisterZetaFunction( phi, psi );
 #! "exp(-6*s)*(1-s)^(-12)"
