@@ -108,13 +108,11 @@ DeclareGlobalFunction( "InducedHomomorphism" );
 DeclareGlobalFunction( "RestrictedHomomorphism" );
 
 #! @BeginExample
-phi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ],
- [ G.1*G.2*G.3^2, G.3^4 ] );;
 N := DerivedSubgroup( G );;
 p := NaturalHomomorphismByNormalSubgroup( G, N );
 #! [ f1, f2, f3 ] -> [ f1, f2, <identity> of ... ]
 ind := InducedHomomorphism( p, p, phi );
 #! [ f1 ] -> [ f1*f2 ]
 res := RestrictedHomomorphism( phi, N, N );
-#! [ f3 ] -> [ f3^4 ]
+#! [ f3 ] -> [ f3^3 ]
 #! @EndExample
