@@ -1,4 +1,4 @@
-#! @ChapterInfo twistedconjugation, twistedconjugationinfo
+#! @ChapterInfo twistedconjugation, twistedconjugationaction
 #! @Returns a function that maps the pair <C>(g,h)</C> to
 #! <A>hom1</A><C>(h)⁻¹</C> <C>g</C> <A>hom2</A><C>(h)</C>.
 #! @Arguments hom1[, hom2]
