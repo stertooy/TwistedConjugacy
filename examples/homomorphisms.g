@@ -19,7 +19,8 @@ Size( Homs );
 #! @Section coincidence
 
 #! @BeginExample
-phi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ], [ G.1 * G.2, G.3 ^ 3 ] );;
+phi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ],
+ [ G.1 * G.2, G.3 ^ 3 ] );;
 Set( FixedPointGroup( phi ) );
 #! [ <identity> of ..., f2 ]
 psi := GroupHomomorphismByImages( H, G, [ H.1, H.2, H.3 ],
