@@ -1,6 +1,16 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
 
+3.2.1 (2026-XX-YY)
+------------------
+
+- Fixed a but in Intersection for cosets of PcpGroups
+
+- Overhauled manual creation
+- Changes to examples in the manual
+
+
+
 3.2.0 (2026-02-11)
 ------------------
 

@@ -34,7 +34,7 @@ InstallGlobalFunction(
         map := TWC.FourMapsForAffineAction( K, derv );
         emb := map[3];
         s := ImagesRepresentative( emb, g );
-        tcc := ReidemeisterClass( map[1], map[2], s );
+        tcc := TwistedConjugacyClass( map[1], map[2], s );
         orb := rec(
             tcc := tcc,
             emb := emb
@@ -226,7 +226,7 @@ InstallMethod(
     StabilizerOfExternalSet,
     "for orbits of affine actions",
     [ IsOrbitAffineActionRep ],
-    orb -> StabilizerOfExternalSet( orb!.tcc )
+    orb -> StabiliserOfExternalSet( orb!.tcc )
 );
 
 ###############################################################################

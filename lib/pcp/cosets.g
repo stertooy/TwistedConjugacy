@@ -79,8 +79,10 @@ TWC.IntersectionPcpGroups := function( U, V )
     fi;
 
     # Defer to polycyclic's implementation
-    if IsNormal( V, U ) or IsNormal( U, V ) then
-        return Intersection2( U, V );
+    if IsNormal( V, U ) then
+        return NormalIntersection( U, V );
+    elif IsNormal( U, V ) then
+        return NormalIntersection( V, U );
     fi;
 
     # Use CoincidenceGroup
