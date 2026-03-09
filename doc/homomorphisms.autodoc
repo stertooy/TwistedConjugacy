@@ -1,0 +1,13 @@
+@Chapter homomorphisms
+@ChapterTitle Group homomorphisms
+
+@Section homreps
+@SectionTitle Representatives of homomorphisms between groups
+
+Please note that the functions below are only implemented for finite groups.
+
+@Section coincidence
+@SectionTitle Coincidence and fixed point groups
+
+@Section inducerestrict
+@SectionTitle Induced and restricted group homomorphisms

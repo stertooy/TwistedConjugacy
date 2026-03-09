@@ -1,0 +1,32 @@
+@Chapter reidemeisternumbers
+@ChapterTitle Reidemeister numbers and spectra
+
+@Section reidemeisternumbers
+@SectionTitle Reidemeister numbers
+
+The number of twisted conjugacy classes is called the Reidemeister number
+and is always a positive integer or infinity.
+
+@Section reidemeisterspectra
+@SectionTitle Reidemeister spectra
+
+The set of all Reidemeister numbers of automorphisms is called the
+**Reidemeister spectrum** and is denoted by $\operatorname{Spec}_R(G)$, i.e.
+$$\operatorname{Spec}_R(G) := \{\, R(\varphi) \mid \varphi \in \operatorname{Aut}(G) \,\}.$$
+The set of all Reidemeister numbers of endomorphisms is called the
+**extended Reidemeister spectrum** and is denoted by
+$\operatorname{ESpec}_R(G)$, i.e.
+$$\operatorname{ESpec}_R(G) := \{\, R(\varphi) \mid \varphi \in \operatorname{End}(G) \,\}.$$
+The set of all Reidemeister numbers of pairs of homomorphisms from a group
+$H$ to a group $G$ is called the **coincidence Reidemeister spectrum** of
+$H$ and $G$ and is denoted by $\operatorname{CSpec}_R(H,G)$, i.e.
+$$\operatorname{CSpec}_R(H,G) := \{\, R(\varphi, \psi) \mid \varphi,\psi \in \operatorname{Hom}(H,G) \,\}.$$
+If <A>H</A> = <A>G</A> this is also denoted by $\operatorname{CSpec}_R(G)$.
+The set of all Reidemeister numbers of pairs of homomorphisms from every
+group $H$ to a group $G$ is called the **total Reidemeister spectrum** and
+is denoted by $\operatorname{TSpec}_R(G)$, i.e.
+$$\operatorname{TSpec}_R(G) := \bigcup_{H} \operatorname{CSpec}_R(H,G).$$
+
+<P/>
+
+Please note that the functions below are only implemented for finite groups.

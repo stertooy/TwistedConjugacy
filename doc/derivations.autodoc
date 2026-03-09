@@ -1,0 +1,38 @@
+@Chapter derivations
+@ChapterTitle Group derivations
+
+Let $G$ and $H$ be groups and let $H$ act on $G$ via automorphisms, i.e.
+there is a group homomorphism
+$$\alpha \colon H \to \operatorname{Aut}(G) \colon h \mapsto \alpha_h$$
+such that $g^h = \alpha_h(g)$ for all $g \in G$ and $h \in H$.
+A **group derivation** $\delta \colon H \to G$ is a map such that
+$$\delta(h_1h_2) = \delta(h_1)^{h_2}\delta(h_2).$$
+Note that we do not require $G$ to be abelian.
+
+<P/>
+
+Algorithms designed for computing with twisted conjugacy classes can be
+leveraged to do computations involving group derivations, see
+<Cite Key='tert25-a' Where='Sec. 10'/> for a description on this.
+
+<P/>
+
+Please note that the functions in this chapter require $G$ and $H$ to either
+both be finite, or both be PcpGroups.
+
+@Section gd_creating
+@SectionTitle Creating group derivations
+
+@Section gd_operations
+@SectionTitle Operations for group derivations
+
+Many of the functions, operations, attributes... available to group
+homomorphisms are available for group derivations as well.
+We list some of the more useful ones.
+
+@Section gd_images
+@SectionTitle Images of group derivations
+
+In general, the image of a group derivation is not a subgroup. However, it
+is still possible to do a membership test, to calculate the number of
+elements, and to enumerate the elements if there are only finitely many.
