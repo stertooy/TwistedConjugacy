@@ -22,7 +22,8 @@
 #! <K>false</K>.
 #! @Label for an element and a double coset of a PcpGroup
 #! @Arguments g, D
-# DeclareOperation( "\in", [ IsMultiplicativeElementWithInverse, IsDoubleCoset ] );
+# DeclareOperation( "\in",
+#   [ IsMultiplicativeElementWithInverse, IsDoubleCoset ] );
 #! @EndGroup
 
 #! @BeginGroup
@@ -84,7 +85,8 @@
 #! PcpGroups it is usually **slower**.
 #! @Label for PcpGroups
 #! @Arguments G, H, K
-# DeclareOperation( "DoubleCosetRepsAndSizes", [ IsPcpGroup, IsPcPGroup, IsPcPGroup ] );
+# DeclareOperation( "DoubleCosetRepsAndSizes",
+#   [ IsPcpGroup, IsPcPGroup, IsPcPGroup ] );
 #! @EndGroup
 
 #! @BeginGroup
