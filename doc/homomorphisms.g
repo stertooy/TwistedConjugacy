@@ -30,23 +30,17 @@ DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
 DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 
 #! @BeginExample
-G := SymmetricGroup( 6 );;
+G := PcGroupCode( 1018013, 28 );;
 Auts := RepresentativesAutomorphismClasses( G );;
 Size( Auts );
-#! 2
-ForAll( Auts, IsGroupHomomorphism and IsEndoMapping and IsBijective );
-#! true
+#! 6
 Ends := RepresentativesEndomorphismClasses( G );;
 Size( Ends );
-#! 6
-ForAll( Ends, IsGroupHomomorphism and IsEndoMapping );
-#! true
-H := SymmetricGroup( 5 );;
+#! 10
+H := PcGroupCode( 36293, 28 );
 Homs := RepresentativesHomomorphismClasses( H, G );;
 Size( Homs );
-#! 6
-ForAll( Homs, IsGroupHomomorphism );
-#! true
+#! 4
 #! @EndExample
 
 #! @Section coincidence
@@ -68,16 +62,15 @@ DeclareGlobalFunction( "FixedPointGroup" );
 DeclareGlobalFunction( "CoincidenceGroup" );
 
 #! @BeginExample
-phi := GroupHomomorphismByImages( G, G, [ (1,2,5,6,4), (1,2)(3,6)(4,5) ],
- [ (2,3,4,5,6), (1,2) ] );;
+phi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ], [ G.1*G.2, G.3^3 ] );;
 Set( FixedPointGroup( phi ) );
-#! [ (), (1,2,3,6,5), (1,3,5,2,6), (1,5,6,3,2), (1,6,2,5,3) ]
-psi := GroupHomomorphismByImages( H, G, [ (1,2,3,4,5), (1,2) ],
- [ (), (1,2) ] );;
-khi := GroupHomomorphismByImages( H, G, [ (1,2,3,4,5), (1,2) ],
- [ (), (1,2)(3,4) ] );;
-CoincidenceGroup( psi, khi ) = AlternatingGroup( 5 );
-#! true
+#! [ <identity> of ..., f2 ]
+psi := GroupHomomorphismByImages( H, G, [ H.1, H.2, H.3 ],
+ [ One( G ), G.2, One( G ) ] );;
+khi := GroupHomomorphismByImages( H, G, [ H.1, H.2, H.3 ],
+ [ G.2, G.2, One( G ) ] );;
+CoincidenceGroup( psi, khi );
+#! Group([ f2, f3 ])
 #! @EndExample
 
 #! @Section inducerestrict
@@ -115,7 +108,6 @@ DeclareGlobalFunction( "InducedHomomorphism" );
 DeclareGlobalFunction( "RestrictedHomomorphism" );
 
 #! @BeginExample
-G := PcGroupCode( 1018013, 28 );;
 phi := GroupHomomorphismByImages( G, G, [ G.1, G.3 ],
  [ G.1*G.2*G.3^2, G.3^4 ] );;
 N := DerivedSubgroup( G );;
@@ -123,10 +115,6 @@ p := NaturalHomomorphismByNormalSubgroup( G, N );
 #! [ f1, f2, f3 ] -> [ f1, f2, <identity> of ... ]
 ind := InducedHomomorphism( p, p, phi );
 #! [ f1 ] -> [ f1*f2 ]
-Source( ind ) = Range( p ) and Range( ind ) = Range( p );
-#! true
 res := RestrictedHomomorphism( phi, N, N );
 #! [ f3 ] -> [ f3^4 ]
-Source( res ) = N and Range( res ) = N;
-#! true
 #! @EndExample
