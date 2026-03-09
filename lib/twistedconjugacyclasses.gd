@@ -65,10 +65,8 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! action <C>FunctionAction(<A>tcc</A>)</C>.
 #! @Label of a twisted conjugacy class
 #! @Arguments tcc
-# DeclareAttribute(
-#     "StabiliserOfExternalSet",
-#     IsTwistedConjugacyClassGroupRep
-# );
+# DeclareAttribute( "StabiliserOfExternalSet",
+#   IsTwistedConjugacyClassGroupRep );
 #! @EndGroup
 
 #! @BeginGroup
@@ -100,10 +98,8 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! <K>false</K>.
 #! @Label for twisted conjugacy classes
 #! @Arguments tcc1, tcc2
-# DeclareOperation(
-#     "\=",
-#     [ IsTwistedConjugacyClassGroupRep, IsTwistedConjugacyClassGroupRep ]
-# );
+# DeclareOperation( "\=",
+#   [ IsTwistedConjugacyClassGroupRep, IsTwistedConjugacyClassGroupRep ] );
 #! @EndGroup
 
 #! @BeginGroup
