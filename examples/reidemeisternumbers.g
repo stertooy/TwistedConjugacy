@@ -10,12 +10,8 @@ phi := GroupHomomorphismByImages(
 ReidemeisterNumber( phi );
 #! 3
 D := DihedralGroup( 8 );;
-psi := GroupHomomorphismByImages(
-      Q, D, [ Q.1, Q.2 ], [ D.1 * D.2, D.3 ]
-);;
-chi := GroupHomomorphismByImages(
-      Q, D, [ Q.1, Q.2 ], [ D.1, D.3 ]
-);;
+psi := GroupHomomorphismByImages( Q, D, [ Q.1, Q.2 ], [ D.1 * D.2, D.3 ] );;
+chi := GroupHomomorphismByImages( Q, D, [ Q.1, Q.2 ], [ D.1, D.3 ] );;
 ReidemeisterNumber( psi, chi );
 #! 4
 #! @EndExample
