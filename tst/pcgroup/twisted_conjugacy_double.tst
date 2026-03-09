@@ -65,7 +65,7 @@ gap> homN1 := RestrictedHomomorphism( hom1, N, M );;
 gap> homN2 := RestrictedHomomorphism( hom2, N, M );;
 
 #
-gap> tccM := ReidemeisterClass( homN1, homN2, One( M ) );;
+gap> tccM := TwistedConjugacyClass( homN1, homN2, One( M ) );;
 gap> Representative( tccM ) = One( M );
 true
 gap> Size( tccM );
