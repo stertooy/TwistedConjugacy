@@ -16,8 +16,10 @@ jobs:
         include:
           - files: "*.g !(doc|examples)/**/*.g*"
             disable: "W003,W004,W012,W013,W014"
+            columns: 79
           - files: "examples/**/*.g*"
             disable: "W003,W004,W012,W013,W014,W049"
+            columns: 83
 
     steps:
     
@@ -38,5 +40,5 @@ jobs:
         run: |
           shopt -s globstar extglob
           FILES="${{ matrix.files }}"
-          OPTS="--columns=79 --indentation=4 --disable=${{ matrix.disable }}"
+          OPTS="--columns=${{ matrix.columns }} --indentation=4 --disable=${{ matrix.disable }}"
           gaplint $FILES $OPTS
