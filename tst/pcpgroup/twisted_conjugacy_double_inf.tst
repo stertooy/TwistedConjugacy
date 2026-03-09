@@ -9,7 +9,7 @@ gap> hom1 := GroupHomomorphismByImages( H, G, GeneratorsOfGroup( H ), imgs1 );;
 gap> hom2 := GroupHomomorphismByImages( H, G, GeneratorsOfGroup( H ), imgs2 );;
 
 #
-gap> tcc := ReidemeisterClass( hom1, hom2, One( G ) );;
+gap> tcc := TwistedConjugacyClass( hom1, hom2, One( G ) );;
 gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );
