@@ -6,9 +6,9 @@
 G := AlternatingGroup( 6 );;
 H := SymmetricGroup( 5 );;
 phi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
-[ (1,4)(3,6), () ] );;
+ [ (1,4)(3,6), () ] );;
 psi := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ],
-[ (1,2)(3,4), () ] );;
+ [ (1,2)(3,4), () ] );;
 tc := TwistedConjugation( phi, psi );;
 g1 := (4,6,5);;
 g2 := (1,6,4,2)(3,5);;
