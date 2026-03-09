@@ -113,7 +113,7 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## StabilizerAffineAction( K, g, derv )
+## StabiliserAffineAction( K, g, derv )
 ##
 ##  INPUT:
 ##      K:          subgroup of H
@@ -128,7 +128,7 @@ InstallGlobalFunction(
     function( K, g, derv )
         local orb;
         orb := OrbitAffineAction( K, g, derv );
-        return StabilizerOfExternalSet( orb );
+        return StabiliserOfExternalSet( orb );
     end
 );
 
@@ -214,7 +214,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## StabilizerOfExternalSet( orb )
+## StabiliserOfExternalSet( orb )
 ##
 ##  INPUT:
 ##      orb:        orbit of an affine action
@@ -223,7 +223,7 @@ InstallMethod(
 ##      stab:       stabiliser of the representative of orb
 ##
 InstallMethod(
-    StabilizerOfExternalSet,
+    StabiliserOfExternalSet,
     "for orbits of affine actions",
     [ IsOrbitAffineActionRep ],
     orb -> StabiliserOfExternalSet( orb!.tcc )

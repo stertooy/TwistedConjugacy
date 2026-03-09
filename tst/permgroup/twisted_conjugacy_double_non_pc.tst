@@ -7,7 +7,7 @@ gap> hom1 := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1
 gap> hom2 := GroupHomomorphismByImages( H, G, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1,4)(3,6), () ] );;
 
 #
-gap> tcc := ReidemeisterClass( hom1, hom2, (4,6,5) );;
+gap> tcc := TwistedConjugacyClass( hom1, hom2, (4,6,5) );;
 gap> Representative( tcc ) = (4,6,5);
 true
 gap> Size( tcc );

@@ -2,9 +2,9 @@ Read( "PackageInfo.g" );
 info := GAPInfo.PackageInfoCurrent;
 pkgName := info.PackageName;
 pkgsToLoad := [
-    [ pkgName, info.Version ],
     [ "GAPDoc", "1.6.7" ],
-    [ "Autodoc", "2025.12.19" ]
+    [ "Autodoc", "2025.12.19" ],
+    [ pkgName, info.Version ]
 ];
 if IsBound( info.Extensions ) then
     for ext in info.Extensions do
@@ -17,9 +17,6 @@ for pkgToLoad in pkgsToLoad do
     ver := pkgToLoad[2];
     if LoadPackage( pkg, ver, false: OnlyNeeded ) = fail then
         err := true;
-        Info( InfoGAPDoc, 1,
-            "#I Could not load '", pkg, "' with version >= ", ver, ".\n"
-        );
     else
         Info( InfoGAPDoc, 1,
             "#I Loaded '", pkg, "' with version >= ", ver, ".\n"
@@ -56,7 +53,7 @@ AutoDoc( rec(
             SUBTITLE := info.Subtitle
         )
     ),
-    autodoc := rec( scan_dirs := [ "doc" ] ),
+    autodoc := rec( scan_dirs := [ "doc", "lib", "examples" ] ),
     gapdoc := rec(
         LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}" )
     ),
@@ -64,7 +61,7 @@ AutoDoc( rec(
 ));
 
 if not IsReadableFile( "doc/manual.six" ) then
-    Info( InfoGAPDoc, 1, "#I One or more files could not be created.\n" );
+    Info( InfoGAPDoc, 1, "#W One or more files could not be created.\n" );
     ForceQuitGap( 1 );
 else
     Info( InfoGAPDoc, 1, "#I Manual files sucessfully created.\n" );
@@ -83,7 +80,7 @@ if IsReadableFile( tstFile ) then
     if correct then
         Info( InfoGAPDoc, 1, "#I All examples are correct.\n" );
     else
-        Info( InfoGAPDoc, 1, "#I One or more examples are incorrect.\n" );
+        Info( InfoGAPDoc, 1, "#W One or more examples are incorrect.\n" );
         ForceQuitGap( 1 );
     fi;
 else

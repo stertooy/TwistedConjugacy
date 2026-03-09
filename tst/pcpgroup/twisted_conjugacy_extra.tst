@@ -6,16 +6,16 @@ gap> idG := IdentityMapping( G );;
 gap> ReidemeisterNumber( idG ); # quotient gives infinity
 infinity
 gap> trivG := GroupHomomorphismByFunction( G, G, g -> One( G ) );;
-gap> Size( ReidemeisterClasses( trivG ) );
+gap> Size( TwistedConjugacyClasses( trivG ) );
 1
 
 #
 gap> F := FittingSubgroup( G );;
 gap> incF := GroupHomomorphismByImages( F, G, GeneratorsOfGroup( F ), GeneratorsOfGroup( F ) );;
 gap> homF := GroupHomomorphismByImages( F, F, [ F.1, F.2, F.3 ], [ F.1^2*F.2, F.1^3*F.2^2, F.3 ] );;
-gap> ReidemeisterClasses( incF, incF );
+gap> TwistedConjugacyClasses( incF, incF );
 fail
-gap> tcc := ReidemeisterClass( incF, incF, One( G ) );;
+gap> tcc := TwistedConjugacyClass( incF, incF, One( G ) );;
 gap> Size( tcc );
 1
 gap> List( tcc );
@@ -34,7 +34,7 @@ gap> hom2N := RestrictedHomomorphism( hom2, N, N );;
 gap> ReidemeisterNumber( hom1N, hom2N );
 4
 gap> incN := GroupHomomorphismByImages( N, G, GeneratorsOfGroup( N ), GeneratorsOfGroup( N ) );;
-gap> ReidemeisterClasses( incN, incN );
+gap> TwistedConjugacyClasses( incN, incN );
 fail
 gap> ReidemeisterNumber( incN, incN );
 infinity
@@ -43,7 +43,7 @@ infinity
 gap> p := NaturalHomomorphismByNormalSubgroup( G, FittingSubgroup( G ) );;
 gap> Q := Image( p );;
 gap> trivQG := GroupHomomorphismByImages( Q, G, [ Q.1 ], [ One( G ) ] );;
-gap> ReidemeisterClasses( trivQG, trivQG );
+gap> TwistedConjugacyClasses( trivQG, trivQG );
 fail
 gap> ReidemeisterNumber( trivQG, trivQG );
 infinity
@@ -119,7 +119,7 @@ gap> ReidemeisterNumber( hom1G5, hom2G5 );
 180
 gap> inc1S6 := GroupHomomorphismByImages( S6, G5, [ (1,2,3,4,5,6), (1,2) ] , [ G5.1, G5.1 ] );;
 gap> inc2S6 := GroupHomomorphismByImages( S6, G5, [ (1,2,3,4,5,6), (1,2) ] , [ G5.1*G5.4, G5.1*G5.4 ] );;
-gap> ReidemeisterClasses( inc1S6, inc2S6 );
+gap> TwistedConjugacyClasses( inc1S6, inc2S6 );
 fail
 gap> ReidemeisterNumber( inc2S6, inc2S6 );
 infinity

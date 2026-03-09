@@ -1,4 +1,4 @@
-InstallValue( TWC, rec( ASSERT := false ) );
+BindGlobal( "TWC", rec( ASSERT := false ) );
 
 # Introduce NC versions of preimage functions as a temporary measure
 if not IsBound( PreImagesSetNC ) then

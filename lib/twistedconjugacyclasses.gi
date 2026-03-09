@@ -112,7 +112,7 @@ InstallMethod(
     Size,
     "for twisted conjugacy classes",
     [ IsTwistedConjugacyClassGroupRep ],
-    tcc -> IndexNC( ActingDomain( tcc ), StabilizerOfExternalSet( tcc ) )
+    tcc -> IndexNC( ActingDomain( tcc ), StabiliserOfExternalSet( tcc ) )
 );
 
 ###############################################################################

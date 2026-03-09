@@ -10,6 +10,16 @@ jobs:
   lint:
     name: "Run gaplint"
     runs-on: ubuntu-slim
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - files: "*.g !(examples)/**/*.g*"
+            disable: "W003,W004,W012,W013,W014"
+            columns: 79
+          - files: "examples/**/*.g*"
+            disable: "W003,W004,W010,W012,W013,W014,W049"
+            columns: 83
 
     steps:
     
@@ -29,5 +39,6 @@ jobs:
         shell: bash
         run: |
           shopt -s globstar extglob
-          FILES="*.g !(doc)/**/*.g*"
-          gaplint $FILES --config-file=.github/gaplint.yml
+          FILES="${{ matrix.files }}"
+          OPTS="--columns=${{ matrix.columns }} --indentation=4 --disable=${{ matrix.disable }}"
+          gaplint $FILES $OPTS
