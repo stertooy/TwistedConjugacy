@@ -8,7 +8,7 @@ gap> endo1 := GroupHomomorphismByImagesNC( G, G, [ (1,6,7,4,3,5,2), (3,5)(4,6) ]
 gap> endo2 := GroupHomomorphismByImagesNC( G, G, [ (1,6,7,4,3,5,2), (3,5)(4,6) ], imgs2 );;
 
 #
-gap> tcc := TwistedConjugacyClass( endo1, endo2, One( G ) );;
+gap> tcc := ReidemeisterClass( endo1, endo2, One( G ) );;
 gap> Representative( tcc ) = One( G );
 true
 gap> Size( tcc );
@@ -30,11 +30,11 @@ gap> NrTwistedConjugacyClasses( endo1 );
 4
 gap> ReidemeisterNumber( endo2 );
 6
-gap> R1 := TwistedConjugacyClasses( endo1 );;
-gap> R2 := TwistedConjugacyClasses( endo2 );;
+gap> R1 := ReidemeisterClasses( endo1 );;
+gap> R2 := ReidemeisterClasses( endo2 );;
 gap> Representative( R1[1] ) = Representative( R2[1] );
 true
-gap> TwistedConjugacyClass( endo1, One( G ) ) = TwistedConjugacyClass( endo2, One( G ) );
+gap> ReidemeisterClass( endo1, One( G ) ) = ReidemeisterClass( endo2, One( G ) );
 false
 
 #
