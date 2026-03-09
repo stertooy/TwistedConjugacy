@@ -4,9 +4,7 @@
 
 #! @BeginExample
 Q := QuaternionGroup( 8 );;
-phi := GroupHomomorphismByImages(
-      Q, Q, [ Q.1, Q.2 ], [ Q.2, Q.1 ]
-);;
+phi := GroupHomomorphismByImages( Q, Q, [ Q.1, Q.2 ], [ Q.2, Q.1 ] );;
 ReidemeisterNumber( phi );
 #! 3
 D := DihedralGroup( 8 );;
