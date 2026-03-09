@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - files: "*.g !(doc|examples)/**/*.g*"
+          - files: "*.g !(examples)/**/*.g*"
             disable: "W003,W004,W012,W013,W014"
             columns: 79
           - files: "examples/**/*.g*"
