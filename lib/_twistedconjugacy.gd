@@ -1,1 +1,1 @@
-DeclareGlobalVariable( "TWC" );
+DeclareGlobalName( "TWC" );
