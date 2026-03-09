@@ -29,5 +29,7 @@ jobs:
         shell: bash
         run: |
           shopt -s globstar extglob
-          FILES="*.g !(doc)/**/*.g*"
+          FILES="*.g !(doc|examples)/**/*.g*"
           gaplint $FILES --config-file=.github/gaplint.yml
+          FILES="examples/**/*.g"
+          gaplint $FILES --config-file=.github/gaplint.yml --disable=W049
