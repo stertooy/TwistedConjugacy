@@ -37,7 +37,7 @@ Size( Auts );
 Ends := RepresentativesEndomorphismClasses( G );;
 Size( Ends );
 #! 10
-H := PcGroupCode( 36293, 28 );
+H := PcGroupCode( 36293, 28 );;
 Homs := RepresentativesHomomorphismClasses( H, G );;
 Size( Homs );
 #! 4
