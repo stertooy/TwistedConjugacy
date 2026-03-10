@@ -17,9 +17,6 @@ runs:
   using: "composite"
   steps:
 
-    - name: "Checkout"
-      uses: actions/checkout@v6
-
     - name: "Add custom GAP root"
       shell: bash
       run: ln -f -s $PWD /tmp/gaproot/pkg/
