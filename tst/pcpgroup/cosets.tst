@@ -90,4 +90,15 @@ gap> DoubleCosetIndex( N, H, K );
 300
 
 #
+gap> G := ExamplesOfSomePcpGroups( 5 );;
+gap> H := Subgroup( G, [ G.1 * G.2 ^ -1, G.3 ] );;
+gap> K := Subgroup( G, [ G.1 ^ 2, G.2 * G.3 ] );;
+gap> x := G.1 * G.3 ^ -1;;
+gap> y := G.1 * G.2 ^ 2 * G.3;;
+gap> Hx := RightCoset( H, x );;
+gap> Ky := RightCoset( K, y );;
+gap> Intersection( Hx, Ky ) = Intersection( Ky, Hx );
+true
+
+#
 gap> STOP_TEST( "cosets.tst" );
