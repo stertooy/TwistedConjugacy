@@ -20,13 +20,14 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v6
-      - name: "hi"
+      - name: "Test package"
         uses: ./.github/actions/test-pkg
         with:
           gap-version: ${{ matrix.gap-version }}
           mode: ${{ matrix.mode }}
           warnings-as-errors: true
           coverage: ${{ matrix.gap-version == 'master' }}
+          codecov-token: ${{ secrets.CODECOV_TOKEN }}
 
 #  test-gap:
 #    name: "Test GAP"
