@@ -18,6 +18,8 @@ jobs:
         gap-version: [ "4.14.0", "4.15.0", "4.15.1", "master" ]
         mode: [ "default", "onlyneeded" ]
     steps:
+      - name: "Checkout"
+        uses: actions/checkout@v6
       - name: "hi"
         uses: ./.github/actions/test-gap
         with:
