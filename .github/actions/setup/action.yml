@@ -1,0 +1,25 @@
+name: Setup
+description: "Setup GAPROOT and dependencies"
+inputs:
+  gap-version:
+    required: true
+  mode:
+    required: false
+    default: 'default'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: "Add custom GAP root"
+      shell: bash
+      run: ln -f -s $PWD /tmp/gaproot/pkg/
+
+    - name: "Install Polycyclic 2.17"
+      shell: bash
+      if: ${{ inputs.mode != 'onlyneeded' && inputs.gap-version == '4.14.0' }}
+      run: |
+        gap -A << GAPInput
+          LoadPackage( "PackageManager" : OnlyNeeded );
+          QuitGap( InstallPackage( "polycyclic", "=2.17" ) );
+        GAPInput
