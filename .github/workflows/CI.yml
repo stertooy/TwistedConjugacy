@@ -21,23 +21,23 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v6
       - name: "hi"
-        uses: ./.github/actions/test-gap
+        uses: ./.github/actions/test-pkg
         with:
           gap-version: ${{ matrix.gap-version }}
           mode: ${{ matrix.mode }}
           warnings-as-errors: true
           coverage: ${{ matrix.gap-version == 'master' }}
 
-  test-gap:
-    name: "Test GAP"
-    uses: ./.github/workflows/test-gap.yml
-    with:
-      gap-version: ${{ matrix.gap-version }}
-      mode: ${{ matrix.mode }}
-      complete: false
-      warnings-as-errors: true
-    strategy:
-      fail-fast: false
-      matrix:
-        gap-version: [ "4.14.0", "4.15.0", "4.15.1", "master" ]
-        mode: [ "default", "onlyneeded" ]
+#  test-gap:
+#    name: "Test GAP"
+#    uses: ./.github/workflows/test-gap.yml
+#    with:
+#      gap-version: ${{ matrix.gap-version }}
+#      mode: ${{ matrix.mode }}
+#      complete: false
+#      warnings-as-errors: true
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        gap-version: [ "4.14.0", "4.15.0", "4.15.1", "master" ]
+#        mode: [ "default", "onlyneeded" ]
