@@ -2,16 +2,16 @@ name: Test (package)
 description: "Test package"
 inputs:
   gap-version:
-    type: string
+    required: true
   mode:
+    required: false
     default: 'default'
-    type: string
   warnings-as-errors:
-    default: true
-    type: boolean
+    required: false
+    default: 'true'
   coverage:
-    default: false
-    type: boolean
+    required: false
+    default: 'false'
 
 runs:
   using: "composite"
@@ -38,11 +38,11 @@ runs:
         warnings-as-errors: ${{ inputs.warnings-as-errors }}
 
     - name: "Process coverage"
-      if: ${{ inputs.coverage }}
+      if: ${{ inputs.coverage == 'true' }}
       uses: gap-actions/process-coverage@v3
 
     - name: "Upload coverage"
-      if: ${{ inputs.coverage }}
+      if: ${{ inputs.coverage == 'true' }}
       uses: codecov/codecov-action@v5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
