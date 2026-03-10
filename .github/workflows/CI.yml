@@ -11,7 +11,7 @@ jobs:
     name: "Test package"
     container:
       image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-${{ matrix.mode == 'loadall' && 'full' || 'slim' }}
-    runs-on: ubunt-latest
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
