@@ -92,7 +92,7 @@ gap> DoubleCosetIndex( N, H, K );
 #
 gap> G := ExamplesOfSomePcpGroups( 5 );;
 gap> H := Subgroup( G, [ G.1 * G.2 ^ -1, G.3 ] );;
-gap> K := Subgroup( G, [ G.1, G.2 * G.3 ] );;
+gap> K := Subgroup( G, [ G.1 ^ 2, G.2 * G.3 ] );;
 gap> x := G.1 * G.3 ^ -1;;
 gap> y := G.1 * G.2 ^ 2 * G.3;;
 gap> Hx := RightCoset( H, x );;
