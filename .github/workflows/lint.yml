@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - files: "*.g !(examples)/**/*.g*"
+          - files: "*.g lib/**/*.g*"
             rules: "lib"
           - files: "examples/**/*.g*"
             rules: "examples"
