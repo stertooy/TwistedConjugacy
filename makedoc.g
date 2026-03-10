@@ -12,15 +12,15 @@ if IsBound( info.Extensions ) then
     od;
 fi;
 err := false;
+Print( "#I Loading packages\n" );
 for pkgToLoad in pkgsToLoad do
     pkg := pkgToLoad[1];
     ver := pkgToLoad[2];
     if LoadPackage( pkg, ver, false: OnlyNeeded ) = fail then
+        Print( "#W  Could not load '", pkg, "' with version >= ", ver, ".\n" );
         err := true;
     else
-        Info( InfoGAPDoc, 1,
-            "#I Loaded '", pkg, "' with version >= ", ver, ".\n"
-        );
+        Print( "#I  Loaded '", pkg, "' with version >= ", ver, ".\n" );
     fi;
 od;
 if err then ForceQuitGap( 1 ); fi;
@@ -61,10 +61,10 @@ AutoDoc( rec(
 ));
 
 if not IsReadableFile( "doc/manual.six" ) then
-    Info( InfoGAPDoc, 1, "#W One or more files could not be created.\n" );
+    Print( "#W One or more files could not be created.\n" );
     ForceQuitGap( 1 );
 else
-    Info( InfoGAPDoc, 1, "#I Manual files sucessfully created.\n" );
+    Print( "#I Manual files sucessfully created.\n" );
 fi;
 
 tstFile := Concatenation(
@@ -74,18 +74,18 @@ tstFile := Concatenation(
 );
 
 if IsReadableFile( tstFile ) then
-    Info( InfoGAPDoc, 1, "#I Testing examples found in manual.\n" );
+    Print( "#I Testing examples found in manual.\n" );
     correct := Test( tstFile, rec( compareFunction := "uptowhitespace" ) );
     RemoveFile( tstFile );
     if correct then
-        Info( InfoGAPDoc, 1, "#I All examples are correct.\n" );
+        Print( "#I All examples are correct.\n" );
     else
-        Info( InfoGAPDoc, 1, "#W One or more examples are incorrect.\n" );
+        Print( "#W One or more examples are incorrect.\n" );
         ForceQuitGap( 1 );
     fi;
 else
-    Info( InfoGAPDoc, 1, "#I No examples found in manual.\n" );
+    Print( "#I No examples found in manual.\n" );
 fi;
 
-Info( InfoGAPDoc, 1, "#I Documentation successfully created.\n" );
+Print( "#I Documentation successfully created.\n" );
 QuitGap( 0 );
