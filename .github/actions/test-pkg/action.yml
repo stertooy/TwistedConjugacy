@@ -12,23 +12,18 @@ inputs:
   coverage:
     required: false
     default: 'false'
+  codecov-token:
+    required: true
 
 runs:
   using: "composite"
   steps:
 
     - name: "Add custom GAP root"
-      shell: bash
-      run: ln -f -s $PWD /tmp/gaproot/pkg/
-
-    - name: "Install Polycyclic 2.17"
-      shell: bash
-      if: ${{ inputs.mode != 'onlyneeded' && inputs.gap-version == '4.14.0' }}
-      run: |
-        gap -A << GAPInput
-          LoadPackage( "PackageManager" : OnlyNeeded );
-          QuitGap( InstallPackage( "polycyclic", "=2.17" ) );
-        GAPInput
+      uses: ./.github/actions/setup
+      with:
+        gap-version: ${{ inputs.gap-version }}
+        mode: ${{ inputs.mode }}
 
     - name: "Run package tests"
       uses: gap-actions/run-pkg-tests@v4
@@ -45,5 +40,5 @@ runs:
       if: ${{ inputs.coverage == 'true' }}
       uses: codecov/codecov-action@v5
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
+        token: ${{ inputs.codecov-token }}
         fail_ci_if_error: true
