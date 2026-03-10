@@ -1,0 +1,41 @@
+name: Test (GAP)
+description: "Test GAP"
+inputs:
+  gap-version:
+    type: string
+  mode:
+    default: 'default'
+    type: string
+  warnings-as-errors:
+    default: true
+    type: boolean
+  complete:
+    default: false
+    type: boolean
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: "Checkout"
+      uses: actions/checkout@v6
+
+    - name: "Add custom GAP root"
+      shell: bash
+      run: ln -f -s $PWD /tmp/gaproot/pkg/
+
+    - name: "Install Polycyclic 2.17"
+      shell: bash
+      if: ${{ inputs.mode != 'onlyneeded' && inputs.gap-version == '4.14.0' }}
+      run: |
+        gap -A << GAPInput
+          LoadPackage( "PackageManager" : OnlyNeeded );
+          QuitGap( InstallPackage( "polycyclic", "=2.17" ) );
+        GAPInput
+
+    - name: "Run GAP tests"
+      uses: stertooy/run-gap-tests@v1
+      with:
+        complete: ${{ inputs.complete }}
+        mode: ${{ inputs.mode }}
+        warnings-as-errors: ${{ inputs.warnings-as-errors }}
