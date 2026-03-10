@@ -28,16 +28,21 @@ jobs:
           coverage: ${{ matrix.gap-version == 'master' }}
           codecov-token: ${{ secrets.CODECOV_TOKEN }}
 
-#  test-gap:
-#    name: "Test GAP"
-#    uses: ./.github/workflows/test-gap.yml
-#    with:
-#      gap-version: ${{ matrix.gap-version }}
-#      mode: ${{ matrix.mode }}
-#      complete: false
-#      warnings-as-errors: true
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        gap-version: [ "4.14.0", "4.15.0", "4.15.1", "master" ]
-#        mode: [ "default", "onlyneeded" ]
+  test-gap:
+    name: "Test GAP (version: ${{ matrix.gap-version }}, mode: ${{ matrix.mode }})"
+    container:
+      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-${{ matrix.mode == 'loadall' && 'full' || 'slim' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        gap-version: [ "4.14.0", "4.15.0", "4.15.1", "master" ]
+        mode: [ "default", "onlyneeded" ]
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v6
+      - name: "Test GAP"
+        uses: ./.github/actions/test-gap
+        with:
+          mode: ${{ matrix.mode }}
+          warnings-as-errors: true
