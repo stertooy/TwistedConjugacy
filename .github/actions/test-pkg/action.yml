@@ -19,11 +19,8 @@ runs:
   using: "composite"
   steps:
 
-    - name: "Add custom GAP root"
+    - name: "Setup"
       uses: ./.github/actions/setup
-      with:
-        gap-version: ${{ inputs.gap-version }}
-        mode: ${{ inputs.mode }}
 
     - name: "Run package tests"
       uses: gap-actions/run-pkg-tests@v4
