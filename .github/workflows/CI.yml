@@ -8,7 +8,7 @@ on:
 jobs:
 
   test-pkg:
-    name: "Test package (version: ${{ matrix.gap-version }}, mode: ${{ matrix.mode }})"
+    name: "Test package"
     uses: ./.github/workflows/test-pkg.yml
     with:
       gap-version: ${{ matrix.gap-version }}
@@ -23,7 +23,7 @@ jobs:
         mode: [ "default", "onlyneeded" ]
 
   test-gap:
-    name: "Test GAP (version: ${{ matrix.gap-version }}, mode: ${{ matrix.mode }})"
+    name: "Test GAP"
     uses: ./.github/workflows/test-gap.yml
     with:
       gap-version: ${{ matrix.gap-version }}
