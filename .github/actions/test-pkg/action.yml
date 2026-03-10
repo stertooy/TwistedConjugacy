@@ -11,7 +11,8 @@ inputs:
     required: false
     default: 'false'
   codecov-token:
-    required: true
+    required: false
+    default: ''
 
 runs:
   using: "composite"
