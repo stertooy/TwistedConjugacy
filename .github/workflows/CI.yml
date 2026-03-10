@@ -9,18 +9,22 @@ jobs:
 
   test-pkg:
     name: "Test package"
-    uses: ./.github/workflows/test-pkg.yml
-    with:
-      gap-version: ${{ matrix.gap-version }}
-      mode: ${{ matrix.mode }}
-      warnings-as-errors: true
-      coverage: ${{ matrix.gap-version == 'master' }}
-    secrets: inherit
+    container:
+      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-${{ matrix.mode == 'loadall' && 'full' || 'slim' }}
+    runs-on: ubunt-latest
     strategy:
       fail-fast: false
       matrix:
         gap-version: [ "4.14.0", "4.15.0", "4.15.1", "master" ]
         mode: [ "default", "onlyneeded" ]
+    steps:
+      - name: "hi"
+        uses: ./.github/actions/test-gap
+        with:
+          gap-version: ${{ matrix.gap-version }}
+          mode: ${{ matrix.mode }}
+          warnings-as-errors: true
+          coverage: ${{ matrix.gap-version == 'master' }}
 
   test-gap:
     name: "Test GAP"
