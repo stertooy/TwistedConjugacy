@@ -69,7 +69,7 @@ DeclareGlobalFunction( "InducedHomomorphism" );
 #! <C>G</C>, and let <A>N</A> be subgroup of <C>H</C> such that its image under
 #! <A>hom</A> is a subgroup of <A>M</A>.
 #! This command returns the homomorphism from <A>N</A> to <A>M</A> that maps
-#! <C>n</C> to <C>n^<A>hom</A></C> for any element <C>n</C> of <A>N</A>. 
+#! <C>n</C> to <C>n^<A>hom</A></C> for any element <C>n</C> of <A>N</A>.
 #! No checks are made to verify that <A>hom</A> maps <A>N</A> into <A>M</A>.
 #! This function is similar to
 #! <Ref Func="RestrictedMapping" BookName="ref" Style="Number"/>, but its range
