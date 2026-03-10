@@ -1,8 +1,6 @@
 name: Test (GAP)
 description: "Test GAP"
 inputs:
-  gap-version:
-    type: string
   mode:
     default: 'default'
     type: string
@@ -17,11 +15,8 @@ runs:
   using: "composite"
   steps:
 
-    - name: "Add custom GAP root"
+    - name: "Setup"
       uses: ./.github/actions/setup
-      with:
-        gap-version: ${{ inputs.gap-version }}
-        mode: ${{ inputs.mode }}
 
     - name: "Run GAP tests"
       uses: stertooy/run-gap-tests@v1
