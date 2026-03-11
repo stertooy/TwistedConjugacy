@@ -30,14 +30,9 @@ DeclareOperation(
 #! @Returns a list of the homomorphisms from <A>H</A> to <A>G</A>, up to
 #! composition with inner automorphisms of <A>G</A>.
 #! @Description
-#! This does the same as calling
+#! Similar to the previous function, this function does the same as calling
 #! <C>AllHomomorphismClasses(<A>H</A>,<A>G</A>)</C>, but should be faster for
-#! abelian and non-2-generated groups. For 2-generated groups, this function
-#! behaves nearly identical to
-#! @BeginNotLatex
-#! <Ref Func="AllHomomorphismClasses" BookName="Ref" Style="Number"/>.
-#! @EndNotLatex
-#! @LatexOnly <C>AllHomomorphismClasses</C>
+#! abelian and non-2-generated groups.
 #! @Arguments H, G
 DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 
