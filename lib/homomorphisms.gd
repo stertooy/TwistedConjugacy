@@ -16,8 +16,6 @@ DeclareOperation(
 #! This does the same as calling
 #! <C>AllHomomorphismClasses(<A>G</A>,<A>G</A>)</C>, but should be faster for
 #! abelian and non-2-generated groups.
-#! For 2-generated groups, this function behaves nearly identical to
-#! <Ref Func="AllHomomorphismClasses" BookName="Ref" Style="Number"/>.
 #! @Arguments G
 DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
 
