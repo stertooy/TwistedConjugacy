@@ -1,5 +1,5 @@
 /doc/*
-!/doc/bibliography.bib
+!/doc/*.bib
 !/doc/*.autodoc
 
 /gh-pages/
