@@ -34,7 +34,10 @@ DeclareOperation(
 #! <C>AllHomomorphismClasses(<A>H</A>,<A>G</A>)</C>, but should be faster for
 #! abelian and non-2-generated groups. For 2-generated groups, this function
 #! behaves nearly identical to
+#! @BeginNotLatex
 #! <Ref Func="AllHomomorphismClasses" BookName="Ref" Style="Number"/>.
+#! @EndNotLatex
+#! @LatexOnly <C>AllHomomorphismClasses</C>
 #! @Arguments H, G
 DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 
