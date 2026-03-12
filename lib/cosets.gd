@@ -32,7 +32,7 @@
 #! @Returns the number of elements in <A>D</A>.
 #! @Label of a double coset of a PcpGroup
 #! @Arguments D
-# DeclareOperation( "Size", [ IsDoubleCoset ] );
+# DeclareAttribute( "Size", [ IsDoubleCoset ] );
 #! @EndGroup
 
 #! @BeginGroup
