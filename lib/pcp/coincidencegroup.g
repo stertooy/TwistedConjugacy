@@ -96,7 +96,7 @@ end;
 ##
 TWC.CoincidenceGroupByCentre := function( G, H, hom1, hom2 )
     local C, p, q, Coin, diff;
-    C := Center( G );
+    C := Centre( G );
     p := NaturalHomomorphismByNormalSubgroupNC( G, C );
     q := IdentityMapping( H );
     Coin := TWC.InducedCoincidenceGroup( q, p, hom1, hom2 );
@@ -162,7 +162,7 @@ end;
 ##
 TWC.CoincidenceGroupStep4 := function( G, H, hom1, hom2 )
     local C, p, q, Coin, d;
-    C := Center( G );
+    C := Centre( G );
     if IsTrivial( C ) then
         return TWC.CoincidenceGroupStep5( G, H, hom1, hom2 );
     fi;
@@ -245,7 +245,7 @@ end;
 ##
 TWC.CoincidenceGroupStep2 := function( G, H, hom1, hom2 )
     local A, Gr;
-    A := Center( DerivedSubgroup( G ) );
+    A := Centre( DerivedSubgroup( G ) );
     Gr := ClosureGroup( ImagesSource( hom1 ), A );
     return TWC.CoincidenceGroupStep3(
         Gr, H,
@@ -273,7 +273,7 @@ end;
 ##
 TWC.CoincidenceGroupStep1 := function( G, H, hom1, hom2 )
     local A, p, q, Coin, hom1r, hom2r;
-    A := Center( DerivedSubgroup( G ) );
+    A := Centre( DerivedSubgroup( G ) );
     p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );
     Coin := TWC.InducedCoincidenceGroup( q, p, hom1, hom2 );
