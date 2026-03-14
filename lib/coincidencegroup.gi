@@ -114,6 +114,6 @@ InstallMethod(
             gens := SmallGeneratingSet( H );
         fi;
         tc := TwistedConjugation( hom1, hom2 );
-        return StabilizerOp( H, One( G ), gens, gens, tc );
+        return StabiliserFuncOp( H, One( G ), gens, gens, tc );
     end
 );
