@@ -67,6 +67,9 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @Arguments tcc
 # DeclareAttribute( "StabiliserOfExternalSet",
 #   IsTwistedConjugacyClassGroupRep );
+#! @Arguments tcc
+# DeclareSynonymAttr( "StabilizerOfExternalSet",
+#   StabiliserOfExternalSet );
 #! @EndGroup
 
 #! @BeginGroup
