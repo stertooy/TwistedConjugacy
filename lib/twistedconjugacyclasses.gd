@@ -119,8 +119,6 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @Arguments hom1[, hom2][, N]
 DeclareGlobalFunction( "TwistedConjugacyClasses" );
 #! @Arguments hom1[, hom2][, N]
-# DeclareGlobalFunction( "ReidemeisterClasses" );
-#
 DeclareSynonym( "ReidemeisterClasses", TwistedConjugacyClasses );
 #! @EndGroup
 
@@ -139,8 +137,6 @@ DeclareSynonym( "ReidemeisterClasses", TwistedConjugacyClasses );
 #! @Arguments hom1[, hom2][, N]
 DeclareGlobalFunction( "RepresentativesTwistedConjugacyClasses" );
 #! @Arguments hom1[, hom2][, N]
-# DeclareGlobalFunction( "RepresentativesReidemeisterClasses" );
-#
 DeclareSynonym(
     "RepresentativesReidemeisterClasses",
     RepresentativesTwistedConjugacyClasses
