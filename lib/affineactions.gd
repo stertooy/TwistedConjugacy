@@ -123,9 +123,6 @@ DeclareGlobalFunction( "RepresentativeAffineAction" );
 #! @Label of an orbit of an affine action
 #! @Arguments orb
 # DeclareAttribute( "StabiliserOfExternalSet", IsOrbitAffineActionRep );
-#! @Arguments orb
-# DeclareSynonymAttr( "StabilizerOfExternalSet",
-#   StabiliserOfExternalSet );
 #! @EndGroup
 
 #! @BeginGroup
