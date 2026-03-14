@@ -22,6 +22,14 @@ jobs:
       - name: "Setup"
         uses: ./.github/actions/setup
 
+      - name: "Install latest AutoDoc"
+        shell: bash
+        run: |
+          gap -A << GAPInput
+            LoadPackage( "PackageManager" : OnlyNeeded );
+            QuitGap( InstallPackage( "https://github.com/gap-packages/AutoDoc.git" ) );
+          GAPInput
+
       - name: "Build manual"
         uses: gap-actions/build-pkg-docs@v2
 
