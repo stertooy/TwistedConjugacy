@@ -52,8 +52,6 @@ DeclareGlobalFunction( "NrOrbitsAffineAction" );
 #! @Arguments K, g, der
 DeclareGlobalFunction( "StabiliserAffineAction" );
 #! @Arguments K, g, der
-# DeclareGlobalFunction( "StabilizerAffineAction" );
-#
 DeclareSynonym( "StabilizerAffineAction", StabiliserAffineAction );
 #! @EndGroup
 
