@@ -117,7 +117,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## StabilizerOfExternalSet( tcc )
+## StabiliserOfExternalSet( tcc )
 ##
 ##  INPUT:
 ##      tcc:        twisted conjugacy class
@@ -127,7 +127,7 @@ InstallMethod(
 ##                  conjugacy action
 ##
 InstallMethod(
-    StabilizerOfExternalSet,
+    StabiliserOfExternalSet,
     "for twisted conjugacy classes",
     [ IsTwistedConjugacyClassGroupRep ],
     function( tcc )
