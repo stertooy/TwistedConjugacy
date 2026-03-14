@@ -237,7 +237,7 @@ end;
 ##        - [H,H] is a subgroup of Coin(hom1,hom2).
 ##
 TWC.RepTwistConjToIdStep4 := function( G, H, hom1, hom2, a, A )
-    if IsTrivial( Center( G ) ) then
+    if IsTrivial( Centre( G ) ) then
         return TWC.RepTwistConjToIdStep5( G, H, hom1, hom2, a, A );
     fi;
     return TWC.RepTwistConjToIdByCentre( G, H, hom1, hom2, a, A );
@@ -343,7 +343,7 @@ end;
 ##
 TWC.RepTwistConjToIdStep1 := function( G, H, hom1, hom2, g )
     local A, p, q, hom1p, hom2p, pg, h1, tc, a, Coin, hom1r, hom2r, h2;
-    A := Center( DerivedSubgroup( G ) );
+    A := Centre( DerivedSubgroup( G ) );
     p := NaturalHomomorphismByNormalSubgroupNC( G, A );
     q := IdentityMapping( H );
     hom1p := InducedHomomorphism( q, p, hom1 );
