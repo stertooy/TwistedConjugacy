@@ -49,7 +49,7 @@ InstallMethod(
             not IsFinite( G ) and
             IsNilpotentGroup( G )
         ) then TryNextMethod(); fi;
-        C := Center( G );
+        C := Centre( G );
         return TWC.RepsTCClassesByNormSub( G, H, hom1, hom2, N, C, one );
     end
 );
@@ -116,7 +116,7 @@ InstallMethod(
             not IsNilpotentByFinite( G ) and
             IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
-        K := Center( DerivedSubgroup( G ) );
+        K := Centre( DerivedSubgroup( G ) );
         return TWC.RepsTCClassesByNormSub( G, H, hom1, hom2, N, K, one );
     end
 );
