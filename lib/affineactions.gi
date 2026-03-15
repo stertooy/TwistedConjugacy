@@ -214,6 +214,23 @@ InstallMethod(
 
 ###############################################################################
 ##
+## IsFinite( orb )
+##
+##  INPUT:
+##      orb:        orbit of an affine action
+##
+##  OUTPUT:
+##      bool:       true if orb is finite, otherwise false
+##
+InstallMethod(
+    IsFinite,
+    "for orbits of affine actions",
+    [ IsOrbitAffineActionRep ],
+    orb -> IsFinite( orb!.tcc )
+);
+
+###############################################################################
+##
 ## StabiliserOfExternalSet( orb )
 ##
 ##  INPUT:
