@@ -119,8 +119,20 @@ InstallMethod(
 ##
 InstallMethod(
     Size,
-    "for a double coset of a pcp group",
+    "for an infinite double coset of a pcp group",
     [ IsDoubleCoset and IsPcpElementCollection ],
+    1,
+    function( UxV )
+        if IsFinite( UxV ) then TryNextMethod(); fi;
+        return infinity;
+    end
+);
+
+InstallMethod(
+    Size,
+    "for a finite double coset of a pcp group",
+    [ IsDoubleCoset and IsPcpElementCollection ],
+    0,
     function( UxV )
         local U, V, x, G, dp, tcc;
         U := LeftActingGroup( UxV );
@@ -130,6 +142,28 @@ InstallMethod(
         dp := TWC.DirectProductInclusions( G, U, V );
         tcc := TwistedConjugacyClass( dp[1], dp[2], x );
         return Size( tcc );
+    end
+);
+
+###############################################################################
+##
+## IsFinite( UxV )
+##
+##  INPUT:
+##      UxV:        double coset of a PcpGroup G
+##
+##  OUTPUT:
+##      bool:       true if UxV is finite, otherwise false
+##
+InstallMethod(
+    IsFinite,
+    "for a double coset of a pcp group",
+    [ IsDoubleCoset and IsPcpElementCollection ],
+    function( UxV )
+        local U, V;
+        U := LeftActingGroup( UxV );
+        V := RightActingGroup( UxV );
+        return IsFinite( U ) and IsFinite( V );
     end
 );
 
