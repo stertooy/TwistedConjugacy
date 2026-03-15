@@ -33,7 +33,7 @@ DeclareOperation(
 #! @Returns the number of elements in <A>D</A>.
 #! @Label of a double coset of a PcpGroup
 #! @Arguments D
-DeclareAttribute( "Size", [ IsDoubleCoset ] );
+DeclareAttribute( "Size", IsDoubleCoset );
 #! @EndGroup
 
 #! @BeginGroup
@@ -49,7 +49,7 @@ DeclareAttribute( "Size", [ IsDoubleCoset ] );
 DeclareGlobalName( "List" );
 #! @Label for a double coset of a PcpGroup
 #! @Arguments D
-DeclareAttribute( "AsList", [ IsDoubleCoset ] );
+DeclareAttribute( "AsList", IsDoubleCoset );
 #! @EndGroup
 
 #! @BeginGroup
