@@ -23,8 +23,9 @@ DeclareGlobalName( "Representative" );
 #! @GroupTitle ActingDomain
 #! @Returns the group whose twisted conjugacy action <A>tcc</A> is an orbit of.
 #! @Label of a twisted conjugacy class
+#! @ItemType Attr
 #! @Arguments tcc
-# DeclareAttribute( "ActingDomain", IsTwistedConjugacyClassGroupRep );
+DeclareGlobalName( "ActingDomain" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -32,8 +33,9 @@ DeclareGlobalName( "Representative" );
 #! @GroupTitle FunctionAction
 #! @Returns the twisted conjugacy action that <A>tcc</A> is an orbit of.
 #! @Label of a twisted conjugacy class
+#! @ItemType Attr
 #! @Arguments tcc
-# DeclareAttribute( "FunctionAction", IsTwistedConjugacyClassGroupRep );
+DeclareGlobalName( "FunctionAction" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -42,8 +44,9 @@ DeclareGlobalName( "Representative" );
 #! @Returns <K>true</K> if <A>g</A> is an element of <A>tcc</A>, otherwise
 #! <K>false</K>.
 #! @Label for an element and a twisted conjugacy class
+#! @ItemType Oper
 #! @Arguments g, tcc
-# DeclareOperation( "\in", [ IsObject, IsTwistedConjugacyClassGroupRep ] );
+DeclareGlobalName( "\in" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -53,8 +56,9 @@ DeclareGlobalName( "Representative" );
 #! @Description
 #! This is calculated using the orbit-stabiliser theorem.
 #! @Label of a twisted conjugacy class
+#! @ItemType Attr
 #! @Arguments tcc
-# DeclareAttribute( "Size", IsTwistedConjugacyClassGroupRep );
+DeclareGlobalName( "Size" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -63,12 +67,13 @@ DeclareGlobalName( "Representative" );
 #! @Returns the stabiliser of <C>Representative(<A>tcc</A>)</C> under the
 #! action <C>FunctionAction(<A>tcc</A>)</C>.
 #! @Label of a twisted conjugacy class
+#! @ItemType Attr
 #! @Arguments tcc
-# DeclareAttribute( "StabiliserOfExternalSet",
-#   IsTwistedConjugacyClassGroupRep );
+DeclareGlobalName( "StabiliserOfExternalSet" );
 #! @Label of a twisted conjugacy class
+#! @ItemType Attr
 #! @Arguments tcc
-# DeclareSynonymAttr( "StabilizerOfExternalSet", StabiliserOfExternalSet );
+DeclareGlobalName( "StabilizerOfExternalSet" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -80,8 +85,13 @@ DeclareGlobalName( "Representative" );
 #! test the finiteness of <A>tcc</A> using
 #! <Ref Attr="Size" Label="of a twisted conjugacy class" Style="Number"/>.
 #! @Label of a twisted conjugacy class
+#! @ItemType Func
 #! @Arguments tcc
-# DeclareGlobalFunction( "List" );
+DeclareGlobalName( "List" );
+#! @Label for a twisted conjugacy class
+#! @ItemType Attr
+#! @Arguments tcc
+DeclareGlobalName( "AsList" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -89,8 +99,9 @@ DeclareGlobalName( "Representative" );
 #! @GroupTitle Random
 #! @Returns a random element in <A>tcc</A>.
 #! @Label in a twisted conjugacy class
+#! @ItemType Oper
 #! @Arguments tcc
-# DeclareOperation( "Random", [ IsTwistedConjugacyClassGroupRep ] );
+DeclareGlobalName( "Random" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -99,9 +110,9 @@ DeclareGlobalName( "Representative" );
 #! @Returns <K>true</K> if <A>tcc1</A> is equal to <A>tcc2</A>, otherwise
 #! <K>false</K>.
 #! @Label for twisted conjugacy classes
+#! @ItemType Oper
 #! @Arguments tcc1, tcc2
-# DeclareOperation( "\=",
-#   [ IsTwistedConjugacyClassGroupRep, IsTwistedConjugacyClassGroupRep ] );
+DeclareGlobalName( "\=" );
 #! @EndGroup
 
 #! @BeginGroup
