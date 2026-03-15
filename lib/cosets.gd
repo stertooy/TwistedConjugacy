@@ -22,8 +22,9 @@ DeclareGlobalName( "Intersection" );
 #! <K>false</K>.
 #! @Label for an element and a double coset of a PcpGroup
 #! @Arguments g, D
-DeclareOperation( "\in",
-    [ IsMultiplicativeElementWithInverse, IsDoubleCoset ] );
+DeclareOperation(
+    "\in", [ IsMultiplicativeElementWithInverse, IsDoubleCoset ]
+);
 #! @EndGroup
 
 #! @BeginGroup
@@ -32,7 +33,7 @@ DeclareOperation( "\in",
 #! @Returns the number of elements in <A>D</A>.
 #! @Label of a double coset of a PcpGroup
 #! @Arguments D
-# DeclareAttribute( "Size", [ IsDoubleCoset ] );
+DeclareAttribute( "Size", [ IsDoubleCoset ] );
 #! @EndGroup
 
 #! @BeginGroup
@@ -40,12 +41,15 @@ DeclareOperation( "\in",
 #! @GroupTitle List
 #! @Returns a list containing the elements of <A>D</A>.
 #! @Description
-#! If <A>D</A> is infinite, this will run forever. It is recommended to first
-#! test the finiteness of <A>D</A> using
+#! If <A>D</A> is infinite, this will run forever or cause an error. It is
+#! recommended to first test the finiteness of <A>D</A> using
 #! <Ref Attr="Size" Label="of a double coset of a PcpGroup" Style="Number"/>.
 #! @Label of a double coset of a PcpGroup
 #! @Arguments D
-# DeclareGlobalFunction( "List" );
+DeclareGlobalName( "List" );
+#! @Label for a double coset of a PcpGroup
+#! @Arguments D
+DeclareAttribute( "AsList", [ IsDoubleCoset ] );
 #! @EndGroup
 
 #! @BeginGroup
@@ -55,7 +59,7 @@ DeclareOperation( "\in",
 #! otherwise <K>false</K>.
 #! @Label for double cosets of a PcpGroup
 #! @Arguments C, D
-# DeclareOperation( "\=", [ IsDoubleCoset, IsDoubleCoset ] );
+DeclareOperation( "\=", [ IsDoubleCoset, IsDoubleCoset ] );
 #! @EndGroup
 
 #! @BeginGroup
@@ -68,10 +72,10 @@ DeclareOperation( "\in",
 #! The <C>NC</C> version does not check whether this is the case.
 #! @Label for PcpGroups
 #! @Arguments G, H, K
-# DeclareGlobalFunction( "DoubleCosets" );
+DeclareGlobalName( "DoubleCosets" );
 #! @Label for PcpGroups
 #! @Arguments G, H, K
-# DeclareOperation( "DoubleCosetsNC", [ IsPcpGroup, IsPcPGroup, IsPcPGroup ] );
+DeclareOperation( "DoubleCosetsNC", [ IsPcpGroup, IsPcPGroup, IsPcPGroup ] );
 #! @EndGroup
 
 #! @BeginGroup
@@ -85,8 +89,9 @@ DeclareOperation( "\in",
 #! PcpGroups it is usually **slower**.
 #! @Label for PcpGroups
 #! @Arguments G, H, K
-# DeclareOperation( "DoubleCosetRepsAndSizes",
-#   [ IsPcpGroup, IsPcPGroup, IsPcPGroup ] );
+DeclareOperation(
+    "DoubleCosetRepsAndSizes", [ IsPcpGroup, IsPcPGroup, IsPcPGroup ]
+);
 #! @EndGroup
 
 #! @BeginGroup
