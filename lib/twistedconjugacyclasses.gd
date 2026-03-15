@@ -13,8 +13,9 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @GroupTitle Representative
 #! @Returns the group element that was used to construct <A>tcc</A>.
 #! @Label of a twisted conjugacy class
+#! @ItemType Attr
 #! @Arguments tcc
-# DeclareAttribute( "Representative", IsTwistedConjugacyClassGroupRep );
+DeclareGlobalName( "Representative" );
 #! @EndGroup
 
 #! @BeginGroup
