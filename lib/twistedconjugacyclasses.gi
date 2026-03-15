@@ -133,7 +133,7 @@ InstallMethod(
     function( tcc )
         local H;
         H := ActingDomain( tcc );
-        if not IsFinite( H ) then TryNextMethod; fi;
+        if not IsFinite( H ) then TryNextMethod(); fi;
         return true;
     end
 );
