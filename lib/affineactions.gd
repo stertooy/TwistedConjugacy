@@ -72,8 +72,9 @@ DeclareGlobalFunction( "RepresentativeAffineAction" );
 #! @GroupTitle Representative
 #! @Returns the group element that was used to construct <A>orb</A>.
 #! @Label of an orbit of an affine action
+#! @ItemType Attr
 #! @Arguments orb
-# DeclareAttribute( "Representative", IsOrbitAffineActionRep );
+DeclareGlobalName( "Representative" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -81,8 +82,9 @@ DeclareGlobalFunction( "RepresentativeAffineAction" );
 #! @GroupTitle ActingDomain
 #! @Returns the group whose affine action <A>orb</A> is an orbit of.
 #! @Label of an orbit of an affine action
+#! @ItemType Attr
 #! @Arguments orb
-# DeclareAttribute( "ActingDomain", IsOrbitAffineActionRep );
+DeclareGlobalName( "ActingDomain" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -90,8 +92,9 @@ DeclareGlobalFunction( "RepresentativeAffineAction" );
 #! @GroupTitle FunctionAction
 #! @Returns the affine action that <A>orb</A> is an orbit of.
 #! @Label of an orbit of an affine action
+#! @ItemType Attr
 #! @Arguments orb
-# DeclareAttribute( "FunctionAction", IsOrbitAffineActionRep );
+DeclareGlobalName( "FunctionAction" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -100,8 +103,9 @@ DeclareGlobalFunction( "RepresentativeAffineAction" );
 #! @Returns <K>true</K> if <A>elm</A> is an element of <A>orb</A>, otherwise
 #! <K>false</K>.
 #! @Label for an element and an orbit of an affine action
+#! @ItemType Oper
 #! @Arguments elm, orb
-# DeclareOperation( "\in", [ IsObject, IsOrbitAffineActionRep ] );
+DeclareGlobalName( "\in" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -109,8 +113,9 @@ DeclareGlobalFunction( "RepresentativeAffineAction" );
 #! @GroupTitle Size
 #! @Returns the number of elements in <A>orb</A>.
 #! @Label of an orbit of an affine action
+#! @ItemType Attr
 #! @Arguments orb
-# DeclareAttribute( "Size", IsOrbitAffineActionRep );
+DeclareGlobalName( "Size" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -119,11 +124,13 @@ DeclareGlobalFunction( "RepresentativeAffineAction" );
 #! @Returns the stabiliser of <C>Representative(<A>orb</A>)</C> under the
 #! action <C>FunctionAction(<A>orb</A>)</C>.
 #! @Label of an orbit of an affine action
+#! @ItemType Attr
 #! @Arguments orb
-# DeclareAttribute( "StabiliserOfExternalSet", IsOrbitAffineActionRep );
+DeclareGlobalName( "StabiliserOfExternalSet" );
 #! @Label of an orbit of an affine action
+#! @ItemType Attr
 #! @Arguments orb
-# DeclareSynonymAttr( "StabilizerOfExternalSet", StabiliserOfExternalSet );
+DeclareGlobalName( "StabilizerOfExternalSet" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -135,8 +142,13 @@ DeclareGlobalFunction( "RepresentativeAffineAction" );
 #! test the finiteness of <A>orb</A> using
 #! <Ref Attr="Size" Label="of an orbit of an affine action" Style="Number"/>.
 #! @Label of an orbit of an affine action
+#! @ItemType Func
 #! @Arguments orb
-# DeclareGlobalFunction( "List" );
+DeclareGlobalName( "List" );
+#! @Label for an orbit of an affine action
+#! @ItemType Attr
+#! @Arguments orb
+DeclareGlobalName( "AsList" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -144,8 +156,9 @@ DeclareGlobalFunction( "RepresentativeAffineAction" );
 #! @GroupTitle Random
 #! @Returns a random element in <A>orb</A>.
 #! @Label in an orbit of an affine action
+#! @ItemType Oper
 #! @Arguments orb
-# DeclareOperation( "Random", [ IsOrbitAffineActionRep ] );
+DeclareGlobalName( "Random" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -154,6 +167,7 @@ DeclareGlobalFunction( "RepresentativeAffineAction" );
 #! @Returns <K>true</K> if <A>orb1</A> is equal to <A>orb2</A>, otherwise
 #! <K>false</K>.
 #! @Label for orbits of an affine action
+#! @ItemType Oper
 #! @Arguments orb1, orb2
-# DeclareOperation( "\=", [ IsOrbitAffineActionRep, IsOrbitAffineActionRep ] );
+DeclareGlobalName( "\=" );
 #! @EndGroup
