@@ -174,8 +174,9 @@ DeclareGlobalName( "Size" );
 #! @GroupTitle List
 #! @Returns a list containing the elements of <A>img</A>.
 #! @Description
-#! If <A>img</A> is infinite, this will run forever. It is recommended to first
-#! test the finiteness of <A>img</A> using
+###############################################################################
+#! If <A>img</A> is infinite, this will run forever or cause an error. It is
+#! recommended to first test the finiteness of <A>img</A> using
 #! <Ref Attr="Size" Label="of a group derivation image" Style="Number"/>.
 #! @Label of a group derivation image
 #! @ItemType Func
