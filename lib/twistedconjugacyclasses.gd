@@ -81,8 +81,8 @@ DeclareGlobalName( "StabilizerOfExternalSet" );
 #! @GroupTitle List
 #! @Returns a list containing the elements of <A>tcc</A>.
 #! @Description
-#! If <A>tcc</A> is infinite, this will run forever. It is recommended to first
-#! test the finiteness of <A>tcc</A> using
+#! If <A>tcc</A> is infinite, this will run forever or cause an error. It is
+#! recommended to first test the finiteness of <A>tcc</A> using
 #! <Ref Attr="Size" Label="of a twisted conjugacy class" Style="Number"/>.
 #! @Label of a twisted conjugacy class
 #! @ItemType Func
