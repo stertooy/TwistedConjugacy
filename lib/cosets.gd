@@ -75,7 +75,7 @@ DeclareOperation( "\=", [ IsDoubleCoset, IsDoubleCoset ] );
 DeclareGlobalName( "DoubleCosets" );
 #! @Label for PcpGroups
 #! @Arguments G, H, K
-DeclareOperation( "DoubleCosetsNC", [ IsPcpGroup, IsPcpGroup, IsPcpGroup ] );
+DeclareOperation( "DoubleCosetsNC", [ IsGroup, IsGroup, IsGroup ] );
 #! @EndGroup
 
 #! @BeginGroup
@@ -90,7 +90,7 @@ DeclareOperation( "DoubleCosetsNC", [ IsPcpGroup, IsPcpGroup, IsPcpGroup ] );
 #! @Label for PcpGroups
 #! @Arguments G, H, K
 DeclareOperation(
-    "DoubleCosetRepsAndSizes", [ IsPcpGroup, IsPcpGroup, IsPcpGroup ]
+    "DoubleCosetRepsAndSizes", [ IsGroup, IsGroup, IsGroup ]
 );
 #! @EndGroup
 
