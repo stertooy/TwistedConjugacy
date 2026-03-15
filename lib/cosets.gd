@@ -8,9 +8,11 @@
 #!
 #! This intersection is always a right coset, or the empty list.
 #! @Label of right cosets of a PcpGroup
+#! @ItemType Func
 #! @Arguments C1, C2, ...
 DeclareGlobalName( "Intersection" );
 #! @Label of a list of right cosets of a PcpGroup
+#! @ItemType Func
 #! @Arguments L
 DeclareGlobalName( "Intersection" );
 #! @EndGroup
@@ -21,10 +23,9 @@ DeclareGlobalName( "Intersection" );
 #! @Returns <K>true</K> if <A>g</A> is an element of <A>D</A>, otherwise
 #! <K>false</K>.
 #! @Label for an element and a double coset of a PcpGroup
+#! @ItemType Oper
 #! @Arguments g, D
-DeclareOperation(
-    "\in", [ IsMultiplicativeElementWithInverse, IsDoubleCoset ]
-);
+DeclareGlobalName( "\in" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -32,8 +33,9 @@ DeclareOperation(
 #! @GroupTitle Size
 #! @Returns the number of elements in <A>D</A>.
 #! @Label of a double coset of a PcpGroup
+#! @ItemType Attr
 #! @Arguments D
-DeclareAttribute( "Size", IsDoubleCoset );
+DeclareGlobalName( "Size" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -45,11 +47,13 @@ DeclareAttribute( "Size", IsDoubleCoset );
 #! recommended to first test the finiteness of <A>D</A> using
 #! <Ref Attr="Size" Label="of a double coset of a PcpGroup" Style="Number"/>.
 #! @Label of a double coset of a PcpGroup
+#! @ItemType Func
 #! @Arguments D
 DeclareGlobalName( "List" );
 #! @Label for a double coset of a PcpGroup
+#! @ItemType Attr
 #! @Arguments D
-DeclareAttribute( "AsList", IsDoubleCoset );
+DeclareGlobalName( "AsList" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -58,8 +62,9 @@ DeclareAttribute( "AsList", IsDoubleCoset );
 #! @Returns <K>true</K> if <A>C</A> and <A>D</A> are the same double coset,
 #! otherwise <K>false</K>.
 #! @Label for double cosets of a PcpGroup
+#! @ItemType Oper
 #! @Arguments C, D
-DeclareOperation( "\=", [ IsDoubleCoset, IsDoubleCoset ] );
+DeclareGlobalName( "\=" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -74,8 +79,9 @@ DeclareOperation( "\=", [ IsDoubleCoset, IsDoubleCoset ] );
 #! @Arguments G, H, K
 DeclareGlobalName( "DoubleCosets" );
 #! @Label for PcpGroups
+#! @ItemType Oper
 #! @Arguments G, H, K
-DeclareOperation( "DoubleCosetsNC", [ IsGroup, IsGroup, IsGroup ] );
+DeclareGlobalName( "DoubleCosetsNC" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -88,10 +94,9 @@ DeclareOperation( "DoubleCosetsNC", [ IsGroup, IsGroup, IsGroup ] );
 #! <Ref Oper="DoubleCosetsNC" Label="for PcpGroups" Style="Number"/>, for
 #! PcpGroups it is usually **slower**.
 #! @Label for PcpGroups
+#! @ItemType Oper
 #! @Arguments G, H, K
-DeclareOperation(
-    "DoubleCosetRepsAndSizes", [ IsGroup, IsGroup, IsGroup ]
-);
+DeclareGlobalName( "DoubleCosetRepsAndSizes" );
 #! @EndGroup
 
 #! @BeginGroup
