@@ -9,10 +9,10 @@
 #! This intersection is always a right coset, or the empty list.
 #! @Label of right cosets of a PcpGroup
 #! @Arguments C1, C2, ...
-# DeclareGlobalFunction( "Intersection" );
+DeclareGlobalName( "Intersection" );
 #! @Label of a list of right cosets of a PcpGroup
 #! @Arguments L
-# DeclareGlobalFunction( "Intersection" );
+DeclareGlobalName( "Intersection" );
 #! @EndGroup
 
 #! @BeginGroup
