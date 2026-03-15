@@ -138,8 +138,9 @@ DeclareGlobalName( "StabilizerOfExternalSet" );
 #! @GroupTitle List
 #! @Returns a list containing the elements of <A>orb</A>.
 #! @Description
-#! If <A>orb</A> is infinite, this will run forever. It is recommended to first
-#! test the finiteness of <A>orb</A> using
+###############################################################################
+#! If <A>orb</A> is infinite, this will run forever or cause an error. It is
+#! recommended to first test the finiteness of <A>orb</A> using
 #! <Ref Attr="Size" Label="of an orbit of an affine action" Style="Number"/>.
 #! @Label of an orbit of an affine action
 #! @ItemType Func
