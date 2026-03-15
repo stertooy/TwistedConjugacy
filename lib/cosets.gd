@@ -21,9 +21,9 @@ DeclareGlobalName( "Intersection" );
 #! @Returns <K>true</K> if <A>g</A> is an element of <A>D</A>, otherwise
 #! <K>false</K>.
 #! @Label for an element and a double coset of a PcpGroup
+#! @ItemType Oper
 #! @Arguments g, D
-# DeclareOperation( "\in",
-#   [ IsMultiplicativeElementWithInverse, IsDoubleCoset ] );
+DeclareGlobalName( "\in" );
 #! @EndGroup
 
 #! @BeginGroup
