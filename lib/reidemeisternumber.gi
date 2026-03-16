@@ -29,6 +29,20 @@ InstallGlobalFunction(
 ##
 InstallMethod(
     ReidemeisterNumberOp,
+    "for finite source and infinite range",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ],
+    3,
+    function( hom1, hom2 )
+        local G, H;
+        H := Source( hom1 );
+        G := Range( hom1 );
+        if IsFinite( G ) or not IsFinite( H ) then TryNextMethod(); fi;
+        return infinity;
+    end
+);
+
+InstallMethod(
+    ReidemeisterNumberOp,
     "for abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     1,
