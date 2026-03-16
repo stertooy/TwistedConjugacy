@@ -32,6 +32,10 @@ gap> HxK := DoubleCoset( H, x, K );;
 gap> HyK := DoubleCoset( H, y, K );;
 gap> HzK := DoubleCoset( H, z, K );;
 gap> HxH := DoubleCoset( H, x, H );;
+gap> IsFinite( HxK );
+false
+gap> Size( HxK );
+infinity
 gap> y in HxK;
 true
 gap> z in HxK;
