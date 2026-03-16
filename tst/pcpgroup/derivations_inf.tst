@@ -52,6 +52,8 @@ gap> PreImagesElm( derv, G.1 );
 [  ]
 gap> Random( imgH ) in imgH;
 true
+gap> IsFinite( imgH );
+false
 gap> Size( imgH );
 infinity
 gap> imgK := ImagesSet( derv, K );
@@ -149,6 +151,8 @@ gap> G.1 in imgH;
 false
 gap> Random( imgH ) in imgH;
 true
+gap> IsFinite( imgH );
+false
 gap> Size( imgH );
 infinity
 gap> imgK := ImagesSet( derv, K );
