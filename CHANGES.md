@@ -1,8 +1,15 @@
+###############################################################################
+
 This file describes changes in the GAP package TwistedConjugacy.
 
 
 3.2.1 (2026-03-14)
 ------------------
+
+- Add a better implementation for IsFinite for twisted conjugacy classes,
+  orbits of affine actions and group derivation images
+- ReidemeisterNumber now immediately returns "infinity" if the source group is
+  finite but the range group is infinite.
 
 - Fixed a bug in Intersection for cosets of PcpGroups
 

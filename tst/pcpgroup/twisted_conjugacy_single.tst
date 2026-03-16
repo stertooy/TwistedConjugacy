@@ -14,6 +14,8 @@ gap> Print( tcc );
 TwistedConjugacyClass( [ [ g1, g2, g3, g4, g5 ] -> [ g1*g5^6, g1*g2*g3^2*g4^2*g5^6, g3^2, g3*g4^2, id ], [ g1, g2, g3, g4, g5 ] -> [ id, g2*g3*g4, g3, g3^2*g4, id ] ], id )
 gap> Representative( tcc ) = One( G );
 true
+gap> IsFinite( tcc );
+true
 gap> Size( tcc );
 18
 gap> Length( List( tcc ) );

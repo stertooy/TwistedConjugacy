@@ -117,6 +117,37 @@ InstallMethod(
 
 ###############################################################################
 ##
+## IsFinite( tcc )
+##
+##  INPUT:
+##      tcc:        twisted conjugacy class
+##
+##  OUTPUT:
+##      bool:       true if tcc is finite, otherwise false
+##
+InstallMethod(
+    IsFinite,
+    "for twisted conjugacy classes",
+    [ IsTwistedConjugacyClassGroupRep ],
+    1,
+    function( tcc )
+        local H;
+        H := ActingDomain( tcc );
+        if not IsFinite( H ) then TryNextMethod(); fi;
+        return true;
+    end
+);
+
+InstallMethod(
+    IsFinite,
+    "for twisted conjugacy classes",
+    [ IsTwistedConjugacyClassGroupRep ],
+    0,
+    tcc -> IsInt( Size( tcc ) )
+);
+
+###############################################################################
+##
 ## StabiliserOfExternalSet( tcc )
 ##
 ##  INPUT:
