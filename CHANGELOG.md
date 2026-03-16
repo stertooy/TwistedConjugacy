@@ -2,11 +2,11 @@ This file describes changes in the GAP package TwistedConjugacy.
 
 ## 3.3.0 (2026-04-01)
 
-+ ### Added
+### Added
   - Add a better implementation for `IsFinite` for twisted conjugacy classes,
     orbits of affine actions and group derivation images.
 
-+ ### Changed
+### Changed
   - `ReidemeisterNumber` now immediately returns `infinity` if the source group
     is finite but the range group is infinite.
   - Overhauled manual creation.
@@ -14,33 +14,33 @@ This file describes changes in the GAP package TwistedConjugacy.
   - Renamed `CHANGES.md` to `CHANGELOG.md`.
   - Janitorial changes.
 
-+ ### Fixed
+### Fixed
   - Fixed a bug in `Intersection` for cosets of PcpGroups.
 
 ## 3.2.0 (2026-02-11)
 
-+ ### Added
+### Added
   - Added support for Reidemeister generating functions.
 
-+ ### Changed
+### Changed
   - Renamed many of the existing functions available for Reidemeister zeta
     functions.
   - Janitorial changes.
 
 ## 3.1.2 (2025-11-14)
 
-+ ### Changed
+### Changed
   - Improve references in the documentation.
 
-+ ### Fixed
+### Fixed
   - Fix faulty URLs in the documentation.
 
 ## 3.1.1 (2025-10-12)
 
-+ ### Added
+### Added
   - Affine actions can now be compared using the equality (`=`) operator.
 
-+ ### Changed
+### Changed
   - Assertion variable renamed (again) to `TWC.ASSERT`.
   - Update license text to latest version.
   - Update installation instructions in manual.
@@ -50,21 +50,21 @@ This file describes changes in the GAP package TwistedConjugacy.
 
 ## 3.1.0 (2025-09-14)
 
-+ ### Added
+### Added
   - Functionality for affine actions added.
 
-+ ### Changed
+### Changed
   - Now requires Polycyclic version >= 2.17.
   - Assertion variable renamed to `TWC_ASSERT`.
   - Package tests no longer require the SmallGrp and TransGrp packages.
   - Large changes to file structure.
 
-+ ### Fixed
+### Fixed
   - Ensured that this package does not break the Polycyclic test suite.
 
 ## 3.0.0 (2025-07-21)
 
-+ ### Added
+### Added
   - Added method for `(Representatives)ReidemeisterClasses` and
     `ReidemeisterNumber` with no restrictions on the homomorphisms or the
     source and target groups.
@@ -79,7 +79,7 @@ This file describes changes in the GAP package TwistedConjugacy.
   - Added methods related to group derivations between finite groups and
     between PcpGroups.
 
-+ ### Changed
+### Changed
   - Now requires GAP version >= 4.14.
   - Switched the order of the homomorphisms in the definition of the twisted
     conjugation action, which is very likely to break scripts relying on older
@@ -92,12 +92,12 @@ This file describes changes in the GAP package TwistedConjugacy.
 
 ## 2.4.0 (2024-12-05)
 
-+ ### Added
+### Added
   - Added methods for intersections of arbitrary subgroups and cosets in
     PcpGroups.
   - Added method to test membership in a double coset of a PcpGroup.
 
-+ ### Changed
+### Changed
   - Algorithms for infinite polycyclic groups again require the Polycyclic
     package, since many methods would otherwise run forever due to the lack of
     finiteness checks in existing methods.
@@ -108,23 +108,23 @@ This file describes changes in the GAP package TwistedConjugacy.
 
 ## 2.3.0 (2024-09-17)
 
-+ ### Added
+### Added
   - Added `FullReidemeisterSpectrum`.
   - Documented `RepresentativesReidemeisterClasses`.
   - Added `ToggleSafeMode@TwistedConjugacy`, to use built-in assertions
     (including those in Polycyclic) to check for any errors.
 
-+ ### Changed
+### Changed
   - Now requires GAP version >= 4.13.
   - Polycyclic version >= 2.16 is now an extension instead of a suggested
     package.
 
 ## 2.2.0 (2024-02-13)
 
-+ ### Added
+### Added
   - Added `IsNilpotentByFinite` and `IsPolycyclicByFinite` properties.
 
-+ ### Changed
+### Changed
   - Now requires GAP version >= 4.12 and optionally Polycyclic version >= 2.16.
   - `ReidemeisterSpectrum` is now much more efficient for (large) non-abelian
     groups.
@@ -137,7 +137,7 @@ This file describes changes in the GAP package TwistedConjugacy.
 
 ## 2.1.0 (2023-03-16)
 
-+ ### Added
+### Added
   - Added `RepresentativeAutomorphismClasses`,
     `RepresentativesEndomorphismClasses` and
     `RepresentativesHomomorphismClasses`, which can be applied to finite
@@ -148,7 +148,7 @@ This file describes changes in the GAP package TwistedConjugacy.
     lists as input, and will try to solve the multiple twisted conjugacy
     problem.
 
-+ ### Changed
+### Changed
   - Now requires GAP version >= 4.11 and optionally Polycyclic version >=
     2.15.1.
   - Many efficiency improvements, both speed- and memory-related. In particular
@@ -158,13 +158,13 @@ This file describes changes in the GAP package TwistedConjugacy.
     polycyclic groups.
   - `FixedPointGroup` now works for any endomorphism of any polycyclic group.
 
-+ ### Fixed
+### Fixed
   - Fixed a bug that made `ReidemeisterSpectrum` not work for the trivial
     group.
 
 ## 2.0.0 (2021-05-01)
 
-+ ### Added
+### Added
   - The documentation has been largely rewritten.
   - Changed how the manual is generated. The manual can be recreated using
     AutoDoc by running the `makedoc.g` script in the main package directory.
@@ -175,7 +175,7 @@ This file describes changes in the GAP package TwistedConjugacy.
   - Added `CoincidenceReidemeisterSpectrum`.
   - Added `IsRationalReidemeisterZeta`.
 
-+ ### Changed
+### Changed
   - Lowered requirements to GAP version >= 4.9 and GAPDoc version >= 1.6.1.
   - Polycyclic is now a suggested package instead of required. Version >=
     2.13.1 is required, although version >= 2.16 is recommended.
@@ -207,15 +207,15 @@ This file describes changes in the GAP package TwistedConjugacy.
 
 ## 1.0.1 (2020-06-07)
 
-+ ### Added
+### Added
   - Updated documentation to include examples.
   - Test suite now has full coverage.
 
-+ ### Changed
+### Changed
   - Improvements to `PrintObj` for Reidemeister classes.
   - Some functions in `HelpFunctions.gi` now have local scope.
 
 ## 1.0.0 (2020-02-19)
 
-+ ### Added
+### Added
   - Initial release.
