@@ -11,6 +11,7 @@ This file describes changes in the GAP package TwistedConjugacy.
     is finite but the range group is infinite.
   - Overhauled manual creation.
   - Changes to examples in the manual.
+  - Renamed `CHANGES.md` to `CHANGELOG.md`.
   - Janitorial changes.
 
 + ### Fixed
