@@ -32,7 +32,7 @@ InstallMethod(
     "for finite source and infinite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     3,
-    function( hom1, hom2 )
+    function( hom1, _ )
         local G, H;
         H := Source( hom1 );
         G := Range( hom1 );
