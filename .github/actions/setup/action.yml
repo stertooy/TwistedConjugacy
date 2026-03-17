@@ -13,6 +13,12 @@ runs:
       shell: bash
       run: |
         gap -A << GAPInput
-          LoadPackage( "PackageManager" : OnlyNeeded );
-          QuitGap( InstallPackage( "polycyclic", "2.17" ) );
+          PKG := "polycyclic";
+          VER := "2.17";
+          if TestPackageAvailability( PKG, VER ) = fail then
+            LoadPackage( "PackageManager" : OnlyNeeded );
+            QuitGap( InstallPackage( PKG, VER ) );
+          else
+            QuitGap( 0 );
+          fi;
         GAPInput
