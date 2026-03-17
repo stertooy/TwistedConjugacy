@@ -25,10 +25,9 @@ for pkgToLoad in pkgsToLoad do
 od;
 if err then ForceQuitGap( 1 ); fi;
 
-tstDir := "doc/tst";
+tstDir := DirectoryTemporary();
 
-CreateDir( tstDir );
-
+Print( "#I Creating documentation with AutoDoc\n" );
 AutoDoc( rec(
     scaffold := rec(
         bib := "bibliography.bib",
@@ -67,20 +66,18 @@ AutoDoc( rec(
 
 if not IsReadableFile( "doc/manual.six" ) then
     Print( "#W One or more files could not be created.\n" );
-    RemoveDir( tstDir );
     ForceQuitGap( 1 );
 else
     Print( "#I Manual files sucessfully created.\n" );
 fi;
 
+Print( "#I Testing extracted examples.\n" );
 testOpts := rec(
     exitGAP := false,
     showProgress := true,
     testOptions := rec( compareFunction := "uptowhitespace" )
 );
 correct := TestDirectory( tstDir, testOpts );
-
-RemoveDir( tstDir );
 
 if correct then
     Print( "#I All examples are correct.\n" );
