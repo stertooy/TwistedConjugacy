@@ -3,8 +3,8 @@ message: If you use this GAP package, please cite it using the metadata from thi
 type: software
 title: TwistedConjugacy
 abstract: Computation with twisted conjugacy classes
-version: 3.2.1
-date-released: 2026-03-14
+version: 3.3.0
+date-released: 2026-04-01
 license: GPL-2.0-or-later
 doi: 10.5281/zenodo.14283553
 authors:

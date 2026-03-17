@@ -262,18 +262,18 @@ InstallMethod(
                     continue;
                 fi;
                 if q <> "" and Q[i] > 0 then
-                    q := Concatenation( q, "+" );
+                    Append( q, "+" );
                 elif Q[i] < 0 then
-                    q := Concatenation( q, "-" );
+                    Append( q, "-" );
                 fi;
                 qi := AbsInt( Q[i] ) / i;
                 if qi = 1 then
-                    q := Concatenation( q, "s" );
+                    Append( q, "s" );
                 else
-                    q := Concatenation( q, PrintString( qi ), "*s" );
+                    Append( q, Concatenation( PrintString( qi ), "*s" ) );
                 fi;
                 if i <> 1 then
-                    q := Concatenation( q, "^", PrintString( i ) );
+                    Append( q, Concatenation( "^", PrintString( i ) ) );
                 fi;
             od;
             zeta := Concatenation( "exp(", q, ")" );
@@ -340,22 +340,20 @@ InstallMethod(
         fi;
         for i in [ 1 .. Length( factors ) ] do
             if zeta <> "" then
-                zeta := Concatenation( zeta, "*" );
+                Append( zeta, "*" );
             fi;
-            zeta := Concatenation( zeta, "(", factors[i], ")" );
+            Append( zeta, Concatenation( "(", factors[i], ")" ) );
             if not IsPosInt( powers[i] ) then
-                zeta := Concatenation(
-                    zeta,
+                Append( zeta, Concatenation(
                     "^(",
                     PrintString( powers[i] ),
                     ")"
-                );
+                ));
             elif powers[i] <> 1 then
-                zeta := Concatenation(
-                    zeta,
+                Append( zeta, Concatenation(
                     "^",
                     PrintString( powers[i] )
-                );
+                ));
             fi;
         od;
         return zeta;
