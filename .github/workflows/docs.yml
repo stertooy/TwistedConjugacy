@@ -30,6 +30,11 @@ jobs:
             QuitGap( InstallPackage( "https://github.com/gap-packages/AutoDoc.git" ) );
           GAPInput
 
+      - name: "Install extra bibtex"
+        shell: bash
+        run: |
+          sudo apt install texlive-biblatex-extra
+
       - name: "Build manual"
         uses: gap-actions/build-pkg-docs@v2
 
