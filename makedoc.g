@@ -28,7 +28,7 @@ if err then ForceQuitGap( 1 ); fi;
 AutoDoc( rec(
     scaffold := rec(
         bib := "bibliography.bib",
-        #bibstyle := "alphaurl",
+        bibstyle := "alphaurl",
         entities := rec(
             AutoDoc := "<Package>AutoDoc</Package>",
             Polycyclic := "<Package>Polycyclic</Package>",
