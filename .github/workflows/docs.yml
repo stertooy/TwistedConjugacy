@@ -33,7 +33,7 @@ jobs:
       - name: "Install extra bibtex"
         shell: bash
         run: |
-          sudo apt install texlive-biblatex-extra
+          sudo apt install texlive-bibtex-extra
 
       - name: "Build manual"
         uses: gap-actions/build-pkg-docs@v2
