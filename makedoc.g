@@ -62,7 +62,7 @@ AutoDoc( rec(
     gapdoc := rec(
         LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}" )
     ),
-    extract_examples := rec( units := "File", subdir := tstDir )
+    extract_examples := rec( units := "Chapter", subdir := tstDir )
 ));
 
 if not IsReadableFile( "doc/manual.six" ) then
