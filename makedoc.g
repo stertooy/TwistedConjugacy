@@ -3,7 +3,7 @@ info := GAPInfo.PackageInfoCurrent;
 pkgName := info.PackageName;
 pkgsToLoad := [
     [ "GAPDoc", "1.6.7" ],
-    [ "Autodoc", "2025.12.19" ],
+    [ "Autodoc", "2026.03.17" ],
     [ pkgName, info.Version ]
 ];
 if IsBound( info.Extensions ) then
