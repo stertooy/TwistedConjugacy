@@ -78,7 +78,7 @@ testOpts := rec(
     showProgress := true,
     testOptions := rec( compareFunction := "uptowhitespace" )
 );
-correct := TestDirectory( tstDir, testOps );
+correct := TestDirectory( tstDir, testOpts );
 
 RemoveDir( tstDir );
 
