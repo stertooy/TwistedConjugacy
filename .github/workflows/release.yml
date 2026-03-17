@@ -60,7 +60,7 @@ jobs:
       - name: "TEST"
         shell: bash
         run: |
-          echo $RELEASE_NOTES
+          echo "${{ steps.changes.outputs.RELEASE_NOTES }}"
 
       - name: "Make release"
         uses: gap-actions/release-pkg@v1
