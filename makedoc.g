@@ -25,6 +25,10 @@ for pkgToLoad in pkgsToLoad do
 od;
 if err then ForceQuitGap( 1 ); fi;
 
+tstDir := "doc/tst";
+
+CreateDir( tstDir );
+
 AutoDoc( rec(
     scaffold := rec(
         bib := "bibliography.bib",
@@ -58,34 +62,31 @@ AutoDoc( rec(
     gapdoc := rec(
         LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}" )
     ),
-    extract_examples := rec( units := "File" )
+    extract_examples := rec( units := "File", subdir := tstDir )
 ));
 
 if not IsReadableFile( "doc/manual.six" ) then
     Print( "#W One or more files could not be created.\n" );
+    RemoveDir( tstDir );
     ForceQuitGap( 1 );
 else
     Print( "#I Manual files sucessfully created.\n" );
 fi;
 
-tstFile := Concatenation(
-    "tst/",
-    ReplacedString( LowercaseString( pkgName ), " ", "_" ),
-    "01.tst"
+testOpts := rec(
+    exitGAP := false,
+    showProgress := true,
+    testOptions := rec( compareFunction := "uptowhitespace" )
 );
+correct := TestDirectory( tstDir, testOps );
 
-if IsReadableFile( tstFile ) then
-    Print( "#I Testing examples found in manual.\n" );
-    correct := Test( tstFile, rec( compareFunction := "uptowhitespace" ) );
-    RemoveFile( tstFile );
-    if correct then
-        Print( "#I All examples are correct.\n" );
-    else
-        Print( "#W One or more examples are incorrect.\n" );
-        ForceQuitGap( 1 );
-    fi;
+RemoveDir( tstDir );
+
+if correct then
+    Print( "#I All examples are correct.\n" );
 else
-    Print( "#I No examples found in manual.\n" );
+    Print( "#W One or more examples are incorrect.\n" );
+    ForceQuitGap( 1 );
 fi;
 
 Print( "#I Documentation successfully created.\n" );
