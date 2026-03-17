@@ -49,12 +49,18 @@ jobs:
         shell: bash
         id: changes
         run: |
+          awk '/^## /{ if (seen++) exit; next } seen{ if (!printed && NF==0) next; printed=1; print }' CHANGELOG.md
           {
             echo 'RELEASE_NOTES<<EOF'
             echo "## Release notes"
             awk '/^## /{ if (seen++) exit; next } seen{ if (!printed && NF==0) next; printed=1; print }' CHANGELOG.md
             echo EOF
           } >> $GITHUB_OUTPUT
+
+      - name: "TEST"
+        shell: bash
+        run: |
+          echo $RELEASE_NOTES
 
       - name: "Make release"
         uses: gap-actions/release-pkg@v1
