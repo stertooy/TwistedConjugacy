@@ -23,7 +23,7 @@ for pkgToLoad in pkgsToLoad do
         Print( "#I  Loaded '", pkg, "' with version >= ", ver, ".\n" );
     fi;
 od;
-if err then ForceQuitGap( 1 ); fi;
+if err then QuitGap( 1 ); fi;
 
 tstDir := DirectoryTemporary();
 
@@ -66,7 +66,7 @@ AutoDoc( rec(
 
 if not IsReadableFile( "doc/manual.six" ) then
     Print( "#W One or more files could not be created.\n" );
-    ForceQuitGap( 1 );
+    QuitGap( 1 );
 else
     Print( "#I Manual files sucessfully created.\n" );
 fi;
@@ -83,7 +83,7 @@ if correct then
     Print( "#I All examples are correct.\n" );
 else
     Print( "#W One or more examples are incorrect.\n" );
-    ForceQuitGap( 1 );
+    QuitGap( 1 );
 fi;
 
 Print( "#I Documentation successfully created.\n" );
