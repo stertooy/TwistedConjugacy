@@ -24,4 +24,4 @@ if IsPackageLoaded( "Polycyclic" ) then
     ) and pass;
 fi;
 
-QuitGap( pass );
+ForceQuitGap( pass );
