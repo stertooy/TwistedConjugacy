@@ -30,6 +30,16 @@ DeclareGlobalName( "\in" );
 
 #! @BeginGroup
 #! @ChapterInfo cosets, doublecosets
+#! @GroupTitle IsFinite
+#! @Returns <K>true</K> if <A>D</A> is finite, otherwise <K>false</K>.
+#! @Label for a double coset of a PcpGroup
+#! @ItemType Prop
+#! @Arguments D
+DeclareGlobalName( "IsFinite" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @ChapterInfo cosets, doublecosets
 #! @GroupTitle Size
 #! @Returns the number of elements in <A>D</A>.
 #! @Label of a double coset of a PcpGroup
@@ -45,7 +55,8 @@ DeclareGlobalName( "Size" );
 #! @Description
 #! If <A>D</A> is infinite, this will run forever or cause an error. It is
 #! recommended to first test the finiteness of <A>D</A> using
-#! <Ref Attr="Size" Label="of a double coset of a PcpGroup" Style="Number"/>.
+#! <Ref Attr="IsFinite" Label="for a double coset of a PcpGroup"
+#! Style="Number"/>.
 #! @Label of a double coset of a PcpGroup
 #! @ItemType Func
 #! @Arguments D
