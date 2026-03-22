@@ -3,7 +3,7 @@ info := GAPInfo.PackageInfoCurrent;
 pkgName := info.PackageName;
 pkgsToLoad := [
     [ "GAPDoc", "1.6.7" ],
-    [ "Autodoc", "2025.12.19" ],
+    [ "Autodoc", "2026.03.17" ],
     [ pkgName, info.Version ]
 ];
 if IsBound( info.Extensions ) then
@@ -23,11 +23,15 @@ for pkgToLoad in pkgsToLoad do
         Print( "#I  Loaded '", pkg, "' with version >= ", ver, ".\n" );
     fi;
 od;
-if err then ForceQuitGap( 1 ); fi;
+if err then QuitGap( 1 ); fi;
 
+tstDir := DirectoryTemporary();
+
+Print( "#I Creating documentation with AutoDoc\n" );
 AutoDoc( rec(
     scaffold := rec(
         bib := "bibliography.bib",
+        bibstyle := "alphaurl",
         entities := rec(
             AutoDoc := "<Package>AutoDoc</Package>",
             Polycyclic := "<Package>Polycyclic</Package>",
@@ -57,34 +61,29 @@ AutoDoc( rec(
     gapdoc := rec(
         LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}" )
     ),
-    extract_examples := rec( units := "File" )
+    extract_examples := rec( units := "Chapter", subdir := tstDir )
 ));
 
 if not IsReadableFile( "doc/manual.six" ) then
     Print( "#W One or more files could not be created.\n" );
-    ForceQuitGap( 1 );
+    QuitGap( 1 );
 else
     Print( "#I Manual files sucessfully created.\n" );
 fi;
 
-tstFile := Concatenation(
-    "tst/",
-    ReplacedString( LowercaseString( pkgName ), " ", "_" ),
-    "01.tst"
+Print( "#I Testing extracted examples.\n" );
+testOpts := rec(
+    exitGAP := false,
+    showProgress := true,
+    testOptions := rec( compareFunction := "uptowhitespace" )
 );
+correct := TestDirectory( tstDir, testOpts );
 
-if IsReadableFile( tstFile ) then
-    Print( "#I Testing examples found in manual.\n" );
-    correct := Test( tstFile, rec( compareFunction := "uptowhitespace" ) );
-    RemoveFile( tstFile );
-    if correct then
-        Print( "#I All examples are correct.\n" );
-    else
-        Print( "#W One or more examples are incorrect.\n" );
-        ForceQuitGap( 1 );
-    fi;
+if correct then
+    Print( "#I All examples are correct.\n" );
 else
-    Print( "#I No examples found in manual.\n" );
+    Print( "#W One or more examples are incorrect.\n" );
+    QuitGap( 1 );
 fi;
 
 Print( "#I Documentation successfully created.\n" );

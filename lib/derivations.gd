@@ -62,8 +62,9 @@ DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineAction );
 #! @Returns <K>true</K> if the group derivation <A>der</A> is injective,
 #! otherwise <K>false</K>.
 #! @Label for a group derivation
+#! @ItemType Prop
 #! @Arguments der
-# DeclareProperty( "IsInjective", IsGroupDerivation );
+DeclareGlobalName( "IsInjective" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -72,8 +73,9 @@ DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineAction );
 #! @Returns <K>true</K> if the group derivation <A>der</A> is surjective,
 #! otherwise <K>false</K>.
 #! @Label for a group derivation
+#! @ItemType Prop
 #! @Arguments der
-# DeclareProperty( "IsSurjective", IsGroupDerivation );
+DeclareGlobalName( "IsSurjective" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -82,8 +84,9 @@ DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineAction );
 #! @Returns <K>true</K> if the group derivation <A>der</A> is bijjective,
 #! otherwise <K>false</K>.
 #! @Label for a group derivation
+#! @ItemType Prop
 #! @Arguments der
-# DeclareProperty( "IsBijective", IsGroupDerivation );
+DeclareGlobalName( "IsBijective" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -93,8 +96,9 @@ DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineAction );
 #! @Description
 #! This will always be a subgroup of <C>Source</C>(<A>der</A>).
 #! @Label of a group derivation
+#! @ItemType Oper
 #! @Arguments der
-# DeclareOperation( "Kernel", [ IsGroupDerivation ] );
+DeclareGlobalName( "Kernel" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -106,14 +110,17 @@ DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineAction );
 #! second argument, in which case <C>Image</C> will calculate the image of this
 #! argument under <A>der</A>.
 #! @Label of a group derivation
+#! @ItemType Func
 #! @Arguments der
-# DeclareGlobalFunction( "Image" );
+DeclareGlobalName( "Image" );
 #! @Label of an element under a group derivation
+#! @ItemType Func
 #! @Arguments der, elm
-# DeclareGlobalFunction( "Image" );
+DeclareGlobalName( "Image" );
 #! @Label of a subgroup under a group derivation
+#! @ItemType Func
 #! @Arguments der, sub
-# DeclareGlobalFunction( "Image" );
+DeclareGlobalName( "Image" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -122,9 +129,9 @@ DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineAction );
 #! @Returns a preimage of the element <A>elm</A> under the group derivation
 #! <A>der</A>, or <K>fail</K> if no preimage exists.
 #! @Label of an element under a group derivation
+#! @ItemType Oper
 #! @Arguments der, elm
-# DeclareOperation( "PreImagesRepresentative",
-#   [ IsGeneralMapping, IsObject ] );
+DeclareGlobalName( "PreImagesRepresentative" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -136,8 +143,9 @@ DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineAction );
 #! This will always be a (right) coset of <C>Kernel</C>( <A>der</A> ), or the
 #! empty list.
 #! @Label of an element under a group derivation
+#! @ItemType Func
 #! @Arguments der, elm
-# DeclareGlobalFunction( "PreImages" );
+DeclareGlobalName( "PreImages" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -146,8 +154,19 @@ DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineAction );
 #! @Returns <K>true</K> if <A>elm</A> is an element of <A>img</A>, otherwise
 #! <K>false</K>.
 #! @Label for an element and a group derivation image
+#! @ItemType Oper
 #! @Arguments elm, img
-# DeclareOperation( "\in", [ IsObject, IsGroupDerivationImage ] );
+DeclareGlobalName( "\in" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @ChapterInfo derivations, gd_images
+#! @GroupTitle IsFinite
+#! @Returns <K>true</K> if <A>img</A> is finite, otherwise <K>false</K>.
+#! @Label for a group derivation image
+#! @ItemType Prop
+#! @Arguments img
+DeclareGlobalName( "IsFinite" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -155,8 +174,9 @@ DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineAction );
 #! @GroupTitle Size
 #! @Returns the number of elements in <A>img</A>.
 #! @Label of a group derivation image
+#! @ItemType Attr
 #! @Arguments img
-# DeclareAttribute( "Size", IsGroupDerivationImage );
+DeclareGlobalName( "Size" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -164,10 +184,15 @@ DeclareProperty( "IsGroupDerivationImage", IsOrbitAffineAction );
 #! @GroupTitle List
 #! @Returns a list containing the elements of <A>img</A>.
 #! @Description
-#! If <A>img</A> is infinite, this will run forever. It is recommended to first
-#! test the finiteness of <A>img</A> using
-#! <Ref Attr="Size" Label="of a group derivation image" Style="Number"/>.
+#! If <A>img</A> is infinite, this will run forever or cause an error. It is
+#! recommended to first test the finiteness of <A>img</A> using
+#! <Ref Prop="IsFinite" Label="for a group derivation image" Style="Number"/>.
 #! @Label of a group derivation image
+#! @ItemType Func
 #! @Arguments img
-# DeclareGlobalFunction( "List" );
+DeclareGlobalName( "List" );
+#! @Label for a group derivation image
+#! @ItemType Attr
+#! @Arguments img
+DeclareGlobalName( "AsList" );
 #! @EndGroup

@@ -8,11 +8,13 @@
 #!
 #! This intersection is always a right coset, or the empty list.
 #! @Label of right cosets of a PcpGroup
+#! @ItemType Func
 #! @Arguments C1, C2, ...
-# DeclareGlobalFunction( "Intersection" );
+DeclareGlobalName( "Intersection" );
 #! @Label of a list of right cosets of a PcpGroup
+#! @ItemType Func
 #! @Arguments L
-# DeclareGlobalFunction( "Intersection" );
+DeclareGlobalName( "Intersection" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -21,9 +23,19 @@
 #! @Returns <K>true</K> if <A>g</A> is an element of <A>D</A>, otherwise
 #! <K>false</K>.
 #! @Label for an element and a double coset of a PcpGroup
+#! @ItemType Oper
 #! @Arguments g, D
-# DeclareOperation( "\in",
-#   [ IsMultiplicativeElementWithInverse, IsDoubleCoset ] );
+DeclareGlobalName( "\in" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @ChapterInfo cosets, doublecosets
+#! @GroupTitle IsFinite
+#! @Returns <K>true</K> if <A>D</A> is finite, otherwise <K>false</K>.
+#! @Label for a double coset of a PcpGroup
+#! @ItemType Prop
+#! @Arguments D
+DeclareGlobalName( "IsFinite" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -31,8 +43,9 @@
 #! @GroupTitle Size
 #! @Returns the number of elements in <A>D</A>.
 #! @Label of a double coset of a PcpGroup
+#! @ItemType Attr
 #! @Arguments D
-# DeclareAttribute( "Size", [ IsDoubleCoset ] );
+DeclareGlobalName( "Size" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -40,12 +53,18 @@
 #! @GroupTitle List
 #! @Returns a list containing the elements of <A>D</A>.
 #! @Description
-#! If <A>D</A> is infinite, this will run forever. It is recommended to first
-#! test the finiteness of <A>D</A> using
-#! <Ref Attr="Size" Label="of a double coset of a PcpGroup" Style="Number"/>.
+#! If <A>D</A> is infinite, this will run forever or cause an error. It is
+#! recommended to first test the finiteness of <A>D</A> using
+#! <Ref Attr="IsFinite" Label="for a double coset of a PcpGroup"
+#! Style="Number"/>.
 #! @Label of a double coset of a PcpGroup
+#! @ItemType Func
 #! @Arguments D
-# DeclareGlobalFunction( "List" );
+DeclareGlobalName( "List" );
+#! @Label for a double coset of a PcpGroup
+#! @ItemType Attr
+#! @Arguments D
+DeclareGlobalName( "AsList" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -54,8 +73,9 @@
 #! @Returns <K>true</K> if <A>C</A> and <A>D</A> are the same double coset,
 #! otherwise <K>false</K>.
 #! @Label for double cosets of a PcpGroup
+#! @ItemType Oper
 #! @Arguments C, D
-# DeclareOperation( "\=", [ IsDoubleCoset, IsDoubleCoset ] );
+DeclareGlobalName( "\=" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -68,10 +88,11 @@
 #! The <C>NC</C> version does not check whether this is the case.
 #! @Label for PcpGroups
 #! @Arguments G, H, K
-# DeclareGlobalFunction( "DoubleCosets" );
+DeclareGlobalName( "DoubleCosets" );
 #! @Label for PcpGroups
+#! @ItemType Oper
 #! @Arguments G, H, K
-# DeclareOperation( "DoubleCosetsNC", [ IsPcpGroup, IsPcPGroup, IsPcPGroup ] );
+DeclareGlobalName( "DoubleCosetsNC" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -84,9 +105,9 @@
 #! <Ref Oper="DoubleCosetsNC" Label="for PcpGroups" Style="Number"/>, for
 #! PcpGroups it is usually **slower**.
 #! @Label for PcpGroups
+#! @ItemType Oper
 #! @Arguments G, H, K
-# DeclareOperation( "DoubleCosetRepsAndSizes",
-#   [ IsPcpGroup, IsPcPGroup, IsPcPGroup ] );
+DeclareGlobalName( "DoubleCosetRepsAndSizes" );
 #! @EndGroup
 
 #! @BeginGroup

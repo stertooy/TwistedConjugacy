@@ -11,8 +11,6 @@
 #! @Arguments hom1[, hom2]
 DeclareGlobalFunction( "ReidemeisterNumber" );
 #! @Arguments hom1[, hom2]
-# DeclareGlobalFunction( "NrTwistedConjugacyClasses" );
-#
 DeclareSynonym( "NrTwistedConjugacyClasses", ReidemeisterNumber );
 #! @EndGroup
 

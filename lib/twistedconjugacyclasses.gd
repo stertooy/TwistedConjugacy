@@ -5,8 +5,6 @@
 #! @Arguments hom1[, hom2], g
 DeclareGlobalFunction( "TwistedConjugacyClass" );
 #! @Arguments hom1[, hom2], g
-# DeclareGlobalFunction( "ReidemeisterClass" );
-#
 DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @EndGroup
 
@@ -15,8 +13,9 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @GroupTitle Representative
 #! @Returns the group element that was used to construct <A>tcc</A>.
 #! @Label of a twisted conjugacy class
+#! @ItemType Attr
 #! @Arguments tcc
-# DeclareAttribute( "Representative", IsTwistedConjugacyClassGroupRep );
+DeclareGlobalName( "Representative" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -24,8 +23,9 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @GroupTitle ActingDomain
 #! @Returns the group whose twisted conjugacy action <A>tcc</A> is an orbit of.
 #! @Label of a twisted conjugacy class
+#! @ItemType Attr
 #! @Arguments tcc
-# DeclareAttribute( "ActingDomain", IsTwistedConjugacyClassGroupRep );
+DeclareGlobalName( "ActingDomain" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -33,8 +33,9 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @GroupTitle FunctionAction
 #! @Returns the twisted conjugacy action that <A>tcc</A> is an orbit of.
 #! @Label of a twisted conjugacy class
+#! @ItemType Attr
 #! @Arguments tcc
-# DeclareAttribute( "FunctionAction", IsTwistedConjugacyClassGroupRep );
+DeclareGlobalName( "FunctionAction" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -43,8 +44,19 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @Returns <K>true</K> if <A>g</A> is an element of <A>tcc</A>, otherwise
 #! <K>false</K>.
 #! @Label for an element and a twisted conjugacy class
+#! @ItemType Oper
 #! @Arguments g, tcc
-# DeclareOperation( "\in", [ IsObject, IsTwistedConjugacyClassGroupRep ] );
+DeclareGlobalName( "\in" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @ChapterInfo twistedconjugacyclasses, tcc_opers
+#! @GroupTitle IsFinite
+#! @Returns <K>true</K> if <A>tcc</A> is finite, otherwise <K>false</K>.
+#! @Label for a twisted conjugacy class
+#! @ItemType Prop
+#! @Arguments tcc
+DeclareGlobalName( "IsFinite" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -54,8 +66,9 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @Description
 #! This is calculated using the orbit-stabiliser theorem.
 #! @Label of a twisted conjugacy class
+#! @ItemType Attr
 #! @Arguments tcc
-# DeclareAttribute( "Size", IsTwistedConjugacyClassGroupRep );
+DeclareGlobalName( "Size" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -64,9 +77,13 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @Returns the stabiliser of <C>Representative(<A>tcc</A>)</C> under the
 #! action <C>FunctionAction(<A>tcc</A>)</C>.
 #! @Label of a twisted conjugacy class
+#! @ItemType Attr
 #! @Arguments tcc
-# DeclareAttribute( "StabiliserOfExternalSet",
-#   IsTwistedConjugacyClassGroupRep );
+DeclareGlobalName( "StabiliserOfExternalSet" );
+#! @Label of a twisted conjugacy class
+#! @ItemType Attr
+#! @Arguments tcc
+DeclareGlobalName( "StabilizerOfExternalSet" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -74,12 +91,17 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @GroupTitle List
 #! @Returns a list containing the elements of <A>tcc</A>.
 #! @Description
-#! If <A>tcc</A> is infinite, this will run forever. It is recommended to first
-#! test the finiteness of <A>tcc</A> using
-#! <Ref Attr="Size" Label="of a twisted conjugacy class" Style="Number"/>.
+#! If <A>tcc</A> is infinite, this will run forever or cause an error. It is
+#! recommended to first test the finiteness of <A>tcc</A> using
+#! <Ref Attr="IsFinite" Label="for a twisted conjugacy class" Style="Number"/>.
 #! @Label of a twisted conjugacy class
+#! @ItemType Func
 #! @Arguments tcc
-# DeclareGlobalFunction( "List" );
+DeclareGlobalName( "List" );
+#! @Label for a twisted conjugacy class
+#! @ItemType Attr
+#! @Arguments tcc
+DeclareGlobalName( "AsList" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -87,8 +109,9 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @GroupTitle Random
 #! @Returns a random element in <A>tcc</A>.
 #! @Label in a twisted conjugacy class
+#! @ItemType Oper
 #! @Arguments tcc
-# DeclareOperation( "Random", [ IsTwistedConjugacyClassGroupRep ] );
+DeclareGlobalName( "Random" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -97,9 +120,9 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @Returns <K>true</K> if <A>tcc1</A> is equal to <A>tcc2</A>, otherwise
 #! <K>false</K>.
 #! @Label for twisted conjugacy classes
+#! @ItemType Oper
 #! @Arguments tcc1, tcc2
-# DeclareOperation( "\=",
-#   [ IsTwistedConjugacyClassGroupRep, IsTwistedConjugacyClassGroupRep ] );
+DeclareGlobalName( "\=" );
 #! @EndGroup
 
 #! @BeginGroup
@@ -121,8 +144,6 @@ DeclareSynonym( "ReidemeisterClass", TwistedConjugacyClass );
 #! @Arguments hom1[, hom2][, N]
 DeclareGlobalFunction( "TwistedConjugacyClasses" );
 #! @Arguments hom1[, hom2][, N]
-# DeclareGlobalFunction( "ReidemeisterClasses" );
-#
 DeclareSynonym( "ReidemeisterClasses", TwistedConjugacyClasses );
 #! @EndGroup
 
@@ -141,8 +162,6 @@ DeclareSynonym( "ReidemeisterClasses", TwistedConjugacyClasses );
 #! @Arguments hom1[, hom2][, N]
 DeclareGlobalFunction( "RepresentativesTwistedConjugacyClasses" );
 #! @Arguments hom1[, hom2][, N]
-# DeclareGlobalFunction( "RepresentativesReidemeisterClasses" );
-#
 DeclareSynonym(
     "RepresentativesReidemeisterClasses",
     RepresentativesTwistedConjugacyClasses
