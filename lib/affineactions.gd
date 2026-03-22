@@ -110,6 +110,16 @@ DeclareGlobalName( "\in" );
 
 #! @BeginGroup
 #! @ChapterInfo affineactions, affact_orbits
+#! @GroupTitle IsFinite
+#! @Returns <K>true</K> if <A>orb</A> is finite, otherwise <K>false</K>.
+#! @Label for an orbit of an affine action
+#! @ItemType Prop
+#! @Arguments orb
+DeclareGlobalName( "IsFinite" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @ChapterInfo affineactions, affact_orbits
 #! @GroupTitle Size
 #! @Returns the number of elements in <A>orb</A>.
 #! @Label of an orbit of an affine action
@@ -141,7 +151,7 @@ DeclareGlobalName( "StabilizerOfExternalSet" );
 ###############################################################################
 #! If <A>orb</A> is infinite, this will run forever or cause an error. It is
 #! recommended to first test the finiteness of <A>orb</A> using
-#! <Ref Attr="Size" Label="of an orbit of an affine action" Style="Number"/>.
+#! <Ref Prop="IsFinite" Label="for an orbit of an affine action" Style="Number"/>.
 #! @Label of an orbit of an affine action
 #! @ItemType Func
 #! @Arguments orb
