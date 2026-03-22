@@ -161,6 +161,16 @@ DeclareGlobalName( "\in" );
 
 #! @BeginGroup
 #! @ChapterInfo derivations, gd_images
+#! @GroupTitle IsFinite
+#! @Returns <K>true</K> if <A>img</A> is finite, otherwise <K>false</K>.
+#! @Label for a group derivation image
+#! @ItemType Prop
+#! @Arguments img
+DeclareGlobalName( "IsFinite" );
+#! @EndGroup
+
+#! @BeginGroup
+#! @ChapterInfo derivations, gd_images
 #! @GroupTitle Size
 #! @Returns the number of elements in <A>img</A>.
 #! @Label of a group derivation image
@@ -176,7 +186,7 @@ DeclareGlobalName( "Size" );
 #! @Description
 #! If <A>img</A> is infinite, this will run forever or cause an error. It is
 #! recommended to first test the finiteness of <A>img</A> using
-#! <Ref Attr="Size" Label="of a group derivation image" Style="Number"/>.
+#! <Ref Prop="IsFinite" Label="for a group derivation image" Style="Number"/>.
 #! @Label of a group derivation image
 #! @ItemType Func
 #! @Arguments img
