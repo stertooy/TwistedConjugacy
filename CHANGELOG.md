@@ -3,8 +3,8 @@ This file describes changes in the GAP package TwistedConjugacy.
 ## 3.3.0 (2026-04-01)
 
 ### Added
-- Add a better implementation for `IsFinite` for twisted conjugacy classes,
-  orbits of affine actions and group derivation images.
+- Add a better implementation of `IsFinite` for twisted conjugacy classes,
+  double cosets, orbits of affine actions and group derivation images.
 
 ### Changed
 - `ReidemeisterNumber` now immediately returns `infinity` if the source group
