@@ -28,7 +28,7 @@ InstallMethod(
             return [];
         fi;
 
-        I := TWC.IntersectionPcpGroups( U, V );
+        I := TWC.IntersectionPcp( U, V );
         z := s[2] * y;
 
         if TWC.ASSERT then

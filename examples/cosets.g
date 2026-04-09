@@ -28,8 +28,10 @@ y in HxK;
 HxK = HzK;
 #! false
 DoubleCosets( G, H, K );
-#! [ DoubleCoset(<group with 2 generators>,<object>,<group with 2 generators>),
-#!   DoubleCoset(<group with 2 generators>,<object>,<group with 2 generators>) ]
+#! [ DoubleCoset(<group with 2 generators>,<object>,
+#!               <group of size infinity with 2 generators>),
+#!   DoubleCoset(<group with 2 generators>,<object>,
+#!               <group of size infinity with 2 generators>) ]
 DoubleCosetIndex( G, H, K );
 #! 2
 #! @EndExample
