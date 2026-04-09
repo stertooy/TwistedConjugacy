@@ -1,11 +1,13 @@
-ReadPackage( "TwistedConjugacy", "lib/pcp/intersection.g" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/coincidencegroup.g" );
+ReadPackage( "TwistedConjugacy", "lib/pcp/cosets.g" );
+ReadPackage( "TwistedConjugacy", "lib/pcp/homomorphisms.g" );
+ReadPackage( "TwistedConjugacy", "lib/pcp/intersection.g" );
+ReadPackage( "TwistedConjugacy", "lib/pcp/twistedconjugacyclasses.g" );
+ReadPackage( "TwistedConjugacy", "lib/pcp/twistedconjugation.g" );
+
 ReadPackage( "TwistedConjugacy", "lib/pcp/coincidencegroup.gi" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/convert.gi" );
-ReadPackage( "TwistedConjugacy", "lib/pcp/cosets.g" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/cosets.gi" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/reidemeisternumber.gi" );
-ReadPackage( "TwistedConjugacy", "lib/pcp/twistedconjugacyclasses.g" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/twistedconjugacyclasses.gi" );
-ReadPackage( "TwistedConjugacy", "lib/pcp/twistedconjugation.g" );
 ReadPackage( "TwistedConjugacy", "lib/pcp/twistedconjugation.gi" );
