@@ -1,6 +1,6 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
-## 3.3.0 (2026-04-01)
+## 3.3.0 (2026-04-09)
 
 ### Added
 - Add a better implementation of `IsFinite` for twisted conjugacy classes,
@@ -15,7 +15,7 @@ This file describes changes in the GAP package TwistedConjugacy.
 - Janitorial changes.
 
 ### Fixed
-- Fixed a bug in `Intersection` for cosets of PcpGroups.
+- Fixed bugs in `Intersection` for cosets of PcpGroups.
 
 ## 3.2.0 (2026-02-11)
 
