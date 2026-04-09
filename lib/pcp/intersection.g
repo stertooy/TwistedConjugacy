@@ -10,13 +10,11 @@
 ##      I:          intersection of U and V
 ##
 TWC.NormalIntersectionPcp := function( N, U )
-    local UN, q, Q, gens, imgs, phi;
-    UN := ClosureGroup( U, N );
-    q := NaturalHomomorphismByNormalSubgroupNC( UN, N );
-    Q := ImagesSource( q );
+    local q, gens, imgs, phi;
+    q := NaturalHomomorphismByNormalSubgroupNC( ClosureGroup( U, N ), N );
     gens := GeneratorsOfGroup( U );
-    imgs := List( gens, u -> u^q );
-    phi := GroupHomomorphismByImagesNC( U, Q, gens, imgs );
+    imgs := List( gens, u -> ImagesRepresentative( q, u ) );
+    phi := GroupHomomorphismByImagesNC( U, ImagesSource( q ), gens, imgs );
     return KernelOfMultiplicativeGeneralMapping( phi );
 end;
 
