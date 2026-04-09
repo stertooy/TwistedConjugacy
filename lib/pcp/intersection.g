@@ -11,6 +11,13 @@
 ##
 TWC.NormalIntersectionPcp := function( N, U )
     local q, gens, imgs, phi;
+
+    # Catch trivial case
+    if IsSubset( U, N ) then
+        return N;
+    fi;
+
+    # Second Isomorphism Theorem
     q := NaturalHomomorphismByNormalSubgroupNC( ClosureGroup( U, N ), N );
     gens := GeneratorsOfGroup( U );
     imgs := List( gens, u -> ImagesRepresentative( q, u ) );
@@ -32,14 +39,6 @@ end;
 TWC.IntersectionPcp := function( U, V )
     local G, dp, l, r;
 
-    # Catch trivial cases
-    if IsSubset( V, U ) then
-        return U;
-    elif IsSubset( U, V ) then
-        return V;
-    fi;
-
-    # Defer to polycyclic's implementation
     if IsNormal( V, U ) then
         return TWC.NormalIntersectionPcp( U, V );
     elif IsNormal( U, V ) then
