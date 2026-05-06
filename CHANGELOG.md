@@ -1,5 +1,14 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
+## 3.3.1 (2026-05-06)
+
+### Added
+- Add a better implementation of `ExtendedReidemeisterSpectrum` and
+  `CoincidenceReidemeisterSpectrum` for finite simple groups.
+
+### Changed
+- Updated references in the documentation.
+
 ## 3.3.0 (2026-04-09)
 
 ### Added
