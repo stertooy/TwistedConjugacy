@@ -140,7 +140,7 @@ DeclareGlobalName( "\=" );
 #! If $G$ and $H$ are finite, this function relies on an orbit-stabiliser
 #! algorithm.
 #! Otherwise, it relies on the algorithms in <Cite Key='dt21-a'/> and
-#! <Cite Key='tert25-a' />.
+#! <Cite Key='tert26-a' />.
 #! @Arguments hom1[, hom2][, N]
 DeclareGlobalFunction( "TwistedConjugacyClasses" );
 #! @Arguments hom1[, hom2][, N]
