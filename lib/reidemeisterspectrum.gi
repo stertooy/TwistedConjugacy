@@ -303,7 +303,7 @@ InstallMethod(
     end
 );
 
-InstallMethod(
+InstallOtherMethod(
     CoincidenceReidemeisterSpectrumOp,
     "for a finite simple group to itself",
     [ IsSimpleGroup and IsFinite ],
