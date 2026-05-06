@@ -304,7 +304,7 @@ InstallMethod(
 );
 
 InstallMethod(
-    ExtendedReidemeisterSpectrumOp,
+    CoincidenceReidemeisterSpectrumOp,
     "for a finite simple group to itself",
     [ IsSimpleGroup and IsFinite ],
     G -> UnionSet( ExtendedReidemeisterSpectrumOp( G ), [ Size( G ) ] )
