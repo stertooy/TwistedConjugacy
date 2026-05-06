@@ -232,6 +232,13 @@ InstallMethod(
 ##
 InstallMethod(
     ExtendedReidemeisterSpectrumOp,
+    "for finite simple groups",
+    [ IsSimpleGroup and IsFinite ],
+    G -> UnionSet( ReidemeisterSpectrumOp( G ), [ 1 ] )
+);
+
+InstallMethod(
+    ExtendedReidemeisterSpectrumOp,
     "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian ],
     G -> DivisorsInt( Size( G ) )
@@ -294,6 +301,13 @@ InstallMethod(
         od;
         return SpecR;
     end
+);
+
+InstallMethod(
+    ExtendedReidemeisterSpectrumOp,
+    "for a finite simple group to itself",
+    [ IsSimpleGroup and IsFinite ],
+    G -> UnionSet( ExtendedReidemeisterSpectrumOp( G ), [ Size( G ) ] )
 );
 
 InstallOtherMethod(
