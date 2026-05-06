@@ -3,7 +3,7 @@
 #! @Description
 #! If $G$ is abelian, this function relies on the results from
 #! <Cite Key='send23-a'/>.
-#! Otherwise, it relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
+#! Otherwise, it relies on <Cite Key='ree59-a' Where='Thm. 1'/>.
 #! @Arguments G
 DeclareGlobalFunction( "ReidemeisterSpectrum" );
 
@@ -14,7 +14,7 @@ DeclareOperation( "ReidemeisterSpectrumOp", [ IsGroup ] );
 #! @Description
 #! If $G$ is abelian, this is just the set of all divisors of the order of
 #! <A>G</A>.
-#! Otherwise, this function relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
+#! Otherwise, this function relies on <Cite Key='ree59-a' Where='Thm. 1'/>.
 #! @Arguments G
 DeclareGlobalFunction( "ExtendedReidemeisterSpectrum" );
 
