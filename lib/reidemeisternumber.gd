@@ -5,7 +5,7 @@
 #! If $G$ is abelian, this function relies on (a generalisation of)
 #! <Cite Key='jian83-a' Where='Thm. 2.5'/>.
 #! If $G = H$, $G$ is finite non-abelian and $\psi = \operatorname{id}_G$, it
-#! relies on <Cite Key='fh94-a' Where='Thm. 5'/>.
+#! relies on <Cite Key='ree59-a' Where='Thm. 1'/>.
 #! Otherwise, it simply calculates the twisted conjugacy classes and then
 #! counts them.
 #! @Arguments hom1[, hom2]
