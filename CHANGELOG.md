@@ -1,5 +1,11 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
+## 3.3.2 (2026-??-??)
+
+### Changed
+- `makedoc.g` now works when called from outside the package directory.
+- Updated references in the documentation.
+
 ## 3.3.1 (2026-05-06)
 
 ### Added
