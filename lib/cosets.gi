@@ -38,7 +38,7 @@ InstallMethod(
     [ IsGroup, IsGroup, IsGroup ],
     function( G, U, V )
         local DCS;
-        if IsNormal( U, V ) or IsNormal( V, U ) then
+        if IsNormal( G, V ) or IsNormal( G, U ) then
             return IndexNC( G, ClosureGroup( U, V ) );
         fi;
         DCS := DoubleCosetsNC( G, U, V );
