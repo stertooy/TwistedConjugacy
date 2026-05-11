@@ -1,4 +1,4 @@
-# Get directory from which this script was called
+# Get the directory from which this script was called
 pkgDir := DirectoryCurrent();
 filename := INPUT_FILENAME();
 pathPos := Positions( filename, '/' );
