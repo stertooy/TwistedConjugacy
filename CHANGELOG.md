@@ -1,5 +1,15 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
+## 3.3.2 (2026-05-11)
+
+### Changed
+- Slightly improved `DoubleCosetIndex` for finite groups.
+- Updated references in the documentation.
+- `makedoc.g` now works when called from outside the package directory.
+
+### Fixed
+- Fixed a bug in `DoubleCosetIndex` that could lead to wrong results.
+
 ## 3.3.1 (2026-05-06)
 
 ### Added

@@ -104,5 +104,11 @@ gap> Ky := RightCoset( K, y );;
 gap> Intersection( Hx, Ky ) = Intersection( Ky, Hx );
 true
 
+gap> G := SymmetricGroup( 4 );;
+gap> H := Subgroup( G, [ (1,2) ] );;
+gap> K := Subgroup( G, [ (3,4) ] );;
+gap> DoubleCosetIndex( G, H, K );
+7
+
 #
 gap> STOP_TEST( "cosets.tst" );

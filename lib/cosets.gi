@@ -34,13 +34,30 @@ InstallGlobalFunction(
 ##
 InstallMethod(
     DoubleCosetIndexNC,
+    "for two subgroups where either is normal in the parent group",
+    [ IsGroup, IsGroup, IsGroup ],
+    SUM_FLAGS,
+    function( G, U, V )
+        if IsNormal( G, V ) or IsNormal( G, U ) then
+            return IndexNC( G, ClosureGroup( U, V ) );
+        fi;
+        TryNextMethod();
+    end
+);
+
+InstallMethod(
+    DoubleCosetIndexNC,
+    "for two subgroups of a finite group",
+    [ IsGroup and IsFinite, IsGroup and IsFinite, IsGroup and IsFinite ],
+    { G, U, V } -> Length( DoubleCosetRepsAndSizes( G, U, V ) )
+);
+
+InstallMethod(
+    DoubleCosetIndexNC,
     "for two subgroups",
     [ IsGroup, IsGroup, IsGroup ],
     function( G, U, V )
         local DCS;
-        if IsNormal( U, V ) or IsNormal( V, U ) then
-            return IndexNC( G, ClosureGroup( U, V ) );
-        fi;
         DCS := DoubleCosetsNC( G, U, V );
         if DCS = fail then
             return infinity;

@@ -1,10 +1,33 @@
-Read( "PackageInfo.g" );
+# Get the directory from which this script was called
+pkgPath := DirectoryCurrent();
+filename := INPUT_FILENAME();
+pathPos := Positions( filename, '/' );
+if not IsEmpty( pathPos ) then
+    pkgPath := Directory(
+        filename{ [ 1 .. Last( pathPos ) ] }
+    );
+fi;
+
+# Ensure that the correct version of the package is loaded
+Read( Filename( pkgPath, "PackageInfo.g" ) );
 info := GAPInfo.PackageInfoCurrent;
+pkgVers := info.Version;
 pkgName := info.PackageName;
+pkgLcnm := LowercaseString( pkgName );
+if IsBound( GAPInfo.PackagesLoaded.( pkgLcnm ) ) then
+    if GAPInfo.PackagesLoaded.( pkgLcnm )[ 2 ] <> pkgVers then
+        Print( "#W Another version of ", pkgName, " is already loaded.\n" );
+        QuitGap( 1 );
+    fi;
+else
+    SetPackagePath( pkgName, pkgPath );
+fi;
+
+# Load all dependencies
 pkgsToLoad := [
-    [ "GAPDoc", "1.6.7" ],
+    [ "GAPDoc", "1.6.9" ],
     [ "Autodoc", "2026.03.17" ],
-    [ pkgName, info.Version ]
+    [ pkgName, pkgVers ]
 ];
 if IsBound( info.Extensions ) then
     for ext in info.Extensions do
@@ -25,52 +48,57 @@ for pkgToLoad in pkgsToLoad do
 od;
 if err then QuitGap( 1 ); fi;
 
+# Run AutoDoc
 tstDir := DirectoryTemporary();
-
 Print( "#I Creating documentation with AutoDoc\n" );
-AutoDoc( rec(
-    scaffold := rec(
-        bib := "bibliography.bib",
-        bibstyle := "alphaurl",
-        entities := rec(
-            AutoDoc := "<Package>AutoDoc</Package>",
-            Polycyclic := "<Package>Polycyclic</Package>",
-            PackageManager := "<Package>PackageManager</Package>",
-            BibLaTeX := "Bib&LaTeX;",
-            PackageName := pkgName,
-            PACKAGENAME := Concatenation(
-                "<Package>",
-                pkgName,
-                "</Package>"
-            ),
-            ABBREV := "TC",
-            AUTHOR := Concatenation(
-                info.Persons[1].FirstNames, " ", info.Persons[1].LastName
-            ),
-            AUTHORREVERSED := Concatenation(
-                info.Persons[1].LastName, ", ", info.Persons[1].FirstNames
-            ),
-            ARCHIVEURL := info.ArchiveURL,
-            ISSUEURL := info.IssueTrackerURL,
-            HOMEURL := info.PackageWWWHome,
-            SUPPORTEMAIL := info.SupportEmail,
-            SUBTITLE := info.Subtitle
-        )
-    ),
-    autodoc := rec( scan_dirs := [ "doc", "lib", "examples" ] ),
-    gapdoc := rec(
-        LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}" )
-    ),
-    extract_examples := rec( units := "Chapter", subdir := tstDir )
-));
+AutoDoc(
+    pkgPath,
+    rec(
+        scaffold := rec(
+            bib := "bibliography.bib",
+            bibstyle := "alphaurl",
+            entities := rec(
+                AutoDoc := "<Package>AutoDoc</Package>",
+                Polycyclic := "<Package>Polycyclic</Package>",
+                PackageManager := "<Package>PackageManager</Package>",
+                BibLaTeX := "Bib&LaTeX;",
+                PackageName := pkgName,
+                PACKAGENAME := Concatenation(
+                    "<Package>",
+                    pkgName,
+                    "</Package>"
+                ),
+                ABBREV := "TC",
+                AUTHOR := Concatenation(
+                    info.Persons[1].FirstNames, " ", info.Persons[1].LastName
+                ),
+                AUTHORREVERSED := Concatenation(
+                    info.Persons[1].LastName, ", ", info.Persons[1].FirstNames
+                ),
+                ARCHIVEURL := info.ArchiveURL,
+                ISSUEURL := info.IssueTrackerURL,
+                HOMEURL := info.PackageWWWHome,
+                SUPPORTEMAIL := info.SupportEmail,
+                SUBTITLE := info.Subtitle
+            )
+        ),
+        autodoc := rec( scan_dirs := [ "doc", "lib", "examples" ] ),
+        gapdoc := rec(
+            LaTeXOptions := rec( LateExtraPreamble := "\\usepackage{amsmath}" )
+        ),
+        extract_examples := rec( units := "Chapter", subdir := tstDir )
+    )
+);
 
-if not IsReadableFile( "doc/manual.six" ) then
+# Check if the manual was created
+if not IsReadableFile( Filename( pkgPath, "doc/manual.six" ) ) then
     Print( "#W One or more files could not be created.\n" );
     QuitGap( 1 );
 else
     Print( "#I Manual files sucessfully created.\n" );
 fi;
 
+# Check if all examples in the manual produce the expected output
 Print( "#I Testing extracted examples.\n" );
 testOpts := rec(
     exitGAP := false,
@@ -78,7 +106,6 @@ testOpts := rec(
     testOptions := rec( compareFunction := "uptowhitespace" )
 );
 correct := TestDirectory( tstDir, testOpts );
-
 if correct then
     Print( "#I All examples are correct.\n" );
 else
@@ -86,5 +113,6 @@ else
     QuitGap( 1 );
 fi;
 
+# Exit GAP
 Print( "#I Documentation successfully created.\n" );
 QuitGap( 0 );
