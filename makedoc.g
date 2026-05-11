@@ -1,24 +1,34 @@
 # Get the directory from which this script was called
-pkgDir := DirectoryCurrent();
+pkgPath := DirectoryCurrent();
 filename := INPUT_FILENAME();
 pathPos := Positions( filename, '/' );
 if not IsEmpty( pathPos ) then
-    pkgDir := Directory(
+    pkgPath := Directory(
         filename{ [ 1 .. Last( pathPos ) ] }
     );
 fi;
 
 # Ensure that the correct version of the package is loaded
-Read( Filename( pkgDir, "PackageInfo.g" ) );
+Read( Filename( pkgPath, "PackageInfo.g" ) );
 info := GAPInfo.PackageInfoCurrent;
+pkgVers := info.Version;
 pkgName := info.PackageName;
-SetPackagePath( pkgName, pkgDir );
+pkgLcnm := LowercaseString( pkgName );
+if (
+    IsBound( GAPInfo.PackagesLoaded.( pkgLcnm ) ) and
+    GAPInfo.PackagesLoaded.( pkgLcnm )[ 2 ] <> pkgVers
+) then
+    Print( "#W A different version of ", pkgName, " is already loaded.\n" );
+    QuitGap( 1 );
+else 
+    SetPackagePath( pkgName, pkgPath );
+fi;
 
 # Load all dependencies
 pkgsToLoad := [
     [ "GAPDoc", "1.6.9" ],
     [ "Autodoc", "2026.03.17" ],
-    [ pkgName, info.Version ]
+    [ pkgName, pkgVers ]
 ];
 if IsBound( info.Extensions ) then
     for ext in info.Extensions do
@@ -43,7 +53,7 @@ if err then QuitGap( 1 ); fi;
 tstDir := DirectoryTemporary();
 Print( "#I Creating documentation with AutoDoc\n" );
 AutoDoc(
-    pkgDir,
+    pkgPath,
     rec(
         scaffold := rec(
             bib := "bibliography.bib",
@@ -82,7 +92,7 @@ AutoDoc(
 );
 
 # Check if the manual was created
-if not IsReadableFile( Filename( pkgDir, "doc/manual.six" ) ) then
+if not IsReadableFile( Filename( pkgPath, "doc/manual.six" ) ) then
     Print( "#W One or more files could not be created.\n" );
     QuitGap( 1 );
 else
