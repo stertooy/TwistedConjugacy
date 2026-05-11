@@ -1,3 +1,4 @@
+# Get directory from which this script was called
 pkgDir := DirectoryCurrent();
 filename := INPUT_FILENAME();
 pathPos := Positions( filename, '/' );
@@ -7,9 +8,13 @@ if not IsEmpty( pathPos ) then
     );
 fi;
 
+# Ensure that the correct version of the package is loaded
 Read( Filename( pkgDir, "PackageInfo.g" ) );
 info := GAPInfo.PackageInfoCurrent;
 pkgName := info.PackageName;
+SetPackagePath( pkgName, pkgDir );
+
+# Load all dependencies
 pkgsToLoad := [
     [ "GAPDoc", "1.6.9" ],
     [ "Autodoc", "2026.03.17" ],
@@ -34,8 +39,8 @@ for pkgToLoad in pkgsToLoad do
 od;
 if err then QuitGap( 1 ); fi;
 
+# Run AutoDoc
 tstDir := DirectoryTemporary();
-
 Print( "#I Creating documentation with AutoDoc\n" );
 AutoDoc(
     pkgDir,
@@ -76,6 +81,7 @@ AutoDoc(
     )
 );
 
+# Check if the manual was created
 if not IsReadableFile( Filename( pkgDir, "doc/manual.six" ) ) then
     Print( "#W One or more files could not be created.\n" );
     QuitGap( 1 );
@@ -83,6 +89,7 @@ else
     Print( "#I Manual files sucessfully created.\n" );
 fi;
 
+# Check if all examples in the manual produce the expected output
 Print( "#I Testing extracted examples.\n" );
 testOpts := rec(
     exitGAP := false,
@@ -90,7 +97,6 @@ testOpts := rec(
     testOptions := rec( compareFunction := "uptowhitespace" )
 );
 correct := TestDirectory( tstDir, testOpts );
-
 if correct then
     Print( "#I All examples are correct.\n" );
 else
@@ -98,5 +104,6 @@ else
     QuitGap( 1 );
 fi;
 
+# Exit GAP
 Print( "#I Documentation successfully created.\n" );
 QuitGap( 0 );
