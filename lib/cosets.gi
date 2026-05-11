@@ -49,7 +49,7 @@ InstallMethod(
     DoubleCosetIndexNC,
     "for two subgroups of a finite group",
     [ IsGroup and IsFinite, IsGroup and IsFinite, IsGroup and IsFinite ],
-    { G, U, V } -> Length( DoubleCosetsRepsAndSizes( G, U, V ) )
+    { G, U, V } -> Length( DoubleCosetRepsAndSizes( G, U, V ) )
 );
 
 InstallMethod(
