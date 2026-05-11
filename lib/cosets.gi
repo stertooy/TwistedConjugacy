@@ -58,9 +58,6 @@ InstallMethod(
     [ IsGroup, IsGroup, IsGroup ],
     function( G, U, V )
         local DCS;
-        if IsNormal( G, V ) or IsNormal( G, U ) then
-            return IndexNC( G, ClosureGroup( U, V ) );
-        fi;
         DCS := DoubleCosetsNC( G, U, V );
         if DCS = fail then
             return infinity;
