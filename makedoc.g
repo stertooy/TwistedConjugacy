@@ -14,12 +14,11 @@ info := GAPInfo.PackageInfoCurrent;
 pkgVers := info.Version;
 pkgName := info.PackageName;
 pkgLcnm := LowercaseString( pkgName );
-if (
-    IsBound( GAPInfo.PackagesLoaded.( pkgLcnm ) ) and
-    GAPInfo.PackagesLoaded.( pkgLcnm )[ 2 ] <> pkgVers
-) then
-    Print( "#W A different version of ", pkgName, " is already loaded.\n" );
-    QuitGap( 1 );
+if IsBound( GAPInfo.PackagesLoaded.( pkgLcnm ) ) then
+    if GAPInfo.PackagesLoaded.( pkgLcnm )[ 2 ] <> pkgVers then
+        Print( "#W A different version of ", pkgName, " is already loaded.\n" );
+        QuitGap( 1 );
+    fi;
 else 
     SetPackagePath( pkgName, pkgPath );
 fi;
