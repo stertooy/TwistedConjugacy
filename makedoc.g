@@ -4,7 +4,7 @@ filename := INPUT_FILENAME();
 pathPos := Positions( filename, '/' );
 if not IsEmpty( pathPos ) then
     pkgDir := Directory(
-        filename{ [ 1 .. Last( pathPos ) - 1 ] }
+        filename{ [ 1 .. Last( pathPos ) ] }
     );
 fi;
 
