@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        gap-version: [ "4.14.0", "4.15.0", "4.15.1", "4.16.0-beta1", "master" ]
+        gap-version: [ "4.14.0", "4.15.0", "4.15.1", "4.16.0", "devel" ]
         mode: [ "default", "onlyneeded" ]
     steps:
       - name: "Checkout"
@@ -25,7 +25,7 @@ jobs:
         with:
           mode: ${{ matrix.mode }}
           warnings-as-errors: true
-          coverage: ${{ matrix.gap-version == 'master' }}
+          coverage: ${{ matrix.gap-version == 'devel' }}
           codecov-token: ${{ secrets.CODECOV_TOKEN }}
 
   test-gap:
@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        gap-version: [ "4.14.0", "4.15.0", "4.15.1", "4.16.0-beta1", "master" ]
+        gap-version: [ "4.14.0", "4.15.0", "4.15.1", "4.16.0", "devel" ]
         mode: [ "default", "onlyneeded" ]
     steps:
       - name: "Checkout"
