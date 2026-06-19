@@ -63,19 +63,20 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     1,
     function( hom1, hom2 )
-        local G, H, diff, N;
+        local H, G, ccH, ccG, kH, kG, preimgs, sizesH, sizesG, repsH, hom, L,
+              i, j, k, I, R;
         H := Source( hom1 );
         G := Range( hom1 );
         if not IsFinite( G ) or not IsFinite( H ) then TryNextMethod(); fi;
 
-        ccG := List( ConjugacyClasses( G ) );
         ccH := List( ConjugacyClasses( H ) );
-        kG := Length( ccG );
+        ccG := List( ConjugacyClasses( G ) );
         kH := Length( ccH );
+        kG := Length( ccG );
     
         preimgs := [];
-        sizesG := List( ccG, Size );
         sizesH := List( ccH, Size );
+        sizesG := List( ccG, Size );
         repsH := List( ccH, Representative );
 
         for hom in [ hom1, hom2 ] do
@@ -94,7 +95,7 @@ InstallMethod(
         R := 0;
         for k in [ 1 .. kG ] do 
             I := Intersection( preimgs[ 1 ][ k ], preimgs[ 2 ][ k ] );
-            R := R + Sum( I, l -> sizesH[ l ] ) / sizesG[ k ];
+            R := R + Sum( I, i -> sizesH[ i ] ) / sizesG[ k ];
         od;
         R := Size( G ) / Size( H ) * R;
         return R;
