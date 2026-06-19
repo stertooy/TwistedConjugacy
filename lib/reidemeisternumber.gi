@@ -31,7 +31,7 @@ InstallMethod(
     ReidemeisterNumberOp,
     "for finite source and infinite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
-    3,
+    4,
     function( hom1, _ )
         local G, H;
         H := Source( hom1 );
@@ -45,7 +45,7 @@ InstallMethod(
     ReidemeisterNumberOp,
     "for abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
-    1,
+    2,
     function( hom1, hom2 )
         local G, H, diff, N;
         H := Source( hom1 );
@@ -54,6 +54,50 @@ InstallMethod(
         diff := TWC.DifferenceGroupHomomorphisms( hom1, hom2, H, G );
         N := Image( diff );
         return IndexNC( G, N );
+    end
+);
+
+InstallMethod(
+    ReidemeisterNumberOp,
+    "for finite source and range",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ],
+    1,
+    function( hom1, hom2 )
+        local G, H, diff, N;
+        H := Source( hom1 );
+        G := Range( hom1 );
+        if not IsFinite( G ) or not IsFinite( H ) then TryNextMethod(); fi;
+
+        ccG := List( ConjugacyClasses( G ) );
+        ccH := List( ConjugacyClasses( H ) );
+        kG := Length( ccG );
+        kH := Length( ccH );
+    
+        preimgs := [];
+        sizesG := List( ccG, Size );
+        sizesH := List( ccH, Size );
+        repsH := List( ccH, Representative );
+
+        for hom in [ hom1, hom2 ] do
+            L := List( [ 1 .. kG ] , x -> [] );
+            for i in [ 1 .. kH ] do
+                j := First(
+                    [ 1 .. kG ],
+                    k -> ImagesRepresentative( hom, repsH[ i ] )
+                        in AsList( ccG[ k ] )
+                );
+                Add( L[ j ], i );
+            od;
+            Add( preimgs, L );
+        od;
+    
+        R := 0;
+        for k in [ 1 .. kG ] do 
+            I := Intersection( preimgs[ 1 ][ k ], preimgs[ 2 ][ k ] );
+            R := R + Sum( I, l -> sizesH[ l ] ) / sizesG[ k ];
+        od;
+        R := Size( G ) / Size( H ) * R;
+        return R;
     end
 );
 
