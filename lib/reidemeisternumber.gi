@@ -73,14 +73,14 @@ InstallMethod(
         ccG := List( ConjugacyClasses( G ) );
         kH := Length( ccH );
         kG := Length( ccG );
-    
+
         preimgs := [];
         sizesH := List( ccH, Size );
         sizesG := List( ccG, Size );
         repsH := List( ccH, Representative );
 
         for hom in [ hom1, hom2 ] do
-            L := List( [ 1 .. kG ] , x -> [] );
+            L := List( [ 1 .. kG ], x -> [] );
             for i in [ 1 .. kH ] do
                 j := First(
                     [ 1 .. kG ],
@@ -91,14 +91,13 @@ InstallMethod(
             od;
             Add( preimgs, L );
         od;
-    
+
         R := 0;
-        for k in [ 1 .. kG ] do 
+        for k in [ 1 .. kG ] do
             I := Intersection( preimgs[ 1 ][ k ], preimgs[ 2 ][ k ] );
             R := R + Sum( I, i -> sizesH[ i ] ) / sizesG[ k ];
         od;
-        R := Size( G ) / Size( H ) * R;
-        return R;
+        return Size( G ) / Size( H ) * R;
     end
 );
 
