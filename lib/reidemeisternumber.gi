@@ -89,7 +89,7 @@ InstallMethod(
                 j := First(
                     [ 1 .. kG ],
                     k -> ImagesRepresentative( hom, repsH[ i ] )
-                        in AsList( ccG[ k ] )
+                        in AsSet( ccG[ k ] )
                 );
                 AddSet( L[ j ], i );
             od;
