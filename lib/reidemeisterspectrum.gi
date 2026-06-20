@@ -336,26 +336,47 @@ InstallOtherMethod(
 
 InstallOtherMethod(
     CoincidenceReidemeisterSpectrumOp,
-    "for finite abelian group to itself",
+    "for a finite abelian group to itself",
     [ IsGroup and IsFinite and IsAbelian ],
     ExtendedReidemeisterSpectrumOp
 );
 
-InstallOtherMethod(
+InstallMethod(
     CoincidenceReidemeisterSpectrumOp,
-    "for finite group to itself",
+    "for a finite group to itself",
     [ IsGroup and IsFinite ],
     function( G )
-        local Hom_reps, SpecR, n, i, j;
-        Hom_reps := RepresentativesEndomorphismClasses( G );
-        SpecR := [];
-        n := Length( Hom_reps );
-        for i in [ 1 .. n ] do
-            for j in [ i .. n ] do
-                AddSet(
-                    SpecR,
-                    ReidemeisterNumberOp( Hom_reps[i], Hom_reps[j] )
+        local ccG, kG, homs, nrHoms, preimgs, sizesG, repsG,
+              L, hom, i, j, k, l, I, SpecR, R;
+        ccG := List( ConjugacyClasses( G ), AsSet );
+        kG := Length( ccG );
+        homs := RepresentativesEndomorphismClasses( G );
+        nrHoms := Length( homs );
+        preimgs := [];
+        sizesG := List( ccG, Size );
+        repsG := List( ccG, First );
+        for i in [ 1 .. nrHoms ] do
+            hom := homs[ i ];
+            # do NOT use ListWithIdenticalEntries here
+            L := List( [ 1 .. kG ], j -> [] );
+            for j in [ 1 .. kG ] do
+                k := First(
+                    [ 1 .. kG ],
+                    l -> ImagesRepresentative( hom, repsG[ j ] ) in ccG[ l ]
                 );
+                AddSet( L[ k ], j );
+            od;
+            Add( preimgs, L );
+        od;
+        SpecR := [];
+        for i in [ 1 .. nrHoms ] do
+            for j in [ i .. nrHoms ] do
+                R := 0;
+                for k in [ 1 .. kG ] do 
+                    I := Intersection2( preimgs[ i ][ k ], preimgs[ j ][ k ] );
+                    R := R + Sum( I, l -> sizesG[ l ] ) / sizesG[ k ];
+                od;
+                AddSet( SpecR, R );
             od;
         od;
         return SpecR;
