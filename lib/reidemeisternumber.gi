@@ -91,14 +91,14 @@ InstallMethod(
                     k -> ImagesRepresentative( hom, repsH[ i ] )
                         in AsList( ccG[ k ] )
                 );
-                Add( L[ j ], i );
+                AddSet( L[ j ], i );
             od;
             Add( preimgs, L );
         od;
 
         R := 0;
         for k in [ 1 .. kG ] do
-            I := Intersection( preimgs[ 1 ][ k ], preimgs[ 2 ][ k ] );
+            I := IntersectSet( preimgs[ 1 ][ k ], preimgs[ 2 ][ k ] );
             R := R + Sum( I, i -> sizesH[ i ] ) / sizesG[ k ];
         od;
         return Size( G ) / Size( H ) * R;
