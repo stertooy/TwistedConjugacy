@@ -287,19 +287,43 @@ InstallMethod(
     "for distinct finite groups",
     [ IsGroup and IsFinite, IsGroup and IsFinite ],
     function( H, G )
-        local Hom_reps, SpecR, n, i, j;
-        Hom_reps := RepresentativesHomomorphismClasses( H, G );
-        SpecR := [];
-        n := Length( Hom_reps );
-        for i in [ 1 .. n ] do
-            for j in [ i .. n ] do
-                AddSet(
-                    SpecR,
-                    ReidemeisterNumberOp( Hom_reps[i], Hom_reps[j] )
+        local ccG, ccH, kG, kH, homs, nrHoms, preimgs, sizesG, sizesH, repsH,
+              L, hom, i, j, k, l, I, SpecR, R;
+        ccG := List( ConjugacyClasses( G ), AsSet );
+        ccH := List( ConjugacyClasses( H ) );
+        kG := Length( ccG );
+        kH := Length( ccH );
+        homs := RepresentativesHomomorphismClasses( H, G );
+        nrHoms := Length( homs );
+        preimgs := [];
+        sizesG := List( ccG, Size );
+        sizesH := List( ccH, Size );
+        repsH := List( ccH, Representative );
+        for i in [ 1 .. nrHoms ] do
+            hom := homs[ i ];
+            # do NOT use ListWithIdenticalEntries here
+            L := List( [ 1 .. kG ], j -> [] );
+            for j in [ 1 .. kH ] do
+                k := First(
+                    [ 1 .. kG ],
+                    l -> ImagesRepresentative( hom, repsH[ j ] ) in ccG[ l ]
                 );
+                AddSet( L[ k ], j );
+            od;
+            Add( preimgs, L );
+        od;
+        SpecR := [];
+        for i in [ 1 .. nrHoms ] do
+            for j in [ i .. nrHoms ] do
+                R := 0;
+                for k in [ 1 .. kG ] do 
+                    I := Intersection2( preimgs[ i ][ k ], preimgs[ j ][ k ] );
+                    R := R + Sum( I, l -> sizesH[ l ] ) / sizesG[ k ];
+                od;
+                AddSet( SpecR, R );
             od;
         od;
-        return SpecR;
+        return Set( SpecR, R -> Size( G ) / Size( H ) * R );
     end
 );
 
