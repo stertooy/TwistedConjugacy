@@ -1,5 +1,5 @@
 tempfunc1@ := function( homs, ccG, repsH, sizesG, sizesH )
-    local kG, kH, homs, preimgs, L, hom, i, j, k, l, I, SpecR, R;
+    local kG, kH, nrHoms, preimgs, L, hom, i, j, k, l, I, SpecR, R;
     nrHoms := Length( homs );
     kH := Length( repsH );
     kG := Length( ccG );
