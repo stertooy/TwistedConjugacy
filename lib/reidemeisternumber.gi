@@ -74,7 +74,7 @@ InstallMethod(
         ) then TryNextMethod(); fi;
 
         ccH := List( ConjugacyClasses( H ) );
-        ccG := List( ConjugacyClasses( G ) );
+        ccG := List( ConjugacyClasses( G ), AsSet );
         kH := Length( ccH );
         kG := Length( ccG );
 
@@ -88,8 +88,7 @@ InstallMethod(
             for i in [ 1 .. kH ] do
                 j := First(
                     [ 1 .. kG ],
-                    k -> ImagesRepresentative( hom, repsH[ i ] )
-                        in AsSet( ccG[ k ] )
+                    k -> ImagesRepresentative( hom, repsH[ i ] ) in ccG[ k ]
                 );
                 AddSet( L[ j ], i );
             od;
