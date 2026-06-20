@@ -97,7 +97,7 @@ InstallMethod(
 
         R := 0;
         for k in [ 1 .. kG ] do
-            I := IntersectSet( preimgs[ 1 ][ k ], preimgs[ 2 ][ k ] );
+            I := Intersection2( preimgs[ 1 ][ k ], preimgs[ 2 ][ k ] );
             R := R + Sum( I, i -> sizesH[ i ] ) / sizesG[ k ];
         od;
         return Size( G ) / Size( H ) * R;
