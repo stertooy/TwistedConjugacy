@@ -1,8 +1,9 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
-## 3.3.3 (2026-07-01)
-
+## 3.4.0 (2026-07-01)
 ### Changed
+- Improved `ReidemeisterNumber` for pairs of homomorphisms where both source
+  and range have their conjugacy classes precomputed.
 - Improved `CoincidenceReidemeisterSpectrum` for non-abelian groups.
 
 ## 3.3.2 (2026-05-11)
