@@ -316,7 +316,7 @@ InstallMethod(
         for i in [ 1 .. nrHoms ] do
             for j in [ i .. nrHoms ] do
                 R := 0;
-                for k in [ 1 .. kG ] do 
+                for k in [ 1 .. kG ] do
                     I := Intersection2( preimgs[ i ][ k ], preimgs[ j ][ k ] );
                     R := R + Sum( I, l -> sizesH[ l ] ) / sizesG[ k ];
                 od;
@@ -372,7 +372,7 @@ InstallOtherMethod(
         for i in [ 1 .. nrHoms ] do
             for j in [ i .. nrHoms ] do
                 R := 0;
-                for k in [ 1 .. kG ] do 
+                for k in [ 1 .. kG ] do
                     I := Intersection2( preimgs[ i ][ k ], preimgs[ j ][ k ] );
                     R := R + Sum( I, l -> sizesG[ l ] ) / sizesG[ k ];
                 od;
