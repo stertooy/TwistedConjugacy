@@ -294,7 +294,7 @@ InstallMethod(
         sizesG := List( ccG, Size );
         sizesH := List( ccH, Size );
         repsH := List( ccH, Representative );
-        SpecR := tempfunc1@( homs, ccG, repsH, sizesG, sizesH );
+        SpecR := TWC.CoinSpec( homs, ccG, repsH, sizesG, sizesH );
         return Set( SpecR, R -> Size( G ) / Size( H ) * R );
     end
 );
@@ -324,7 +324,7 @@ InstallOtherMethod(
         repsG := List( ccG, Representative );
         ccG := List( ccG, AsSet );
         sizesG := List( ccG, Size );
-        return tempfunc1@( homs, ccG, repsG, sizesG, sizesG );
+        return TWC.CoinSpec( homs, ccG, repsG, sizesG, sizesG );
     end
 );
 
