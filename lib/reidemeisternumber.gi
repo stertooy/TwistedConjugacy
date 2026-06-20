@@ -73,24 +73,15 @@ InstallMethod(
             not ( HasConjugacyClasses( G ) and HasConjugacyClasses( H ) )
         ) then TryNextMethod(); fi;
 
-        if IsAbelian( H ) then
-            ccH := List( Elements( H ) );
-        else
-            ccH := List( ConjugacyClasses( H ) );
-        fi;
+        ccH := List( ConjugacyClasses( H ) );
         ccG := List( ConjugacyClasses( G ), AsSet );
         kH := Length( ccH );
         kG := Length( ccG );
 
         preimgs := [];
+        sizesH := List( ccH, Size );
         sizesG := List( ccG, Size );
-        if IsAbelian( H ) then
-            repsH := ccH;
-            sizesH := ListWithIdenticalEntries( kH, 1 );
-        else
-            repsH := List( ccH, Representative );
-            sizesH := List( ccH, Size );
-        fi;
+        repsH := ccH;
 
         for hom in [ hom1, hom2 ] do
             L := List( [ 1 .. kG ], x -> [] );
