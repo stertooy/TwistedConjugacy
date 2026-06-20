@@ -81,7 +81,7 @@ InstallMethod(
         preimgs := [];
         sizesH := List( ccH, Size );
         sizesG := List( ccG, Size );
-        repsH := ccH;
+        repsH := List( ccH, Representative );
 
         for hom in [ hom1, hom2 ] do
             L := List( [ 1 .. kG ], x -> [] );
