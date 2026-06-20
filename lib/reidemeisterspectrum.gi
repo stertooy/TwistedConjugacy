@@ -341,7 +341,7 @@ InstallOtherMethod(
     ExtendedReidemeisterSpectrumOp
 );
 
-InstallMethod(
+InstallOtherMethod(
     CoincidenceReidemeisterSpectrumOp,
     "for a finite group to itself",
     [ IsGroup and IsFinite ],
