@@ -353,7 +353,7 @@ InstallOtherMethod(
     function( G )
         local homs, ccG, sizesG, repsG;
         homs := RepresentativesEndomorphismClasses( G );
-        ccG := List( ConjugacyClasses( H ) );
+        ccG := List( ConjugacyClasses( G ) );
         repsG := List( ccG, Representative );
         ccG := List( ccG, AsSet );
         sizesG := List( ccG, Size );
