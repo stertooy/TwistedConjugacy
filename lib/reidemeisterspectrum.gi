@@ -1,3 +1,36 @@
+tempfunc1@ := function( homs, ccG, repsH, sizesG, sizesH )
+    local kG, kH, homs, preimgs, L, hom, i, j, k, l, I, SpecR, R;
+    nrHoms := Length( homs );
+    kH := Length( repsH );
+    kG := Length( ccG );
+    preimgs := [];
+    for i in [ 1 .. nrHoms ] do
+        hom := homs[ i ];
+        # do NOT use ListWithIdenticalEntries here
+        L := List( [ 1 .. kG ], j -> [] );
+        for j in [ 1 .. kH ] do
+            k := First(
+                [ 1 .. kG ],
+                l -> ImagesRepresentative( hom, repsH[ j ] ) in ccG[ l ]
+            );
+            AddSet( L[ k ], j );
+        od;
+        Add( preimgs, L );
+    od;
+    SpecR := [];
+    for i in [ 1 .. nrHoms ] do
+        for j in [ i .. nrHoms ] do
+            R := 0;
+            for k in [ 1 .. kG ] do
+                I := Intersection2( preimgs[ i ][ k ], preimgs[ j ][ k ] );
+                R := R + Sum( I, l -> sizesH[ l ] ) / sizesG[ k ];
+            od;
+            AddSet( SpecR, R );
+        od;
+    od;
+    return SpecR;
+end;
+
 ###############################################################################
 ##
 ## ReidemeisterSpectrum( G )
@@ -287,42 +320,14 @@ InstallMethod(
     "for distinct finite groups",
     [ IsGroup and IsFinite, IsGroup and IsFinite ],
     function( H, G )
-        local ccG, ccH, kG, kH, homs, nrHoms, preimgs, sizesG, sizesH, repsH,
-              L, hom, i, j, k, l, I, SpecR, R;
+        local homs, ccG, ccH, sizesG, sizesH, repsH, SpecR, R;
+        homs := RepresentativesHomomorphismClasses( H, G );
         ccG := List( ConjugacyClasses( G ), AsSet );
         ccH := List( ConjugacyClasses( H ) );
-        kG := Length( ccG );
-        kH := Length( ccH );
-        homs := RepresentativesHomomorphismClasses( H, G );
-        nrHoms := Length( homs );
-        preimgs := [];
         sizesG := List( ccG, Size );
         sizesH := List( ccH, Size );
         repsH := List( ccH, Representative );
-        for i in [ 1 .. nrHoms ] do
-            hom := homs[ i ];
-            # do NOT use ListWithIdenticalEntries here
-            L := List( [ 1 .. kG ], j -> [] );
-            for j in [ 1 .. kH ] do
-                k := First(
-                    [ 1 .. kG ],
-                    l -> ImagesRepresentative( hom, repsH[ j ] ) in ccG[ l ]
-                );
-                AddSet( L[ k ], j );
-            od;
-            Add( preimgs, L );
-        od;
-        SpecR := [];
-        for i in [ 1 .. nrHoms ] do
-            for j in [ i .. nrHoms ] do
-                R := 0;
-                for k in [ 1 .. kG ] do
-                    I := Intersection2( preimgs[ i ][ k ], preimgs[ j ][ k ] );
-                    R := R + Sum( I, l -> sizesH[ l ] ) / sizesG[ k ];
-                od;
-                AddSet( SpecR, R );
-            od;
-        od;
+        SpecR := tempfunc1@( homs, ccG, repsH, sizesG, sizesH );
         return Set( SpecR, R -> Size( G ) / Size( H ) * R );
     end
 );
@@ -346,40 +351,13 @@ InstallOtherMethod(
     "for a finite group to itself",
     [ IsGroup and IsFinite ],
     function( G )
-        local ccG, kG, homs, nrHoms, preimgs, sizesG, repsG,
-              L, hom, i, j, k, l, I, SpecR, R;
-        ccG := List( ConjugacyClasses( G ), AsSet );
-        kG := Length( ccG );
+        local homs, ccG, sizesG, repsG;
         homs := RepresentativesEndomorphismClasses( G );
-        nrHoms := Length( homs );
-        preimgs := [];
+        ccG := List( ConjugacyClasses( H ) );
+        repsG := List( ccG, Representative );
+        ccG := List( ccG, AsSet );
         sizesG := List( ccG, Size );
-        repsG := List( ccG, First );
-        for i in [ 1 .. nrHoms ] do
-            hom := homs[ i ];
-            # do NOT use ListWithIdenticalEntries here
-            L := List( [ 1 .. kG ], j -> [] );
-            for j in [ 1 .. kG ] do
-                k := First(
-                    [ 1 .. kG ],
-                    l -> ImagesRepresentative( hom, repsG[ j ] ) in ccG[ l ]
-                );
-                AddSet( L[ k ], j );
-            od;
-            Add( preimgs, L );
-        od;
-        SpecR := [];
-        for i in [ 1 .. nrHoms ] do
-            for j in [ i .. nrHoms ] do
-                R := 0;
-                for k in [ 1 .. kG ] do
-                    I := Intersection2( preimgs[ i ][ k ], preimgs[ j ][ k ] );
-                    R := R + Sum( I, l -> sizesG[ l ] ) / sizesG[ k ];
-                od;
-                AddSet( SpecR, R );
-            od;
-        od;
-        return SpecR;
+        return tempfunc1@( homs, ccG, repsG, sizesG, sizesG );
     end
 );
 
