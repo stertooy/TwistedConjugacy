@@ -291,7 +291,7 @@ InstallMethod(
         homs := RepresentativesHomomorphismClasses( H, G );
         ccG := List( ConjugacyClasses( G ), AsSet );
         ccH := List( ConjugacyClasses( H ) );
-        sizesG := List( ccG, Size );
+        sizesG := List( ccG, Length );
         sizesH := List( ccH, Size );
         repsH := List( ccH, Representative );
         SpecR := TWC.CoinSpec( homs, ccG, repsH, sizesG, sizesH );
@@ -320,10 +320,9 @@ InstallOtherMethod(
     function( G )
         local homs, ccG, sizesG, repsG;
         homs := RepresentativesEndomorphismClasses( G );
-        ccG := List( ConjugacyClasses( G ) );
-        repsG := List( ccG, Representative );
-        ccG := List( ccG, AsSet );
-        sizesG := List( ccG, Size );
+        ccG := List( ConjugacyClasses( G ), AsSet );
+        repsG := List( ccG, First );
+        sizesG := List( ccG, Length );
         return TWC.CoinSpec( homs, ccG, repsG, sizesG, sizesG );
     end
 );
