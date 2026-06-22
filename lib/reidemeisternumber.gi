@@ -63,7 +63,7 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     1,
     function( hom1, hom2 )
-        local H, G, ccH, ccG, sizesH, sizesG, R;
+        local H, G, ccH, ccG, sizesH, sizesG, repsH, R;
         H := Source( hom1 );
         G := Range( hom1 );
         if not ( IsFinite( G ) and IsFinite( H ) ) then TryNextMethod(); fi;
