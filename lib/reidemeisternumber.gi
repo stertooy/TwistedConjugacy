@@ -63,8 +63,7 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     1,
     function( hom1, hom2 )
-        local H, G, ccH, ccG, kH, kG, preimgs, sizesH, sizesG, repsH, hom, L,
-              i, j, k, I, R;
+        local H, G, ccH, ccG, sizesH, sizesG, R;
         H := Source( hom1 );
         G := Range( hom1 );
         if not ( IsFinite( G ) and IsFinite( H ) ) then TryNextMethod(); fi;
@@ -75,32 +74,13 @@ InstallMethod(
 
         ccH := List( ConjugacyClasses( H ) );
         ccG := List( ConjugacyClasses( G ), AsSet );
-        kH := Length( ccH );
-        kG := Length( ccG );
 
-        preimgs := [];
         sizesH := List( ccH, Size );
-        sizesG := List( ccG, Size );
+        sizesG := List( ccG, Length );
         repsH := List( ccH, Representative );
 
-        for hom in [ hom1, hom2 ] do
-            L := List( [ 1 .. kG ], x -> [] );
-            for i in [ 1 .. kH ] do
-                j := First(
-                    [ 1 .. kG ],
-                    k -> ImagesRepresentative( hom, repsH[ i ] ) in ccG[ k ]
-                );
-                AddSet( L[ j ], i );
-            od;
-            Add( preimgs, L );
-        od;
-
-        R := 0;
-        for k in [ 1 .. kG ] do
-            I := Intersection2( preimgs[ 1 ][ k ], preimgs[ 2 ][ k ] );
-            R := R + Sum( I, i -> sizesH[ i ] ) / sizesG[ k ];
-        od;
-        return Size( G ) / Size( H ) * R;
+        R := TWC.CoinSpec( [ hom1, hom2 ], ccG, repsH, sizesG, sizesH );
+        return Size( G ) / Size( H ) * R[ 1 ];
     end
 );
 
