@@ -13,24 +13,17 @@
 ##      Spec:       Coincidence Reidemeister spectrum of G, up to a factor
 ##
 TWC.CoinSpec := function( homs, ccG, repsH, sizesG, sizesH )
-    local kG, kH, nrHoms, imgs, img, L, hom, i, j, k, SpecR, R, ords, ord;
+    local nrHoms, kH, kG, imgs, i, hom, j, img, k, SpecR, R;
     nrHoms := Length( homs );
     kH := Length( repsH );
     kG := Length( ccG );
-    imgs := [];
-    ords := List( ccG, i -> Order( First( i ) ) );
+    imgs := NullMat( nrHoms, kH );
     for i in [ 1 .. nrHoms ] do
         hom := homs[ i ];
-        L := ListWithIdenticalEntries( kH, 0 );
         for j in [ 1 .. kH ] do
             img := ImagesRepresentative( hom, repsH[ j ] );
-            ord := Order( img );
-            L[ j ] := First(
-            	[ 1 .. kG ],
-            	k -> ord = ords[k] and img in ccG[ k ]
-            );
+            imgs[ i ][ j ] := First( [ 1 .. kG ], k -> img in ccG[ k ] );
         od;
-        Add( imgs, L );
     od;
     SpecR := [];
     for i in [ 1 .. nrHoms ] do
