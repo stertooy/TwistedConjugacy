@@ -13,7 +13,7 @@
 ##      Spec:       Coincidence Reidemeister spectrum of G, up to a factor
 ##
 TWC.CoinSpec := function( homs, ccG, repsH, sizesG, sizesH )
-    local kG, kH, nrHoms, imgs, L, hom, i, j, k, SpecR, R;
+    local kG, kH, nrHoms, imgs, img, L, hom, i, j, k, SpecR, R;
     nrHoms := Length( homs );
     kH := Length( repsH );
     kG := Length( ccG );
