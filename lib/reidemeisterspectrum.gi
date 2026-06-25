@@ -13,7 +13,7 @@ InstallGlobalFunction(
     function( G )
         IsFinite( G );
         IsAbelian( G );
-        return ReidemeisterSpectrumOp( G );
+        return ShallowCopy( ReidemeisterSpectrumOp( G ) );
     end
 );
 
@@ -32,7 +32,7 @@ InstallGlobalFunction(
     function( G )
         IsFinite( G );
         IsAbelian( G );
-        return ExtendedReidemeisterSpectrumOp( G );
+        return ShallowCopy( ExtendedReidemeisterSpectrumOp( G ) );
     end
 );
 
@@ -57,12 +57,12 @@ InstallGlobalFunction(
         IsFinite( H );
         IsAbelian( H );
         if Length( arg ) = 0 then
-            return CoincidenceReidemeisterSpectrumOp( H );
+            return ShallowCopy( CoincidenceReidemeisterSpectrumOp( H ) );
         else
             G := arg[1];
             IsFinite( G );
             IsAbelian( G );
-            return CoincidenceReidemeisterSpectrumOp( H, G );
+            return ShallowCopy( CoincidenceReidemeisterSpectrumOp( H, G ) );
         fi;
     end
 );
@@ -82,7 +82,7 @@ InstallGlobalFunction(
     function( G )
         IsFinite( G );
         IsAbelian( G );
-        return TotalReidemeisterSpectrumOp( G );
+        return ShallowCopy( TotalReidemeisterSpectrumOp( G ) );
     end
 );
 
