@@ -6,6 +6,9 @@ This file describes changes in the GAP package TwistedConjugacy.
   and range have their conjugacy classes precomputed.
 - Improved `CoincidenceReidemeisterSpectrum` for non-abelian groups.
 
+### Fixed
+- All `...ReidemeisterSpectrum` functions now return *mutable* sets.
+
 ## 3.3.2 (2026-05-11)
 
 ### Changed
