@@ -80,6 +80,7 @@ InstallMethod(
         repsH := List( ccH, Representative );
 
         R := TWC.CoinSpec( [ hom1, hom2 ], ccG, repsH, sizesG, sizesH );
+        Print( "DEBUG: R = ", R, "\n" );
         return Size( G ) / Size( H ) * R[ 1 ];
     end
 );
