@@ -195,13 +195,13 @@ InstallOtherMethod(
         todo := [ g ];
         conj := [];
         trail := [];
+        if CanEasilyComputePcgs( H ) then
+            gens := Pcgs( H );
+        else
+            gens := SmallGeneratingSet( H );
+        fi;
         while not IsEmpty( todo ) do
             k := Remove( todo );
-            if CanEasilyComputePcgs( H ) then
-                gens := Pcgs( H );
-            else
-                gens := SmallGeneratingSet( H );
-            fi;
             for h in gens do
                 l := Immutable( tc( k, h ) );
                 if IsOne( l ) then
