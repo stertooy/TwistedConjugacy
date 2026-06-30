@@ -135,7 +135,13 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism,
       IsMultiplicativeElementWithInverse, IsMultiplicativeElementWithInverse ],
     function( hom1, hom2, g1, g2 )
-        local G, inn;
+        local H, G, inn;
+        if g1 = g2 then
+            H := Source( hom1 );
+            return One( H );
+        elif IsOne( g2 ) then
+            return RepresentativeTwistedConjugationOp( hom1, hom2, g1 );
+        fi;
         G := Range( hom1 );
         inn := InnerAutomorphismNC( G, g2 );
         return RepresentativeTwistedConjugationOp(
