@@ -21,6 +21,8 @@ TWC.MultipleConjugacySolver := function( G, r, s )
     for i in [ 1 .. Length( r ) ] do
         if i = 1 then
             Gi := G;
+        elif IsOne( s[ i - 1 ] ) then
+            Print("DERP\n");
         else
             Gi := Centraliser( Gi, s[ i - 1 ] );
         fi;
