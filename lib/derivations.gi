@@ -281,7 +281,7 @@ InstallMethod(
 ##      h:          element of H
 ##
 ##  OUTPUT:
-##      L:          List of images of h under derv
+##      L:          list of images of h under derv
 ##
 InstallMethod(
     ImagesElm,
