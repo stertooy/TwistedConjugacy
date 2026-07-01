@@ -7,7 +7,7 @@
 ##      ccG:        conjugacy classes of G (as sets)
 ##      repsH:      representatives of the conjugacy classes of H
 ##      sizesG:     sizes of the conjugacy classes of G
-##      sizesG:     sizes of the conjugacy classes of H
+##      sizesH:     sizes of the conjugacy classes of H
 ##
 ##  OUTPUT:
 ##      Spec:       Coincidence Reidemeister spectrum of G, up to a factor
