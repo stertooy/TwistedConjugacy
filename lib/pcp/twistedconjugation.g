@@ -19,6 +19,9 @@ TWC.MultipleConjugacySolver := function( G, r, s )
     local a, i, Gi, ai, ria, pcp;
     a := One( G );
     Gi := G;
+    Print("GOT HERE AT LEAST:\n");
+    Print("  ",r,"\n");
+    Print("  ",s,"\n");
     for i in [ 1 .. Length( r ) ] do
         ria := r[ i ] ^ a;
         if ria = s[ i ] then
