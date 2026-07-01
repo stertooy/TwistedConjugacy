@@ -25,7 +25,11 @@ TWC.MultipleConjugacySolver := function( G, r, s )
             Gi := Centraliser( Gi, s[ i - 1 ] );
         fi;
         pcp := PcpsOfEfaSeries( Gi );
-        ai := ConjugacyElementsBySeries( Gi, r[i] ^ a, s[i], pcp );
+        ria := r[ i ] ^ a;
+        if ria = s[ i ] then
+            continue;
+        fi;
+        ai := ConjugacyElementsBySeries( Gi, ria, s[ i ], pcp );
         if ai = false then
             return fail;
         fi;
@@ -46,7 +50,7 @@ end;
 ##      g:          element of G
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * g * h^hom1 = 1, or
+##      h:          element of H such that (h^hom1)^-1 * g * h^hom2 = 1, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:
@@ -80,13 +84,13 @@ end;
 ##      M:          normal subgroup of G
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * g * h^hom1 = 1, or
+##      h:          element of H such that (h^hom1)^-1 * g * h^hom2 = 1, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:
-##      Calculates h by first calculating translating the problem to hom1N,
-##      hom2N: N -> M (with N normal in H) and hom1HN, hom2HN: H/N -> G/M. Only
-##      works if Coin(hom1HN,hom2HN) is finite.
+##      Calculates h by first translating the problem to hom1N, hom2N: N -> M
+##      (with N normal in H) and hom1HN, hom2HN: H/N -> G/M. Only works if
+##      Coin(hom1HN,hom2HN) is finite.
 ##
 TWC.RepTwistConjToIdByFinQuo := function( G, H, hom1, hom2, g, M )
     local N, p, q, hom1HN, hom2HN, pg, qh1, Coin, h1, tc, m1, hom1N, hom2N,
@@ -131,7 +135,7 @@ end;
 ##      N:          normal subgroup of G
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * g * h^hom1 = 1, or
+##      h:          element of H such that (h^hom1)^-1 * g * h^hom2 = 1, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:
