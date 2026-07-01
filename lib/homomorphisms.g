@@ -245,7 +245,7 @@ end;
 ##                  automorphisms of G
 ##
 TWC.RepresentativesHomomorphismClassesAbelian := function( H, G )
-    local gensH, gensG, imgs, h, oh, imgsG, g, og, pows, e;
+    local gensH, gensG, imgs, h, oh, imgsG, g, og, pows, step, e;
     gensH := IndependentGeneratorsOfAbelianGroup( H );
     gensG := IndependentGeneratorsOfAbelianGroup( G );
     imgs := [];
@@ -254,10 +254,8 @@ TWC.RepresentativesHomomorphismClassesAbelian := function( H, G )
         imgsG := [];
         for g in gensG do
             og := Order( g );
-            pows := Filtered(
-                [ 0 .. og - 1 ],
-                x -> ( ( x * oh ) mod og ) = 0
-            );
+            step := og / GcdInt( oh, og );
+            pows := [ 0, step .. og - step ];
             Add( imgsG, List( pows, x -> g ^ x ) );
         od;
         Add( imgs, List( Cartesian( imgsG ), Product ) );
