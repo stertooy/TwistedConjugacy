@@ -25,6 +25,7 @@ TWC.MultipleConjugacySolver := function( G, r, s )
             continue;
         fi;
         if i > 1 and not IsOne( s[ i - 1 ] ) then
+            Print("HERP\n");
             Gi := Centraliser( Gi, s[ i - 1 ] );
             pcp := PcpsOfEfaSeries( Gi );
         elif not IsBound( pcp ) then
