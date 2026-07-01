@@ -66,7 +66,6 @@ true
 #@if CHECK_INTSTAB@Polycyclic
 gap> IsTwistedConjugate( idG2, G2.4, G2.4*G2.6 );
 #I  Stabilizer not increasing: exiting.
-#I  Stabilizer not increasing: exiting.
 true
 #@else
 gap> IsTwistedConjugate( idG2, G2.4, G2.4*G2.6 );
