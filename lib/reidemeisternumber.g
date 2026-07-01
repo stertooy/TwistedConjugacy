@@ -12,7 +12,7 @@
 ##  OUTPUT:
 ##      Spec:       Coincidence Reidemeister spectrum of G, up to a factor
 ##
-TWC.ImgMatrix := function( homs, ccG, repsH )
+TWC.ImgsMatrix := function( homs, ccG, repsH )
     local nrHoms, kH, kG, imgs, i, hom, j, img, k, SpecR, R;
     nrHoms := Length( homs );
     kH := Length( repsH );
