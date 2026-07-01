@@ -225,7 +225,7 @@ TWC.CoincidenceGroupStep3 := function( G, H, hom1, hom2 )
     gens2 := SmallGeneratingSet(
         KernelOfMultiplicativeGeneralMapping( d )
     );
-    return Subgroup( H, Concatenation( gens1, gens2 ) );
+    return SubgroupNC( H, Concatenation( gens1, gens2 ) );
 end;
 
 ###############################################################################
