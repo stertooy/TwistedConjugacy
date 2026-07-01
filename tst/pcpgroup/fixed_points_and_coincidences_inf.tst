@@ -129,7 +129,6 @@ gap> CoinG8 := CoincidenceGroup( hom1G8, hom2G8 );
 #I  Stabilizer not increasing: exiting.
 #I  Stabilizer not increasing: exiting.
 #I  Stabilizer not increasing: exiting.
-#I  Stabilizer not increasing: exiting.
 Pcp-group with orders [ 0, 0, 0 ]
 #@else
 gap> CoinG8 := CoincidenceGroup( hom1G8, hom2G8 );
