@@ -63,7 +63,7 @@ InstallMethod(
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     1,
     function( hom1, hom2 )
-        local H, G, ccH, ccG, sizesH, sizesG, repsH, R;
+        local H, G, ccH, ccG, sizesH, sizesG, repsH, imgs, R;
         H := Source( hom1 );
         G := Range( hom1 );
         if not ( IsFinite( G ) and IsFinite( H ) ) then TryNextMethod(); fi;
@@ -79,9 +79,10 @@ InstallMethod(
         sizesG := List( ccG, Length );
         repsH := List( ccH, Representative );
 
-        R := TWC.CoinSpec( [ hom1, hom2 ], ccG, repsH, sizesG, sizesH );
-        Print( "DEBUG: R = ", R, "\n" );
-        return Size( G ) / Size( H ) * R[ 1 ];
+        imgs := TWC.ImgsMatrix( [ hom1, hom2 ], ccG, repsH );
+        R := TWC.CalcFromImgs( imgs[ 1 ], imgs[ 2 ], sizesG, sizesH );
+
+        return Size( G ) / Size( H ) * R;
     end
 );
 
