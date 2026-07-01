@@ -208,7 +208,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesHomomorphismClassesOp,
-    "for abitrary finite groups",
+    "for arbitrary finite groups",
     [ IsGroup and IsFinite, IsGroup and IsFinite ],
     0,
     function( H, G )
@@ -297,7 +297,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesEndomorphismClassesOp,
-    "for abitrary finite groups",
+    "for arbitrary finite groups",
     [ IsGroup and IsFinite ],
     0,
     function( G )
