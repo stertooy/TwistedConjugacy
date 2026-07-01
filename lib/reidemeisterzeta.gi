@@ -448,7 +448,7 @@ InstallGlobalFunction(
 ##
 InstallMethod(
     ReidemeisterGeneratingFunctionOp,
-    "for rational Reidemeister Generating functions of finite groups",
+    "for rational Reidemeister generating functions of finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     function( endo1, endo2 )
         local G, coeffs, p, q, P, Q;
@@ -503,7 +503,7 @@ InstallGlobalFunction(
 ##      endo2:      endomorphism of G
 ##
 ##  OUTPUT:
-##      str:        a string containing the Reidemeister Generating function of
+##      str:        a string containing the Reidemeister generating function of
 ##                  endo1 and endo2 in text form
 ##
 InstallMethod(
