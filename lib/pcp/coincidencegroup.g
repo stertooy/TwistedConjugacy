@@ -133,6 +133,9 @@ TWC.CoincidenceGroupStep5 := function( G, H, hom1, hom2 )
     ai := List( [ 1 .. n ], i -> tc( One( G ), hi[i] ^ -1 ) );
     C := G;
     for i in [ 1 .. n ] do
+        if IsOne( ai[ i ] ) then
+            continue;
+        fi;
         C := Centraliser( C, ai[i] );
     od;
     # TODO: Replace this by PreImagesSet (without NC) eventually
