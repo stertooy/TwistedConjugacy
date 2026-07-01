@@ -1,13 +1,13 @@
 ###############################################################################
 ##
-## NormalIntersectionPcp( U, V )
+## NormalIntersectionPcp( N, U )
 ##
 ##  INPUT:
-##      U:          subgroup of a PcpGroup G
-##      V:          subgroup of a PcpGroup G that normalises U
+##      N:          subgroup of a PcpGroup G
+##      U:          subgroup of a PcpGroup G that normalises N
 ##
 ##  OUTPUT:
-##      I:          intersection of U and V
+##      I:          intersection of N and U
 ##
 TWC.NormalIntersectionPcp := function( N, U )
     local q, gens, imgs, phi;
