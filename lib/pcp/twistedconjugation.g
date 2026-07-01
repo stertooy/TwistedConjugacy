@@ -18,18 +18,19 @@
 TWC.MultipleConjugacySolver := function( G, r, s )
     local a, i, Gi, ai, ria, pcp;
     a := One( G );
+    Gi := G;
+    #pcp := PcpsOfEfaSeries( Gi );
     for i in [ 1 .. Length( r ) ] do
-        if i = 1 then
-            Gi := G;
-        elif IsOne( s[ i - 1 ] ) then
-            Print("DERP\n");
-        else
-            Gi := Centraliser( Gi, s[ i - 1 ] );
-        fi;
-        pcp := PcpsOfEfaSeries( Gi );
         ria := r[ i ] ^ a;
         if ria = s[ i ] then
             continue;
+        fi;
+        if i > 1 and not IsOne( s[ i - 1 ] ) then
+            Gi := Centraliser( Gi, s[ i - 1 ] );
+            pcp := PcpsOfEfaSeries( Gi );
+        elif not IsBound( pcp ) then
+            Print("HERP\n");
+            pcp := PcpsOfEfaSeries( Gi );
         fi;
         ai := ConjugacyElementsBySeries( Gi, ria, s[ i ], pcp );
         if ai = false then
