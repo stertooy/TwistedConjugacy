@@ -16,7 +16,7 @@
 ##      Only for PcpGroups
 ##
 TWC.MultipleConjugacySolver := function( G, r, s )
-    local a, i, Gi, ai, pcp;
+    local a, i, Gi, ai, ria, pcp;
     a := One( G );
     for i in [ 1 .. Length( r ) ] do
         if i = 1 then
