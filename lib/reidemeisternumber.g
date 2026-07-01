@@ -47,7 +47,7 @@ TWC.CalcFromImgs := function( imgsI, imgsJ, sizesG, sizesH )
     kH := Length( imgsI );
     R := 0;
     for k in [ 1 .. kH ] do
-        if igmsI[ k ] = imgsJ[ k ] then
+        if imgsI[ k ] = imgsJ[ k ] then
             R := R + sizesH[ k ] / sizesG[ imgsI[ k ] ];
         fi;
     od;
