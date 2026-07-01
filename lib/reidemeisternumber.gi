@@ -128,7 +128,7 @@ InstallOtherMethod(
 
 InstallOtherMethod(
     ReidemeisterNumberOp,
-    "default to two-agument version",
+    "default to two-argument version",
     [ IsGroupHomomorphism ],
     0,
     function( endo )
