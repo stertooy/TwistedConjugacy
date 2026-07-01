@@ -1,16 +1,14 @@
 ###############################################################################
 ##
-## CoinSpec( homs, ccG, repsH, sizesG, sizesH )
+## ImgsMatrix( homs, ccG, repsH )
 ##
 ##  INPUT:
 ##      homs:       homomorphisms H -> G
 ##      ccG:        conjugacy classes of G (as sets)
 ##      repsH:      representatives of the conjugacy classes of H
-##      sizesG:     sizes of the conjugacy classes of G
-##      sizesG:     sizes of the conjugacy classes of H
 ##
 ##  OUTPUT:
-##      Spec:       Coincidence Reidemeister spectrum of G, up to a factor
+##      imgs:       matrix containing info on conjugacy class mapping
 ##
 TWC.ImgsMatrix := function( homs, ccG, repsH )
     local nrHoms, kH, kG, imgs, i, hom, j, img, k;
@@ -30,25 +28,24 @@ end;
 
 ###############################################################################
 ##
-## CoinSpec( homs, ccG, repsH, sizesG, sizesH )
+## CalcFromImgs( imgs1, imgs2, sizesG, sizesH )
 ##
 ##  INPUT:
-##      homs:       homomorphisms H -> G
-##      ccG:        conjugacy classes of G (as sets)
-##      repsH:      representatives of the conjugacy classes of H
+##      imgs1:      list containing info on conjugacy class mapping of hom1
+##      imgs2:      list containing info on conjugacy class mapping of hom2
 ##      sizesG:     sizes of the conjugacy classes of G
-##      sizesG:     sizes of the conjugacy classes of H
+##      sizesH:     sizes of the conjugacy classes of H
 ##
 ##  OUTPUT:
-##      Spec:       Coincidence Reidemeister spectrum of G, up to a factor
+##      R:          Reidemeister number of the pair ( hom1, hom2 )
 ##
-TWC.CalcFromImgs := function( imgsI, imgsJ, sizesG, sizesH )
+TWC.CalcFromImgs := function( imgs1, imgs2, sizesG, sizesH )
     local kH, R, k;
-    kH := Length( imgsI );
+    kH := Length( imgs1 );
     R := 0;
     for k in [ 1 .. kH ] do
-        if imgsI[ k ] = imgsJ[ k ] then
-            R := R + sizesH[ k ] / sizesG[ imgsI[ k ] ];
+        if imgs1[ k ] = imgs2[ k ] then
+            R := R + sizesH[ k ] / sizesG[ imgs1[ k ] ];
         fi;
     od;
     return R;
