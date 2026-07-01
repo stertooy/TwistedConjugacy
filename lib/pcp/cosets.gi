@@ -177,7 +177,7 @@ InstallMethod(
 ##      V:          subgroup of G
 ##
 ##  OUTPUT:
-##      L:          List of double coset representatives and sizes
+##      L:          list of double coset representatives and sizes
 ##
 InstallMethod(
     DoubleCosetRepsAndSizes,
@@ -204,7 +204,7 @@ InstallMethod(
 ##      V:          subgroup of G
 ##
 ##  OUTPUT:
-##      L:          List of DoubleCosets
+##      L:          list of double cosets
 ##
 InstallMethod(
     DoubleCosetsNC,
