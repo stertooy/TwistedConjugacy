@@ -59,11 +59,11 @@ TWC.CreateGroupDerivationInfo := function( derv, check )
 
         embsH := List( gens, h -> ImagesRepresentative( embH, h ) );
         embsG := List(
-            MappingGeneratorsImages( derv )[2],
+            MappingGeneratorsImages( derv )[ 2 ],
             g -> ImagesRepresentative( embG, g )
         );
 
-        imgs := List( [ 1 .. Length( gens ) ], i -> embsH[i] * embsG[i] );
+        imgs := List( [ 1 .. Length( gens ) ], i -> embsH[ i ] * embsG[ i ] );
 
         if check then
             rhs := GroupHomomorphismByImages( H, S, gens, imgs );
