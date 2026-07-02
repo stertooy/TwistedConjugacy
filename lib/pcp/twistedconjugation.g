@@ -13,22 +13,18 @@
 ##                  element exists
 ##
 ##  REMARKS:
-##      Only for PcpGroups
+##      Only for PcpGroups, and < r, s > must be an abelian group
 ##
 TWC.MultipleConjugacySolver := function( G, r, s )
     local a, i, Gi, ai, ria, pcp;
     a := One( G );
     Gi := G;
-    Print("GOT HERE AT LEAST:\n");
-    Print("  ",r,"\n");
-    Print("  ",s,"\n");
     for i in [ 1 .. Length( r ) ] do
         ria := r[ i ] ^ a;
         if ria = s[ i ] then
             continue;
         fi;
         if i > 1 and not IsOne( s[ i - 1 ] ) then
-            Print("HERP\n");
             Gi := Centraliser( Gi, s[ i - 1 ] );
             pcp := PcpsOfEfaSeries( Gi );
         elif not IsBound( pcp ) then
