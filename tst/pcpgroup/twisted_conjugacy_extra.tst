@@ -178,11 +178,5 @@ gap> h := TWC.MultipleConjugacySolver( G, g1, g3 );
 fail
 #@fi
 
-gap> h := TWC.MultipleConjugacySolver( G, g1, g2 );;
-gap> List( g1, x -> x ^ h ) = g2;
-true
-gap> h := TWC.MultipleConjugacySolver( G, g1, g3 );
-fail
-
 #
 gap> STOP_TEST( "twisted_conjugacy_extra.tst" );
