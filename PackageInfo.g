@@ -31,7 +31,7 @@ SourceRepository := rec(
     Type := "git",
     URL := Concatenation(
         "https://github.com/",
-        ~.Persons[1].GitHubUsername,
+        ~.Persons[ 1 ].GitHubUsername,
         "/",
         ~.PackageName
     )
@@ -39,7 +39,7 @@ SourceRepository := rec(
 SupportEmail := ~.Persons[1].Email,
 
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := Concatenation( ~.Persons[1].WWWHome, ~.PackageName ),
+PackageWWWHome  := Concatenation( ~.Persons[ 1 ].WWWHome, ~.PackageName ),
 PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
 README_URL      := Concatenation( ~.PackageWWWHome, "/README.md" ),
 ArchiveURL      := Concatenation(
@@ -72,7 +72,7 @@ PackageDoc := rec(
 
 Dependencies := rec(
     GAP := ">= 4.14",
-    NeededOtherPackages := [ ],
+    NeededOtherPackages := [],
     SuggestedOtherPackages := [ [ "AutPGrp", "1.11" ] ]
 ),
 
