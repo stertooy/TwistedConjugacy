@@ -166,8 +166,8 @@ InstallMethod(
     [ IsGroupDerivationByImagesRep ],
     function( derv )
         local gens, imgs;
-        gens := MappingGeneratorsImages( derv )[1];
-        imgs := MappingGeneratorsImages( derv )[2];
+        gens := MappingGeneratorsImages( derv )[ 1 ];
+        imgs := MappingGeneratorsImages( derv )[ 2 ];
         Print( "Group derivation ", gens, " -> ", imgs );
     end
 );
