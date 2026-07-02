@@ -59,7 +59,7 @@ InstallGlobalFunction(
         if Length( arg ) = 0 then
             return ShallowCopy( CoincidenceReidemeisterSpectrumOp( H ) );
         else
-            G := arg[1];
+            G := arg[ 1 ];
             IsFinite( G );
             IsAbelian( G );
             return ShallowCopy( CoincidenceReidemeisterSpectrumOp( H, G ) );
@@ -200,7 +200,7 @@ InstallMethod(
                         Representative( conjG[ p[ i ] ] )
                     );
                     for j in todo do
-                        if g in conjG[p[j]] then
+                        if g in conjG[ p[ j ] ] then
                             Add( img, j + cur );
                             RemoveSet( todo, j );
                             break;
