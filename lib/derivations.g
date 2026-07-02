@@ -55,7 +55,7 @@ TWC.CreateGroupDerivationInfo := function( derv, check )
                 ImagesRepresentative( embG, derv!.fun( h ) )
         );
     else
-        gens := MappingGeneratorsImages( derv )[1];
+        gens := MappingGeneratorsImages( derv )[ 1 ];
 
         embsH := List( gens, h -> ImagesRepresentative( embH, h ) );
         embsG := List(

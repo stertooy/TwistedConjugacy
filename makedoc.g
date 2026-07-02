@@ -70,10 +70,14 @@ AutoDoc(
                 ),
                 ABBREV := "TC",
                 AUTHOR := Concatenation(
-                    info.Persons[ 1 ].FirstNames, " ", info.Persons[1].LastName
+                    info.Persons[ 1 ].FirstNames,
+                    " ",
+                    info.Persons[ 1 ].LastName
                 ),
                 AUTHORREVERSED := Concatenation(
-                    info.Persons[ 1 ].LastName, ", ", info.Persons[1].FirstNames
+                    info.Persons[ 1 ].LastName,
+                    ", ",
+                    info.Persons[ 1 ].FirstNames
                 ),
                 ARCHIVEURL := info.ArchiveURL,
                 ISSUEURL := info.IssueTrackerURL,

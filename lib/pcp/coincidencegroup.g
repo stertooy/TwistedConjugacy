@@ -130,13 +130,13 @@ TWC.CoincidenceGroupStep5 := function( G, H, hom1, hom2 )
     hi := SmallGeneratingSet( H );
     n := Length( hi );
     tc := TwistedConjugation( hom1, hom2 );
-    ai := List( [ 1 .. n ], i -> tc( One( G ), hi[i] ^ -1 ) );
+    ai := List( [ 1 .. n ], i -> tc( One( G ), hi[ i ] ^ -1 ) );
     C := G;
     for i in [ 1 .. n ] do
         if IsOne( ai[ i ] ) then
             continue;
         fi;
-        C := Centraliser( C, ai[i] );
+        C := Centraliser( C, ai[ i ] );
     od;
     # TODO: Replace this by PreImagesSet (without NC) eventually
     C := NormalIntersection( C, ImagesSource( hom2 ) );
@@ -219,9 +219,9 @@ TWC.CoincidenceGroupStep3 := function( G, H, hom1, hom2 )
     ci := SmallGeneratingSet( Coin );
     n := Length( ci );
     tc := TwistedConjugation( hom1, hom2 );
-    bi := List( [ 1 .. n ], i -> tc( One( G ), ci[i] ^ -1 ) );
-    di := List( [ 1 .. n ], i -> PreImagesRepresentativeNC( d, bi[i] ) );
-    gens1 := List( [ 1 .. n ], i -> di[i] ^ -1 * ci[i] );
+    bi := List( [ 1 .. n ], i -> tc( One( G ), ci[ i ] ^ -1 ) );
+    di := List( [ 1 .. n ], i -> PreImagesRepresentativeNC( d, bi[ i ] ) );
+    gens1 := List( [ 1 .. n ], i -> di[ i ] ^ -1 * ci[ i ] );
     gens2 := SmallGeneratingSet(
         KernelOfMultiplicativeGeneralMapping( d )
     );

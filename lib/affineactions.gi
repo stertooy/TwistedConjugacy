@@ -11,7 +11,7 @@
 ##
 InstallGlobalFunction(
     AffineActionByGroupDerivation,
-    { K, derv } -> TWC.FourMapsForAffineAction( K, derv )[4]
+    { K, derv } -> TWC.FourMapsForAffineAction( K, derv )[ 4 ]
 );
 
 ###############################################################################
@@ -32,7 +32,7 @@ InstallGlobalFunction(
         local G, map, emb, s, tcc, orb;
         G := Range( derv );
         map := TWC.FourMapsForAffineAction( K, derv );
-        emb := map[3];
+        emb := map[ 3 ];
         s := ImagesRepresentative( emb, g );
         tcc := TwistedConjugacyClass( map[ 1 ], map[ 2 ], s );
         orb := rec(
@@ -49,7 +49,7 @@ InstallGlobalFunction(
             ),
             Representative, g,
             ActingDomain, K,
-            FunctionAction, map[4]
+            FunctionAction, map[ 4 ]
         );
         return orb;
     end

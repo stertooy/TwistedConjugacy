@@ -48,8 +48,8 @@ TWC.IntersectionPcp := function( U, V )
     # Use CoincidenceGroup
     G := PcpGroupByCollectorNC( Collector( U ) );
     dp := TWC.DirectProductInclusions( G, U, V );
-    l := dp[1];
-    r := dp[2];
+    l := dp[ 1 ];
+    r := dp[ 2 ];
 
     return ImagesSet( l, CoincidenceGroup2( l, r ) );
 end;

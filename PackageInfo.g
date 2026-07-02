@@ -36,7 +36,7 @@ SourceRepository := rec(
         ~.PackageName
     )
 ),
-SupportEmail := ~.Persons[1].Email,
+SupportEmail := ~.Persons[ 1 ].Email,
 
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
 PackageWWWHome  := Concatenation( ~.Persons[ 1 ].WWWHome, ~.PackageName ),
