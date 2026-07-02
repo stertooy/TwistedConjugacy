@@ -21,7 +21,7 @@ InstallGlobalFunction(
         if Length( arg ) = 0 then
             endo2 := IdentityMapping( G );
         else
-            endo2 := arg[1];
+            endo2 := arg[ 1 ];
         fi;
         return IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
     end
@@ -72,7 +72,7 @@ InstallMethod(
         );
         k := Length( R ) - l;
         P := List( [ 1 .. k ], n -> R[ ( n - l - 1 ) mod k + 1 + l ] );
-        Q := List( [ 1 .. l ], n -> R[n] - P[ ( n - 1 ) mod k + 1 ] );
+        Q := List( [ 1 .. l ], n -> R[ n ] - P[ ( n - 1 ) mod k + 1 ] );
         ShrinkRowVector( Q );
         return [ P, Q ];
     end
@@ -98,7 +98,7 @@ InstallGlobalFunction(
         if Length( arg ) = 0 then
             endo2 := IdentityMapping( G );
         else
-            endo2 := arg[1];
+            endo2 := arg[ 1 ];
         fi;
         return IsRationalReidemeisterZetaFunctionOp( endo1, endo2 );
     end
@@ -132,8 +132,8 @@ InstallMethod(
         fi;
         coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
         if (
-            not IsEmpty( coeffs[2] ) or
-            TWC.DecomposePeriodicList( coeffs[1] ) = fail
+            not IsEmpty( coeffs[ 2 ] ) or
+            TWC.DecomposePeriodicList( coeffs[ 1 ] ) = fail
         ) then
             return false;
         fi;
@@ -160,7 +160,7 @@ InstallGlobalFunction(
         if Length( arg ) = 0 then
             endo2 := IdentityMapping( G );
         else
-            endo2 := arg[1];
+            endo2 := arg[ 1 ];
         fi;
         return ReidemeisterZetaFunctionOp( endo1, endo2 );
     end
@@ -186,10 +186,10 @@ InstallMethod(
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
         coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
-        if not IsEmpty( coeffs[2] ) then
+        if not IsEmpty( coeffs[ 2 ] ) then
             return fail;
         fi;
-        p := TWC.DecomposePeriodicList( coeffs[1] );
+        p := TWC.DecomposePeriodicList( coeffs[ 1 ] );
         if p = fail then
             return fail;
         fi;
@@ -197,8 +197,8 @@ InstallMethod(
             local zeta, i;
             zeta := 1;
             for i in [ 1 .. Length( p ) ] do
-                if p[i] <> 0 then
-                    zeta := zeta * ( 1 - s ^ i ) ^ -p[i];
+                if p[ i ] <> 0 then
+                    zeta := zeta * ( 1 - s ^ i ) ^ -p[ i ];
                 fi;
             od;
             return zeta;
@@ -226,7 +226,7 @@ InstallGlobalFunction(
         if Length( arg ) = 0 then
             endo2 := IdentityMapping( G );
         else
-            endo2 := arg[1];
+            endo2 := arg[ 1 ];
         fi;
         return PrintReidemeisterZetaFunctionOp( endo1, endo2 );
     end
@@ -253,20 +253,20 @@ InstallMethod(
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
         coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
-        P := coeffs[1];
-        Q := coeffs[2];
+        P := coeffs[ 1 ];
+        Q := coeffs[ 2 ];
         if not IsEmpty( Q ) then
             q := "";
             for i in [ 1 .. Length( Q ) ] do
-                if Q[i] = 0 then
+                if Q[ i ] = 0 then
                     continue;
                 fi;
-                if q <> "" and Q[i] > 0 then
+                if q <> "" and Q[ i ] > 0 then
                     Append( q, "+" );
-                elif Q[i] < 0 then
+                elif Q[ i ] < 0 then
                     Append( q, "-" );
                 fi;
-                qi := AbsInt( Q[i] ) / i;
+                qi := AbsInt( Q[ i ] ) / i;
                 if qi = 1 then
                     Append( q, "s" );
                 else
@@ -327,7 +327,7 @@ InstallMethod(
             od;
         else
             for i in [ 1 .. Length( p ) ] do
-                if p[i] = 0 then
+                if p[ i ] = 0 then
                     continue;
                 fi;
                 if i > 1 then
@@ -335,24 +335,24 @@ InstallMethod(
                 else
                     Add( factors, "1-s" );
                 fi;
-                Add( powers, -p[i] );
+                Add( powers, -p[ i ] );
             od;
         fi;
         for i in [ 1 .. Length( factors ) ] do
             if zeta <> "" then
                 Append( zeta, "*" );
             fi;
-            Append( zeta, Concatenation( "(", factors[i], ")" ) );
-            if not IsPosInt( powers[i] ) then
+            Append( zeta, Concatenation( "(", factors[ i ], ")" ) );
+            if not IsPosInt( powers[ i ] ) then
                 Append( zeta, Concatenation(
                     "^(",
-                    PrintString( powers[i] ),
+                    PrintString( powers[ i ] ),
                     ")"
                 ));
-            elif powers[i] <> 1 then
+            elif powers[ i ] <> 1 then
                 Append( zeta, Concatenation(
                     "^",
-                    PrintString( powers[i] )
+                    PrintString( powers[ i ] )
                 ));
             fi;
         od;
@@ -380,7 +380,7 @@ InstallGlobalFunction(
         if Length( arg ) = 0 then
             endo2 := IdentityMapping( G );
         else
-            endo2 := arg[1];
+            endo2 := arg[ 1 ];
         fi;
         return IsRationalReidemeisterGeneratingFunctionOp( endo1, endo2 );
     end
@@ -429,7 +429,7 @@ InstallGlobalFunction(
         if Length( arg ) = 0 then
             endo2 := IdentityMapping( G );
         else
-            endo2 := arg[1];
+            endo2 := arg[ 1 ];
         fi;
         return ReidemeisterGeneratingFunctionOp( endo1, endo2 );
     end
@@ -448,15 +448,15 @@ InstallGlobalFunction(
 ##
 InstallMethod(
     ReidemeisterGeneratingFunctionOp,
-    "for rational Reidemeister Generating functions of finite groups",
+    "for rational Reidemeister generating functions of finite groups",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
     function( endo1, endo2 )
         local G, coeffs, p, q, P, Q;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
         coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
-        p := coeffs[1];
-        q := coeffs[2];
+        p := coeffs[ 1 ];
+        q := coeffs[ 2 ];
         P := ShiftedCoeffs( p, 1 );
         Q := ShiftedCoeffs( q, 1 );
         return function( s )
@@ -488,7 +488,7 @@ InstallGlobalFunction(
         if Length( arg ) = 0 then
             endo2 := IdentityMapping( G );
         else
-            endo2 := arg[1];
+            endo2 := arg[ 1 ];
         fi;
         return PrintReidemeisterGeneratingFunctionOp( endo1, endo2 );
     end
@@ -503,7 +503,7 @@ InstallGlobalFunction(
 ##      endo2:      endomorphism of G
 ##
 ##  OUTPUT:
-##      str:        a string containing the Reidemeister Generating function of
+##      str:        a string containing the Reidemeister generating function of
 ##                  endo1 and endo2 in text form
 ##
 InstallMethod(

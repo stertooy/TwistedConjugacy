@@ -80,16 +80,16 @@ InstallMethod(
         for hom in [ tcc!.lhs, tcc!.rhs ] do
             homGensImgs := MappingGeneratorsImages( hom );
             Add( homStrings, Concatenation(
-                String( homGensImgs[1] ),
+                String( homGensImgs[ 1 ] ),
                 " -> ",
-                String( homGensImgs[2] )
+                String( homGensImgs[ 2 ] )
             ));
         od;
         Print(
             "TwistedConjugacyClass( [ ",
-            PrintString( homStrings[1] ),
+            PrintString( homStrings[ 1 ] ),
             ", ",
-            PrintString( homStrings[2] ),
+            PrintString( homStrings[ 2 ] ),
             " ], ",
             PrintString( g ),
             " )"
@@ -291,7 +291,7 @@ InstallGlobalFunction(
         if pos = fail then
             pos := First(
                 [ 1 .. Length( Rcl ) ],
-                i -> IsTwistedConjugate( hom1, hom2, Rcl[i] )
+                i -> IsTwistedConjugate( hom1, hom2, Rcl[ i ] )
             );
         fi;
         if pos > 1 then

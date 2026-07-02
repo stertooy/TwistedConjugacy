@@ -59,7 +59,7 @@ InstallGlobalFunction(
         if Length( arg ) = 0 then
             return ShallowCopy( CoincidenceReidemeisterSpectrumOp( H ) );
         else
-            G := arg[1];
+            G := arg[ 1 ];
             IsFinite( G );
             IsAbelian( G );
             return ShallowCopy( CoincidenceReidemeisterSpectrumOp( H, G ) );
@@ -120,11 +120,11 @@ InstallMethod(
         pow := Log2Int( ord );
         if ord <> 2 ^ pow then TryNextMethod(); fi;
         inv := Collected( AbelianInvariants( G ) );
-        inv := ListX( inv, x -> x[2] = 1, y -> y[1] );
+        inv := ListX( inv, x -> x[ 2 ] = 1, y -> y[ 1 ] );
         m := 0;
         while not IsEmpty( inv ) do
             fac := Remove( inv, 1 );
-            if not IsEmpty( inv ) and fac * 2 = inv[1] then
+            if not IsEmpty( inv ) and fac * 2 = inv[ 1 ] then
                 Remove( inv, 1 );
             fi;
             m := m + 1;
@@ -166,10 +166,13 @@ InstallMethod(
         # Split up conjugacy classes
         pool := DictionaryBySort( true );
         for i in [ 2 .. kG ] do
-            id := [ Size( conjG[i] ), Order( Representative( conjG[i] ) ) ];
+            id := [
+                Size( conjG[ i ] ),
+                Order( Representative( conjG[ i ] ) )
+            ];
             look := LookupDictionary( pool, id );
             if look = fail then
-                AddDictionary( pool, id, [i] );
+                AddDictionary( pool, id, [ i ] );
             else
                 Add( look, i );
             fi;
@@ -187,17 +190,17 @@ InstallMethod(
             cur := 0;
             for p in pool do
                 # If small enough, this is more efficient time-wise
-                if Size( conjG[p[1]] ) < 1000 then
-                    Perform( p, i -> AsSSortedList( conjG[i] ) );
+                if Size( conjG[ p[ 1 ] ] ) < 1000 then
+                    Perform( p, i -> AsSSortedList( conjG[ i ] ) );
                 fi;
                 todo := [ 1 .. Length( p ) ];
                 for i in [ 1 .. Length( p ) - 1 ] do
                     g := ImagesRepresentative(
                         aut,
-                        Representative( conjG[p[i]] )
+                        Representative( conjG[ p[ i ] ] )
                     );
                     for j in todo do
-                        if g in conjG[p[j]] then
+                        if g in conjG[ p[ j ] ] then
                             Add( img, j + cur );
                             RemoveSet( todo, j );
                             break;
@@ -205,7 +208,7 @@ InstallMethod(
                     od;
                 od;
                 # Final class is now uniquely determined
-                Add( img, todo[1] + cur );
+                Add( img, todo[ 1 ] + cur );
                 cur := cur + Length( p );
             od;
             AddSet( gens, PermList( img ) );
@@ -277,7 +280,7 @@ InstallMethod(
     function( H, G )
         local Hom_reps, hom1;
         Hom_reps := RepresentativesHomomorphismClasses( H, G );
-        hom1 := Hom_reps[1];
+        hom1 := Hom_reps[ 1 ];
         return Set( Hom_reps, hom2 -> ReidemeisterNumberOp( hom1, hom2 ) );
     end
 );

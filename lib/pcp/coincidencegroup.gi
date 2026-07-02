@@ -107,7 +107,7 @@ InstallMethod(
             not IsNilpotentByFinite( G ) and
             not IsNilpotentByAbelian( G )
         ) then TryNextMethod(); fi;
-        K := NilpotentByAbelianByFiniteSeries( G )[2];
+        K := NilpotentByAbelianByFiniteSeries( G )[ 2 ];
         return TWC.CoincidenceGroupByFiniteQuotient( G, H, hom1, hom2, K );
     end
 );

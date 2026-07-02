@@ -16,7 +16,7 @@ InstallGlobalFunction(
         if Length( arg ) = 0 then
             return { g, h } -> ImagesRepresentative( hom1, h ) ^ -1 * g * h;
         else
-            hom2 := arg[1];
+            hom2 := arg[ 1 ];
             return function( g, h )
                 return ImagesRepresentative( hom1, h ) ^ -1 * g *
                     ImagesRepresentative( hom2, h );
@@ -75,10 +75,10 @@ InstallGlobalFunction(
     function( arg... )
         local n, G, c, i, tc, im;
         if ForAll( arg, IsList ) then
-            n := Length( arg[1] );
+            n := Length( arg[ 1 ] );
             if Length( arg ) < 4 then
-                G := Range( arg[1][1] );
-                if arg[2][1] in G then
+                G := Range( arg[ 1 ][ 1 ] );
+                if arg[ 2 ][ 1 ] in G then
                     Add(
                         arg,
                         ListWithIdenticalEntries( n, IdentityMapping( G ) ),
@@ -90,8 +90,8 @@ InstallGlobalFunction(
         else
             n := 1;
             if Length( arg ) < 4 then
-                G := Range( arg[1] );
-                if arg[2] in G then
+                G := Range( arg[ 1 ] );
+                if arg[ 2 ] in G then
                     Add( arg, IdentityMapping( G ), 2 );
                 fi;
             fi;
@@ -100,10 +100,10 @@ InstallGlobalFunction(
         fi;
         if TWC.ASSERT and c <> fail then
             for i in [ 1 .. n ] do
-                tc := TwistedConjugation( arg[1][i], arg[2][i] );
-                im := tc( arg[3][i], c );
+                tc := TwistedConjugation( arg[ 1 ][ i ], arg[ 2 ][ i ] );
+                im := tc( arg[ 3 ][ i ], c );
                 if (
-                    ( Length( arg ) = 4 and im <> arg[4][i] ) or
+                    ( Length( arg ) = 4 and im <> arg[ 4 ][ i ] ) or
                     ( Length( arg ) = 3 and not IsOne( im ) )
                 ) then Error( "Assertion failure" ); fi;
             od;
@@ -213,8 +213,8 @@ InstallOtherMethod(
                 if IsOne( l ) then
                     while k <> g do
                         i := LookupDictionary( d, k );
-                        k := trail[i];
-                        h := conj[i] * h;
+                        k := trail[ i ];
+                        h := conj[ i ] * h;
                     od;
                     return h;
                 elif not KnowsDictionary( d, l ) then
@@ -239,10 +239,10 @@ InstallOtherMethod(
         ighom1L := ShallowCopy( hom1L );
         gL := ShallowCopy( g1L );
         for i in [ 1 .. n ] do
-            G := Range( hom1L[i] );
-            inn := InnerAutomorphismNC( G, g2L[i] );
-            ighom1L[i] := hom1L[i] * inn;
-            gL[i] := g2L[i] ^ -1 * g1L[i];
+            G := Range( hom1L[ i ] );
+            inn := InnerAutomorphismNC( G, g2L[ i ] );
+            ighom1L[ i ] := hom1L[ i ] * inn;
+            gL[ i ] := g2L[ i ] ^ -1 * g1L[ i ];
         od;
         return RepresentativeTwistedConjugationOp( ighom1L, hom2L, gL );
     end
@@ -254,19 +254,19 @@ InstallOtherMethod(
     [ IsList, IsList, IsList ],
     function( hom1L, hom2L, gL )
         local hom1, hom2, h, n, i, Coin, tc, g, G, hi;
-        hom1 := hom1L[1];
-        hom2 := hom2L[1];
-        h := RepresentativeTwistedConjugationOp( hom1, hom2, gL[1] );
+        hom1 := hom1L[ 1 ];
+        hom2 := hom2L[ 1 ];
+        h := RepresentativeTwistedConjugationOp( hom1, hom2, gL[ 1 ] );
         if h = fail then
             return fail;
         fi;
         n := Length( hom1L );
         for i in [ 2 .. n ] do
             Coin := CoincidenceGroup2( hom1, hom2 );
-            hom1 := hom1L[i];
-            hom2 := hom2L[i];
+            hom1 := hom1L[ i ];
+            hom2 := hom2L[ i ];
             tc := TwistedConjugation( hom1, hom2 );
-            g := tc( gL[i], h );
+            g := tc( gL[ i ], h );
             G := Range( hom1 );
             hom1 := RestrictedHomomorphism( hom1, Coin, G );
             hom2 := RestrictedHomomorphism( hom2, Coin, G );
