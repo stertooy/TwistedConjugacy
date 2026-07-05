@@ -4,9 +4,9 @@
 #! @Description
 #! If $G$ is abelian, this function relies on (a generalisation of)
 #! <Cite Key='jian83-a' Where='Thm. 2.5'/>.
-#! If $G = H$, $G$ is finite non-abelian and $\psi = \operatorname{id}_G$, it
+#! If $G = H$ is finite non-abelian and $\psi = \operatorname{id}_G$, it
 #! relies on <Cite Key='ree59-a' Where='Thm. 1'/>.
-#! If $G$ is finite, $H$ is finite non-abelian and both groups have their
+#! If $H$ is finite, $G$ is finite non-abelian and both groups have their
 #! conjugacy classes precomputed, it relies on
 #! <Cite Key='st26-a' Where='Cor. 3.2'/>.
 #! Otherwise, it simply calculates the twisted conjugacy classes and then
