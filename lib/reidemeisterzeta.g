@@ -40,19 +40,19 @@ TWC.DecomposePeriodicList := function( L )
     l := ListWithIdenticalEntries( n, 0 );
     for i in [ 1 .. n ] do
         if n mod i <> 0 then
-            if L[i] <> 0 then
+            if L[ i ] <> 0 then
                 return fail;
             fi;
             continue;
         fi;
-        l[i] := L[i] / i;
-        if not IsInt( l[i] ) then
+        l[ i ] := L[ i ] / i;
+        if not IsInt( l[ i ] ) then
             return fail;
         fi;
         per := ListWithIdenticalEntries( i - 1, 0 );
         Add( per, i );
         ei := Concatenation( ListWithIdenticalEntries( n / i, per ) );
-        L := L - l[i] * ei;
+        L := L - l[ i ] * ei;
     od;
     return l;
 end;

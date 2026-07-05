@@ -2,30 +2,30 @@ gap> START_TEST( "Testing TwistedConjugacy for PermGroups: Reidemeister spectra 
 
 # Preparation
 gap> filt := IsPermGroup;;
-gap> G := SL( filt, 2, 5 );;
-gap> A := AlternatingGroup( filt, 5 );;
+gap> G := SL( filt, 2, 7 );;
+gap> A := AlternatingGroup( filt, 7 );;
 
 #
 gap> ReidemeisterSpectrum( G );
-[ 5, 9 ]
+[ 7, 11 ]
 gap> ExtendedReidemeisterSpectrum( G );
-[ 1, 5, 9 ]
+[ 1, 7, 11 ]
 gap> CoincidenceReidemeisterSpectrum( G );
-[ 1, 5, 9, 120 ]
+[ 1, 7, 11, 336 ]
 
 #
 gap> ReidemeisterSpectrum( A );
-[ 3, 5 ]
+[ 7, 9 ]
 gap> ExtendedReidemeisterSpectrum( A );
-[ 1, 3, 5 ]
+[ 1, 7, 9 ]
 gap> CoincidenceReidemeisterSpectrum( A );
-[ 1, 3, 5, 60 ]
+[ 1, 7, 9, 2520 ]
 
 #
 gap> CoincidenceReidemeisterSpectrum( A, G );
-[ 120 ]
+[ 336 ]
 gap> CoincidenceReidemeisterSpectrum( G, A );
-[ 1, 3, 5, 60 ]
+[ 15, 22, 24, 2520 ]
 
 #
 gap> STOP_TEST( "spectra_non_pc.tst" );

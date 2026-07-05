@@ -42,8 +42,8 @@ InstallGlobalFunction(
     function( hom, N, M )
         local gens, imgs;
         if Source( hom ) = N and HasMappingGeneratorsImages( hom ) then
-            gens := MappingGeneratorsImages( hom )[1];
-            imgs := MappingGeneratorsImages( hom )[2];
+            gens := MappingGeneratorsImages( hom )[ 1 ];
+            imgs := MappingGeneratorsImages( hom )[ 2 ];
         else
             gens := SmallGeneratingSet( N );
             imgs := List( gens, n -> ImagesRepresentative( hom, n ) );
@@ -187,11 +187,13 @@ InstallMethod(
     function( H, G )
         local h, o, L;
         if IsAbelian( G ) then TryNextMethod(); fi;
-        h := MinimalGeneratingSet( H )[1];
+        h := MinimalGeneratingSet( H )[ 1 ];
         o := Order( h );
         L := List( ConjugacyClasses( G ), Representative );
         L := Filtered( L, g -> IsInt( o / Order( g ) ) );
-        return List( L, g -> GroupHomomorphismByImagesNC( H, G, [h], [g] ) );
+        return List( L,
+            g -> GroupHomomorphismByImagesNC( H, G, [ h ], [ g ] )
+        );
     end
 );
 
@@ -208,7 +210,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesHomomorphismClassesOp,
-    "for abitrary finite groups",
+    "for arbitrary finite groups",
     [ IsGroup and IsFinite, IsGroup and IsFinite ],
     0,
     function( H, G )
@@ -240,9 +242,9 @@ InstallMethod(
 
         # Step 3: Calculate info on kernels
         KerInfo := TWC.KernelsOfHomomorphismClasses( H, KerOrbits, ImgOrbits );
-        Pairs := KerInfo[1];
-        Heads := KerInfo[2];
-        Isos := KerInfo[3];
+        Pairs := KerInfo[ 1 ];
+        Heads := KerInfo[ 2 ];
+        Isos := KerInfo[ 3 ];
 
         # Step 4: Calculate info on images
         Reps := EmptyPlist( Length( ImgOrbits ) );
@@ -297,7 +299,7 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesEndomorphismClassesOp,
-    "for abitrary finite groups",
+    "for arbitrary finite groups",
     [ IsGroup and IsFinite ],
     0,
     function( G )
@@ -323,17 +325,17 @@ InstallMethod(
 
         KerOrbits := EmptyPlist( Length( SubOrbits ) );
         for i in [ 1 .. Length( SubOrbits ) ] do
-            r := SubOrbits[i][1];
+            r := SubOrbits[ i ][ 1 ];
             if IsNormal( G, r ) and not IsTrivial( r ) then
-                KerOrbits[i] := SubOrbits[i];
+                KerOrbits[ i ] := SubOrbits[ i ];
             fi;
         od;
 
         # Step 3: Calculate info on kernels
         KerInfo := TWC.KernelsOfHomomorphismClasses( G, KerOrbits, SubOrbits );
-        Pairs := KerInfo[1];
-        Reps := KerInfo[2];
-        Isos := KerInfo[3];
+        Pairs := KerInfo[ 1 ];
+        Reps := KerInfo[ 2 ];
+        Isos := KerInfo[ 3 ];
 
         # Step 4: Calculate info on images
         Tails := TWC.ImagesOfHomomorphismClasses( Pairs, SubOrbits, Reps, G );

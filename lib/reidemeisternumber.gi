@@ -31,7 +31,7 @@ InstallMethod(
     ReidemeisterNumberOp,
     "for finite source and infinite range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
-    3,
+    4,
     function( hom1, _ )
         local G, H;
         H := Source( hom1 );
@@ -45,7 +45,7 @@ InstallMethod(
     ReidemeisterNumberOp,
     "for abelian range",
     [ IsGroupHomomorphism, IsGroupHomomorphism ],
-    1,
+    2,
     function( hom1, hom2 )
         local G, H, diff, N;
         H := Source( hom1 );
@@ -54,6 +54,35 @@ InstallMethod(
         diff := TWC.DifferenceGroupHomomorphisms( hom1, hom2, H, G );
         N := Image( diff );
         return IndexNC( G, N );
+    end
+);
+
+InstallMethod(
+    ReidemeisterNumberOp,
+    "for finite source and range",
+    [ IsGroupHomomorphism, IsGroupHomomorphism ],
+    1,
+    function( hom1, hom2 )
+        local H, G, ccH, ccG, sizesH, sizesG, repsH, imgs, R;
+        H := Source( hom1 );
+        G := Range( hom1 );
+        if not ( IsFinite( G ) and IsFinite( H ) ) then TryNextMethod(); fi;
+        # Inefficient if G <> H and we have to calculate conjugacy classes
+        if G <> H and (
+            not ( HasConjugacyClasses( G ) and HasConjugacyClasses( H ) )
+        ) then TryNextMethod(); fi;
+
+        ccH := List( ConjugacyClasses( H ) );
+        ccG := List( ConjugacyClasses( G ), AsSet );
+
+        sizesH := List( ccH, Size );
+        sizesG := List( ccG, Length );
+        repsH := List( ccH, Representative );
+
+        imgs := TWC.ImgsMatrix( [ hom1, hom2 ], ccG, repsH );
+        R := TWC.CalcFromImgs( imgs[ 1 ], imgs[ 2 ], sizesG, sizesH );
+
+        return Size( G ) / Size( H ) * R;
     end
 );
 
@@ -99,7 +128,7 @@ InstallOtherMethod(
 
 InstallOtherMethod(
     ReidemeisterNumberOp,
-    "default to two-agument version",
+    "default to two-argument version",
     [ IsGroupHomomorphism ],
     0,
     function( endo )

@@ -2,8 +2,8 @@ SetPackageInfo( rec(
 
 PackageName := "TwistedConjugacy",
 Subtitle := "Computation with twisted conjugacy classes",
-Version := "3.3.2",
-Date := "11/05/2026",
+Version := "3.4.0",
+Date := "05/07/2026",
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -31,15 +31,15 @@ SourceRepository := rec(
     Type := "git",
     URL := Concatenation(
         "https://github.com/",
-        ~.Persons[1].GitHubUsername,
+        ~.Persons[ 1 ].GitHubUsername,
         "/",
         ~.PackageName
     )
 ),
-SupportEmail := ~.Persons[1].Email,
+SupportEmail := ~.Persons[ 1 ].Email,
 
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome  := Concatenation( ~.Persons[1].WWWHome, ~.PackageName ),
+PackageWWWHome  := Concatenation( ~.Persons[ 1 ].WWWHome, ~.PackageName ),
 PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
 README_URL      := Concatenation( ~.PackageWWWHome, "/README.md" ),
 ArchiveURL      := Concatenation(
@@ -72,7 +72,7 @@ PackageDoc := rec(
 
 Dependencies := rec(
     GAP := ">= 4.14",
-    NeededOtherPackages := [ ],
+    NeededOtherPackages := [],
     SuggestedOtherPackages := [ [ "AutPGrp", "1.11" ] ]
 ),
 

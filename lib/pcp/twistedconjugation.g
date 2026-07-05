@@ -13,19 +13,24 @@
 ##                  element exists
 ##
 ##  REMARKS:
-##      Only for PcpGroups
+##      Only for PcpGroups, and < r, s > must be an abelian group
 ##
 TWC.MultipleConjugacySolver := function( G, r, s )
-    local a, i, Gi, ai, pcp;
+    local a, i, Gi, ai, ria, pcp;
     a := One( G );
+    Gi := G;
     for i in [ 1 .. Length( r ) ] do
-        if i = 1 then
-            Gi := G;
-        else
-            Gi := Centraliser( Gi, s[ i - 1 ] );
+        ria := r[ i ] ^ a;
+        if ria = s[ i ] then
+            continue;
         fi;
-        pcp := PcpsOfEfaSeries( Gi );
-        ai := ConjugacyElementsBySeries( Gi, r[i] ^ a, s[i], pcp );
+        if i > 1 and not IsOne( s[ i - 1 ] ) then
+            Gi := Centraliser( Gi, s[ i - 1 ] );
+            pcp := PcpsOfEfaSeries( Gi );
+        elif not IsBound( pcp ) then
+            pcp := PcpsOfEfaSeries( Gi );
+        fi;
+        ai := ConjugacyElementsBySeries( Gi, ria, s[ i ], pcp );
         if ai = false then
             return fail;
         fi;
@@ -46,7 +51,7 @@ end;
 ##      g:          element of G
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * g * h^hom1 = 1, or
+##      h:          element of H such that (h^hom1)^-1 * g * h^hom2 = 1, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:
@@ -80,13 +85,13 @@ end;
 ##      M:          normal subgroup of G
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * g * h^hom1 = 1, or
+##      h:          element of H such that (h^hom1)^-1 * g * h^hom2 = 1, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:
-##      Calculates h by first calculating translating the problem to hom1N,
-##      hom2N: N -> M (with N normal in H) and hom1HN, hom2HN: H/N -> G/M. Only
-##      works if Coin(hom1HN,hom2HN) is finite.
+##      Calculates h by first translating the problem to hom1N, hom2N: N -> M
+##      (with N normal in H) and hom1HN, hom2HN: H/N -> G/M. Only works if
+##      Coin(hom1HN,hom2HN) is finite.
 ##
 TWC.RepTwistConjToIdByFinQuo := function( G, H, hom1, hom2, g, M )
     local N, p, q, hom1HN, hom2HN, pg, qh1, Coin, h1, tc, m1, hom1N, hom2N,
@@ -131,7 +136,7 @@ end;
 ##      N:          normal subgroup of G
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * g * h^hom1 = 1, or
+##      h:          element of H such that (h^hom1)^-1 * g * h^hom2 = 1, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:
@@ -197,10 +202,10 @@ TWC.RepTwistConjToIdStep5 := function( G, H, hom1, hom2, a, A )
     hi := SmallGeneratingSet( H );
     n := Length( hi );
     tc := TwistedConjugation( hom1, hom2 );
-    ai := List( [ 1 .. n ], i -> tc( One( G ), hi[i] ) );
+    ai := List( [ 1 .. n ], i -> tc( One( G ), hi[ i ] ) );
     bi := List(
         [ 1 .. n ],
-        i -> Comm( a, ImagesRepresentative( hom1, hi[i] ) ) * ai[i]
+        i -> Comm( a, ImagesRepresentative( hom1, hi[ i]  ) ) * ai[ i ]
     );
     g := TWC.MultipleConjugacySolver( G, bi, ai );
     if g = fail then

@@ -223,7 +223,7 @@ TWC.RepsTCClassesStep3 := function( _, H, hom1, hom2, A, one )
 
     imgs2 := List( prei, h -> ImagesRepresentative( hom2, h ) );
     n := Length( igs );
-    diff := List( [ 1 .. n ], i -> imgs1[i] ^ -1 * imgs2[i] );
+    diff := List( [ 1 .. n ], i -> imgs1[ i ] ^ -1 * imgs2[ i ] );
     iHab := Embedding( S, 1 );
     iA := Embedding( S, 2 );
     embsHab := List( igs, qh -> ImagesRepresentative( iHab, qh ) );
@@ -231,7 +231,7 @@ TWC.RepsTCClassesStep3 := function( _, H, hom1, hom2, A, one )
     l := GroupHomomorphismByImagesNC( Hab, S, igs, embsHab );
     r := GroupHomomorphismByImagesNC(
         Hab, S,
-        igs, List( [ 1 .. n ], i -> embsHab[i] * embsA[i] )
+        igs, List( [ 1 .. n ], i -> embsHab[ i ] * embsA[ i ] )
     );
     N := ImagesSource( iA );
     Rcl := RepresentativesTwistedConjugacyClassesOp( l, r, N, one );

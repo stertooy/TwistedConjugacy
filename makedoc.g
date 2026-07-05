@@ -37,8 +37,8 @@ fi;
 err := false;
 Print( "#I Loading packages\n" );
 for pkgToLoad in pkgsToLoad do
-    pkg := pkgToLoad[1];
-    ver := pkgToLoad[2];
+    pkg := pkgToLoad[ 1 ];
+    ver := pkgToLoad[ 2 ];
     if LoadPackage( pkg, ver, false: OnlyNeeded ) = fail then
         Print( "#W  Could not load '", pkg, "' with version >= ", ver, ".\n" );
         err := true;
@@ -70,10 +70,14 @@ AutoDoc(
                 ),
                 ABBREV := "TC",
                 AUTHOR := Concatenation(
-                    info.Persons[1].FirstNames, " ", info.Persons[1].LastName
+                    info.Persons[ 1 ].FirstNames,
+                    " ",
+                    info.Persons[ 1 ].LastName
                 ),
                 AUTHORREVERSED := Concatenation(
-                    info.Persons[1].LastName, ", ", info.Persons[1].FirstNames
+                    info.Persons[ 1 ].LastName,
+                    ", ",
+                    info.Persons[ 1 ].FirstNames
                 ),
                 ARCHIVEURL := info.ArchiveURL,
                 ISSUEURL := info.IssueTrackerURL,

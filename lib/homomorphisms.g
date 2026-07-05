@@ -31,18 +31,20 @@ end;
 ##
 ##  INPUT:
 ##      H:          group
-##      KerOrbits:  List of orbits of the natural action of Aut(H) on the set
+##      KerOrbits:  list of orbits of the natural action of Aut(H) on the set
 ##                  of all normal subgroups of H
-##      ImgOrbits:  List of orbits of the natural action of Aut(G) on the set
+##      ImgOrbits:  list of orbits of the natural action of Aut(G) on the set
 ##                  of all subgroups of G (up to conjugacy), for some group G
 ##
 ##  OUTPUT:
-##      Pairs:      List of pairs of indices [i,j] such that G/KerOrbits[i][1]
-##                  is isomorphic to ImgOrbits[j][1]
-##      Heads:      List of lists of automorphisms of H that map
-##                  KerOrbits[i][1] to KerOrbits[i][k], for all k > 1
-##      Isos:       Matrix containing a homomorphism from H to ImgOrbits[j][1],
-##                  factoring through H/KerOrbits[i][1], for all [i,j] in Pairs
+##      Pairs:      list of pairs of indices [ i, j ] such that
+##                  G / KerOrbits[ i ][ 1 ] is isomorphic to
+##                  ImgOrbits[ j ][ 1 ]
+##      Heads:      list of lists of automorphisms of H that map
+##                  KerOrbits[ i ][ 1 ] to KerOrbits[ i ][ k ], for all k > 1
+##      Isos:       matrix containing a homomorphism from H to
+##                  ImgOrbits[ j ][ 1 ], factoring through
+##                  H / KerOrbits[ i ][ 1 ], for all [ i, j ] in Pairs
 ##
 TWC.KernelsOfHomomorphismClasses := function( H, KerOrbits, ImgOrbits )
     local AutH, asAuto, Pairs, Heads, Isos, i, N, p, Q, j, M, iso,
@@ -53,32 +55,32 @@ TWC.KernelsOfHomomorphismClasses := function( H, KerOrbits, ImgOrbits )
     Heads := [];
     Isos := [];
     for i in [ 1 .. Size( KerOrbits ) ] do
-        if not IsBound( KerOrbits[i] ) then
+        if not IsBound( KerOrbits[ i ] ) then
             continue;
         fi;
-        kerOrbit := KerOrbits[i];
-        N := kerOrbit[1];
+        kerOrbit := KerOrbits[ i ];
+        N := kerOrbit[ 1 ];
         possibleImgs := Filtered(
             [ 1 .. Size( ImgOrbits ) ],
-            j -> Size( ImgOrbits[j][1] ) = IndexNC( H, N )
+            j -> Size( ImgOrbits[ j ][ 1 ] ) = IndexNC( H, N )
         );
         if IsEmpty( possibleImgs ) then
             continue;
         fi;
-        Isos[i] := [];
+        Isos[ i ] := [];
         p := NaturalHomomorphismByNormalSubgroupNC( H, N );
         Q := ImagesSource( p );
         p := RestrictedHomomorphism( p, H, Q );
         for j in possibleImgs do
-            M := ImgOrbits[j][1];
+            M := ImgOrbits[ j ][ 1 ];
             iso := IsomorphismGroups( Q, M );
             if iso <> fail then
-                Isos[i][j] := p * iso;
+                Isos[ i ][ j ] := p * iso;
                 Add( Pairs, [ i, j ] );
             fi;
         od;
-        if not IsEmpty( SetX( Pairs, x -> x[1] = i, x -> x[1] ) ) then
-            Heads[i] := List(
+        if not IsEmpty( SetX( Pairs, x -> x[ 1 ] = i, x -> x[ 1 ] ) ) then
+            Heads[ i ] := List(
                 kerOrbit,
                 x -> RepresentativeAction( AutH, N, x, asAuto )
             );
@@ -92,45 +94,47 @@ end;
 ## ImagesOfHomomorphismClasses( Pairs, ImgOrbits, Reps, G )
 ##
 ##  INPUT:
-##      Pairs:      List of pairs of indices [i,j] such that G/KerOrbits[i][1]
-##                  is isomorphic to ImgOrbits[j][1]
-##      ImgOrbits:  List of orbits of the natural action of Aut(G) on the set
+##      Pairs:      list of pairs of indices [ i, j ] such that
+##                  G / KerOrbits[ i ][ 1 ] is isomorphic to
+##                  ImgOrbits[ j ][ 1 ]
+##      ImgOrbits:  list of orbits of the natural action of Aut(G) on the set
 ##                  of all subgroups of G (up to conjugacy), for some group G
-##      Reps:       List of lists of automorphisms of G that map
-##                  ImgOrbits[i][1] to ImgOrbits[i][k], for all k > 1
+##      Reps:       list of lists of automorphisms of G that map
+##                  ImgOrbits[ i ][ 1 ] to ImgOrbits[ i ][ k ], for all k > 1
 ##      G:          group
 ##
 ##  OUTPUT:
-##      Tails:      List of all homomorphisms from ImgOrbits[i][1] to G, up to
-##                  inner automorphisms of G, for all i where [i,j] in Pairs
+##      Tails:      List of all homomorphisms from ImgOrbits[ i ][ 1 ] to G, up
+##                  to inner automorphisms of G, for all i where [ i, j ] in
+##                  Pairs
 ##
 TWC.ImagesOfHomomorphismClasses := function( Pairs, ImgOrbits, Reps, G )
     local Tails, AutG, asAuto, j, imgOrbit, M, AutM, InnGM, head, tail;
     asAuto := { A, aut } -> ImagesSet( aut, A );
     AutG := AutomorphismGroup( G );
     Tails := [];
-    for j in Set( Pairs, x -> x[2] ) do
-        imgOrbit := ImgOrbits[j];
-        M := imgOrbit[1];
+    for j in Set( Pairs, x -> x[ 2 ] ) do
+        imgOrbit := ImgOrbits[ j ];
+        M := imgOrbit[ 1 ];
         AutM := AutomorphismGroup( M );
         InnGM := SubgroupNC( AutM, List(
             SmallGeneratingSet( Normalizer( G, M ) ),
             g -> ConjugatorAutomorphismNC( M, g )
         ));
         head := RightTransversal( AutM, InnGM );
-        if not IsBound( Reps[j] ) then
+        if not IsBound( Reps[ j ] ) then
             tail := List(
                 imgOrbit,
                 x -> RepresentativeAction( AutG, M, x, asAuto )
             );
         else
-            tail := Reps[j];
+            tail := Reps[ j ];
         fi;
         head := List( head, x -> GroupHomomorphismByImagesNC( M, G,
-            MappingGeneratorsImages( x )[1],
-            MappingGeneratorsImages( x )[2]
+            MappingGeneratorsImages( x )[ 1 ],
+            MappingGeneratorsImages( x )[ 2 ]
         ));
-        Tails[j] := ListX( head, tail, \* );
+        Tails[ j ] := ListX( head, tail, \* );
     od;
     return Tails;
 end;
@@ -140,14 +144,17 @@ end;
 ## FuseHomomorphismClasses( Pairs, Heads, Isos, Tails )
 ##
 ##  INPUT:
-##      Pairs:      List of pairs of indices [i,j] such that G/KerOrbits[i][1]
-##                  is isomorphic to ImgOrbits[j][1]
-##      Heads:      List of lists of automorphisms of H that map
-##                  KerOrbits[i][1] to KerOrbits[i][k], for all k > 1
-##      Isos:       Matrix containing a homomorphism from G to ImgOrbits[j][1],
-##                  factoring through G/KerOrbits[i][1], for all [i,j] in Pairs
-##      Tails:      List of all homomorphisms from ImgOrbits[i][1] to G, up to
-##                  inner automorphisms of G, for all i where [i,j] in Pairs
+##      Pairs:      list of pairs of indices [ i, j ] such that
+##                  G / KerOrbits[ i ][ 1 ] is isomorphic to
+##                  ImgOrbits[ j ][ 1 ]
+##      Heads:      list of lists of automorphisms of H that map
+##                  KerOrbits[ i ][ 1 ] to KerOrbits[ i ][ k ], for all k > 1
+##      Isos:       matrix containing a homomorphism from H to
+##                  ImgOrbits[ j ][ 1 ], factoring through
+##                  H / KerOrbits[ i ][ 1 ], for all [ i, j ] in Pairs
+##      Tails:      List of all homomorphisms from ImgOrbits[ i ][ 1 ] to G, up
+##                  to inner automorphisms of G, for all i where [ i, j ] in
+##                  Pairs
 ##
 ##  OUTPUT:
 ##      L:          list of all group homomorphisms H -> G, up to inner
@@ -157,9 +164,9 @@ TWC.FuseHomomorphismClasses := function( Pairs, Heads, Isos, Tails )
     local homs, pair, head, tail, iso;
     homs := [];
     for pair in Pairs do
-        head := Heads[ pair[1] ];
-        tail := Tails[ pair[2] ];
-        iso := Isos[ pair[1] ][ pair[2] ];
+        head := Heads[ pair[ 1 ] ];
+        tail := Tails[ pair[ 2 ] ];
+        iso := Isos[ pair[ 1 ] ][ pair[ 2 ] ];
         if Length( head ) < Length( tail ) then
             head := head * iso;
         else
@@ -200,9 +207,9 @@ TWC.RepresentativesHomomorphismClasses2Generated := function( H, G )
             repeat
                 gens := [ Random( H ), Random( H ) ];
                 for k in [ 1, 2 ] do
-                    go := Order( gens[k] );
+                    go := Order( gens[ k ] );
                     if Random( 1, 6 ) = 1 then
-                        gens[k] := gens[k] ^ (
+                        gens[ k ] := gens[ k ] ^ (
                             go / Random( Factors( go ) )
                         );
                     fi;
@@ -245,7 +252,7 @@ end;
 ##                  automorphisms of G
 ##
 TWC.RepresentativesHomomorphismClassesAbelian := function( H, G )
-    local gensH, gensG, imgs, h, oh, imgsG, g, og, pows, e;
+    local gensH, gensG, imgs, h, oh, imgsG, g, og, pows, step, e;
     gensH := IndependentGeneratorsOfAbelianGroup( H );
     gensG := IndependentGeneratorsOfAbelianGroup( G );
     imgs := [];
@@ -254,10 +261,8 @@ TWC.RepresentativesHomomorphismClassesAbelian := function( H, G )
         imgsG := [];
         for g in gensG do
             og := Order( g );
-            pows := Filtered(
-                [ 0 .. og - 1 ],
-                x -> ( ( x * oh ) mod og ) = 0
-            );
+            step := og / GcdInt( oh, og );
+            pows := [ 0, step .. og - step ];
             Add( imgsG, List( pows, x -> g ^ x ) );
         od;
         Add( imgs, List( Cartesian( imgsG ), Product ) );

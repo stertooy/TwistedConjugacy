@@ -155,7 +155,7 @@ InstallMethod(
 ##      g2:         element of G (optional)
 ##
 ##  OUTPUT:
-##      h:          element of H such that (h^hom2)^-1 * g_1 * h^hom1 = g_2, or
+##      h:          element of H such that (h^hom1)^-1 * g_1 * h^hom2 = g_2, or
 ##                  fail if no such element exists
 ##
 ##  REMARKS:

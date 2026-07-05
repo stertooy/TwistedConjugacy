@@ -29,7 +29,7 @@ InstallMethod(
         fi;
 
         I := TWC.IntersectionPcp( U, V );
-        z := s[2] * y;
+        z := s[ 2 ] * y;
 
         if TWC.ASSERT then
             if not (
@@ -71,9 +71,9 @@ InstallMethod(
         s := TWC.AsElementOfProductGroups( z, T, V );
         if TWC.ASSERT then
             if not IsBool( s ) and not(
-                z = s[1] * s[2] and
-                s[1] in T and
-                s[2] in V
+                z = s[ 1 ] * s[ 2 ] and
+                s[ 1 ] in T and
+                s[ 2 ] in V
             ) then Error( "Assertion failure" ); fi;
         fi;
         return not IsBool( s );
@@ -140,7 +140,7 @@ InstallMethod(
         x := Representative( UxV );
         G := PcpGroupByCollectorNC( Collector( U ) );
         dp := TWC.DirectProductInclusions( G, U, V );
-        tcc := TwistedConjugacyClass( dp[1], dp[2], x );
+        tcc := TwistedConjugacyClass( dp[ 1 ], dp[ 2 ], x );
         return Size( tcc );
     end
 );
@@ -177,7 +177,7 @@ InstallMethod(
 ##      V:          subgroup of G
 ##
 ##  OUTPUT:
-##      L:          List of double coset representatives and sizes
+##      L:          list of double coset representatives and sizes
 ##
 InstallMethod(
     DoubleCosetRepsAndSizes,
@@ -204,7 +204,7 @@ InstallMethod(
 ##      V:          subgroup of G
 ##
 ##  OUTPUT:
-##      L:          List of DoubleCosets
+##      L:          list of double cosets
 ##
 InstallMethod(
     DoubleCosetsNC,

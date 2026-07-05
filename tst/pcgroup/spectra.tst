@@ -178,6 +178,8 @@ gap> ReidemeisterSpectrum( G3 );
 [ 2, 5, 7, 8, 11 ]
 gap> ExtendedReidemeisterSpectrum( G3 );
 [ 1, 2, 3, 4, 5, 7, 8, 11 ]
+gap> CoincidenceReidemeisterSpectrum( G3 );
+[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 16, 32, 36, 96 ]
 
 #
 gap> G4 := AbelianGroup( filt, [ 2, 3, 5, 6, 24, 30 ] );;

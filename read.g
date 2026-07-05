@@ -4,6 +4,8 @@ ReadPackage( "TwistedConjugacy", "lib/affineactions.g" );
 ReadPackage( "TwistedConjugacy", "lib/coincidencegroup.g" );
 ReadPackage( "TwistedConjugacy", "lib/derivations.g" );
 ReadPackage( "TwistedConjugacy", "lib/homomorphisms.g" );
+ReadPackage( "TwistedConjugacy", "lib/reidemeisternumber.g" );
+ReadPackage( "TwistedConjugacy", "lib/reidemeisterspectrum.g" );
 ReadPackage( "TwistedConjugacy", "lib/reidemeisterzeta.g" );
 ReadPackage( "TwistedConjugacy", "lib/twistedconjugacyclasses.g" );
 
