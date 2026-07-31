@@ -322,7 +322,7 @@ InstallMethod(
     RepresentativesTwistedConjugacyClassesOp,
     "for trivial subgroup",
     [ IsGroupHomomorphism, IsGroupHomomorphism, IsGroup, IsBool ],
-    8,
+    9,
     function( _hom1, _hom2, N, _one )
         if not IsTrivial( N ) then TryNextMethod(); fi;
         return [ One( N ) ];
