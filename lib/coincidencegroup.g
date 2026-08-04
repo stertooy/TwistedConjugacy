@@ -5,8 +5,8 @@
 ##  INPUT:
 ##      q:          projection H -> Q
 ##      p:          projection G -> P
-##      hom1:       group endomorphism H -> G
-##      hom2:       group endomorphism H -> G
+##      hom1:       group homomorphism H -> G
+##      hom2:       group homomorphism H -> G
 ##
 ##  OUTPUT:
 ##      coin:       coincidence group of the induced homomorphisms Q -> P
