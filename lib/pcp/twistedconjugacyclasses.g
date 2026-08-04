@@ -134,7 +134,7 @@ end;
 ##      hom1:       group homomorphism H -> G
 ##      hom2:       group homomorphism H -> G
 ##      N:          normal subgroup of G with hom1 = hom2 mod N
-##      M:          normal subgroup of G
+##      K:          normal subgroup of G
 ##      one:        boolean to toggle returning fail as soon as there is more
 ##                  than one Reidemeister class
 ##
@@ -284,7 +284,7 @@ end;
 
 ###############################################################################
 ##
-## RepsTCClassesStep1( G, H, hom1, hom2, A )
+## RepsTCClassesStep1( G, H, hom1, hom2, A, one )
 ##
 ##  INPUT:
 ##      G:          infinite PcpGroup
