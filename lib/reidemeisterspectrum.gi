@@ -261,7 +261,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## CoincidenceReidemeisterSpectrum( H, G )
+## CoincidenceReidemeisterSpectrumOp( H, G )
 ##
 ##  INPUT:
 ##      H:          group H
