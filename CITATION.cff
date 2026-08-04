@@ -3,8 +3,8 @@ message: If you use this GAP package, please cite it using the metadata from thi
 type: software
 title: TwistedConjugacy
 abstract: Computation with twisted conjugacy classes
-version: 3.4.0
-date-released: 2026-07-05
+version: 3.4.1
+date-released: 2026-10-01
 license: GPL-2.0-or-later
 doi: 10.5281/zenodo.14283553
 authors:
@@ -25,20 +25,3 @@ contact:
     website: https://github.com/stertooy/TwistedConjugacy/issues
 repository-code: https://github.com/stertooy/TwistedConjugacy
 url: https://stertooy.github.io/TwistedConjugacy
-keywords:
-  - affine action
-  - automorphism
-  - coincidence group
-  - coset
-  - derivation
-  - double coset
-  - endomorphism
-  - fixed point group
-  - homomorphism
-  - Reidemeister class
-  - Reidemeister number
-  - Reidemeister spectrum
-  - Reidemeister zeta function
-  - twisted conjugacy
-  - twisted conjugacy class
-  - twisted conjugation
