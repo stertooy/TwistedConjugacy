@@ -85,23 +85,4 @@ Extensions := [
 
 TestFile := "tst/testall.g",
 
-Keywords := [
-    "affine action",
-    "automorphism",
-    "coincidence group",
-    "coset",
-    "derivation",
-    "double coset",
-    "endomorphism",
-    "fixed point group",
-    "homomorphism",
-    "Reidemeister class",
-    "Reidemeister number",
-    "Reidemeister spectrum",
-    "Reidemeister zeta function",
-    "twisted conjugacy",
-    "twisted conjugacy class",
-    "twisted conjugation"
-],
-
 ));
