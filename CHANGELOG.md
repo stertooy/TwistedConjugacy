@@ -1,5 +1,12 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
+## 3.4.1 (2026-XX-YY)
+
+### Changed
+- `ReidemeisterNumber` will now return `infinity` immediately if called for
+  homomorphisms whose source has smaller Hirsch length than their range.
+- Janitorial changes.
+
 ## 3.4.0 (2026-07-05)
 
 ### Changed
