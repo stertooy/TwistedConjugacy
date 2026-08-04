@@ -1,8 +1,8 @@
 @Chapter reidemeisterzeta
 @ChapterTitle Reidemeister zeta and generating functions
 
-Please note that the functions in this chapter are only implemented for endomorphisms
-of finite groups.
+Please note that the functions in this chapter are only implemented for
+endomorphisms of finite groups.
 
 @Section decomposingreidnr
 @SectionTitle Decomposing Reidemeister number sequences
