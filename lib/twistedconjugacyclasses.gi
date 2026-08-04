@@ -304,7 +304,7 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## RepresentativesTwistedConjugacyClassesOp( hom1, hom2, N )
+## RepresentativesTwistedConjugacyClassesOp( hom1, hom2, N, one )
 ##
 ##  INPUT:
 ##      hom1:       group homomorphism H -> G
