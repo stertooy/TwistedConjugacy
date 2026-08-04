@@ -1,6 +1,6 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
-## 3.4.1 (2026-XX-YY)
+## 3.4.1 (2026-10-01)
 
 ### Changed
 - `ReidemeisterNumber` will now return `infinity` immediately if called for
