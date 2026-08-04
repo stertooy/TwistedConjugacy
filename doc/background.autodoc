@@ -26,11 +26,11 @@ briefly illustrate how and where this algebraic notion arises when studying
 coincidence points.
 Let $X$ and $Y$ be topological spaces with universal covers
 $p \colon \tilde{X} \to X$ and $q \colon \tilde{Y} \to Y$ and let
-$\mathcal{D}(X), \mathcal{D}(Y)$ be their covering transformations groups.
+$\mathcal{D}(X), \mathcal{D}(Y)$ be their covering transformation groups.
 Let $f,g \colon X \to Y$ be continuous maps with lifts
-$\tilde{f}, \tilde{g} \colon \tilde{X} \to \tilde{Y}$. By $f_*\colon 
+$\tilde{f}, \tilde{g} \colon \tilde{X} \to \tilde{Y}$. By $f_* \colon 
 \mathcal{D}(X) \to \mathcal{D}(Y)$, denote the group homomorphism defined by
-$\tilde{f} \circ \gamma = f_*(\gamma) \circ \tilde{f}$ for all  $\gamma \in 
+$\tilde{f} \circ \gamma = f_*(\gamma) \circ \tilde{f}$ for all $\gamma \in 
 \mathcal{D}(X)$, and let $g_*$ be defined similarly. The
 set of coincidence points $\operatorname{Coin}(f,g)$ equals the union
 $$\operatorname{Coin}(f,g) = \bigcup_{\alpha \in \mathcal{D}(Y)}
