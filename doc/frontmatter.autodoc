@@ -11,9 +11,9 @@ PcpGroups (finite or infinite) provided by the &Polycyclic; package.
 @Copyright
 &copyright; 2020&ndash;&RELEASEYEAR; &AUTHOR;
 <P/>
-The &PACKAGENAME; package is free software, it may be redistributed
+The &PACKAGENAME; package is free software; it may be redistributed
 and/or modified under the terms and conditions of the
-<URL Text="GNU Public License Version 2">
+<URL Text="GNU General Public License Version 2">
 https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</URL> or
 (at your option) any later version.
 
