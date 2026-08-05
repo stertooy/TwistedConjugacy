@@ -179,7 +179,7 @@ end;
 
 ###############################################################################
 ##
-## RepresentativesHomomorphismClasses2Generated( G )
+## RepresentativesHomomorphismClasses2Generated( H, G )
 ##
 ##  INPUT:
 ##      H:          2-generated group
