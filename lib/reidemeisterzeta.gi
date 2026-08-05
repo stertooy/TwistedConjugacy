@@ -299,13 +299,13 @@ InstallMethod(
                         "1-E(",
                         PrintString( k ),
                         ")*s"
-                    ));
+                    ) );
                 elif i = k / 2 + 1 then
                     Add( factors, Concatenation(
                         "1+E(",
                         PrintString( k ),
                         ")*s"
-                    ));
+                    ) );
                 elif k mod 2 = 0 and i > k / 2 then
                     Add( factors, Concatenation(
                         "1+E(",
@@ -313,7 +313,7 @@ InstallMethod(
                         ")^",
                         PrintString( i - k / 2 ),
                         "*s"
-                    ));
+                    ) );
                 else
                     Add( factors, Concatenation(
                         "1-E(",
@@ -321,7 +321,7 @@ InstallMethod(
                         ")^",
                         PrintString( i ),
                         "*s"
-                    ));
+                    ) );
                 fi;
                 Add( powers, -pi );
             od;
@@ -348,12 +348,12 @@ InstallMethod(
                     "^(",
                     PrintString( powers[ i ] ),
                     ")"
-                ));
+                ) );
             elif powers[ i ] <> 1 then
                 Append( zeta, Concatenation(
                     "^",
                     PrintString( powers[ i ] )
-                ));
+                ) );
             fi;
         od;
         return zeta;

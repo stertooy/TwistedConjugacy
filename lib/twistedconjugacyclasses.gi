@@ -83,7 +83,7 @@ InstallMethod(
                 String( homGensImgs[ 1 ] ),
                 " -> ",
                 String( homGensImgs[ 2 ] )
-            ));
+            ) );
         od;
         Print(
             "TwistedConjugacyClass( [ ",

@@ -19,7 +19,7 @@ true
 gap> ActingDomain( tcc ) = H;
 true
 gap> R := TwistedConjugacyClasses( hom1, hom2 );;
-gap> Representative( R[1] ) = One( G );
+gap> Representative( R[ 1 ] ) = One( G );
 true
 gap> Size( R );
 184
@@ -28,12 +28,12 @@ gap> ReidemeisterNumber( hom1, hom2 );
 
 #
 gap> tc := TwistedConjugation( hom1, hom2 );;
-gap> IsTwistedConjugate( hom1, hom2, Random( R[1] ), Random( R[2] ) );
+gap> IsTwistedConjugate( hom1, hom2, Random( R[ 1 ] ), Random( R[ 2 ] ) );
 false
-gap> RepresentativeTwistedConjugation( hom1, hom2, Random( R[1] ), Random( R[2] ) );
+gap> RepresentativeTwistedConjugation( hom1, hom2, Random( R[ 1 ] ), Random( R[ 2 ] ) );
 fail
-gap> g1 := Random( R[3] );;
-gap> g2 := Random( R[3] );;
+gap> g1 := Random( R[ 3 ] );;
+gap> g2 := Random( R[ 3 ] );;
 gap> g := RepresentativeTwistedConjugation( hom1, hom2, g1, g2 );;
 gap> tc( g1, g ) = g2;
 true

@@ -85,4 +85,4 @@ Extensions := [
 
 TestFile := "tst/testall.g",
 
-));
+) );

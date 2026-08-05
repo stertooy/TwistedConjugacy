@@ -2,8 +2,8 @@ gap> START_TEST( "Testing TwistedConjugacy for infinite PcpGroups: twisted conju
 
 #
 gap> G := ExamplesOfSomePcpGroups( 5 );;
-gap> imgs1 := [ G.1*G.4^-1, G.3, G.2*(G.3*G.4)^3, G.4^-1  ];;
-gap> imgs2 := [ G.4^-1*G.1, G.3, G.2, G.4^-1  ];;
+gap> imgs1 := [ G.1 * G.4 ^ -1, G.3, G.2 * ( G.3 * G.4 ) ^ 3, G.4 ^ -1 ];;
+gap> imgs2 := [ G.4 ^ -1 * G.1, G.3, G.2, G.4 ^ -1 ];;
 gap> endo1 := GroupHomomorphismByImages( G, G, GeneratorsOfGroup( G ), imgs1 );;
 gap> endo2 := GroupHomomorphismByImages( G, G, GeneratorsOfGroup( G ), imgs2 );;
 
@@ -41,16 +41,16 @@ gap> IsTwistedConjugate( endo1, endo2, G.1, G.2 );
 false
 gap> RepresentativeTwistedConjugation( endo1, endo2, G.1, G.2 );
 fail
-gap> gc := RepresentativeTwistedConjugation( endo1, endo2, G.1, G.1*G.3^2 );;
-gap> tc( G.1, gc ) = G.1*G.3^2;
+gap> gc := RepresentativeTwistedConjugation( endo1, endo2, G.1, G.1 * G.3 ^ 2 );;
+gap> tc( G.1, gc ) = G.1 * G.3 ^ 2;
 true
 gap> tc1 := TwistedConjugation( endo1 );;
-gap> IsTwistedConjugate( endo1, Random( R1[1] ), Random( R1[2] ) );
+gap> IsTwistedConjugate( endo1, Random( R1[ 1 ] ), Random( R1[ 2 ] ) );
 false
-gap> RepresentativeTwistedConjugation( endo1, Random( R1[1] ), Random( R1[2] ) );
+gap> RepresentativeTwistedConjugation( endo1, Random( R1[ 1 ] ), Random( R1[ 2 ] ) );
 fail
-gap> g11 := Random( R1[3] );;
-gap> g12 := Random( R1[3] );;
+gap> g11 := Random( R1[ 3 ] );;
+gap> g12 := Random( R1[ 3 ] );;
 gap> g1c := RepresentativeTwistedConjugation( endo1, g11, g12 );;
 gap> tc1( g11, g1c ) = g12;
 true
@@ -60,7 +60,7 @@ false
 gap> RepresentativeTwistedConjugation( endo2, G.1, G.2 );
 fail
 gap> g21 := G.1;;
-gap> g22 := G.1*G.2*G.3;;
+gap> g22 := G.1 * G.2 * G.3;;
 gap> g2c := RepresentativeTwistedConjugation( endo2, g21, g22 );;
 gap> tc2( g21, g2c ) = g22;
 true

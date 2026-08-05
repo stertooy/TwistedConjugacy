@@ -120,7 +120,7 @@ TWC.ImagesOfHomomorphismClasses := function( Pairs, ImgOrbits, Reps, G )
         InnGM := SubgroupNC( AutM, List(
             SmallGeneratingSet( Normalizer( G, M ) ),
             g -> ConjugatorAutomorphismNC( M, g )
-        ));
+        ) );
         head := List(
             RightTransversal( AutM, InnGM ),
             function( x )
@@ -145,7 +145,7 @@ TWC.ImagesOfHomomorphismClasses := function( Pairs, ImgOrbits, Reps, G )
         head := List( head, x -> GroupHomomorphismByImagesNC( M, G,
             MappingGeneratorsImages( x )[ 1 ],
             MappingGeneratorsImages( x )[ 2 ]
-        ));
+        ) );
         Tails[ j ] := ListX( head, tail, \* );
     od;
     return Tails;
@@ -232,7 +232,7 @@ TWC.RepresentativesHomomorphismClasses2Generated := function( H, G )
         imgs := List( go, i -> Filtered(
             cl,
             j -> IsInt( i / Order( Representative( j ) ) )
-        ));
+        ) );
         prod := Product( imgs, i -> Sum( i, Size ) );
         if prod < bw then
             bg := gens;

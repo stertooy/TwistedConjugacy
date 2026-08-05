@@ -3,9 +3,9 @@ gap> START_TEST( "Testing TwistedConjugacy for PcGroups: twisted conjugation by 
 #
 gap> G := PcGroupCode( 57308604420143, 252 );;
 gap> H := PcGroupCode( 23814281243, 84 );;
-gap> gens := [ H.1, H.3*H.4 ];;
-gap> imgs1 := [ G.2*G.4^2, One( G ) ];;
-gap> imgs2 := [ G.1*G.2*G.3*G.5, G.3*G.4^2*G.5^3 ];;
+gap> gens := [ H.1, H.3 * H.4 ];;
+gap> imgs1 := [ G.2 * G.4 ^ 2, One( G ) ];;
+gap> imgs2 := [ G.1 * G.2 * G.3 * G.5, G.3 * G.4 ^ 2 * G.5 ^ 3 ];;
 gap> hom1 := GroupHomomorphismByImages( H, G, gens, imgs1 );;
 gap> hom2 := GroupHomomorphismByImages( H, G, gens, imgs2 );;
 
@@ -24,7 +24,7 @@ true
 gap> ActingDomain( tcc ) = H;
 true
 gap> R := TwistedConjugacyClasses( hom1, hom2 );;
-gap> Representative( R[1] ) = One( G );
+gap> Representative( R[ 1 ] ) = One( G );
 true
 gap> Size( R );
 6
@@ -33,12 +33,12 @@ gap> ReidemeisterNumber( hom1, hom2 );
 
 #
 gap> tc := TwistedConjugation( hom1, hom2 );;
-gap> IsTwistedConjugate( hom1, hom2, Random( R[1] ), Random( R[2] ) );
+gap> IsTwistedConjugate( hom1, hom2, Random( R[ 1 ] ), Random( R[ 2 ] ) );
 false
-gap> RepresentativeTwistedConjugation( hom1, hom2, Random( R[1] ), Random( R[2] ) );
+gap> RepresentativeTwistedConjugation( hom1, hom2, Random( R[ 1 ] ), Random( R[ 2 ] ) );
 fail
-gap> g1 := Random( R[3] );;
-gap> g2 := Random( R[3] );;
+gap> g1 := Random( R[ 3 ] );;
+gap> g2 := Random( R[ 3 ] );;
 gap> g := RepresentativeTwistedConjugation( hom1, hom2, g1, g2 );;
 gap> tc( g1, g ) = g2;
 true
@@ -77,7 +77,7 @@ true
 gap> ActingDomain( tccM ) = N;
 true
 gap> RM := TwistedConjugacyClasses( homN1, homN2 );;
-gap> Representative( RM[1] ) = One( M );
+gap> Representative( RM[ 1 ] ) = One( M );
 true
 gap> Size( RM );
 3
@@ -86,12 +86,12 @@ gap> ReidemeisterNumber( homN1, homN2 );
 
 #
 gap> tcM := TwistedConjugation( homN1, homN2 );;
-gap> IsTwistedConjugate( homN1, homN2, Random( RM[1] ), Random( RM[2] ) );
+gap> IsTwistedConjugate( homN1, homN2, Random( RM[ 1 ] ), Random( RM[ 2 ] ) );
 false
-gap> RepresentativeTwistedConjugation( homN1, homN2, Random( RM[1] ), Random( RM[2] ) );
+gap> RepresentativeTwistedConjugation( homN1, homN2, Random( RM[ 1 ] ), Random( RM[ 2 ] ) );
 fail
-gap> m1 := Random( RM[3] );;
-gap> m2 := Random( RM[3] );;
+gap> m1 := Random( RM[ 3 ] );;
+gap> m2 := Random( RM[ 3 ] );;
 gap> mc := RepresentativeTwistedConjugation( homN1, homN2, m1, m2 );;
 gap> tcM( m1, mc ) = m2;
 true

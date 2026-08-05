@@ -30,12 +30,12 @@ gap> Size( HomsC );
 gap> HomsGT := RepresentativesHomomorphismClasses( G, T );;
 gap> Size( HomsGT );
 1
-gap> IsTrivial( ImagesSource( HomsGT[1] ) );
+gap> IsTrivial( ImagesSource( HomsGT[ 1 ] ) );
 true
 gap> HomsTG := RepresentativesHomomorphismClasses( T, G );;
 gap> Size( HomsTG );
 1
-gap> IsTrivial( ImagesSource( HomsTG[1] ) );
+gap> IsTrivial( ImagesSource( HomsTG[ 1 ] ) );
 true
 
 #
