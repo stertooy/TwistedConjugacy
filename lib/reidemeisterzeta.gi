@@ -68,7 +68,7 @@ InstallMethod(
         );
         R := Concatenation(
             R{ [ 1 .. l ] },
-            TWC.RemovePeriodsList( R{[ 1 + l .. k + l ] })
+            TWC.RemovePeriodsList( R{ [ 1 + l .. k + l ] } )
         );
         k := Length( R ) - l;
         P := List( [ 1 .. k ], n -> R[ ( n - l - 1 ) mod k + 1 + l ] );
