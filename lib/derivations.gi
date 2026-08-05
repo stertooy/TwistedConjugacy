@@ -15,7 +15,7 @@ InstallGlobalFunction(
     function( H, G, arg... )
         local derv, filt, type, imgs, gens;
         derv := rec(
-            act := Remove( arg ),
+            act := Remove( arg )
         );
         filt := IsGroupDerivationByImagesRep and HasSource and HasRange and
             HasMappingGeneratorsImages;
