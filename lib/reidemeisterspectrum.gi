@@ -358,7 +358,7 @@ InstallMethod(
         r := Projection( GxG, 2 );
         act := { g, p } -> ImagesRepresentative( l, p ) ^ -1 * g *
             ImagesRepresentative( r, p );
-        D := Range( ActionHomomorphism( GxG, AsSet( G ), act, "surjective" );
+        D := Range( ActionHomomorphism( GxG, AsSet( G ), act, "surjective" ) );
         Spec := [];
         for H in List( ConjugacyClassesSubgroups( D ), Representative ) do
             AddSet( Spec, Length( Orbits( H, [ 1 .. Size( G ) ] ) ) );
