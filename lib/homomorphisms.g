@@ -82,7 +82,7 @@ TWC.KernelsOfHomomorphismClasses := function( H, KerOrbits, ImgOrbits )
         if not IsEmpty( SetX( Pairs, x -> x[ 1 ] = i, x -> x[ 1 ] ) ) then
             Heads[ i ] := List(
                 kerOrbit,
-                x -> RepresentativeAction( AutH, N, x, asAuto )
+                x -> RepresentativeAction( AutH, x, N, asAuto )
             );
         fi;
     od;
@@ -128,7 +128,7 @@ TWC.ImagesOfHomomorphismClasses := function( Pairs, ImgOrbits, Reps, G )
                 x -> RepresentativeAction( AutG, M, x, asAuto )
             );
         else
-            tail := Reps[ j ];
+            tail := List( Reps[ j ], x -> x ^ - 1 );
         fi;
         head := List( head, x -> GroupHomomorphismByImagesNC( M, G,
             MappingGeneratorsImages( x )[ 1 ],
@@ -179,7 +179,7 @@ end;
 
 ###############################################################################
 ##
-## RepresentativesHomomorphismClasses2Generated( H, G )
+## RepresentativesHomomorphismClasses2Generated( G )
 ##
 ##  INPUT:
 ##      H:          2-generated group
