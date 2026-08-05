@@ -128,7 +128,7 @@ TWC.ImagesOfHomomorphismClasses := function( Pairs, ImgOrbits, Reps, G )
                 x -> RepresentativeAction( AutG, M, x, asAuto )
             );
         else
-            tail := List( Reps[ j ], x -> x ^ - 1 );
+            tail := List( Reps[ j ], x -> x ^ -1 );
         fi;
         head := List( head, x -> GroupHomomorphismByImagesNC( M, G,
             MappingGeneratorsImages( x )[ 1 ],
