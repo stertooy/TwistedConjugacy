@@ -124,10 +124,10 @@ InstallMethod(
         local G, coeffs;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
-        if
+        if (
             ( IsBijective( endo1 ) or IsBijective( endo2 ) ) and
             endo1 * endo2 = endo2 * endo1
-        then
+        ) then
             return true;
         fi;
         coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
