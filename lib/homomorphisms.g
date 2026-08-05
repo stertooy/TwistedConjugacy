@@ -121,7 +121,19 @@ TWC.ImagesOfHomomorphismClasses := function( Pairs, ImgOrbits, Reps, G )
             SmallGeneratingSet( Normalizer( G, M ) ),
             g -> ConjugatorAutomorphismNC( M, g )
         ));
-        head := RightTransversal( AutM, InnGM );
+        head := List(
+            RightTransversal( AutM, InnGM ),
+            function( x )
+                local gens;
+                gens := MappingGeneratorsImages( x )[ 1 ];
+                return GroupHomomorphismByImagesNC(
+                    M,
+                    G,
+                    gens,
+                    List( gens, g -> PreImagesRepresentativeNC( x, g ) )
+                );
+            end
+        );
         if not IsBound( Reps[ j ] ) then
             tail := List(
                 imgOrbit,
