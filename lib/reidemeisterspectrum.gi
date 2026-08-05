@@ -352,15 +352,16 @@ InstallMethod(
     "for finite groups",
     [ IsGroup and IsFinite ],
     function( G )
-        local GxG, l, r, Spec, H, hom1, hom2;
+        local GxG, l, r, act, D, Spec, H;
         GxG := DirectProduct( G, G );
         l := Projection( GxG, 1 );
         r := Projection( GxG, 2 );
+        act := { g, p } -> ImagesRepresentative( l, p ) ^ -1 * g *
+            ImagesRepresentative( r, p );
+        D := Range( ActionHomomorphism( GxG, AsSet( G ), act, "surjective" );
         Spec := [];
-        for H in List( ConjugacyClassesSubgroups( GxG ), Representative ) do
-            hom1 := RestrictedHomomorphism( l, H, G );
-            hom2 := RestrictedHomomorphism( r, H, G );
-            AddSet( Spec, ReidemeisterNumber( hom1, hom2 ) );
+        for H in List( ConjugacyClassesSubgroups( D ), Representative ) do
+            AddSet( Spec, Length( Orbits( H, [ 1 .. Size( G ) ] ) ) );
         od;
         return Spec;
     end
