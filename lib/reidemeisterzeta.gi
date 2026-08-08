@@ -68,7 +68,7 @@ InstallMethod(
         );
         R := Concatenation(
             R{ [ 1 .. l ] },
-            TWC.RemovePeriodsList( R{[ 1 + l .. k + l ] })
+            TWC.RemovePeriodsList( R{ [ 1 + l .. k + l ] } )
         );
         k := Length( R ) - l;
         P := List( [ 1 .. k ], n -> R[ ( n - l - 1 ) mod k + 1 + l ] );
@@ -124,10 +124,10 @@ InstallMethod(
         local G, coeffs;
         G := Range( endo1 );
         if not IsFinite( G ) then TryNextMethod(); fi;
-        if
+        if (
             ( IsBijective( endo1 ) or IsBijective( endo2 ) ) and
             endo1 * endo2 = endo2 * endo1
-        then
+        ) then
             return true;
         fi;
         coeffs := IteratedReidemeisterNumberDecompositionOp( endo1, endo2 );
@@ -299,13 +299,13 @@ InstallMethod(
                         "1-E(",
                         PrintString( k ),
                         ")*s"
-                    ));
+                    ) );
                 elif i = k / 2 + 1 then
                     Add( factors, Concatenation(
                         "1+E(",
                         PrintString( k ),
                         ")*s"
-                    ));
+                    ) );
                 elif k mod 2 = 0 and i > k / 2 then
                     Add( factors, Concatenation(
                         "1+E(",
@@ -313,7 +313,7 @@ InstallMethod(
                         ")^",
                         PrintString( i - k / 2 ),
                         "*s"
-                    ));
+                    ) );
                 else
                     Add( factors, Concatenation(
                         "1-E(",
@@ -321,7 +321,7 @@ InstallMethod(
                         ")^",
                         PrintString( i ),
                         "*s"
-                    ));
+                    ) );
                 fi;
                 Add( powers, -pi );
             od;
@@ -348,12 +348,12 @@ InstallMethod(
                     "^(",
                     PrintString( powers[ i ] ),
                     ")"
-                ));
+                ) );
             elif powers[ i ] <> 1 then
                 Append( zeta, Concatenation(
                     "^",
                     PrintString( powers[ i ] )
-                ));
+                ) );
             fi;
         od;
         return zeta;

@@ -16,34 +16,34 @@ gap> hom2 := GroupHomomorphismByImages( S, A, [ (1,2)(3,5,4), (2,3)(4,5) ], [ (1
 gap> Fixd := FixedPointGroup( endo2 );;
 gap> Size( Fixd );
 8
-gap> ForAll( Fixd, g -> g = g^endo2 );
+gap> ForAll( Fixd, g -> g = g ^ endo2 );
 true
-gap> ForAny( G, g -> not g in Fixd and g = g^endo2 );
+gap> ForAny( G, g -> not g in Fixd and g = g ^ endo2 );
 false
 
 # Coincidence group of two endomorphisms
 gap> Coin := CoincidenceGroup( endo1, endo2 );;
 gap> Size( Coin );
 4
-gap> ForAll( Coin, g -> g^endo1 = g^endo2 );
+gap> ForAll( Coin, g -> g ^ endo1 = g ^ endo2 );
 true
-gap> ForAny( G, g -> not g in Coin and g^endo1 = g^endo2 );
+gap> ForAny( G, g -> not g in Coin and g ^ endo1 = g ^ endo2 );
 false
 
 # Coincidence group of three endomorphisms
 gap> Coin := CoincidenceGroup( IdentityMapping( G ), endo1, endo2 );;
 gap> IsTrivial( Coin );
 true
-gap> ForAny( G, g -> not g in Coin and g^endo1 = g^endo2 and g = g^endo2 );
+gap> ForAny( G, g -> not g in Coin and g ^ endo1 = g ^ endo2 and g = g ^ endo2 );
 false
 
 # Coincidence group of two homomorphisms
 gap> Coin := CoincidenceGroup( hom1, hom2 );;
 gap> Size( Coin );
 60
-gap> ForAll( Coin, s -> s^hom1 = s^hom2 );
+gap> ForAll( Coin, s -> s ^ hom1 = s ^ hom2 );
 true
-gap> ForAny( S, s -> not s in Coin and s^hom1 = s^hom2 );
+gap> ForAny( S, s -> not s in Coin and s ^ hom1 = s ^ hom2 );
 false
 
 #

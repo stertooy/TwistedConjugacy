@@ -81,7 +81,7 @@ DeclareGlobalName( "IsSurjective" );
 #! @BeginGroup
 #! @ChapterInfo derivations, gd_operations
 #! @GroupTitle IsBijective
-#! @Returns <K>true</K> if the group derivation <A>der</A> is bijjective,
+#! @Returns <K>true</K> if the group derivation <A>der</A> is bijective,
 #! otherwise <K>false</K>.
 #! @Label for a group derivation
 #! @ItemType Prop

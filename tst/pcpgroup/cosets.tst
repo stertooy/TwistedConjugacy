@@ -2,11 +2,11 @@ gap> START_TEST( "Testing TwistedConjugacy for PcpGroups: cosets" );
 
 #
 gap> G := ExamplesOfSomePcpGroups( 5 );;
-gap> H := Subgroup( G, [ G.1*G.2^-1*G.3^-1*G.4^-1, G.2^-1*G.3*G.4^-2 ] );;
-gap> K := Subgroup( G, [ G.1*G.3^-2*G.4^2, G.1*G.4^4 ] );;
-gap> x := G.1*G.3^-1;;
-gap> y := G.1*G.2^-1*G.3^-2*G.4^-1;;
-gap> z := G.1*G.2*G.3*G.4^2;;
+gap> H := Subgroup( G, [ G.1 * G.2 ^ -1 * G.3 ^ -1 * G.4 ^ -1, G.2 ^ -1 * G.3 * G.4 ^ -2 ] );;
+gap> K := Subgroup( G, [ G.1 * G.3 ^ -2 * G.4 ^ 2, G.1 * G.4 ^ 4 ] );;
+gap> x := G.1 * G.3 ^ -1;;
+gap> y := G.1 * G.2 ^ -1 * G.3 ^ -2 * G.4 ^ -1;;
+gap> z := G.1 * G.2 * G.3 * G.4 ^ 2;;
 
 #
 gap> Hx := RightCoset( H, x );;
@@ -60,8 +60,8 @@ Error, not contained
 
 #
 gap> G := ExamplesOfSomePcpGroups( 10 );;
-gap> H := Subgroup( G, [ G.1^2, G.4 ] );;
-gap> K := Subgroup( G, [ G.2^2, G.3^2 ] );;
+gap> H := Subgroup( G, [ G.1 ^ 2, G.4 ] );;
+gap> K := Subgroup( G, [ G.2 ^ 2, G.3 ^ 2 ] );;
 gap> L := Subgroup( G, [ G.2 ] );;
 gap> Length( DoubleCosets( G, H, K ) );
 12
@@ -83,13 +83,13 @@ infinity
 
 #
 gap> G := ExamplesOfSomePcpGroups( 14 );;
-gap> H := Subgroup( G,[ G.14, G.15 ] );;
-gap> K := Subgroup( G,[ G.18, G.19 ] );;
+gap> H := Subgroup( G, [ G.14, G.15 ] );;
+gap> K := Subgroup( G, [ G.18, G.19 ] );;
 gap> g := G.1;;
 gap> DC := DoubleCoset( H, g, K );;
 gap> Size( DC );
 7500
-gap> N := NormalTorsionSubgroup(G);;
+gap> N := NormalTorsionSubgroup( G );;
 gap> DoubleCosetIndex( N, H, K );
 300
 

@@ -9,7 +9,7 @@ runs:
       shell: bash
       run: ln -f -s $PWD /tmp/gaproot/pkg/
 
-    - name:
+    - name: "Install polycyclic"
       uses: gap-actions/install-pkg@v1
       with:
         packages: polycyclic@2.17

@@ -93,7 +93,7 @@ DeclareGlobalName( "StabilizerOfExternalSet" );
 #! @Description
 #! If <A>tcc</A> is infinite, this will run forever or cause an error. It is
 #! recommended to first test the finiteness of <A>tcc</A> using
-#! <Ref Attr="IsFinite" Label="for a twisted conjugacy class" Style="Number"/>.
+#! <Ref Prop="IsFinite" Label="for a twisted conjugacy class" Style="Number"/>.
 #! @Label of a twisted conjugacy class
 #! @ItemType Func
 #! @Arguments tcc

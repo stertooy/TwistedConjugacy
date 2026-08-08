@@ -1,6 +1,6 @@
 ###############################################################################
 ##
-## Intersection2( U, V )
+## Intersection2( Ux, Vy )
 ##
 ##  INPUT:
 ##      Ux:         right coset of a PcpGroup G
@@ -70,7 +70,7 @@ InstallMethod(
 
         s := TWC.AsElementOfProductGroups( z, T, V );
         if TWC.ASSERT then
-            if not IsBool( s ) and not(
+            if not IsBool( s ) and not (
                 z = s[ 1 ] * s[ 2 ] and
                 s[ 1 ] in T and
                 s[ 2 ] in V

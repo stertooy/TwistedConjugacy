@@ -12,7 +12,7 @@ TWC.RemovePeriodsList := function( L )
     local n, i, M;
     n := Length( L );
     for i in DivisorsInt( n ) do
-        M := L{[ 1 .. i ]};
+        M := L{ [ 1 .. i ] };
         if L = Concatenation( ListWithIdenticalEntries( n / i, M ) ) then
             return M;
         fi;

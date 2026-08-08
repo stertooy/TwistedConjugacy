@@ -82,7 +82,7 @@ TWC.KernelsOfHomomorphismClasses := function( H, KerOrbits, ImgOrbits )
         if not IsEmpty( SetX( Pairs, x -> x[ 1 ] = i, x -> x[ 1 ] ) ) then
             Heads[ i ] := List(
                 kerOrbit,
-                x -> RepresentativeAction( AutH, N, x, asAuto )
+                x -> RepresentativeAction( AutH, x, N, asAuto )
             );
         fi;
     od;
@@ -120,20 +120,32 @@ TWC.ImagesOfHomomorphismClasses := function( Pairs, ImgOrbits, Reps, G )
         InnGM := SubgroupNC( AutM, List(
             SmallGeneratingSet( Normalizer( G, M ) ),
             g -> ConjugatorAutomorphismNC( M, g )
-        ));
-        head := RightTransversal( AutM, InnGM );
+        ) );
+        head := List(
+            RightTransversal( AutM, InnGM ),
+            function( x )
+                local gens;
+                gens := MappingGeneratorsImages( x )[ 1 ];
+                return GroupHomomorphismByImagesNC(
+                    M,
+                    G,
+                    gens,
+                    List( gens, g -> PreImagesRepresentativeNC( x, g ) )
+                );
+            end
+        );
         if not IsBound( Reps[ j ] ) then
             tail := List(
                 imgOrbit,
                 x -> RepresentativeAction( AutG, M, x, asAuto )
             );
         else
-            tail := Reps[ j ];
+            tail := List( Reps[ j ], x -> x ^ -1 );
         fi;
         head := List( head, x -> GroupHomomorphismByImagesNC( M, G,
             MappingGeneratorsImages( x )[ 1 ],
             MappingGeneratorsImages( x )[ 2 ]
-        ));
+        ) );
         Tails[ j ] := ListX( head, tail, \* );
     od;
     return Tails;
@@ -179,7 +191,7 @@ end;
 
 ###############################################################################
 ##
-## RepresentativesHomomorphismClasses2Generated( G )
+## RepresentativesHomomorphismClasses2Generated( H, G )
 ##
 ##  INPUT:
 ##      H:          2-generated group
@@ -220,7 +232,7 @@ TWC.RepresentativesHomomorphismClasses2Generated := function( H, G )
         imgs := List( go, i -> Filtered(
             cl,
             j -> IsInt( i / Order( Representative( j ) ) )
-        ));
+        ) );
         prod := Product( imgs, i -> Sum( i, Size ) );
         if prod < bw then
             bg := gens;

@@ -20,7 +20,7 @@ InstallGlobalFunction(
         imgs := List( gens, h -> ImagesRepresentative(
             epi2,
             ImagesRepresentative( hom, PreImagesRepresentativeNC( epi1, h ) )
-        ));
+        ) );
         return GroupHomomorphismByImagesNC( HN, GM, gens, imgs );
     end
 );
@@ -137,7 +137,7 @@ InstallMethod(
         return [ GroupHomomorphismByImagesNC(
             H, G,
             [ One( H ) ], [ One( G ) ]
-        )];
+        ) ];
     end
 );
 
@@ -274,7 +274,7 @@ InstallMethod(
         return [ GroupHomomorphismByImagesNC(
             G, G,
             [ One( G ) ], [ One( G ) ]
-        )];
+        ) ];
     end
 );
 

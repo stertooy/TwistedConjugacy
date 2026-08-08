@@ -1,6 +1,20 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
+## 3.4.1 (2026-08-08)
+
+### Fixed
+- Fixed a bug in `RepresentativesEndomorphismClasses` and
+  `RepresentativesHomomorphismClasses` that could lead to wrong results.
+
+### Changed
+- `ReidemeisterNumber` will now return `infinity` immediately if called for
+  homomorphisms whose source has smaller Hirsch length than their range.
+- Significantly improved `TotalReidemeisterSpectrum`.
+- Updated installation instructions.
+- Janitorial changes.
+
 ## 3.4.0 (2026-07-05)
+
 ### Changed
 - Improved `ReidemeisterNumber` for pairs of homomorphisms where both source
   and range have their conjugacy classes precomputed.

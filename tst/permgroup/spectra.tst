@@ -183,7 +183,7 @@ gap> CoincidenceReidemeisterSpectrum( G3 );
 
 #
 gap> G4 := AbelianGroup( filt, [ 2, 3, 5, 6, 24, 30 ] );;
-gap> ReidemeisterSpectrum( G4 ) = 2*DivisorsInt( 64800 );
+gap> ReidemeisterSpectrum( G4 ) = 2 * DivisorsInt( 64800 );
 true
 gap> ExtendedReidemeisterSpectrum( G4 ) = DivisorsInt( 129600 );
 true
@@ -194,7 +194,7 @@ true
 
 #
 gap> G5 := AbelianGroup( filt, [ 2, 3, 5, 17, 24 ] );;
-gap> ReidemeisterSpectrum( G5 ) = 4*DivisorsInt( 3060 );
+gap> ReidemeisterSpectrum( G5 ) = 4 * DivisorsInt( 3060 );
 true
 gap> ExtendedReidemeisterSpectrum( G5 ) = DivisorsInt( 12240 );
 true
@@ -216,7 +216,7 @@ true
 
 #
 gap> G7 := AbelianGroup( filt, [ 2, 4, 4, 8, 16, 32, 64, 128, 128, 256, 512 ] );;
-gap> ReidemeisterSpectrum( G7 ) = 16*DivisorsInt( 1125899906842624 );
+gap> ReidemeisterSpectrum( G7 ) = 16 * DivisorsInt( 1125899906842624 );
 true
 gap> ExtendedReidemeisterSpectrum( G7 ) = DivisorsInt( 18014398509481984 );
 true

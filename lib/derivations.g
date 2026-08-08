@@ -27,11 +27,11 @@ DeclareRepresentation(
 
 ###############################################################################
 ##
-## CreateGroupDerivationInfo( derv, bool )
+## CreateGroupDerivationInfo( derv, check )
 ##
 ##  INPUT:
 ##      derv:       group derivation
-##      bool:       true if the function should check this is indeed a
+##      check:      true if the function should check this is indeed a
 ##                  derivation
 ##
 ##  OUTPUT:

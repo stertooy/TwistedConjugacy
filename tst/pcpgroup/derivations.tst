@@ -3,14 +3,14 @@ gap> START_TEST( "Testing TwistedConjugacy for PcpGroups: derivations between fi
 # Preparation
 gap> H := PcGroupToPcpGroup( PcGroupCode( 149167619499417164, 72 ) );;
 gap> G := PcGroupToPcpGroup( PcGroupCode( 5551210572, 72 ) );;
-gap> gensG := [ G.4, G.1*G.2 ];;
-gap> imgsG := [ G.4*G.5, G.1*G.2^2*G.3^2*G.4 ];;
+gap> gensG := [ G.4, G.1 * G.2 ];;
+gap> imgsG := [ G.4 * G.5, G.1 * G.2 ^ 2 * G.3 ^ 2 * G.4 ];;
 gap> auts := [ InnerAutomorphism( G, G.2 ), GroupHomomorphismByImages( G, G, gensG, imgsG ) ];;
-gap> gensH := [ H.2, H.1*H.4 ];;
+gap> gensH := [ H.2, H.1 * H.4 ];;
 gap> act := GroupHomomorphismByImages( H, Group( auts ), gensH, auts );;
 
 # Group derivation 1
-gap> imgs := [ G.2^2, G.1*G.2 ];;
+gap> imgs := [ G.2 ^ 2, G.1 * G.2 ];;
 gap> derv := GroupDerivationByImages( H, G, gensH, imgs, act );
 Group derivation [ g2, g1*g4 ] -> [ g2^2, g1*g2 ]
 gap> GroupDerivationInfo( derv );
@@ -23,7 +23,7 @@ gap> Print( derv );
 <group derivation: Pcp-group with orders [ 2, 3, 3, 2, 2 ] -> Pcp-group with orders [ 2, 3, 3, 2, 2 ] >
 gap> K := Kernel( derv );
 Pcp-group with orders [  ]
-gap> h := H.1*H.3^2*H.5;;
+gap> h := H.1 * H.3 ^ 2 * H.5;;
 gap> g := ImagesRepresentative( derv, h );
 g1*g2*g3^2*g4*g5
 gap> ImagesElm( derv, h );
@@ -72,15 +72,15 @@ gap> OrbitsAffineAction( H, derv );
 gap> h := RepresentativeAffineAction( H, G.1, G.2, derv );;
 gap> aff( G.1, h ) = G.2;
 true
-gap> G.1*G.2 in orb;
+gap> G.1 * G.2 in orb;
 true
-gap> OrbitAffineAction( H, G.1*G.2, derv ) = orb;
+gap> OrbitAffineAction( H, G.1 * G.2, derv ) = orb;
 true
 gap> Size( orb ) = Size( G );
 true
 gap> dervA := GroupDerivationByAffineAction( H, G, aff );
 Group derivation [ g1, g2, g3, g4, g5 ] -> [ g1*g2*g4, g2^2, g3, g4*g5, g4 ]
-gap> ForAll( H, h -> h^derv = h^dervA );
+gap> ForAll( H, h -> h ^ derv = h ^ dervA );
 true
 gap> aff := AffineActionByGroupDerivation( K, derv );
 function( g, k ) ... end
@@ -92,15 +92,15 @@ gap> NrOrbitsAffineAction( K, derv );
 72
 gap> h := RepresentativeAffineAction( K, G.1, G.2, derv );
 fail
-gap> G.1*G.2 in orb;
+gap> G.1 * G.2 in orb;
 false
-gap> OrbitAffineAction( K, G.1*G.2, derv ) = orb;
+gap> OrbitAffineAction( K, G.1 * G.2, derv ) = orb;
 false
 gap> Size( orb );
 1
 gap> dervB := GroupDerivationByAffineAction( K, G, aff );
 Group derivation [  ] -> [  ]
-gap> ForAll( K, k -> k^derv = k^dervA );
+gap> ForAll( K, k -> k ^ derv = k ^ dervA );
 true
 
 # Group derivation 2
@@ -117,7 +117,7 @@ gap> Print( derv );
 <group derivation: Pcp-group with orders [ 2, 3, 3, 2, 2 ] -> Pcp-group with orders [ 2, 3, 3, 2, 2 ] >
 gap> K := Kernel( derv );
 Pcp-group with orders [ 3, 3 ]
-gap> h := H.1*H.3^2*H.5;;
+gap> h := H.1 * H.3 ^ 2 * H.5;;
 gap> g := ImagesRepresentative( derv, h );
 g2*g4*g5
 gap> ImagesElm( derv, h );
@@ -164,16 +164,16 @@ gap> NrOrbitsAffineAction( H, derv );
 10
 gap> Length( OrbitsAffineAction( H, derv ) );
 10
-gap> h := RepresentativeAffineAction( H, G.1, G.1*G.2, derv );;
-gap> aff( G.1, h ) = G.1*G.2;
+gap> h := RepresentativeAffineAction( H, G.1, G.1 * G.2, derv );;
+gap> aff( G.1, h ) = G.1 * G.2;
 true
-gap> G.1*G.5 in orb;
+gap> G.1 * G.5 in orb;
 true
 gap> Size( orb );
 8
 gap> dervA := GroupDerivationByAffineAction( H, G, aff );
 Group derivation [ g1, g2, g3, g4, g5 ] -> [ g2*g4, g5, id, g4*g5, g4 ]
-gap> ForAll( H, h -> h^derv = h^dervA );
+gap> ForAll( H, h -> h ^ derv = h ^ dervA );
 true
 gap> aff := AffineActionByGroupDerivation( K, derv );
 function( g, k ) ... end
@@ -188,13 +188,13 @@ gap> h := RepresentativeAffineAction( K, G.1, G.2, derv );
 fail
 gap> ForAll( stab, k -> aff( G.1, k ) = G.1 );
 true
-gap> G.1*G.2 in orb;
+gap> G.1 * G.2 in orb;
 false
 gap> Size( orb );
 1
 gap> dervB := GroupDerivationByAffineAction( K, G, aff );
 Group derivation [ g2*g4*g5, g3 ] -> [ id, id ]
-gap> ForAll( K, k -> k^derv = k^dervA );
+gap> ForAll( K, k -> k ^ derv = k ^ dervA );
 true
 
 #

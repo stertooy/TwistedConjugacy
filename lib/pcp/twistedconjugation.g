@@ -198,14 +198,14 @@ end;
 ##        - Z(G) = 1.
 ##
 TWC.RepTwistConjToIdStep5 := function( G, H, hom1, hom2, a, A )
-    local  hi, n, tc, ai, bi, g, p, q, pg, ind;
+    local hi, n, tc, ai, bi, g, p, q, pg, ind;
     hi := SmallGeneratingSet( H );
     n := Length( hi );
     tc := TwistedConjugation( hom1, hom2 );
     ai := List( [ 1 .. n ], i -> tc( One( G ), hi[ i ] ) );
     bi := List(
         [ 1 .. n ],
-        i -> Comm( a, ImagesRepresentative( hom1, hi[ i]  ) ) * ai[ i ]
+        i -> Comm( a, ImagesRepresentative( hom1, hi[ i ] ) ) * ai[ i ]
     );
     g := TWC.MultipleConjugacySolver( G, bi, ai );
     if g = fail then

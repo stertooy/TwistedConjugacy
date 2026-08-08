@@ -25,7 +25,7 @@ DeclareGlobalFunction( "OrbitAffineAction" );
 #! @ChapterInfo affineactions, affact_operations
 #! @GroupTitle OrbitsAffineAction
 #! @Returns a list containing the orbits under the affine action of <A>K</A>
-#! associated to  <A>der</A> if there are finitely many, or <K>fail</K> if
+#! associated to <A>der</A> if there are finitely many, or <K>fail</K> if
 #! there are infinitely many.
 #! @Description
 #! The group <A>K</A> must be a subgroup of <C>Source(<A>der</A>)</C>.
