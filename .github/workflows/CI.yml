@@ -10,7 +10,7 @@ jobs:
   test-pkg:
     name: "Test package (version: ${{ matrix.gap-version }}, mode: ${{ matrix.mode }})"
     container:
-      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-${{ matrix.mode == 'loadall' && 'full' || 'slim' }}
+      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-slim
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -33,7 +33,7 @@ jobs:
   test-gap:
     name: "Test GAP (version: ${{ matrix.gap-version }}, mode: ${{ matrix.mode }})"
     container:
-      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-${{ matrix.mode == 'loadall' && 'full' || 'slim' }}
+      image: ghcr.io/stertooy/gda-image:${{ matrix.gap-version }}-slim
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
