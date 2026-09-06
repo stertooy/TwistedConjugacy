@@ -235,8 +235,8 @@ InstallMethod(
 ##
 InstallMethod(
     ExtendedReidemeisterSpectrumOp,
-    "for finite simple groups",
-    [ IsSimpleGroup and IsFinite ],
+    "for finite quasisimple groups",
+    [ IsQuasisimpleGroup and IsFinite ],
     G -> UnionSet( ReidemeisterSpectrumOp( G ), [ 1 ] )
 );
 
@@ -304,8 +304,8 @@ InstallMethod(
 
 InstallOtherMethod(
     CoincidenceReidemeisterSpectrumOp,
-    "for a finite simple group to itself",
-    [ IsSimpleGroup and IsFinite ],
+    "for a finite quasisimple group to itself",
+    [ IsQuasisimpleGroup and IsFinite ],
     G -> UnionSet( ExtendedReidemeisterSpectrumOp( G ), [ Size( G ) ] )
 );
 
