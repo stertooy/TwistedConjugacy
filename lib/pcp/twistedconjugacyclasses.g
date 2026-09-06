@@ -70,6 +70,7 @@ TWC.RepsTCClassesByFinQuo := function( G, H, hom1, hom2, N, K, one )
         return fail;
     fi;
     GK := ImagesSource( p );
+    p := RestrictedHomomorphism( p, N, pN );
     Rcl := [];
     hom1K := RestrictedHomomorphism( hom1, L, K );
     hom2K := RestrictedHomomorphism( hom2, L, K );
@@ -162,6 +163,7 @@ TWC.RepsTCClassesByNormSub := function( G, H, hom1, hom2, N, K, one )
     Rcl := [];
     M := NormalIntersection( N, K );
     GK := ImagesSource( p );
+    p := RestrictedHomomorphism( p, N, pN );
     for pn in RclGK do
         n := PreImagesRepresentativeNC( p, pn );
         inn_n := InnerAutomorphismNC( G, n );
