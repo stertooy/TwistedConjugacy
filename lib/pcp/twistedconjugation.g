@@ -20,15 +20,15 @@ TWC.MultipleConjugacySolver := function( G, r, s )
     a := One( G );
     Gi := G;
     for i in [ 1 .. Length( r ) ] do
-        ria := r[ i ] ^ a;
-        if ria = s[ i ] then
-            continue;
-        fi;
         if i > 1 and not IsOne( s[ i - 1 ] ) then
             Gi := Centraliser( Gi, s[ i - 1 ] );
             pcp := PcpsOfEfaSeries( Gi );
         elif not IsBound( pcp ) then
             pcp := PcpsOfEfaSeries( Gi );
+        fi;
+        ria := r[ i ] ^ a;
+        if ria = s[ i ] then
+            continue;
         fi;
         ai := ConjugacyElementsBySeries( Gi, ria, s[ i ], pcp );
         if ai = false then
