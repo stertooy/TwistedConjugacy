@@ -9,7 +9,7 @@
 ##      M:          subgroup of G
 ##
 ##  OUTPUT:
-##      diff:       group homomorphism N -> M: n -> n^hom2 * ( n^hom1 )^-1
+##      diff:       group homomorphism N -> M: n -> n^hom1 * ( n^hom2 )^-1
 ##
 ##  REMARKS:
 ##      Does not verify whether diff is a well-defined group homomorphism.
@@ -38,10 +38,10 @@ end;
 ##
 ##  OUTPUT:
 ##      Pairs:      list of pairs of indices [ i, j ] such that
-##                  G / KerOrbits[ i ][ 1 ] is isomorphic to
+##                  H / KerOrbits[ i ][ 1 ] is isomorphic to
 ##                  ImgOrbits[ j ][ 1 ]
 ##      Heads:      list of lists of automorphisms of H that map
-##                  KerOrbits[ i ][ 1 ] to KerOrbits[ i ][ k ], for all k > 1
+##                  KerOrbits[ i ][ k ] to KerOrbits[ i ][ 1 ], for every k
 ##      Isos:       matrix containing a homomorphism from H to
 ##                  ImgOrbits[ j ][ 1 ], factoring through
 ##                  H / KerOrbits[ i ][ 1 ], for all [ i, j ] in Pairs
@@ -95,18 +95,19 @@ end;
 ##
 ##  INPUT:
 ##      Pairs:      list of pairs of indices [ i, j ] such that
-##                  G / KerOrbits[ i ][ 1 ] is isomorphic to
+##                  H / KerOrbits[ i ][ 1 ] is isomorphic to
 ##                  ImgOrbits[ j ][ 1 ]
 ##      ImgOrbits:  list of orbits of the natural action of Aut(G) on the set
 ##                  of all subgroups of G (up to conjugacy), for some group G
 ##      Reps:       list of lists of automorphisms of G that map
-##                  ImgOrbits[ i ][ 1 ] to ImgOrbits[ i ][ k ], for all k > 1
+##                  ImgOrbits[ j ][ k ] to ImgOrbits[ j ][ 1 ], for every k
+##                  (Reps[ j ] may be unbound)
 ##      G:          group
 ##
 ##  OUTPUT:
-##      Tails:      List of all homomorphisms from ImgOrbits[ i ][ 1 ] to G, up
-##                  to inner automorphisms of G, for all i where [ i, j ] in
-##                  Pairs
+##      Tails:      list of lists of embeddings ImgOrbits[ j ][ 1 ] -> G,
+##                  up to inner automorphisms of G, with images in
+##                  ImgOrbits[ j ], for each second index j occurring in Pairs
 ##
 TWC.ImagesOfHomomorphismClasses := function( Pairs, ImgOrbits, Reps, G )
     local Tails, AutG, asAuto, j, imgOrbit, M, AutM, InnGM, head, tail;
@@ -157,16 +158,16 @@ end;
 ##
 ##  INPUT:
 ##      Pairs:      list of pairs of indices [ i, j ] such that
-##                  G / KerOrbits[ i ][ 1 ] is isomorphic to
+##                  H / KerOrbits[ i ][ 1 ] is isomorphic to
 ##                  ImgOrbits[ j ][ 1 ]
 ##      Heads:      list of lists of automorphisms of H that map
-##                  KerOrbits[ i ][ 1 ] to KerOrbits[ i ][ k ], for all k > 1
+##                  KerOrbits[ i ][ k ] to KerOrbits[ i ][ 1 ], for every k
 ##      Isos:       matrix containing a homomorphism from H to
 ##                  ImgOrbits[ j ][ 1 ], factoring through
 ##                  H / KerOrbits[ i ][ 1 ], for all [ i, j ] in Pairs
-##      Tails:      List of all homomorphisms from ImgOrbits[ i ][ 1 ] to G, up
-##                  to inner automorphisms of G, for all i where [ i, j ] in
-##                  Pairs
+##      Tails:      list of lists of embeddings ImgOrbits[ j ][ 1 ] -> G,
+##                  up to inner automorphisms of G, with images in
+##                  ImgOrbits[ j ], for each second index j occurring in Pairs
 ##
 ##  OUTPUT:
 ##      L:          list of all group homomorphisms H -> G, up to inner

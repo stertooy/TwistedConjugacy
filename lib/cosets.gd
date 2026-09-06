@@ -100,6 +100,7 @@ DeclareGlobalName( "DoubleCosetsNC" );
 #! @GroupTitle DoubleCosetRepsAndSizes
 #! @Returns a list containing pairs of the form <C>[ r, n ]</C>, where <C>r</C>
 #! is a representative and <C>n</C> is the size of a double coset.
+#! It returns <K>fail</K> if there are infinitely many double cosets.
 #! @Description
 #! While for finite groups this function is supposed to be faster than
 #! <Ref Oper="DoubleCosetsNC" Label="for PcpGroups" Style="Number"/>, for

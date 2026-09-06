@@ -37,7 +37,8 @@ end;
 ##      sizesH:     sizes of the conjugacy classes of H
 ##
 ##  OUTPUT:
-##      R:          Reidemeister number of the pair ( hom1, hom2 )
+##      R:          Reidemeister number of the pair ( hom1, hom2 ), multiplied
+##                  by Size( H ) / Size( G )
 ##
 TWC.CalcFromImgs := function( imgs1, imgs2, sizesG, sizesH )
     local kH, R, k;
