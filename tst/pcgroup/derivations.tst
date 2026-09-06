@@ -100,7 +100,7 @@ gap> Size( orb );
 1
 gap> dervB := GroupDerivationByAffineAction( K, G, aff );
 Group derivation [  ] -> [  ]
-gap> ForAll( K, k -> k ^ derv = k ^ dervA );
+gap> ForAll( K, k -> k ^ derv = k ^ dervB );
 true
 
 # Group derivation 2
@@ -194,7 +194,7 @@ gap> Size( orb );
 1
 gap> dervB := GroupDerivationByAffineAction( K, G, aff );
 Group derivation [ f2*f4*f5, f3 ] -> [ <identity> of ..., <identity> of ... ]
-gap> ForAll( K, k -> k ^ derv = k ^ dervA );
+gap> ForAll( K, k -> k ^ derv = k ^ dervB );
 true
 
 #
