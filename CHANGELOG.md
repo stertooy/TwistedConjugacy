@@ -180,7 +180,7 @@ This file describes changes in the GAP package TwistedConjugacy.
 ## 2.1.0 (2023-03-16)
 
 ### Added
-- Added `RepresentativeAutomorphismClasses`,
+- Added `RepresentativesAutomorphismClasses`,
   `RepresentativesEndomorphismClasses` and
   `RepresentativesHomomorphismClasses`, which can be applied to finite groups.
   They give output similar to GAP's built-in `AllHomomorphismClasses` function,
