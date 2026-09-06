@@ -213,7 +213,7 @@ gap> IteratedReidemeisterNumberDecomposition( hom1Q8, hom2Q8 );
 [ [ 3, 2, 3, 2, 3, 5 ], [  ] ]
 gap> IsRationalReidemeisterZetaFunction( hom1Q8, hom2Q8 );
 false
-gap> zeta12Q8 := ReidemeisterZetaFunction( hom6G5, hom9G5 );
+gap> zeta12Q8 := ReidemeisterZetaFunction( hom1Q8, hom2Q8 );
 fail
 gap> PrintReidemeisterZetaFunction( hom1Q8, hom2Q8 );
 "(1-s)^(-3)*(1-E(6)*s)^(-1/2)*(1-E(6)^2*s)^(-1/2)*(1+E(6)*s)^(-1/2)*(1+E(6)^2*s)^(-1/2)"
