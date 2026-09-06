@@ -45,7 +45,7 @@ InstallGlobalFunction(
             Coin := new;
         od;
         if TWC.ASSERT then
-            arg := Concatenation( [ hom1 ], arg );
+            arg := Concatenation( [ hom1, hom2 ], arg );
             for h in GeneratorsOfGroup( Coin ) do
                 imgs := [];
                 for homi in arg do
