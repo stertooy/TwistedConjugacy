@@ -14,6 +14,15 @@ gap> CoincidenceReidemeisterSpectrum( G );
 [ 1, 7, 11, 336 ]
 
 #
+gap> Q := SL( filt, 2, 5 );;
+gap> IsQuasisimpleGroup( Q );
+true
+gap> ExtendedReidemeisterSpectrum( Q );
+[ 1, 5, 9 ]
+gap> CoincidenceReidemeisterSpectrum( Q );
+[ 1, 5, 9, 120 ]
+
+#
 gap> ReidemeisterSpectrum( A );
 [ 7, 9 ]
 gap> ExtendedReidemeisterSpectrum( A );
