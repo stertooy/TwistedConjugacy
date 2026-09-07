@@ -249,6 +249,38 @@ InstallMethod(
 
 InstallMethod(
     ExtendedReidemeisterSpectrumOp,
+    "by finite soluble groups",
+    [ IsGroup and IsFinite and IsSolvableGroup ],
+    function( G )
+        local Spec, Aut, norms, orbs, orb, N, comps;
+        if (
+            not CanEasilyComputePcgs( G ) or
+            Length( SmallGeneratingSet( G ) ) <= 2
+        ) then TryNextMethod(); fi;
+        Spec := ShallowCopy( ReidemeisterSpectrumOp( G ) );
+        AddSet( Spec, 1 );
+        Aut := AutomorphismGroup( G );
+        norms := Filtered(
+            NormalSubgroups( G ),
+            N -> not IsTrivial( N ) and N <> G
+        );
+        orbs := OrbitsDomain( Aut, norms, { N, aut } -> ImagesSet( aut, N ) );
+        for orb in orbs do
+            N := orb[ 1 ];
+            comps := COComplementsMain( G, N, false, false );
+            if not IsEmpty( comps ) then
+                UniteSet(
+                    Spec,
+                    ReidemeisterSpectrum( comps[ 1 ].complement )
+                );
+            fi;
+        od;
+        return Spec;
+    end
+);
+
+InstallMethod(
+    ExtendedReidemeisterSpectrumOp,
     "for finite groups",
     [ IsGroup and IsFinite ],
     function( G )
@@ -290,15 +322,15 @@ InstallMethod(
     "for distinct finite groups",
     [ IsGroup and IsFinite, IsGroup and IsFinite ],
     function( H, G )
-        local homs, ccG, ccH, sizesG, sizesH, repsH, SpecR, R;
+        local homs, ccG, ccH, sizesG, sizesH, repsH, Spec, R;
         homs := RepresentativesHomomorphismClasses( H, G );
         ccG := List( ConjugacyClasses( G ), AsSet );
         ccH := List( ConjugacyClasses( H ) );
         sizesG := List( ccG, Length );
         sizesH := List( ccH, Size );
         repsH := List( ccH, Representative );
-        SpecR := TWC.CoinSpec( homs, ccG, repsH, sizesG, sizesH );
-        return Set( SpecR, R -> Size( G ) / Size( H ) * R );
+        Spec := TWC.CoinSpec( homs, ccG, repsH, sizesG, sizesH );
+        return Set( Spec, R -> Size( G ) / Size( H ) * R );
     end
 );
 
