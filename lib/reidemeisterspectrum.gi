@@ -56,10 +56,11 @@ InstallGlobalFunction(
         local G;
         IsFinite( H );
         IsAbelian( H );
-        if Length( arg ) = 0 then
+        if Length( arg ) = 0 or IsIdenticalObj( H, arg[ 1 ] ) then
             return ShallowCopy( CoincidenceReidemeisterSpectrumOp( H ) );
         else
             G := arg[ 1 ];
+            IsTrivial( G );
             IsFinite( G );
             IsAbelian( G );
             return ShallowCopy( CoincidenceReidemeisterSpectrumOp( H, G ) );
@@ -275,13 +276,31 @@ InstallMethod(
 ##
 InstallMethod(
     CoincidenceReidemeisterSpectrumOp,
+    "for trivial range",
+    [ IsGroup, IsGroup and IsTrivial ],
+    { _H, _G } -> [ 1 ]
+);
+
+InstallMethod(
+    CoincidenceReidemeisterSpectrumOp,
     "for finite abelian range",
     [ IsGroup and IsFinite, IsGroup and IsFinite and IsAbelian ],
     function( H, G )
-        local Hom_reps, hom1;
-        Hom_reps := RepresentativesHomomorphismClasses( H, G );
-        hom1 := Hom_reps[ 1 ];
-        return Set( Hom_reps, hom2 -> ReidemeisterNumberOp( hom1, hom2 ) );
+        local abInvH, abInvG, p, partsH, partsG, M, i;
+        abInvH := Reversed( SortedList( AbelianInvariants( H ) ) );
+        if IsEmpty( abInvH ) then
+            return [ Size( G ) ];
+        fi;
+        abInvG := Reversed( SortedList( AbelianInvariants( G ) ) );
+        M := 1;
+        for p in Set( abInvG, SmallestRootInt ) do
+            partsH := Filtered( abInvH, n -> n mod p = 0 );
+            partsG := Filtered( abInvG, n -> n mod p = 0 );
+            for i in [ 1 .. Minimum( Length( partsH ), Length( partsG ) ) ] do
+                M := M * Minimum( partsH[ i ], partsG[ i ] );
+            od;
+        od;
+        return List( DivisorsInt( M ), d -> Size( G ) / M * d );
     end
 );
 
