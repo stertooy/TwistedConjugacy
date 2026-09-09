@@ -4,9 +4,9 @@ This file describes changes in the GAP package TwistedConjugacy.
 
 ### Changed
 - `ExtendedReidemeisterSpectrum` is now more efficient for non-2-generated
-  finite soluble groups.
-- `CoincidenceReidemeisterSpectrum` is now more efficient when the target
-  group is trivial or abelian.
+  finite soluble groups and for quasisimple groups.
+- `CoincidenceReidemeisterSpectrum( H, G )` is now more efficient when `G`
+  is trivial or abelian, and when `H` = `G` is quasisimple.
 - Janitorial changes.
 
 ### Fixed
