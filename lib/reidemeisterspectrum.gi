@@ -249,14 +249,11 @@ InstallMethod(
 
 InstallMethod(
     ExtendedReidemeisterSpectrumOp,
-    "by finite soluble groups",
+    "for non-2-generated finite soluble groups",
     [ IsGroup and IsFinite and IsSolvableGroup ],
     function( G )
         local Spec, Aut, norms, orbs, orb, N, comps;
-        if (
-            not CanEasilyComputePcgs( G ) or
-            Length( SmallGeneratingSet( G ) ) <= 2
-        ) then TryNextMethod(); fi;
+        if Length( SmallGeneratingSet( G ) ) <= 2 then TryNextMethod(); fi;
         Spec := ShallowCopy( ReidemeisterSpectrumOp( G ) );
         AddSet( Spec, 1 );
         Aut := AutomorphismGroup( G );
