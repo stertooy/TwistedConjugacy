@@ -37,6 +37,9 @@ gap> Size( HomsTG );
 1
 gap> IsTrivial( ImagesSource( HomsTG[ 1 ] ) );
 true
+gap> H := DihedralGroup( filt, 8 );;
+gap> Size( RepresentativesHomomorphismClasses( H, C ) );
+4
 
 #
 gap> STOP_TEST( "homomorphisms.tst" );

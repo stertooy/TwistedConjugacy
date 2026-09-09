@@ -147,6 +147,10 @@ gap> TotalReidemeisterSpectrum( C2xC2xC4 );
 [ 1, 2, 4, 8, 16 ]
 
 #
+gap> CoincidenceReidemeisterSpectrum( C4, T );
+[ 1 ]
+gap> CoincidenceReidemeisterSpectrum( T, C4 );
+[ 4 ]
 gap> CoincidenceReidemeisterSpectrum( C4, Q8 );
 [ 2, 4, 6, 8 ]
 gap> CoincidenceReidemeisterSpectrum( Q8, C4 );
