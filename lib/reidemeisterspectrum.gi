@@ -250,7 +250,7 @@ InstallMethod(
 InstallMethod(
     ExtendedReidemeisterSpectrumOp,
     "for non-2-generated finite soluble groups",
-    [ IsGroup and IsFinite and IsSolvableGroup ],
+    [ IsGroup and IsFinite and IsSolubleGroup ],
     function( G )
         local Spec, Aut, norms, orbs, orb, N, comps;
         if Length( SmallGeneratingSet( G ) ) <= 2 then TryNextMethod(); fi;
