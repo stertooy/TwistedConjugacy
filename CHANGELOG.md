@@ -1,10 +1,21 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
-## 3.4.1 (2026-08-08)
+## 3.4.2 (2026-09-09)
+
+### Changed
+- `ExtendedReidemeisterSpectrum` is now more efficient for non-2-generated
+  finite soluble groups.
+- `CoincidenceReidemeisterSpectrum` is now more efficient when the target
+  group is trivial or abelian.
+- Janitorial changes.
 
 ### Fixed
-- Fixed a bug in `RepresentativesEndomorphismClasses` and
-  `RepresentativesHomomorphismClasses` that could lead to wrong results.
+- Fixed a bug in `RepresentativeTwistedConjugation` that could lead to errors.
+- Fixed an assertion in `CoincidenceGroup`.
+- Fixed a bug in `RepresentativesTwistedConjugacyClasses` where the
+  returned representatives could lie outside the given normal subgroup `N`.
+
+## 3.4.1 (2026-08-08)
 
 ### Changed
 - `ReidemeisterNumber` will now return `infinity` immediately if called for
@@ -12,6 +23,10 @@ This file describes changes in the GAP package TwistedConjugacy.
 - Significantly improved `TotalReidemeisterSpectrum`.
 - Updated installation instructions.
 - Janitorial changes.
+
+### Fixed
+- Fixed a bug in `RepresentativesEndomorphismClasses` and
+  `RepresentativesHomomorphismClasses` that could lead to wrong results.
 
 ## 3.4.0 (2026-07-05)
 
