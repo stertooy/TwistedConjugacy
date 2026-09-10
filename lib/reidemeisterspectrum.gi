@@ -282,10 +282,13 @@ InstallMethod(
     "for finite groups",
     [ IsGroup and IsFinite ],
     function( G )
-        return Set(
-            RepresentativesEndomorphismClasses( G ),
+        local Spec;
+        Spec := ShallowCopy( ReidemeisterSpectrumOp( G ) );
+        UniteSet( Spec, List(
+            RepresentativesEndomorphismClasses( G, false ),
             ReidemeisterNumberOp
-        );
+        ) );
+        return Spec;
     end
 );
 

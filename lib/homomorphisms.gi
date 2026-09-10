@@ -80,21 +80,24 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## RepresentativesEndomorphismClasses( G )
+## RepresentativesEndomorphismClasses( G, auts )
 ##
 ##  INPUT:
 ##      G:          group
+##      auts:       boolean (optional)
 ##
 ##  OUTPUT:
 ##      L:          list of all endomorphisms of G, up to inner automorphisms
 ##
 InstallGlobalFunction(
     RepresentativesEndomorphismClasses,
-    function( G )
+    function( G, arg... )
+        local auts;
         IsFinite( G );
         IsAbelian( G );
         IsTrivial( G );
-        return RepresentativesEndomorphismClassesOp( G );
+        auts := IsEmpty( arg ) or arg[ 1 ];
+        return RepresentativesEndomorphismClassesOp( G, auts );
     end
 );
 
@@ -176,7 +179,7 @@ InstallMethod(
     "for abelian source and abelian range",
     [ IsGroup and IsFinite and IsAbelian, IsGroup and IsFinite and IsAbelian ],
     SUM_FLAGS + 2,
-    TWC.RepresentativesHomomorphismClassesAbelian
+    { H, G } -> TWC.RepsHomClassesAbelian( H, G, true )
 );
 
 InstallMethod(
@@ -204,7 +207,7 @@ InstallMethod(
     1,
     function( H, G )
         if Size( SmallGeneratingSet( H ) ) <> 2 then TryNextMethod(); fi;
-        return TWC.RepresentativesHomomorphismClasses2Generated( H, G );
+        return TWC.RepsHomClasses2Gen( H, G, true );
     end
 );
 
@@ -257,10 +260,11 @@ InstallMethod(
 
 ###############################################################################
 ##
-## RepresentativesEndomorphismClassesOp( G )
+## RepresentativesEndomorphismClassesOp( G, auts )
 ##
 ##  INPUT:
 ##      G:          group
+##      auts:       boolean
 ##
 ##  OUTPUT:
 ##      L:          list of all endomorphisms of G, up to inner automorphisms
@@ -268,43 +272,46 @@ InstallMethod(
 InstallMethod(
     RepresentativesEndomorphismClassesOp,
     "for trivial groups",
-    [ IsGroup and IsTrivial ],
+    [ IsGroup and IsTrivial, IsBool ],
     2 * SUM_FLAGS + 3,
-    function( G )
-        return [ GroupHomomorphismByImagesNC(
-            G, G,
-            [ One( G ) ], [ One( G ) ]
-        ) ];
+    function( G, auts )
+        if auts then
+            return [ GroupHomomorphismByImagesNC(
+                G, G,
+                [ One( G ) ], [ One( G ) ]
+            ) ];
+        fi;
+        return [];
     end
 );
 
 InstallMethod(
     RepresentativesEndomorphismClassesOp,
     "for finite abelian groups",
-    [ IsGroup and IsFinite and IsAbelian ],
+    [ IsGroup and IsFinite and IsAbelian, IsBool ],
     SUM_FLAGS + 2,
-    G -> TWC.RepresentativesHomomorphismClassesAbelian( G, G )
+    { G, auts } -> TWC.RepsHomClassesAbelian( G, G, auts )
 );
 
 InstallMethod(
     RepresentativesEndomorphismClassesOp,
     "for finite 2-generated groups",
-    [ IsGroup and IsFinite ],
+    [ IsGroup and IsFinite, IsBool ],
     1,
-    function( G )
+    function( G, auts )
         if Size( SmallGeneratingSet( G ) ) <> 2 then TryNextMethod(); fi;
-        return TWC.RepresentativesHomomorphismClasses2Generated( G, G );
+        return TWC.RepsHomClasses2Gen( G, G, auts );
     end
 );
 
 InstallMethod(
     RepresentativesEndomorphismClassesOp,
     "for arbitrary finite groups",
-    [ IsGroup and IsFinite ],
+    [ IsGroup and IsFinite, IsBool ],
     0,
-    function( G )
+    function( G, auts )
         local asAuto, AutG, gensAutG, Conj, r, SubReps, SubOrbits, Pairs, Reps,
-              i, Tails, Isos, KerInfo, KerOrbits;
+              i, Tails, Isos, KerInfo, KerOrbits, Ends;
 
         # Step 1: Determine automorphism group of G
         asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
@@ -341,10 +348,11 @@ InstallMethod(
         Tails := TWC.ImagesOfHomomorphismClasses( Pairs, SubOrbits, Reps, G );
 
         # Step 5: Calculate the homomorphisms
-        return Concatenation(
-            RepresentativesAutomorphismClasses( G ),
-            TWC.FuseHomomorphismClasses( Pairs, Reps, Isos, Tails )
-        );
+        Ends := TWC.FuseHomomorphismClasses( Pairs, Reps, Isos, Tails );
+        if auts then
+            Append( Ends, RepresentativesAutomorphismClasses( G ) );
+        fi;
+        return Ends;
     end
 );
 

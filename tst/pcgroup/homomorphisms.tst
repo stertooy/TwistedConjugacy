@@ -13,18 +13,27 @@ gap> Size( AutsG );
 gap> HomsG := RepresentativesEndomorphismClasses( G );;
 gap> Size( HomsG );
 308
+gap> NonbijectiveG := RepresentativesEndomorphismClasses( G, false );;
+gap> Size( NonbijectiveG );
+236
+gap> ForAll( NonbijectiveG, hom -> not IsBijective( hom ) );
+true
 gap> AutsT := RepresentativesAutomorphismClasses( T );;
 gap> Size( AutsT );
 1
 gap> HomsT := RepresentativesEndomorphismClasses( T );;
 gap> Size( HomsT );
 1
+gap> RepresentativesEndomorphismClasses( T, false );
+[  ]
 gap> AutsC := RepresentativesAutomorphismClasses( C );;
 gap> Size( AutsC );
 1
 gap> HomsC := RepresentativesEndomorphismClasses( C );;
 gap> Size( HomsC );
 2
+gap> Size( RepresentativesEndomorphismClasses( C, false ) );
+1
 
 #
 gap> HomsGT := RepresentativesHomomorphismClasses( G, T );;
