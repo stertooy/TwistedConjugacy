@@ -48,22 +48,21 @@ end;
 ##
 TWC.KernelsOfHomomorphismClasses := function( H, KerOrbits, ImgOrbits )
     local AutH, asAuto, Pairs, Heads, Isos, i, N, p, Q, j, M, iso,
-          kerOrbit, possibleImgs;
+          kerOrbit, possibleImgs, quoSize, hasPair, imgSizes;
     AutH := AutomorphismGroup( H );
     asAuto := { A, aut } -> ImagesSet( aut, A );
     Pairs := [];
     Heads := [];
     Isos := [];
+    imgSizes := List( ImgOrbits, x -> Size( x[ 1 ] ) );
     for i in [ 1 .. Size( KerOrbits ) ] do
         if not IsBound( KerOrbits[ i ] ) then
             continue;
         fi;
         kerOrbit := KerOrbits[ i ];
         N := kerOrbit[ 1 ];
-        possibleImgs := Filtered(
-            [ 1 .. Size( ImgOrbits ) ],
-            j -> Size( ImgOrbits[ j ][ 1 ] ) = IndexNC( H, N )
-        );
+        quoSize := Size( H ) / Size( N );
+        possibleImgs := Positions( imgSizes, quoSize );
         if IsEmpty( possibleImgs ) then
             continue;
         fi;
@@ -71,15 +70,17 @@ TWC.KernelsOfHomomorphismClasses := function( H, KerOrbits, ImgOrbits )
         p := NaturalHomomorphismByNormalSubgroupNC( H, N );
         Q := ImagesSource( p );
         p := RestrictedHomomorphism( p, H, Q );
+        hasPair := false;
         for j in possibleImgs do
             M := ImgOrbits[ j ][ 1 ];
             iso := IsomorphismGroups( Q, M );
             if iso <> fail then
                 Isos[ i ][ j ] := p * iso;
                 Add( Pairs, [ i, j ] );
+                hasPair := true;
             fi;
         od;
-        if not IsEmpty( SetX( Pairs, x -> x[ 1 ] = i, x -> x[ 1 ] ) ) then
+        if hasPair then
             Heads[ i ] := List(
                 kerOrbit,
                 x -> RepresentativeAction( AutH, x, N, asAuto )
@@ -143,10 +144,6 @@ TWC.ImagesOfHomomorphismClasses := function( Pairs, ImgOrbits, Reps, G )
         else
             tail := List( Reps[ j ], x -> x ^ -1 );
         fi;
-        head := List( head, x -> GroupHomomorphismByImagesNC( M, G,
-            MappingGeneratorsImages( x )[ 1 ],
-            MappingGeneratorsImages( x )[ 2 ]
-        ) );
         Tails[ j ] := ListX( head, tail, \* );
     od;
     return Tails;
@@ -204,68 +201,46 @@ end;
 ##                  automorphisms of G
 ##
 TWC.RepsHomClasses2Gen := function( H, G, auts )
-    local ccls, ords, gens, homs, cache, N, p, Q, R, gensQ, embs, data, iso,
-          poss, cents, free, rels, emb, hom;
+    local ccls, bg, bw, bi, gens, a, b, pairs, pair, imgs, params, i, prod,
+          ords, imgsByOrder, free, rels;
     ccls := ConjugacyClasses( G );
-    ords := List( ccls, c -> Order( Representative( c ) ) );
     gens := SmallGeneratingSet( H );
-    homs := [];
-    cache := [];
-    for N in NormalSubgroups( H ) do
-        if (
-            ( not auts and IsTrivial( N ) ) or
-            Size( G ) mod ( Size( H ) / Size( N ) ) <> 0
-        ) then
-            continue;
+    a := gens[ 1 ];
+    b := gens[ 2 ];
+    pairs := [
+        [ a, b ],
+        [ a, a * b ], [ a, a * b ^ -1 ],
+        [ a, b * a ], [ a, b * a ^ -1 ],
+        [ b, a * b ], [ b, a * b ^ -1 ],
+        [ b, b * a ], [ b, b * a ^ -1 ]
+    ];
+    ords := Set( Flat( pairs ), Order );
+    imgsByOrder := List(
+        ords,
+        i -> Filtered( ccls, j -> IsInt( i / Order( Representative( j ) ) ) )
+    );
+    bw := infinity;
+    for pair in pairs do
+        imgs := List( pair, i -> imgsByOrder[ Position( ords, Order( i ) ) ] );
+        prod := Product( imgs, i -> Sum( i, Size ) );
+        if prod < bw then
+            bg := pair;
+            bi := imgs;
+            bw := prod;
         fi;
-        if IsTrivial( N ) then
-            Q := H;
-            p := IdentityMapping( H );
-            gensQ := gens;
-        else
-            p := NaturalHomomorphismByNormalSubgroupNC( H, N );
-            Q := ImagesSource( p );
-            gensQ := List( gens, h -> ImagesRepresentative( p, h ) );
-            p := GroupHomomorphismByImagesNC( H, Q, gens, gensQ );
-        fi;
-        embs := fail;
-        for data in cache do
-            R := data.grp;
-            if Size( R ) = Size( Q ) then
-                iso := IsomorphismGroups( Q, R );
-                if iso <> fail then
-                    p := p * iso;
-                    embs := data.emb;
-                    break;
-                fi;
-            fi;
-        od;
-        if embs = fail then
-            poss := List( gensQ, q -> ccls{ Positions( ords, Order( q ) ) } );
-            cents := List( gensQ, q -> Size( Centraliser( Q, q ) ) );
-            poss := List( [ 1, 2 ], i -> Filtered( poss[ i ],
-                c -> ( Size( G ) / Size( c ) ) mod cents[ i ] = 0 and
-                     Size( c ) * cents[ i ] >= Size( Q )
-            ) );
-            free := GeneratorsOfGroup( FreeGroup( 2 ) );
-            rels := [
-                [ free[ 1 ] * free[ 2 ],
-                  Order( gensQ[ 1 ] * gensQ[ 2 ] ) ],
-                [ Comm( free[ 1 ], free[ 2 ] ),
-                  Order( Comm( gensQ[ 1 ], gensQ[ 2 ] ) ) ]
-            ];
-            embs := MorClassLoop( G, poss, rec(
-                gens := gensQ, from := Q, free := free, rels := rels
-            ), 11 );
-            Add( cache, rec( grp := Q, emb := embs ) );
-        fi;
-        for emb in embs do
-            hom := p * emb;
-            SetKernelOfMultiplicativeGeneralMapping( hom, N );
-            Add( homs, hom );
-        od;
     od;
-    return homs;
+    free := GeneratorsOfGroup( FreeGroup( 2 ) );
+    rels := [
+        [ free[ 1 ] * free[ 2 ],
+          Order( bg[ 1 ] * bg[ 2 ] ) ],
+        [ Comm( free[ 1 ], free[ 2 ] ),
+          Order( Comm( bg[ 1 ], bg[ 2 ] ) ) ]
+    ];
+    params := rec( gens := bg, from := H, free := free, rels := rels );
+    if not auts then
+        params.condition := hom -> not IsBijective( hom );
+    fi;
+    return MorClassLoop( G, bi, params, 9 );
 end;
 
 ###############################################################################
@@ -282,11 +257,12 @@ end;
 ##                  automorphisms of G
 ##
 TWC.RepsHomClassesAbelian := function( H, G, auts )
-    local gensH, gensG, imgs, h, oh, imgsG, g, og, pows, step, e, elts, coords,
-          primes, pos, mat;
+    local gensH, gensG, imgs, h, oh, imgsG, g, og, pows, step, homs, elms,
+          coords, pdivs, pos, mat, imgPos, inds, i, primeTest;
     gensH := IndependentGeneratorsOfAbelianGroup( H );
     gensG := IndependentGeneratorsOfAbelianGroup( G );
     imgs := [];
+    homs := [];
     for h in gensH do
         oh := Order( h );
         imgsG := [];
@@ -299,25 +275,38 @@ TWC.RepsHomClassesAbelian := function( H, G, auts )
         Add( imgs, List( Cartesian( imgsG ), Product ) );
     od;
     if not auts then
-        elts := Union( imgs );
-        coords := List( elts, g -> IndependentGeneratorExponents( G, g ) );
-        primes := PrimeDivisors( Size( G ) );
-        pos := List( primes, p -> Filtered( [ 1 .. Length( gensG ) ],
-            i -> Order( gensG[ i ] ) mod p = 0 ) );
-    fi;
-    e := [];
-    for imgsG in IteratorOfCartesianProduct( imgs ) do
-        if not auts then
-            mat := List( imgsG, g -> coords[ PositionSorted( elts, g ) ] );
-            if ForAll(
-                [ 1 .. Length( primes ) ], i -> DeterminantMat(
-                    List( pos[ i ], j -> mat[ j ]{ pos[ i ] } )
-                ) mod primes[ i ] <> 0
-            ) then
+        elms := Union( imgs );
+        coords := List( elms, g -> IndependentGeneratorExponents( G, g ) );
+        imgPos := List( imgs,
+            imgsG -> List( imgsG, g -> PositionSorted( elms, g ) )
+        );
+        pdivs := PrimeDivisors( Size( G ) );
+        pos := List( pdivs, p -> Filtered( [ 1 .. Length( gensG ) ],
+            i -> Order( gensG[ i ] ) mod p = 0 )
+        );
+        primeTest := i -> DeterminantMat(
+            List( pos[ i ], j -> mat[ j ]{ pos[ i ] } )
+        ) mod pdivs[ i ] <> 0;
+        for inds in IteratorOfCartesianProduct(
+            List( imgs, imgsG -> [ 1 .. Length( imgsG ) ] )
+        ) do
+            mat := List( [ 1 .. Length( inds ) ], i ->
+                coords[ imgPos[ i ][ inds[ i ] ] ]
+            );
+            if ForAll( [ 1 .. Length( pdivs ) ], primeTest ) then
                 continue;
             fi;
-        fi;
-        Add( e, GroupHomomorphismByImagesNC( H, G, gensH, imgsG ) );
-    od;
-    return e;
+            Add( homs, GroupHomomorphismByImagesNC(
+                H, G, gensH,
+                List( [ 1 .. Length( inds ) ],
+                    i -> imgs[ i ][ inds[ i ] ]
+                )
+            ) );
+        od;
+    else
+        for imgsG in IteratorOfCartesianProduct( imgs ) do
+            Add( homs, GroupHomomorphismByImagesNC( H, G, gensH, imgsG ) );
+        od;
+    fi;
+    return homs;
 end;
