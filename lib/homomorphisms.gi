@@ -94,6 +94,7 @@ InstallGlobalFunction(
     function( G, arg... )
         local auts;
         IsFinite( G );
+        IsQuasisimpleGroup( G );
         IsAbelian( G );
         IsTrivial( G );
         auts := IsEmpty( arg ) or arg[ 1 ];
