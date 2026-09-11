@@ -1,4 +1,4 @@
-gap> START_TEST( "Testing TwistedConjugacy for PermGroups: homomorphisms of a non-polycyclic groups" );
+gap> START_TEST( "Testing TwistedConjugacy for PermGroups: homomorphisms of non-polycyclic groups" );
 
 #
 gap> G := Group( [ (3,11,9,7,5)(4,12,10,8,6), (1,2,8)(3,7,9)(4,10,5)(6,12,11) ] );;
