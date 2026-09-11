@@ -32,6 +32,7 @@ InstallGlobalFunction(
     function( G )
         IsFinite( G );
         IsAbelian( G );
+        IsQuasisimpleGroup( G );
         return ShallowCopy( ExtendedReidemeisterSpectrumOp( G ) );
     end
 );

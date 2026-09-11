@@ -257,11 +257,12 @@ end;
 ##                  automorphisms of G
 ##
 TWC.RepsHomClassesAbelian := function( H, G, auts )
-    local gensH, gensG, imgs, h, oh, imgsG, g, og, pows, step, e, elts, coords,
-          pdivs, pos, mat, imgPos, inds, i, primeTest;
+    local gensH, gensG, imgs, h, oh, imgsG, g, og, pows, step, homs, elms,
+          coords, pdivs, pos, mat, imgPos, inds, i, primeTest;
     gensH := IndependentGeneratorsOfAbelianGroup( H );
     gensG := IndependentGeneratorsOfAbelianGroup( G );
     imgs := [];
+    homs := [];
     for h in gensH do
         oh := Order( h );
         imgsG := [];
@@ -274,32 +275,18 @@ TWC.RepsHomClassesAbelian := function( H, G, auts )
         Add( imgs, List( Cartesian( imgsG ), Product ) );
     od;
     if not auts then
-        elts := Union( imgs );
-        coords := List( elts, g -> IndependentGeneratorExponents( G, g ) );
+        elms := Union( imgs );
+        coords := List( elms, g -> IndependentGeneratorExponents( G, g ) );
         imgPos := List( imgs,
-            imgsG -> List( imgsG, g -> PositionSorted( elts, g ) )
+            imgsG -> List( imgsG, g -> PositionSorted( elms, g ) )
         );
         pdivs := PrimeDivisors( Size( G ) );
         pos := List( pdivs, p -> Filtered( [ 1 .. Length( gensG ) ],
             i -> Order( gensG[ i ] ) mod p = 0 )
         );
-        primeTest := function( i )
-            local p, p1, p2;
-            p := pdivs[ i ];
-            if Length( pos[ i ] ) = 1 then
-                p1 := pos[ i ][ 1 ];
-                return mat[ p1 ][ p1 ] mod p <> 0;
-            elif Length( pos[ i ] ) = 2 then
-                p1 := pos[ i ][ 1 ];
-                p2 := pos[ i ][ 2 ];
-                return ( mat[ p1 ][ p1 ] * mat[ p2 ][ p2 ] -
-                         mat[ p1 ][ p2 ] * mat[ p2 ][ p1 ] ) mod p <> 0;
-            fi;
-            return DeterminantMat(
-                List( pos[ i ], j -> mat[ j ]{ pos[ i ] } )
-            ) mod p <> 0;
-        end;
-        e := [];
+        primeTest := i -> DeterminantMat(
+            List( pos[ i ], j -> mat[ j ]{ pos[ i ] } )
+        ) mod pdivs[ i ] <> 0;
         for inds in IteratorOfCartesianProduct(
             List( imgs, imgsG -> [ 1 .. Length( imgsG ) ] )
         ) do
@@ -309,18 +296,17 @@ TWC.RepsHomClassesAbelian := function( H, G, auts )
             if ForAll( [ 1 .. Length( pdivs ) ], primeTest ) then
                 continue;
             fi;
-            Add( e, GroupHomomorphismByImagesNC(
+            Add( homs, GroupHomomorphismByImagesNC(
                 H, G, gensH,
                 List( [ 1 .. Length( inds ) ],
                     i -> imgs[ i ][ inds[ i ] ]
                 )
             ) );
         od;
-        return e;
+    else
+        for imgsG in IteratorOfCartesianProduct( imgs ) do
+            Add( homs, GroupHomomorphismByImagesNC( H, G, gensH, imgsG ) );
+        od;
     fi;
-    e := [];
-    for imgsG in IteratorOfCartesianProduct( imgs ) do
-        Add( e, GroupHomomorphismByImagesNC( H, G, gensH, imgsG ) );
-    od;
-    return e;
+    return homs;
 end;
