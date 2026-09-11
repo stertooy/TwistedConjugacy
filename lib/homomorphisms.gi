@@ -202,6 +202,38 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesHomomorphismClassesOp,
+    "for non-abelian simple source",
+    [ IsGroup and IsFinite and IsNonabelianSimpleGroup, IsGroup and IsFinite ],
+    function( H, G )
+        local ccls, ords, gens, poss, cents, free, rels, imgs, triv, params;
+        ccls := ConjugacyClasses( G );
+        ords := List( ccls, c -> Order( Representative( c ) ) );
+        gens := SmallGeneratingSet( H );
+        poss := List( gens, q -> ccls{ Positions( ords, Order( q ) ) } );
+        cents := List( gens, q -> Size( Centraliser( H, q ) ) );
+        poss := List( [ 1, 2 ], i -> Filtered( poss[ i ],
+            c -> ( Size( G ) / Size( c ) ) mod cents[ i ] = 0 and
+                 Size( c ) * cents[ i ] >= Size( H )
+        ) );
+        free := GeneratorsOfGroup( FreeGroup( 2 ) );
+        rels := [
+            [ free[ 1 ] * free[ 2 ],
+              Order( gens[ 1 ] * gens[ 2 ] ) ],
+            [ Comm( free[ 1 ], free[ 2 ] ),
+              Order( Comm( gens[ 1 ], gens[ 2 ] ) ) ]
+        ];
+        imgs := ListWithIdenticalEntries( Length( gens ), One( G ) );
+        triv := GroupHomomorphismByImagesNC( H, G, gens, imgs );
+        params := rec( gens := gens, from := H, free := free, rels := rels );
+        return Concatenation(
+            MorClassLoop( G, poss, params, 11 ),
+            [ triv ]
+        );
+    end
+);
+
+InstallMethod(
+    RepresentativesHomomorphismClassesOp,
     "for 2-generated source",
     [ IsGroup and IsFinite, IsGroup and IsFinite ],
     1,
@@ -218,7 +250,8 @@ InstallMethod(
     0,
     function( H, G )
         local asAuto, AutH, AutG, gensAutG, gensAutH, Conj, ImgReps, ImgOrbits,
-              KerOrbits, Pairs, Heads, Tails, Isos, KerInfo, Reps;
+              KerOrbits, Pairs, Heads, Tails, Isos, KerInfo, Reps, Norms,
+              quoSizes, imgSizes;
 
         # Step 1: Determine automorphism groups of H and G
         asAuto := { A, aut } -> ImagesSet( aut, A );
@@ -226,10 +259,14 @@ InstallMethod(
         AutG := AutomorphismGroup( G );
         gensAutG := SmallGeneratingSet( AutG );
         gensAutH := SmallGeneratingSet( AutH );
+        Norms := NormalSubgroups( H );
 
-        # Step 2: Determine all possible kernels and images, i.e.
-        # the normal subgroups of H and the subgroups of G
-        Conj := ConjugacyClassesSubgroups( G );
+        # Step 2: Determine all possible images (subgroups of G)
+        quoSizes := Set( Norms, N -> Size( H ) / Size( N ) );
+        Conj := Filtered(
+            ConjugacyClassesSubgroups( G ),
+            c -> Size( Representative( c ) ) in quoSizes
+        );
         ImgReps := List( Conj, Representative );
         ImgOrbits := OrbitsDomain(
             AutG, Flat( List( Conj, List ) ),
@@ -237,23 +274,26 @@ InstallMethod(
             asAuto
         );
         ImgOrbits := List( ImgOrbits, x -> Filtered( ImgReps, y -> y in x ) );
+
+        # Step 3: Determine all possible kernels (normal subgroups of H)
+        imgSizes := Set( ImgReps, Size );
         KerOrbits := OrbitsDomain(
-            AutH, NormalSubgroups( H ),
+            AutH, Filtered( Norms, N -> Size( H ) / Size( N ) in imgSizes ),
             gensAutH, gensAutH,
             asAuto
         );
 
-        # Step 3: Calculate info on kernels
+        # Step 4: Calculate info on kernels
         KerInfo := TWC.KernelsOfHomomorphismClasses( H, KerOrbits, ImgOrbits );
         Pairs := KerInfo[ 1 ];
         Heads := KerInfo[ 2 ];
         Isos := KerInfo[ 3 ];
 
-        # Step 4: Calculate info on images
+        # Step 5: Calculate info on images
         Reps := EmptyPlist( Length( ImgOrbits ) );
         Tails := TWC.ImagesOfHomomorphismClasses( Pairs, ImgOrbits, Reps, G );
 
-        # Step 5: Calculate the homomorphisms
+        # Step 6: Calculate the homomorphisms
         return TWC.FuseHomomorphismClasses( Pairs, Heads, Isos, Tails );
     end
 );
@@ -287,6 +327,26 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesEndomorphismClassesOp,
+    "for finite quasisimple groups",
+    [ IsGroup and IsFinite and IsQuasisimpleGroup, IsBool ],
+    SUM_FLAGS + 2,
+    function( G, auts )
+        local gens, imgs, ends;
+        gens := GeneratorsOfGroup( G );
+        imgs := ListWithIdenticalEntries( Length( gens ), One( G ) );
+        ends := [ GroupHomomorphismByImagesNC( G, G, gens, imgs ) ];
+        if auts then
+            ends := Concatenation(
+                RepresentativesAutomorphismClasses( G ),
+                ends
+            );
+        fi;
+        return ends;
+    end
+);
+
+InstallMethod(
+    RepresentativesEndomorphismClassesOp,
     "for finite abelian groups",
     [ IsGroup and IsFinite and IsAbelian, IsBool ],
     SUM_FLAGS + 2,
@@ -311,16 +371,23 @@ InstallMethod(
     0,
     function( G, auts )
         local asAuto, AutG, gensAutG, Conj, r, SubReps, SubOrbits, Pairs, Reps,
-              i, Tails, Isos, KerInfo, KerOrbits, Ends;
+              i, Tails, Isos, KerInfo, KerOrbits, Ends, Norms, quoSizes,
+              kerSizes;
 
         # Step 1: Determine automorphism group of G
         asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
         AutG := AutomorphismGroup( G );
         gensAutG := SmallGeneratingSet( AutG );
+        Norms := Filtered( NormalSubgroups( G ), N -> not IsTrivial( N ) );
 
         # Step 2: Determine all possible kernels and images, i.e.
         # the (normal) subgroups of G
-        Conj := ConjugacyClassesSubgroups( G );
+        kerSizes := Set( Norms, Size );
+        quoSizes := Set( kerSizes, i -> Size( G ) / i );
+        Conj := Filtered(
+            ConjugacyClassesSubgroups( G ),
+            c -> Size( Representative( c ) ) in Union( quoSizes, kerSizes )
+        );
 
         SubReps := List( Conj, Representative );
         SubOrbits := OrbitsDomain(
@@ -333,7 +400,7 @@ InstallMethod(
         KerOrbits := EmptyPlist( Length( SubOrbits ) );
         for i in [ 1 .. Length( SubOrbits ) ] do
             r := SubOrbits[ i ][ 1 ];
-            if IsNormal( G, r ) and not IsTrivial( r ) then
+            if Size( r ) in kerSizes and r in Norms then
                 KerOrbits[ i ] := SubOrbits[ i ];
             fi;
         od;
@@ -350,7 +417,10 @@ InstallMethod(
         # Step 5: Calculate the homomorphisms
         Ends := TWC.FuseHomomorphismClasses( Pairs, Reps, Isos, Tails );
         if auts then
-            Append( Ends, RepresentativesAutomorphismClasses( G ) );
+            Ends := Concatenation(
+                RepresentativesAutomorphismClasses( G ),
+                Ends
+            );
         fi;
         return Ends;
     end
