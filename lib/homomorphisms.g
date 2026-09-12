@@ -208,7 +208,7 @@ TWC.RepsHomClasses2Gen := function( H, G, auts )
     gens := SmallGeneratingSet( H );
     a := gens[ 1 ];
     b := gens[ 2 ];
-    elms := [ a, b, a * b, b * a, a * b ^ - 1, b * a ^ -1 ];
+    elms := [ a, b, a * b, b * a, a * b ^ -1, b * a ^ -1 ];
     ords := List( elms, Order );
     pairs := [
         [ 1, 2 ],

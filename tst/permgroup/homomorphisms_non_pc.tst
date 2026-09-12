@@ -35,6 +35,8 @@ gap> Size( RepresentativesAutomorphismClasses( K ) );
 2
 gap> Size( RepresentativesEndomorphismClasses( K ) );
 3
+gap> Size( RepresentativesHomomorphismClasses( K, K ) );
+3
 gap> Size( RepresentativesEndomorphismClasses( K, false ) );
 1
 
