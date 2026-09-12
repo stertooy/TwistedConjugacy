@@ -14,7 +14,6 @@
 ##
 TWC.CoinSpec := function( homs, ccG, repsH, sizesG, sizesH )
     local nrImgs, imgs, i, j, SpecR, R;
-    # Only the induced maps on conjugacy classes affect the result.
     imgs := Set( TWC.ImgsMatrix( homs, ccG, repsH ) );
     nrImgs := Length( imgs );
     SpecR := [];

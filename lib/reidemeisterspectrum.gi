@@ -409,7 +409,7 @@ InstallMethod(
     "for finite groups",
     [ IsGroup and IsFinite ],
     function( G )
-        local GxG, l, r, act, D, Spec, points, c;
+        local GxG, l, r, act, D, Spec, pts, H;
         GxG := DirectProduct( G, G );
         l := Projection( GxG, 1 );
         r := Projection( GxG, 2 );
@@ -417,9 +417,9 @@ InstallMethod(
             ImagesRepresentative( r, p );
         D := Range( ActionHomomorphism( GxG, AsSet( G ), act, "surjective" ) );
         Spec := [];
-        points := [ 1 .. Size( G ) ];
-        for c in ConjugacyClassesSubgroups( D ) do
-            AddSet( Spec, Length( OrbitsDomain( Representative( c ), points ) ) );
+        pts := [ 1 .. Size( G ) ];
+        for H in List( ConjugacyClassesSubgroups( D ), Representative ) do
+            AddSet( Spec, Length( OrbitsDomain( H, pts ) ) );
         od;
         return Spec;
     end
