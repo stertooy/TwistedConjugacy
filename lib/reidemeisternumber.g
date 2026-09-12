@@ -11,16 +11,22 @@
 ##      imgs:       matrix containing info on conjugacy class mapping
 ##
 TWC.ImgsMatrix := function( homs, ccG, repsH )
-    local nrHoms, kH, kG, imgs, i, hom, j, img, k;
+    local nrHoms, kH, kG, imgs, classes, i, hom, j, img, k;
     nrHoms := Length( homs );
     kH := Length( repsH );
     kG := Length( ccG );
     imgs := NullMat( nrHoms, kH );
+    classes := NewDictionary( ccG[ 1 ][ 1 ], true );
     for i in [ 1 .. nrHoms ] do
         hom := homs[ i ];
         for j in [ 1 .. kH ] do
             img := ImagesRepresentative( hom, repsH[ j ] );
-            imgs[ i ][ j ] := First( [ 1 .. kG ], k -> img in ccG[ k ] );
+            k := LookupDictionary( classes, img );
+            if k = fail then
+                k := First( [ 1 .. kG ], k -> img in ccG[ k ] );
+                AddDictionary( classes, img, k );
+            fi;
+            imgs[ i ][ j ] := k;
         od;
     od;
     return imgs;

@@ -13,12 +13,13 @@
 ##      Spec:       Coincidence Reidemeister spectrum of G, up to a factor
 ##
 TWC.CoinSpec := function( homs, ccG, repsH, sizesG, sizesH )
-    local nrHoms, imgs, i, j, SpecR, R;
-    nrHoms := Length( homs );
-    imgs := TWC.ImgsMatrix( homs, ccG, repsH );
+    local nrImgs, imgs, i, j, SpecR, R;
+    # Only the induced maps on conjugacy classes affect the result.
+    imgs := Set( TWC.ImgsMatrix( homs, ccG, repsH ) );
+    nrImgs := Length( imgs );
     SpecR := [];
-    for i in [ 1 .. nrHoms ] do
-        for j in [ i .. nrHoms ] do
+    for i in [ 1 .. nrImgs ] do
+        for j in [ i .. nrImgs ] do
             R := TWC.CalcFromImgs( imgs[ i ], imgs[ j ], sizesG, sizesH );
             AddSet( SpecR, R );
         od;

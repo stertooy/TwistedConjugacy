@@ -67,6 +67,9 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     RepresentativesHomomorphismClasses,
     function( H, G )
+        if IsIdenticalObj( H, G ) then
+            return RepresentativesEndomorphismClasses( G );
+        fi;
         IsFinite( H );
         IsAbelian( H );
         IsCyclic( H );
@@ -212,11 +215,11 @@ InstallMethod(
         gens := SmallGeneratingSet( H );
         poss := List( gens, q -> ccls{ Positions( ords, Order( q ) ) } );
         cents := List( gens, q -> Size( Centraliser( H, q ) ) );
-        poss := List( [ 1, 2 ], i -> Filtered( poss[ i ],
+        poss := List( [ 1 .. Length( gens ) ], i -> Filtered( poss[ i ],
             c -> ( Size( G ) / Size( c ) ) mod cents[ i ] = 0 and
                  Size( c ) * cents[ i ] >= Size( H )
         ) );
-        free := GeneratorsOfGroup( FreeGroup( 2 ) );
+        free := GeneratorsOfGroup( FreeGroup( Length( gens ) ) );
         rels := [
             [ free[ 1 ] * free[ 2 ],
               Order( gens[ 1 ] * gens[ 2 ] ) ],
@@ -373,7 +376,7 @@ InstallMethod(
     function( G, auts )
         local asAuto, AutG, gensAutG, Conj, r, SubReps, SubOrbits, Pairs, Reps,
               i, Tails, Isos, KerInfo, KerOrbits, Ends, Norms, quoSizes,
-              kerSizes;
+              kerSizes, subSizes;
 
         # Step 1: Determine automorphism group of G
         asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
@@ -385,9 +388,10 @@ InstallMethod(
         # the (normal) subgroups of G
         kerSizes := Set( Norms, Size );
         quoSizes := Set( kerSizes, i -> Size( G ) / i );
+        subSizes := Union( quoSizes, kerSizes );
         Conj := Filtered(
             ConjugacyClassesSubgroups( G ),
-            c -> Size( Representative( c ) ) in Union( quoSizes, kerSizes )
+            c -> Size( Representative( c ) ) in subSizes
         );
 
         SubReps := List( Conj, Representative );

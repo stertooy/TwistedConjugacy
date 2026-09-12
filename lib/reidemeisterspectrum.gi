@@ -58,6 +58,7 @@ InstallGlobalFunction(
         IsFinite( H );
         IsAbelian( H );
         if Length( arg ) = 0 or IsIdenticalObj( H, arg[ 1 ] ) then
+            IsQuasisimpleGroup( H );
             return ShallowCopy( CoincidenceReidemeisterSpectrumOp( H ) );
         else
             G := arg[ 1 ];
@@ -161,7 +162,6 @@ InstallMethod(
     function( G )
         local Aut, gens, conjG, kG, pool, i, id, look, aut, img, cur, p, todo,
               g, j, S, SpecR, s;
-        Aut := AutomorphismGroup( G );
         gens := [];
         conjG := ConjugacyClasses( G );
         kG := Length( conjG );
@@ -179,7 +179,12 @@ InstallMethod(
                 Add( look, i );
             fi;
         od;
+        pool := Filtered( pool, p -> Length( p ) > 1 );
+        if IsEmpty( pool ) then
+            return [ kG ];
+        fi;
         # Calculate induced permutation
+        Aut := AutomorphismGroup( G );
         for aut in GeneratorsOfGroup( Aut ) do
             # Skip if automorphism is known to be inner
             if (
@@ -344,7 +349,7 @@ InstallMethod(
     function( H, G )
         local homs, ccG, ccH, sizesG, sizesH, repsH, Spec, R;
         homs := RepresentativesHomomorphismClasses( H, G );
-        ccG := List( ConjugacyClasses( G ), AsSet );
+        ccG := List( ConjugacyClasses( G ), AsSSortedList );
         ccH := List( ConjugacyClasses( H ) );
         sizesG := List( ccG, Length );
         sizesH := List( ccH, Size );
@@ -375,7 +380,7 @@ InstallOtherMethod(
     function( G )
         local homs, ccG, sizesG, repsG;
         homs := RepresentativesEndomorphismClasses( G );
-        ccG := List( ConjugacyClasses( G ), AsSet );
+        ccG := List( ConjugacyClasses( G ), AsSSortedList );
         repsG := List( ccG, First );
         sizesG := List( ccG, Length );
         return TWC.CoinSpec( homs, ccG, repsG, sizesG, sizesG );
@@ -404,7 +409,7 @@ InstallMethod(
     "for finite groups",
     [ IsGroup and IsFinite ],
     function( G )
-        local GxG, l, r, act, D, Spec, H;
+        local GxG, l, r, act, D, Spec, points, c;
         GxG := DirectProduct( G, G );
         l := Projection( GxG, 1 );
         r := Projection( GxG, 2 );
@@ -412,8 +417,9 @@ InstallMethod(
             ImagesRepresentative( r, p );
         D := Range( ActionHomomorphism( GxG, AsSet( G ), act, "surjective" ) );
         Spec := [];
-        for H in List( ConjugacyClassesSubgroups( D ), Representative ) do
-            AddSet( Spec, Length( Orbits( H, [ 1 .. Size( G ) ] ) ) );
+        points := [ 1 .. Size( G ) ];
+        for c in ConjugacyClassesSubgroups( D ) do
+            AddSet( Spec, Length( OrbitsDomain( Representative( c ), points ) ) );
         od;
         return Spec;
     end
