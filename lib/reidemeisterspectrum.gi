@@ -58,6 +58,7 @@ InstallGlobalFunction(
         IsFinite( H );
         IsAbelian( H );
         if Length( arg ) = 0 or IsIdenticalObj( H, arg[ 1 ] ) then
+            IsQuasisimpleGroup( H );
             return ShallowCopy( CoincidenceReidemeisterSpectrumOp( H ) );
         else
             G := arg[ 1 ];
@@ -159,27 +160,38 @@ InstallMethod(
     [ IsGroup and IsFinite ],
     0,
     function( G )
-        local Aut, gens, conjG, kG, pool, i, id, look, aut, img, cur, p, todo,
-              g, j, S, SpecR, s;
-        Aut := AutomorphismGroup( G );
+        local gens, conjG, kG, pool, prop, fine, ids, i, j, Aut, aut, img, cur,
+              p, todo, g, S, SpecR, s;
         gens := [];
         conjG := ConjugacyClasses( G );
         kG := Length( conjG );
-        # Split up conjugacy classes
-        pool := DictionaryBySort( true );
-        for i in [ 2 .. kG ] do
-            id := [
-                Size( conjG[ i ] ),
-                Order( Representative( conjG[ i ] ) )
-            ];
-            look := LookupDictionary( pool, id );
-            if look = fail then
-                AddDictionary( pool, id, [ i ] );
-            else
-                Add( look, i );
-            fi;
+        # Refine one property at a time
+        pool := [ [ 2 .. kG ] ];
+        for prop in [ Size, C -> Order( Representative( C ) ) ] do
+            fine := [];
+            for p in pool do
+                if Length( p ) < 2 then continue; fi;
+                ids := List( p, i -> prop( conjG[ i ] ) );
+                StableSortParallel( ids, p );
+                i := 1;
+                while i <= Length( p ) do
+                    j := i + 1;
+                    while j <= Length( p ) and ids[ j ] = ids[ i ] do
+                        j := j + 1;
+                    od;
+                    if j > i + 1 then
+                        Add( fine, p{ [ i .. j - 1 ] } );
+                    fi;
+                    i := j;
+                od;
+            od;
+            pool := fine;
         od;
+        if IsEmpty( pool ) then
+            return [ kG ];
+        fi;
         # Calculate induced permutation
+        Aut := AutomorphismGroup( G );
         for aut in GeneratorsOfGroup( Aut ) do
             # Skip if automorphism is known to be inner
             if (
@@ -344,7 +356,7 @@ InstallMethod(
     function( H, G )
         local homs, ccG, ccH, sizesG, sizesH, repsH, Spec, R;
         homs := RepresentativesHomomorphismClasses( H, G );
-        ccG := List( ConjugacyClasses( G ), AsSet );
+        ccG := List( ConjugacyClasses( G ), AsSSortedList );
         ccH := List( ConjugacyClasses( H ) );
         sizesG := List( ccG, Length );
         sizesH := List( ccH, Size );
@@ -375,7 +387,7 @@ InstallOtherMethod(
     function( G )
         local homs, ccG, sizesG, repsG;
         homs := RepresentativesEndomorphismClasses( G );
-        ccG := List( ConjugacyClasses( G ), AsSet );
+        ccG := List( ConjugacyClasses( G ), AsSSortedList );
         repsG := List( ccG, First );
         sizesG := List( ccG, Length );
         return TWC.CoinSpec( homs, ccG, repsG, sizesG, sizesG );
@@ -404,7 +416,7 @@ InstallMethod(
     "for finite groups",
     [ IsGroup and IsFinite ],
     function( G )
-        local GxG, l, r, act, D, Spec, H;
+        local GxG, l, r, act, D, Spec, pts, H;
         GxG := DirectProduct( G, G );
         l := Projection( GxG, 1 );
         r := Projection( GxG, 2 );
@@ -412,8 +424,9 @@ InstallMethod(
             ImagesRepresentative( r, p );
         D := Range( ActionHomomorphism( GxG, AsSet( G ), act, "surjective" ) );
         Spec := [];
+        pts := [ 1 .. Size( G ) ];
         for H in List( ConjugacyClassesSubgroups( D ), Representative ) do
-            AddSet( Spec, Length( Orbits( H, [ 1 .. Size( G ) ] ) ) );
+            AddSet( Spec, Length( OrbitsDomain( H, pts ) ) );
         od;
         return Spec;
     end

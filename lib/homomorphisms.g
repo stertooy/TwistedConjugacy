@@ -202,26 +202,30 @@ end;
 ##
 TWC.RepsHomClasses2Gen := function( H, G, auts )
     local ccls, bg, bw, bi, gens, a, b, pairs, pair, imgs, params, i, prod,
-          ords, imgsByOrder, free, rels;
+          ords, cclOrds, imgsByOrder, free, rels, elms, ordsS;
     ccls := ConjugacyClasses( G );
+    cclOrds := List( ccls, c -> Order( Representative( c ) ) );
     gens := SmallGeneratingSet( H );
     a := gens[ 1 ];
     b := gens[ 2 ];
+    elms := [ a, b, a * b, b * a, a * b ^ -1, b * a ^ -1 ];
+    ords := List( elms, Order );
     pairs := [
-        [ a, b ],
-        [ a, a * b ], [ a, a * b ^ -1 ],
-        [ a, b * a ], [ a, b * a ^ -1 ],
-        [ b, a * b ], [ b, a * b ^ -1 ],
-        [ b, b * a ], [ b, b * a ^ -1 ]
+        [ 1, 2 ],
+        [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 1, 6 ],
+        [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], [ 2, 6 ]
     ];
-    ords := Set( Flat( pairs ), Order );
+    ordsS := Set( ords );
     imgsByOrder := List(
-        ords,
-        i -> Filtered( ccls, j -> IsInt( i / Order( Representative( j ) ) ) )
+        ordsS,
+        i -> ccls{ Filtered(
+            [ 1 .. Length( ccls ) ],
+            j -> i mod cclOrds[ j ] = 0
+        ) }
     );
     bw := infinity;
     for pair in pairs do
-        imgs := List( pair, i -> imgsByOrder[ Position( ords, Order( i ) ) ] );
+        imgs := List( pair, i -> imgsByOrder[ Position( ordsS, ords[ i ] ) ] );
         prod := Product( imgs, i -> Sum( i, Size ) );
         if prod < bw then
             bg := pair;
@@ -230,6 +234,7 @@ TWC.RepsHomClasses2Gen := function( H, G, auts )
         fi;
     od;
     free := GeneratorsOfGroup( FreeGroup( 2 ) );
+    bg := List( bg, i -> elms[ i ] );
     rels := [
         [ free[ 1 ] * free[ 2 ],
           Order( bg[ 1 ] * bg[ 2 ] ) ],

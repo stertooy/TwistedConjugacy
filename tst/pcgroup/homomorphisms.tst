@@ -13,6 +13,8 @@ gap> Size( AutsG );
 gap> HomsG := RepresentativesEndomorphismClasses( G );;
 gap> Size( HomsG );
 308
+gap> Size( RepresentativesHomomorphismClasses( G, G ) );
+308
 gap> NonbijectiveG := RepresentativesEndomorphismClasses( G, false );;
 gap> Size( NonbijectiveG );
 236
