@@ -160,26 +160,33 @@ InstallMethod(
     [ IsGroup and IsFinite ],
     0,
     function( G )
-        local Aut, gens, conjG, kG, pool, i, id, look, aut, img, cur, p, todo,
-              g, j, S, SpecR, s;
+        local gens, conjG, kG, pool, prop, fine, ids, i, j, Aut, aut, img, cur,
+              p, todo, g, S, SpecR, s;
         gens := [];
         conjG := ConjugacyClasses( G );
         kG := Length( conjG );
-        # Split up conjugacy classes
-        pool := DictionaryBySort( true );
-        for i in [ 2 .. kG ] do
-            id := [
-                Size( conjG[ i ] ),
-                Order( Representative( conjG[ i ] ) )
-            ];
-            look := LookupDictionary( pool, id );
-            if look = fail then
-                AddDictionary( pool, id, [ i ] );
-            else
-                Add( look, i );
-            fi;
+        # Refine one property at a time
+        pool := [ [ 2 .. kG ] ];
+        for prop in [ Size, C -> Order( Representative( C ) ) ] do
+            fine := [];
+            for p in pool do
+                if Length( p ) < 2 then continue; fi;
+                ids := List( p, i -> prop( conjG[ i ] ) );
+                StableSortParallel( ids, p );
+                i := 1;
+                while i <= Length( p ) do
+                    j := i + 1;
+                    while j <= Length( p ) and ids[ j ] = ids[ i ] do
+                        j := j + 1;
+                    od;
+                    if j > i + 1 then
+                        Add( fine, p{ [ i .. j - 1 ] } );
+                    fi;
+                    i := j;
+                od;
+            od;
+            pool := fine;
         od;
-        pool := Filtered( pool, p -> Length( p ) > 1 );
         if IsEmpty( pool ) then
             return [ kG ];
         fi;
