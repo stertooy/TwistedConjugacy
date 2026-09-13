@@ -100,7 +100,7 @@ This file describes changes in the GAP package TwistedConjugacy.
 
 ### Changed
 - Assertion variable renamed (again) to `TWC.ASSERT`.
-- Update license text to latest version.
+- Update licence text to the latest version.
 - Update installation instructions in manual.
 - More changes to file structure.
 - Small improvements to the documentation of derivations and affine actions.
@@ -200,7 +200,7 @@ This file describes changes in the GAP package TwistedConjugacy.
   `RepresentativesHomomorphismClasses`, which can be applied to finite groups.
   They give output similar to GAP's built-in `AllHomomorphismClasses` function,
   but should be faster for abelian and non-2-generated groups.
-- `CoincidenceGroup` can now take 3 or more endomorphisms as argument.
+- `CoincidenceGroup` can now take 3 or more endomorphisms as arguments.
 - `RepresentativeTwistedConjugation` and `IsTwistedConjugate` can now take
   lists as input, and will try to solve the multiple twisted conjugacy problem.
 
@@ -209,7 +209,7 @@ This file describes changes in the GAP package TwistedConjugacy.
 - Many efficiency improvements, both speed- and memory-related. In particular
   calculating Reidemeister spectra of finite groups should be much faster.
 - `CoincidenceGroup`, `RepresentativeTwistedConjugation` and
-  `IsTwistedConjugate` now work for any pair of endomorphisms between any two
+  `IsTwistedConjugate` now work for any pair of homomorphisms between any two
   polycyclic groups.
 - `FixedPointGroup` now works for any endomorphism of any polycyclic group.
 
@@ -246,7 +246,7 @@ This file describes changes in the GAP package TwistedConjugacy.
   instead of running indefinitely, if the range is nilpotent-by-finite.
 - Reidemeister Zeta functions expanded to pairs of endomorphisms of finite
   groups, instead of a single endomorphism.
-- Changed the output of `ReidemeisterZetaCoefficients` to accommodate for the
+- Changed the output of `ReidemeisterZetaCoefficients` to accommodate the
   above change.
 - `CoincidenceGroup` is much more efficient for homomorphisms between finite
   groups.
