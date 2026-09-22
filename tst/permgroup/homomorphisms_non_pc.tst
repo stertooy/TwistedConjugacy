@@ -85,6 +85,8 @@ gap> Length( RepresentativesHomomorphismClasses( D1, D2 ) );
 86
 gap> Length( RepresentativesHomomorphismClasses( D2, D1 ) );
 1
+gap> Length( RepresentativesHomomorphismClasses( D2, DirectProduct( D1, D2 ) ) );
+25
 
 #
 gap> STOP_TEST( "homomorphisms_non_pc.tst" );
