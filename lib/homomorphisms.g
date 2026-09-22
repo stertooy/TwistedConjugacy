@@ -189,32 +189,63 @@ end;
 
 ###############################################################################
 ##
-## RepsHomClasses2Gen( H, G[, auts] )
+## GoodGenSet( G )
 ##
 ##  INPUT:
-##      H:          2-generated group
-##      G:          group
+##      G:          finite group
+##
+##  OUTPUT:
+##      gens:       generators of H
+##
+##  REMARKS:
+##      Not necessarily minimal, but a good balance between small and minimal
+##      generating sets.
+##
+TWC.GoodGenSet := function( G )
+    local gens, i, pair;
+    if HasMinimalGeneratingSet( G ) then
+        return MinimalGeneratingSet( G );
+    fi;
+    gens := SmallGeneratingSet( G );
+    if Length( gens ) > 2 and not IsPrimePowerInt( Size( G ) ) then
+        if IsSolvableGroup( G ) then
+            return MinimalGeneratingSet( G );
+        fi;
+        for i in [ 1 .. 8 ] do
+            pair := [ Random( G ), Random( G ) ];
+            if Size( SubgroupNC( G, pair ) ) = Size( G ) then
+                SetMinimalGeneratingSet( G, pair );
+                return pair;
+            fi;
+        od;
+    fi;
+    return gens;
+end;
+
+###############################################################################
+##
+## RepsHomClasses2Gen( H, G, auts )
+##
+##  INPUT:
+##      H:          finite 2-generated group
+##      G:          finite group
 ##      auts:       boolean
 ##
 ##  OUTPUT:
-##      L:          list of all group homomorphisms H -> G, up to inner
-##                  automorphisms of G
+##      L:          homomorphisms H -> G
 ##
 TWC.RepsHomClasses2Gen := function( H, G, auts )
     local ccls, bg, bw, bi, gens, a, b, pairs, pair, imgs, params, i, prod,
-          ords, cclOrds, imgsByOrder, free, rels, elms, ordsS;
+          ords, cclOrds, imgsByOrder, free, rels, elms, ordsS, sizesByOrder,
+          sizes, exps;
     ccls := ConjugacyClasses( G );
     cclOrds := List( ccls, c -> Order( Representative( c ) ) );
-    gens := SmallGeneratingSet( H );
+    gens := TWC.GoodGenSet( H );
     a := gens[ 1 ];
     b := gens[ 2 ];
-    elms := [ a, b, a * b, b * a, a * b ^ -1, b * a ^ -1 ];
+    elms := [ a, b, a * b, a * b ^ -1 ];
     ords := List( elms, Order );
-    pairs := [
-        [ 1, 2 ],
-        [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 1, 6 ],
-        [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], [ 2, 6 ]
-    ];
+    pairs := [ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 2, 3 ], [ 2, 4 ] ];
     ordsS := Set( ords );
     imgsByOrder := List(
         ordsS,
@@ -223,10 +254,21 @@ TWC.RepsHomClasses2Gen := function( H, G, auts )
             j -> i mod cclOrds[ j ] = 0
         ) }
     );
+    if IsPcGroup( H ) then
+        sizesByOrder := List( imgsByOrder,
+            classes -> Collected( List( classes, Size ) ) );
+    fi;
     bw := infinity;
     for pair in pairs do
         imgs := List( pair, i -> imgsByOrder[ Position( ordsS, ords[ i ] ) ] );
-        prod := Product( imgs, i -> Sum( i, Size ) );
+        if IsPcGroup( H ) then
+            sizes := List( pair, i ->
+                sizesByOrder[ Position( ordsS, ords[ i ] ) ] );
+            prod := Sum( sizes[ 1 ], c -> Sum( sizes[ 2 ], d ->
+                c[ 2 ] * d[ 2 ] * Minimum( c[ 1 ], d[ 1 ] ) ) );
+        else
+            prod := Product( imgs, i -> Sum( i, Size ) );
+        fi;
         if prod < bw then
             bg := pair;
             bi := imgs;
@@ -236,11 +278,14 @@ TWC.RepsHomClasses2Gen := function( H, G, auts )
     free := GeneratorsOfGroup( FreeGroup( 2 ) );
     bg := List( bg, i -> elms[ i ] );
     rels := [
-        [ free[ 1 ] * free[ 2 ],
-          Order( bg[ 1 ] * bg[ 2 ] ) ],
-        [ Comm( free[ 1 ], free[ 2 ] ),
-          Order( Comm( bg[ 1 ], bg[ 2 ] ) ) ]
+        [ free[ 1 ] * free[ 2 ], Order( bg[ 1 ] * bg[ 2 ] ) ],
+        [ Comm( free[ 1 ], free[ 2 ] ), Order( Comm( bg[ 1 ], bg[ 2 ] ) ) ]
     ];
+    if IsPcGroup( H ) then
+        exps := [ Lcm( cclOrds ), Exponent( DerivedSubgroup( G ) ) ];
+        rels := rels{ Filtered( [ 1, 2 ],
+            i -> rels[ i ][ 2 ] mod exps[ i ] <> 0 ) };
+    fi;
     params := rec( gens := bg, from := H, free := free, rels := rels );
     if not auts then
         params.condition := hom -> not IsBijective( hom );
@@ -250,16 +295,15 @@ end;
 
 ###############################################################################
 ##
-## RepsHomClassesAbelian( H, G[, auts] )
+## RepsHomClassesAbelian( H, G, auts )
 ##
 ##  INPUT:
-##      H:          abelian group
-##      G:          abelian group
+##      H:          finite abelian group
+##      G:          finite abelian group
 ##      auts:       boolean
 ##
 ##  OUTPUT:
-##      L:          list of all group homomorphisms H -> G, up to inner
-##                  automorphisms of G
+##      L:          homomorphisms H -> G
 ##
 TWC.RepsHomClassesAbelian := function( H, G, auts )
     local gensH, gensG, imgs, h, oh, imgsG, g, og, pows, step, homs, elms,
@@ -313,5 +357,195 @@ TWC.RepsHomClassesAbelian := function( H, G, auts )
             Add( homs, GroupHomomorphismByImagesNC( H, G, gensH, imgsG ) );
         od;
     fi;
+    return homs;
+end;
+
+###############################################################################
+##
+## RepsHomClassesAbelianSource( H, G )
+##
+##  INPUT:
+##      H:          nontrivial finite abelian group
+##      G:          finite group
+##
+##  OUTPUT:
+##      homs:       homomorphisms H -> G
+##
+TWC.RepsHomClassesAbelianSource := function( H, G )
+    local gens, ords, imgs, homs, search;
+    gens := IndependentGeneratorsOfAbelianGroup( H );
+    ords := List( gens, Order );
+    imgs := [];
+    homs := [];
+    search := function( C, i )
+        local c, img;
+        for c in ConjugacyClasses( C ) do
+            img := Representative( c );
+            if ords[ i ] mod Order( img ) <> 0 then
+                continue;
+            fi;
+            imgs[ i ] := img;
+            if i = Length( gens ) then
+                Add( homs, GroupHomomorphismByImagesNC(
+                    H, G, gens, ShallowCopy( imgs )
+                ) );
+            elif Size( c ) = 1 then
+                search( C, i + 1 );
+            else
+                search( Centralizer( C, img ), i + 1 );
+            fi;
+        od;
+    end;
+    search( G, 1 );
+    return homs;
+end;
+
+###############################################################################
+##
+## RepsAutClassesQuasisimple( G )
+##
+##  INPUT:
+##      G:          finite quasisimple group
+##
+##  OUTPUT:
+##      L:          automorphisms of G, or fail
+##
+TWC.RepsAutClassesQuasisimple := function( G )
+    local gens, ords, size, ccls, poss, free, params, rels;
+    if Size( G ) > 360 and IsTrivial( Centre( G ) ) then return fail; fi;
+    gens := SmallGeneratingSet( G );
+    ords := List( gens, Order );
+    if Length( gens ) <> 2 then return fail; fi;
+    size := List( gens, g -> IndexNC( G, Centralizer( G, g ) ) );
+    if Minimum( size ) > 2000 then return fail; fi;
+    ccls := ConjugacyClasses( G );
+    poss := List( [ 1, 2 ], i -> Filtered( ccls, c ->
+        Order( Representative( c ) ) = ords[ i ] and
+        Size( c ) = size[ i ] ) );
+    if Product( poss, Length ) * Minimum( size ) > 2000 then
+        return fail;
+    fi;
+    free := GeneratorsOfGroup( FreeGroup( 2 ) );
+    rels := [
+        [ free[ 1 ] * free[ 2 ], Order( gens[ 1 ] * gens[ 2 ] ) ],
+        [ Comm( free[ 1 ], free[ 2 ] ),
+          Order( Comm( gens[ 1 ], gens[ 2 ] ) ) ]
+    ];
+    params := rec( gens := gens, from := G, free := free, rels := rels );
+    return MorClassLoop( G, poss, params, 11 );
+end;
+
+###############################################################################
+##
+## DirectFactorsOrFail( G )
+##
+##  INPUT:
+##      G:          finite group
+##
+##  OUTPUT:
+##      factors:    internal direct factors, or fail
+##
+TWC.DirectFactorsOrFail := function( G )
+    local factors, info, orbits, gens;
+    if HasDirectProductInfo( G ) then
+        info := DirectProductInfo( G ).groups;
+        factors := List( [ 1 .. Length( info ) ], i ->
+            ImagesSource( Embedding( G, i ) ) );
+    elif HasDirectFactorsOfGroup( G ) then
+        factors := DirectFactorsOfGroup( G );
+    elif IsPermGroup( G ) then
+        orbits := OrbitsDomain( G, MovedPoints( G ) );
+        if Length( orbits ) < 2 then return fail; fi;
+        gens := GeneratorsOfGroup( G );
+        factors := List( orbits, orb -> Group( List( gens,
+            g -> RestrictedPermNC( g, orb ) ) ) );
+        if Product( factors, Size ) <> Size( G ) then return fail; fi;
+    else
+        return fail;
+    fi;
+    factors := Filtered( factors, D -> not IsTrivial( D ) );
+    if Length( factors ) < 2 then return fail; fi;
+    SortBy( factors, D -> -Size( D ) );
+    return factors;
+end;
+
+###############################################################################
+##
+## RepsHomClassesSourceFactors( H, G )
+##
+##  INPUT:
+##      H:          finite group
+##      G:          finite group
+##
+##  OUTPUT:
+##      homs:       homomorphisms H -> G, or fail
+##
+TWC.RepsHomClassesSourceFactors := function( H, G )
+    local factors, factorGens, gens, imgs, homs, search;
+
+    if (
+        ( IsPrimePowerInt( Size( H ) ) and IsPrimePowerInt( Size( G ) ) ) or
+        ( Size( H ) > Size( G ) and Length( SmallGeneratingSet( H ) ) = 2 )
+    ) then
+        return fail;
+    fi;
+    factors := TWC.DirectFactorsOrFail( H );
+    if factors = fail then return fail; fi;
+    factorGens := List( factors, SmallGeneratingSet );
+    gens := Concatenation( factorGens );
+    imgs := [];
+    homs := [];
+
+    search := function( C, i )
+        local hom;
+        for hom in RepresentativesHomomorphismClasses( factors[ i ], C ) do
+            imgs[ i ] := List( factorGens[ i ], g ->
+                ImagesRepresentative( hom, g )
+            );
+            if i = Length( factors ) then
+                Add( homs, GroupHomomorphismByImagesNC(
+                    H, G, gens, Concatenation( imgs )
+                ) );
+            elif ForAll( imgs[ i ], IsOne ) or IsAbelian( C ) then
+                search( C, i + 1 );
+            else
+                search( Centralizer( C, ImagesSource( hom ) ), i + 1 );
+            fi;
+        od;
+    end;
+
+    search( G, 1 );
+    return homs;
+end;
+
+###############################################################################
+##
+## RepsHomClassesTargetFactors( H, G, auts )
+##
+##  INPUT:
+##      H:          finite group
+##      G:          finite group
+##      auts:       boolean
+##
+##  OUTPUT:
+##      homs:       homomorphisms H -> G, or fail
+##
+TWC.RepsHomClassesTargetFactors := function( H, G, auts )
+    local factors, gens, vectors, tuple, imgs, homs;
+    factors := TWC.DirectFactorsOrFail( G );
+    if factors = fail then return fail; fi;
+    gens := GeneratorsOfGroup( H );
+    vectors := List( factors, D -> List(
+        RepresentativesHomomorphismClasses( H, D ), hom ->
+            List( gens, g -> ImagesRepresentative( hom, g ) )
+    ) );
+    homs := [];
+    for tuple in IteratorOfCartesianProduct( vectors ) do
+        imgs := List( [ 1 .. Length( gens ) ], i ->
+            Product( tuple, vector -> vector[ i ] ) );
+        if auts or Size( SubgroupNC( G, imgs ) ) < Size( G ) then
+            Add( homs, GroupHomomorphismByImagesNC( H, G, gens, imgs ) );
+        fi;
+    od;
     return homs;
 end;
