@@ -202,22 +202,17 @@ end;
 ##      generating sets.
 ##
 TWC.GoodGenSet := function( G )
-    local gens, i, pair;
+    local gens;
     if HasMinimalGeneratingSet( G ) then
         return MinimalGeneratingSet( G );
     fi;
     gens := SmallGeneratingSet( G );
-    if Length( gens ) > 2 and not IsPrimePowerInt( Size( G ) ) then
-        if IsSolvableGroup( G ) then
-            return MinimalGeneratingSet( G );
-        fi;
-        for i in [ 1 .. 8 ] do
-            pair := [ Random( G ), Random( G ) ];
-            if Size( SubgroupNC( G, pair ) ) = Size( G ) then
-                SetMinimalGeneratingSet( G, pair );
-                return pair;
-            fi;
-        od;
+    if (
+        Length( gens ) > 2 and
+        not IsPrimePowerInt( Size( G ) ) and
+        IsSolvableGroup( G )
+    ) then
+        return MinimalGeneratingSet( G );
     fi;
     return gens;
 end;
@@ -417,19 +412,15 @@ TWC.RepsAutClassesQuasisimple := function( G )
     ords := List( gens, Order );
     if Length( gens ) <> 2 then return fail; fi;
     size := List( gens, g -> IndexNC( G, Centralizer( G, g ) ) );
-    if Minimum( size ) > 2000 then return fail; fi;
     ccls := ConjugacyClasses( G );
     poss := List( [ 1, 2 ], i -> Filtered( ccls, c ->
         Order( Representative( c ) ) = ords[ i ] and
-        Size( c ) = size[ i ] ) );
-    if Product( poss, Length ) * Minimum( size ) > 2000 then
-        return fail;
-    fi;
+        Size( c ) = size[ i ]
+    ) );
     free := GeneratorsOfGroup( FreeGroup( 2 ) );
     rels := [
         [ free[ 1 ] * free[ 2 ], Order( gens[ 1 ] * gens[ 2 ] ) ],
-        [ Comm( free[ 1 ], free[ 2 ] ),
-          Order( Comm( gens[ 1 ], gens[ 2 ] ) ) ]
+        [ Comm( free[ 1 ], free[ 2 ] ), Order( Comm( gens[ 1 ], gens[ 2 ] ) ) ]
     ];
     params := rec( gens := gens, from := G, free := free, rels := rels );
     return MorClassLoop( G, poss, params, 11 );
