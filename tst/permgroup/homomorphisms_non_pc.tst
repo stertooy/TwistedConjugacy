@@ -15,6 +15,16 @@ gap> IsQuasisimpleGroup( L );
 true
 
 #
+gap> Size( RepresentativesEndomorphismClasses( G ) );
+3
+gap> Size( RepresentativesEndomorphismClasses( H ) );
+3
+gap> Size( RepresentativesEndomorphismClasses( K ) );
+3
+gap> Size( RepresentativesEndomorphismClasses( L ) );
+5
+
+#
 gap> Size( RepresentativesAutomorphismClasses( G ) );
 2
 gap> Size( RepresentativesEndomorphismClasses( G ) );
