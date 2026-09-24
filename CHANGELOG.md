@@ -1,5 +1,18 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
+## 3.4.3 (2026-09-25)
+
+- `RepresentativesEndomorphismClasses` now takes an optional boolean argument,
+  which, when set to false, makes the function return only non-bijective
+  endomorphisms.
+
+### Changed
+- Many improvements to `RepresentativesEndomorphismClasses` and
+  `RepresentativesHomomorphismClasses`, especially for (quasi)simple groups and
+  direct products.
+- Improvements to `ReidemeisterNumber` and `ReidemeisterSpectrum`.
+- Janitorial changes.
+
 ## 3.4.2 (2026-09-09)
 
 ### Changed
