@@ -195,7 +195,7 @@ end;
 ##      G:          finite group
 ##
 ##  OUTPUT:
-##      gens:       generators of H
+##      gens:       generators of G
 ##
 ##  REMARKS:
 ##      Not necessarily minimal, but a good balance between small and minimal
@@ -230,7 +230,7 @@ end;
 ##      L:          homomorphisms H -> G
 ##
 TWC.RepsHomClasses2Gen := function( H, G, auts )
-    local ccls, bg, bw, bi, gens, a, b, pairs, pair, imgs, params, i, prod,
+    local ccls, bg, bw, bi, gens, a, b, pairs, pair, imgs, params, prod,
           ords, cclOrds, imgsByOrder, free, rels, elms, ordsS, sizesByOrder,
           sizes, exps;
     ccls := ConjugacyClasses( G );
@@ -308,7 +308,7 @@ end;
 ##
 TWC.RepsHomClassesAbelian := function( H, G, auts )
     local gensH, gensG, imgs, h, oh, imgsG, g, og, pows, step, homs, elms,
-          coords, pdivs, pos, mat, imgPos, inds, i, primeTest;
+          coords, pdivs, pos, mat, imgPos, inds, primeTest;
     gensH := IndependentGeneratorsOfAbelianGroup( H );
     gensG := IndependentGeneratorsOfAbelianGroup( G );
     imgs := [];
@@ -394,7 +394,7 @@ TWC.RepsHomClassesAbelianSource := function( H, G )
             elif Size( c ) = 1 then
                 srch( C, i + 1 );
             else
-                srch( Centralizer( C, img ), i + 1 );
+                srch( Centraliser( C, img ), i + 1 );
             fi;
         od;
     end;
@@ -414,7 +414,7 @@ end;
 ##
 TWC.RepsAutClassesQuasisimple := function( G )
     local gens, ords, size, ccls, poss, free, params, rels;
-    if Size( G ) > 360 and IsTrivial( Centre( G ) ) then return fail; fi;
+    if Size( G ) > 360 then return fail; fi;
     gens := TWC.GoodGenSet( G );
     if Length( gens ) <> 2 then return fail; fi;
     ords := List( gens, Order );
@@ -536,19 +536,27 @@ TWC.RepsHomClassesTargetFactors := function( H, G, auts )
     vecs := List( facs, D -> List(
         RepresentativesHomomorphismClasses( H, D ),
         function( hom )
-            local pair;
+            local pair, imgs;
             pair := MappingGeneratorsImages( hom );
-            if pair[ 1 ] = gens then return pair[ 2 ]; fi;
-            return List( gens, g -> ImagesRepresentative( hom, g ) );
+            if pair[ 1 ] = gens then
+                imgs := pair[ 2 ];
+            else
+                imgs := List( gens, g -> ImagesRepresentative( hom, g ) );
+            fi;
+            return rec( imgs := imgs, okay := auts or IsSurjective( hom ) );
         end
     ) );
     homs := [];
     for tupl in IteratorOfCartesianProduct( vecs ) do
         imgs := List(
             [ 1 .. Length( gens ) ],
-            i -> Product( tupl, vector -> vector[ i ] )
+            i -> Product( tupl, vector -> vector.imgs[ i ] )
         );
-        if auts or Size( SubgroupNC( G, imgs ) ) < Size( G ) then
+        if (
+            auts or
+            ForAny( tupl, vector -> not vector.okay ) or
+            Size( SubgroupNC( G, imgs ) ) < Size( G )
+        ) then
             Add( homs, GroupHomomorphismByImagesNC( H, G, gens, imgs ) );
         fi;
     od;
