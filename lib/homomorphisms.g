@@ -483,7 +483,7 @@ end;
 ##      homs:       homomorphisms H -> G, or fail
 ##
 TWC.RepsHomClassesSourceFactors := function( H, G )
-    local facs, facGens, gens, imgs, homs, srch;
+    local facs, gens, imgs, homs, srch;
     if (
         ( IsPrimePowerInt( Size( H ) ) and IsPrimePowerInt( Size( G ) ) ) or
         ( Size( H ) > Size( G ) and Length( SmallGeneratingSet( H ) ) = 2 )
@@ -492,25 +492,23 @@ TWC.RepsHomClassesSourceFactors := function( H, G )
     fi;
     facs := TWC.DirectFactorsOrFail( H );
     if facs = fail then return fail; fi;
-    facGens := List( facs, TWC.GoodGenSet );
-    gens := Concatenation( facGens );
+    gens := [];
     imgs := [];
     homs := [];
     srch := function( C, i )
-        local hom;
+        local hom, pair;
         for hom in RepresentativesHomomorphismClasses( facs[ i ], C ) do
-            imgs[ i ] := List(
-                facGens[ i ],
-                g -> ImagesRepresentative( hom, g )
-            );
+            pair := MappingGeneratorsImages( hom );
+            gens[ i ] := pair[ 1 ];
+            imgs[ i ] := pair[ 2 ];
             if i = Length( facs ) then
                 Add( homs, GroupHomomorphismByImagesNC(
-                    H, G, gens, Concatenation( imgs )
+                    H, G, Concatenation( gens ), Concatenation( imgs )
                 ) );
             elif ForAll( imgs[ i ], IsOne ) or IsAbelian( C ) then
                 srch( C, i + 1 );
             else
-                srch( Centralizer( C, ImagesSource( hom ) ), i + 1 );
+                srch( Centraliser( C, ImagesSource( hom ) ), i + 1 );
             fi;
         od;
     end;
@@ -537,7 +535,12 @@ TWC.RepsHomClassesTargetFactors := function( H, G, auts )
     gens := GeneratorsOfGroup( H );
     vecs := List( facs, D -> List(
         RepresentativesHomomorphismClasses( H, D ),
-        hom -> List( gens, g -> ImagesRepresentative( hom, g ) )
+        function( hom )
+            local pair;
+            pair := MappingGeneratorsImages( hom );
+            if pair[ 1 ] = gens then return pair[ 2 ]; fi;
+            return List( gens, g -> ImagesRepresentative( hom, g ) );
+        end
     ) );
     homs := [];
     for tupl in IteratorOfCartesianProduct( vecs ) do
