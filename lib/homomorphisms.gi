@@ -206,6 +206,14 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesHomomorphismClassesOp,
+    "for abelian source and non-abelian range",
+    [ IsGroup and IsFinite and IsAbelian, IsGroup and IsFinite ],
+    SUM_FLAGS + 1,
+    { H, G } -> TWC.RepsHomClassesAbelianSource( H, G )
+);
+
+InstallMethod(
+    RepresentativesHomomorphismClassesOp,
     "for non-abelian simple source",
     [ IsGroup and IsFinite and IsNonabelianSimpleGroup, IsGroup and IsFinite ],
     function( H, G )
@@ -238,11 +246,37 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesHomomorphismClassesOp,
+    "for a range with direct factors",
+    [ IsGroup and IsFinite, IsGroup and IsFinite ],
+    SUM_FLAGS,
+    function( H, G )
+        local homs;
+        homs := TWC.RepsHomClassesTargetFactors( H, G, true );
+        if homs = fail then TryNextMethod(); fi;
+        return homs;
+    end
+);
+
+InstallMethod(
+    RepresentativesHomomorphismClassesOp,
+    "for a source with direct factors",
+    [ IsGroup and IsFinite, IsGroup and IsFinite ],
+    2,
+    function( H, G )
+        local homs;
+        homs := TWC.RepsHomClassesSourceFactors( H, G );
+        if homs = fail then TryNextMethod(); fi;
+        return homs;
+    end
+);
+
+InstallMethod(
+    RepresentativesHomomorphismClassesOp,
     "for 2-generated source",
     [ IsGroup and IsFinite, IsGroup and IsFinite ],
     1,
     function( H, G )
-        if Size( SmallGeneratingSet( H ) ) <> 2 then TryNextMethod(); fi;
+        if Length( TWC.GoodGenSet( H ) ) <> 2 then TryNextMethod(); fi;
         return TWC.RepsHomClasses2Gen( H, G, true );
     end
 );
@@ -335,15 +369,19 @@ InstallMethod(
     [ IsGroup and IsFinite and IsQuasisimpleGroup, IsBool ],
     SUM_FLAGS + 2,
     function( G, auts )
-        local gens, imgs, ends;
+        local gens, imgs, ends, autCls;
         gens := GeneratorsOfGroup( G );
         imgs := ListWithIdenticalEntries( Length( gens ), One( G ) );
         ends := [ GroupHomomorphismByImagesNC( G, G, gens, imgs ) ];
         if auts then
-            ends := Concatenation(
-                RepresentativesAutomorphismClasses( G ),
-                ends
-            );
+            autCls := fail;
+            if not HasAutomorphismGroup( G ) then
+                autCls := TWC.RepsAutClassesQuasisimple( G );
+            fi;
+            if autCls = fail then
+                autCls := RepresentativesAutomorphismClasses( G );
+            fi;
+            ends := Concatenation( autCls, ends );
         fi;
         return ends;
     end
@@ -359,11 +397,24 @@ InstallMethod(
 
 InstallMethod(
     RepresentativesEndomorphismClassesOp,
+    "for finite groups with direct factors",
+    [ IsGroup and IsFinite, IsBool ],
+    2,
+    function( G, auts )
+        local ends;
+        ends := TWC.RepsHomClassesTargetFactors( G, G, auts );
+        if ends = fail then TryNextMethod(); fi;
+        return ends;
+    end
+);
+
+InstallMethod(
+    RepresentativesEndomorphismClassesOp,
     "for finite 2-generated groups",
     [ IsGroup and IsFinite, IsBool ],
     1,
     function( G, auts )
-        if Size( SmallGeneratingSet( G ) ) <> 2 then TryNextMethod(); fi;
+        if Length( TWC.GoodGenSet( G ) ) <> 2 then TryNextMethod(); fi;
         return TWC.RepsHomClasses2Gen( G, G, auts );
     end
 );
