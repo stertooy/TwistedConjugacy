@@ -230,4 +230,16 @@ gap> TotalReidemeisterSpectrum( G7 ) = DivisorsInt( 18014398509481984 );
 true
 
 #
+gap> G8 := Group( [ (2,5,12,13,6)(4,9,10,11,19)(8,16,20,17,18)(15,22,23,24,25),
+> (1,2,4,8,15)(3,6,10,17,22)(5,11,20,25,21)(7,13,19,16,23)(9,18,24,14,12) ] );;
+gap> ExtendedReidemeisterSpectrum( G8 );
+[ 1, 5, 9, 29 ]
+gap> P := DirectProduct( D8, C3 );;
+gap> ExtendedReidemeisterSpectrum( P );
+[ 1, 2, 3, 5, 6, 9, 15 ]
+gap> G9 := Group( [ (1,2), (2,3), (3,4) ] );;
+gap> ExtendedReidemeisterSpectrum( G9 );
+[ 1, 2, 3, 5 ]
+
+#
 gap> STOP_TEST( "spectra.tst" );

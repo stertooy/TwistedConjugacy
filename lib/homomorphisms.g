@@ -219,20 +219,18 @@ end;
 
 ###############################################################################
 ##
-## RepsHomClasses2Gen( H, G, auts )
+## HomClasses2GenData( H, G )
 ##
 ##  INPUT:
 ##      H:          finite 2-generated group
 ##      G:          finite group
-##      auts:       boolean
 ##
 ##  OUTPUT:
-##      L:          homomorphisms H -> G
+##      data:       record
 ##
-TWC.RepsHomClasses2Gen := function( H, G, auts )
-    local ccls, bg, bw, bi, gens, a, b, pairs, pair, imgs, params, prod,
-          ords, cclOrds, imgsByOrder, free, rels, elms, ordsS, sizesByOrder,
-          sizes, exps;
+TWC.HomClasses2GenData := function( H, G )
+    local ccls, bg, bw, bi, gens, a, b, pairs, pair, imgs, prod, ords,
+          cclOrds, imgsByOrder, elms, ordsS, sizesByOrder, sizes;
     ccls := ConjugacyClasses( G );
     cclOrds := List( ccls, c -> Order( Representative( c ) ) );
     gens := TWC.GoodGenSet( H );
@@ -274,14 +272,42 @@ TWC.RepsHomClasses2Gen := function( H, G, auts )
             bw := prod;
         fi;
     od;
+    return rec(
+        gens := List( bg, i -> elms[ i ] ),
+        imgs := bi,
+        ords := cclOrds,
+        weight := bw
+    );
+end;
+
+###############################################################################
+##
+## RepsHomClasses2Gen( H, G, auts, data )
+##
+##  INPUT:
+##      H:          finite 2-generated group
+##      G:          finite group
+##      auts:       boolean
+##      data:       record
+##
+##  OUTPUT:
+##      L:          homomorphisms H -> G
+##
+TWC.RepsHomClasses2Gen := function( H, G, auts, arg... )
+    local data, free, bg, rels, exps, params;
+    if IsEmpty( arg ) then
+        data := TWC.HomClasses2GenData( H, G );
+    else
+        data := arg[ 1 ];
+    fi;
     free := GeneratorsOfGroup( FreeGroup( 2 ) );
-    bg := List( bg, i -> elms[ i ] );
+    bg := data.gens;
     rels := [
         [ free[ 1 ] * free[ 2 ], Order( bg[ 1 ] * bg[ 2 ] ) ],
         [ Comm( free[ 1 ], free[ 2 ] ), Order( Comm( bg[ 1 ], bg[ 2 ] ) ) ]
     ];
     if IsPcGroup( H ) then
-        exps := [ Lcm( cclOrds ), Exponent( DerivedSubgroup( G ) ) ];
+        exps := [ Lcm( data.ords ), Exponent( DerivedSubgroup( G ) ) ];
         rels := rels{ Filtered(
             [ 1, 2 ],
             i -> rels[ i ][ 2 ] mod exps[ i ] <> 0
@@ -291,7 +317,7 @@ TWC.RepsHomClasses2Gen := function( H, G, auts )
     if not auts then
         params.condition := hom -> not IsBijective( hom );
     fi;
-    return MorClassLoop( G, bi, params, 9 );
+    return MorClassLoop( G, data.imgs, params, 9 );
 end;
 
 ###############################################################################
