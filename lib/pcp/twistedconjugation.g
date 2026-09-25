@@ -165,11 +165,10 @@ TWC.RepTwistConjToIdByCentre := function( G, H, hom1, hom2, g, N )
     c := tc( g, h1 );
     Coin := CoincidenceGroup2( hom1p, hom2p );
     d := TWC.DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
-    if not c in ImagesSource( d ) then
+    h2 := PreImagesRepresentative( d, c );
+    if h2 = fail then
         return fail;
     fi;
-    # TODO: Replace by PreImagesRepresentative eventually
-    h2 := PreImagesRepresentativeNC( d, c );
     return h1 * h2;
 end;
 

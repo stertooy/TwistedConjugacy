@@ -327,16 +327,12 @@ InstallMethod(
 ##  OUTPUT:
 ##      h:          preimage of g under derv
 ##
-if not IsIdenticalObj(
-    PreImagesRepresentativeNC, PreImagesRepresentative
-) then
-    InstallMethod(
-        PreImagesRepresentativeNC,
-        "for group derivations",
-        [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
-        { derv, g } -> TWC.DervPreImgRepInvNC( derv, g ) ^ -1
-    );
-fi;
+InstallMethod(
+    PreImagesRepresentativeNC,
+    "for group derivations",
+    [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
+    { derv, g } -> TWC.DervPreImgRepInvNC( derv, g ) ^ -1
+);
 
 ###############################################################################
 ##
@@ -377,17 +373,15 @@ InstallMethod(
 ##  OUTPUT:
 ##      S:          set of preimages of g under derv
 ##
-if not IsIdenticalObj( PreImagesElmNC, PreImagesElm ) then
-    InstallMethod(
-        PreImagesElmNC,
-        "for group derivations",
-        [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
-        { derv, g } -> RightCoset(
-            KernelOfGroupDerivation( derv ),
-            PreImagesRepresentativeNC( derv, g )
-        )
-    );
-fi;
+InstallMethod(
+    PreImagesElmNC,
+    "for group derivations",
+    [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
+    { derv, g } -> RightCoset(
+        KernelOfGroupDerivation( derv ),
+        PreImagesRepresentativeNC( derv, g )
+    )
+);
 
 ###############################################################################
 ##
