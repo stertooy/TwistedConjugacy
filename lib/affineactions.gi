@@ -7,7 +7,7 @@
 ##      derv:       group derivation H -> G
 ##
 ##  OUTPUT:
-##      act:        affine action of H on G
+##      act:        affine action of K on G
 ##
 InstallGlobalFunction(
     AffineActionByGroupDerivation,
@@ -159,11 +159,11 @@ InstallGlobalFunction(
 
 ###############################################################################
 ##
-## \in( orb, g )
+## \in( g, orb )
 ##
 ##  INPUT:
-##      orb:        orbit of an affine action
 ##      g:          element of G
+##      orb:        orbit of an affine action
 ##
 ##  OUTPUT:
 ##      bool:       true if g lies in orb, otherwise false

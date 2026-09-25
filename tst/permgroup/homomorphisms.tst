@@ -5,6 +5,9 @@ gap> filt := IsPermGroup;;
 gap> G := Group( [ (1,4,2)(3,7,5)(6,9,8)(11,16)(12,15)(13,14), (1,6,3)(2,8,5)(4,9,7)(10,11,12,13,14,15,16) ] );;
 gap> T := TrivialGroup( filt );;
 gap> C := CyclicGroup( filt, 2 );;
+gap> D := DihedralGroup( filt, 8 );;
+gap> P := DirectProduct( C, C );;
+gap> Q := DirectProduct( C, D );;
 
 #
 gap> AutsG := RepresentativesAutomorphismClasses( G );;
@@ -13,18 +16,29 @@ gap> Size( AutsG );
 gap> HomsG := RepresentativesEndomorphismClasses( G );;
 gap> Size( HomsG );
 405
+gap> Size( RepresentativesHomomorphismClasses( G, G ) );
+405
+gap> NonbijectiveG := RepresentativesEndomorphismClasses( G, false );;
+gap> Size( NonbijectiveG );
+261
+gap> ForAll( NonbijectiveG, hom -> not IsBijective( hom ) );
+true
 gap> AutsT := RepresentativesAutomorphismClasses( T );;
 gap> Size( AutsT );
 1
 gap> HomsT := RepresentativesEndomorphismClasses( T );;
 gap> Size( HomsT );
 1
+gap> RepresentativesEndomorphismClasses( T, false );
+[  ]
 gap> AutsC := RepresentativesAutomorphismClasses( C );;
 gap> Size( AutsC );
 1
 gap> HomsC := RepresentativesEndomorphismClasses( C );;
 gap> Size( HomsC );
 2
+gap> Size( RepresentativesEndomorphismClasses( C, false ) );
+1
 
 #
 gap> HomsGT := RepresentativesHomomorphismClasses( G, T );;
@@ -37,9 +51,18 @@ gap> Size( HomsTG );
 1
 gap> IsTrivial( ImagesSource( HomsTG[ 1 ] ) );
 true
-gap> H := DihedralGroup( filt, 8 );;
-gap> Size( RepresentativesHomomorphismClasses( H, C ) );
+gap> Size( RepresentativesHomomorphismClasses( D, C ) );
 4
+
+#
+gap> Length( RepresentativesHomomorphismClasses( P, Q ) );
+64
+gap> Length( RepresentativesHomomorphismClasses( D, P ) );
+16
+gap> Length( RepresentativesHomomorphismClasses( Q, D ) );
+68
+gap> Length( RepresentativesHomomorphismClasses( P, D ) );
+16
 
 #
 gap> STOP_TEST( "homomorphisms.tst" );

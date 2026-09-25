@@ -177,8 +177,6 @@ InstallMethod(
     "for group derivations by a function",
     [ IsGroupDerivationByFunctionRep ],
     function( derv )
-        local fun;
-        fun := derv!.fun;
         Print( "Group derivation via ", ViewString( derv!.fun ) );
     end
 );

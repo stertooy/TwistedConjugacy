@@ -11,17 +11,18 @@ DeclareOperation(
 
 #! @ChapterInfo homomorphisms, homreps
 #! @Returns a list of the endomorphisms of <A>G</A> up to composition with
-#! inner automorphisms.
+#! inner automorphisms. If <A>auts</A> is set to <K>false</K>, it only returns
+#! non-bijective endomorphisms.
 #! @Description
 #! This does the same as calling
-#! <C>AllHomomorphismClasses(<A>G</A>,<A>G</A>)</C>, but should be faster for
-#! abelian and non-2-generated groups.
-#! @Arguments G
+#! <C>AllHomomorphismClasses(<A>G</A>,<A>G</A>)</C>, using specialised methods
+#! depending on the properties of <A>G</A>.
+#! @Arguments G[, auts]
 DeclareGlobalFunction( "RepresentativesEndomorphismClasses" );
 
 DeclareOperation(
     "RepresentativesEndomorphismClassesOp",
-    [ IsGroup ]
+    [ IsGroup, IsBool ]
 );
 
 #! @ChapterInfo homomorphisms, homreps
@@ -29,8 +30,8 @@ DeclareOperation(
 #! composition with inner automorphisms of <A>G</A>.
 #! @Description
 #! Similar to the previous function, this function does the same as calling
-#! <C>AllHomomorphismClasses(<A>H</A>,<A>G</A>)</C>, but should be faster for
-#! abelian and non-2-generated groups.
+#! <C>AllHomomorphismClasses(<A>H</A>,<A>G</A>)</C>, using specialised methods
+#! depending on the properties of <A>H</A> and <A>G</A>.
 #! @Arguments H, G
 DeclareGlobalFunction( "RepresentativesHomomorphismClasses" );
 
