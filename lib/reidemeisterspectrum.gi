@@ -266,7 +266,7 @@ InstallMethod(
     "for finite soluble groups",
     [ IsGroup and IsFinite and IsSolubleGroup ],
     function( G )
-        local gens, data, Spec, ends, Aut, norms, orbs, orb, N, comps;
+        local gens, data, Spec, Aut, norms, orbs, orb, N, comps;
         gens := TWC.GoodGenSet( G );
         data := fail;
         if Length( gens ) <= 2 then
