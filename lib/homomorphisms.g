@@ -282,24 +282,19 @@ end;
 
 ###############################################################################
 ##
-## RepsHomClasses2Gen( H, G, auts, data )
+## RepsHomClasses2Gen( H, G, auts )
 ##
 ##  INPUT:
 ##      H:          finite 2-generated group
 ##      G:          finite group
 ##      auts:       boolean
-##      data:       record
 ##
 ##  OUTPUT:
 ##      L:          homomorphisms H -> G
 ##
-TWC.RepsHomClasses2Gen := function( H, G, auts, arg... )
+TWC.RepsHomClasses2Gen := function( H, G, auts )
     local data, free, bg, rels, exps, params;
-    if IsEmpty( arg ) then
-        data := TWC.HomClasses2GenData( H, G );
-    else
-        data := arg[ 1 ];
-    fi;
+    data := TWC.HomClasses2GenData( H, G );
     free := GeneratorsOfGroup( FreeGroup( 2 ) );
     bg := data.gens;
     rels := [
