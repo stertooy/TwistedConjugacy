@@ -7,6 +7,7 @@ This file describes changes in the GAP package TwistedConjugacy.
   endomorphisms.
 
 ### Changed
+- Now requires GAP version >= 4.15.
 - Many improvements to `RepresentativesEndomorphismClasses` and
   `RepresentativesHomomorphismClasses`, especially for (quasi)simple groups and
   direct products.
