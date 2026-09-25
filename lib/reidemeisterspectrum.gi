@@ -263,11 +263,19 @@ InstallMethod(
 
 InstallMethod(
     ExtendedReidemeisterSpectrumOp,
-    "for non-2-generated finite soluble groups",
+    "for finite soluble groups",
     [ IsGroup and IsFinite and IsSolubleGroup ],
     function( G )
-        local Spec, Aut, norms, orbs, orb, N, comps;
-        if Length( SmallGeneratingSet( G ) ) <= 2 then TryNextMethod(); fi;
+        local gens, data, Spec, Aut, norms, orbs, orb, N, comps;
+        gens := TWC.GoodGenSet( G );
+        data := fail;
+        if Length( gens ) <= 2 then
+            if Length( gens ) <> 2 or not IsPcGroup( G ) then
+                TryNextMethod();
+            fi;
+            data := TWC.HomClasses2GenData( G, G );
+        fi;
+        if data <> fail and data.weight < 500 then TryNextMethod(); fi;
         Spec := ShallowCopy( ReidemeisterSpectrumOp( G ) );
         AddSet( Spec, 1 );
         Aut := AutomorphismGroup( G );

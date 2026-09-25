@@ -7,10 +7,12 @@ This file describes changes in the GAP package TwistedConjugacy.
   endomorphisms.
 
 ### Changed
+- Now requires GAP version >= 4.15.
 - Many improvements to `RepresentativesEndomorphismClasses` and
   `RepresentativesHomomorphismClasses`, especially for (quasi)simple groups and
   direct products.
-- Improvements to `ReidemeisterNumber` and `ReidemeisterSpectrum`.
+- Improvements to `ReidemeisterNumber`, `ReidemeisterSpectrum` and
+  `ExtendedReidemeisterSpectrum`.
 - Janitorial changes.
 
 ## 3.4.2 (2026-09-09)

@@ -230,4 +230,15 @@ gap> TotalReidemeisterSpectrum( G7 ) = DivisorsInt( 18014398509481984 );
 true
 
 #
+gap> G8 := PcGroupCode( 36, 125 );;
+gap> ExtendedReidemeisterSpectrum( G8 );
+[ 1, 5, 9, 29 ]
+gap> P := DirectProduct( D8, C3 );;
+gap> ExtendedReidemeisterSpectrum( P );
+[ 1, 2, 3, 5, 6, 9, 15 ]
+gap> G9 := PcGroupCode( 5790338948, 24 );;
+gap> ExtendedReidemeisterSpectrum( G9 );
+[ 1, 2, 3, 5 ]
+
+#
 gap> STOP_TEST( "spectra.tst" );
