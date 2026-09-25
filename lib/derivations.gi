@@ -266,7 +266,7 @@ InstallMethod(
         emb := Embedding( info!.sdp, 2 );
         img := ImagesRepresentative( info!.lhs, h ) ^ -1 *
             ImagesRepresentative( info!.rhs, h );
-        return PreImagesRepresentative( emb, img );
+        return PreImagesRepresentativeNC( emb, img );
     end
 );
 
@@ -290,7 +290,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## PreImagesRepresentative( derv, g )
+## PreImagesRepresentativeNC( derv, g )
 ##
 ##  INPUT:
 ##      derv:       group derivation H -> G
@@ -300,7 +300,7 @@ InstallMethod(
 ##      h:          preimage of g under derv, or fail if no preimage exists
 ##
 InstallMethod(
-    PreImagesRepresentative,
+    PreImagesRepresentativeNC,
     "for group derivations",
     [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
     function( derv, g )

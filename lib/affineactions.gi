@@ -79,7 +79,7 @@ InstallGlobalFunction(
         if IsBool( R ) then
             return fail;
         fi;
-        reps := List( R, s -> PreImagesRepresentative( emb, s ) );
+        reps := List( R, s -> PreImagesRepresentativeNC( emb, s ) );
         return List( reps, g -> OrbitAffineAction( K, g, derv ) );
     end
 );
