@@ -128,10 +128,17 @@ DeclareGlobalName( "Image" );
 #! @GroupTitle PreImagesRepresentative
 #! @Returns a preimage of the element <A>elm</A> under the group derivation
 #! <A>der</A>, or <K>fail</K> if no preimage exists.
+#! @Description
+#! The <C>NC</C> version assumes that <A>elm</A> belongs to the image of
+#! <A>der</A>.
 #! @Label of an element under a group derivation
 #! @ItemType Oper
 #! @Arguments der, elm
 DeclareGlobalName( "PreImagesRepresentative" );
+#! @Label of an element under a group derivation
+#! @ItemType Oper
+#! @Arguments der, elm
+DeclareGlobalName( "PreImagesRepresentativeNC" );
 #! @EndGroup
 
 #! @BeginGroup
