@@ -87,7 +87,7 @@ end;
 ##                  exists
 ##
 TWC.DervPreImgRepInvNC := function( derv, g )
-    local info, S, embG, s, tcr;
+    local info, S, embG, s;
     info := GroupDerivationInfo( derv );
     S := info!.sdp;
     embG := Embedding( S, 2 );
