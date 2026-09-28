@@ -304,7 +304,7 @@ InstallMethod(
     "for group derivations",
     [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
     function( derv, g )
-        local info, S, embG, s, tcr;
+        local tcr;
         if not g in Range( derv ) then
             Error( "<elm> is not in the range of derivation <der>" );
         fi;
