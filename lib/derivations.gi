@@ -306,7 +306,7 @@ InstallMethod(
     function( derv, g )
         local info, S, embG, s, tcr;
         if not g in Range( derv ) then
-            Error( "<elm> is not in the range of derivation <derv>" );
+            Error( "<elm> is not in the range of derivation <der>" );
         fi;
         tcr := TWC.DervPreImgRepInvNC( derv, g );
         if tcr = fail then
@@ -352,7 +352,7 @@ InstallMethod(
     function( derv, g )
         local prei;
         if not g in Range( derv ) then
-            Error( "<elm> is not in the range of derivation <derv>" );
+            Error( "<elm> is not in the range of derivation <der>" );
         fi;
         prei := PreImagesRepresentative( derv, g );
         if prei = fail then
