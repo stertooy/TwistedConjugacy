@@ -73,3 +73,24 @@ TWC.CreateGroupDerivationInfo := function( derv, check )
     fi;
     return rec( lhs := embH, rhs := rhs, sdp := S );
 end;
+
+###############################################################################
+##
+## DervPreImgRepInvNC( derv, check )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##      g:          element of G
+##
+##  OUTPUT:
+##      h:          inverse of preimage of g under derv, or fail if no preimage
+##                  exists
+##
+TWC.DervPreImgRepInvNC := function( derv, g )
+    local info, S, embG, s, tcr;
+    info := GroupDerivationInfo( derv );
+    S := info!.sdp;
+    embG := Embedding( S, 2 );
+    s := ImagesRepresentative( embG, g );
+    return RepresentativeTwistedConjugation( info!.lhs, info!.rhs, s );
+end;
