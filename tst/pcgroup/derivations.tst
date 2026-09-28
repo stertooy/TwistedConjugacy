@@ -33,7 +33,7 @@ gap> g = ImagesRepresentative( derv, x );
 true
 gap> PreImagesRepresentative( derv, h );
 Error, <elm> is not in the range of derivation <der>
-gap> PreImagesElm( derv, g ) = RightCoset( K, x );
+gap> PreImagesElmNC( derv, g ) = RightCoset( K, x );
 true
 gap> PreImagesElm( derv, h );
 Error, <elm> is not in the range of derivation <der>
