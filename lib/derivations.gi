@@ -351,12 +351,36 @@ InstallMethod(
     [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
     function( derv, g )
         local prei;
+        if not g in Range( derv ) then
+            Error( "NAUGHTY!" );
+        fi;
         prei := PreImagesRepresentative( derv, g );
         if prei = fail then
             return [];
         fi;
         return RightCoset( KernelOfGroupDerivation( derv ), prei );
     end
+);
+
+###############################################################################
+##
+## PreImagesElmNC( derv, g )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##      g:          element of G
+##
+##  OUTPUT:
+##      S:          set of preimages of g under derv
+##
+InstallMethod(
+    PreImagesElmNC,
+    "for group derivations",
+    [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
+    { derv, g } -> RightCoset(
+        KernelOfGroupDerivation( derv ),
+        PreImagesRepresentativeNC( derv, g )
+    )
 );
 
 ###############################################################################
