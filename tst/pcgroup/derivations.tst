@@ -35,6 +35,8 @@ gap> PreImagesRepresentative( derv, h );
 Error, <elm> is not in the range of derivation <der>
 gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
+gap> PreImagesElm( derv, h );
+Error, <elm> is not in the range of derivation <der>
 gap> imgH := ImagesSource( derv );
 Group derivation image in Group( [ f1, f2, f3, f4, f5 ] )
 gap> Print( imgH );
@@ -131,6 +133,8 @@ gap> PreImagesRepresentative( derv, G.1 );
 fail
 gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
+gap> PreImagesElm( derv, G.1 );
+[]
 gap> imgH := ImagesSource( derv );
 Group derivation image in Group( [ f1, f2, f3, f4, f5 ] )
 gap> Print( imgH );
