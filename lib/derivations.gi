@@ -290,7 +290,7 @@ InstallMethod(
 
 ###############################################################################
 ##
-## PreImagesRepresentativeNC( derv, g )
+## PreImagesRepresentative( derv, g )
 ##
 ##  INPUT:
 ##      derv:       group derivation H -> G
@@ -300,21 +300,38 @@ InstallMethod(
 ##      h:          preimage of g under derv, or fail if no preimage exists
 ##
 InstallMethod(
-    PreImagesRepresentativeNC,
+    PreImagesRepresentative,
     "for group derivations",
     [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
     function( derv, g )
         local info, S, embG, s, tcr;
-        info := GroupDerivationInfo( derv );
-        S := info!.sdp;
-        embG := Embedding( S, 2 );
-        s := ImagesRepresentative( embG, g );
-        tcr := RepresentativeTwistedConjugation( info!.lhs, info!.rhs, s );
+        if not g in Range( derv ) then
+            Error( "NAUGHTY!" );
+        fi;
+        tcr := TWC.DervPreImgRepInvNC( derv, g );
         if tcr = fail then
             return fail;
         fi;
         return tcr ^ -1;
     end
+);
+
+###############################################################################
+##
+## PreImagesRepresentativeNC( derv, g )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##      g:          element of G
+##
+##  OUTPUT:
+##      h:          preimage of g under derv
+##
+InstallMethod(
+    PreImagesRepresentativeNC,
+    "for group derivations",
+    [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
+    { derv, g } -> TWC.DervPreImgRepInvNC( derv, g ) ^ -1
 );
 
 ###############################################################################
