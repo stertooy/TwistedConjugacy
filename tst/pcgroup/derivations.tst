@@ -28,9 +28,11 @@ gap> g := ImagesRepresentative( derv, h );
 f1*f2*f3^2*f4*f5
 gap> ImagesElm( derv, h );
 [ f1*f2*f3^2*f4*f5 ]
-gap> x := PreImagesRepresentative( derv, g );;
+gap> x := PreImagesRepresentativeNC( derv, g );;
 gap> g = ImagesRepresentative( derv, x );
 true
+gap> PreImagesRepresentative( derv, h );
+Error SOMETHING SOMETHING
 gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
 gap> imgH := ImagesSource( derv );
@@ -125,6 +127,8 @@ gap> ImagesElm( derv, h );
 gap> x := PreImagesRepresentative( derv, g );;
 gap> g = ImagesRepresentative( derv, x );
 true
+gap> PreImagesRepresentative( derv, G.1 );
+fail
 gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
 gap> imgH := ImagesSource( derv );
