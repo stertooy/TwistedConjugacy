@@ -29,9 +29,9 @@ HxK = HzK;
 #! false
 DoubleCosets( G, H, K );
 #! [ DoubleCoset(<group of size infinity with 2 generators>,<object>,
-#!               <group of size infinity with 2 generators>),
+#!               <group with 2 generators>),
 #!   DoubleCoset(<group of size infinity with 2 generators>,<object>,
-#!               <group of size infinity with 2 generators>) ]
+#!               <group with 2 generators>) ]
 DoubleCosetIndex( G, H, K );
 #! 2
 #! @EndExample
