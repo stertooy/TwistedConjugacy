@@ -138,9 +138,7 @@ TWC.CoincidenceGroupStep5 := function( G, H, hom1, hom2 )
         fi;
         C := Centraliser( C, ai[ i ] );
     od;
-    # TODO: Replace this by PreImagesSet once NormalIntersection is fixed.
-    C := TWC.NormalIntersectionPcp( C, ImagesSource( hom2 ) );
-    return PreImagesSetNC( hom2, C );
+    return PreImagesSet( hom2, C );
 end;
 
 ###############################################################################
