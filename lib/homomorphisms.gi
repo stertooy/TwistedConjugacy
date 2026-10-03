@@ -217,7 +217,7 @@ InstallMethod(
     "for non-abelian simple source",
     [ IsGroup and IsFinite and IsNonabelianSimpleGroup, IsGroup and IsFinite ],
     function( H, G )
-        local ccls, ords, gens, poss, cents, free, rels, imgs, triv, params;
+        local ccls, ords, gens, poss, cents, imgs, triv, params;
         ccls := ConjugacyClasses( G );
         ords := List( ccls, c -> Order( Representative( c ) ) );
         gens := SmallGeneratingSet( H );
@@ -227,16 +227,9 @@ InstallMethod(
             c -> ( Size( G ) / Size( c ) ) mod cents[ i ] = 0 and
                  Size( c ) * cents[ i ] >= Size( H )
         ) );
-        free := GeneratorsOfGroup( FreeGroup( Length( gens ) ) );
-        rels := [
-            [ free[ 1 ] * free[ 2 ],
-              Order( gens[ 1 ] * gens[ 2 ] ) ],
-            [ Comm( free[ 1 ], free[ 2 ] ),
-              Order( Comm( gens[ 1 ], gens[ 2 ] ) ) ]
-        ];
+        params := TWC.HomClassParams( H, gens );
         imgs := ListWithIdenticalEntries( Length( gens ), One( G ) );
         triv := GroupHomomorphismByImagesNC( H, G, gens, imgs );
-        params := rec( gens := gens, from := H, free := free, rels := rels );
         return Concatenation(
             MorClassLoop( G, poss, params, 11 ),
             [ triv ]
