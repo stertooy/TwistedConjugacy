@@ -27,6 +27,37 @@ end;
 
 ###############################################################################
 ##
+## SubsAutOrbitData( G, sizes, AutG, gensAutG )
+##
+##  INPUT:
+##      G:          finite group
+##      sizes:      allowed subgroup orders
+##      AutG:       automorphism group of G
+##      gensAutG:   generators of AutG
+##
+##  OUTPUT:
+##      Reps:       subgroup class representatives
+##      Orbits:     automorphism orbits
+##
+TWC.SubsAutOrbitData := function( G, sizes, AutG, gensAutG )
+    local Conj, Reps, Orbits, asAuto;
+    Conj := Filtered(
+        ConjugacyClassesSubgroups( G ),
+        c -> Size( Representative( c ) ) in sizes
+    );
+    Reps := List( Conj, Representative );
+    asAuto := { A, aut } -> ImagesSet( aut, A );
+    Orbits := OrbitsDomain(
+        AutG, Flat( List( Conj, List ) ),
+        gensAutG, gensAutG,
+        asAuto
+    );
+    Orbits := List( Orbits, x -> Filtered( Reps, y -> y in x ) );
+    return [ Reps, Orbits ];
+end;
+
+###############################################################################
+##
 ## KernelsOfHomomorphismClasses( H, KerOrbits, ImgOrbits )
 ##
 ##  INPUT:
