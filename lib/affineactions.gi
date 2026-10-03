@@ -29,29 +29,9 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     OrbitAffineAction,
     function( K, g, derv )
-        local G, map, emb, s, tcc, orb;
-        G := Range( derv );
-        map := TWC.FourMapsForAffineAction( K, derv );
-        emb := map[ 3 ];
-        s := ImagesRepresentative( emb, g );
-        tcc := TwistedConjugacyClass( map[ 1 ], map[ 2 ], s );
-        orb := rec(
-            tcc := tcc,
-            emb := emb
+        return TWC.OrbitAffineActionByMaps(
+            K, g, TWC.FourMapsForAffineAction( K, derv )
         );
-        ObjectifyWithAttributes(
-            orb, NewType(
-                FamilyObj( G ),
-                IsOrbitAffineActionRep and
-                HasRepresentative and
-                HasActingDomain and
-                HasFunctionAction
-            ),
-            Representative, g,
-            ActingDomain, K,
-            FunctionAction, map[ 4 ]
-        );
-        return orb;
     end
 );
 
@@ -70,17 +50,17 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     OrbitsAffineAction,
     function( K, derv )
-        local G, map, emb, iG, R, reps;
-        G := Range( derv );
-        map := TWC.FourMapsForAffineAction( K, derv );
-        emb := map[ 3 ];
-        iG := ImagesSet( emb, G );
-        R := RepresentativesTwistedConjugacyClasses( map[ 1 ], map[ 2 ], iG );
-        if IsBool( R ) then
+        local data, reps;
+        data := TWC.AffineOrbitData( K, derv );
+        if IsBool( data.reps ) then
             return fail;
         fi;
-        reps := List( R, s -> PreImagesRepresentativeNC( emb, s ) );
-        return List( reps, g -> OrbitAffineAction( K, g, derv ) );
+        reps := List(
+            data.reps, s -> PreImagesRepresentativeNC( data.maps[ 3 ], s )
+        );
+        return List(
+            reps, g -> TWC.OrbitAffineActionByMaps( K, g, data.maps )
+        );
     end
 );
 
@@ -98,16 +78,12 @@ InstallGlobalFunction(
 InstallGlobalFunction(
     NrOrbitsAffineAction,
     function( K, derv )
-        local G, map, emb, iG, R;
-        G := Range( derv );
-        map := TWC.FourMapsForAffineAction( K, derv );
-        emb := map[ 3 ];
-        iG := ImagesSet( emb, G );
-        R := RepresentativesTwistedConjugacyClasses( map[ 1 ], map[ 2 ], iG );
-        if IsBool( R ) then
+        local data;
+        data := TWC.AffineOrbitData( K, derv );
+        if IsBool( data.reps ) then
             return infinity;
         fi;
-        return Length( R );
+        return Length( data.reps );
     end
 );
 
