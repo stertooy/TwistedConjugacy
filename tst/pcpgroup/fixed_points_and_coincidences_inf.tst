@@ -126,10 +126,6 @@ gap> hom1G8 := InnerAutomorphism( G8, G8.1 ^ -1 * G8.3 ^ 2 * G8.4 );;
 gap> hom2G8 := InnerAutomorphism( G8, G8.1 ^ -3 * G8.3 ^ -1 );;
 #@if CHECK_INTSTAB@Polycyclic
 gap> CoinG8 := CoincidenceGroup( hom1G8, hom2G8 );
-#I  Stabilizer not increasing: exiting.
-#I  Stabilizer not increasing: exiting.
-#I  Stabilizer not increasing: exiting.
-#I  Stabilizer not increasing: exiting.
 Pcp-group with orders [ 0, 0, 0 ]
 #@else
 gap> CoinG8 := CoincidenceGroup( hom1G8, hom2G8 );

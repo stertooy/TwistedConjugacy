@@ -1,7 +1,17 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
+## 3.5.0 (2026-10-02)
+
+### Changed
+- Now requires GAP version >= 4.17.
+- Extension for PcpGroups now requires Polycyclic version >= 2.19
+- Intersection of PcpGroups is now computed by the Polycyclic package
+- Now properly uses NC/Non-NC versions of PreImage-related functions
+- Janitorial changes.
+
 ## 3.4.3 (2026-09-25)
 
+### Added
 - `RepresentativesEndomorphismClasses` now takes an optional boolean argument,
   which, when set to false, makes the function return only non-bijective
   endomorphisms.

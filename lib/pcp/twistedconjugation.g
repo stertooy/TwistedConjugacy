@@ -13,25 +13,18 @@
 ##                  element exists
 ##
 ##  REMARKS:
-##      Only for PcpGroups, and < r, s > must be an abelian group
+##      Only for PcpGroups
 ##
 TWC.MultipleConjugacySolver := function( G, r, s )
-    local a, i, Gi, ai, ria, pcp;
+    local a, i, Gi, ai;
     a := One( G );
     Gi := G;
     for i in [ 1 .. Length( r ) ] do
         if i > 1 and not IsOne( s[ i - 1 ] ) then
             Gi := Centraliser( Gi, s[ i - 1 ] );
-            pcp := PcpsOfEfaSeries( Gi );
-        elif not IsBound( pcp ) then
-            pcp := PcpsOfEfaSeries( Gi );
         fi;
-        ria := r[ i ] ^ a;
-        if ria = s[ i ] then
-            continue;
-        fi;
-        ai := ConjugacyElementsBySeries( Gi, ria, s[ i ], pcp );
-        if ai = false then
+        ai := RepresentativeAction( Gi, r[ i ] ^ a, s[ i ] );
+        if ai = fail then
             return fail;
         fi;
         a := a * ai;
@@ -165,11 +158,10 @@ TWC.RepTwistConjToIdByCentre := function( G, H, hom1, hom2, g, N )
     c := tc( g, h1 );
     Coin := CoincidenceGroup2( hom1p, hom2p );
     d := TWC.DifferenceGroupHomomorphisms( hom1, hom2, Coin, G );
-    if not c in ImagesSource( d ) then
+    h2 := PreImagesRepresentative( d, c );
+    if h2 = fail then
         return fail;
     fi;
-    # TODO: Replace by PreImagesRepresentative eventually
-    h2 := PreImagesRepresentativeNC( d, c );
     return h1 * h2;
 end;
 
