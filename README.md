@@ -26,7 +26,7 @@ These methods are primarily designed for use with finite groups and with
 PcpGroups (finite or infinite) provided by the Polycyclic package.
 
 This package requires GAP version 4.17 or later. The extension for PcpGroups
-requires Polycyclic version 2.17 or later.
+requires Polycyclic version 2.19 or later.
 
 
 
