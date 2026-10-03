@@ -286,7 +286,7 @@ end;
 ##
 ##  INPUT:
 ##      H:          finite group
-##      gens:       at least two generators of H
+##      gens:       2+ generators of H
 ##
 ##  OUTPUT:
 ##      params:     record
