@@ -73,12 +73,12 @@ PackageDoc := rec(
 Dependencies := rec(
     GAP := ">= 4.17",
     NeededOtherPackages := [],
-    SuggestedOtherPackages := [ [ "AutPGrp", "1.11.1" ] ]
+    SuggestedOtherPackages := [ [ "AutPGrp", "1.13.0" ] ]
 ),
 
 Extensions := [
     rec(
-        needed := [ [ "Polycyclic", "2.18" ] ], # TODO: should be 2.19!!!
+        needed := [ [ "Polycyclic", "2.19" ] ],
         filename := "lib/pcp/read.g"
     )
 ],
