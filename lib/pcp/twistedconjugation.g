@@ -12,9 +12,6 @@
 ##                  of r to the corresponding element of s, or fail if no such
 ##                  element exists
 ##
-##  REMARKS:
-##      Only for PcpGroups
-##
 TWC.MultipleConjugacySolver := function( G, r, s )
     local a, i, Gi, ai;
     a := One( G );
