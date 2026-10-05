@@ -15,9 +15,6 @@ pass := TestDirectory(
 );
 
 if IsPackageLoaded( "Polycyclic" ) then
-    CHECK_CENT@Polycyclic := true;
-    CHECK_IGS@Polycyclic := true;
-    CHECK_INTSTAB@Polycyclic := true;
     pass := TestDirectory(
         DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcpgroup" ),
         testOpts
