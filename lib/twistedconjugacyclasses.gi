@@ -296,7 +296,7 @@ InstallGlobalFunction(
                 i -> IsTwistedConjugate( hom1, hom2, Rcl[ i ] )
             );
         fi;
-        if pos > 1 then
+        if pos > 1 or not IsOne( Rcl[ 1 ] ) then
             Remove( Rcl, pos );
             Add( Rcl, One( G ), 1 );
         fi;
