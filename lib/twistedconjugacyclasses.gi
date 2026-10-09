@@ -380,6 +380,9 @@ InstallMethod(
             fi;
             return [ One( N ) ];
         fi;
-        return List( ExternalOrbits( H, N_List, gens, gens, tc ), First );
+        return List(
+            ExternalOrbits( H, N_List, gens, gens, tc ),
+            Representative
+        );
     end
 );

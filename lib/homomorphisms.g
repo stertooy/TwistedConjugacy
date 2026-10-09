@@ -52,7 +52,9 @@ TWC.SubsAutOrbitData := function( G, sizes, AutG, gensAutG )
         gensAutG, gensAutG,
         asAuto
     );
-    Orbits := List( Orbits, x -> Filtered( Reps, y -> y in x ) );
+    Orbits := List( Orbits, x -> Filtered(
+        Reps, y -> Size( y ) = Size( x[ 1 ] ) and y in x
+    ) );
     return [ Reps, Orbits ];
 end;
 
