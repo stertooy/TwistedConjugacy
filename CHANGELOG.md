@@ -2,6 +2,10 @@ This file describes changes in the GAP package TwistedConjugacy.
 
 ## 3.5.0 (2026-10-02)
 
+### Fixed
+- Fixed a bug in `RepresentativesTwistedConjugacyClasses` where the first
+  representative was sometimes not the identity.
+
 ### Changed
 - Now requires GAP version >= 4.17.
 - Extension for PcpGroups now requires Polycyclic version >= 2.19
