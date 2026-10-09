@@ -7,6 +7,7 @@ This file describes changes in the GAP package TwistedConjugacy.
 - Extension for PcpGroups now requires Polycyclic version >= 2.19
 - Intersection of PcpGroups is now computed by the Polycyclic package
 - Now properly uses NC/Non-NC versions of PreImage-related functions
+- Minor efficiency improvements.
 - Janitorial changes.
 
 ## 3.4.3 (2026-09-25)
