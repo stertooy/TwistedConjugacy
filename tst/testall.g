@@ -1,15 +1,15 @@
 LoadPackage( "TwistedConjugacy" );
 TWC.ASSERT := true;
 
-ForceQuitGap( TestDirectory(
+TestDirectory(
     [
         DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcgroup" ),
         DirectoriesPackageLibrary( "TwistedConjugacy", "tst/permgroup" ),
         DirectoriesPackageLibrary( "TwistedConjugacy", "tst/pcpgroup" ),
     ],
     rec(
-        exitGAP := false,
+        exitGAP := true,
         showProgress := true,
         testOptions := rec( compareFunction := "uptowhitespace" )
     )
-) );
+);
