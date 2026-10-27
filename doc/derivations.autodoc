@@ -36,3 +36,6 @@ We list some of the more useful ones.
 In general, the image of a group derivation is not a subgroup. However, it
 is still possible to do a membership test, to calculate the number of
 elements, and to enumerate the elements if there are only finitely many.
+
+Equality tests between images obtained from different derivations are not
+supported.

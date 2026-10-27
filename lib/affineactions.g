@@ -42,3 +42,59 @@ TWC.FourMapsForAffineAction := function( K, derv )
     end;
     return [ lhs, rhs, emb, fnc ];
 end;
+
+###############################################################################
+##
+## AffineOrbitData( K, derv )
+##
+##  INPUT:
+##      K:          subgroup of H
+##      derv:       group derivation H -> G
+##
+##  OUTPUT:
+##      data:       record
+##
+TWC.AffineOrbitData := function( K, derv )
+    local G, map, iG, R;
+    G := Range( derv );
+    map := TWC.FourMapsForAffineAction( K, derv );
+    iG := ImagesSet( map[ 3 ], G );
+    R := RepresentativesTwistedConjugacyClasses( map[ 1 ], map[ 2 ], iG );
+    return rec( maps := map, reps := R );
+end;
+
+###############################################################################
+##
+## OrbitAffineActionByMaps( K, g, map )
+##
+##  INPUT:
+##      K:          subgroup of H
+##      g:          element of G
+##      map:        maps from FourMapsForAffineAction
+##
+##  OUTPUT:
+##      orb:        affine orbit of g
+##
+TWC.OrbitAffineActionByMaps := function( K, g, map )
+    local emb, s, tcc, orb;
+    emb := map[ 3 ];
+    s := ImagesRepresentative( emb, g );
+    tcc := TwistedConjugacyClass( map[ 1 ], map[ 2 ], s );
+    orb := rec(
+        tcc := tcc,
+        emb := emb
+    );
+    ObjectifyWithAttributes(
+        orb, NewType(
+            FamilyObj( Source( emb ) ),
+            IsOrbitAffineActionRep and
+            HasRepresentative and
+            HasActingDomain and
+            HasFunctionAction
+        ),
+        Representative, g,
+        ActingDomain, K,
+        FunctionAction, map[ 4 ]
+    );
+    return orb;
+end;

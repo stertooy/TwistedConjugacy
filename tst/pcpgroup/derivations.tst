@@ -28,11 +28,15 @@ gap> g := ImagesRepresentative( derv, h );
 g1*g2*g3^2*g4*g5
 gap> ImagesElm( derv, h );
 [ g1*g2*g3^2*g4*g5 ]
-gap> x := PreImagesRepresentative( derv, g );;
+gap> x := PreImagesRepresentativeNC( derv, g );;
 gap> g = ImagesRepresentative( derv, x );
 true
-gap> PreImagesElm( derv, g ) = RightCoset( K, x );
+gap> PreImagesRepresentative( derv, h );
+Error, <elm> is not in the range of derivation <der>
+gap> PreImagesElmNC( derv, g ) = RightCoset( K, x );
 true
+gap> PreImagesElm( derv, h );
+Error, <elm> is not in the range of derivation <der>
 gap> imgH := ImagesSource( derv );
 Group derivation image in Pcp-group with orders [ 2, 3, 3, 2, 2 ]
 gap> Print( imgH );
@@ -125,8 +129,12 @@ gap> ImagesElm( derv, h );
 gap> x := PreImagesRepresentative( derv, g );;
 gap> g = ImagesRepresentative( derv, x );
 true
+gap> PreImagesRepresentative( derv, G.1 );
+fail
 gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
+gap> PreImagesElm( derv, G.1 );
+[]
 gap> imgH := ImagesSource( derv );
 Group derivation image in Pcp-group with orders [ 2, 3, 3, 2, 2 ]
 gap> Print( imgH );

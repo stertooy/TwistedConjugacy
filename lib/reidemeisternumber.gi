@@ -68,8 +68,9 @@ InstallMethod(
         G := Range( hom1 );
         if not ( IsFinite( G ) and IsFinite( H ) ) then TryNextMethod(); fi;
         # Inefficient if G <> H and we have to calculate conjugacy classes
-        if G <> H and (
-            not ( HasConjugacyClasses( G ) and HasConjugacyClasses( H ) )
+        if not (
+            IsIdenticalObj( G, H ) and
+            HasConjugacyClasses( G )
         ) then TryNextMethod(); fi;
 
         ccH := List( ConjugacyClasses( H ) );

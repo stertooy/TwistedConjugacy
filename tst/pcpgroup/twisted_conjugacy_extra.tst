@@ -63,15 +63,8 @@ gap> IsTwistedConjugate( idG2, G2.4, G2.4 * G2.6 ^ 2 );
 false
 gap> IsTwistedConjugate( idG2, G2.1, G2.1 ^ ( G2.2 ) );
 true
-#@if CHECK_INTSTAB@Polycyclic
-gap> IsTwistedConjugate( idG2, G2.4, G2.4 * G2.6 );
-#I  Stabilizer not increasing: exiting.
-#I  Stabilizer not increasing: exiting.
-true
-#@else
 gap> IsTwistedConjugate( idG2, G2.4, G2.4 * G2.6 );
 true
-#@fi
 
 #
 gap> G3 := ExamplesOfSomePcpGroups( 11 );;
@@ -162,23 +155,11 @@ gap> G := ExamplesOfSomePcpGroups( 1 );;
 gap> g1 := [ G.2 ^ 2, G.3 ^ 2, G.4 ^ 2, G.2 ^ 2 * G.3, G.2 ^ 2 * G.4, G.3 * G.4 ];;
 gap> g2 := [ G.2 ^ 2, G.3 ^ -2 * G.4 ^ -2, G.3 ^ -2 * G.4 ^ -4, G.2 ^ 2 * G.3 ^ -1 * G.4 ^ -1, G.2 ^ 2 * G.3 ^ -1 * G.4 ^ -2, G.3 ^ -2 * G.4 ^ -3 ];;
 gap> g3 := [ G.2 ^ 2, G.3 ^ -2 * G.4 ^ -2, G.3 ^ -2 * G.4 ^ -3, G.2 ^ 2 * G.3 ^ -1 * G.4 ^ -1, G.2 ^ 2 * G.3 ^ -1 * G.4 ^ -2, G.3 ^ -2 * G.4 ^ -3 ];;
-#@if CHECK_INTSTAB@Polycyclic
-gap> h := TWC.MultipleConjugacySolver( G, g1, g2 );;
-#I  Stabilizer not increasing: exiting.
-#I  Stabilizer not increasing: exiting.
-gap> List( g1, x -> x ^ h ) = g2;
-true
-gap> h := TWC.MultipleConjugacySolver( G, g1, g3 );
-#I  Stabilizer not increasing: exiting.
-#I  Stabilizer not increasing: exiting.
-fail
-#@else
 gap> h := TWC.MultipleConjugacySolver( G, g1, g2 );;
 gap> List( g1, x -> x ^ h ) = g2;
 true
 gap> h := TWC.MultipleConjugacySolver( G, g1, g3 );
 fail
-#@fi
 
 #
 gap> STOP_TEST( "twisted_conjugacy_extra.tst" );

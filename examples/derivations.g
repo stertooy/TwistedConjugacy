@@ -34,7 +34,7 @@ ImK := Image( der, K );
 h2 := PreImagesRepresentative( der, g );;
 Image( der, h2 ) = g;
 #! true
-PreIm := PreImages( der, g );
+PreIm := PreImagesElm( der, g );
 #! RightCoset(<group of size 9 with 2 generators>,<object>)
 PreIm = RightCoset( K, h2 );
 #! true
