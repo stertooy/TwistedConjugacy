@@ -10,6 +10,6 @@ runs:
       run: ln -f -s $PWD /tmp/gaproot/pkg/
 
     - name: "Install polycyclic"
-      uses: gap-actions/install-pkg@v1
+      uses: stertooy/install-pkg@endgroup
       with:
         packages: polycyclic@devel
