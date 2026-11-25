@@ -32,9 +32,11 @@ gap> g := ImagesRepresentative( derv, h );
 (1,9,8,7,6,5,4,3,2)(10,14,15,12,11,13)
 gap> ImagesElm( derv, h );
 [ (1,9,8,7,6,5,4,3,2)(10,14,15,12,11,13) ]
-gap> x := PreImagesRepresentative( derv, g );;
+gap> x := PreImagesRepresentativeNC( derv, g );;
 gap> g = ImagesRepresentative( derv, x );
 true
+gap> PreImagesRepresentative( derv, h );
+Error, <elm> is not in the range of derivation <der>
 gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
 gap> imgH := ImagesSource( derv );

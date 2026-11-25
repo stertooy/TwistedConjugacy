@@ -7,6 +7,8 @@ This file describes changes in the GAP package TwistedConjugacy.
   representative was sometimes not the identity.
 
 ### Changed
+- Now provides NC/Non-NC versions of `PreImagesRepresentative` for group
+  derivations.
 - Minor efficiency improvements
 - Janitorial changes.
 
