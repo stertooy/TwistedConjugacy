@@ -1,7 +1,18 @@
 This file describes changes in the GAP package TwistedConjugacy.
 
+## Unreleased
+
+### Fixed
+- Fixed a bug in `RepresentativesTwistedConjugacyClasses` where the first
+  representative was sometimes not the identity.
+
+### Changed
+- Minor efficiency improvements
+- Janitorial changes.
+
 ## 3.4.3 (2026-09-25)
 
+### Added
 - `RepresentativesEndomorphismClasses` now takes an optional boolean argument,
   which, when set to false, makes the function return only non-bijective
   endomorphisms.

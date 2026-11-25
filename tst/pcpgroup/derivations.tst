@@ -125,8 +125,12 @@ gap> ImagesElm( derv, h );
 gap> x := PreImagesRepresentative( derv, g );;
 gap> g = ImagesRepresentative( derv, x );
 true
+gap> PreImagesRepresentative( derv, G.1 );
+fail
 gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
+gap> PreImagesElm( derv, G.1 );
+[]
 gap> imgH := ImagesSource( derv );
 Group derivation image in Pcp-group with orders [ 2, 3, 3, 2, 2 ]
 gap> Print( imgH );

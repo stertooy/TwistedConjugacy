@@ -217,7 +217,7 @@ InstallMethod(
     "for non-abelian simple source",
     [ IsGroup and IsFinite and IsNonabelianSimpleGroup, IsGroup and IsFinite ],
     function( H, G )
-        local ccls, ords, gens, poss, cents, free, rels, imgs, triv, params;
+        local ccls, ords, gens, poss, cents, imgs, triv, params;
         ccls := ConjugacyClasses( G );
         ords := List( ccls, c -> Order( Representative( c ) ) );
         gens := SmallGeneratingSet( H );
@@ -227,16 +227,9 @@ InstallMethod(
             c -> ( Size( G ) / Size( c ) ) mod cents[ i ] = 0 and
                  Size( c ) * cents[ i ] >= Size( H )
         ) );
-        free := GeneratorsOfGroup( FreeGroup( Length( gens ) ) );
-        rels := [
-            [ free[ 1 ] * free[ 2 ],
-              Order( gens[ 1 ] * gens[ 2 ] ) ],
-            [ Comm( free[ 1 ], free[ 2 ] ),
-              Order( Comm( gens[ 1 ], gens[ 2 ] ) ) ]
-        ];
+        params := TWC.HomClassParams( H, gens );
         imgs := ListWithIdenticalEntries( Length( gens ), One( G ) );
         triv := GroupHomomorphismByImagesNC( H, G, gens, imgs );
-        params := rec( gens := gens, from := H, free := free, rels := rels );
         return Concatenation(
             MorClassLoop( G, poss, params, 11 ),
             [ triv ]
@@ -287,9 +280,9 @@ InstallMethod(
     [ IsGroup and IsFinite, IsGroup and IsFinite ],
     0,
     function( H, G )
-        local asAuto, AutH, AutG, gensAutG, gensAutH, Conj, ImgReps, ImgOrbits,
-              KerOrbits, Pairs, Heads, Tails, Isos, KerInfo, Reps, Norms,
-              quoSizes, imgSizes;
+        local asAuto, AutH, AutG, gensAutG, gensAutH, ImgInfo, ImgReps,
+              ImgOrbits, KerOrbits, Pairs, Heads, Tails, Isos, KerInfo, Reps,
+              Norms, quoSizes, imgSizes;
 
         # Step 1: Determine automorphism groups of H and G
         asAuto := { A, aut } -> ImagesSet( aut, A );
@@ -301,17 +294,11 @@ InstallMethod(
 
         # Step 2: Determine all possible images (subgroups of G)
         quoSizes := Set( Norms, N -> Size( H ) / Size( N ) );
-        Conj := Filtered(
-            ConjugacyClassesSubgroups( G ),
-            c -> Size( Representative( c ) ) in quoSizes
+        ImgInfo := TWC.SubsAutOrbitData(
+            G, quoSizes, AutG, gensAutG
         );
-        ImgReps := List( Conj, Representative );
-        ImgOrbits := OrbitsDomain(
-            AutG, Flat( List( Conj, List ) ),
-            gensAutG, gensAutG,
-            asAuto
-        );
-        ImgOrbits := List( ImgOrbits, x -> Filtered( ImgReps, y -> y in x ) );
+        ImgReps := ImgInfo[ 1 ];
+        ImgOrbits := ImgInfo[ 2 ];
 
         # Step 3: Determine all possible kernels (normal subgroups of H)
         imgSizes := Set( ImgReps, Size );
@@ -425,12 +412,10 @@ InstallMethod(
     [ IsGroup and IsFinite, IsBool ],
     0,
     function( G, auts )
-        local asAuto, AutG, gensAutG, Conj, r, SubReps, SubOrbits, Pairs, Reps,
-              i, Tails, Isos, KerInfo, KerOrbits, Ends, Norms, quoSizes,
-              kerSizes, subSizes;
+        local AutG, gensAutG, r, SubOrbits, Pairs, Reps, i, Tails, Isos,
+              KerInfo, KerOrbits, Ends, Norms, quoSizes, kerSizes, subSizes;
 
         # Step 1: Determine automorphism group of G
-        asAuto := function( A, aut ) return ImagesSet( aut, A ); end;
         AutG := AutomorphismGroup( G );
         gensAutG := SmallGeneratingSet( AutG );
         Norms := Filtered( NormalSubgroups( G ), N -> not IsTrivial( N ) );
@@ -440,18 +425,9 @@ InstallMethod(
         kerSizes := Set( Norms, Size );
         quoSizes := Set( kerSizes, i -> Size( G ) / i );
         subSizes := Union( quoSizes, kerSizes );
-        Conj := Filtered(
-            ConjugacyClassesSubgroups( G ),
-            c -> Size( Representative( c ) ) in subSizes
-        );
-
-        SubReps := List( Conj, Representative );
-        SubOrbits := OrbitsDomain(
-            AutG, Flat( List( Conj, List ) ),
-            gensAutG, gensAutG,
-            asAuto
-        );
-        SubOrbits := List( SubOrbits, x -> Filtered( SubReps, y -> y in x ) );
+        SubOrbits := TWC.SubsAutOrbitData(
+            G, subSizes, AutG, gensAutG
+        )[ 2 ];
 
         KerOrbits := EmptyPlist( Length( SubOrbits ) );
         for i in [ 1 .. Length( SubOrbits ) ] do

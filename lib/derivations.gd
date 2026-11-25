@@ -146,6 +146,10 @@ DeclareGlobalName( "PreImagesRepresentative" );
 #! @ItemType Func
 #! @Arguments der, elm
 DeclareGlobalName( "PreImages" );
+#! @Label of an element under a group derivation
+#! @ItemType Oper
+#! @Arguments der, elm
+DeclareGlobalName( "PreImagesElm" );
 #! @EndGroup
 
 #! @BeginGroup

@@ -139,8 +139,12 @@ gap> ImagesElm( derv, h );
 gap> x := PreImagesRepresentative( derv, g );;
 gap> g = ImagesRepresentative( derv, x );
 true
+gap> PreImagesRepresentative( derv, (10,12)(11,14)(13,15) );
+fail
 gap> PreImagesElm( derv, g ) = RightCoset( K, x );
 true
+gap> PreImagesElm( derv, (10,12)(11,14)(13,15) );
+[]
 gap> imgH := ImagesSource( derv );
 Group derivation image in Group( [ (10,12)(13,15), (1,6,2,7,3,8,4,9,5)(10,14,13,12,11,15) ] )
 gap> Print( imgH );
