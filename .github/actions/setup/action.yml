@@ -12,4 +12,4 @@ runs:
     - name: "Install polycyclic"
       uses: gap-actions/install-pkg@v1
       with:
-        packages: polycyclic@2.17
+        packages: polycyclic@devel
