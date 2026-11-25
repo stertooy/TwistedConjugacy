@@ -1,61 +1,5 @@
 ###############################################################################
 ##
-## NormalIntersectionPcp( N, U )
-##
-##  INPUT:
-##      N:          subgroup of a PcpGroup G
-##      U:          subgroup of a PcpGroup G that normalises N
-##
-##  OUTPUT:
-##      I:          intersection of N and U
-##
-TWC.NormalIntersectionPcp := function( N, U )
-    local q, gens, imgs, phi;
-
-    # Catch trivial case
-    if IsSubset( U, N ) then
-        return N;
-    fi;
-
-    # Second Isomorphism Theorem
-    q := NaturalHomomorphismByNormalSubgroupNC( ClosureGroup( U, N ), N );
-    gens := GeneratorsOfGroup( U );
-    imgs := List( gens, u -> ImagesRepresentative( q, u ) );
-    phi := GroupHomomorphismByImagesNC( U, ImagesSource( q ), gens, imgs );
-    return KernelOfMultiplicativeGeneralMapping( phi );
-end;
-
-###############################################################################
-##
-## IntersectionPcp( U, V )
-##
-##  INPUT:
-##      U:          subgroup of a PcpGroup G
-##      V:          subgroup of a PcpGroup G
-##
-##  OUTPUT:
-##      I:          intersection of U and V
-##
-TWC.IntersectionPcp := function( U, V )
-    local G, dp, l, r;
-
-    if IsNormal( V, U ) then
-        return TWC.NormalIntersectionPcp( U, V );
-    elif IsNormal( U, V ) then
-        return TWC.NormalIntersectionPcp( V, U );
-    fi;
-
-    # Use CoincidenceGroup
-    G := PcpGroupByCollectorNC( Collector( U ) );
-    dp := TWC.DirectProductInclusions( G, U, V );
-    l := dp[ 1 ];
-    r := dp[ 2 ];
-
-    return ImagesSet( l, CoincidenceGroup2( l, r ) );
-end;
-
-###############################################################################
-##
 ## IntersectionOfKernels( hom1, hom2 )
 ##
 ##  INPUT:
@@ -65,7 +9,7 @@ end;
 ##  OUTPUT:
 ##      N:          intersection of Ker(hom1) and Ker(hom2)
 ##
-TWC.IntersectionOfKernels := { hom1, hom2 } -> TWC.NormalIntersectionPcp(
+TWC.IntersectionOfKernels := { hom1, hom2 } -> NormalIntersection(
     KernelOfMultiplicativeGeneralMapping( hom1 ),
     KernelOfMultiplicativeGeneralMapping( hom2 )
 );
@@ -82,14 +26,7 @@ TWC.IntersectionOfKernels := { hom1, hom2 } -> TWC.NormalIntersectionPcp(
 ##  OUTPUT:
 ##      N:          intersection of hom1^-1(M) and hom2^-1(M)
 ##
-TWC.IntersectionOfPreImages := { hom1, hom2, M } -> TWC.NormalIntersectionPcp(
-    # TODO: replace by PreImagesSet eventually
-    PreImagesSetNC(
-        hom1,
-        TWC.NormalIntersectionPcp( M, ImagesSource( hom1 ) )
-    ),
-    PreImagesSetNC(
-        hom2,
-        TWC.NormalIntersectionPcp( M, ImagesSource( hom2 ) )
-    )
+TWC.IntersectionOfPreImages := { hom1, hom2, M } -> NormalIntersection(
+    PreImagesSet( hom1, M ),
+    PreImagesSet( hom2, M )
 );
