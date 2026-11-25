@@ -3,7 +3,7 @@ This file describes changes in the GAP package TwistedConjugacy.
 ## 3.4.4 (2026-11-25)
 
 ### Added
-- Added `PreImagesRepresentativeNC` for group derivations.
+- Added `PreImagesRepresentativeNC` and `PreImagesElmNC` for group derivations.
 
 ### Fixed
 - Fixed a bug in `RepresentativesTwistedConjugacyClasses` where the first

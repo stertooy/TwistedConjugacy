@@ -56,7 +56,7 @@ InstallGlobalFunction(
             return fail;
         fi;
         reps := List(
-            data.reps, s -> PreImagesRepresentative( data.maps[ 3 ], s )
+            data.reps, s -> PreImagesRepresentativeNC( data.maps[ 3 ], s )
         );
         return List(
             reps, g -> TWC.OrbitAffineActionByMaps( K, g, data.maps )

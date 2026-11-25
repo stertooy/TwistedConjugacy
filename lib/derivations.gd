@@ -143,20 +143,22 @@ DeclareGlobalName( "PreImagesRepresentativeNC" );
 
 #! @BeginGroup
 #! @ChapterInfo derivations, gd_operations
-#! @GroupTitle PreImages
+#! @GroupTitle PreImagesElm
 #! @Returns the set of all preimages of the element <A>elm</A> under the group
 #! derivation <A>der</A>.
 #! @Description
 #! This will always be a (right) coset of <C>Kernel</C>( <A>der</A> ), or the
 #! empty list.
-#! @Label of an element under a group derivation
-#! @ItemType Func
-#! @Arguments der, elm
-DeclareGlobalName( "PreImages" );
+#! The <C>NC</C> version assumes that <A>elm</A> belongs to the image of
+#! <A>der</A>.
 #! @Label of an element under a group derivation
 #! @ItemType Oper
 #! @Arguments der, elm
 DeclareGlobalName( "PreImagesElm" );
+#! @Label of an element under a group derivation
+#! @ItemType Oper
+#! @Arguments der, elm
+DeclareGlobalName( "PreImagesElmNC" );
 #! @EndGroup
 
 #! @BeginGroup
