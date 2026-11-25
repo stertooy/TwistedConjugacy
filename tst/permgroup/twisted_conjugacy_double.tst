@@ -97,7 +97,7 @@ gap> tcM( m1, mc ) = m2;
 true
 
 gap> G := GL( 2, 2 );;
-gap> iso := InverseGeneralMapping( IsomorphismPermGroup( G ) );;
+gap> iso := RestrictedInverseGeneralMapping( IsomorphismPermGroup( G ) );;
 gap> triv := GroupHomomorphismByFunction( Source( iso ), G, g -> One( G ) );;
 gap> RepresentativesTwistedConjugacyClasses( iso, triv ) = [ One( G ) ];
 true
