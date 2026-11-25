@@ -27,6 +27,39 @@ end;
 
 ###############################################################################
 ##
+## SubsAutOrbitData( G, sizes, AutG, gensAutG )
+##
+##  INPUT:
+##      G:          finite group
+##      sizes:      allowed subgroup orders
+##      AutG:       automorphism group of G
+##      gensAutG:   generators of AutG
+##
+##  OUTPUT:
+##      Reps:       subgroup class representatives
+##      Orbits:     automorphism orbits
+##
+TWC.SubsAutOrbitData := function( G, sizes, AutG, gensAutG )
+    local Conj, Reps, Orbits, asAuto;
+    Conj := Filtered(
+        ConjugacyClassesSubgroups( G ),
+        c -> Size( Representative( c ) ) in sizes
+    );
+    Reps := List( Conj, Representative );
+    asAuto := { A, aut } -> ImagesSet( aut, A );
+    Orbits := OrbitsDomain(
+        AutG, Flat( List( Conj, List ) ),
+        gensAutG, gensAutG,
+        asAuto
+    );
+    Orbits := List( Orbits, x -> Filtered(
+        Reps, y -> Size( y ) = Size( x[ 1 ] ) and y in x
+    ) );
+    return [ Reps, Orbits ];
+end;
+
+###############################################################################
+##
 ## KernelsOfHomomorphismClasses( H, KerOrbits, ImgOrbits )
 ##
 ##  INPUT:
@@ -282,6 +315,27 @@ end;
 
 ###############################################################################
 ##
+## HomClassParams( H, gens )
+##
+##  INPUT:
+##      H:          finite group
+##      gens:       2+ generators of H
+##
+##  OUTPUT:
+##      params:     record
+##
+TWC.HomClassParams := function( H, gens )
+    local free, rels;
+    free := GeneratorsOfGroup( FreeGroup( Length( gens ) ) );
+    rels := [
+        [ free[ 1 ] * free[ 2 ], Order( gens[ 1 ] * gens[ 2 ] ) ],
+        [ Comm( free[ 1 ], free[ 2 ] ), Order( Comm( gens[ 1 ], gens[ 2 ] ) ) ]
+    ];
+    return rec( gens := gens, from := H, free := free, rels := rels );
+end;
+
+###############################################################################
+##
 ## RepsHomClasses2Gen( H, G, auts )
 ##
 ##  INPUT:
@@ -293,22 +347,16 @@ end;
 ##      L:          homomorphisms H -> G
 ##
 TWC.RepsHomClasses2Gen := function( H, G, auts )
-    local data, free, bg, rels, exps, params;
+    local data, exps, params;
     data := TWC.HomClasses2GenData( H, G );
-    free := GeneratorsOfGroup( FreeGroup( 2 ) );
-    bg := data.gens;
-    rels := [
-        [ free[ 1 ] * free[ 2 ], Order( bg[ 1 ] * bg[ 2 ] ) ],
-        [ Comm( free[ 1 ], free[ 2 ] ), Order( Comm( bg[ 1 ], bg[ 2 ] ) ) ]
-    ];
+    params := TWC.HomClassParams( H, data.gens );
     if IsPcGroup( H ) then
         exps := [ Lcm( data.ords ), Exponent( DerivedSubgroup( G ) ) ];
-        rels := rels{ Filtered(
+        params.rels := params.rels{ Filtered(
             [ 1, 2 ],
-            i -> rels[ i ][ 2 ] mod exps[ i ] <> 0
+            i -> params.rels[ i ][ 2 ] mod exps[ i ] <> 0
         ) };
     fi;
-    params := rec( gens := bg, from := H, free := free, rels := rels );
     if not auts then
         params.condition := hom -> not IsBijective( hom );
     fi;
@@ -434,7 +482,7 @@ end;
 ##      L:          automorphisms of G, or fail
 ##
 TWC.RepsAutClassesQuasisimple := function( G )
-    local gens, ords, size, ccls, poss, free, params, rels;
+    local gens, ords, size, ccls, poss, params;
     if Size( G ) > 360 then return fail; fi;
     gens := TWC.GoodGenSet( G );
     if Length( gens ) <> 2 then return fail; fi;
@@ -445,12 +493,7 @@ TWC.RepsAutClassesQuasisimple := function( G )
         ccls,
         c -> Order( Representative( c ) ) = ords[ i ] and Size( c ) = size[ i ]
     ) );
-    free := GeneratorsOfGroup( FreeGroup( 2 ) );
-    rels := [
-        [ free[ 1 ] * free[ 2 ], Order( gens[ 1 ] * gens[ 2 ] ) ],
-        [ Comm( free[ 1 ], free[ 2 ] ), Order( Comm( gens[ 1 ], gens[ 2 ] ) ) ]
-    ];
-    params := rec( gens := gens, from := G, free := free, rels := rels );
+    params := TWC.HomClassParams( G, gens );
     return MorClassLoop( G, poss, params, 11 );
 end;
 

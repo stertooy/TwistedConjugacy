@@ -15,13 +15,12 @@
 ##      returns "fail" if no such u and v exist
 ##
 TWC.AsElementOfProductGroups := function( g, U, V )
-    local G, UxV, l, r, s, u, v;
+    local G, maps, l, r, s, u, v;
 
     G := PcpGroupByCollectorNC( Collector( U ) );
-    UxV := DirectProduct( U, V );
-
-    l := Projection( UxV, 1 ) * TWC.InclusionHomomorphism( U, G );
-    r := Projection( UxV, 2 ) * TWC.InclusionHomomorphism( V, G );
+    maps := TWC.DirectProductInclusions( G, U, V );
+    l := maps[ 1 ];
+    r := maps[ 2 ];
 
     s := RepresentativeTwistedConjugationOp( l, r, g );
     if s = fail then

@@ -33,6 +33,9 @@ gap> Size( R );
 42
 gap> NrTwistedConjugacyClasses( endo1, endo2 ) = ReidemeisterNumber( endo2, endo1 );
 true
+gap> ConjugacyClasses( G );;
+gap> ReidemeisterNumber( endo1, endo2 ) = Size( R );
+true
 gap> NrTwistedConjugacyClasses( endo1 );
 4
 gap> ReidemeisterNumber( endo2 );

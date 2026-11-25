@@ -266,7 +266,7 @@ InstallMethod(
         emb := Embedding( info!.sdp, 2 );
         img := ImagesRepresentative( info!.lhs, h ) ^ -1 *
             ImagesRepresentative( info!.rhs, h );
-        return PreImagesRepresentative( emb, img );
+        return PreImagesRepresentativeNC( emb, img );
     end
 );
 
@@ -304,18 +304,39 @@ InstallMethod(
     "for group derivations",
     [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
     function( derv, g )
-        local info, S, embG, s, tcr;
-        info := GroupDerivationInfo( derv );
-        S := info!.sdp;
-        embG := Embedding( S, 2 );
-        s := ImagesRepresentative( embG, g );
-        tcr := RepresentativeTwistedConjugation( info!.lhs, info!.rhs, s );
+        local tcr;
+        if not g in Range( derv ) then
+            Error( "<elm> is not in the range of derivation <der>" );
+        fi;
+        tcr := TWC.DervPreImgRepInvNC( derv, g );
         if tcr = fail then
             return fail;
         fi;
         return tcr ^ -1;
     end
 );
+
+###############################################################################
+##
+## PreImagesRepresentativeNC( derv, g )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##      g:          element of G
+##
+##  OUTPUT:
+##      h:          preimage of g under derv
+##
+if not IsIdenticalObj(
+    PreImagesRepresentativeNC, PreImagesRepresentative
+) then
+    InstallMethod(
+        PreImagesRepresentativeNC,
+        "for group derivations",
+        [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
+        { derv, g } -> TWC.DervPreImgRepInvNC( derv, g ) ^ -1
+    );
+fi;
 
 ###############################################################################
 ##
@@ -334,6 +355,9 @@ InstallMethod(
     [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
     function( derv, g )
         local prei;
+        if not g in Range( derv ) then
+            Error( "<elm> is not in the range of derivation <der>" );
+        fi;
         prei := PreImagesRepresentative( derv, g );
         if prei = fail then
             return [];
@@ -341,6 +365,29 @@ InstallMethod(
         return RightCoset( KernelOfGroupDerivation( derv ), prei );
     end
 );
+
+###############################################################################
+##
+## PreImagesElmNC( derv, g )
+##
+##  INPUT:
+##      derv:       group derivation H -> G
+##      g:          element of G
+##
+##  OUTPUT:
+##      S:          set of preimages of g under derv
+##
+if not IsIdenticalObj( PreImagesElmNC, PreImagesElm ) then
+    InstallMethod(
+        PreImagesElmNC,
+        "for group derivations",
+        [ IsGroupDerivation, IsMultiplicativeElementWithInverse ],
+        { derv, g } -> RightCoset(
+            KernelOfGroupDerivation( derv ),
+            PreImagesRepresentativeNC( derv, g )
+        )
+    );
+fi;
 
 ###############################################################################
 ##

@@ -177,6 +177,9 @@ DeclareGlobalName( "Random" );
 #! @GroupTitle \=
 #! @Returns <K>true</K> if <A>orb1</A> is equal to <A>orb2</A>, otherwise
 #! <K>false</K>.
+#! @Description
+#! Equality comparison is supported only for orbits constructed from the same
+#! derivation and acting subgroup.
 #! @Label for orbits of an affine action
 #! @ItemType Oper
 #! @Arguments orb1, orb2
